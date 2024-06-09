@@ -1,0 +1,122 @@
+<script lang="ts" setup>
+import type { IFormattedMenu, ILocation } from '@/types/types'
+import { Link, usePage } from '@inertiajs/vue3'
+import { computed, onMounted, ref, watch } from 'vue'
+import { enter, leave, nestedMenu } from '@/Layouts/menu'
+import MenuDivider from '@/Layouts/tinker/side-menu/MenuDivider.vue'
+import SideMenuLink from '@/Layouts/tinker/side-menu/SideMenuLink.vue'
+import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
+import TheTopBar from '@/Layouts/tinker/TheTopBar.vue'
+import { toRaw } from '@/utils/helper'
+import { useMenuStore } from '@/stores/menu'
+
+const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
+
+const menuStore = useMenuStore()
+
+const _route = { routeName: '' } as ILocation
+
+const sideMenu = computed(() => nestedMenu(menuStore.menu as Array<IFormattedMenu | 'divider'>, _route))
+
+watch(
+    computed(() => usePage().url),
+    () => {
+        delete _route.forceActiveMenu
+
+        formattedMenu.value = toRaw(sideMenu.value)
+    }
+)
+
+onMounted(() => {
+    formattedMenu.value = toRaw(sideMenu.value)
+})
+</script>
+
+<template>
+    <div
+        class="tinker relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:bg-transparent dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8 md:bg-black/[0.15] md:px-0 md:py-0"
+    >
+        <the-mobile-menu></the-mobile-menu>
+
+        <div class="mt-[4.7rem] flex overflow-hidden md:mt-0">
+            <nav class="side-nav z-10 hidden overflow-x-hidden px-5 pb-16 md:block md:w-[100px] xl:w-[250px]">
+                <Link :href="route('dashboard')" class="intro-x mt-3 flex items-center ps-5 pt-4">
+                    <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
+                    <span class="ms-3 hidden text-lg text-white xl:block"> Tinker </span>
+                </Link>
+
+                <menu-divider class="my-6"></menu-divider>
+
+                <ul>
+                    <template v-for="(menu, menuKey) in formattedMenu">
+                        <li v-if="menu === 'divider'" :key="`tinker_side__menu__divider_${menu + menuKey}`">
+                            <menu-divider class="my-6"></menu-divider>
+                        </li>
+
+                        <li v-else :key="`tinker_side__menu${menu.title + menuKey}`">
+                            <side-menu-link
+                                :class="!menu.active ? `animate-delay-${(menuKey + 1) * 10}` : ''"
+                                :menu="menu"
+                                level="first"
+                            ></side-menu-link>
+
+                            <transition @enter="enter" @leave="leave">
+                                <ul
+                                    v-if="menu.subMenu && menu.activeDropdown"
+                                    :class="{ 'side-menu__sub-open': menu.subMenu && menu.activeDropdown }"
+                                >
+                                    <li
+                                        v-for="(subMenu, subMenuKey) in menu.subMenu"
+                                        :key="`tinker_side__menu_${subMenu.title}__${subMenuKey}`"
+                                    >
+                                        <side-menu-link
+                                            :class="!subMenu.active ? `animate-delay-${(subMenuKey + 1) * 10}` : ''"
+                                            :menu="subMenu"
+                                            level="second"
+                                        ></side-menu-link>
+
+                                        <!-- BEGIN: Third Child -->
+                                        <transition @enter="enter" @leave="leave">
+                                            <ul
+                                                v-if="subMenu.subMenu && subMenu.activeDropdown"
+                                                :class="{
+                                                    'side-menu__sub-open': subMenu.subMenu && subMenu.activeDropdown
+                                                }"
+                                            >
+                                                <li
+                                                    v-for="(lastSubMenu, lastSubMenuKey) in subMenu.subMenu"
+                                                    :key="`tinker_side__menu__${lastSubMenu.title}__${lastSubMenuKey}`"
+                                                >
+                                                    <side-menu-link
+                                                        :class="
+                                                            !lastSubMenu.active
+                                                                ? `animate-delay-${(lastSubMenuKey + 1) * 10}`
+                                                                : ''
+                                                        "
+                                                        :menu="lastSubMenu"
+                                                        level="third"
+                                                    ></side-menu-link>
+                                                </li>
+                                            </ul>
+                                        </transition>
+                                    </li>
+                                </ul>
+                            </transition>
+                        </li>
+                    </template>
+                </ul>
+            </nav>
+
+            <div
+                class="relative min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:block before:h-px before:w-full before:content-[''] after:absolute after:inset-y-0 after:start-0 after:z-[-1] after:-ms-4 after:mt-8 after:hidden after:w-full after:rounded-[40px_0px_0px_0px] after:bg-white/10 after:content-[''] dark:bg-darkmode-700 after:dark:bg-darkmode-400/50 md:ms-4 md:max-w-none md:rounded-[35px/50px_0px_0px_0px] md:px-6 md:after:block"
+            >
+                <the-top-bar></the-top-bar>
+                hello
+                <slot></slot>
+            </div>
+        </div>
+    </div>
+</template>
+<style lang="postcss" scoped>
+@import '/resources/css/themes/tinker/side-nav.css';
+</style>

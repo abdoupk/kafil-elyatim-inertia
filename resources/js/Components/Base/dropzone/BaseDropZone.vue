@@ -1,0 +1,54 @@
+<script setup lang="ts">
+import DropzoneJs, { type DropzoneOptions } from 'dropzone'
+import { type HTMLAttributes, inject, onMounted, ref } from 'vue'
+import { init } from './dropzeone'
+
+export type ProvideDropzone = (el: DropzoneElement) => void
+
+export interface DropzoneElement extends HTMLDivElement {
+    dropzone: DropzoneJs
+}
+
+interface DropzoneProps extends /* @vue-ignore */ HTMLAttributes {
+    options: DropzoneOptions
+    refKey?: string
+}
+
+const props = defineProps<DropzoneProps>()
+
+const fileUploadRef = ref<DropzoneElement>()
+
+const bindInstance = (el: DropzoneElement) => {
+    if (props.refKey) {
+        const bind = inject<ProvideDropzone>(`bind[${props.refKey}]`)
+
+        if (bind) {
+            bind(el)
+        }
+    }
+}
+
+const vFileUploadDirective = {
+    mounted(el: DropzoneElement) {
+        init(el, props)
+    }
+}
+
+onMounted(() => {
+    if (fileUploadRef.value) {
+        bindInstance(fileUploadRef.value)
+    }
+})
+</script>
+
+<template>
+    <div
+        ref="fileUploadRef"
+        v-file-upload-directive
+        class="dropzone [&.dropzone]:border-2 [&.dropzone]:border-dashed [&.dropzone]:border-darkmode-200/60 [&.dropzone]:dark:border-white/5 [&.dropzone]:dark:bg-darkmode-600"
+    >
+        <div class="dz-message">
+            <slot></slot>
+        </div>
+    </div>
+</template>
