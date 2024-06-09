@@ -22,4 +22,3 @@ yarn-error.log
 /.nyc_output/
 /tests/cypress/cypress-coverage/
 /tests/cypress/screenshots/
-!/stats.html
