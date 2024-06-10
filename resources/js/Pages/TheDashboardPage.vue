@@ -10,4 +10,6 @@ defineOptions({
 
 <template>
     <Head title="Dashboard" />
+
+    hello
 </template>

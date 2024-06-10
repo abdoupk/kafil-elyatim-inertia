@@ -105,7 +105,7 @@ onMounted(() => {
             </nav>
 
             <div
-                class="md:pt-20'before:block relative mt-5 min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:h-px before:w-full before:content-[\'\'] dark:bg-darkmode-700 md:mt-1 md:max-w-none md:rounded-none md:px-[22px]"
+                class="relative mt-5 min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:block before:h-px before:w-full before:content-[\'\'] dark:bg-darkmode-700 md:mt-1 md:max-w-none md:rounded-none md:px-[22px] md:pt-20"
             >
                 <slot></slot>
             </div>
