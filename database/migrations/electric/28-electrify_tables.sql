@@ -104,10 +104,6 @@ ALTER TABLE
     ENABLE ELECTRIC;
 
 ALTER TABLE
-    sponsorships
-    ENABLE ELECTRIC;
-
-ALTER TABLE
     family_sponsorship
     ENABLE ELECTRIC;
 
