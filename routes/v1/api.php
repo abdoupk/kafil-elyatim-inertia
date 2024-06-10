@@ -12,20 +12,23 @@
 */
 
 // Public routes
-use App\Http\Controllers\V1\API\AuthController;
-use App\Http\Controllers\V1\API\CityController;
+use App\Http\Controllers\V1\API\Auth\LoginController;
+use App\Http\Controllers\V1\API\Auth\LogoutController;
+use App\Http\Controllers\V1\API\City\CommuneController;
+use App\Http\Controllers\V1\API\City\DairaController;
+use App\Http\Controllers\V1\API\City\WilayaController;
 use App\Http\Controllers\V1\API\RegisterTenantController;
 
 Route::name('api.')->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', LoginController::class);
 
     Route::post('/register', RegisterTenantController::class)->name('register');
 
-    Route::get('/wilayas', [CityController::class, 'wilayas']);
+    Route::get('/wilayas', WilayaController::class);
 
-    Route::post('/dairas', [CityController::class, 'dairas']);
+    Route::post('/dairas', DairaController::class);
 
-    Route::post('/communes', [CityController::class, 'communes']);
+    Route::post('/communes', CommuneController::class);
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {
@@ -33,7 +36,7 @@ Route::name('api.')->group(function () {
             return $request->user();
         });
 
-        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/logout', LogoutController::class);
 
         // Add your other protected routes here
     });

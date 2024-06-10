@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\API;
+namespace App\Http\Controllers\V1\API\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Auth\LoginRequest;
@@ -9,13 +9,11 @@ use App\Http\Resources\V1\Api\UserLoginTenantResource;
 use App\Http\Resources\V1\SettingsResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Sanctum\PersonalAccessToken;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
-    public function login(LoginRequest $request): JsonResponse
+    public function __invoke(LoginRequest $request): JsonResponse
     {
         if (Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
@@ -35,16 +33,6 @@ class AuthController extends Controller
             ], 401);
         }
 
-        // If the email is valid, the password must be incorrect
         return response()->json(['errors' => ['password' => [trans('auth.password')]]], 401);
-    }
-
-    public function logout(Request $request): JsonResponse
-    {
-        /** @var PersonalAccessToken $token */
-        $token = $request->user()?->currentAccessToken();
-        $token->delete();
-
-        return response()->json(['message' => 'Logged out successfully']);
     }
 }

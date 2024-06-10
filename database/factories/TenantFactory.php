@@ -26,6 +26,8 @@ class TenantFactory extends Factory
             'domain' => Str::domain(fake()->word.'-'.fake()->word),
             'password' => 'password',
             'association' => fake('ar_SA')->company,
+            'ccp' => fake()->regexify('[0-9]{12}'),
+            'cpa' => fake()->regexify('[0-9]{12}'),
         ];
     }
 }
