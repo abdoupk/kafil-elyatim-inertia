@@ -9,16 +9,16 @@ class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        $role1 = Role::create(['name' => 'member']);
+        $vicePresident = Role::create(['name' => 'vice_president']);
 
-        $role1->givePermissionTo('add families');
+        $officeMember = Role::create(['name' => 'office_member']);
 
-        $role1->givePermissionTo('delete families');
+        $member = Role::create(['name' => 'member']);
 
-        $role2 = Role::create(['name' => 'admin']);
+        $areaChief = Role::create(['name' => 'area_chief']);
 
-        $role2->givePermissionTo('edit families');
+        $assistantAreaChief = Role::create(['name' => 'assistant_area_chief']);
 
-        Role::create(['name' => 'super_admin']);
+        Role::create(['name' => 'president']);
     }
 }

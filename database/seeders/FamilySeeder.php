@@ -25,6 +25,7 @@ class FamilySeeder extends Seeder
                 for ($i = 0; $i < 10; $i++) {
                     $family = Family::factory()->create([
                         'tenant_id' => $tenant->id,
+                        'zone_id' => Zone::inRandomOrder()->first()?->id,
                     ]);
 
                     Spouse::factory()->create([
@@ -48,7 +49,6 @@ class FamilySeeder extends Seeder
                     Sponsor::factory()->create([
                         'tenant_id' => $tenant->id,
                         'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
-                        'zone_id' => Zone::inRandomOrder()->first()?->id,
                     ]);
                 }
             });

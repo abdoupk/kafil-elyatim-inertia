@@ -39,11 +39,11 @@ export interface ILocation {
 
 export type AppearanceType = 'light' | 'dark'
 
-export type ColorSchemesType = 'default' | 'theme-1' | 'theme-2' | 'theme-3' | 'theme-4'
+export type ColorSchemesType = 'default' | 'theme_1' | 'theme_2' | 'theme_3' | 'theme_4'
 
 export type ThemesType = 'enigma' | 'icewall' | 'tinker' | 'rubick'
 
-export type LayoutsType = 'simple-menu' | 'side-menu' | 'top-menu'
+export type LayoutsType = 'simple_menu' | 'side_menu' | 'top_menu'
 
 export interface ISettingState {
     appearance: AppearanceType
@@ -53,6 +53,11 @@ export interface ISettingState {
 }
 
 export type SVGType =
+    | 'icon-file-pdf'
+    | 'icon-pen'
+    | 'icon-file-excel'
+    | 'icon-print'
+    | 'icon-square-check'
     | 'icon-arrows-up-down'
     | 'icon-bars-staggered'
     | 'icon-bell'

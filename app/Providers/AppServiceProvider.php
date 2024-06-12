@@ -50,7 +50,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::before(static function ($user, $ability) {
-            return $user->hasRole('super_admin') ? true : null;
+            return $user->hasRole('president') ? true : null;
         });
     }
 }

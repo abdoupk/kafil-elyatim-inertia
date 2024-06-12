@@ -24,10 +24,10 @@ export const placementClasses: Record<IPlacement['placement'], string> = {
 }
 
 // eslint-disable-next-line
-export const colorSchemes: ColorSchemesType[] = ['default', 'theme-1', 'theme-2', 'theme-3', 'theme-4']
+export const colorSchemes: ColorSchemesType[] = ['default', 'theme_1', 'theme_2', 'theme_3', 'theme_4']
 
 // eslint-disable-next-line
-export const layouts: LayoutsType[] = ['side-menu', 'simple-menu', 'top-menu']
+export const layouts: LayoutsType[] = ['side_menu', 'simple_menu', 'top_menu']
 
 // eslint-disable-next-line
 export const themes: ThemesType[] = ['enigma', 'icewall', 'tinker', 'rubick']
@@ -74,10 +74,4 @@ export const registerStepThreeErrorProps: RegisterStepThreeProps[] = [
     'landline',
     'phones',
     'links'
-]
-
-export const registerStepsTitles = [
-    'auth.register.titles.association',
-    'auth.register.titles.supervisor',
-    'auth.register.titles.association_details'
 ]

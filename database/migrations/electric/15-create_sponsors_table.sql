@@ -1,9 +1,6 @@
 CREATE TABLE IF NOT EXISTS sponsors
 (
     "id"                       uuid                           not null primary key,
-    "zone_id"                  uuid                           not null,
-    "file_number"              integer                        not null,
-    "start_date"               date                           not null,
     "name"                     text                           not null,
     "address"                  text                           not null,
     "phone_number"             text                           not null,
@@ -24,8 +21,6 @@ CREATE TABLE IF NOT EXISTS sponsors
     "created_at"               timestamp(0) without time zone null,
     "updated_at"               timestamp(0) without time zone null
 );
-
-CREATE INDEX idx_sponsors_zone_id ON sponsors ("zone_id");
 
 CREATE INDEX idx_sponsors_created_by ON sponsors ("created_by");
 

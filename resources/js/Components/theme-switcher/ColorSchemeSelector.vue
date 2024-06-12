@@ -33,10 +33,8 @@ const switchColorScheme = (colorScheme: ColorSchemesType) => {
                     >
                         <div class="h-full overflow-hidden rounded-md">
                             <div class="-mx-2 flex h-full items-center gap-1">
-                                <div
-                                    :class="twMerge(['h-[200%] w-1/2 rotate-12 bg-theme-1', colorScheme.replace('-','_')])"></div>
-                                <div
-                                    :class="twMerge(['h-[200%] w-1/2 rotate-12 bg-theme-2',  colorScheme.replace('-','_')])"></div>
+                                <div :class="twMerge(['h-[200%] w-1/2 rotate-12 bg-theme-1', colorScheme])"></div>
+                                <div :class="twMerge(['h-[200%] w-1/2 rotate-12 bg-theme-2', colorScheme])"></div>
                             </div>
                         </div>
                     </a>

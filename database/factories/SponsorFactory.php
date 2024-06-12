@@ -16,10 +16,7 @@ class SponsorFactory extends Factory
     public function definition(): array
     {
         return [
-            'zone_id' => fake()->uuid,
             'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
-            'file_number' => fake()->randomNumber(),
-            'start_date' => now()->subDays(random_int(100, 1000)),
             'name' => fake('ar_SA')->name,
             'address' => fake('ar_SA')->address,
             'phone_number' => fake('ar_SA')->regexify('(06|07|05)[0-9]{8}'),

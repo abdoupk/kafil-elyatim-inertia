@@ -26,7 +26,7 @@ const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <Suspense v-if="settingsStore.layout === 'simple-menu'">
+    <Suspense v-if="settingsStore.layout === 'simple_menu'">
         <component :is="simpleMenu">
             <slot></slot>
         </component>
@@ -35,7 +35,7 @@ const settingsStore = useSettingsStore()
         </template>
     </Suspense>
 
-    <Suspense v-if="settingsStore.layout === 'side-menu'">
+    <Suspense v-if="settingsStore.layout === 'side_menu'">
         <component :is="sideMenu">
             <slot></slot>
         </component>
@@ -44,7 +44,7 @@ const settingsStore = useSettingsStore()
         </template>
     </Suspense>
 
-    <Suspense v-if="settingsStore.layout === 'top-menu'">
+    <Suspense v-if="settingsStore.layout === 'top_menu'">
         <component :is="topMenu">
             <slot></slot>
         </component>

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3'
-
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 defineOptions({
@@ -8,8 +6,4 @@ defineOptions({
 })
 </script>
 
-<template>
-    <Head title="Dashboard" />
-
-    hello
-</template>
+<template>orphans index</template>

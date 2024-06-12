@@ -21,10 +21,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 'settings' => [
-                    'layout' => 'top-menu',
+                    'layout' => 'top_menu',
                     'appearance' => 'dark',
-                    'theme' => 'tinker',
-                    'color_scheme' => 'theme-1',
+                    'theme' => 'enigma',
+                    'color_scheme' => 'theme_1',
                 ],
             ],
             'language' => app()->getLocale(),
