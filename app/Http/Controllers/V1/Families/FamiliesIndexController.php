@@ -5,8 +5,10 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Families\FamiliesIndexResource;
 use App\Models\Family;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class FamiliesIndexController extends Controller
@@ -17,42 +19,44 @@ class FamiliesIndexController extends Controller
             'directions.*' => ['in:asc,desc'],
         ]);
 
-        $perPage = $request->input('perPage', 10);
+        $families = $this->search(
+            $request->get('search', ''),
+            $request->input('directions'),
+            $request->get('perPage', 10)
+        );
 
-        $search = $request->input('search', '') ?? '';
-
-        $families = $this->searchFamilies($search, $request->input('directions'), $perPage);
-
-        return inertia()->render('Tenant/families/FamiliesIndexPage', [
+        return Inertia::render('Tenant/families/FamiliesIndexPage', [
             'families' => FamiliesIndexResource::collection($families),
             'filters' => [
-                'page' => $request->input('page', 1),
+                'page' => (int) $request->get('page', 1),
                 'search' => $request->input('search') ?? '',
                 'perPage' => $request->input('perPage', 10),
             ],
         ]);
     }
 
-    private function searchFamilies(string $search, ?array $directions, int $perPage): Builder
+    private function search(string $search, ?array $directions, int $perPage): LengthAwarePaginator
     {
-        $query = Family::search($search, function ($meilisearch) use ($directions, $search) {
-            $options = [];
+        return Family::search($search, static function ($meilisearch, string $query, array $options) use ($directions) {
 
             if ($directions) {
-                $options['sort'] = array_map(static function ($value, $key) {
-                    if (in_array($key, ['name', 'file_number', 'created_at', 'start_date'])) {
+                $formattedSort = array_map(static function ($value, $key) {
+                    $searchableFields = ['name', 'name', 'file_number', 'created_at', 'start_date'];
+
+                    if (in_array($key, $searchableFields, true)) {
                         return "$key:$value";
                     }
 
                     return 'name:desc';
                 }, array_values($directions), array_keys($directions));
+                $options['sort'] = array_values($formattedSort);
             } else {
                 $options['sort'] = ['name:desc'];
             }
 
-            return $meilisearch->search($search, $options);
-        });
-
-        return $query->whereHas('zone')->paginate($perPage);
+            return $meilisearch->search($query, $options);
+        })
+            ->query(fn (Builder $query) => $query->whereHas('zone'))
+            ->paginate(perPage: $perPage);
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class AuthenticatedSessionController extends Controller
@@ -17,7 +18,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): Response
     {
-        return inertia()->render('Auth/TheLoginPage', [
+        return Inertia::render('Auth/TheLoginPage', [
             'canResetPassword' => Route::has('password.request'),
             'status' => session('status'),
         ]);

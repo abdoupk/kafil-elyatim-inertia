@@ -7,6 +7,7 @@ use App\Http\Requests\V1\RegisterTenantRequest;
 use App\Models\Domain;
 use App\Models\Tenant;
 use Illuminate\Http\JsonResponse;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class RegisteredTenantController extends Controller
@@ -28,6 +29,6 @@ class RegisteredTenantController extends Controller
 
     public function create(): Response
     {
-        return inertia()->render('Auth/Register/RegisterPage');
+        return Inertia::render('Auth/Register/RegisterPage');
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class RegisteredUserController extends Controller
@@ -47,6 +48,6 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return inertia()->render('Auth/Register/RegisterPage');
+        return Inertia::render('Auth/Register/RegisterPage');
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
 use Inertia\Response;
 
 class ConfirmablePasswordController extends Controller
@@ -16,7 +17,7 @@ class ConfirmablePasswordController extends Controller
      */
     public function show(): Response
     {
-        return inertia()->render('Auth/ConfirmPasswordPage');
+        return Inertia::render('Auth/ConfirmPasswordPage');
     }
 
     /**
