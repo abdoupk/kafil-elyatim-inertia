@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Head, router } from '@inertiajs/vue3'
-import { ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
@@ -54,9 +54,8 @@ const props = defineProps<{
     filters: Filters
 }>()
 
-const filters = ref<Filters>({
+const filters = reactive<Filters>({
     perPage: props.filters.perPage,
-    search: props.filters.search,
     page: props.filters.page,
     directions: { name: 'desc' },
     fields: props.filters.fields
@@ -66,55 +65,73 @@ const setDeleteConfirmationModal = (val: boolean) => {
     console.log(val)
 }
 
-const getData = () => {
-    if (filters.value?.search === '') delete filters.value?.search
+let routerOptions = {
+    preserveState: true,
+    preserveScroll: true
+}
 
-    router.get(route('tenant.families.index'), filters.value, { preserveState: true, preserveScroll: true })
+const getData = () => {
+    let data = { ...filters }
+
+    if (search.value !== '') {
+        data.search = search.value
+    }
+
+    router.get(route('tenant.families.index'), data, routerOptions)
 }
 
 const sort = (field: string) => {
-    filters.value.fields = filters.value?.fields ? [...filters.value?.fields] : []
+    // eslint-disable-next-line no-unsafe-optional-chaining
+    filters.fields = filters?.fields ? [...filters?.fields] : []
 
-    filters.value.directions = { ...filters.value.directions }
+    filters.directions = { ...filters.directions }
 
-    if (filters.value.fields.includes(field)) {
-        const idx = filters.value.fields.indexOf(field)
+    if (filters.fields.includes(field)) {
+        const idx = filters.fields.indexOf(field)
 
-        if (filters.value.directions[field] === 'asc') {
-            filters.value.directions[field] = 'desc'
+        if (filters.directions[field] === 'asc') {
+            filters.directions[field] = 'desc'
         } else {
-            filters.value.fields.splice(idx, 1)
+            filters.fields.splice(idx, 1)
 
-            delete filters.value.directions[field]
+            delete filters.directions[field]
         }
     } else {
-        filters.value.fields.push(field)
+        filters.fields.push(field)
 
-        filters.value.directions[field] = 'asc'
+        filters.directions[field] = 'asc'
     }
 
     getData()
 }
 
-// eslint-disable-next-line array-element-newline
-watch(() => [filters.value.page, filters.value.fields, filters.value.directions], getData)
+const search = ref(props.filters.search)
 
 watch(
-    () => filters.value.perPage,
-    () => {
-        filters.value.page = 1
+    search,
+    debounce(() => {
+        filters.page = 1
 
         getData()
-    }
+    }, 400)
+)
+
+watch(() => [filters.fields, filters.directions], getData)
+
+watch(
+    () => [filters.perPage],
+    () => (filters.page = 1)
 )
 
 watch(
-    () => filters.value.search,
-    debounce(() => {
-        filters.value.page = 1
+    () => [filters.page],
+    () => {
+        routerOptions.preserveState = false
+
+        routerOptions.preserveScroll = false
 
         getData()
-    }, 500)
+    }
 )
 </script>
 
@@ -169,7 +186,7 @@ watch(
                 <div class="relative w-56 text-slate-500">
                     <base-form-input
                         autofocus
-                        v-model="filters.search"
+                        v-model="search"
                         type="text"
                         class="!box w-56 pe-10"
                         :placeholder="__('Search...')"
@@ -290,7 +307,7 @@ watch(
             <the-pagination
                 :pages="families.meta.last_page"
                 :range-size="3"
-                :model-value="filters.page"
+                :model-value="props.filters.page"
                 @update:model-value="filters.page = $event"
             >
             </the-pagination>

@@ -82,8 +82,6 @@ const pagination = computedEager((): (number | null)[] => {
 })
 
 function updatePageHandler(params: number) {
-    console.log(modelValue, params)
-
     emit('update:modelValue', params)
 }
 

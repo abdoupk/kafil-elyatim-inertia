@@ -20,12 +20,12 @@ class FamiliesIndexController extends Controller
         ]);
 
         $families = $this->search(
-            $request->get('search', ''),
+            $request->get('search', '') ?? '',
             $request->input('directions'),
             $request->get('perPage', 10)
         );
 
-        return Inertia::render('Tenant/families/FamiliesIndexPage', [
+        return Inertia::render('Tenant/families/index/FamiliesIndexPage', [
             'families' => FamiliesIndexResource::collection($families),
             'filters' => [
                 'page' => (int) $request->get('page', 1),
