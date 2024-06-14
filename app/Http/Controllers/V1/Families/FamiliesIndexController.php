@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Families;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\FamiliesIndexResource;
+use App\Http\Resources\V1\Families\FamiliesIndexResource;
 use App\Models\Family;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -13,24 +13,15 @@ class FamiliesIndexController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        $directions = $request->input('directions');
+        $request->validate([
+            'directions.*' => ['in:asc,desc'],
+        ]);
 
-        $search = $request->input('search') ?? '';
+        $perPage = $request->input('perPage', 10);
 
-        $families = Family::search($search, static function ($meilisearch, string $query, array $options) use ($directions) {
-            if ($directions) {
-                $formattedSort = array_map(static function ($value, $key) {
-                    return "$key:$value";
-                }, array_values($directions), array_keys($directions));
-                $options['sort'] = array_values($formattedSort);
-            } else {
-                $options['sort'] = ['name:desc'];
-            }
+        $search = $request->input('search', '') ?? '';
 
-            return $meilisearch->search($query, $options);
-        })
-            ->query(fn (Builder $query) => $query->whereHas('zone'))
-            ->paginate(perPage: $request->input('perPage', 10))->withQueryString();
+        $families = $this->searchFamilies($search, $request->input('directions'), $perPage);
 
         return inertia()->render('Tenant/families/FamiliesIndexPage', [
             'families' => FamiliesIndexResource::collection($families),
@@ -40,5 +31,28 @@ class FamiliesIndexController extends Controller
                 'perPage' => $request->input('perPage', 10),
             ],
         ]);
+    }
+
+    private function searchFamilies(string $search, ?array $directions, int $perPage): Builder
+    {
+        $query = Family::search($search, function ($meilisearch) use ($directions, $search) {
+            $options = [];
+
+            if ($directions) {
+                $options['sort'] = array_map(static function ($value, $key) {
+                    if (in_array($key, ['name', 'file_number', 'created_at', 'start_date'])) {
+                        return "$key:$value";
+                    }
+
+                    return 'name:desc';
+                }, array_values($directions), array_keys($directions));
+            } else {
+                $options['sort'] = ['name:desc'];
+            }
+
+            return $meilisearch->search($search, $options);
+        });
+
+        return $query->whereHas('zone')->paginate($perPage);
     }
 }

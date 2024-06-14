@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1;
+namespace App\Http\Resources\V1\Families;
 
 use App\Models\Zone;
 use Carbon\Carbon;

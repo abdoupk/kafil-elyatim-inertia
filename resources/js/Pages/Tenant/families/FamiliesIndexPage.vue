@@ -40,7 +40,7 @@ interface Family {
 
 interface Filters {
     perPage: number
-    search: string
+    search?: string
     page: number
     fields?: string[]
     directions?: {
@@ -66,6 +66,9 @@ const setDeleteConfirmationModal = (val: boolean) => {
 }
 
 const getData = () => {
+    if (filters.value?.search === '') delete filters.value?.search
+
+
     router.get(route('tenant.families.index'), filters.value, { preserveState: true, preserveScroll: true })
 }
 
@@ -192,8 +195,9 @@ watch(
                             {{ __('family') }}
                         </base-th-table>
                         <base-th-table class="whitespace-nowrap border-b-0 text-start">{{
-                            __('validation.attributes.address')
-                        }}</base-th-table>
+                                __('validation.attributes.address')
+                            }}
+                        </base-th-table>
                         <base-th-table
                             class="whitespace-nowrap border-b-0 text-center"
                             sortable
@@ -211,7 +215,8 @@ watch(
                             {{ __('starting_sponsorship_date') }}
                         </base-th-table>
                         <base-th-table class="whitespace-nowrap border-b-0 text-center">
-                            {{ __('actions') }}</base-th-table
+                            {{ __('actions') }}
+                        </base-th-table
                         >
                     </base-tr-table>
                 </base-thead-table>

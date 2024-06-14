@@ -35,7 +35,7 @@ Route::middleware([
         ->name('login')
         ->middleware('guest');
 
-    Route::name('tenant.')->prefix('/dashboard')->group(function () {
+    Route::name('tenant.')->prefix('/dashboard/')->group(function () {
         Route::middleware('auth')->group(function () {
             // Logout route
             Route::post(
@@ -43,28 +43,28 @@ Route::middleware([
                 [AuthenticatedSessionController::class, 'destroy']
             )->name('logout');
 
-            Route::get('/', DashboardController::class)
+            Route::get('', DashboardController::class)
                 ->name('dashboard');
 
-            Route::get('/families', FamiliesIndexController::class)
+            Route::get('families', FamiliesIndexController::class)
                 ->name('families.index');
 
-            Route::get('/families/create', FamilyCreateController::class)
+            Route::get('families/create', FamilyCreateController::class)
                 ->name('families.create');
 
-            Route::get('/orphans', OrphansIndexController::class)
+            Route::get('orphans', OrphansIndexController::class)
                 ->name('orphans.index');
 
-            Route::get('/members', MembersIndexController::class)
+            Route::get('members', MembersIndexController::class)
                 ->name('members.index');
 
-            Route::get('/roles', RolesIndexController::class)
+            Route::get('roles', RolesIndexController::class)
                 ->name('roles.index');
 
-            Route::get('/permissions', PermissionsIndexController::class)
+            Route::get('permissions', PermissionsIndexController::class)
                 ->name('permissions.index');
 
-            Route::get('/sponsors', SponsorsIndexController::class)
+            Route::get('sponsors', SponsorsIndexController::class)
                 ->name('sponsors.index');
         });
 

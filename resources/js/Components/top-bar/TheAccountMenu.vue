@@ -11,7 +11,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 <template>
     <base-menu>
         <base-menu-button class="image-fit zoom-in intro-x block h-8 w-8 overflow-hidden rounded-full shadow-lg">
-            <img alt="Midone Tailwind HTML Admin Template" src="/images/fakers/profile-11.jpg" />
+            <img alt="Midone Tailwind HTML Admin Template" src="/images/fakers/profile-10.jpg" />
         </base-menu-button>
 
         <base-menu-items class="mt-px w-56 bg-primary text-white">
