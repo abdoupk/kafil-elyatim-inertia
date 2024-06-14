@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Laravel\Scout\Searchable;
 
 /**
  * @property int $id
@@ -47,7 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Family extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
     public $timestamps = false;
 
@@ -84,5 +85,28 @@ class Family extends Model
     public function sponsorships(): HasMany
     {
         return $this->hasMany(FamilySponsorship::class);
+    }
+
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(Zone::class);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'families_index';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'created_at' => $this->created_at,
+            'start_date' => $this->start_date,
+            'file_number' => $this->file_number,
+            'zone' => $this->zone->name,
+            'report' => $this->report,
+        ];
     }
 }

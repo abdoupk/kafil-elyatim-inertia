@@ -12,7 +12,7 @@ class ZoneFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'منطقة رقم'.fake()->numberBetween(1, 20),
+            'name' => ' منطقة رقم '.fake()->numberBetween(1, 20),
         ];
     }
 }

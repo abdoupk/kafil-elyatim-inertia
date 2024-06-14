@@ -22,12 +22,12 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'settings' => [
                     'layout' => 'top_menu',
-                    'appearance' => 'dark',
+                    'appearance' => 'light',
                     'theme' => 'enigma',
                     'color_scheme' => 'theme_1',
                 ],
             ],
-            'language' => app()->getLocale(),
+            'language' => 'ar', // TODO: change to get automatically app()->getLocale()
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [

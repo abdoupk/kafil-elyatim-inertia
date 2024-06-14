@@ -156,6 +156,19 @@ const allowOnlyNumbersOnKeyDown = (event: KeyboardEvent) => {
     }
 }
 
+const debounce = (func, delay, { leading } = {}) => {
+    let timerId
+
+    return (...args) => {
+        if (!timerId && leading) {
+            func(...args)
+        }
+        clearTimeout(timerId)
+
+        timerId = setTimeout(() => func(...args), delay)
+    }
+}
+
 export {
     size,
     isEqual,
@@ -164,6 +177,7 @@ export {
     toRGB,
     groupArrayOfObject,
     slideUp,
+    debounce,
     slideDown,
     setDarkModeClass,
     setColorSchemeClass,

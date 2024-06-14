@@ -2,12 +2,19 @@
 import { computed, inject } from 'vue'
 import type { ProvideTable } from './BaseTable.vue'
 import type { ProvideThead } from './BaseTheadTable.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 import { twMerge } from 'tailwind-merge'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({
     inheritAttrs: false
 })
+
+const { sortable = false, direction = 'asc' } = defineProps<{
+    sortable?: boolean
+    field?: string
+    direction?: 'asc' | 'desc'
+}>()
 
 const table = inject<ProvideTable>('table', {
     dark: false,
@@ -37,7 +44,14 @@ const computedClass = computed(() =>
 </script>
 
 <template>
-    <th :class="computedClass" v-bind="attrs.attrs">
-        <slot></slot>
+    <th :class="computedClass" v-bind="attrs.attrs" class="flex-col">
+        <div class="flex cursor-pointer" v-if="sortable">
+            <span class="flex-grow">
+                <slot></slot>
+            </span>
+            <svg-loader v-if="direction === 'asc'" name="icon-sort-up"></svg-loader>
+            <svg-loader v-else name="icon-sort-down"></svg-loader>
+        </div>
+        <span v-else><slot></slot></span>
     </th>
 </template>

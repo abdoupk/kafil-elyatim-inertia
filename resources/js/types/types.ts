@@ -82,6 +82,8 @@ export type SVGType =
     | 'icon-trash-can'
     | 'icon-plus'
     | 'loader-oval'
+    | 'no-data'
+    | 'no-data-astro'
 
 export interface Wilaya {
     wilaya_code: string
@@ -129,3 +131,23 @@ export type RegisterStepOneProps = 'association' | 'domain' | 'address' | 'city'
 export type RegisterStepTwoProps = 'email' | 'first_name' | 'last_name' | 'phone' | 'password_confirmation' | 'password'
 
 export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones' | 'links'
+
+export interface PaginationData<T> {
+    current_page: number
+    data: Array<T>
+    first_page_url: string
+    from: number
+    last_page: number
+    last_page_url: string
+    links: Array<{
+        url: string
+        label: string
+        active: boolean
+    }>
+    next_page_url: string | null
+    path: string
+    per_page: number
+    prev_page_url: string | null
+    to: number
+    total: number
+}

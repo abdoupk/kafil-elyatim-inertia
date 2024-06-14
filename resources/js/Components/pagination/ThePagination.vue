@@ -4,27 +4,28 @@ import BasePaginationLink from '@/Components/Base/pagination/BasePaginationLink.
 import PaginationPage from '@/Components/pagination/atom/PaginationPage.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import { computedEager } from '@vueuse/core'
+import { usePage } from '@inertiajs/vue3'
 
 const {
     pages = 0,
     rangeSize = 1,
-    modelValue = 0,
+    modelValue = 8,
     activeColor = 'currentColor',
     hideFirstButton = false,
     hideLastButton = false
 } = defineProps<{
-    pages: number
-    rangeSize: number
-    modelValue: number
-    activeColor: string
-    hideFirstButton: boolean
-    hideLastButton: boolean
+    pages?: number
+    rangeSize?: number
+    modelValue?: number
+    activeColor?: string
+    hideFirstButton?: boolean
+    hideLastButton?: boolean
 }>()
 
 const emit = defineEmits(['update:modelValue'])
 
 // TODO get value from inertia or store or from HTML Tag
-const dir = 'ltr'
+const dir = usePage().props.language !== 'ar' ? 'ltr' : 'rtl'
 
 const pagination = computedEager((): (number | null)[] => {
     const res = []

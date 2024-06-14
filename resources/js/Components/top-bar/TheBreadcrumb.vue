@@ -27,7 +27,7 @@ const breadcrumbs = computedEager(() => {
             breadCrumbs.push({
                 href: resolvedHref,
                 active: path !== pathArray[pathArray.length - 1],
-                text: path
+                text: path.split(/[?#]/)[0]
             })
         } else {
             breadCrumbs[breadCrumbs.length - 1].active = false
