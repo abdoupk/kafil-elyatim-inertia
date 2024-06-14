@@ -18,6 +18,7 @@ class FamilyFactory extends Factory
         return [
             'name' => fake('ar_SA')->name,
             'zone_id' => fake()->uuid,
+            'address' => fake('ar_SA')->address,
             'file_number' => fake()->randomNumber(),
             'start_date' => now()->subDays(random_int(100, 1000)),
             'report' => fake('ar_SA')->sentences(3, true),

@@ -6,7 +6,7 @@ const locale = ref('ar') // default locale
 const langData = ref<Record<string, string>>({})
 
 async function fetchLocale() {
-    const response = await fetch(`locales/${locale.value}.json`)
+    const response = await fetch(`/locales/${locale.value}.json`)
 
     langData.value = await response.json()
 }

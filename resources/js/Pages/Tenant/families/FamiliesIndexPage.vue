@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Head, router } from '@inertiajs/vue3'
 import { ref, watch } from 'vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -18,7 +19,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 import ThePagination from '@/Components/pagination/ThePagination.vue'
 import { debounce } from '@/utils/helper'
-import { router } from '@inertiajs/vue3'
 
 defineOptions({
     layout: TheLayout
@@ -35,26 +35,30 @@ interface Family {
     start_date: Date
     file_number: number
     zone: Zone
+    address: string
 }
 
 interface Filters {
     perPage: number
     search: string
     page: number
-    field?: string
-    direction?: 'asc' | 'desc'
+    fields?: string[]
+    directions?: {
+        [key: string]: 'asc' | 'desc'
+    }
 }
 
 const props = defineProps<{
     families: PaginationData<Family>
     filters: Filters
-    paginationMetrics: { from: number | null; total: number; to: number | null }
 }>()
 
 const filters = ref<Filters>({
     perPage: props.filters.perPage,
     search: props.filters.search,
-    page: props.families.current_page
+    page: props.filters.page,
+    directions: { name: 'desc' },
+    fields: props.filters.fields
 })
 
 const setDeleteConfirmationModal = (val: boolean) => {
@@ -62,11 +66,35 @@ const setDeleteConfirmationModal = (val: boolean) => {
 }
 
 const getData = () => {
-    router.get('/families', filters.value, { preserveState: true, preserveScroll: true })
+    router.get(route('tenant.families.index'), filters.value, { preserveState: true, preserveScroll: true })
+}
+
+const sort = (field: string) => {
+    filters.value.fields = filters.value?.fields ? [...filters.value?.fields] : []
+
+    filters.value.directions = { ...filters.value.directions }
+
+    if (filters.value.fields.includes(field)) {
+        const idx = filters.value.fields.indexOf(field)
+
+        if (filters.value.directions[field] === 'asc') {
+            filters.value.directions[field] = 'desc'
+        } else {
+            filters.value.fields.splice(idx, 1)
+
+            delete filters.value.directions[field]
+        }
+    } else {
+        filters.value.fields.push(field)
+
+        filters.value.directions[field] = 'asc'
+    }
+
+    getData()
 }
 
 // eslint-disable-next-line array-element-newline
-watch(() => [filters.value.page, filters.value.field, filters.value.direction], getData)
+watch(() => [filters.value.page, filters.value.fields, filters.value.directions], getData)
 
 watch(
     () => filters.value.perPage,
@@ -85,26 +113,23 @@ watch(
         getData()
     }, 500)
 )
-
-const sort = (field: string) => {
-    filters.value.field = field
-
-    if (filters.value.direction === 'asc') {
-        filters.value.direction = 'desc'
-    } else {
-        filters.value.direction = 'asc'
-    }
-}
 </script>
 
 <template>
+    <Head :title="__('families list')"></Head>
     <h2 class="intro-y mt-10 text-lg font-medium">
         {{ __('families list') }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button variant="primary" class="me-2 shadow-md"> Add New Product</base-button>
+            <base-button
+                variant="primary"
+                class="me-2 shadow-md"
+                @click.prevent="router.get(route('tenant.families.create'))"
+            >
+                {{ __('create new family') }}
+            </base-button>
             <base-menu>
                 <base-menu-button :as="BaseButton" class="!box px-2">
                     <span class="flex h-5 w-5 items-center justify-center">
@@ -114,32 +139,37 @@ const sort = (field: string) => {
                 <base-menu-items class="w-40">
                     <base-menu-item>
                         <svg-loader name="icon-print" class="me-2 h-4 w-4" />
-                        Print
+                        {{ __('print') }}
                     </base-menu-item>
                     <base-menu-item>
                         <svg-loader name="icon-file-excel" class="me-2 h-4 w-4" />
-                        Export to Excel
+                        {{ __('export to excel') }}
                     </base-menu-item>
                     <base-menu-item>
                         <svg-loader name="icon-file-pdf" class="me-2 h-4 w-4" />
-                        Export to PDF
+                        {{ __('export to pdf') }}
                     </base-menu-item>
                 </base-menu-items>
             </base-menu>
-
             <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="paginationMetrics.total > 0">
-                    Showing {{ paginationMetrics.from }} to {{ paginationMetrics.to }} of
-                    {{ paginationMetrics.total }} entries
+                <span v-if="families.meta.total > 0">
+                    {{
+                        __('showing_results', {
+                            from: families.meta.from.toString(),
+                            to: families.meta.to.toString(),
+                            total: families.meta.total.toString()
+                        })
+                    }}
                 </span>
             </div>
             <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <div class="relative w-56 text-slate-500">
                     <base-form-input
+                        autofocus
                         v-model="filters.search"
                         type="text"
                         class="!box w-56 pe-10"
-                        placeholder="Search..."
+                        :placeholder="__('Search...')"
                     />
                     <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />
                 </div>
@@ -155,30 +185,34 @@ const sort = (field: string) => {
                         <base-th-table class="whitespace-nowrap border-b-0 text-start"> #</base-th-table>
                         <base-th-table
                             sortable
-                            :direction="filters.direction"
                             @click="sort('name')"
+                            :direction="filters.directions?.name"
                             class="whitespace-nowrap border-b-0 text-start"
                         >
-                            family name
+                            {{ __('family') }}
                         </base-th-table>
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start">{{
+                            __('validation.attributes.address')
+                        }}</base-th-table>
                         <base-th-table
                             class="whitespace-nowrap border-b-0 text-center"
                             sortable
-                            :direction="filters.direction"
+                            :direction="filters.directions?.file_number"
                             @click="sort('file_number')"
                         >
-                            file number
+                            {{ __('file_number') }}
                         </base-th-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center"> zone</base-th-table>
                         <base-th-table
                             class="whitespace-nowrap border-b-0 text-center"
                             sortable
-                            :direction="filters.direction"
+                            :direction="filters.directions?.start_date"
                             @click="sort('start_date')"
                         >
-                            start data
+                            {{ __('starting_sponsorship_date') }}
                         </base-th-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center"> ACTIONS</base-th-table>
+                        <base-th-table class="whitespace-nowrap border-b-0 text-center">
+                            {{ __('actions') }}</base-th-table
+                        >
                     </base-tr-table>
                 </base-thead-table>
                 <base-tbody-table>
@@ -186,7 +220,7 @@ const sort = (field: string) => {
                         <base-td-table
                             class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ (paginationMetrics.from ?? 0) + index }}
+                            {{ (families.meta.from ?? 0) + index }}
                         </base-td-table>
                         <base-td-table
                             class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
@@ -196,14 +230,17 @@ const sort = (field: string) => {
                             </a>
                         </base-td-table>
                         <base-td-table
-                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ family.file_number }}
+                            {{ family.address }}
+                            <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                {{ family.zone }}
+                            </div>
                         </base-td-table>
                         <base-td-table
                             class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ family.zone }}
+                            {{ family.file_number }}
                         </base-td-table>
                         <base-td-table
                             class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
@@ -224,7 +261,7 @@ const sort = (field: string) => {
                             <div class="flex items-center justify-center">
                                 <a class="me-3 flex items-center" href="#">
                                     <svg-loader name="icon-pen" class="me-1 h-4 w-4" />
-                                    Edit
+                                    {{ __('edit') }}
                                 </a>
                                 <a
                                     class="flex items-center text-danger"
@@ -237,7 +274,7 @@ const sort = (field: string) => {
                                     "
                                 >
                                     <svg-loader name="icon-trash-can" class="me-1 h-4 w-4" />
-                                    Delete
+                                    {{ __('delete') }}
                                 </a>
                             </div>
                         </base-td-table>
@@ -247,16 +284,11 @@ const sort = (field: string) => {
         </div>
 
         <div class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap">
-            {{ filters.page }}
             <the-pagination
-                :pages="families.last_page"
+                :pages="families.meta.last_page"
                 :range-size="3"
                 :model-value="filters.page"
-                @update:model-value="
-                    (page) => {
-                        filters.page = page
-                    }
-                "
+                @update:model-value="filters.page = $event"
             >
             </the-pagination>
 

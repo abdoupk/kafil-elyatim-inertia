@@ -10,7 +10,7 @@ defineOptions({
     inheritAttrs: false
 })
 
-const { sortable = false, direction = 'asc' } = defineProps<{
+const { sortable = false } = defineProps<{
     sortable?: boolean
     field?: string
     direction?: 'asc' | 'desc'
@@ -50,7 +50,7 @@ const computedClass = computed(() =>
                 <slot></slot>
             </span>
             <svg-loader v-if="direction === 'asc'" name="icon-sort-up"></svg-loader>
-            <svg-loader v-else name="icon-sort-down"></svg-loader>
+            <svg-loader v-else-if="direction === 'desc'" name="icon-sort-down"></svg-loader>
         </div>
         <span v-else><slot></slot></span>
     </th>

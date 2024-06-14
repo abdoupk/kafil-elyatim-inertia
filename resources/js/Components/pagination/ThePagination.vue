@@ -9,7 +9,7 @@ import { usePage } from '@inertiajs/vue3'
 const {
     pages = 0,
     rangeSize = 1,
-    modelValue = 8,
+    modelValue = 1,
     activeColor = 'currentColor',
     hideFirstButton = false,
     hideLastButton = false
@@ -82,6 +82,8 @@ const pagination = computedEager((): (number | null)[] => {
 })
 
 function updatePageHandler(params: number) {
+    console.log(modelValue, params)
+
     emit('update:modelValue', params)
 }
 

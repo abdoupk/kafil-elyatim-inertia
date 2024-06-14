@@ -138,6 +138,13 @@ return [
             //     'filterableAttributes'=> ['id', 'name', 'email'],
             // ],
             'families_index' => [
+                'rankingRules' => ['words',
+                    'sort',
+                    'typo',
+                    'proximity',
+                    'attribute',
+
+                    'exactness'],
                 'filterableAttributes' => ['id', 'name', 'file_number', 'start_date'],
                 'sortableAttributes' => ['name', 'file_number', 'created_at', 'start_date'],
             ],

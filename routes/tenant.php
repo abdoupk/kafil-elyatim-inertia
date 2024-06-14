@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Dashboard\DashboardController;
 use App\Http\Controllers\V1\Families\FamiliesIndexController;
+use App\Http\Controllers\V1\Families\FamilyCreateController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Permissions\PermissionsIndexController;
@@ -34,7 +35,7 @@ Route::middleware([
         ->name('login')
         ->middleware('guest');
 
-    Route::name('tenant.')->group(function () {
+    Route::name('tenant.')->prefix('/dashboard')->group(function () {
         Route::middleware('auth')->group(function () {
             // Logout route
             Route::post(
@@ -47,6 +48,9 @@ Route::middleware([
 
             Route::get('/families', FamiliesIndexController::class)
                 ->name('families.index');
+
+            Route::get('/families/create', FamilyCreateController::class)
+                ->name('families.create');
 
             Route::get('/orphans', OrphansIndexController::class)
                 ->name('orphans.index');

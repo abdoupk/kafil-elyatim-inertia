@@ -77,5 +77,6 @@
     "instagram": "instagram",
     "association_email": "بريد الإلكتروني خاص بالجمعية",
     "landline": "landline",
-    "phones": "phones"
+    "phones": "phones",
+    "showing_results": "Showing :from to :to of :total entries"
 }

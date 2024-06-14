@@ -4,6 +4,7 @@ create table if not exists families
     "name"        text                           not null,
     "report"      text                           not null,
     "zone_id"     uuid                           not null,
+    "address"     text                           not null,
     "file_number" integer                        not null,
     "start_date"  date                           not null,
     "tenant_id"   text                           not null references "tenants" ("id") on delete cascade on update cascade,
