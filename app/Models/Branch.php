@@ -2,11 +2,39 @@
 
 namespace App\Models;
 
+use Database\Factories\BranchFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property string $id
+ * @property string $tenant_id
+ * @property int $city_id
+ * @property string $president_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ *
+ * @method static BranchFactory factory($count = null, $state = [])
+ * @method static Builder|Branch newModelQuery()
+ * @method static Builder|Branch newQuery()
+ * @method static Builder|Branch onlyTrashed()
+ * @method static Builder|Branch query()
+ * @method static Builder|Branch whereCityId($value)
+ * @method static Builder|Branch whereCreatedAt($value)
+ * @method static Builder|Branch whereId($value)
+ * @method static Builder|Branch wherePresidentId($value)
+ * @method static Builder|Branch whereTenantId($value)
+ * @method static Builder|Branch whereUpdatedAt($value)
+ * @method static Builder|Branch withTrashed()
+ * @method static Builder|Branch withoutTrashed()
+ *
+ * @mixin Eloquent
+ */
 class Branch extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;

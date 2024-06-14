@@ -1304,6 +1304,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param  string  $id  Identifier of the entry to look for.
          * @return bool
+         * @return bool
          *
          * @static
          */

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Families\FamiliesIndexResource;
 use App\Models\Family;
+use Auth;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -37,8 +37,7 @@ class FamiliesIndexController extends Controller
 
     private function search(string $search, ?array $directions, int $perPage): LengthAwarePaginator
     {
-        return Family::search($search, static function ($meilisearch, string $query, array $options) use ($directions) {
-
+        $families = Family::search($search, static function ($meilisearch, string $query, array $options) use ($directions) {
             if ($directions) {
                 $formattedSort = array_map(static function ($value, $key) {
                     $searchableFields = ['name', 'name', 'file_number', 'created_at', 'start_date'];
@@ -55,8 +54,12 @@ class FamiliesIndexController extends Controller
             }
 
             return $meilisearch->search($query, $options);
-        })
-            ->query(fn (Builder $query) => $query->whereHas('zone'))
-            ->paginate(perPage: $perPage);
+        });
+
+        if (! Auth::user()?->hasRole(['president', 'vice_president'])) {
+            $families->where('zone_id', Auth::user()->zone_id);
+        }
+
+        return $families->paginate(perPage: $perPage);
     }
 }

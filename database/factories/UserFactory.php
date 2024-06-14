@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -26,6 +27,7 @@ class UserFactory extends Factory
             'last_name' => fake('ar_SA')->lastName,
             'phone' => fake()->regexify('(06|07|05)[0-9]{8}'),
             'email' => fake()->unique()->safeEmail,
+            'zone_id' => Zone::inRandomOrder()->first()?->id,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

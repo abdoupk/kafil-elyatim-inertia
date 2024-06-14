@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('first_name')->nullable(false);
             $table->text('last_name')->nullable(false);
             $table->text('phone')->nullable(false);
+            $table->text('zone_id')->nullable(false);
             $table->text('email')->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->text('password')->nullable(false);

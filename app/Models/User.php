@@ -54,15 +54,19 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User whereTenantId($value)
  * @method static Builder|User whereUpdatedAt($value)
  *
- * @property-read Collection<int, \App\Models\Permission> $permissions
+ * @property-read Collection<int, Permission> $permissions
  * @property-read int|null $permissions_count
- * @property-read Collection<int, \App\Models\Role> $roles
+ * @property-read Collection<int, Role> $roles
  * @property-read int|null $roles_count
  *
  * @method static Builder|User permission($permissions, $without = false)
  * @method static Builder|User role($roles, $guard = null, $without = false)
  * @method static Builder|User withoutPermission($permissions)
  * @method static Builder|User withoutRole($roles, $guard = null)
+ *
+ * @property string|null $zone_id
+ *
+ * @method static Builder|User whereZoneId($value)
  *
  * @mixin Eloquent
  */

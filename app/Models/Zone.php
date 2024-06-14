@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\ZoneFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,14 +13,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $id
  * @property string $name
  *
- * @method static \Database\Factories\ZoneFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Zone newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Zone newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Zone query()
- * @method static \Illuminate\Database\Eloquent\Builder|Zone whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Zone whereName($value)
+ * @method static ZoneFactory factory($count = null, $state = [])
+ * @method static Builder|Zone newModelQuery()
+ * @method static Builder|Zone newQuery()
+ * @method static Builder|Zone query()
+ * @method static Builder|Zone whereId($value)
+ * @method static Builder|Zone whereName($value)
  *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Zone extends Model
 {

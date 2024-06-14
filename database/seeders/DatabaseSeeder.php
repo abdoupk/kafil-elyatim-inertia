@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CitySeeder::class);
 
+        $this->call(ZoneSeeder::class);
+
         $this->call(TenantSeeder::class);
 
         $this->call(IncomeSeeder::class);
@@ -21,8 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FurnishingSeeder::class);
 
         $this->call(HousingSeeder::class);
-
-        $this->call(ZoneSeeder::class);
 
         $this->call(FamilySeeder::class);
 

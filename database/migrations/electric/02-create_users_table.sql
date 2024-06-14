@@ -5,6 +5,7 @@ create table if not exists "users"
     "last_name"         text                           not null,
     "phone"             text                           not null,
     "email"             text                           not null,
+    "zone_id"           text                           null,
     "email_verified_at" timestamp(0) without time zone null,
     "password"          text                           not null,
     "remember_token"    text                           null,

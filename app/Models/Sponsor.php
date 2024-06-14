@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\SponsorFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -64,12 +66,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $file_number
  * @property string $birth_certificate_number
  * @property string|null $card_number
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Income> $incomes
+ * @property-read Collection<int, Income> $incomes
  * @property-read int|null $incomes_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SponsorSponsorship> $sponsorships
+ * @property-read Collection<int, SponsorSponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
  *
- * @method static \Database\Factories\SponsorFactory factory($count = null, $state = [])
+ * @method static SponsorFactory factory($count = null, $state = [])
  * @method static Builder|Sponsor whereBirthCertificateNumber($value)
  * @method static Builder|Sponsor whereCardNumber($value)
  * @method static Builder|Sponsor whereFileNumber($value)

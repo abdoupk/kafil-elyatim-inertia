@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Database\Factories\FamilyFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,18 +33,29 @@ use Laravel\Scout\Searchable;
  * @method static Builder|Family whereTenantId($value)
  * @method static Builder|Family whereUpdatedAt($value)
  *
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Furnishing> $furnishings
+ * @property-read Collection<int, Furnishing> $furnishings
  * @property-read int|null $furnishings_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Orphan> $orphans
+ * @property-read Collection<int, Orphan> $orphans
  * @property-read int|null $orphans_count
- * @property-read \App\Models\SecondSponsor|null $secondSponsor
- * @property-read \App\Models\Sponsor|null $sponsor
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\FamilySponsorship> $sponsorships
+ * @property-read SecondSponsor|null $secondSponsor
+ * @property-read Sponsor|null $sponsor
+ * @property-read Collection<int, FamilySponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
- * @property-read \App\Models\Spouse|null $spouse
- * @property-read \App\Models\Tenant $tenant
+ * @property-read Spouse|null $spouse
+ * @property-read Tenant $tenant
  *
- * @method static \Database\Factories\FamilyFactory factory($count = null, $state = [])
+ * @method static FamilyFactory factory($count = null, $state = [])
+ *
+ * @property string $zone_id
+ * @property string $address
+ * @property int $file_number
+ * @property string $start_date
+ * @property-read Zone|null $zone
+ *
+ * @method static Builder|Family whereAddress($value)
+ * @method static Builder|Family whereFileNumber($value)
+ * @method static Builder|Family whereStartDate($value)
+ * @method static Builder|Family whereZoneId($value)
  *
  * @mixin Eloquent
  */
@@ -106,6 +119,7 @@ class Family extends Model
             'start_date' => $this->start_date,
             'file_number' => $this->file_number,
             'zone' => $this->zone->name,
+            'zone_id' => $this->zone->id,
             'report' => $this->report,
         ];
     }

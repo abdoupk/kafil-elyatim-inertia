@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\SecondSponsorFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -37,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|SecondSponsor wherePhoneNumber($value)
  * @method static Builder|SecondSponsor whereTenantId($value)
  * @method static Builder|SecondSponsor whereUpdatedAt($value)
- * @method static \Database\Factories\SecondSponsorFactory factory($count = null, $state = [])
+ * @method static SecondSponsorFactory factory($count = null, $state = [])
  *
  * @mixin Eloquent
  */

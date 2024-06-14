@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\SpouseFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -37,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  *
  * @method static Builder|Spouse whereId($value)
- * @method static \Database\Factories\SpouseFactory factory($count = null, $state = [])
+ * @method static SpouseFactory factory($count = null, $state = [])
  *
  * @mixin Eloquent
  */

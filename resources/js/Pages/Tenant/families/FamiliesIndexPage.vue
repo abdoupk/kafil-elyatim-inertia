@@ -14,12 +14,12 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import type { PaginationData } from '@/types/types'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 import ThePagination from '@/Components/pagination/ThePagination.vue'
 import { debounce } from '@/utils/helper'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 
 defineOptions({
     layout: TheLayout
@@ -158,9 +158,9 @@ watch(
                 <span v-if="families.meta.total > 0">
                     {{
                         __('showing_results', {
-                            from: families.meta.from.toString(),
-                            to: families.meta.to.toString(),
-                            total: families.meta.total.toString()
+                            from: families.meta.from?.toString(),
+                            to: families.meta.to?.toString(),
+                            total: families.meta.total?.toString()
                         })
                     }}
                 </span>

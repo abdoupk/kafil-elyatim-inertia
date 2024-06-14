@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\OrphanFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -52,8 +53,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Orphan whereTenantId($value)
  * @method static Builder|Orphan whereUpdatedAt($value)
  *
- * @property-read \App\Models\Family $family
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrphanSponsorship> $sponsorships
+ * @property-read Family $family
+ * @property-read Collection<int, OrphanSponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
  *
  * @mixin Eloquent

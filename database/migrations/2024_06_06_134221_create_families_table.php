@@ -12,6 +12,7 @@ return new class extends Migration
             $table->uuid('id')->primary()->index();
             $table->text('name')->nullable(false);
             $table->text('report')->nullable(false);
+            $table->text('zone_id')->nullable(false);
             $table->text('tenant_id')->nullable(false);
 
             $table->timestamp('created_at')->nullable();
