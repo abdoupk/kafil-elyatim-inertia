@@ -19,6 +19,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 import ThePagination from '@/Components/pagination/ThePagination.vue'
 import { debounce } from '@/utils/helper'
+import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 
 defineOptions({
     layout: TheLayout
@@ -67,7 +68,6 @@ const setDeleteConfirmationModal = (val: boolean) => {
 
 const getData = () => {
     if (filters.value?.search === '') delete filters.value?.search
-
 
     router.get(route('tenant.families.index'), filters.value, { preserveState: true, preserveScroll: true })
 }
@@ -194,9 +194,8 @@ watch(
                         >
                             {{ __('family') }}
                         </base-th-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start">{{
-                                __('validation.attributes.address')
-                            }}
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start"
+                            >{{ __('validation.attributes.address') }}
                         </base-th-table>
                         <base-th-table
                             class="whitespace-nowrap border-b-0 text-center"
@@ -216,8 +215,7 @@ watch(
                         </base-th-table>
                         <base-th-table class="whitespace-nowrap border-b-0 text-center">
                             {{ __('actions') }}
-                        </base-th-table
-                        >
+                        </base-th-table>
                     </base-tr-table>
                 </base-thead-table>
                 <base-tbody-table>
@@ -306,8 +304,7 @@ watch(
         </div>
     </template>
 
-    <div v-else class="intro-x mt-12 flex items-center justify-center">
-        no data
-        <svg-loader name="no-data-astro"></svg-loader>
+    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
+        <no-results-found></no-results-found>
     </div>
 </template>
