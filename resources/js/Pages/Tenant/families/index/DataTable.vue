@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { FamiliesIndexFilters, FamilyIndexResource, PaginationData } from '@/types/types'
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
@@ -6,6 +7,14 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+const setDeleteConfirmationModal = (val: boolean) => {
+    console.log(val)
+}
+
+defineProps<{ families: PaginationData<FamilyIndexResource>; filters: FamiliesIndexFilters }>()
+
+const emit = defineEmits(['sort'])
 </script>
 
 <template>
@@ -16,7 +25,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
                     <base-th-table class="whitespace-nowrap border-b-0 text-start"> #</base-th-table>
                     <base-th-table
                         sortable
-                        @click="sort('name')"
+                        @click="emit('sort', 'name')"
                         :direction="filters.directions?.name"
                         class="whitespace-nowrap border-b-0 text-start"
                     >
@@ -29,7 +38,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
                         class="whitespace-nowrap border-b-0 text-center"
                         sortable
                         :direction="filters.directions?.file_number"
-                        @click="sort('file_number')"
+                        @click="emit('sort', 'file_number')"
                     >
                         {{ __('file_number') }}
                     </base-th-table>
@@ -37,7 +46,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
                         class="whitespace-nowrap border-b-0 text-center"
                         sortable
                         :direction="filters.directions?.start_date"
-                        @click="sort('start_date')"
+                        @click="emit('sort', 'start_date')"
                     >
                         {{ __('starting_sponsorship_date') }}
                     </base-th-table>

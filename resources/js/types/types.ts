@@ -153,3 +153,27 @@ export interface PaginationData<T> {
         active: boolean
     }>
 }
+
+interface Zone {
+    id: string
+    name: string
+}
+
+export interface FamilyIndexResource {
+    id: string
+    name: string
+    start_date: Date
+    file_number: number
+    zone: Zone
+    address: string
+}
+
+export interface FamiliesIndexFilters {
+    perPage: number
+    search?: string
+    page: number
+    fields?: string[]
+    directions?: {
+        [key: string]: 'asc' | 'desc'
+    }
+}
