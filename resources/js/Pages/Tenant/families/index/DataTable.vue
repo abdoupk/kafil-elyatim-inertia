@@ -29,7 +29,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         {{ __('family') }}
                     </base-th-table>
                     <base-th-table class="whitespace-nowrap border-b-0 text-start"
-                    >{{ __('validation.attributes.address') }}
+                        >{{ __('validation.attributes.address') }}
                     </base-th-table>
                     <base-th-table
                         class="whitespace-nowrap border-b-0 text-center"
@@ -62,18 +62,17 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                     <base-td-table
                         class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
-                        <a href="" class="whitespace-nowrap font-medium">
+                        <Link :href="route('tenant.families.show', family.id)" class="whitespace-nowrap font-medium">
                             {{ family.name }}
-                        </a>
+                        </Link>
                     </base-td-table>
                     <base-td-table
                         class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
                         {{ family.address }}
                         <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
-                        <Link href="#"
-                              class="block mt-0.5 whitespace-nowrap text-xs text-slate-500">
-                            {{ family.zone.name }}
+                        <Link href="#" class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
+                            {{ family.zone?.name }}
                         </Link>
                     </base-td-table>
                     <base-td-table

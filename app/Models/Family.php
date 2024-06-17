@@ -58,6 +58,13 @@ use Laravel\Scout\Searchable;
  * @method static Builder|Family whereStartDate($value)
  * @method static Builder|Family whereZoneId($value)
  *
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
+ * @method static Builder|Family onlyTrashed()
+ * @method static Builder|Family whereDeletedAt($value)
+ * @method static Builder|Family withTrashed()
+ * @method static Builder|Family withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Family extends Model

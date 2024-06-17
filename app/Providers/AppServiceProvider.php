@@ -60,8 +60,10 @@ class AppServiceProvider extends ServiceProvider
 
             $class = get_class($model);
 
+            /* @phpstan-ignore-next-line */
             ray()->notify("Attempted to lazy load [{$relation}] on model [{$class}].");
-
         });
+
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
 }

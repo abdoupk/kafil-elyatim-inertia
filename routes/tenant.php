@@ -8,6 +8,7 @@ use App\Http\Controllers\V1\Families\FamiliesIndexController;
 use App\Http\Controllers\V1\Families\FamilyCreateController;
 use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
+use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Permissions\PermissionsIndexController;
@@ -57,6 +58,9 @@ Route::middleware([
 
                 Route::get('edit/{family}', FamilyEditController::class)
                     ->name('edit');
+
+                Route::get('show/{family}', FamilyShowController::class)
+                    ->name('show');
 
                 Route::delete('{family}', FamilyDeleteController::class)
                     ->name('destroy');
