@@ -27,7 +27,7 @@ const computedClass = computed(() =>
 </script>
 
 <template>
-    <li class="flex-1 sm:flex-initial">
+    <li class="flex-1">
         <base-button :as="as" :class="computedClass" v-bind="attrs.attrs">
             <slot></slot>
         </base-button>

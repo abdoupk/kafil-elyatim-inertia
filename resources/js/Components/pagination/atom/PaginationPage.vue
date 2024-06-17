@@ -20,13 +20,11 @@ function clickHandler() {
 </script>
 
 <template>
-    <li>
-        <base-pagination-link v-if="page === null">
-            <svg-loader class="h-5 w-5 p-1" name="icon-pagination-dots"></svg-loader>
-        </base-pagination-link>
-        <!-- TODO: Translate Label   -->
-        <base-pagination-link v-else :active="isActive" :aria-label="`Go to page ${page}`" @click="clickHandler">
-            {{ page }}
-        </base-pagination-link>
-    </li>
+    <base-pagination-link v-if="page === null">
+        <svg-loader class="h-5 w-5 p-1" name="icon-pagination-dots"></svg-loader>
+    </base-pagination-link>
+    <!-- TODO: Translate Label   -->
+    <base-pagination-link v-else :active="isActive" :aria-label="`Go to page ${page}`" @click="clickHandler">
+        {{ page }}
+    </base-pagination-link>
 </template>
