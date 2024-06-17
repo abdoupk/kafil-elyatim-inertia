@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
 /**
@@ -61,9 +62,7 @@ use Laravel\Scout\Searchable;
  */
 class Family extends Model
 {
-    use HasFactory, HasUuids, Searchable;
-
-    public $timestamps = false;
+    use HasFactory, HasUuids, Searchable, SoftDeletes;
 
     public function tenant(): BelongsTo
     {
@@ -118,8 +117,11 @@ class Family extends Model
             'created_at' => $this->created_at,
             'start_date' => $this->start_date,
             'file_number' => $this->file_number,
-            'zone' => $this->zone->name,
-            'zone_id' => $this->zone->id,
+            'address' => [
+                $this->address,
+                $this->zone->name,
+                $this->zone->id,
+            ],
             'report' => $this->report,
         ];
     }

@@ -9,6 +9,7 @@ import BaseMenuButton from '@/Components/Base/headless/Menu/BaseMenuButton.vue'
 import BaseMenuItem from '@/Components/Base/headless/Menu/BaseMenuItem.vue'
 import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
+import DeleteFamilyModal from '@/Pages/Tenant/families/index/DeleteFamilyModal.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import PaginationDataTable from '@/Pages/Tenant/families/index/PaginationDataTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
@@ -24,10 +25,16 @@ const props = defineProps<{
     filters: FamiliesIndexFilters
 }>()
 
+const closeDeleteModal = () => {
+    deleteModalStatus.value = false
+
+    selectedFamilyId.value = ''
+}
+
 const filters = reactive<FamiliesIndexFilters>({
     perPage: props.filters.perPage,
     page: props.filters.page,
-    directions: { name: 'desc' },
+    directions: { name: 'asc' },
     fields: props.filters.fields
 })
 
@@ -70,7 +77,31 @@ const sort = (field: string) => {
     getData()
 }
 
+const deleteModalStatus = ref<boolean>(false)
+
+const selectedFamilyId = ref<string>('')
+
+const deleteFamily = () => {
+    router.delete(route('tenant.families.destroy', selectedFamilyId.value), {
+        onSuccess: () => {
+            closeDeleteModal()
+
+            if (props.families.meta.last_page < filters.page) {
+                filters.page = filters.page - 1
+            }
+        }
+    })
+}
+
+const showDeleteModal = (familyId: string) => {
+    selectedFamilyId.value = familyId
+
+    deleteModalStatus.value = true
+}
+
 const search = ref(props.filters.search)
+
+console.log(props.filters.directions, filters.directions)
 
 watch(
     search,
@@ -114,26 +145,26 @@ watch(
                 class="me-2 shadow-md"
                 @click.prevent="router.get(route('tenant.families.create'))"
             >
-                {{ __('create new family') }}
+                {{ __('add new family') }}
             </base-button>
             <base-menu>
                 <base-menu-button :as="BaseButton" class="!box px-2">
                     <span class="flex h-5 w-5 items-center justify-center">
-                        <svg-loader name="icon-plus" class="h-4 w-4" />
+                        <svg-loader name="icon-plus" class="h-4 w-4 fill-current" />
                     </span>
                 </base-menu-button>
-                <base-menu-items class="w-40">
+                <base-menu-items class="w-44" placement="bottom-start">
                     <base-menu-item>
-                        <svg-loader name="icon-print" class="me-2 h-4 w-4" />
+                        <svg-loader name="icon-print" class="me-2 h-4 w-4 fill-current" />
                         {{ __('print') }}
                     </base-menu-item>
                     <base-menu-item>
-                        <svg-loader name="icon-file-excel" class="me-2 h-4 w-4" />
-                        {{ __('export to excel') }}
+                        <svg-loader name="icon-file-excel" class="me-2 h-4 w-4 fill-current" />
+                        {{ __('export', { type: 'excel' }) }}
                     </base-menu-item>
                     <base-menu-item>
-                        <svg-loader name="icon-file-pdf" class="me-2 h-4 w-4" />
-                        {{ __('export to pdf') }}
+                        <svg-loader name="icon-file-pdf" class="me-2 h-4 w-4 fill-current" />
+                        {{ __('export', { type: 'pdf' }) }}
                     </base-menu-item>
                 </base-menu-items>
             </base-menu>
@@ -143,7 +174,8 @@ watch(
                         __('showing_results', {
                             from: families.meta.from?.toString(),
                             to: families.meta.to?.toString(),
-                            total: families.meta.total?.toString()
+                            total: families.meta.total?.toString(),
+                            entries: __('family')
                         })
                     }}
                 </span>
@@ -164,7 +196,7 @@ watch(
     </div>
 
     <template v-if="families.data.length > 0">
-        <data-table :filters :families @sort="sort($event)"></data-table>
+        <data-table :filters :families @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
 
         <pagination-data-table
             :pages="families.meta.last_page"
@@ -176,4 +208,10 @@ watch(
     <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
         <no-results-found></no-results-found>
     </div>
+
+    <delete-family-modal
+        :open="deleteModalStatus"
+        @close="closeDeleteModal"
+        @delete="deleteFamily"
+    ></delete-family-modal>
 </template>

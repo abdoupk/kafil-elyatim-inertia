@@ -22,6 +22,6 @@ const svg = defineAsyncComponent(() => import(`../../svg/${props.name}.svg`))
 <template>
     <component
         :is="svg"
-        :class="twMerge(['h-5 w-5 fill-current stroke-1.5', typeof attrs.class === 'string' && attrs.class])"
+        :class="twMerge(['h-5 w-5 stroke-1.5', typeof attrs.class === 'string' && attrs.class])"
     ></component>
 </template>

@@ -6,6 +6,8 @@ use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Dashboard\DashboardController;
 use App\Http\Controllers\V1\Families\FamiliesIndexController;
 use App\Http\Controllers\V1\Families\FamilyCreateController;
+use App\Http\Controllers\V1\Families\FamilyDeleteController;
+use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Permissions\PermissionsIndexController;
@@ -46,11 +48,19 @@ Route::middleware([
             Route::get('', DashboardController::class)
                 ->name('dashboard');
 
-            Route::get('families', FamiliesIndexController::class)
-                ->name('families.index');
+            Route::prefix('families')->name('families.')->group(function () {
+                Route::get('', FamiliesIndexController::class)
+                    ->name('index');
 
-            Route::get('families/create', FamilyCreateController::class)
-                ->name('families.create');
+                Route::get('/create', FamilyCreateController::class)
+                    ->name('create');
+
+                Route::get('edit/{family}', FamilyEditController::class)
+                    ->name('edit');
+
+                Route::delete('{family}', FamilyDeleteController::class)
+                    ->name('destroy');
+            });
 
             Route::get('orphans', OrphansIndexController::class)
                 ->name('orphans.index');

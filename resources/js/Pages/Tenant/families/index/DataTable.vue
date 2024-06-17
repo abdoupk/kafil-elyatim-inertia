@@ -6,15 +6,12 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import { Link } from '@inertiajs/vue3'
 import SvgLoader from '@/Components/SvgLoader.vue'
-
-const setDeleteConfirmationModal = (val: boolean) => {
-    console.log(val)
-}
 
 defineProps<{ families: PaginationData<FamilyIndexResource>; filters: FamiliesIndexFilters }>()
 
-const emit = defineEmits(['sort'])
+const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
 
 <template>
@@ -32,7 +29,7 @@ const emit = defineEmits(['sort'])
                         {{ __('family') }}
                     </base-th-table>
                     <base-th-table class="whitespace-nowrap border-b-0 text-start"
-                        >{{ __('validation.attributes.address') }}
+                    >{{ __('validation.attributes.address') }}
                     </base-th-table>
                     <base-th-table
                         class="whitespace-nowrap border-b-0 text-center"
@@ -73,9 +70,11 @@ const emit = defineEmits(['sort'])
                         class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
                         {{ family.address }}
-                        <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
-                            {{ family.zone }}
-                        </div>
+                        <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
+                        <Link href="#"
+                              class="block mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                            {{ family.zone.name }}
+                        </Link>
                     </base-td-table>
                     <base-td-table
                         class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
@@ -99,21 +98,16 @@ const emit = defineEmits(['sort'])
                         class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
                         <div class="flex items-center justify-center">
-                            <a class="me-3 flex items-center" href="#">
-                                <svg-loader name="icon-pen" class="me-1 h-4 w-4" />
+                            <Link class="me-3 flex items-center" :href="route('tenant.families.edit', family.id)">
+                                <svg-loader name="icon-pen" class="me-1 h-4 w-4 fill-current" />
                                 {{ __('edit') }}
-                            </a>
+                            </Link>
                             <a
                                 class="flex items-center text-danger"
-                                href="#"
-                                @click="
-                                    (event) => {
-                                        event.preventDefault()
-                                        setDeleteConfirmationModal(true)
-                                    }
-                                "
+                                href="javascript:void(0)"
+                                @click="emit('showDeleteModal', family.id)"
                             >
-                                <svg-loader name="icon-trash-can" class="me-1 h-4 w-4" />
+                                <svg-loader name="icon-trash-can" class="me-1 h-4 w-4 fill-current" />
                                 {{ __('delete') }}
                             </a>
                         </div>

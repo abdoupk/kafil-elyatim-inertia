@@ -381,5 +381,22 @@
     "association_email": "بريد الإلكتروني خاص بالجمعية",
     "landline": "landline",
     "phones": "phones",
-    "showing_results": "Showing :from to :to of :total entries"
+    "family": "عائلة",
+    "file_number": "رقم الملف",
+    "starting_sponsorship_date": "تاريخ بدء التكفل",
+    "families list": "قائمة العائلات",
+    "print": "طباعة",
+    "export": "تصدير إلى ملف :type",
+    "showing_results": "عرض :from إلى :to من :total :entries",
+    "Are you sure?": "هل أنت متأكد؟",
+    "Do you really want to delete this record?": "هل أنت متأكد من رغبتك في حذف هذا السجل؟",
+    "No results found.": "لم يتم العثور على نتائج.",
+    "This process cannot be undone.": "هذا الأمر لا يمكن التراجع عنه.",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "edit": "تعديل",
+    "actions": "الإجراءات",
+    "add new family": "اضافة عائلة جديدة",
+    "Search...": "بحث...",
+    "Showing 41 to 50 of 70 entries": "عرض 41 إلى 50 من 70 قيود"
 }

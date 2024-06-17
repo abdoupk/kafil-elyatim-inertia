@@ -7,6 +7,7 @@ use App\Http\Resources\V1\Families\FamiliesIndexResource;
 use App\Models\Family;
 use Auth;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,6 +18,9 @@ class FamiliesIndexController extends Controller
     {
         $request->validate([
             'directions.*' => ['in:asc,desc'],
+            'perPage' => ['integer', 'min:10', 'in:10,25,35,50'],
+            'page' => ['integer', 'min:1'],
+            'search' => ['string', 'max:255'],
         ]);
 
         $families = $this->search(
@@ -37,7 +41,7 @@ class FamiliesIndexController extends Controller
 
     private function search(string $search, ?array $directions, int $perPage): LengthAwarePaginator
     {
-        $families = Family::search($search, static function ($meilisearch, string $query, array $options) use ($directions) {
+        return Family::search($search, static function ($meilisearch, string $query, array $options) use ($directions) {
             if ($directions) {
                 $formattedSort = array_map(static function ($value, $key) {
                     $searchableFields = ['name', 'name', 'file_number', 'created_at', 'start_date'];
@@ -53,13 +57,11 @@ class FamiliesIndexController extends Controller
                 $options['sort'] = ['name:desc'];
             }
 
+            if (! Auth::user()?->hasRole(['president', 'vice_president'])) {
+                $options['filter'] = ['zone_id = '.Auth::user()?->zone_id];
+            }
+
             return $meilisearch->search($query, $options);
-        });
-
-        if (! Auth::user()?->hasRole(['president', 'vice_president'])) {
-            $families->where('zone_id', Auth::user()->zone_id);
-        }
-
-        return $families->paginate(perPage: $perPage);
+        })->query(fn (Builder $query) => $query->with('zone'))->paginate(perPage: $perPage);
     }
 }

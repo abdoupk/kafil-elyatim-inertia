@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\PersonalAccessToken;
 use Gate;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -51,6 +52,16 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::before(static function ($user, $ability) {
             return $user->hasRole('president') ? true : null;
+        });
+
+        Model::preventLazyLoading(! $this->app->isProduction());
+
+        Model::handleLazyLoadingViolationUsing(static function ($model, $relation): void {
+
+            $class = get_class($model);
+
+            ray()->notify("Attempted to lazy load [{$relation}] on model [{$class}].");
+
         });
     }
 }
