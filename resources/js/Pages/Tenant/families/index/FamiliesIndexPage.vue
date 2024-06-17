@@ -25,22 +25,32 @@ const props = defineProps<{
     filters: FamiliesIndexFilters
 }>()
 
-const closeDeleteModal = () => {
-    deleteModalStatus.value = false
-
-    selectedFamilyId.value = ''
-}
-
 const filters = reactive<FamiliesIndexFilters>({
     perPage: props.filters.perPage,
     page: props.filters.page,
-    directions: { name: 'asc' },
+    directions: props.filters.directions,
     fields: props.filters.fields
 })
+
+const search = ref(props.filters.search)
+
+const deleteModalStatus = ref<boolean>(false)
+
+const deleteProgress = ref<boolean>(false)
+
+const selectedFamilyId = ref<string>('')
 
 let routerOptions = {
     preserveState: true,
     preserveScroll: true
+}
+
+const closeDeleteModal = () => {
+    deleteModalStatus.value = false
+
+    selectedFamilyId.value = ''
+
+    deleteProgress.value = false
 }
 
 const getData = () => {
@@ -49,6 +59,10 @@ const getData = () => {
     if (search.value !== '') {
         data.search = search.value
     }
+
+    Object.keys(data).forEach((key) => {
+        if (!data[key as keyof FamiliesIndexFilters]) delete data[key as keyof FamiliesIndexFilters]
+    })
 
     router.get(route('tenant.families.index'), data, routerOptions)
 }
@@ -77,18 +91,18 @@ const sort = (field: string) => {
     getData()
 }
 
-const deleteModalStatus = ref<boolean>(false)
-
-const selectedFamilyId = ref<string>('')
-
 const deleteFamily = () => {
     router.delete(route('tenant.families.destroy', selectedFamilyId.value), {
+        preserveScroll: true,
+        onStart: () => {
+            deleteProgress.value = true
+        },
         onSuccess: () => {
-            closeDeleteModal()
-
             if (props.families.meta.last_page < filters.page) {
                 filters.page = filters.page - 1
             }
+
+            closeDeleteModal()
         }
     })
 }
@@ -98,10 +112,6 @@ const showDeleteModal = (familyId: string) => {
 
     deleteModalStatus.value = true
 }
-
-const search = ref(props.filters.search)
-
-console.log(props.filters.directions, filters.directions)
 
 watch(
     search,
@@ -211,6 +221,7 @@ watch(
 
     <delete-family-modal
         :open="deleteModalStatus"
+        :deleteProgress
         @close="closeDeleteModal"
         @delete="deleteFamily"
     ></delete-family-modal>

@@ -35,6 +35,8 @@ class FamiliesIndexController extends Controller
                 'page' => (int) $request->get('page', 1),
                 'search' => $request->input('search') ?? '',
                 'perPage' => $request->input('perPage', 10),
+                'fields' => $request->input('fields'),
+                'directions' => $request->input('directions'),
             ],
         ]);
     }
