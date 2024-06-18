@@ -132,4 +132,11 @@ class Family extends Model
             'report' => $this->report,
         ];
     }
+
+    protected function casts(): array
+    {
+        return [
+            'start_date' => 'date',
+        ];
+    }
 }

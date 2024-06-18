@@ -15,24 +15,24 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
 
 <template>
-    <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+    <div class="intro-y col-span-12 hidden overflow-auto md:block lg:overflow-visible">
         <base-table class="mt-2 border-separate border-spacing-y-[10px]">
             <base-thead-table>
                 <base-tr-table>
-                    <base-th-table class="whitespace-nowrap border-b-0 text-start"> #</base-th-table>
+                    <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
                     <base-th-table
                         sortable
                         @click="emit('sort', 'name')"
                         :direction="filters.directions?.name"
-                        class="whitespace-nowrap border-b-0 text-start"
+                        class="whitespace-nowrap border-b-0 text-start font-semibold"
                     >
-                        {{ __('family') }}
+                        {{ __('the_family') }}
                     </base-th-table>
-                    <base-th-table class="whitespace-nowrap border-b-0 text-start"
+                    <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
                         >{{ __('validation.attributes.address') }}
                     </base-th-table>
                     <base-th-table
-                        class="whitespace-nowrap border-b-0 text-center"
+                        class="whitespace-nowrap border-b-0 text-center font-semibold"
                         sortable
                         :direction="filters.directions?.file_number"
                         @click="emit('sort', 'file_number')"
@@ -40,14 +40,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         {{ __('file_number') }}
                     </base-th-table>
                     <base-th-table
-                        class="whitespace-nowrap border-b-0 text-center"
+                        class="whitespace-nowrap border-b-0 text-center font-semibold"
                         sortable
                         :direction="filters.directions?.start_date"
                         @click="emit('sort', 'start_date')"
                     >
                         {{ __('starting_sponsorship_date') }}
                     </base-th-table>
-                    <base-th-table class="whitespace-nowrap border-b-0 text-center">
+                    <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
                         {{ __('actions') }}
                     </base-th-table>
                 </base-tr-table>
@@ -55,19 +55,19 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
             <base-tbody-table>
                 <base-tr-table class="intro-x" v-for="(family, index) in families.data" :key="family.id">
                     <base-td-table
-                        class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
                         {{ (families.meta.from ?? 0) + index }}
                     </base-td-table>
                     <base-td-table
-                        class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
-                        <Link :href="route('tenant.families.show', family.id)" class="whitespace-nowrap font-medium">
+                        <Link :href="route('tenant.families.show', family.id)" class="font-medium">
                             {{ family.name }}
                         </Link>
                     </base-td-table>
                     <base-td-table
-                        class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
                         {{ family.address }}
                         <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
@@ -83,13 +83,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                     <base-td-table
                         class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                     >
-                        <div
-                            :class="[
-                                'flex items-center justify-center',
-                                { 'text-success': true },
-                                { 'text-danger': false }
-                            ]"
-                        >
+                        <div class="whitespace-nowrap">
                             {{ family.start_date }}
                         </div>
                     </base-td-table>
@@ -114,5 +108,49 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 </base-tr-table>
             </base-tbody-table>
         </base-table>
+    </div>
+
+    <div class="col-span-12 my-8 grid grid-cols-12 gap-4 md:hidden">
+        <div class="intro-y col-span-12 sm:col-span-6" v-for="family in families.data" :key="family.id">
+            <div class="box p-5">
+                <div class="flex">
+                    <div class="me-3 truncate text-lg font-medium">
+                        {{ family.name }}
+                    </div>
+                    <div
+                        class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
+                    >
+                        {{ family.file_number }}
+                    </div>
+                </div>
+                <div class="mt-6 flex">
+                    <div class="w-3/4">
+                        <p class="truncate">{{ family.address }}</p>
+                        <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                            {{ family.zone?.name }}
+                        </div>
+                        <div
+                            class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                        >
+                            {{ family.start_date }}
+                        </div>
+                    </div>
+                    <div class="flex w-1/4 items-center justify-end">
+                        <Link
+                            :href="route('tenant.families.show', family.id)"
+                            class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                            >{{ __('edit') }}
+                        </Link>
+                        <a
+                            href="javascript:void(0)"
+                            class="font-semibold text-danger"
+                            @click="emit('showDeleteModal', family.id)"
+                        >
+                            {{ __('delete') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>

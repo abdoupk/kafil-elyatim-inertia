@@ -53,6 +53,7 @@ export interface ISettingState {
 }
 
 export type SVGType =
+    | 'icon-hands-holding-child'
     | 'icon-file-pdf'
     | 'icon-pen'
     | 'icon-file-excel'
