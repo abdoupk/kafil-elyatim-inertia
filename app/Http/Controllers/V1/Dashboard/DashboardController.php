@@ -26,11 +26,12 @@ class DashboardController extends Controller
 
     public function get($table, $currentMonth, $currentYear, $previousMonth, $previousYear): array
     {
+        /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
         $result = DB::table($table)
             ->selectRaw("
-             (SELECT COUNT(*) FROM $table where (tenant_id = ?) and deleted_at is null) AS total_count,
-        (SELECT COUNT(*) FROM $table WHERE EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ? AND (tenant_id = ?))  AS current_month_count,
-        (SELECT COUNT(*) FROM $table WHERE EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ? AND (tenant_id = ?))  AS previous_month_count
+             (SELECT COUNT(*) FROM {$table} where (tenant_id = ?) and deleted_at is null) AS total_count,
+        (SELECT COUNT(*) FROM {$table} WHERE EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ? AND (tenant_id = ?))  AS current_month_count,
+        (SELECT COUNT(*) FROM {$table} WHERE EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ? AND (tenant_id = ?))  AS previous_month_count
     ", [auth()->user()->tenant_id, $currentMonth, $currentYear, auth()->user()->tenant_id, $previousMonth, $previousYear, auth()->user()->tenant_id])
             ->first();
 

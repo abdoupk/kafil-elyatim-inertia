@@ -47,7 +47,8 @@ class AppServiceProvider extends ServiceProvider
             // Remove hyphens before digits
             $domain = preg_replace('/-(?=\d+)/', '', (string) $domain);
 
-            return trim((string) $domain, '-').'.'.config('tenancy.central_domains')[0];
+            return trim((string) $domain, '-').
+                '.'.config('tenancy.central_domains')[0];
         });
 
         Gate::before(static function ($user, $ability) {
@@ -56,13 +57,16 @@ class AppServiceProvider extends ServiceProvider
 
         Model::preventLazyLoading(! $this->app->isProduction());
 
-        Model::handleLazyLoadingViolationUsing(static function ($model, $relation): void {
+        Model::handleLazyLoadingViolationUsing(
+            static function ($model, $relation): void {
+                $class = get_class($model);
 
-            $class = get_class($model);
-
-            /* @phpstan-ignore-next-line */
-            ray()->notify("Attempted to lazy load [{$relation}] on model [{$class}].");
-        });
+                /* @phpstan-ignore-next-line */
+                ray()->notify(
+                    "Attempted to lazy load [{$relation}] on model [{$class}]."
+                );
+            }
+        );
 
         Model::shouldBeStrict(! $this->app->isProduction());
     }

@@ -96,5 +96,4 @@ Route::middleware([
             )->name('login');
         });
     });
-
 });

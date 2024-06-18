@@ -17,6 +17,5 @@ class CommuneController extends Controller
         ])->where('daira_name', '=', $request->daira_name)
             ->where('wilaya_code', '=', $request->wilaya_code)
             ->get());
-
     }
 }

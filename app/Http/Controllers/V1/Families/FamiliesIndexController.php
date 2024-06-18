@@ -23,14 +23,14 @@ class FamiliesIndexController extends Controller
             'search' => ['string', 'max:255'],
         ]);
 
-        $families = $this->search(
-            $request->get('search', ''),
-            $request->input('directions'),
-            $request->get('perPage', 10)
-        );
-
         return Inertia::render('Tenant/families/index/FamiliesIndexPage', [
-            'families' => FamiliesIndexResource::collection($families),
+            'families' => FamiliesIndexResource::collection(
+                $this->search(
+                    $request->get('search', ''),
+                    $request->input('directions'),
+                    $request->get('perPage', 10)
+                )
+            ),
             'filters' => [
                 'page' => (int) $request->get('page', 1),
                 'search' => $request->input('search') ?? '',
