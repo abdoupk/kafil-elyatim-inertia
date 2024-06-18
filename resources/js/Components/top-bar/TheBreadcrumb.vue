@@ -3,6 +3,7 @@ import BaseBreadCrumb from '@/Components/Base/Breadcrumb/BaseBreadcrumb.vue'
 import BaseBreadCrumbLink from '@/Components/Base/Breadcrumb/BaseBreadcrumbLink.vue'
 import { computedEager } from '@vueuse/core'
 import { usePage } from '@inertiajs/vue3'
+import { __ } from '@/utils/i18n'
 
 const { light = false } = defineProps<{ light?: boolean }>()
 
@@ -27,7 +28,7 @@ const breadcrumbs = computedEager(() => {
             breadCrumbs.push({
                 href: resolvedHref,
                 active: path !== pathArray[pathArray.length - 1],
-                text: path.split(/[?#]/)[0]
+                text: __(path.split(/[?#]/)[0])
             })
         } else {
             breadCrumbs[breadCrumbs.length - 1].active = false

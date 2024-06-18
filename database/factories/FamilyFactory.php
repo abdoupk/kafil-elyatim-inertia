@@ -23,8 +23,8 @@ class FamilyFactory extends Factory
             'start_date' => now()->subDays(random_int(100, 1000)),
             'report' => fake('ar_SA')->sentences(3, true),
             'tenant_id' => fake()->uuid,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at' => now()->subDays(random_int(0, 35)),
+            'updated_at' => now()->subDays(random_int(0, 35)),
         ];
     }
 }

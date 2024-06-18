@@ -6,6 +6,18 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 defineOptions({
     layout: TheLayout
 })
+
+interface Stats {
+    total: number
+    percentageDifference: number
+}
+
+defineProps<{
+    members: Stats
+    orphans: Stats
+    branches: Stats
+    families: Stats
+}>()
 </script>
 
 <template>
@@ -17,40 +29,40 @@ defineOptions({
                 <div class="col-span-12 mt-8">
                     <div class="intro-y flex h-10 items-center">
                         <h2 class="me-5 truncate text-lg font-medium">
-                            {{ __('General Report') }}
+                            {{ __('General Reports') }}
                         </h2>
                     </div>
                     <div class="mt-5 grid grid-cols-12 gap-6">
                         <report-box
-                            :stat="45232"
-                            title="hello"
-                            status="down"
+                            :stat="orphans.total"
+                            :title="__('total orphans')"
+                            :percentageDifference="orphans.percentageDifference"
                             icon-color="primary"
-                            icon="icon-gear"
+                            icon="icon-hands-holding-child"
                         ></report-box>
 
                         <report-box
-                            :stat="45232"
-                            title="hello"
-                            status="down"
-                            icon-color="primary"
-                            icon="icon-gear"
+                            :stat="families.total"
+                            :title="__('total families')"
+                            :percentageDifference="families.percentageDifference"
+                            icon-color="dark"
+                            icon="icon-family"
                         ></report-box>
 
                         <report-box
-                            :stat="45232"
-                            title="hello"
-                            status="down"
-                            icon-color="primary"
-                            icon="icon-gear"
+                            :stat="members.total"
+                            :title="__('total members')"
+                            :percentageDifference="members.percentageDifference"
+                            icon-color="pending"
+                            icon="icon-users-gear"
                         ></report-box>
 
                         <report-box
-                            :stat="45232"
-                            title="hello"
-                            status="down"
-                            icon-color="primary"
-                            icon="icon-gear"
+                            :stat="branches.total"
+                            :title="__('total branches')"
+                            :percentageDifference="branches.percentageDifference"
+                            icon-color="success"
+                            icon="icon-circle-nodes"
                         ></report-box>
                     </div>
                 </div>

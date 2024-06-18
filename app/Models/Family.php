@@ -121,6 +121,7 @@ class Family extends Model
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,
             'start_date' => $this->start_date,
             'file_number' => $this->file_number,

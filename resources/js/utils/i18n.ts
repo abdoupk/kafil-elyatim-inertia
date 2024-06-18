@@ -17,7 +17,7 @@ function setLocale(newLocale: LangType) {
     fetchLocale().then()
 }
 
-function __(key: string, replacements: Record<string, string> = {}) {
+export function __(key: string, replacements: Record<string, string> = {}) {
     let translation = langData.value[key] || key
 
     Object.keys(replacements).forEach((replacement) => {

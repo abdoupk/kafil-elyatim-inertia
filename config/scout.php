@@ -144,7 +144,7 @@ return [
                     'proximity',
                     'attribute',
                     'exactness'],
-                'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'zone_id'],
+                'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'zone_id', 'tenant_id'],
                 'sortableAttributes' => ['name', 'file_number', 'created_at', 'start_date'],
             ],
         ],
