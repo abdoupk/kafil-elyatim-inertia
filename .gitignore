@@ -22,4 +22,4 @@ yarn-error.log
 /.nyc_output/
 /tests/cypress/cypress-coverage/
 /tests/cypress/screenshots/
-/storage/tenant261cbdc9-c295-45db-9057-31e772ff8cd4/app/public/
+/storage/
