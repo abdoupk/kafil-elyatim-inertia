@@ -188,6 +188,7 @@ watch(
         <data-table :filters :families @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
 
         <pagination-data-table
+            v-if="families.meta.last_page > 1"
             :pages="families.meta.last_page"
             v-model:page="filters.page"
             v-model:per-page="filters.perPage"

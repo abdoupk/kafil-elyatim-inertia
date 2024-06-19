@@ -49,5 +49,6 @@ function saveFamiliesToPDF(string $search, array $directions = [], int $perPage 
         ->ignoreHttpsErrors()
         ->noSandbox()
         ->format('A4')
+        ->landscape()
         ->save(Storage::disk('public')->path('families/families-'.now()->format('y-m-d').'.pdf'));
 }
