@@ -16,6 +16,10 @@ const associationEmail = defineModel('association_email')
 
 const landline = defineModel('landline')
 
+const ccp = defineModel('ccp')
+
+const cpa = defineModel('cpa')
+
 const links = defineModel('links', { default: associationSocialMediaLinks })
 
 const phones = defineModel('phones', { default: [''] })
@@ -96,6 +100,60 @@ const removePhone = (index: number) => {
                 </base-form-input-error>
             </div>
 
+            <div class="intro-y col-span-12 md:col-span-6">
+                <base-form-label for="ccp">
+                    {{ __('ccp') }}
+                </base-form-label>
+
+                <base-form-input
+                    id="ccp"
+                    type="text"
+                    @keydown="allowOnlyNumbersOnKeyDown"
+                    dir="ltr"
+                    maxlength="12"
+                    v-model="ccp"
+                    :placeholder="
+                        __('auth.placeholders.fill', {
+                            attribute: __('ccp')
+                        })
+                    "
+                    @change="form?.validate('ccp')"
+                ></base-form-input>
+
+                <base-form-input-error>
+                    <div data-test="error_ccp_message" class="mt-2 text-danger" v-if="form?.invalid('ccp')">
+                        {{ form.errors.ccp }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
+            <div class="intro-y col-span-12 md:col-span-6">
+                <base-form-label for="cpa">
+                    {{ __('cpa') }}
+                </base-form-label>
+
+                <base-form-input
+                    id="cpa"
+                    type="text"
+                    @keydown="allowOnlyNumbersOnKeyDown"
+                    dir="ltr"
+                    maxlength="12"
+                    v-model="cpa"
+                    :placeholder="
+                        __('auth.placeholders.fill', {
+                            attribute: __('cpa')
+                        })
+                    "
+                    @change="form?.validate('cpa')"
+                ></base-form-input>
+
+                <base-form-input-error>
+                    <div data-test="error_cpa_message" class="mt-2 text-danger" v-if="form?.invalid('cpa')">
+                        {{ form.errors.cpa }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
             <div class="intro-y col-span-12 md:col-span-10 lg:col-span-8 xl:col-span-6">
                 <base-form-label for="phones[0]">
                     {{ __('phones') }}
@@ -141,19 +199,19 @@ const removePhone = (index: number) => {
                 <base-button
                     type="button"
                     variant="outline-primary"
-                    class="mx-auto mt-3 block w-1/2 border-dashed"
+                    class="mx-auto mt-3 block w-1/2 border-dashed dark:text-slate-500"
                     data-test="add_phone_number"
                     @click="addPhone"
                 >
-                    <svg-loader name="icon-plus" class="inline fill-primary"></svg-loader>
+                    <svg-loader name="icon-plus" class="inline fill-primary dark:fill-slate-500"></svg-loader>
 
                     {{ __('auth.register.stepThree.add_new_phone') }}
                 </base-button>
             </div>
 
             <div class="intro-y col-span-12 md:col-span-10 lg:col-span-8 xl:col-span-7">
-                <div class="font-medium">
-                    {{ __('links') }}
+                <div class="mb-2 text-base">
+                    {{ __('social media links') }}
                 </div>
 
                 <template v-for="link in Object.keys(links)" :key="`link_${link}`">

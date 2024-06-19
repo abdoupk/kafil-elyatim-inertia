@@ -122,6 +122,8 @@ export type RegisterForm = {
     association_email: string
     landline: string
     phones: string[]
+    ccp: string
+    cpa: string
     links: { [key: string]: string }
 }
 
@@ -135,7 +137,7 @@ export type RegisterStepOneProps = 'association' | 'domain' | 'address' | 'city'
 
 export type RegisterStepTwoProps = 'email' | 'first_name' | 'last_name' | 'phone' | 'password_confirmation' | 'password'
 
-export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones' | 'links'
+export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones.0' | 'phones.1' | 'phones.2' | 'links'
 
 export interface PaginationData<T> {
     data: Array<T>

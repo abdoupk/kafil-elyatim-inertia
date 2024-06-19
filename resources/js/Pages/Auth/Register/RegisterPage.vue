@@ -75,9 +75,7 @@ const goTo = async (index: number) => {
                 if (stepOneCompleted.value) currentStep.value = 2
             })
         } else if (index === 3) {
-            await Promise.all([
-                validateStep(registerStepOneErrorProps, stepOneCompleted), validateStep(registerStepTwoErrorProps, stepTwoCompleted)
-            ]).finally(() => {
+            await validateStep(registerStepTwoErrorProps, stepTwoCompleted).finally(() => {
                 if (stepOneCompleted.value && stepTwoCompleted.value) {
                     registerStepThreeErrorProps.forEach((prop) => form.forgetError(prop))
 
@@ -156,6 +154,8 @@ const submit = () => {
                     v-model:landline="form.landline"
                     v-model:links="form.links"
                     v-model:phones="form.phones"
+                    v-model:cpa="form.cpa"
+                    v-model:ccp="form.ccp"
                     :form
                     :currentStep
                     :totalSteps

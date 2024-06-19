@@ -1,3 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TheLayout from '@/Layouts/TheLayout.vue'
 
-<template></template>
+defineOptions({
+    layout: TheLayout
+})
+</script>
+
+<template>
+
+</template>

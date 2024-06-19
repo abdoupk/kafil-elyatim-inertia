@@ -51,6 +51,8 @@ export const registerFormAttributes = {
     password_confirmation: '',
     association_email: '',
     landline: '',
+    cpa: '',
+    ccp: '',
     links: associationSocialMediaLinks,
     phones: ['']
 }
@@ -72,6 +74,13 @@ export const registerStepTwoErrorProps: RegisterStepTwoProps[] = [
 export const registerStepThreeErrorProps: RegisterStepThreeProps[] = [
     'association_email',
     'landline',
-    'phones',
+    'phones.0',
+    'cpa',
+    'ccp',
     'links'
+]
+export const registerStepsTitles = [
+    'auth.register.titles.association',
+    'auth.register.titles.supervisor',
+    'auth.register.titles.association_details'
 ]
