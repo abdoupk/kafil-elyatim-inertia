@@ -12,9 +12,12 @@ import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 import DeleteFamilyModal from '@/Pages/Tenant/families/index/DeleteFamilyModal.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import PaginationDataTable from '@/Pages/Tenant/families/index/PaginationDataTable.vue'
+import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
+import { TransitionRoot } from '@headlessui/vue'
 import { debounce } from '@/utils/helper'
+import print from 'print-js'
 
 defineOptions({
     layout: TheLayout
@@ -113,6 +116,23 @@ const showDeleteModal = (familyId: string) => {
     deleteModalStatus.value = true
 }
 
+const printStarting = ref<boolean>(false)
+
+const printPdf = () => {
+    console.log()
+
+    print({
+        printable: route('tenant.families.export.pdf', filters),
+        type: 'pdf',
+        onLoadingStart: () => {
+            printStarting.value = true
+        },
+        onLoadingEnd: () => {
+            printStarting.value = false
+        }
+    })
+}
+
 watch(
     search,
     debounce(() => {
@@ -164,15 +184,24 @@ watch(
                     </span>
                 </base-menu-button>
                 <base-menu-items class="w-44" placement="bottom-start">
-                    <base-menu-item>
+                    <base-menu-item :disabled="printStarting" as="button" @click.prevent="printPdf"
+                                    :class="{'!cursor-not-allowed opacity-80': printStarting}">
                         <svg-loader name="icon-print" class="me-2 h-4 w-4 fill-current" />
                         {{ __('print') }}
+                        <transition-root class="ms-auto"
+                                         :show="printStarting"
+                                         enter="transition ease-out"
+                                         enterFrom="scale-0"
+                                         enterTo="scale-100"
+                        >
+                            <spinner-loader class="h-4 w-4 animate-spin "></spinner-loader>
+                        </transition-root>
                     </base-menu-item>
-                    <base-menu-item>
+                    <base-menu-item as="a" :href="route('tenant.families.export.xlsx', filters)">
                         <svg-loader name="icon-file-excel" class="me-2 h-4 w-4 fill-current" />
                         {{ __('export', { type: 'excel' }) }}
                     </base-menu-item>
-                    <base-menu-item>
+                    <base-menu-item as="a" :href="route('tenant.families.export.pdf', filters)">
                         <svg-loader name="icon-file-pdf" class="me-2 h-4 w-4 fill-current" />
                         {{ __('export', { type: 'pdf' }) }}
                     </base-menu-item>

@@ -106,6 +106,7 @@
         "litepicker": "^2.0.12",
         "meilisearch": "^0.35.1",
         "pinia": "^2.1.7",
+        "print-js": "^1.6.0",
         "puppeteer": "^22.11.1",
         "simplebar": "^6.2.5",
         "swiper": "^10.3.1",

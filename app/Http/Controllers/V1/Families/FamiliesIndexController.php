@@ -13,19 +13,11 @@ class FamiliesIndexController extends Controller
     public function __invoke(FamiliesIndexRequest $request): Response
     {
         return Inertia::render('Tenant/families/index/FamiliesIndexPage', [
-            'families' => FamiliesIndexResource::collection(
-                getFamilies(
-                    //@phpstan-ignore-next-line
-                    $request->input('search'),
-                    (array) $request->input('directions'),
-                    //@phpstan-ignore-next-line
-                    $request->input('perPage')
-                )
-            ),
+            'families' => FamiliesIndexResource::collection(getFamilies()),
             'filters' => [
-                //@phpstan-ignore-next-line
+                /* @phpstan-ignore-next-line */
                 'page' => (int) $request->get('page', 1),
-                'search' => $request->input('search') ?? '',
+                'search' => $request->input('search', ''),
                 'perPage' => $request->input('perPage', 10),
                 'fields' => $request->input('fields'),
                 'directions' => $request->input('directions'),

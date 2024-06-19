@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Dashboard\DashboardController;
-use App\Http\Controllers\V1\Families\DownloadFamiliesController;
+use App\Http\Controllers\V1\Families\ExportFamiliesPDFController;
+use App\Http\Controllers\V1\Families\ExportFamiliesXlsxController;
 use App\Http\Controllers\V1\Families\FamiliesIndexController;
 use App\Http\Controllers\V1\Families\FamilyCreateController;
 use App\Http\Controllers\V1\Families\FamilyDeleteController;
@@ -66,7 +67,11 @@ Route::middleware([
                 Route::delete('{family}', FamilyDeleteController::class)
                     ->name('destroy');
 
-                Route::get('download', DownloadFamiliesController::class);
+                Route::get('export-pdf', ExportFamiliesPDFController::class)
+                    ->name('export.pdf');
+
+                Route::get('export-xlsx', ExportFamiliesXlsxController::class)
+                    ->name('export.xlsx');
             });
 
             Route::get('orphans', OrphansIndexController::class)

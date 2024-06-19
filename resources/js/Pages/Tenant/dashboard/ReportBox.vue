@@ -57,7 +57,7 @@ const tippyContent = computed(() => {
                             :class="percentageDifference > 0 ? 'bg-success' : 'bg-danger'"
                             :content="tippyContent"
                         >
-                            {{ percentageDifference }}%
+                            {{ Math.abs(percentageDifference) }}%
                             <svg-loader
                                 class="ms-0.5 h-4 w-4 rotate-180"
                                 name="icon-chevron-down"

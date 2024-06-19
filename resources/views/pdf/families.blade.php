@@ -8,7 +8,7 @@
     <title>Document</title>
     @vite('resources/css/app.css')
 </head>
-<body>
+<body class="rotate-90">
 <h1 class="text-2xl text-center">hello</h1>
 
 @foreach($families as $family)
