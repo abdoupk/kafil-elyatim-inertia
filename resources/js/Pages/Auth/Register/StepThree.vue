@@ -39,13 +39,13 @@ const removePhone = (index: number) => {
         v-if="currentStep === 3"
     >
         <div class="text-base font-medium">
-            {{ __('auth.register.stepThree.title') }}
+            {{ $t('auth.register.stepThree.title') }}
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
             <div class="intro-y col-span-12 md:col-span-6">
                 <base-form-label for="association_email">
-                    {{ __('association_email') }}
+                    {{ $t('association_email') }}
                 </base-form-label>
 
                 <base-form-input
@@ -55,8 +55,8 @@ const removePhone = (index: number) => {
                     dir="ltr"
                     v-model="associationEmail"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('association_email')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('association_email')
                         })
                     "
                     @change="form?.validate('association_email')"
@@ -75,7 +75,7 @@ const removePhone = (index: number) => {
 
             <div class="intro-y col-span-12 md:col-span-6">
                 <base-form-label for="landline">
-                    {{ __('landline') }}
+                    {{ $t('landline') }}
                 </base-form-label>
 
                 <base-form-input
@@ -86,8 +86,8 @@ const removePhone = (index: number) => {
                     maxlength="9"
                     v-model="landline"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('landline')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('landline')
                         })
                     "
                     @change="form?.validate('landline')"
@@ -102,7 +102,7 @@ const removePhone = (index: number) => {
 
             <div class="intro-y col-span-12 md:col-span-6">
                 <base-form-label for="ccp">
-                    {{ __('ccp') }}
+                    {{ $t('ccp') }}
                 </base-form-label>
 
                 <base-form-input
@@ -113,8 +113,8 @@ const removePhone = (index: number) => {
                     maxlength="12"
                     v-model="ccp"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('ccp')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('ccp')
                         })
                     "
                     @change="form?.validate('ccp')"
@@ -129,7 +129,7 @@ const removePhone = (index: number) => {
 
             <div class="intro-y col-span-12 md:col-span-6">
                 <base-form-label for="cpa">
-                    {{ __('cpa') }}
+                    {{ $t('cpa') }}
                 </base-form-label>
 
                 <base-form-input
@@ -140,8 +140,8 @@ const removePhone = (index: number) => {
                     maxlength="12"
                     v-model="cpa"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('cpa')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('cpa')
                         })
                     "
                     @change="form?.validate('cpa')"
@@ -156,7 +156,7 @@ const removePhone = (index: number) => {
 
             <div class="intro-y col-span-12 md:col-span-10 lg:col-span-8 xl:col-span-6">
                 <base-form-label for="phones[0]">
-                    {{ __('phones') }}
+                    {{ $t('phones') }}
                 </base-form-label>
 
                 <!--suppress JSUnusedLocalSymbols -->
@@ -205,19 +205,19 @@ const removePhone = (index: number) => {
                 >
                     <svg-loader name="icon-plus" class="inline fill-primary dark:fill-slate-500"></svg-loader>
 
-                    {{ __('auth.register.stepThree.add_new_phone') }}
+                    {{ $t('auth.register.stepThree.add_new_phone') }}
                 </base-button>
             </div>
 
             <div class="intro-y col-span-12 md:col-span-10 lg:col-span-8 xl:col-span-7">
                 <div class="mb-2 text-base">
-                    {{ __('social media links') }}
+                    {{ $t('social media links') }}
                 </div>
 
                 <template v-for="link in Object.keys(links)" :key="`link_${link}`">
                     <base-form-inline class="mt-3" :class="{ '!mt-0': link === 'facebook' }">
                         <base-form-label :for="link" class="sm:w-20">
-                            {{ __(`${link}`) }}
+                            {{ $t(`${link}`) }}
                         </base-form-label>
 
                         <base-form-input
@@ -226,7 +226,7 @@ const removePhone = (index: number) => {
                             type="url"
                             dir="ltr"
                             v-model="links[link]"
-                            :placeholder="__(`auth.placeholders.${link}`)"
+                            :placeholder="$t(`auth.placeholders.${link}`)"
                         />
                     </base-form-inline>
 

@@ -19,15 +19,15 @@ const deleteButtonRef = ref(null)
         <base-dialog-panel>
             <div class="p-5 text-center">
                 <svg-loader name="icon-circle-x-mark" class="mx-auto mt-3 h-16 w-16 text-danger"></svg-loader>
-                <div class="mt-5 text-3xl">{{ __('Are you sure?') }}</div>
+                <div class="mt-5 text-3xl">{{ $t('Are you sure?') }}</div>
                 <div class="mt-2 text-slate-500">
-                    {{ __('Do you really want to delete this record?') }} <br />
-                    {{ __('This process cannot be undone.') }}
+                    {{ $t('Do you really want to delete this record?') }} <br />
+                    {{ $t('This process cannot be undone.') }}
                 </div>
             </div>
             <div class="flex justify-center px-5 pb-8 text-center">
                 <base-button type="button" variant="outline-secondary" @click="emit('close')" class="me-2 w-24">
-                    {{ __('cancel') }}
+                    {{ $t('cancel') }}
                 </base-button>
                 <base-button
                     @click="emit('delete')"
@@ -46,7 +46,7 @@ const deleteButtonRef = ref(null)
                         <spinner-loader class="me-1 h-4 w-4 animate-spin text-white"></spinner-loader>
                     </transition-root>
 
-                    {{ __('delete') }}
+                    {{ $t('delete') }}
                 </base-button>
             </div>
         </base-dialog-panel>

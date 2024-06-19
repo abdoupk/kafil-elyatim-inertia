@@ -26,10 +26,10 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         :direction="filters.directions?.name"
                         class="whitespace-nowrap border-b-0 text-start font-semibold"
                     >
-                        {{ __('the_family') }}
+                        {{ $t('the_family') }}
                     </base-th-table>
                     <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
-                        >{{ __('validation.attributes.address') }}
+                        >{{ $t('validation.attributes.address') }}
                     </base-th-table>
                     <base-th-table
                         class="whitespace-nowrap border-b-0 text-center font-semibold"
@@ -37,7 +37,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         :direction="filters.directions?.file_number"
                         @click="emit('sort', 'file_number')"
                     >
-                        {{ __('file_number') }}
+                        {{ $t('file_number') }}
                     </base-th-table>
                     <base-th-table
                         class="whitespace-nowrap border-b-0 text-center font-semibold"
@@ -45,10 +45,10 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         :direction="filters.directions?.start_date"
                         @click="emit('sort', 'start_date')"
                     >
-                        {{ __('starting_sponsorship_date') }}
+                        {{ $t('starting_sponsorship_date') }}
                     </base-th-table>
                     <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
-                        {{ __('actions') }}
+                        {{ $t('actions') }}
                     </base-th-table>
                 </base-tr-table>
             </base-thead-table>
@@ -93,7 +93,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <div class="flex items-center justify-center">
                             <Link class="me-3 flex items-center" :href="route('tenant.families.edit', family.id)">
                                 <svg-loader name="icon-pen" class="me-1 h-4 w-4 fill-current" />
-                                {{ __('edit') }}
+                                {{ $t('edit') }}
                             </Link>
                             <a
                                 class="flex items-center text-danger"
@@ -101,7 +101,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                                 @click="emit('showDeleteModal', family.id)"
                             >
                                 <svg-loader name="icon-trash-can" class="me-1 h-4 w-4 fill-current" />
-                                {{ __('delete') }}
+                                {{ $t('delete') }}
                             </a>
                         </div>
                     </base-td-table>
@@ -139,14 +139,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <Link
                             :href="route('tenant.families.show', family.id)"
                             class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ __('edit') }}
+                            >{{ $t('edit') }}
                         </Link>
                         <a
                             href="javascript:void(0)"
                             class="font-semibold text-danger"
                             @click="emit('showDeleteModal', family.id)"
                         >
-                            {{ __('delete') }}
+                            {{ $t('delete') }}
                         </a>
                     </div>
                 </div>

@@ -29,13 +29,13 @@ defineProps<{
                 <div class="col-span-12 mt-8">
                     <div class="intro-y flex h-10 items-center">
                         <h2 class="me-5 truncate text-lg font-medium">
-                            {{ __('General Reports') }}
+                            {{ $t('General Reports') }}
                         </h2>
                     </div>
                     <div class="mt-5 grid grid-cols-12 gap-6">
                         <report-box
                             :stat="orphans.total"
-                            :title="__('total orphans')"
+                            :title="$t('total orphans')"
                             :percentageDifference="orphans.percentageDifference"
                             icon-color="primary"
                             icon="icon-hands-holding-child"
@@ -43,7 +43,7 @@ defineProps<{
 
                         <report-box
                             :stat="families.total"
-                            :title="__('total families')"
+                            :title="$t('total families')"
                             :percentageDifference="families.percentageDifference"
                             icon-color="dark"
                             icon="icon-family"
@@ -51,7 +51,7 @@ defineProps<{
 
                         <report-box
                             :stat="members.total"
-                            :title="__('total members')"
+                            :title="$t('total members')"
                             :percentageDifference="members.percentageDifference"
                             icon-color="pending"
                             icon="icon-users-gear"
@@ -59,7 +59,7 @@ defineProps<{
 
                         <report-box
                             :stat="branches.total"
-                            :title="__('total branches')"
+                            :title="$t('total branches')"
                             :percentageDifference="branches.percentageDifference"
                             icon-color="success"
                             icon="icon-circle-nodes"

@@ -46,7 +46,7 @@ const printPdf = () => {
                 :class="{ '!cursor-not-allowed opacity-80': printStarting }"
             >
                 <svg-loader name="icon-print" class="me-2 h-4 w-4 fill-current" />
-                {{ __('print') }}
+                {{ $t('print') }}
                 <transition-root
                     class="ms-auto"
                     :show="printStarting"
@@ -59,11 +59,11 @@ const printPdf = () => {
             </base-menu-item>
             <base-menu-item as="a" :href="route('tenant.families.export.xlsx', filters)">
                 <svg-loader name="icon-file-excel" class="me-2 h-4 w-4 fill-current" />
-                {{ __('export', { type: 'excel' }) }}
+                {{ $t('export', { type: 'excel' }) }}
             </base-menu-item>
             <base-menu-item as="a" :href="route('tenant.families.export.pdf', filters)">
                 <svg-loader name="icon-file-pdf" class="me-2 h-4 w-4 fill-current" />
-                {{ __('export', { type: 'pdf' }) }}
+                {{ $t('export', { type: 'pdf' }) }}
             </base-menu-item>
         </base-menu-items>
     </base-menu>

@@ -50,10 +50,10 @@ const submit = () => {
                         <img alt="Tinker Starter" class="-intro-x -mt-16 w-1/2" src="/images/man-illustration.svg" />
                         <div
                             class="-intro-x mt-10 text-4xl font-medium leading-tight text-white"
-                            v-html="__('auth.hints.leading')"
+                            v-html="$t('auth.hints.leading')"
                         ></div>
                         <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
-                            {{ __('auth.hints.second') }}
+                            {{ $t('auth.hints.second') }}
                         </div>
                     </div>
                 </div>
@@ -65,10 +65,10 @@ const submit = () => {
                         class="mx-auto my-auto w-full rounded-md bg-white px-5 py-8 shadow-md dark:bg-darkmode-600 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ms-20 xl:w-auto xl:bg-transparent xl:p-0 xl:shadow-none"
                     >
                         <h2 class="intro-x text-center text-2xl font-bold xl:text-start xl:text-3xl">
-                            {{ __('auth.Sign in') }}
+                            {{ $t('auth.Sign in') }}
                         </h2>
                         <div class="intro-x mt-2 text-center text-slate-400 xl:hidden">
-                            {{ __('auth.hints.small') }}
+                            {{ $t('auth.hints.small') }}
                         </div>
 
                         <div class="intro-x mt-8">
@@ -76,7 +76,7 @@ const submit = () => {
                                 v-model="form.email"
                                 type="text"
                                 class="intro-x block min-w-full px-4 py-3 xl:min-w-[350px]"
-                                :placeholder="__('validation.attributes.email')"
+                                :placeholder="$t('validation.attributes.email')"
                                 autofocus
                             />
 
@@ -86,7 +86,7 @@ const submit = () => {
                                 v-model="form.password"
                                 type="password"
                                 class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]"
-                                :placeholder="__('validation.attributes.password')"
+                                :placeholder="$t('validation.attributes.password')"
                             />
                             <base-input-error class="mt-2" :message="form.errors.password"></base-input-error>
                         </div>
@@ -95,14 +95,14 @@ const submit = () => {
                             <div class="me-auto flex items-center">
                                 <base-form-check-input id="remember-me" type="checkbox" class="me-2 border" />
                                 <label class="cursor-pointer select-none" for="remember-me">
-                                    {{ __('Remember me') }}
+                                    {{ $t('Remember me') }}
                                 </label>
                             </div>
                         </div>
 
                         <div class="intro-x mt-5 text-center xl:mt-8 xl:text-start">
                             <base-button variant="primary" class="w-full px-4 py-3 align-top xl:me-3 xl:w-32">
-                                {{ __('auth.Login') }}
+                                {{ $t('auth.Login') }}
                             </base-button>
                         </div>
                     </div>

@@ -26,13 +26,13 @@ const passwordConfirmation = defineModel('password_confirmation')
         v-if="currentStep === 2"
     >
         <div class="text-base font-medium">
-            {{ __('auth.register.stepTwo.title') }}
+            {{ $t('auth.register.stepTwo.title') }}
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="first_name">
-                    {{ __('validation.attributes.first_name') }}
+                    {{ $t('validation.attributes.first_name') }}
                 </base-form-label>
 
                 <base-form-input
@@ -41,8 +41,8 @@ const passwordConfirmation = defineModel('password_confirmation')
                     id="first_name"
                     type="text"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('validation.attributes.first_name')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.first_name')
                         })
                     "
                     @change="form?.validate('first_name')"
@@ -61,7 +61,7 @@ const passwordConfirmation = defineModel('password_confirmation')
 
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="last_name">
-                    {{ __('validation.attributes.last_name') }}
+                    {{ $t('validation.attributes.last_name') }}
                 </base-form-label>
 
                 <base-form-input
@@ -69,8 +69,8 @@ const passwordConfirmation = defineModel('password_confirmation')
                     id="last_name"
                     type="text"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('validation.attributes.last_name')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.last_name')
                         })
                     "
                     @change="form?.validate('last_name')"
@@ -85,7 +85,7 @@ const passwordConfirmation = defineModel('password_confirmation')
 
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="email">
-                    {{ __('validation.attributes.email') }}
+                    {{ $t('validation.attributes.email') }}
                 </base-form-label>
 
                 <base-form-input
@@ -99,8 +99,8 @@ const passwordConfirmation = defineModel('password_confirmation')
                     id="email"
                     type="text"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('validation.attributes.email')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.email')
                         })
                     "
                     @change="form?.validate('email')"
@@ -115,7 +115,7 @@ const passwordConfirmation = defineModel('password_confirmation')
 
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="phone">
-                    {{ __('validation.attributes.phone') }}
+                    {{ $t('validation.attributes.phone') }}
                 </base-form-label>
 
                 <base-form-input
@@ -127,8 +127,8 @@ const passwordConfirmation = defineModel('password_confirmation')
                     maxlength="10"
                     dir="ltr"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('validation.attributes.phone')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.phone')
                         })
                     "
                     @change="form?.validate('phone')"
@@ -143,7 +143,7 @@ const passwordConfirmation = defineModel('password_confirmation')
 
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="password">
-                    {{ __('validation.attributes.password') }}
+                    {{ $t('validation.attributes.password') }}
                 </base-form-label>
 
                 <base-form-input
@@ -154,8 +154,8 @@ const passwordConfirmation = defineModel('password_confirmation')
                     id="password"
                     type="password"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('validation.attributes.password')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.password')
                         })
                     "
                     @change="form?.validate('password')"
@@ -170,7 +170,7 @@ const passwordConfirmation = defineModel('password_confirmation')
 
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="password_confirmation">
-                    {{ __('validation.attributes.password_confirmation') }}
+                    {{ $t('validation.attributes.password_confirmation') }}
                 </base-form-label>
 
                 <base-form-input
@@ -181,8 +181,8 @@ const passwordConfirmation = defineModel('password_confirmation')
                     readonly
                     onfocus="this.removeAttribute('readonly')"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('validation.attributes.password_confirmation')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.password_confirmation')
                         })
                     "
                     @change="form?.validate('password_confirmation')"

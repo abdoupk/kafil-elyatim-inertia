@@ -25,7 +25,7 @@ defineProps<Props>()
             v-if="currentStep > 1"
             data-test="previous"
         >
-            {{ __('pagination.previous') }}
+            {{ $t('pagination.previous') }}
         </base-button>
 
         <base-button

@@ -139,10 +139,10 @@ watch(
 </script>
 
 <template>
-    <Head :title="__('families list')"></Head>
+    <Head :title="$t('families list')"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ __('families list') }}
+        {{ $t('families list') }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
@@ -152,7 +152,7 @@ watch(
                 class="me-2 shadow-md"
                 @click.prevent="router.get(route('tenant.families.create'))"
             >
-                {{ __('add new family') }}
+                {{ $t('add new family') }}
             </base-button>
 
             <export-menu :filters></export-menu>
@@ -160,11 +160,11 @@ watch(
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">
                     {{
-                        __('showing_results', {
+                        $t('showing_results', {
                             from: families.meta.from?.toString(),
                             to: families.meta.to?.toString(),
                             total: families.meta.total?.toString(),
-                            entries: __('family')
+                            entries: $t('family')
                         })
                     }}
                 </span>
@@ -176,7 +176,7 @@ watch(
                         v-model="search"
                         type="text"
                         class="!box w-56 pe-10"
-                        :placeholder="__('Search...')"
+                        :placeholder="$t('Search...')"
                     />
                     <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />
                 </div>

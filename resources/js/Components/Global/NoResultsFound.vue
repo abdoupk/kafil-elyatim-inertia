@@ -43,6 +43,6 @@
         <circle cx="433.63626" cy="105.17383" r="12.18187" class="fill-white dark:fill-darkmode-700" />
     </svg>
     <div class="mt-4 text-lg">
-        {{ __('No results found.') }}
+        {{ $t('No results found.') }}
     </div>
 </template>

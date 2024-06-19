@@ -146,12 +146,12 @@ onMounted(() => {
     <div class="grid w-full flex-1 grid-cols-1 gap-4 gap-y-5 lg:grid-cols-3">
         <div>
             <base-form-label for="wilayas">
-                {{ __('wilaya') }}
+                {{ $t('wilaya') }}
             </base-form-label>
 
             <div>
                 <base-tom-select
-                    :data-placeholder="__('auth.placeholders.tomselect', { attribute: __('wilaya') })"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('wilaya') })"
                     id="wilayas"
                     v-model="wilaya"
                     class="h-full w-full"
@@ -166,33 +166,33 @@ onMounted(() => {
 
             <base-form-input-error>
                 <div class="mt-2 text-danger" v-show="errorMessage && cityStore.wilaya.wilaya_code === ''">
-                    {{ __('validation.required', { attribute: __('wilaya') }) }}
+                    {{ $t('validation.required', { attribute: $t('wilaya') }) }}
                 </div>
             </base-form-input-error>
         </div>
         <div>
-            <base-form-label for="dairas">{{ __('daira') }}</base-form-label>
+            <base-form-label for="dairas">{{ $t('daira') }}</base-form-label>
             <div>
                 <select
-                    :data-placeholder="__('auth.placeholders.tomselect', { attribute: __('daira') })"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('daira') })"
                     class="tom-select w-full"
                     id="dairas"
                 ></select>
             </div>
             <base-form-input-error>
                 <div class="mt-2 text-danger" v-if="errorMessage && cityStore.daira.daira_name === ''">
-                    {{ __('validation.required', { attribute: __('daira') }) }}
+                    {{ $t('validation.required', { attribute: $t('daira') }) }}
                 </div>
             </base-form-input-error>
         </div>
 
         <div>
             <base-form-label for="communes">
-                {{ __('commune') }}
+                {{ $t('commune') }}
             </base-form-label>
             <div>
                 <select
-                    :data-placeholder="__('auth.placeholders.tomselect', { attribute: __('commune') })"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('commune') })"
                     class="tom-select w-full"
                     id="communes"
                 ></select>
