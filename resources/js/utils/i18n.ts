@@ -41,7 +41,7 @@ function n__(key: string, number: number, replacements: Record<string, string> =
 
 export default {
     install(app: App) {
-        app.config.globalProperties.__ = (key: string, replacements: Record<string, string> = {}) =>
+        app.config.globalProperties.$t = (key: string, replacements: Record<string, string> = {}) =>
             __(key, replacements)
 
         app.config.globalProperties.n__ = (key: string, number: number, replacements: Record<string, string> = {}) =>

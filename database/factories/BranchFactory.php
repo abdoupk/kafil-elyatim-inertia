@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Branch;
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Random\RandomException;
 
@@ -18,8 +19,8 @@ class BranchFactory extends Factory
         return [
             'created_at' => now()->subDays(random_int(0, 35)),
             'updated_at' => now()->subDays(random_int(0, 35)),
-            'city_id' => $this->faker->randomNumber(),
-            'tenant_id' => $this->faker->words(),
+            'city_id' => City::inRandomOrder()->first()->id,
+            'tenant_id' => fake()->uuid,
         ];
     }
 }

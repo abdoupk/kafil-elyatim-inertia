@@ -24,7 +24,7 @@ function getFamilies(): LengthAwarePaginator
         $families->orderBy('created_at', 'desc');
     }
 
-    if (! auth()->user()?->hasRole(['president', 'vice_president'])) {
+    if (! auth()->user()?->hasRole(['super_admin'])) {
         $families->where('zone_id', auth()->user()?->zone_id);
     }
 

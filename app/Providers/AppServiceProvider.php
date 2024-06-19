@@ -52,7 +52,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::before(static function ($user, $ability) {
-            return $user->hasRole('president') ? true : null;
+            return $user->hasRole('super_admin') ? true : null;
         });
 
         Model::preventLazyLoading(! $this->app->isProduction());

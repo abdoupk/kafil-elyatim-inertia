@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ZoneSeeder::class);
 
+        $this->call(RolePermissionSeeder::class);
+
         $this->call(TenantSeeder::class);
 
         $this->call(IncomeSeeder::class);
@@ -37,7 +39,5 @@ class DatabaseSeeder extends Seeder
         $this->call(FamilySponsorshipSeeder::class);
 
         $this->call(SponsorSponsorshipSeeder::class);
-
-        $this->call(RolePermissionSeeder::class);
     }
 }

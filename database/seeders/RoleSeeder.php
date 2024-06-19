@@ -19,6 +19,8 @@ class RoleSeeder extends Seeder
 
         $assistantAreaChief = Role::create(['name' => 'assistant_area_chief']);
 
-        Role::create(['name' => 'president']);
+        //        Role::create(['name' => 'president']);
+
+        Role::create(['name' => 'super_admin']);
     }
 }

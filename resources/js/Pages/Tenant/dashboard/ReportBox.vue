@@ -54,7 +54,7 @@ const tippyContent = computed(() => {
                         <base-tippy
                             as="div"
                             class="flex cursor-pointer items-center rounded-full py-[3px] pe-1 ps-2 text-xs font-medium text-white"
-                            :class="percentageDifference > 0 ? 'bg-success' : 'bg-danger'"
+                            :class="[percentageDifference > 0 && 'bg-success', percentageDifference < 0 && 'bg-danger']"
                             :content="tippyContent"
                         >
                             {{ Math.abs(percentageDifference) }}%
