@@ -38,6 +38,7 @@ defineProps<{
                 ])
             "
         >
+            <!-- TODO: fix width and height  -->
             <svg-loader :name="menu.icon"></svg-loader>
         </div>
         <div

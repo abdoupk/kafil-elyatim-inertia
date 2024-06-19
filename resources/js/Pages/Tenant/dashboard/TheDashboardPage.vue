@@ -62,7 +62,7 @@ defineProps<{
                             :title="$t('total branches')"
                             :percentageDifference="branches.percentageDifference"
                             icon-color="success"
-                            icon="icon-circle-nodes"
+                            icon="icon-branches"
                         ></report-box>
                     </div>
                 </div>

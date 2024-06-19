@@ -19,6 +19,7 @@ defineProps<{
         @click="linkTo(menu, $event)"
     >
         <div>
+            <!-- TODO: fix width and height  -->
             <svg-loader :name="menu.icon"></svg-loader>
         </div>
         <div class="ms-3 flex w-full items-center">

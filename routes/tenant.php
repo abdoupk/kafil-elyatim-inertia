@@ -74,6 +74,29 @@ Route::middleware([
                     ->name('export.xlsx');
             });
 
+            Route::prefix('branches')->name('branches.')->group(function () {
+                Route::get('', FamiliesIndexController::class)
+                    ->name('index');
+
+                Route::get('/create', FamilyCreateController::class)
+                    ->name('create');
+
+                Route::get('edit/{branch}', FamilyEditController::class)
+                    ->name('edit');
+
+                Route::get('show/{branch}', FamilyShowController::class)
+                    ->name('show');
+
+                Route::delete('{branch}', FamilyDeleteController::class)
+                    ->name('destroy');
+
+                Route::get('export-pdf', ExportFamiliesPDFController::class)
+                    ->name('export.pdf');
+
+                Route::get('export-xlsx', ExportFamiliesXlsxController::class)
+                    ->name('export.xlsx');
+            });
+
             Route::get('orphans', OrphansIndexController::class)
                 ->name('orphans.index');
 
