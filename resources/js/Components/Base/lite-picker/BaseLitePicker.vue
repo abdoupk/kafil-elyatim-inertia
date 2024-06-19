@@ -8,7 +8,7 @@ type LitepickerConfig = Partial<ILPConfiguration>
 <script setup lang="ts">
 // eslint-disable-next-line sort-imports
 import { type InputHTMLAttributes, inject, onMounted, ref } from 'vue'
-import { init, reInit, setValue } from '.'
+import { init, reInit, setValue } from './index'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import LitepickerJs from 'litepicker'
 
@@ -83,3 +83,6 @@ onMounted(() => {
         v-litepicker-directive
     />
 </template>
+<style lang="postcss">
+@import '/resources/css/vendors/litepicker.css';
+</style>

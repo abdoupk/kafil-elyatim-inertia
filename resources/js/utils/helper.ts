@@ -169,6 +169,10 @@ const debounce = (func, delay, { leading } = {}) => {
     }
 }
 
+const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
 export {
     size,
     isEqual,
@@ -181,5 +185,6 @@ export {
     slideDown,
     setDarkModeClass,
     setColorSchemeClass,
-    allowOnlyNumbersOnKeyDown
+    allowOnlyNumbersOnKeyDown,
+    capitalizeFirstLetter
 }

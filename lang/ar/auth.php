@@ -22,6 +22,9 @@ return [
             'title' => 'step Three title',
             'add_new_phone' => 'add new',
         ],
+        'success' => [
+            'title' => 'تم التسجيل بنجاح',
+        ],
     ],
     'placeholders' => [
         'tomselect' => 'قم بتحديد :attribute',

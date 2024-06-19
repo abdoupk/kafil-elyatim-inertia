@@ -179,8 +179,9 @@ const submit = () => {
         <svg-loader name="icon-check-circle" class="fill-success"></svg-loader>
 
         <div class="ml-4 mr-4">
-            <div class="font-medium">Registration success!</div>
-            <div class="mt-1 text-slate-500">Please check your e-mail for further info!</div>
+            <div class="font-medium">
+                {{ $t('auth.register.success.title') }}
+            </div>
         </div>
     </base-notification>
 </template>

@@ -2,14 +2,10 @@
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
-import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
-import CitySelector from '@/Components/Global/CitySelector.vue'
+import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
 import type { RegistrationStepProps } from '@/types/types'
 
 defineProps<RegistrationStepProps>()
-
-const hostname = '.' + new URL(import.meta.env.VITE_APP_URL).hostname
 
 const association = defineModel('association')
 
@@ -17,7 +13,7 @@ const domain = defineModel('domain')
 
 const address = defineModel('address')
 
-const city = defineModel('city')
+const city = defineModel('city', { default: '' })
 
 const blurDomainField = (event: Event) => {
     let str = (event.target as HTMLInputElement).value
@@ -45,81 +41,69 @@ const updateDomainName = (event: Event) => {
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 1"
     >
-        <div class="text-base font-medium">{{ $t('auth.register.stepOne.title') }}</div>
+        <div class="text-base font-medium">
+            {{ $t('auth.register.stepOne.title') }}
+        </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
             <div class="intro-y col-span-12 sm:col-span-6">
-                <base-form-label for="association">
-                    {{ $t('validation.attributes.association_name') }}
+                <base-form-label for="file_number">
+                    {{ $t('validation.attributes.file_number') }}
                 </base-form-label>
 
                 <base-form-input
                     autofocus
-                    v-model="association"
-                    id="association"
+                    v-model="file_number"
+                    id="file_number"
                     type="text"
                     :placeholder="
                         $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.association_name')
+                            attribute: $t('file_number')
                         })
                     "
-                    @input="form?.validate('association')"
+                    @input="form?.validate('file_number')"
                 ></base-form-input>
 
                 <base-form-input-error>
                     <div
-                        data-test="error_association_message"
+                        data-test="error_file_number_message"
                         class="mt-2 text-danger"
-                        v-if="form?.invalid('association')"
+                        v-if="form?.invalid('file_number')"
                     >
-                        {{ form.errors.association }}
+                        {{ form.errors.file_number }}
                     </div>
                 </base-form-input-error>
             </div>
+
             <div class="intro-y col-span-12 sm:col-span-6">
-                <base-form-label for="domain">
-                    {{ $t('validation.attributes.domain') }}
+                <base-form-label for="start_date">
+                    {{ $t('validation.attributes.start_date_name') }}
                 </base-form-label>
 
-                <base-input-group class="rtl:flex-row-reverse">
-                    <base-form-input
-                        class="!rounded-none !rounded-s"
-                        @input="
-                            (e) => {
-                                updateDomainName(e)
-                                form?.validate('domain')
-                            }
-                        "
-                        @blur="blurDomainField"
-                        v-model="domain"
-                        id="domain"
-                        type="text"
-                        dir="ltr"
-                        placeholder="el-baraka"
-                    ></base-form-input>
-
-                    <base-input-group-text class="rtl:!rounded-none rtl:!rounded-s">
-                        <p dir="ltr">{{ hostname }}</p>
-                    </base-input-group-text>
-                </base-input-group>
+                <base-form-input
+                    autofocus
+                    v-model="start_date"
+                    id="start_date"
+                    type="text"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('starting_sponsorship_date')
+                        })
+                    "
+                    @input="form?.validate('start_date')"
+                ></base-form-input>
 
                 <base-form-input-error>
-                    <div data-test="error_domain_message" class="mt-2 text-danger" v-if="form?.invalid('domain')">
-                        {{ form.errors.domain }}
+                    <div
+                        data-test="error_start_date_message"
+                        class="mt-2 text-danger"
+                        v-if="form?.invalid('start_date')"
+                    >
+                        {{ form.errors.start_date }}
                     </div>
                 </base-form-input-error>
             </div>
-            <div class="intro-y col-span-12">
-                <city-selector
-                    @select:commune="
-                        (e) => {
-                            city = e
-                            form?.validate('city')
-                        }
-                    "
-                    :error-message="form?.errors.city"
-                ></city-selector>
-            </div>
+
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="address">
                     {{ $t('validation.attributes.address') }}
@@ -134,6 +118,33 @@ const updateDomainName = (event: Event) => {
                 <base-form-input-error>
                     <div class="mt-2 text-danger" v-if="form?.invalid('address')" data-test="error_address_message">
                         {{ form.errors.address }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
+            <div class="intro-y col-span-12 sm:col-span-6">
+                <base-form-label for="zone">
+                    {{ $t('validation.attributes.zone') }}
+                </base-form-label>
+
+                <base-lite-picker
+                    v-model="city"
+                    :options="{
+                        autoApply: false,
+                        lang: 'ar',
+                        showWeekNumbers: false,
+                        dropdowns: {
+                            minYear: 1990,
+                            maxYear: null,
+                            months: true,
+                            years: true
+                        }
+                    }"
+                ></base-lite-picker>
+
+                <base-form-input-error>
+                    <div class="mt-2 text-danger" v-if="form?.invalid('zone')" data-test="error_zone_message">
+                        {{ form.errors.zone }}
                     </div>
                 </base-form-input-error>
             </div>

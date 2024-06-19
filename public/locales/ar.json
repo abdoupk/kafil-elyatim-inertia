@@ -9,6 +9,7 @@
     "auth.register.stepTwo.title": "step Two title",
     "auth.register.stepThree.title": "step Three title",
     "auth.register.stepThree.add_new_phone": "add new",
+    "auth.register.success.title": "تم التسجيل بنجاح",
     "auth.placeholders.tomselect": "قم بتحديد :attribute",
     "auth.placeholders.fill": "قم بادخال :attribute",
     "auth.placeholders.facebook": "facebokk link",
@@ -410,5 +411,6 @@
     "reportTooltip": ":percentage% :range من الشهر الماضي",
     "dashboard": "لوحة التحكم",
     "families": "العائلات",
-    "show": "عرض"
+    "show": "عرض",
+    "apply": "تطبيق"
 }

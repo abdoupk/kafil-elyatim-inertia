@@ -84,3 +84,9 @@ export const registerStepsTitles = [
     'auth.register.titles.supervisor',
     'auth.register.titles.association_details'
 ]
+
+export const createFamilyStepsTitles = [
+    'families.titles.association',
+    'families.titles.supervisor',
+    'families.titles.association_details'
+]

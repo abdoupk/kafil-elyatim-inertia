@@ -1,5 +1,9 @@
 import type { LitepickerElement, LitepickerEmit, LitepickerProps } from './BaseLitePicker.vue'
 import Litepicker from 'litepicker'
+// eslint-disable-next-line sort-imports
+import 'litepicker/dist/plugins/keyboardnav'
+import { __ } from '@/utils/i18n'
+import { capitalizeFirstLetter } from '@/utils/helper'
 import dayjs from 'dayjs'
 
 interface Picker extends Litepicker {}
@@ -28,6 +32,11 @@ const init = (el: LitepickerElement, props: LitepickerProps, emit: LitepickerEmi
 
     el.litePickerInstance = new Litepicker({
         ...props.options,
+        buttonText: {
+            apply: capitalizeFirstLetter(__('apply')),
+            cancel: capitalizeFirstLetter(__('cancel')),
+            reset: capitalizeFirstLetter(__('reset'))
+        },
         element: el,
         format: format,
         setup: (picker: Picker) => {
@@ -43,7 +52,8 @@ const init = (el: LitepickerElement, props: LitepickerProps, emit: LitepickerEmi
                     emit('update:modelValue', date)
                 })
             }
-        }
+        },
+        plugins: ['keyboardnav']
     })
 }
 
