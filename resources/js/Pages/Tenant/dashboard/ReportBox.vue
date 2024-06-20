@@ -18,7 +18,7 @@ const props = defineProps<Props>()
 
 const tippyContent = computed(() => {
     return __('reportTooltip', {
-        percentage: props?.percentageDifference?.toString(),
+        percentage: Math.abs(props?.percentageDifference).toString(),
         range: props?.percentageDifference > 0 ? __('higher') : __('lower')
     })
 })

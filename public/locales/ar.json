@@ -316,6 +316,9 @@
     "validation.attributes.year": "السنة",
     "validation.attributes.association": "الجمعية",
     "validation.attributes.association_name": "اسم الجمعية",
+    "validation.attributes.starting_sponsorship_date": "تاريخ بدء التكفل",
+    "validation.attributes.file_number": "رقم الملف",
+    "validation.attributes.zone": "المنطقة",
     "(and :count more error)": "(و :count خطأ إضافي)",
     "(and :count more errors)": "(و :count أخطاء إضافية)",
     "A new verification link has been sent to the email address you provided during registration.": "تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قمت بالتسجيل به.",
@@ -431,7 +434,6 @@
     "settings": "الاعدادات",
     "show": "عرض",
     "showing_results": "عرض :from إلى :to من :total :entries",
-    "starting_sponsorship_date": "تاريخ بدء التكفل",
     "statistics": "الاحصائيات",
     "the_families": "العائلات",
     "the_family": "العائلة",
@@ -447,5 +449,6 @@
     "sponsors": "متكفلين",
     "the_sponsors": "المتكفلين",
     "the_zones": "المناطق",
-    "zones": "مناطق"
+    "zones": "مناطق",
+    "zone": "منطقة"
 }

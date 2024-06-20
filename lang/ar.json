@@ -114,7 +114,6 @@
     "settings": "الاعدادات",
     "show": "عرض",
     "showing_results": "عرض :from إلى :to من :total :entries",
-    "starting_sponsorship_date": "تاريخ بدء التكفل",
     "statistics": "الاحصائيات",
     "the_families": "العائلات",
     "the_family": "العائلة",
@@ -130,5 +129,6 @@
     "sponsors": "متكفلين",
     "the_sponsors": "المتكفلين",
     "the_zones": "المناطق",
-    "zones": "مناطق"
+    "zones": "مناطق",
+    "zone": "منطقة"
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\V1\Families\FamilyCreateController;
 use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
+use App\Http\Controllers\V1\Families\FamilyStoreController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
 use App\Http\Controllers\V1\Members\MemberCreateController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
@@ -63,6 +64,9 @@ Route::middleware([
 
                 Route::get('/create', FamilyCreateController::class)
                     ->name('create');
+
+                Route::get('/store', FamilyStoreController::class)
+                    ->name('store');
 
                 Route::get('edit/{family}', FamilyEditController::class)
                     ->name('edit');

@@ -180,7 +180,7 @@ export interface PaginationData<T> {
     }>
 }
 
-interface Zone {
+export interface Zone {
     id: string
     name: string
 }
@@ -202,4 +202,18 @@ export interface FamiliesIndexFilters {
     directions?: {
         [key: string]: 'asc' | 'desc'
     }
+}
+
+export type CreateFamilyForm = {
+    address: string
+    zone: string
+    start_date: string
+    file_number: string
+}
+
+export interface CreateFamilyStepProps {
+    currentStep: number
+    totalSteps: number
+    zones?: Zone[]
+    form?: Form<CreateFamilyForm>
 }

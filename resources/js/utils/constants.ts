@@ -57,6 +57,13 @@ export const registerFormAttributes = {
     phones: ['']
 }
 
+export const createFamilyFormAttributes = {
+    file_number: '',
+    zone: '',
+    address: '',
+    start_date: ''
+}
+
 // eslint-disable-next-line array-element-newline
 export const registerStepOneErrorProps: RegisterStepOneProps[] = ['association', 'domain', 'address', 'city']
 

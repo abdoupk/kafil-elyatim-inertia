@@ -216,5 +216,8 @@ return [
         'year' => 'السنة',
         'association' => 'الجمعية',
         'association_name' => 'اسم الجمعية',
+        'starting_sponsorship_date' => 'تاريخ بدء التكفل',
+        'file_number' => 'رقم الملف',
+        'zone' => 'المنطقة',
     ],
 ];

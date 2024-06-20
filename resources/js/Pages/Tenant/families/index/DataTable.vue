@@ -46,7 +46,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             :direction="filters.directions?.start_date"
                             @click="emit('sort', 'start_date')"
                         >
-                            {{ $t('starting_sponsorship_date') }}
+                            {{ $t('validation.attributes.starting_sponsorship_date') }}
                         </base-th-table>
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
                             {{ $t('actions') }}

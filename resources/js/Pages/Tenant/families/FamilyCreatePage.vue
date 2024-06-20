@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { type Ref, ref } from 'vue'
-import type { RegisterStepOneProps, RegisterStepTwoProps } from '@/types/types'
+import type { RegisterStepOneProps, RegisterStepTwoProps, Zone } from '@/types/types'
 import {
+    createFamilyFormAttributes,
     createFamilyStepsTitles,
-    registerFormAttributes,
     registerStepOneErrorProps,
     registerStepThreeErrorProps,
     registerStepTwoErrorProps
@@ -20,11 +20,13 @@ defineOptions({
     layout: TheLayout
 })
 
+defineProps<{ zones: Zone[] }>()
+
 const currentStep = ref(1)
 
 const totalSteps = 3
 
-const form = useForm('post', route('register'), registerFormAttributes)
+const form = useForm('post', route('register'), createFamilyFormAttributes)
 
 const stepOneCompleted = ref<boolean>(false)
 
@@ -117,10 +119,11 @@ const submit = () => {
             <form @submit.prevent="submit">
                 <step-one
                     v-model:address="form.address"
-                    v-model:domain="form.domain"
-                    v-model:city="form.city"
-                    v-model:association="form.association"
+                    v-model:zone="form.zone"
+                    v-model:file-number="form.file_number"
+                    v-model:start-date="form.start_date"
                     :form
+                    :zones
                     :currentStep
                     :totalSteps
                 >
