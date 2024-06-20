@@ -119,7 +119,7 @@ const setActiveMobileMenu = (value: boolean) => {
                         >
                             <div class="menu__icon">
                                 <!-- TODO: fix width and height  -->
-            <svg-loader :name="menu.icon"></svg-loader>
+                                <svg-loader :name="menu.icon"></svg-loader>
                             </div>
                             <div class="menu__title ms-3 flex w-full items-center">
                                 {{ menu.title }}

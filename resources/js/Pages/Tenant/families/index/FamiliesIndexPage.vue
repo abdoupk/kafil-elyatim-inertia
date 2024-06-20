@@ -139,7 +139,7 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list',{attribute: $t('families')})"></Head>
+    <Head :title="$t('list', { attribute: $t('families') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
         {{ $t('list', { attribute: $t('families') }) }}

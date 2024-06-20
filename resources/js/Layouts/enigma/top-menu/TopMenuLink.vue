@@ -54,7 +54,7 @@ defineProps<{
             "
         >
             <!-- TODO: fix width and height  -->
-            <svg-loader :name="menu.icon" class="w-6 h-6"></svg-loader>
+            <svg-loader :name="menu.icon" class="h-6 w-6"></svg-loader>
         </div>
         <div
             :class="
