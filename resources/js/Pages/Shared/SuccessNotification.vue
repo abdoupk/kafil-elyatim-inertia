@@ -1,0 +1,40 @@
+<script setup lang="ts">
+import BaseNotification, { type NotificationElement } from '@/Components/Base/notification/BaseNotification.vue'
+import { provide, ref, watch } from 'vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
+
+const successNotification = ref<NotificationElement>()
+
+provide('bind[successNotification]', (el: NotificationElement) => {
+    successNotification.value = el
+})
+
+const props = defineProps<{ open: boolean }>()
+
+watch(props, (value) => {
+    if (value.open) {
+        successNotification.value?.showToast()
+    }
+})
+</script>
+
+<template>
+    <base-notification
+        data-test="successNotification"
+        refKey="successNotification"
+        :options="{
+            duration: 3000,
+            gravity: 'top',
+            position: 'right'
+        }"
+        class="flex"
+    >
+        <svg-loader name="icon-check-circle" class="fill-success w-4 h-4"></svg-loader>
+
+        <div class="mx-4">
+            <div class="font-medium">
+                {{ $t('auth.register.success.title') }}
+            </div>
+        </div>
+    </base-notification>
+</template>

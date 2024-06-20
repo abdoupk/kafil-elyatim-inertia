@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import BaseNotification, { type NotificationElement } from '@/Components/Base/notification/BaseNotification.vue'
-import { type Ref, provide, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 import type { RegisterStepOneProps, RegisterStepTwoProps } from '@/types/types'
 import {
     registerFormAttributes,
@@ -14,11 +13,13 @@ import StepOne from '@/Pages/Auth/Register/StepOne.vue'
 import StepThree from '@/Pages/Auth/Register/StepThree.vue'
 import StepTitle from '@/Pages/Auth/Register/StepTitle.vue'
 import StepTwo from '@/Pages/Auth/Register/StepTwo.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import TheActions from '@/Pages/Auth/Register/TheActions.vue'
 import { useForm } from 'laravel-precognition-vue'
 
 const currentStep = ref(1)
+
+const registeringCompleted = ref(false)
 
 const totalSteps = 3
 
@@ -29,12 +30,6 @@ const stepOneCompleted = ref<boolean>(false)
 const stepTwoCompleted = ref<boolean>(false)
 
 const validating = ref<boolean>(false)
-
-const successNotification = ref<NotificationElement>()
-
-provide('bind[successNotification]', (el: NotificationElement) => {
-    successNotification.value = el
-})
 
 const validateStep = async (errorProps: RegisterStepOneProps[] | RegisterStepTwoProps[], step: Ref) => {
     validating.value = true
@@ -91,7 +86,7 @@ const submit = () => {
 
     form.submit({
         onSuccess(response) {
-            successNotification.value?.showToast()
+            registeringCompleted.value = true
 
             setTimeout(() => {
                 window.location.href = response.data.url
@@ -102,6 +97,7 @@ const submit = () => {
         }
     })
 }
+
 </script>
 
 <template>
@@ -166,22 +162,5 @@ const submit = () => {
         </div>
     </div>
 
-    <base-notification
-        data-test="successNotification"
-        refKey="successNotification"
-        :options="{
-            duration: 3000,
-            gravity: 'top',
-            position: 'right'
-        }"
-        class="flex"
-    >
-        <svg-loader name="icon-check-circle" class="fill-success"></svg-loader>
-
-        <div class="ml-4 mr-4">
-            <div class="font-medium">
-                {{ $t('auth.register.success.title') }}
-            </div>
-        </div>
-    </base-notification>
+    <success-notification :open="registeringCompleted"></success-notification>
 </template>
