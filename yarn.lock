@@ -1271,16 +1271,6 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@pqina/dropzone-pintura@^9.0.0":
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/@pqina/dropzone-pintura/-/dropzone-pintura-9.0.0.tgz#d1dd6de776ed76cb90b6623d6f2a2f0818e7c38d"
-  integrity sha512-TL1Ngl7vYfuERH4QftUSVw7rgHNmjvP3Pt6XPp0gRe7YQ8seqvQGnms5UriYOMee0kIrXYrYzcJlxPiJdaI+Rg==
-
-"@pqina/filepond-plugin-image-editor@^9.0.3":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@pqina/filepond-plugin-image-editor/-/filepond-plugin-image-editor-9.1.1.tgz#cb7e9f88aeabf58182097bb0a8342286b005817a"
-  integrity sha512-USXEzjr5abDMgFpMM5TFYFP88hSh8tjvdYKhj1SmZSNVbY1uE1UsySiFNfRYpYbza2LuqYTL/eyVmn7X2TzXBA==
-
 "@pqina/pintura@^8.72.4":
   version "8.82.6"
   resolved "https://registry.yarnpkg.com/@pqina/pintura/-/pintura-8.82.6.tgz#eebdaf39d9f62985aec897abce1e279d92115a7a"
@@ -4122,11 +4112,6 @@ file-uri-to-path@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
   integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
-
-filepond-plugin-file-poster@^2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/filepond-plugin-file-poster/-/filepond-plugin-file-poster-2.5.1.tgz#8f899593660623b7967f26a7991d18de3e82a639"
-  integrity sha512-WMB6Iww//U7KJR9Yt/zZ3cxC7SVySXGTrWPnAQokYSFfDp4uD31JLtyjYAVJnEg6T+niJvNwH48jKn/X3o75og==
 
 filepond-plugin-file-validate-type@^1.2.9:
   version "1.2.9"
