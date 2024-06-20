@@ -101,7 +101,7 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Register" />
+    <Head :title="$t('the_register')" />
 
     <div class="mx-auto h-screen max-w-3/4 flex-col content-center py-5">
         <div class="intro-y box py-10">
@@ -162,5 +162,6 @@ const submit = () => {
         </div>
     </div>
 
-    <success-notification :open="registeringCompleted"></success-notification>
+    <success-notification :title="$t('auth.register.success.title')"
+                          :open="registeringCompleted"></success-notification>
 </template>

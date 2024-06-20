@@ -9,7 +9,7 @@ provide('bind[successNotification]', (el: NotificationElement) => {
     successNotification.value = el
 })
 
-const props = defineProps<{ open: boolean }>()
+const props = defineProps<{ open: boolean, title: string, message?: string }>()
 
 watch(props, (value) => {
     if (value.open) {
@@ -33,7 +33,10 @@ watch(props, (value) => {
 
         <div class="mx-4">
             <div class="font-medium">
-                {{ $t('auth.register.success.title') }}
+                {{ props.title }}
+            </div>
+            <div class="mt-1 text-slate-500" v-if="props.message">
+                {{ props.message }}}
             </div>
         </div>
     </base-notification>
