@@ -9,7 +9,7 @@ defineOptions({
 
 interface Stats {
     total: number
-    percentageDifference: number
+    percentageDifference: string
 }
 
 defineProps<{
@@ -36,7 +36,7 @@ defineProps<{
                         <report-box
                             :stat="orphans.total"
                             :title="$t('total orphans')"
-                            :percentageDifference="orphans.percentageDifference"
+                            :percentageDifference="parseInt(orphans.percentageDifference)"
                             icon-color="primary"
                             icon="icon-hands-holding-child"
                         ></report-box>
@@ -44,7 +44,7 @@ defineProps<{
                         <report-box
                             :stat="families.total"
                             :title="$t('total families')"
-                            :percentageDifference="families.percentageDifference"
+                            :percentageDifference="parseInt(families.percentageDifference)"
                             icon-color="dark"
                             icon="icon-family"
                         ></report-box>
@@ -52,7 +52,7 @@ defineProps<{
                         <report-box
                             :stat="members.total"
                             :title="$t('total members')"
-                            :percentageDifference="members.percentageDifference"
+                            :percentageDifference="parseInt(members.percentageDifference)"
                             icon-color="pending"
                             icon="icon-users-gear"
                         ></report-box>
@@ -60,7 +60,7 @@ defineProps<{
                         <report-box
                             :stat="branches.total"
                             :title="$t('total branches')"
-                            :percentageDifference="branches.percentageDifference"
+                            :percentageDifference="parseInt(branches.percentageDifference)"
                             icon-color="success"
                             icon="icon-branches"
                         ></report-box>
