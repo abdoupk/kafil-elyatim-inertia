@@ -84,6 +84,7 @@
     "starting_sponsorship_date": "تاريخ بدء التكفل",
     "list": "قائمة :attribute",
     "branches": "الفروع",
+    "branch": "فرع",
     "roles": "الادوار",
     "print": "طباعة",
     "export": "تصدير إلى ملف :type",
@@ -96,9 +97,8 @@
     "cancel": "إلغاء",
     "edit": "تعديل",
     "actions": "الإجراءات",
-    "add new family": "اضافة عائلة جديدة",
+    "add new": "اضافة :attribute جديد {1} | اضافة :attribute جديدة {0}",
     "Search...": "بحث...",
-    "Showing 41 to 50 of 70 entries": "عرض 41 إلى 50 من 70 قيود",
     "the_family": "العائلة",
     "total orphans": "اجمالي الأيتام",
     "orphans": "الأيتام",
@@ -115,7 +115,8 @@
     "lower": "اقل",
     "reportTooltip": ":percentage% :range من الشهر الماضي",
     "dashboard": "لوحة التحكم",
-    "families": "العائلات",
+    "the_families": "العائلات",
+    "families": "[10,*]عائلة|[3,9]عائلات",
     "show": "عرض",
     "apply": "تطبيق"
 }

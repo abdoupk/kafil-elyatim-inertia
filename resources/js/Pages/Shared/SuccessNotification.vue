@@ -9,7 +9,7 @@ provide('bind[successNotification]', (el: NotificationElement) => {
     successNotification.value = el
 })
 
-const props = defineProps<{ open: boolean, title: string, message?: string }>()
+const props = defineProps<{ open: boolean; title: string; message?: string }>()
 
 watch(props, (value) => {
     if (value.open) {
@@ -29,15 +29,13 @@ watch(props, (value) => {
         }"
         class="flex"
     >
-        <svg-loader name="icon-check-circle" class="fill-success w-4 h-4"></svg-loader>
+        <svg-loader name="icon-check-circle" class="h-4 w-4 fill-success"></svg-loader>
 
         <div class="mx-4">
             <div class="font-medium">
                 {{ props.title }}
             </div>
-            <div class="mt-1 text-slate-500" v-if="props.message">
-                {{ props.message }}}
-            </div>
+            <div class="mt-1 text-slate-500" v-if="props.message">{{ props.message }}}</div>
         </div>
     </base-notification>
 </template>

@@ -1,4 +1,4 @@
-import { __ } from '@/utils/i18n'
+import { __, n__ } from '@/utils/i18n'
 import { defineStore } from 'pinia'
 import type { IFormattedMenu } from '@/types/types'
 
@@ -21,17 +21,17 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-family',
                 routeName: '',
-                title: __('families'),
+                title: __('the_families'),
                 subMenu: [
                     {
                         icon: 'icon-users',
-                        title: __('list', { attribute: __('families') }),
+                        title: __('list', { attribute: __('the_families') }),
                         routeName: 'tenant.families.index',
                         url: route('tenant.families.index')
                     },
                     {
                         icon: 'icon-users-plus',
-                        title: __('add new family'),
+                        title: n__(__('add new'), 0, { attribute: __('family') }),
                         routeName: 'tenant.families.create',
                         url: route('tenant.families.create')
                     }
@@ -50,7 +50,7 @@ export const useMenuStore = defineStore('menu', {
                     },
                     {
                         icon: 'icon-grid-round-2-plus',
-                        title: __('add new family'),
+                        title: n__('add new', 1, { attribute: __('branch') }),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }
@@ -69,7 +69,7 @@ export const useMenuStore = defineStore('menu', {
                     },
                     {
                         icon: 'icon-user-plus',
-                        title: __('add new family'),
+                        title: __('add new', { attribute: __('family') }),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }
@@ -88,7 +88,7 @@ export const useMenuStore = defineStore('menu', {
                     },
                     {
                         icon: 'icon-users-plus',
-                        title: __('add new family'),
+                        title: __('add new', { attribute: __('family') }),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }
@@ -113,7 +113,7 @@ export const useMenuStore = defineStore('menu', {
                     },
                     {
                         icon: 'icon-users-plus',
-                        title: __('add new family'),
+                        title: __('add new', { attribute: __('family') }),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }
@@ -132,7 +132,7 @@ export const useMenuStore = defineStore('menu', {
                     },
                     {
                         icon: 'icon-users-plus',
-                        title: __('add new family'),
+                        title: __('add new', { attribute: __('family') }),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }
@@ -151,7 +151,7 @@ export const useMenuStore = defineStore('menu', {
                     },
                     {
                         icon: 'icon-users-plus',
-                        title: __('add new family'),
+                        title: __('add new', { attribute: __('family') }),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }

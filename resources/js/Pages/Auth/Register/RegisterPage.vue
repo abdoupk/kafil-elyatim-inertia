@@ -97,7 +97,6 @@ const submit = () => {
         }
     })
 }
-
 </script>
 
 <template>
@@ -162,6 +161,8 @@ const submit = () => {
         </div>
     </div>
 
-    <success-notification :title="$t('auth.register.success.title')"
-                          :open="registeringCompleted"></success-notification>
+    <success-notification
+        :title="$t('auth.register.success.title')"
+        :open="registeringCompleted"
+    ></success-notification>
 </template>

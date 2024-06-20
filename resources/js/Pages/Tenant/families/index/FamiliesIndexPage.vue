@@ -12,6 +12,7 @@ import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 import { debounce } from '@/utils/helper'
+import { n__ } from '../../../../utils/i18n'
 
 defineOptions({
     layout: TheLayout
@@ -139,10 +140,10 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('families') })"></Head>
+    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('families') }) }}
+        {{ $t('list', { attribute: $t('the_families') }) }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
@@ -152,7 +153,7 @@ watch(
                 class="me-2 shadow-md"
                 @click.prevent="router.get(route('tenant.families.create'))"
             >
-                {{ $t('add new family') }}
+                {{ n__('add new', 0, { attribute: $t('family') }) }}
             </base-button>
 
             <export-menu :filters></export-menu>
@@ -164,7 +165,7 @@ watch(
                             from: families.meta.from?.toString(),
                             to: families.meta.to?.toString(),
                             total: families.meta.total?.toString(),
-                            entries: $t('family')
+                            entries: n__('families', families.meta.total)
                         })
                     }}
                 </span>
