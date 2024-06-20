@@ -12,7 +12,7 @@ import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 import { debounce } from '@/utils/helper'
-import { n__ } from '../../../../utils/i18n'
+import { n__ } from '@/utils/i18n'
 
 defineOptions({
     layout: TheLayout

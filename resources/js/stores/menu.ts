@@ -1,6 +1,6 @@
 import { __, n__ } from '@/utils/i18n'
-import { defineStore } from 'pinia'
 import type { IFormattedMenu } from '@/types/types'
+import { defineStore } from 'pinia'
 
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({
@@ -19,21 +19,21 @@ export const useMenuStore = defineStore('menu', {
                 title: __('roles')
             },
             {
-                icon: 'icon-family',
+                icon: 'icon-users-gear',
                 routeName: '',
-                title: __('the_families'),
+                title: __('the_members'),
                 subMenu: [
                     {
                         icon: 'icon-users',
-                        title: __('list', { attribute: __('the_families') }),
-                        routeName: 'tenant.families.index',
-                        url: route('tenant.families.index')
+                        title: __('list', { attribute: __('branches') }),
+                        routeName: 'tenant.branches.index',
+                        url: route('tenant.branches.index')
                     },
                     {
-                        icon: 'icon-users-plus',
-                        title: n__(__('add new'), 0, { attribute: __('family') }),
-                        routeName: 'tenant.families.create',
-                        url: route('tenant.families.create')
+                        icon: 'icon-user-plus',
+                        title: n__('add new', 1, { attribute: __('member') }),
+                        routeName: 'tenant.branches.create',
+                        url: route('tenant.branches.create')
                     }
                 ]
             },
@@ -56,68 +56,31 @@ export const useMenuStore = defineStore('menu', {
                     }
                 ]
             },
+            'divider',
             {
-                icon: 'icon-users-gear',
+                icon: 'icon-family',
                 routeName: '',
-                title: __('members'),
+                title: __('the_families'),
                 subMenu: [
                     {
                         icon: 'icon-users',
-                        title: __('list', { attribute: __('branches') }),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
+                        title: __('list', { attribute: __('the_families') }),
+                        routeName: 'tenant.families.index',
+                        url: route('tenant.families.index')
                     },
                     {
-                        icon: 'icon-user-plus',
-                        title: __('add new', { attribute: __('family') }),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
+                        icon: 'icon-users-plus',
+                        title: n__(__('add new'), 0, { attribute: __('family') }),
+                        routeName: 'tenant.families.create',
+                        url: route('tenant.families.create')
                     }
                 ]
             },
             {
                 icon: 'icon-children',
-                routeName: '',
                 title: __('orphans'),
-                subMenu: [
-                    {
-                        icon: 'icon-branches',
-                        title: __('list', { attribute: __('branches') }),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
-                    },
-                    {
-                        icon: 'icon-users-plus',
-                        title: __('add new', { attribute: __('family') }),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
-                    }
-                ]
-            },
-            {
-                icon: 'icon-gear',
-                routeName: 'tenant.settings.index',
-                title: __('settings'),
-                url: route('tenant.families.index')
-            },
-            {
-                icon: 'icon-chart-pie-simple',
-                routeName: '',
-                title: __('statistics'),
-                subMenu: [
-                    {
-                        icon: 'icon-branches',
-                        title: __('list', { attribute: __('branches') }),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
-                    },
-                    {
-                        icon: 'icon-users-plus',
-                        title: __('add new', { attribute: __('family') }),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
-                    }
-                ]
+                routeName: 'tenant.branches.index',
+                url: route('tenant.branches.index')
             },
             {
                 icon: 'icon-calendar-star',
@@ -125,37 +88,57 @@ export const useMenuStore = defineStore('menu', {
                 title: __('occasions'),
                 subMenu: [
                     {
-                        icon: 'icon-branches',
-                        title: __('list', { attribute: __('branches') }),
+                        icon: 'icon-ram',
+                        title: __('eid_el_adha'),
                         routeName: 'tenant.branches.index',
                         url: route('tenant.branches.index')
                     },
                     {
-                        icon: 'icon-users-plus',
-                        title: __('add new', { attribute: __('family') }),
+                        icon: 'icon-backpack',
+                        title: __('school entry'),
+                        routeName: 'tenant.branches.create',
+                        url: route('tenant.branches.create')
+                    },
+                    {
+                        icon: 'icon-moon-stars',
+                        title: __('eid_el_fitr'),
+                        routeName: 'tenant.branches.index',
+                        url: route('tenant.branches.index')
+                    },
+                    {
+                        icon: 'icon-moon',
+                        title: __('ramadan basket'),
+                        routeName: 'tenant.branches.create',
+                        url: route('tenant.branches.create')
+                    },
+                    {
+                        icon: 'icon-basket-shopping',
+                        title: __('monthly basket'),
                         routeName: 'tenant.branches.create',
                         url: route('tenant.branches.create')
                     }
                 ]
             },
+            'divider',
+            {
+                icon: 'icon-chart-pie-simple',
+                routeName: '',
+                title: __('statistics'),
+                routeName: 'tenant.branches.index',
+                url: route('tenant.branches.index')
+            },
             {
                 icon: 'icon-hands-holding-dollar',
                 routeName: '',
                 title: __('financial'),
-                subMenu: [
-                    {
-                        icon: 'icon-branches',
-                        title: __('list', { attribute: __('branches') }),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
-                    },
-                    {
-                        icon: 'icon-users-plus',
-                        title: __('add new', { attribute: __('family') }),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
-                    }
-                ]
+                routeName: 'tenant.branches.index',
+                url: route('tenant.branches.index')
+            },
+            {
+                icon: 'icon-gear',
+                routeName: 'tenant.settings.index',
+                title: __('settings'),
+                url: route('tenant.families.index')
             }
         ]
     })

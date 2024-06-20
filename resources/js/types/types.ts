@@ -57,6 +57,7 @@ export type SVGType =
     | 'icon-backpack'
     | 'icon-ram'
     | 'icon-moon-stars'
+    | 'icon-moon'
     | 'icon-chart-pie-simple'
     | 'icon-hand-holding-circle-dollar'
     | 'icon-grid-round-2-plus'

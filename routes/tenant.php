@@ -15,6 +15,7 @@ use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Permissions\PermissionsIndexController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
+use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -127,4 +128,7 @@ Route::middleware([
             )->name('login');
         });
     });
+
+    Route::put('settings', UpdateSettingsController::class);
+
 });

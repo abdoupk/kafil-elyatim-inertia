@@ -12,7 +12,7 @@ const setDarkModeClass = () => {
 }
 
 const switchMode = (value: AppearanceType) => {
-    settingsStore.appearance = value
+    settingsStore.toggleAppearance(value)
 
     setDarkModeClass()
 }

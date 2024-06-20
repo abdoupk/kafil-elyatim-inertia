@@ -20,12 +20,7 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-                'settings' => [
-                    'layout' => 'top_menu',
-                    'appearance' => 'light',
-                    'theme' => 'enigma',
-                    'color_scheme' => 'theme_1',
-                ],
+                'settings' => auth()->user()?->settings,
             ],
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()
             'languages' => LanguageResource::collection(Lang::cases()),
