@@ -26,8 +26,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-users',
                         title: __('list', { attribute: __('branches') }),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
+                        routeName: 'tenant.members.index',
+                        url: route('tenant.members.index')
                     },
                     {
                         icon: 'icon-user-plus',
@@ -79,8 +79,14 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-children',
                 title: __('orphans'),
-                routeName: 'tenant.branches.index',
-                url: route('tenant.branches.index')
+                routeName: 'tenant.orphans.index',
+                url: route('tenant.orphans.index')
+            },
+            {
+                icon: 'icon-hands-holding-child',
+                title: __('the_sponsors'),
+                routeName: 'tenant.sponsors.index',
+                url: route('tenant.sponsors.index')
             },
             {
                 icon: 'icon-calendar-star',
@@ -124,21 +130,28 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-chart-pie-simple',
                 routeName: '',
                 title: __('statistics'),
-                routeName: 'tenant.branches.index',
-                url: route('tenant.branches.index')
+                routeName: 'tenant.statistics.index',
+                url: route('tenant.statistics.index')
+            },
+            {
+                icon: 'icon-map-location-dot',
+                routeName: '',
+                title: __('the_zones'),
+                routeName: 'tenant.zones.index',
+                url: route('tenant.zones.index')
             },
             {
                 icon: 'icon-hands-holding-dollar',
                 routeName: '',
                 title: __('financial'),
-                routeName: 'tenant.branches.index',
-                url: route('tenant.branches.index')
+                routeName: 'tenant.financial.index',
+                url: route('tenant.financial.index')
             },
             {
                 icon: 'icon-gear',
                 routeName: 'tenant.settings.index',
                 title: __('settings'),
-                url: route('tenant.families.index')
+                url: route('tenant.settings.index')
             }
         ]
     })

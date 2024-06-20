@@ -87,7 +87,7 @@
     "eid_el_fitr": "عيد الفطر",
     "export": "تصدير إلى ملف :type",
     "facebook": "facebook",
-    "families": "[10,*]عائلة|[3,9]عائلات",
+    "families": "[11,*]عائلة|[3,10]عائلات",
     "family": "عائلة",
     "file_number": "رقم الملف",
     "financial": "المالية",
@@ -126,5 +126,9 @@
     "total members": "اجمالي الأعضاء",
     "total orphans": "اجمالي الأيتام",
     "twitter": "twitter",
-    "wilaya": "الولاية"
+    "wilaya": "الولاية",
+    "sponsors": "متكفلين",
+    "the_sponsors": "المتكفلين",
+    "the_zones": "المناطق",
+    "zones": "مناطق"
 }

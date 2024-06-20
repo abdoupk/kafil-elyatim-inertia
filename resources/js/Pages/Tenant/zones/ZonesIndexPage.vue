@@ -7,7 +7,7 @@ defineOptions({
 </script>
 
 <template>
-    members
+    Zones
 </template>
 
 <style scoped lang="postcss">

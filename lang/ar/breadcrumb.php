@@ -3,11 +3,15 @@
 return [
     'dashboard' => 'الرئيسية',
     'families' => 'العائلات',
-    'orphans' => 'الأطفال',
-    'sponsors' => 'المشاريع',
+    'orphans' => 'الايتام',
+    'sponsors' => 'المتكفلين',
     'members' => 'الأعضاء',
     'permissions' => 'الصلاحيات',
-    'roles' => 'الوظائف',
+    'roles' => 'الادوار',
     'settings' => 'الإعدادات',
     'create' => 'اضافة',
+    'branches' => 'الفروع',
+    'statistics' => 'الاحصائيات',
+    'zones' => 'المناطق',
+    'financial' => 'الماليات',
 ];
