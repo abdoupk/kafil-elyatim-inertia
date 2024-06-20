@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { CreateFamilyStepProps, Zone } from '@/types/types'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
 import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
+import type { CreateFamilyStepProps } from '@/types/types'
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
-defineProps<CreateFamilyStepProps>()
+const props = defineProps<CreateFamilyStepProps>()
 
 const zone = defineModel('zone', { default: '' })
 
@@ -16,6 +16,14 @@ const startDate = defineModel('startDate', { default: '' })
 const address = defineModel('address')
 
 const fileNumber = defineModel('fileNumber')
+
+const setZone = (value: string | string[]) => {
+    if (typeof value === 'string') {
+        zone.value = value
+
+        props.form?.validate('zone')
+    }
+}
 </script>
 
 <template>
@@ -69,6 +77,7 @@ const fileNumber = defineModel('fileNumber')
                         autoApply: false,
                         lang: 'ar',
                         showWeekNumbers: false,
+                        format: 'DD-MM-YYYY',
                         dropdowns: {
                             minYear: 1990,
                             maxYear: null,
@@ -76,7 +85,7 @@ const fileNumber = defineModel('fileNumber')
                             years: true
                         }
                     }"
-                    class="w-1/2 block"
+                    class="block w-1/2"
                 ></base-lite-picker>
 
                 <base-form-input-error>
@@ -113,9 +122,16 @@ const fileNumber = defineModel('fileNumber')
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
 
-                <base-tom-select :model-value="zone">
-                    <option v-for="zone in zones" :key="zone.id" :value="zone.id">{{ zone.name }}</option>
-                </base-tom-select>
+                <div>
+                    <base-tom-select
+                        :model-value="zone"
+                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('zone') })"
+                        @update:model-value="setZone"
+                    >
+                        <option value=""></option>
+                        <option v-for="zone in zones" :key="zone.id" :value="zone.id">{{ zone.name }}</option>
+                    </base-tom-select>
+                </div>
 
                 <base-form-input-error>
                     <div class="mt-2 text-danger" v-if="form?.invalid('zone')" data-test="error_zone_message">

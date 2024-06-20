@@ -7,5 +7,3 @@ defineOptions({
 </script>
 
 <template>Statistics</template>
-
-<style scoped lang="postcss"></style>

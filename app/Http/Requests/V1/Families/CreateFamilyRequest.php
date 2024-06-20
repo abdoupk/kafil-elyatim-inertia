@@ -13,7 +13,7 @@ class CreateFamilyRequest extends FormRequest
             'address' => 'required|string',
             'zone' => 'required|string|exists:App\Models\Zone,id',
             'file_number' => 'required|numeric',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
         ];
     }
 

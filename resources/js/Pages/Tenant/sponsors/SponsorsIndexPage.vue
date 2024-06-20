@@ -7,5 +7,3 @@ defineOptions({
 </script>
 
 <template>sponsors</template>
-
-<style scoped lang="postcss"></style>

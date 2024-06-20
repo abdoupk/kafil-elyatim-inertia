@@ -5,9 +5,8 @@ import BaseMenuButton from '@/Components/Base/headless/Menu/BaseMenuButton.vue'
 import BaseMenuItem from '@/Components/Base/headless/Menu/BaseMenuItem.vue'
 import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import type { FamiliesIndexFilters } from '@/types/types'
-import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { TransitionRoot } from '@headlessui/vue'
 import print from 'print-js'
 import { ref } from 'vue'
 
@@ -47,15 +46,7 @@ const printPdf = () => {
             >
                 <svg-loader name="icon-print" class="me-2 h-4 w-4 fill-current" />
                 {{ $t('print') }}
-                <transition-root
-                    class="ms-auto"
-                    :show="printStarting"
-                    enter="transition ease-out"
-                    enterFrom="scale-0"
-                    enterTo="scale-100"
-                >
-                    <spinner-loader class="h-4 w-4 animate-spin"></spinner-loader>
-                </transition-root>
+                <spinner-button-loader :show="printStarting"></spinner-button-loader>
             </base-menu-item>
             <base-menu-item as="a" :href="route('tenant.families.export.xlsx', filters)">
                 <svg-loader name="icon-file-excel" class="me-2 h-4 w-4 fill-current" />

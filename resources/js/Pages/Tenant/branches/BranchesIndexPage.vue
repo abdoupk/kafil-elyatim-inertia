@@ -7,5 +7,3 @@ defineOptions({
 </script>
 
 <template>branches</template>
-
-<style scoped lang="postcss"></style>

@@ -6,10 +6,4 @@ defineOptions({
 })
 </script>
 
-<template>
-    members
-</template>
-
-<style scoped lang="postcss">
-
-</style>
+<template>members</template>

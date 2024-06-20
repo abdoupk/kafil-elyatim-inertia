@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { type Ref, ref } from 'vue'
-import type { RegisterStepOneProps, RegisterStepTwoProps, Zone } from '@/types/types'
 import {
     createFamilyFormAttributes,
     createFamilyStepsTitles,
@@ -14,6 +13,7 @@ import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
+import type { Zone } from '@/types/types'
 import { useForm } from 'laravel-precognition-vue'
 
 defineOptions({
@@ -26,7 +26,7 @@ const currentStep = ref(1)
 
 const totalSteps = 3
 
-const form = useForm('post', route('register'), createFamilyFormAttributes)
+const form = useForm('post', route('tenant.families.store'), createFamilyFormAttributes)
 
 const stepOneCompleted = ref<boolean>(false)
 
@@ -34,7 +34,7 @@ const stepTwoCompleted = ref<boolean>(false)
 
 const validating = ref<boolean>(false)
 
-const validateStep = async (errorProps: RegisterStepOneProps[] | RegisterStepTwoProps[], step: Ref) => {
+const validateStep = async (errorProps: string[], step: Ref) => {
     validating.value = true
 
     await form.submit({

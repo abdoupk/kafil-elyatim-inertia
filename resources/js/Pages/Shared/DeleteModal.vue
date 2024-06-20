@@ -2,9 +2,8 @@
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseDialog from '@/Components/Base/headless/Dialog/BaseDialog.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
-import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { TransitionRoot } from '@headlessui/vue'
 import { ref } from 'vue'
 
 defineProps<{ open: boolean; deleteProgress: boolean }>()
@@ -37,14 +36,7 @@ const deleteButtonRef = ref(null)
                     class="w-24"
                     ref="{deleteButtonRef}"
                 >
-                    <transition-root
-                        :show="deleteProgress"
-                        enter="transition ease-out"
-                        enterFrom="scale-0"
-                        enterTo="scale-100"
-                    >
-                        <spinner-loader class="me-1 h-4 w-4 animate-spin text-white"></spinner-loader>
-                    </transition-root>
+                    <spinner-button-loader :show="deleteProgress"></spinner-button-loader>
 
                     {{ $t('delete') }}
                 </base-button>

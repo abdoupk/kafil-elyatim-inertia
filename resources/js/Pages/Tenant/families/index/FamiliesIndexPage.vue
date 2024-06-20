@@ -5,7 +5,7 @@ import { reactive, ref, watch } from 'vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
-import DeleteFamilyModal from '@/Pages/Tenant/families/index/DeleteFamilyModal.vue'
+import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
@@ -200,10 +200,10 @@ watch(
         <no-results-found></no-results-found>
     </div>
 
-    <delete-family-modal
+    <delete-modal
         :open="deleteModalStatus"
         :deleteProgress
         @close="closeDeleteModal"
         @delete="deleteFamily"
-    ></delete-family-modal>
+    ></delete-modal>
 </template>

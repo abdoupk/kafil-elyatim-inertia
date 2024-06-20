@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
-import { TransitionRoot } from '@headlessui/vue'
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 
 interface Props {
     currentStep: number
@@ -36,16 +35,7 @@ defineProps<Props>()
             @click.prevent="nextStep"
             data-test="next_or_register"
         >
-            <!-- TODO: Fix This its too late to appear or disappear -->
-            <transition-root
-                appear
-                :show="validating"
-                enter="transition ease-out"
-                enterFrom="scale-0"
-                enterTo="scale-100"
-            >
-                <spinner-loader class="me-1 h-4 w-4 animate-spin text-white"></spinner-loader>
-            </transition-root>
+            <spinner-button-loader :show="validating"></spinner-button-loader>
 
             {{ currentStep === totalSteps ? $t('register') : $t('pagination.next') }}
         </base-button>

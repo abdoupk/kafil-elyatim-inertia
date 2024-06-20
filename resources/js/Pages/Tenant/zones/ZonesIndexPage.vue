@@ -6,10 +6,4 @@ defineOptions({
 })
 </script>
 
-<template>
-    Zones
-</template>
-
-<style scoped lang="postcss">
-
-</style>
+<template>Zones</template>

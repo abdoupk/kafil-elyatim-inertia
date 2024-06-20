@@ -7,5 +7,3 @@ defineOptions({
 </script>
 
 <template>financial</template>
-
-<style scoped lang="postcss"></style>

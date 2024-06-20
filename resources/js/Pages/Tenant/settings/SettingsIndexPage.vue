@@ -7,5 +7,3 @@ defineOptions({
 </script>
 
 <template>settings</template>
-
-<style scoped lang="postcss"></style>

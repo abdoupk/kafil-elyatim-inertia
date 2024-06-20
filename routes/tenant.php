@@ -23,6 +23,7 @@ use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
 use App\Http\Controllers\V1\Zones\ZonesIndexController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -65,8 +66,8 @@ Route::middleware([
                 Route::get('/create', FamilyCreateController::class)
                     ->name('create');
 
-                Route::get('/store', FamilyStoreController::class)
-                    ->name('store');
+                Route::post('/store', FamilyStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::get('edit/{family}', FamilyEditController::class)
                     ->name('edit');
