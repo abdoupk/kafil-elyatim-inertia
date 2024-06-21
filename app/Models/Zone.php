@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  * @property string $id
@@ -32,9 +33,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Zone extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Searchable;
 
     public $timestamps = false;
 
     protected $table = 'zones';
+
+    public function searchableAs(): string
+    {
+        return 'zones';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'tenant_id' => $this->tenant_id,
+            'description' => $this->description,
+            'created_at' => $this->created_at,
+        ];
+    }
 }

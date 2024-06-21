@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IndexFilters, MembersIndexResource, PaginationData } from '@/types/types'
+import type { IndexFilters, PaginationData, ZonesIndexResource } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -8,7 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
+import DataTable from '@/Pages/Tenant/zones/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -23,7 +23,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-    members: PaginationData<MembersIndexResource>
+    zones: PaginationData<ZonesIndexResource>
     filters: IndexFilters
 }>()
 
@@ -40,7 +40,7 @@ const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
-const selectedMemberId = ref<string>('')
+const selectedZoneId = ref<string>('')
 
 let routerOptions = {
     preserveState: true,
@@ -50,7 +50,7 @@ let routerOptions = {
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
 
-    selectedMemberId.value = ''
+    selectedZoneId.value = ''
 
     deleteProgress.value = false
 }
@@ -66,7 +66,7 @@ const getData = () => {
         if (!data[key as keyof IndexFilters]) delete data[key as keyof IndexFilters]
     })
 
-    router.get(route('tenant.members.index'), data, routerOptions)
+    router.get(route('tenant.zones.index'), data, routerOptions)
 }
 
 const sort = (field: string) => {
@@ -93,14 +93,14 @@ const sort = (field: string) => {
     getData()
 }
 
-const deleteMember = () => {
-    router.delete(route('tenant.members.destroy', selectedMemberId.value), {
+const deleteZone = () => {
+    router.delete(route('tenant.zones.destroy', selectedZoneId.value), {
         preserveScroll: true,
         onStart: () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.members.meta.last_page < filters.page) {
+            if (props.zones.meta.last_page < filters.page) {
                 filters.page = filters.page - 1
             }
 
@@ -109,8 +109,8 @@ const deleteMember = () => {
     })
 }
 
-const showDeleteModal = (memberId: string) => {
-    selectedMemberId.value = memberId
+const showDeleteModal = (zoneId: string) => {
+    selectedZoneId.value = zoneId
 
     deleteModalStatus.value = true
 }
@@ -144,10 +144,10 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_members') })"></Head>
+    <Head :title="$t('list', { attribute: $t('the_zones') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_members') }) }}
+        {{ $t('list', { attribute: $t('the_zones') }) }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
@@ -155,19 +155,19 @@ watch(
             <base-button
                 variant="primary"
                 class="me-2 shadow-md"
-                @click.prevent="router.get(route('tenant.members.create'))"
+                @click.prevent="router.get(route('tenant.zones.create'))"
             >
-                {{ n__('add new', 1, { attribute: $t('member') }) }}
+                {{ n__('add new', 0, { attribute: $t('zone') }) }}
             </base-button>
 
             <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="members.meta.total > 0">
+                <span v-if="zones.meta.total > 0">
                     {{
                         $t('showing_results', {
-                            from: members.meta.from?.toString(),
-                            to: members.meta.to?.toString(),
-                            total: members.meta.total?.toString(),
-                            entries: n__('members', members.meta.total)
+                            from: zones.meta.from?.toString(),
+                            to: zones.meta.to?.toString(),
+                            total: zones.meta.total?.toString(),
+                            entries: n__('zones', zones.meta.total)
                         })
                     }}
                 </span>
@@ -187,12 +187,12 @@ watch(
         </div>
     </div>
 
-    <template v-if="members.data.length > 0">
-        <data-table :filters :members @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+    <template v-if="zones.data.length > 0">
+        <data-table :filters :zones @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
 
         <pagination-data-table
-            v-if="members.meta.last_page > 1"
-            :pages="members.meta.last_page"
+            v-if="zones.meta.last_page > 1"
+            :pages="zones.meta.last_page"
             v-model:page="filters.page"
             v-model:per-page="filters.perPage"
         ></pagination-data-table>
@@ -206,6 +206,6 @@ watch(
         :open="deleteModalStatus"
         :deleteProgress
         @close="closeDeleteModal"
-        @delete="deleteMember"
+        @delete="deleteZone"
     ></delete-modal>
 </template>

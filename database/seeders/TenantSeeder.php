@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Domain;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Database\Seeder;
 use Random\RandomException;
 
@@ -46,6 +47,8 @@ class TenantSeeder extends Seeder
                 /* @phpstan-ignore-next-line */
                 'domain' => $tenant?->domain,
             ]);
+
+            Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
 
             User::factory(10)->create([
                 'tenant_id' => $tenant?->id,

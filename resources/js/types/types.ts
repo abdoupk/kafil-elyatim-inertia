@@ -222,10 +222,15 @@ export interface CreateFamilyStepProps {
 
 export type CreateFamilyStepOneProps = 'zone' | 'start_date' | 'address' | 'file_number'
 
-export interface MemberIndexResource {
+export interface MembersIndexResource {
     id: string
     name: string
     email: string
     phone: string
     zone: Zone
+}
+
+export interface ZonesIndexResource extends Zone {
+    created_at: string
+    description: string
 }

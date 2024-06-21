@@ -120,25 +120,25 @@ Route::middleware([
                     ->name('index');
             });
 
-        });
-        Route::prefix('settings')->name('settings.')->group(function () {
-            Route::get('', SettingsIndexController::class)
-                ->name('index');
-        });
+            Route::prefix('settings')->name('settings.')->group(function () {
+                Route::get('', SettingsIndexController::class)
+                    ->name('index');
+            });
 
-        Route::prefix('financial')->name('financial.')->group(function () {
-            Route::get('', FinancialIndexController::class)
-                ->name('index');
-        });
+            Route::prefix('financial')->name('financial.')->group(function () {
+                Route::get('', FinancialIndexController::class)
+                    ->name('index');
+            });
 
-        Route::prefix('statistics')->name('statistics.')->group(function () {
-            Route::get('', StatisticsIndexController::class)
-                ->name('index');
-        });
+            Route::prefix('statistics')->name('statistics.')->group(function () {
+                Route::get('', StatisticsIndexController::class)
+                    ->name('index');
+            });
 
-        Route::prefix('zones')->name('zones.')->group(function () {
-            Route::get('', ZonesIndexController::class)
-                ->name('index');
+            Route::prefix('zones')->name('zones.')->group(function () {
+                Route::get('', ZonesIndexController::class)
+                    ->name('index');
+            });
         });
 
         Route::middleware('guest')->group(function () {

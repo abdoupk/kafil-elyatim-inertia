@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TenantSeeder::class);
 
-        $this->call(ZoneSeeder::class);
-
         $this->call(IncomeSeeder::class);
 
         $this->call(FurnishingSeeder::class);

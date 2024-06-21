@@ -2,12 +2,11 @@
 
 /** @noinspection UnknownInspectionInspection */
 
-use App\Models\Family;
+use App\Models\Zone;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Builder;
 
 /** @noinspection NullPointerExceptionInspection */
-function getFamilies(): LengthAwarePaginator
+function getZones(): LengthAwarePaginator
 {
     /** @phpstan-ignore-next-line */
     $search = (string) request()->input('search', '');
@@ -17,21 +16,16 @@ function getFamilies(): LengthAwarePaginator
     /** @phpstan-ignore-next-line */
     $perPage = (int) request()->input('perPage', 10);
 
-    $families = Family::search($search);
+    $zones = Zone::search($search);
 
     if ($directions) {
         foreach ($directions as $column => $direction) {
-            $families->orderBy($column, $direction);
+            $zones->orderBy($column, $direction);
         }
     } else {
-        $families->orderBy('created_at', 'desc');
+        $zones->orderBy('created_at', 'desc');
     }
 
-    if (! auth()->user()?->hasRole(['super_admin'])) {
-        $families->where('zone_id', auth()->user()?->zone_id);
-    }
-
-    return $families->query(fn (Builder $query) => $query->with('zone'))
-        ->where('tenant_id', auth()->user()?->tenant_id)
+    return $zones->where('tenant_id', auth()->user()?->tenant_id)
         ->paginate(perPage: $perPage);
 }

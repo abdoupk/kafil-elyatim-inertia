@@ -62,7 +62,13 @@ const linkTo = async (menu: IFormattedMenu, event: Event) => {
     } else {
         event.preventDefault()
 
-        router.visit(menu.routeName !== '' ? route(menu.routeName) : '#')
+        router.get(
+            menu.routeName !== '' ? route(menu.routeName) : '#',
+            {},
+            {
+                preserveScroll: true
+            }
+        )
     }
 }
 
