@@ -1,10 +1,14 @@
 import { Config } from 'ziggy-js'
 import type { AppearanceType, ColorSchemesType, LayoutsType, ThemesType } from '@/types/types'
+
 export interface User {
     id: number
-    name: string
+    first_name: string
+    last_name: string
+    gender?: 'male' | 'female'
     email: string
     email_verified_at: string
+    roles: string[]
 }
 
 export interface UserSettings {

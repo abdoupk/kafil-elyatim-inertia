@@ -99,4 +99,9 @@ export const createFamilyStepsTitles = [
     'families.titles.association_details'
 ]
 
-export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = ['file_number', 'address', 'zone', 'start_date']
+export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = [
+    'file_number',
+    'address',
+    'zone',
+    'start_date'
+]

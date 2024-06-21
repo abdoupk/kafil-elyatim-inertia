@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Enums\Lang;
 use App\Http\Resources\V1\LanguageResource;
+use Arr;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -19,7 +20,7 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
+                'user' => auth()->user() ? $this->getAuthData() : null,
                 'settings' => auth()->user()?->settings,
             ],
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()
@@ -30,5 +31,16 @@ class HandleInertiaRequests extends Middleware
                 ]);
             },
         ]);
+    }
+
+    protected function getAuthData(): array
+    {
+        return Arr::map(auth()->user()->load(['roles'])->only(['roles', 'id', 'first_name', 'last_name']), function ($value, $key) {
+            if ($key === 'roles') {
+                return $value->pluck('name')->toArray();
+            }
+
+            return $value;
+        });
     }
 }

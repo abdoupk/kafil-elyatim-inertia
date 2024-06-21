@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { CreateFamilyStepOneProps, Zone } from '@/types/types'
 import { type Ref, ref } from 'vue'
 import {
     createFamilyFormAttributes,
@@ -13,7 +14,6 @@ import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
-import type { CreateFamilyStepOneProps, Zone } from '@/types/types'
 import { useForm } from 'laravel-precognition-vue'
 
 defineOptions({
@@ -68,7 +68,7 @@ const goTo = async (index: number) => {
     } else {
         if (index === 2) {
             await validateStep(createFamilyStepOneErrorProps, stepOneCompleted).finally(() => {
-                // registerStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
+                // RegisterStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
 
                 if (stepOneCompleted.value) currentStep.value = 2
             })
