@@ -196,7 +196,7 @@ export interface FamilyIndexResource {
     address: string
 }
 
-export interface FamiliesIndexFilters {
+export interface IndexFilters {
     perPage: number
     search?: string
     page: number
@@ -221,3 +221,11 @@ export interface CreateFamilyStepProps {
 }
 
 export type CreateFamilyStepOneProps = 'zone' | 'start_date' | 'address' | 'file_number'
+
+export interface MemberIndexResource {
+    id: string
+    name: string
+    email: string
+    phone: string
+    zone: Zone
+}

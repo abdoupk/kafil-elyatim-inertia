@@ -103,6 +103,12 @@ Route::middleware([
 
                 Route::get('/create', MemberCreateController::class)
                     ->name('create');
+
+                Route::get('show/{member}', FamilyShowController::class)
+                    ->name('show');
+
+                Route::get('edit/{member}', FamilyShowController::class)
+                    ->name('edit');
             });
 
             Route::prefix('roles')->name('roles.')->group(function () {

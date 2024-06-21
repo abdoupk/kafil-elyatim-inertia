@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -121,17 +122,26 @@ class User extends Authenticatable
         return $this->hasOne(Settings::class);
     }
 
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(Zone::class);
+    }
+
     public function searchableAs(): string
     {
         return 'users';
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ! $this->roles->pluck('name')->contains('super_admin');
     }
 
     public function toSearchableArray(): array
     {
         return [
             'id' => $this->id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
+            'name' => $this->first_name.' '.$this->last_name,
             'email' => $this->email,
             'phone' => $this->phone,
             'gender' => $this->gender,

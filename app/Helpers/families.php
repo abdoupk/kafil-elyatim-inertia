@@ -1,18 +1,23 @@
 <?php
 
+/** @noinspection UnknownInspectionInspection */
+
 use App\Models\Family;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\Browsershot\Browsershot;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 
+/** @noinspection NullPointerExceptionInspection */
 function getFamilies(): LengthAwarePaginator
 {
-    $search = request()?->input('search', '');
+    /** @phpstan-ignore-next-line */
+    $search = (string) request()->input('search', '');
 
-    $directions = request()?->input('directions', []);
+    $directions = (array) request()->input('directions', []);
 
-    $perPage = request()?->input('perPage', 10);
+    /** @phpstan-ignore-next-line */
+    $perPage = (int) request()->input('perPage', 10);
 
     $families = Family::search($search);
 
@@ -37,7 +42,7 @@ function getFamilies(): LengthAwarePaginator
  * @throws Throwable
  * @throws CouldNotTakeBrowsershot
  */
-function saveFamiliesToPDF(string $search, array $directions = [], int $perPage = 10): void
+function saveFamiliesToPDF(): void
 {
     if (! Storage::disk('public')->directoryExists('families')) {
         Storage::disk('public')->makeDirectory('families');

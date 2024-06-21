@@ -14,14 +14,7 @@ class FamiliesIndexController extends Controller
     {
         return Inertia::render('Tenant/families/index/FamiliesIndexPage', [
             'families' => FamiliesIndexResource::collection(getFamilies()),
-            'filters' => [
-                /* @phpstan-ignore-next-line */
-                'page' => (int) $request->get('page', 1),
-                'search' => $request->input('search', ''),
-                'perPage' => $request->input('perPage', 10),
-                'fields' => $request->input('fields'),
-                'directions' => $request->input('directions'),
-            ],
+            'filters' => getFilters(),
         ]);
     }
 }

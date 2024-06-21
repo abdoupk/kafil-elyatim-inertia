@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamilyIndexResource, IndexFilters, PaginationData } from '@/types/types'
+import type { IndexFilters, MemberIndexResource, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -8,8 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
-import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
+import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -24,7 +23,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-    families: PaginationData<FamilyIndexResource>
+    members: PaginationData<MemberIndexResource>
     filters: IndexFilters
 }>()
 
@@ -41,7 +40,7 @@ const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
-const selectedFamilyId = ref<string>('')
+const selectedMemberId = ref<string>('')
 
 let routerOptions = {
     preserveState: true,
@@ -51,7 +50,7 @@ let routerOptions = {
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
 
-    selectedFamilyId.value = ''
+    selectedMemberId.value = ''
 
     deleteProgress.value = false
 }
@@ -67,7 +66,7 @@ const getData = () => {
         if (!data[key as keyof IndexFilters]) delete data[key as keyof IndexFilters]
     })
 
-    router.get(route('tenant.families.index'), data, routerOptions)
+    router.get(route('tenant.members.index'), data, routerOptions)
 }
 
 const sort = (field: string) => {
@@ -94,14 +93,14 @@ const sort = (field: string) => {
     getData()
 }
 
-const deleteFamily = () => {
-    router.delete(route('tenant.families.destroy', selectedFamilyId.value), {
+const deleteMember = () => {
+    router.delete(route('tenant.members.destroy', selectedMemberId.value), {
         preserveScroll: true,
         onStart: () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.families.meta.last_page < filters.page) {
+            if (props.members.meta.last_page < filters.page) {
                 filters.page = filters.page - 1
             }
 
@@ -110,8 +109,8 @@ const deleteFamily = () => {
     })
 }
 
-const showDeleteModal = (familyId: string) => {
-    selectedFamilyId.value = familyId
+const showDeleteModal = (memberId: string) => {
+    selectedMemberId.value = memberId
 
     deleteModalStatus.value = true
 }
@@ -145,10 +144,10 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="$t('list', { attribute: $t('the_members') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_families') }) }}
+        {{ $t('list', { attribute: $t('the_members') }) }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
@@ -156,21 +155,19 @@ watch(
             <base-button
                 variant="primary"
                 class="me-2 shadow-md"
-                @click.prevent="router.get(route('tenant.families.create'))"
+                @click.prevent="router.get(route('tenant.members.create'))"
             >
-                {{ n__('add new', 0, { attribute: $t('family') }) }}
+                {{ n__('add new', 1, { attribute: $t('member') }) }}
             </base-button>
 
-            <export-menu :filters></export-menu>
-
             <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="families.meta.total > 0">
+                <span v-if="members.meta.total > 0">
                     {{
                         $t('showing_results', {
-                            from: families.meta.from?.toString(),
-                            to: families.meta.to?.toString(),
-                            total: families.meta.total?.toString(),
-                            entries: n__('families', families.meta.total)
+                            from: members.meta.from?.toString(),
+                            to: members.meta.to?.toString(),
+                            total: members.meta.total?.toString(),
+                            entries: n__('members', members.meta.total)
                         })
                     }}
                 </span>
@@ -190,12 +187,12 @@ watch(
         </div>
     </div>
 
-    <template v-if="families.data.length > 0">
-        <data-table :filters :families @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+    <template v-if="members.data.length > 0">
+        <data-table :filters :members @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
 
         <pagination-data-table
-            v-if="families.meta.last_page > 1"
-            :pages="families.meta.last_page"
+            v-if="members.meta.last_page > 1"
+            :pages="members.meta.last_page"
             v-model:page="filters.page"
             v-model:per-page="filters.perPage"
         ></pagination-data-table>
@@ -209,6 +206,6 @@ watch(
         :open="deleteModalStatus"
         :deleteProgress
         @close="closeDeleteModal"
-        @delete="deleteFamily"
+        @delete="deleteMember"
     ></delete-modal>
 </template>
