@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type CanvasHTMLAttributes, inject, onMounted, ref, watch } from 'vue'
 import ChartJs, { type ChartConfiguration } from 'chart.js/auto'
+import { type CanvasHTMLAttributes, inject, onMounted, ref, watch } from 'vue'
 
 export interface ChartElement extends HTMLCanvasElement {
     instance: ChartJs

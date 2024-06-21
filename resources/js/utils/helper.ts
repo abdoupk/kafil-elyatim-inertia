@@ -1,4 +1,5 @@
 import type { AppearanceType, ColorSchemesType } from '@/types/types'
+
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import { parseColor } from 'tailwindcss/lib/util/color'

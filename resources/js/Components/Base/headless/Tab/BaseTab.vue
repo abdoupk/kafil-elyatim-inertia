@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import BaseTabProvider from './BaseTabProvider.vue'
-import type { ExtractProps } from '@/types/utils'
-import { Tab as HeadlessTab } from '@headlessui/vue'
 import type { ProvideList } from './BaseTabList.vue'
+import BaseTabProvider from './BaseTabProvider.vue'
+
+import type { ExtractProps } from '@/types/utils'
+
+import { Tab as HeadlessTab } from '@headlessui/vue'
 import { inject } from 'vue'
 
 interface TabProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessTab> {

@@ -1,6 +1,8 @@
-import type { RecursivePartial, TomSettings } from 'tom-select/src/types'
 import type { TomSelectElement, TomSelectEmit, TomSelectProps } from './BaseTomSelect.vue'
+
 import TomSelect from 'tom-select'
+import type { RecursivePartial, TomSettings } from 'tom-select/src/types'
+
 import { isEqual } from '@/utils/helper'
 
 const setValue = (el: TomSelectElement, props: TomSelectProps) => {
@@ -96,7 +98,8 @@ const updateValue = (
     clonedEl.setAttribute(
         'class',
         [
-            ...Array.from(originalEl.classList), ...Array.from(clonedEl.classList).filter((className) => initialClassNames?.indexOf(className) == -1)
+            ...Array.from(originalEl.classList),
+            ...Array.from(clonedEl.classList).filter((className) => initialClassNames?.indexOf(className) == -1)
         ].join(' ')
     )
 

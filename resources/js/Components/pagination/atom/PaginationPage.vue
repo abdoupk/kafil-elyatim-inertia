@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { computedEager } from '@vueuse/core'
+
 import BasePaginationLink from '@/Components/Base/pagination/BasePaginationLink.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { computedEager } from '@vueuse/core'
 
 const { page = null, current = 0 } = defineProps<{
     page: number | null

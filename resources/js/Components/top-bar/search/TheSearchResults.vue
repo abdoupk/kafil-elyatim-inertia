@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { ComboboxOption, ComboboxOptions } from '@headlessui/vue'
-import { computed, watch } from 'vue'
-import { groupArrayOfObject, size } from '@/utils/helper'
-import SvgLoader from '@/Components/SvgLoader.vue'
 import { twMerge } from 'tailwind-merge'
+import { computed, watch } from 'vue'
+
+import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { groupArrayOfObject, size } from '@/utils/helper'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({

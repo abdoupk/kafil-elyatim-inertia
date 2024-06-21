@@ -1,4 +1,5 @@
 import type { Commune, Wilaya } from '@/types/types'
+
 import axios from 'axios'
 import { defineStore } from 'pinia'
 

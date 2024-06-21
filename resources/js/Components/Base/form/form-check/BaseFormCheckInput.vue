@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { type InputHTMLAttributes, computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { type InputHTMLAttributes, computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface InputProps extends /* @vue-ignore */ InputHTMLAttributes {

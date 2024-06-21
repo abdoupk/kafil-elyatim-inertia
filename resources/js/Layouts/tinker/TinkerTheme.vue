@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores/settings'
 import { defineAsyncComponent, defineProps } from 'vue'
+
 import TinkerSideMenuLoader from '@/Layouts/loaders/TinkerSideMenuLoader.vue'
 import TinkerSimpleMenuLoader from '@/Layouts/loaders/TinkerSimpleMenuLoader.vue'
 import TinkerTopMenuLoader from '@/Layouts/loaders/TinkerTopMenuLoader.vue'
-import { useSettingsStore } from '@/stores/settings'
 
 defineProps<{ showLoader: boolean }>()
 

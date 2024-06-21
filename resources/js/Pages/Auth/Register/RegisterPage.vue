@@ -1,6 +1,17 @@
 <script setup lang="ts">
-import { type Ref, ref } from 'vue'
 import type { RegisterStepOneProps, RegisterStepTwoProps } from '@/types/types'
+
+import { Head } from '@inertiajs/vue3'
+import { useForm } from 'laravel-precognition-vue'
+import { type Ref, ref } from 'vue'
+
+import StepOne from '@/Pages/Auth/Register/StepOne.vue'
+import StepThree from '@/Pages/Auth/Register/StepThree.vue'
+import StepTitle from '@/Pages/Auth/Register/StepTitle.vue'
+import StepTwo from '@/Pages/Auth/Register/StepTwo.vue'
+import TheActions from '@/Pages/Auth/Register/TheActions.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+
 import {
     registerFormAttributes,
     registerStepOneErrorProps,
@@ -8,14 +19,6 @@ import {
     registerStepTwoErrorProps,
     registerStepsTitles
 } from '@/utils/constants'
-import { Head } from '@inertiajs/vue3'
-import StepOne from '@/Pages/Auth/Register/StepOne.vue'
-import StepThree from '@/Pages/Auth/Register/StepThree.vue'
-import StepTitle from '@/Pages/Auth/Register/StepTitle.vue'
-import StepTwo from '@/Pages/Auth/Register/StepTwo.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-import TheActions from '@/Pages/Auth/Register/TheActions.vue'
-import { useForm } from 'laravel-precognition-vue'
 
 const currentStep = ref(1)
 

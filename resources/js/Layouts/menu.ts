@@ -1,5 +1,7 @@
 import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
+
 import { router, usePage } from '@inertiajs/vue3'
+
 import { slideDown, slideUp } from '@/utils/helper'
 
 const findActiveMenu = (subMenu: IMenu[], route: ILocation) => {

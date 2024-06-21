@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores/settings'
 import { defineAsyncComponent, defineProps } from 'vue'
+
 import RubickSideMenuLoader from '@/Layouts/loaders/RubickSideMenuLoader.vue'
 import RubickSimpleMenuLoader from '@/Layouts/loaders/RubickSimpleMenuLoader.vue'
 import RubickTopMenuLoader from '@/Layouts/loaders/RubickTopMenuLoader.vue'
-import { useSettingsStore } from '@/stores/settings'
 
 defineProps<{ showLoader: boolean }>()
 

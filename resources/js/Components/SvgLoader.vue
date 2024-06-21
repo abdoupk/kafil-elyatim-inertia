@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import type { SVGType } from '@/types/types'
-import { defineAsyncComponent } from 'vue'
+
 import { twMerge } from 'tailwind-merge'
+import { defineAsyncComponent } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({

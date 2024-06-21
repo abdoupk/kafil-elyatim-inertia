@@ -1,14 +1,15 @@
 <script lang="ts" setup>
+import { useSettingsStore } from '@/stores/settings'
 import { ComboboxInput, Combobox as HeadlessCombobox, Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
+import { computedEager } from '@vueuse/core'
 import { onUnmounted, ref } from 'vue'
-import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
+import { onMounted } from 'vue'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheSearchResults from '@/Components/top-bar/search/TheSearchResults.vue'
-import { computedEager } from '@vueuse/core'
-import { onMounted } from 'vue'
-import { useSettingsStore } from '@/stores/settings'
 
 const query = ref('')
 

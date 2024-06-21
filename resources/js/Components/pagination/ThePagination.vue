@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { usePage } from '@inertiajs/vue3'
+import { computedEager } from '@vueuse/core'
+
 import BasePagination from '@/Components/Base/pagination/BasePagination.vue'
 import BasePaginationLink from '@/Components/Base/pagination/BasePaginationLink.vue'
-import PaginationPage from '@/Components/pagination/atom/PaginationPage.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { computedEager } from '@vueuse/core'
-import { usePage } from '@inertiajs/vue3'
+import PaginationPage from '@/Components/pagination/atom/PaginationPage.vue'
 
 const {
     pages = 0,

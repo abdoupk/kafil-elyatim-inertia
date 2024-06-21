@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import BaseNotification, { type NotificationElement } from '@/Components/Base/notification/BaseNotification.vue'
 import { provide, ref, watch } from 'vue'
+
+import BaseNotification, { type NotificationElement } from '@/Components/Base/notification/BaseNotification.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 const successNotification = ref<NotificationElement>()

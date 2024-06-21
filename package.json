@@ -32,6 +32,7 @@
         "@shufo/prettier-plugin-blade": "^1.14.1",
         "@tailwindcss/container-queries": "^0.1.1",
         "@tailwindcss/forms": "^0.5.3",
+        "@trivago/prettier-plugin-sort-imports": "^4.3.0",
         "@tsconfig/node18": "^18.2.2",
         "@types/cypress__code-coverage": "^3.10.2",
         "@types/dropzone": "^5.7.8",

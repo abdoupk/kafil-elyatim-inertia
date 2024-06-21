@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { AppearanceType } from '@/types/types'
-import { twMerge } from 'tailwind-merge'
+
 import { useSettingsStore } from '@/stores/settings'
+import { twMerge } from 'tailwind-merge'
 
 const settingsStore = useSettingsStore()
 

@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import type { CreateFamilyStepOneProps, Zone } from '@/types/types'
+
+import { useForm } from 'laravel-precognition-vue'
 import { type Ref, ref } from 'vue'
+
+import TheLayout from '@/Layouts/TheLayout.vue'
+
+import StepOne from '@/Pages/Tenant/families/create/StepOne.vue'
+import StepThree from '@/Pages/Tenant/families/create/StepThree.vue'
+import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
+import StepTwo from '@/Pages/Tenant/families/create/StepTwo.vue'
+import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
+
 import {
     createFamilyFormAttributes,
     createFamilyStepOneErrorProps,
@@ -8,13 +19,6 @@ import {
     registerStepThreeErrorProps,
     registerStepTwoErrorProps
 } from '@/utils/constants'
-import StepOne from '@/Pages/Tenant/families/create/StepOne.vue'
-import StepThree from '@/Pages/Tenant/families/create/StepThree.vue'
-import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
-import StepTwo from '@/Pages/Tenant/families/create/StepTwo.vue'
-import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
-import TheLayout from '@/Layouts/TheLayout.vue'
-import { useForm } from 'laravel-precognition-vue'
 
 defineOptions({
     layout: TheLayout

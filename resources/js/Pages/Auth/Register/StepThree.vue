@@ -1,14 +1,17 @@
 <script setup lang="ts">
+import type { RegistrationStepProps } from '@/types/types'
+
+import { twMerge } from 'tailwind-merge'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInline from '@/Components/Base/form/BaseFormInline.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import type { RegistrationStepProps } from '@/types/types'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+
 import { associationSocialMediaLinks } from '@/utils/constants'
-import { twMerge } from 'tailwind-merge'
+import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
 defineProps<RegistrationStepProps>()
 

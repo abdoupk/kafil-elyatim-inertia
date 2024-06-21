@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import type { FamiliesIndexFilters, FamilyIndexResource, PaginationData } from '@/types/types'
+
+import { Link } from '@inertiajs/vue3'
+
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
-import { Link } from '@inertiajs/vue3'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ families: PaginationData<FamilyIndexResource>; filters: FamiliesIndexFilters }>()

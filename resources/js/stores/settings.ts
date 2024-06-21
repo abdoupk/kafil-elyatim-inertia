@@ -1,4 +1,5 @@
 import type { AppearanceType, ColorSchemesType, ISettingState, LayoutsType, ThemesType } from '@/types/types'
+
 import axios from 'axios'
 import { defineStore } from 'pinia'
 

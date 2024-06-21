@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { CreateFamilyStepProps } from '@/types/types'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
 import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
-import type { CreateFamilyStepProps } from '@/types/types'
+
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
 const props = defineProps<CreateFamilyStepProps>()

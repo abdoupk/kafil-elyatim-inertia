@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import type { Commune, Daira, Wilaya } from '@/types/types'
+
+import { useCityStore } from '@/stores/city'
+import TomSelect from 'tom-select'
 import { onMounted, ref, watch } from 'vue'
+
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
-import TomSelect from 'tom-select'
-import { useCityStore } from '@/stores/city'
 
 const communesTom = ref<TomSelect>()
 

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
 import { TransitionRoot } from '@headlessui/vue'
+
+import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
 
 defineProps<{ show: boolean }>()
 </script>

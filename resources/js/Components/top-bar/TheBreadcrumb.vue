@@ -1,9 +1,11 @@
 <script lang="ts" setup>
+import { usePage } from '@inertiajs/vue3'
+import { computedEager } from '@vueuse/core'
+
 import BaseBreadCrumb from '@/Components/Base/Breadcrumb/BaseBreadcrumb.vue'
 import BaseBreadCrumbLink from '@/Components/Base/Breadcrumb/BaseBreadcrumbLink.vue'
+
 import { __ } from '@/utils/i18n'
-import { computedEager } from '@vueuse/core'
-import { usePage } from '@inertiajs/vue3'
 
 const { light = false } = defineProps<{ light?: boolean }>()
 

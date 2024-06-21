@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
 
 interface Props {
     currentStep: number

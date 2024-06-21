@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
 import tippy, { type PopperElement, type Props, animateFill as animateFillPlugin, roundArrow } from 'tippy.js'
+import { inject, onMounted, ref } from 'vue'
 
 export type ProvideTippy = (el: PopperElement) => void
 

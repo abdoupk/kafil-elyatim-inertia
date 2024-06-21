@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3'
-import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
+
 import TheLayout from '@/Layouts/TheLayout.vue'
+
+import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
 
 defineOptions({
     layout: TheLayout

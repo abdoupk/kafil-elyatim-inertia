@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseDialog from '@/Components/Base/headless/Dialog/BaseDialog.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { ref } from 'vue'
 
 defineProps<{ open: boolean; deleteProgress: boolean }>()
 

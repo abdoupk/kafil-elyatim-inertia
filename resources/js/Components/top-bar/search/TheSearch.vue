@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue'
 import { useWindowSize } from '@vueuse/core'
+import { defineAsyncComponent } from 'vue'
 
 const { width } = useWindowSize()
 

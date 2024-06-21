@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores/settings'
 import { defineAsyncComponent, defineProps } from 'vue'
+
 import EnigmaSideMenuLoader from '@/Layouts/loaders/EnigmaSideMenuLoader.vue'
 import EnigmaSimpleMenuLoader from '@/Layouts/loaders/EnigmaSimpleMenuLoader.vue'
 import EnigmaTopMenuLoader from '@/Layouts/loaders/EnigmaTopMenuLoader.vue'
-import { useSettingsStore } from '@/stores/settings'
 
 defineProps<{ showLoader: boolean }>()
 

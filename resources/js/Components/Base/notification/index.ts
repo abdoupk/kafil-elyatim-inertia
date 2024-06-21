@@ -1,4 +1,5 @@
 import type { NotificationElement, NotificationProps } from './BaseNotification.vue'
+
 import Toastify from 'toastify-js'
 
 const toastifyClass = '_' + Math.random().toString(36).substring(2, 9)

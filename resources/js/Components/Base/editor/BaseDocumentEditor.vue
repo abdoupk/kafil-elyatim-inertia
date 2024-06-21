@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { type CkeditorElement, type CkeditorEmit, type CkeditorProps as GlobalCkeditorProps, init } from './ckeditor'
-import { inject, onMounted, ref } from 'vue'
+
 import DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document'
+import { inject, onMounted, ref } from 'vue'
 
 export type ProvideDocumentEditor = (el: CkeditorElement) => void
 

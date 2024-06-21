@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import type { ExtractProps } from '@/types/utils'
-import { Disclosure as HeadlessDisclosure } from '@headlessui/vue'
 import type { ProvideGroup } from './BaseDisclosureGroup.vue'
 import Provider from './BaseDisclosureProvider.vue'
+
+import type { ExtractProps } from '@/types/utils'
+
+import { Disclosure as HeadlessDisclosure } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { computed, inject } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface DisclosureProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessDisclosure> {

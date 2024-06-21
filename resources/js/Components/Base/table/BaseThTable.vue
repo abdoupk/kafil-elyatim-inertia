@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
 import type { ProvideTable } from './BaseTable.vue'
 import type { ProvideThead } from './BaseTheadTable.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+
 import { twMerge } from 'tailwind-merge'
+import { computed, inject } from 'vue'
+
+import SvgLoader from '@/Components/SvgLoader.vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({

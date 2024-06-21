@@ -1,9 +1,10 @@
 <script setup lang="ts">
 /* eslint-disable vue/no-parsing-error */
+import { init, setValue, updateValue } from './index'
+
+import TomSelectPlugin from 'tom-select'
 import type { RecursivePartial, TomSettings } from 'tom-select/src/types'
 import { type SelectHTMLAttributes, computed, inject, onMounted, ref } from 'vue'
-import { init, setValue, updateValue } from './index'
-import TomSelectPlugin from 'tom-select'
 
 export interface TomSelectElement extends HTMLSelectElement {
     TomSelect: TomSelectPlugin

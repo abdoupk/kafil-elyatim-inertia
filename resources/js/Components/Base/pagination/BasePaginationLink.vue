@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { type LiHTMLAttributes, computed } from 'vue'
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import { twMerge } from 'tailwind-merge'
+import { type LiHTMLAttributes, computed } from 'vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface LinkProps extends /* @vue-ignore */ LiHTMLAttributes {

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { type InputHTMLAttributes, computed } from 'vue'
-import BaseFormCheckInput from '@/Components/Base/form/form-check/BaseFormCheckInput.vue'
 import { twMerge } from 'tailwind-merge'
+import { type InputHTMLAttributes, computed } from 'vue'
+
+import BaseFormCheckInput from '@/Components/Base/form/form-check/BaseFormCheckInput.vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface InputProps extends /* @vue-ignore */ InputHTMLAttributes {

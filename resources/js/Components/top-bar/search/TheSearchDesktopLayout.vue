@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { ComboboxInput, Combobox as HeadlessCombobox, TransitionRoot } from '@headlessui/vue'
+import { twMerge } from 'tailwind-merge'
 import { onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheSearchResults from '@/Components/top-bar/search/TheSearchResults.vue'
-import { ref } from 'vue'
-import { twMerge } from 'tailwind-merge'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({

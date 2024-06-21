@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { RegistrationStepProps } from '@/types/types'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
 import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import CitySelector from '@/Components/Global/CitySelector.vue'
-import type { RegistrationStepProps } from '@/types/types'
 
 defineProps<RegistrationStepProps>()
 

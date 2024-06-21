@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { RegistrationStepProps } from '@/types/types'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import type { RegistrationStepProps } from '@/types/types'
+
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
 defineProps<RegistrationStepProps>()

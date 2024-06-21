@@ -1,8 +1,9 @@
 <script setup lang="ts">
 /* eslint-disable array-element-newline */
-import { type HTMLAttributes, computed, ref } from 'vue'
 import { TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { type HTMLAttributes, computed, ref } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 type Variant =

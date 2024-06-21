@@ -1,10 +1,12 @@
 import type { LitepickerElement, LitepickerEmit, LitepickerProps } from './BaseLitePicker.vue'
+
+import dayjs from 'dayjs'
 import Litepicker from 'litepicker'
 // eslint-disable-next-line sort-imports
 import 'litepicker/dist/plugins/keyboardnav'
-import { __ } from '@/utils/i18n'
+
 import { capitalizeFirstLetter } from '@/utils/helper'
-import dayjs from 'dayjs'
+import { __ } from '@/utils/i18n'
 
 interface Picker extends Litepicker {}
 

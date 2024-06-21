@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { DialogPanel as HeadlessDialogPanel, TransitionChild } from '@headlessui/vue'
-import { computed, inject } from 'vue'
-import type { ExtractProps } from '@/types/utils'
 import type { ProvideDialog } from './BaseDialog.vue'
+
+import type { ExtractProps } from '@/types/utils'
+
+import { DialogPanel as HeadlessDialogPanel, TransitionChild } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { computed, inject } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface PanelProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessDialogPanel> {

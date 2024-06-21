@@ -1,5 +1,6 @@
-import type { LitepickerElement } from '@/Components/Base/lite-picker'
 import type { Form } from 'laravel-precognition-vue/dist/types'
+
+import type { LitepickerElement } from '@/Components/Base/lite-picker'
 
 export interface IPlacement {
     placement:

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import 'filepond/dist/filepond.min.css'
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js'
-
+import 'filepond/dist/filepond.min.css'
 import { ref } from 'vue'
 import vueFilePond from 'vue-filepond'
 

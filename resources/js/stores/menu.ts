@@ -1,6 +1,8 @@
-import { __, n__ } from '@/utils/i18n'
 import type { IFormattedMenu } from '@/types/types'
+
 import { defineStore } from 'pinia'
+
+import { __, n__ } from '@/utils/i18n'
 
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({

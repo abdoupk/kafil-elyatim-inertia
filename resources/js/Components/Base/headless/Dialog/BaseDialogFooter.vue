@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface FooterProps {
@@ -17,7 +18,8 @@ const attrs = useComputedAttrs()
 
 const computedClass = computed(() =>
     twMerge([
-        'px-5 py-3 text-end border-t border-slate-200/60 dark:border-darkmode-400', typeof attrs.class === 'string' && attrs.class
+        'px-5 py-3 text-end border-t border-slate-200/60 dark:border-darkmode-400',
+        typeof attrs.class === 'string' && attrs.class
     ])
 )
 </script>

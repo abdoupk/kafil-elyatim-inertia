@@ -1,16 +1,21 @@
 <script setup lang="ts">
 import type { FamiliesIndexFilters, FamilyIndexResource, PaginationData } from '@/types/types'
+
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
+
+import TheLayout from '@/Layouts/TheLayout.vue'
+
+import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
+import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
+import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import TheLayout from '@/Layouts/TheLayout.vue'
+
 import { debounce } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 

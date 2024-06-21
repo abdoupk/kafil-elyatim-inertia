@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import type { SVGType } from '@/types/types'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import { __ } from '@/utils/i18n'
-import { computed } from 'vue'
+
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { __ } from '@/utils/i18n'
 
 interface Props {
     icon: SVGType

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { type CkeditorElement, type CkeditorEmit, type CkeditorProps as GlobalCkeditorProps, init } from './ckeditor'
-import { inject, onMounted, ref } from 'vue'
+
 import BalloonEditor from '@ckeditor/ckeditor5-build-balloon'
+import { inject, onMounted, ref } from 'vue'
 
 export type ProvideBalloonEditor = (el: CkeditorElement) => void
 

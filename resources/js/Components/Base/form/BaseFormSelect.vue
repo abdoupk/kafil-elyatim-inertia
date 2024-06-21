@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { type SelectHTMLAttributes, computed, inject, ref } from 'vue'
 import { ProvideFormInline } from './BaseFormInline.vue'
+
 import { twMerge } from 'tailwind-merge'
+import { type SelectHTMLAttributes, computed, inject, ref } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface FormSelectProps extends /* @vue-ignore */ SelectHTMLAttributes {

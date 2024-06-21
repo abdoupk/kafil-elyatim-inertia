@@ -1,5 +1,6 @@
-import { Config } from 'ziggy-js'
 import type { AppearanceType, ColorSchemesType, LayoutsType, ThemesType } from '@/types/types'
+
+import { Config } from 'ziggy-js'
 
 export interface User {
     id: number

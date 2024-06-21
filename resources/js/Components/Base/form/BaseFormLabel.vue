@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
 import type { ProvideFormInline } from './BaseFormInline.vue'
+
 import { twMerge } from 'tailwind-merge'
+import { computed, inject } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({

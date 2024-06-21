@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { MenuItems as HeadlessMenuItems, TransitionRoot } from '@headlessui/vue'
 import type { ExtractProps } from '@/types/utils'
-import { computed } from 'vue'
+
+import { MenuItems as HeadlessMenuItems, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface ItemsProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessMenuItems> {
@@ -32,7 +34,8 @@ const attrs = useComputedAttrs()
 
 const computedClass = computed(() =>
     twMerge([
-        'p-2 shadow-[0px_3px_10px_#00000017] bg-white border-transparent rounded-md dark:bg-darkmode-600 dark:border-transparent', typeof attrs.class === 'string' && attrs.class
+        'p-2 shadow-[0px_3px_10px_#00000017] bg-white border-transparent rounded-md dark:bg-darkmode-600 dark:border-transparent',
+        typeof attrs.class === 'string' && attrs.class
     ])
 )
 </script>

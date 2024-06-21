@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { Head, useForm } from '@inertiajs/vue3'
+import { twMerge } from 'tailwind-merge'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormCheckInput from '@/Components/Base/form/form-check/BaseFormCheckInput.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import { twMerge } from 'tailwind-merge'
+import BaseFormCheckInput from '@/Components/Base/form/form-check/BaseFormCheckInput.vue'
 
 defineProps<{
     canResetPassword?: boolean

@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
-import { type Ref, computed, provide, ref } from 'vue'
 import type { ExtractProps } from '@/types/utils'
-import { omit } from '@/utils/helper'
+
+import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { type Ref, computed, provide, ref } from 'vue'
+
+import { omit } from '@/utils/helper'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 type Size = 'sm' | 'md' | 'lg' | 'xl'

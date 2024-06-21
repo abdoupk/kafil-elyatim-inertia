@@ -1,12 +1,14 @@
 <script lang="ts" setup>
+import { useSettingsStore } from '@/stores/settings'
+import { twMerge } from 'tailwind-merge'
+
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'
 import BasePopoverButton from '@/Components/Base/headless/Popover/BasePopoverButton.vue'
 import BasePopoverPanel from '@/Components/Base/headless/Popover/BasePopoverPanel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNotificationMenu from '@/Components/top-bar/TheNotificationMenu.vue'
-import { twMerge } from 'tailwind-merge'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
-import { useSettingsStore } from '@/stores/settings'
 
 const attrs = useComputedAttrs()
 

@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores/settings'
 import { defineAsyncComponent, defineProps } from 'vue'
+
 import IcewallSideMenuLoader from '@/Layouts/loaders/IcewallSideMenuLoader.vue'
 import IcewallSimpleMenuLoader from '@/Layouts/loaders/IcewallSimpleMenuLoader.vue'
 import IcewallTopMenuLoader from '@/Layouts/loaders/IcewallTopMenuLoader.vue'
-import { useSettingsStore } from '@/stores/settings'
 
 defineProps<{ showLoader: boolean }>()
 
