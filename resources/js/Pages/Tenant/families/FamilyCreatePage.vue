@@ -2,8 +2,8 @@
 import { type Ref, ref } from 'vue'
 import {
     createFamilyFormAttributes,
+    createFamilyStepOneErrorProps,
     createFamilyStepsTitles,
-    registerStepOneErrorProps,
     registerStepThreeErrorProps,
     registerStepTwoErrorProps
 } from '@/utils/constants'
@@ -13,7 +13,7 @@ import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
-import type { Zone } from '@/types/types'
+import type { CreateFamilyStepOneProps, Zone } from '@/types/types'
 import { useForm } from 'laravel-precognition-vue'
 
 defineOptions({
@@ -34,14 +34,14 @@ const stepTwoCompleted = ref<boolean>(false)
 
 const validating = ref<boolean>(false)
 
-const validateStep = async (errorProps: string[], step: Ref) => {
+const validateStep = async (errorProps: CreateFamilyStepOneProps[], step: Ref) => {
     validating.value = true
 
     await form.submit({
         onFinish() {
             const hasErrors = errorProps.every((prop) => !form.errors[prop])
 
-            const touchedInputs = errorProps.every((prop) => form.touched(prop))
+            const touchedInputs = errorProps.some((prop) => form.touched(prop))
 
             step.value = hasErrors && touchedInputs && !form.validating
 
@@ -67,8 +67,8 @@ const goTo = async (index: number) => {
         currentStep.value = index
     } else {
         if (index === 2) {
-            await validateStep(registerStepOneErrorProps, stepOneCompleted).finally(() => {
-                registerStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
+            await validateStep(createFamilyStepOneErrorProps, stepOneCompleted).finally(() => {
+                // registerStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
 
                 if (stepOneCompleted.value) currentStep.value = 2
             })

@@ -1,5 +1,6 @@
 import type {
     ColorSchemesType,
+    CreateFamilyStepOneProps,
     IPlacement,
     LayoutsType,
     RegisterStepOneProps,
@@ -97,3 +98,5 @@ export const createFamilyStepsTitles = [
     'families.titles.supervisor',
     'families.titles.association_details'
 ]
+
+export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = ['file_number', 'address', 'zone', 'start_date']

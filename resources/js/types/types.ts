@@ -156,7 +156,7 @@ export type RegisterStepOneProps = 'association' | 'domain' | 'address' | 'city'
 
 export type RegisterStepTwoProps = 'email' | 'first_name' | 'last_name' | 'phone' | 'password_confirmation' | 'password'
 
-export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones.0' | 'phones.1' | 'phones.2' | 'links'
+export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones.0' | 'links'
 
 export interface PaginationData<T> {
     data: Array<T>
@@ -217,3 +217,5 @@ export interface CreateFamilyStepProps {
     zones?: Zone[]
     form?: Form<CreateFamilyForm>
 }
+
+export type CreateFamilyStepOneProps = 'zone' | 'start_date' | 'address' | 'file_number'
