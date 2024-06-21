@@ -17,6 +17,7 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -69,11 +70,20 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  *
  * @method static Builder|User whereZoneId($value)
  *
+ * @property string|null $gender
+ * @property Carbon|null $deleted_at
+ *
+ * @method static Builder|User onlyTrashed()
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereGender($value)
+ * @method static Builder|User withTrashed()
+ * @method static Builder|User withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable
 {
-    use BelongsToTenant, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable, SoftDeletes;
+    use BelongsToTenant, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable, Searchable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -109,6 +119,25 @@ class User extends Authenticatable
     public function settings(): HasOne
     {
         return $this->hasOne(Settings::class);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'users';
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'gender' => $this->gender,
+            'tenant_id' => $this->tenant_id,
+            'created_at' => $this->created_at,
+        ];
     }
 
     /**

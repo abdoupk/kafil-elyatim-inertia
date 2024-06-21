@@ -33,6 +33,10 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Branch withTrashed()
  * @method static Builder|Branch withoutTrashed()
  *
+ * @property Carbon|null $deleted_at
+ *
+ * @method static Builder|Branch whereDeletedAt($value)
+ *
  * @mixin Eloquent
  */
 class Branch extends Model

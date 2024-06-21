@@ -65,6 +65,10 @@ use Laravel\Scout\Searchable;
  * @method static Builder|Family withTrashed()
  * @method static Builder|Family withoutTrashed()
  *
+ * @property string|null $branch_id
+ *
+ * @method static Builder|Family whereBranchId($value)
+ *
  * @mixin Eloquent
  */
 class Family extends Model
@@ -113,7 +117,7 @@ class Family extends Model
 
     public function searchableAs(): string
     {
-        return 'families_index';
+        return 'families';
     }
 
     public function toSearchableArray(): array
@@ -127,8 +131,8 @@ class Family extends Model
             'file_number' => $this->file_number,
             'address' => [
                 $this->address,
-                $this->zone->name,
-                $this->zone->id,
+                $this->zone?->name,
+                $this->zone?->id,
             ],
             'report' => $this->report,
         ];

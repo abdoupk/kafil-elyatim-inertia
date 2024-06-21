@@ -57,6 +57,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read Family $family
  * @property-read Collection<int, OrphanSponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
+ * @method static Builder|Orphan onlyTrashed()
+ * @method static Builder|Orphan whereDeletedAt($value)
+ * @method static Builder|Orphan withTrashed()
+ * @method static Builder|Orphan withoutTrashed()
  *
  * @mixin Eloquent
  */
