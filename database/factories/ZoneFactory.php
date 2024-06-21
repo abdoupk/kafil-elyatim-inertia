@@ -13,7 +13,9 @@ class ZoneFactory extends Factory
     {
         return [
             'name' => ' منطقة رقم '.fake()->numberBetween(1, 20),
+            'description' => ' منطقة رقم '.fake()->numberBetween(1, 20),
             'created_at' => now(),
+            'tenant_id' => fake()->uuid,
             'updated_at' => now(),
         ];
     }

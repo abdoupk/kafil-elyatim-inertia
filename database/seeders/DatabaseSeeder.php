@@ -14,11 +14,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CitySeeder::class);
 
-        $this->call(ZoneSeeder::class);
-
         $this->call(RolePermissionSeeder::class);
 
         $this->call(TenantSeeder::class);
+
+        $this->call(ZoneSeeder::class);
 
         $this->call(IncomeSeeder::class);
 
