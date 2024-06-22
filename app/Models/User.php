@@ -132,9 +132,14 @@ class User extends Authenticatable
         return 'users';
     }
 
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load('roles');
+    }
+
     public function shouldBeSearchable(): bool
     {
-        return ! $this->roles->pluck('name')->contains('super_admin');
+        return ! $this->roles()->pluck('name')->contains('super_admin');
     }
 
     public function toSearchableArray(): array

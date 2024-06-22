@@ -20,12 +20,14 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => auth()->user() ? $this->getAuthData() : null,
+                'user' => $this->getAuthData(),
                 'settings' => auth()->user()?->settings,
             ],
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {
+                ray($request->url());
+
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
                 ]);
@@ -33,14 +35,22 @@ class HandleInertiaRequests extends Middleware
         ]);
     }
 
-    protected function getAuthData(): array
+    /**
+     * @noinspection StaticClosureCanBeUsedInspection
+     * @noinspection UnknownInspectionInspection
+     */
+    protected function getAuthData(): ?array
     {
-        return Arr::map(auth()->user()->load(['roles'])->only(['roles', 'id', 'first_name', 'last_name']), function ($value, $key) {
-            if ($key === 'roles') {
-                return $value->pluck('name')->toArray();
-            }
+        if (auth()->user()) {
+            return Arr::map(auth()->user()->load(['roles'])->only(['roles', 'id', 'first_name', 'last_name']), function ($value, $key) {
+                if ($key === 'roles') {
+                    return $value->pluck('name')->toArray();
+                }
 
-            return $value;
-        });
+                return $value;
+            });
+        }
+
+        return null;
     }
 }

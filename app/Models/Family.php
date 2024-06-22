@@ -120,6 +120,11 @@ class Family extends Model
         return 'families';
     }
 
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load('zone');
+    }
+
     public function toSearchableArray(): array
     {
         return [
@@ -130,9 +135,11 @@ class Family extends Model
             'start_date' => $this->start_date,
             'file_number' => $this->file_number,
             'address' => [
-                $this->address,
-                $this->zone?->name,
-                $this->zone?->id,
+                'address' => $this->address,
+                'zone' => [
+                    'name' => $this->zone?->name,
+                    'id' => $this->zone?->id,
+                ],
             ],
             'report' => $this->report,
         ];

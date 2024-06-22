@@ -1,0 +1,90 @@
+import type { SVGType } from '@/types/types'
+
+import { type Hit, MeiliSearch } from 'meilisearch'
+
+const client = new MeiliSearch({
+    host: 'http://127.0.0.1:7700',
+    apiKey: 'masterKey'
+})
+
+export const search = async (q: string) => {
+    const a = await client.multiSearch({
+        queries: [
+            {
+                indexUid: 'users',
+                q,
+                limit: 5
+            },
+            {
+                indexUid: 'families',
+                q,
+                limit: 5
+            }
+        ]
+    })
+
+    a.results.forEach((result) => {
+        result.hits.forEach((hit) => {
+            hit.index = result.indexUid
+            hit.link = constructLink(hit, result.indexUid)
+            hit.icon = constructIcon(result.indexUid)
+            hit.hint = constructHint(hit, result.indexUid)
+            hit.title = constructTitle(hit, result.indexUid)
+        })
+    })
+
+    return a.results
+}
+
+function constructLink(hit: Hit, indexUid: string) {
+    switch (indexUid) {
+        case 'users':
+            return route('tenant.members.show', hit.id)
+        case 'families':
+            return route('tenant.families.show', hit.id)
+
+        default:
+            return ''
+    }
+}
+
+const constructIcon = (indexUid: string): { icon: SVGType; color: string } => {
+    switch (indexUid) {
+        case 'users':
+            return {
+                icon: 'icon-users-gear',
+                color: 'bg-success/20 text-success dark:bg-success/10'
+            }
+        case 'families':
+            return {
+                icon: 'icon-family',
+                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+            }
+        default:
+            return {
+                icon: 'icon-sort',
+                color: 'bg-secondary/20 dark:bg-secondary/10'
+            }
+    }
+}
+const constructHint = (hit: Hit, indexUid: string) => {
+    switch (indexUid) {
+        case 'users':
+            return hit.email
+        case 'families':
+            return hit.address.zone?.name
+        default:
+            return null
+    }
+}
+
+const constructTitle = (hit: Hit, indexUid: string) => {
+    switch (indexUid) {
+        case 'users':
+            return hit.name
+        case 'families':
+            return hit.name
+        default:
+            return ''
+    }
+}

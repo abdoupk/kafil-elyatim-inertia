@@ -118,18 +118,7 @@ const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: Appearan
     appearance === 'dark' && el.classList.add('dark')
 }
 
-const groupArrayOfObject = (array: any[], group_by: string) => {
-    return array.reduce((group, item) => {
-        if (!group[item[group_by]]) {
-            group[item[group_by]] = []
-        }
-
-        group[item[group_by]].push(item)
-
-        return group
-    }, {})
-}
-
+const isEmpty = (obj) => !Object.entries(obj || {}).length && !obj?.length && !obj?.size
 const size = (item: any) => (item.constructor === Object ? Object.keys(item).length : item.length)
 
 const omit = (obj: any, props: any): any => {
@@ -180,11 +169,11 @@ export {
     omit,
     toRaw,
     toRGB,
-    groupArrayOfObject,
     slideUp,
     debounce,
     slideDown,
     setDarkModeClass,
+    isEmpty,
     setColorSchemeClass,
     allowOnlyNumbersOnKeyDown,
     capitalizeFirstLetter

@@ -2,14 +2,15 @@
 import { useSettingsStore } from '@/stores/settings'
 import { ComboboxInput, Combobox as HeadlessCombobox, Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
 import { computedEager } from '@vueuse/core'
-import { onUnmounted, ref } from 'vue'
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheSearchResults from '@/Components/top-bar/search/TheSearchResults.vue'
+
+import { search } from '@/utils/search'
 
 const query = ref('')
 
@@ -23,6 +24,12 @@ const computedTheme = computedEager(() => {
     }
 
     return ['enigma', 'icewall'].includes(settingStore.theme)
+})
+
+const results = ref()
+
+watch(query, (query: string) => {
+    results.value = search(query)
 })
 
 function onKeydown(event: KeyboardEvent) {
@@ -70,7 +77,7 @@ onUnmounted(() => {
                         ></combobox-input>
                     </div>
 
-                    <the-search-results :query="query" :active-index="activeIndex">
+                    <the-search-results :query :activeIndex>
                         <template #notFound>
                             <the-no-results-found></the-no-results-found>
                         </template>

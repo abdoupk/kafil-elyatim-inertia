@@ -90,7 +90,7 @@ onUnmounted(() => {
             leave-to="mt-5 invisible opacity-0 translate-y-1"
         >
             <div class="absolute end-0 z-10 mt-[3px]">
-                <the-search-results :active-index="activeIndex" :query="query" class="max-h-[500px] w-[450px]">
+                <the-search-results :activeIndex :query class="max-h-[500px] w-[450px]">
                     <template #notFound>
                         <the-no-results-found class="box w-[450px] text-center"></the-no-results-found>
                     </template>
