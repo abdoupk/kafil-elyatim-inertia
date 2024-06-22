@@ -1,20 +1,21 @@
 <script setup lang="ts">
-import type { CreateFamilyStepOneProps, Zone } from '@/types/types'
+import type { CreateFamilyStepOneProps, CreateFamilyStepTwoProps, Zone } from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
-import { provide, type Ref, ref } from 'vue'
+import { type Ref, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import StepOne from '@/Pages/Tenant/families/create/StepOne/StepOne.vue'
-import StepThree from '@/Pages/Tenant/families/create/StepThree/StepThree.vue'
 import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
+import SponsorForm from '@/Pages/Tenant/families/create/StepTwo/SponsorForm.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 
 import {
     createFamilyFormAttributes,
     createFamilyStepOneErrorProps,
+    createFamilyStepTwoErrorProps,
     createFamilyStepsTitles,
     registerStepThreeErrorProps,
     registerStepTwoErrorProps
@@ -72,7 +73,7 @@ const goTo = async (index: number) => {
     } else {
         if (index === 2) {
             await validateStep(createFamilyStepOneErrorProps, stepOneCompleted).finally(() => {
-                // RegisterStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
+                createFamilyStepTwoErrorProps.forEach((prop: CreateFamilyStepTwoProps) => form.forgetError(prop))
 
                 if (stepOneCompleted.value) currentStep.value = 2
             })
@@ -102,16 +103,9 @@ const submit = () => {
         }
     })
 }
-
-const setData = () => {
-    form.setData(form.data())
-}
-
-provide('familyCreateForm', { form, setData })
 </script>
 
 <template>
-    {{ form.data() }}
     <div class="mx-auto flex-col content-center py-5">
         <div class="intro-y box py-10">
             <div
@@ -141,28 +135,27 @@ provide('familyCreateForm', { form, setData })
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-one>
 
-                <step-two
-                    :form
-                    v-model:sponsor.academic_level="form['sponsor.academic_level']"
-                    :currentStep
-                    :totalSteps
-                >
+                <step-two :currentStep :totalSteps>
+                    <template #sponsorForm>
+                        <sponsor-form
+                            :form
+                            v-model:first_name="form.sponsor.first_name"
+                            v-model:last_name="form.sponsor.last_name"
+                            v-model:phone="form.sponsor.phone_number"
+                            v-model:father_name="form.sponsor.father_name"
+                            v-model:mother_name="form.sponsor.mother_name"
+                            v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
+                            v-model:academic_level="form.sponsor.academic_level"
+                            v-model:function="form.sponsor.function"
+                            v-model:health_status="form.sponsor.health_status"
+                            v-model:diploma="form.sponsor.diploma"
+                            v-model:card_number="form.sponsor.card_number"
+                            v-model:birth_date="form.sponsor.birth_date"
+                        ></sponsor-form>
+                    </template>
+
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-two>
-
-                <step-three
-                    v-model:association_email="form.association_email"
-                    v-model:landline="form.landline"
-                    v-model:links="form.links"
-                    v-model:phones="form.phones"
-                    v-model:cpa="form.cpa"
-                    v-model:ccp="form.ccp"
-                    :form
-                    :currentStep
-                    :totalSteps
-                >
-                    <the-actions :validating :currentStep :prevStep :totalSteps :next-step="submit"></the-actions>
-                </step-three>
             </form>
         </div>
     </div>

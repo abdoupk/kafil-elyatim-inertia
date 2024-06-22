@@ -2,6 +2,8 @@ import type { Form } from 'laravel-precognition-vue/dist/types'
 
 import type { LitepickerElement } from '@/Components/Base/lite-picker'
 
+import { createFamilyStepTwoErrorProps } from '@/utils/constants'
+
 export interface IPlacement {
     placement:
         | 'top-start'
@@ -208,24 +210,28 @@ export interface IndexFilters {
     }
 }
 
+type SponsorType = {
+    first_name: string
+    last_name: string
+    phone_number: string
+    sponsorship_type: string
+    birth_date: string
+    father_name: string
+    mother_name: string
+    birth_certificate_number: string
+    academic_level: string
+    function: string
+    health_status: string
+    diploma: string
+    card_number: string
+}
+
 export type CreateFamilyForm = {
     address: string
     zone: string
     start_date: string
     file_number: string
-    'sponsor.first_name': string
-    'sponsor.last_name': string
-    'sponsor.phone_number': string
-    'sponsor.sponsorship_type': string
-    'sponsor.birth_date': string
-    'sponsor.father_name': string
-    'sponsor.mother_name': string
-    'sponsor.birth_certificate_number': string
-    'sponsor.academic_level': string
-    'sponsor.function': string
-    'sponsor.health_status': string
-    'sponsor.diploma': string
-    'sponsor.card_number': string
+    sponsor: SponsorType
 }
 
 export interface CreateFamilyStepProps {
@@ -236,6 +242,8 @@ export interface CreateFamilyStepProps {
 }
 
 export type CreateFamilyStepOneProps = 'zone' | 'start_date' | 'address' | 'file_number'
+
+export type CreateFamilyStepTwoProps = typeof createFamilyStepTwoErrorProps
 
 export interface MembersIndexResource {
     id: string

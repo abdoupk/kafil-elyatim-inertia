@@ -1,37 +1,40 @@
 <script setup lang="ts">
-import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import type { CreateFamilyForm } from '@/types/types'
+
+import type { Form } from 'laravel-precognition-vue/dist/types'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
-import type { Form } from 'laravel-precognition-vue/dist/types'
-import type { CreateFamilyForm } from '@/types/types'
+
+import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
 defineProps<{ form?: Form<CreateFamilyForm> }>()
 
-const firstName = defineModel('sponsor.first_name')
+const firstName = defineModel('first_name')
 
-const lastName = defineModel('sponsor.last_name')
+const lastName = defineModel('last_name')
 
-const phone = defineModel('sponsor.phone')
+const phone = defineModel('phone')
 
-const fatherName = defineModel('sponsor.father_name')
+const fatherName = defineModel('father_name')
 
-const motherName = defineModel('sponsor.mother_name')
+const motherName = defineModel('mother_name')
 
-const birthCertificateNumber = defineModel('sponsor.birth_certificate_number')
+const birthCertificateNumber = defineModel('birth_certificate_number')
 
-const academicLevel = defineModel('sponsor.academic_level')
+const academicLevel = defineModel('academic_level')
 
-const job = defineModel('sponsor.function')
+const job = defineModel('function')
 
-const healthStatus = defineModel('sponsor.health_status')
+const healthStatus = defineModel('health_status')
 
-const diploma = defineModel('sponsor.diploma')
+const diploma = defineModel('diploma')
 
-const cardNumber = defineModel('sponsor.card_number')
+const cardNumber = defineModel('card_number')
 
-const birthDate = defineModel('sponsor.birth_date', { default: '' })
+const birthDate = defineModel('birth_date', { default: '' })
 </script>
 
 <template>
@@ -47,10 +50,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="first_name"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.first_name')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.first_name')
+                    })
+                "
                 @change="form?.validate('sponsor.first_name')"
             ></base-form-input>
 
@@ -75,10 +78,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="last_name"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.last_name')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.last_name')
+                    })
+                "
                 @change="form?.validate('sponsor.last_name')"
             ></base-form-input>
 
@@ -102,17 +105,17 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="sponsor.birth_date"
                 v-model="birthDate"
                 :options="{
-                        autoApply: false,
-                        lang: 'ar',
-                        showWeekNumbers: false,
-                        format: 'DD-MM-YYYY',
-                        dropdowns: {
-                            minYear: 1930,
-                            maxYear: null,
-                            months: true,
-                            years: true
-                        }
-                    }"
+                    autoApply: false,
+                    lang: 'ar',
+                    showWeekNumbers: false,
+                    format: 'DD-MM-YYYY',
+                    dropdowns: {
+                        minYear: 1930,
+                        maxYear: null,
+                        months: true,
+                        years: true
+                    }
+                }"
                 class="block"
             ></base-lite-picker>
 
@@ -129,7 +132,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="phone_number">
-                {{ $t('validation.attributes.phone_number') }}
+                {{ $t('validation.attributes.phone') }}
             </base-form-label>
 
             <base-form-input
@@ -137,10 +140,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="phone_number"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.phone_number')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.phone')
+                    })
+                "
                 @change="form?.validate('sponsor.phone_number')"
             ></base-form-input>
 
@@ -157,7 +160,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="father_name">
-                {{ $t('validation.attributes.father_name') }}
+                {{ $t('validation.attributes.sponsor.father_name') }}
             </base-form-label>
 
             <base-form-input
@@ -165,10 +168,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="father_name"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.father_name')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.father_name')
+                    })
+                "
                 @change="form?.validate('sponsor.father_name')"
             ></base-form-input>
 
@@ -185,7 +188,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="mother_name">
-                {{ $t('validation.attributes.mother_name') }}
+                {{ $t('validation.attributes.sponsor.mother_name') }}
             </base-form-label>
 
             <base-form-input
@@ -193,10 +196,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="mother_name"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.mother_name')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.mother_name')
+                    })
+                "
                 @change="form?.validate('sponsor.mother_name')"
             ></base-form-input>
 
@@ -213,7 +216,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="birth_certificate_number">
-                {{ $t('validation.attributes.birth_certificate_number') }}
+                {{ $t('validation.attributes.sponsor.birth_certificate_number') }}
             </base-form-label>
 
             <base-form-input
@@ -222,10 +225,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 type="text"
                 @keydown="allowOnlyNumbersOnKeyDown"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.birth_certificate_number')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.birth_certificate_number')
+                    })
+                "
                 @change="form?.validate('sponsor.birth_certificate_number')"
             ></base-form-input>
 
@@ -242,7 +245,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="academic_level">
-                {{ $t('validation.attributes.academic_level') }}
+                {{ $t('validation.attributes.sponsor.academic_level') }}
             </base-form-label>
 
             <base-form-input
@@ -250,10 +253,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="academic_level"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.academic_level')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.academic_level')
+                    })
+                "
                 @change="form?.validate('sponsor.academic_level')"
             ></base-form-input>
 
@@ -270,7 +273,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="function">
-                {{ $t('validation.attributes.function') }}
+                {{ $t('validation.attributes.sponsor.function') }}
             </base-form-label>
 
             <base-form-input
@@ -278,10 +281,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="function"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.function')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.function')
+                    })
+                "
                 @change="form?.validate('sponsor.function')"
             ></base-form-input>
 
@@ -298,7 +301,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="health_status">
-                {{ $t('validation.attributes.health_status') }}
+                {{ $t('validation.attributes.sponsor.health_status') }}
             </base-form-label>
 
             <base-form-input
@@ -306,10 +309,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="health_status"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.health_status')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.health_status')
+                    })
+                "
                 @change="form?.validate('sponsor.health_status')"
             ></base-form-input>
 
@@ -326,7 +329,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="diploma">
-                {{ $t('validation.attributes.diploma') }}
+                {{ $t('validation.attributes.sponsor.diploma') }}
             </base-form-label>
 
             <base-form-input
@@ -334,19 +337,15 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="diploma"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.diploma')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.diploma')
+                    })
+                "
                 @change="form?.validate('sponsor.diploma')"
             ></base-form-input>
 
             <base-form-input-error>
-                <div
-                    data-test="error_diploma_message"
-                    class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.diploma')"
-                >
+                <div data-test="error_diploma_message" class="mt-2 text-danger" v-if="form?.invalid('sponsor.diploma')">
                     {{ form.errors['sponsor.diploma'] }}
                 </div>
             </base-form-input-error>
@@ -354,7 +353,7 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
 
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="card_number">
-                {{ $t('validation.attributes.card_number') }}
+                {{ $t('validation.attributes.sponsor.card_number') }}
             </base-form-label>
 
             <base-form-input
@@ -362,10 +361,10 @@ const birthDate = defineModel('sponsor.birth_date', { default: '' })
                 id="card_number"
                 type="text"
                 :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.card_number')
-                        })
-                    "
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.card_number')
+                    })
+                "
                 @change="form?.validate('sponsor.card_number')"
             ></base-form-input>
 

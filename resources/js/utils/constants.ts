@@ -1,8 +1,11 @@
 import type {
     ColorSchemesType,
+    CreateFamilyForm,
     CreateFamilyStepOneProps,
+    CreateFamilyStepTwoProps,
     IPlacement,
     LayoutsType,
+    RegisterForm,
     RegisterStepOneProps,
     RegisterStepThreeProps,
     RegisterStepTwoProps,
@@ -39,7 +42,7 @@ export const associationSocialMediaLinks: { [key: string]: string } = {
     twitter: ''
 }
 
-export const registerFormAttributes = {
+export const registerFormAttributes: RegisterForm = {
     association: '',
     domain: '',
     address: '',
@@ -58,24 +61,26 @@ export const registerFormAttributes = {
     phones: ['']
 }
 
-export const createFamilyFormAttributes = {
+export const createFamilyFormAttributes: CreateFamilyForm = {
     file_number: '',
     zone: '',
     address: '',
     start_date: '',
-    'sponsor.first_name': '',
-    'sponsor.last_name': '',
-    'sponsor.phone_number': '',
-    'sponsor.sponsorship_type': '',
-    'sponsor.birth_date': '',
-    'sponsor.father_name': '',
-    'sponsor.mother_name': '',
-    'sponsor.birth_certificate_number': '',
-    'sponsor.academic_level': '',
-    'sponsor.function': '',
-    'sponsor.health_status': '',
-    'sponsor.diploma': '',
-    'sponsor.card_number': ''
+    sponsor: {
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        sponsorship_type: '',
+        birth_date: '',
+        father_name: '',
+        mother_name: '',
+        birth_certificate_number: '',
+        academic_level: '',
+        function: '',
+        health_status: '',
+        diploma: '',
+        card_number: ''
+    }
 }
 
 // eslint-disable-next-line array-element-newline
@@ -117,4 +122,20 @@ export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = [
     'address',
     'zone',
     'start_date'
+]
+
+export const createFamilyStepTwoErrorProps: CreateFamilyStepTwoProps = [
+    'sponsor.first_name',
+    'sponsor.last_name',
+    'sponsor.phone_number',
+    'sponsor.sponsorship_type',
+    'sponsor.birth_date',
+    'sponsor.father_name',
+    'sponsor.mother_name',
+    'sponsor.birth_certificate_number',
+    'sponsor.academic_level',
+    'sponsor.function',
+    'sponsor.health_status',
+    'sponsor.diploma',
+    'sponsor.card_number'
 ]
