@@ -119,7 +119,6 @@ const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: Appearan
 }
 
 const isEmpty = (obj) => !Object.entries(obj || {}).length && !obj?.length && !obj?.size
-const size = (item: any) => (item.constructor === Object ? Object.keys(item).length : item.length)
 
 const omit = (obj: any, props: any): any => {
     obj = { ...obj }
@@ -164,7 +163,6 @@ const capitalizeFirstLetter = (string: string) => {
 }
 
 export {
-    size,
     isEqual,
     omit,
     toRaw,

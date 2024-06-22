@@ -7,7 +7,7 @@ import { computed, ref, watch } from 'vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { isEmpty, size } from '@/utils/helper'
+import { isEmpty } from '@/utils/helper'
 import { search } from '@/utils/search'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
@@ -15,7 +15,7 @@ defineOptions({
     inheritAttrs: false
 })
 
-const { query = '', activeIndex = 0 } = defineProps<{
+const { query = '', activeIndex = -1 } = defineProps<{
     query: string
     activeIndex: number | null
 }>()
@@ -29,18 +29,22 @@ watch(
 
         if (activeIndex === 0) optionsRef.scroll(0, 0)
 
-        if (activeIndex === size(results.value) - 1) optionsRef.scrollTop = optionsRef.scrollHeight
+        if (
+            activeIndex ===
+            results.value.reduce(
+                (acc, innerArr) => acc + innerArr.filter((obj: Hit) => obj.hasOwnProperty('id')).length,
+                0
+            ) -
+                1
+        )
+            optionsRef.scrollTop = optionsRef.scrollHeight
     }
 )
 
 watch(
     () => query,
     async (query: string) => {
-        await search(query).then((res) => {
-            results.value = res.map((r) => r.hits)
-
-            console.log(results.value)
-        })
+        await search(query).then((res) => (results.value = res.map((r) => r.hits)))
     },
     { immediate: true }
 )
