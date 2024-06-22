@@ -13,7 +13,8 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ zones: PaginationData<ZonesIndexResource>; filters: IndexFilters }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+// eslint-disable-next-line array-element-newline
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 </script>
 
 <template>
@@ -33,7 +34,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('the_zone') }}
                         </base-th-table>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold text-start">
+                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-start">
                             {{ $t('validation.attributes.description') }}
                         </base-th-table>
 
@@ -79,10 +80,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <Link class="me-3 flex items-center" href="#">
+                                <a
+                                    class="me-3 flex items-center"
+                                    href="javascript:void(0)"
+                                    @click="emit('showEditModal', zone.id)"
+                                >
                                     <svg-loader name="icon-pen" class="me-1 h-4 w-4 fill-current" />
                                     {{ $t('edit') }}
-                                </Link>
+                                </a>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"

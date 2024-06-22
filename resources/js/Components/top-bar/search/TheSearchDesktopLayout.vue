@@ -66,7 +66,7 @@ onUnmounted(() => {
                     typeof attrs.class === 'string' && attrs.class
                 )
             "
-            placeholder="Search..."
+            :placeholder="$t('Search...')"
             type="text"
             v-bind="attrs.attrs"
             @blur="searchDropdown = false"

@@ -64,7 +64,7 @@ provide<ProvideDialog>('dialog', {
     <transition-root appear as="template" :show="open">
         <headless-dialog
             class="dialog"
-            :as="as"
+            :as
             @close="
                 (value) => {
                     handleClose(value)

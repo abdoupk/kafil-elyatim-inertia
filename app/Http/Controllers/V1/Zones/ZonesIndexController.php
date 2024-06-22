@@ -11,8 +11,6 @@ class ZonesIndexController extends Controller
 {
     public function __invoke(): Response
     {
-        ray(ZonesIndexResource::collection(getZones()))->notify('hello');
-
         return Inertia::render('Tenant/zones/index/ZonesIndexPage', [
             'zones' => ZonesIndexResource::collection(getZones()),
             'filters' => getFilters(),

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { IndexFilters, PaginationData, ZonesIndexResource } from '@/types/types'
 
+import { useZonesStore } from '@/stores/zones'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -8,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import CreateEditModal from '@/Pages/Tenant/zones/CreateEditModal.vue'
 import DataTable from '@/Pages/Tenant/zones/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -37,6 +39,8 @@ const filters = reactive<IndexFilters>({
 const search = ref(props.filters.search)
 
 const deleteModalStatus = ref<boolean>(false)
+
+const createEditModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
@@ -109,6 +113,22 @@ const deleteZone = () => {
     })
 }
 
+const zonesStore = useZonesStore()
+
+const showEditModal = async (zoneId: string) => {
+    selectedZoneId.value = zoneId
+
+    await zonesStore.getZone(zoneId)
+
+    createEditModalStatus.value = true
+}
+
+const showCreateModal = () => {
+    zonesStore.$reset()
+
+    createEditModalStatus.value = true
+}
+
 const showDeleteModal = (zoneId: string) => {
     selectedZoneId.value = zoneId
 
@@ -152,11 +172,7 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button
-                variant="primary"
-                class="me-2 shadow-md"
-                @click.prevent="router.get(route('tenant.zones.create'))"
-            >
+            <base-button variant="primary" class="me-2 shadow-md" @click.prevent="showCreateModal">
                 {{ n__('add new', 0, { attribute: $t('zone') }) }}
             </base-button>
 
@@ -188,7 +204,13 @@ watch(
     </div>
 
     <template v-if="zones.data.length > 0">
-        <data-table :filters :zones @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+        <data-table
+            :filters
+            :zones
+            @sort="sort($event)"
+            @showDeleteModal="showDeleteModal"
+            @show-edit-modal="showEditModal"
+        ></data-table>
 
         <pagination-data-table
             v-if="zones.meta.last_page > 1"
@@ -208,4 +230,6 @@ watch(
         @close="closeDeleteModal"
         @delete="deleteZone"
     ></delete-modal>
+
+    <create-edit-modal :open="createEditModalStatus" @close="createEditModalStatus = false"></create-edit-modal>
 </template>

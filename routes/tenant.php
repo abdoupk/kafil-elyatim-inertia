@@ -22,7 +22,11 @@ use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
+use App\Http\Controllers\V1\Zones\ZoneCreateController;
+use App\Http\Controllers\V1\Zones\ZoneDeleteController;
 use App\Http\Controllers\V1\Zones\ZonesIndexController;
+use App\Http\Controllers\V1\Zones\ZonesShowController;
+use App\Http\Controllers\V1\Zones\ZoneUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -138,6 +142,18 @@ Route::middleware([
             Route::prefix('zones')->name('zones.')->group(function () {
                 Route::get('', ZonesIndexController::class)
                     ->name('index');
+
+                Route::get('show/{zone}', ZonesShowController::class)
+                    ->name('show');
+
+                Route::put('{zone}', ZoneUpdateController::class)
+                    ->name('update');
+
+                Route::post('create', ZoneCreateController::class)
+                    ->name('create');
+
+                Route::delete('{zone}', ZoneDeleteController::class)
+                    ->name('destroy');
             });
         });
 

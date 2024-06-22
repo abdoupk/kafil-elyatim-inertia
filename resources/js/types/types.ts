@@ -185,6 +185,7 @@ export interface PaginationData<T> {
 export interface Zone {
     id: string
     name: string
+    description?: string
 }
 
 export interface FamilyIndexResource {

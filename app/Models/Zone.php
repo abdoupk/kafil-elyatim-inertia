@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
 /**
@@ -33,11 +34,11 @@ use Laravel\Scout\Searchable;
  */
 class Zone extends Model
 {
-    use HasFactory, HasUuids, Searchable;
-
-    public $timestamps = false;
+    use HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $table = 'zones';
+
+    protected $fillable = ['name', 'description', 'tenant_id'];
 
     public function searchableAs(): string
     {

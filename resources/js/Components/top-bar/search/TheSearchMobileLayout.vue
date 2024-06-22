@@ -64,7 +64,7 @@ onUnmounted(() => {
                             v-model="query"
                             :as="BaseFormInput"
                             class="h-12 border-transparent bg-transparent shadow-none ring-0 ring-black/5 focus:border-transparent focus:ring-0 dark:bg-transparent"
-                            placeholder="Search..."
+                            :placeholder="$t('Search...')"
                             @change="query = $event.target.value"
                             @keydown.esc="open = false"
                         ></combobox-input>
