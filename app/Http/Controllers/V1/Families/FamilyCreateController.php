@@ -12,7 +12,7 @@ class FamilyCreateController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/families/FamilyCreatePage', [
+        return Inertia::render('Tenant/families/create/FamilyCreatePage', [
             'zones' => ZoneResource::collection(Zone::select(['id', 'name'])->get()),
         ]);
     }

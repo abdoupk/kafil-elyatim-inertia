@@ -213,6 +213,19 @@ export type CreateFamilyForm = {
     zone: string
     start_date: string
     file_number: string
+    'sponsor.first_name': string
+    'sponsor.last_name': string
+    'sponsor.phone_number': string
+    'sponsor.sponsorship_type': string
+    'sponsor.birth_date': string
+    'sponsor.father_name': string
+    'sponsor.mother_name': string
+    'sponsor.birth_certificate_number': string
+    'sponsor.academic_level': string
+    'sponsor.function': string
+    'sponsor.health_status': string
+    'sponsor.diploma': string
+    'sponsor.card_number': string
 }
 
 export interface CreateFamilyStepProps {

@@ -17,7 +17,8 @@ class SponsorFactory extends Factory
     {
         return [
             'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
-            'name' => fake('ar_SA')->name,
+            'first_name' => fake('ar_SA')->firstName,
+            'last_name' => fake('ar_SA')->lastName,
             'phone_number' => fake('ar_SA')->regexify('(06|07|05)[0-9]{8}'),
             'sponsorship_type' => fake('ar_SA')->shuffleArray(['father', 'mother', 'grandMother', 'grandFather'])[0],
             'birth_date' => now()->subYears(random_int(25, 60))->toDate(),

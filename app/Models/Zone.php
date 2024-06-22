@@ -30,6 +30,15 @@ use Laravel\Scout\Searchable;
  * @method static Builder|Zone whereDeletedAt($value)
  * @method static Builder|Zone whereUpdatedAt($value)
  *
+ * @property string $description
+ * @property string $tenant_id
+ *
+ * @method static Builder|Zone onlyTrashed()
+ * @method static Builder|Zone whereDescription($value)
+ * @method static Builder|Zone whereTenantId($value)
+ * @method static Builder|Zone withTrashed()
+ * @method static Builder|Zone withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Zone extends Model

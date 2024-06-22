@@ -80,6 +80,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User withTrashed()
  * @method static Builder|User withoutTrashed()
  *
+ * @property-read \App\Models\Zone|null $zone
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable

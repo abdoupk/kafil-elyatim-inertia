@@ -2,14 +2,14 @@
 import type { CreateFamilyStepOneProps, Zone } from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
-import { type Ref, ref } from 'vue'
+import { provide, type Ref, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import StepOne from '@/Pages/Tenant/families/create/StepOne.vue'
-import StepThree from '@/Pages/Tenant/families/create/StepThree.vue'
+import StepOne from '@/Pages/Tenant/families/create/StepOne/StepOne.vue'
+import StepThree from '@/Pages/Tenant/families/create/StepThree/StepThree.vue'
 import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
-import StepTwo from '@/Pages/Tenant/families/create/StepTwo.vue'
+import StepTwo from '@/Pages/Tenant/families/create/StepTwo/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 
 import {
@@ -26,7 +26,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[] }>()
 
-const currentStep = ref(1)
+const currentStep = ref(2)
 
 const totalSteps = 3
 
@@ -102,9 +102,16 @@ const submit = () => {
         }
     })
 }
+
+const setData = () => {
+    form.setData(form.data())
+}
+
+provide('familyCreateForm', { form, setData })
 </script>
 
 <template>
+    {{ form.data() }}
     <div class="mx-auto flex-col content-center py-5">
         <div class="intro-y box py-10">
             <div
@@ -135,13 +142,8 @@ const submit = () => {
                 </step-one>
 
                 <step-two
-                    v-model:email="form.email"
-                    v-model:first_name="form.first_name"
-                    v-model:last_name="form.last_name"
-                    v-model:phone="form.phone"
-                    v-model:password_confirmation="form.password_confirmation"
-                    v-model:password="form.password"
                     :form
+                    v-model:sponsor.academic_level="form['sponsor.academic_level']"
                     :currentStep
                     :totalSteps
                 >

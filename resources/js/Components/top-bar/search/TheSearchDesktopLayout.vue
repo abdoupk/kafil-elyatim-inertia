@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Combobox as HeadlessCombobox, ComboboxInput, TransitionRoot } from '@headlessui/vue'
+import { ComboboxInput, Combobox as HeadlessCombobox, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
 import { onMounted, onUnmounted, ref } from 'vue'
 

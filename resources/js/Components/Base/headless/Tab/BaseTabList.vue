@@ -21,9 +21,7 @@ defineOptions({
     inheritAttrs: false
 })
 
-const { variant } = withDefaults(defineProps<ListProps>(), {
-    variant: 'tabs'
-})
+const { variant = 'tabs' } = defineProps<ListProps>()
 
 const attrs = useComputedAttrs()
 

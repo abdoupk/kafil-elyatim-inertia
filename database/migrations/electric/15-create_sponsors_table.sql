@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS sponsors
 (
     "id"                       uuid                           not null primary key,
-    "name"                     text                           not null,
+    "first_name"               text                           not null,
+    "last_name"                text                           not null,
     "phone_number"             text                           not null,
     "sponsorship_type"         text                           not null,
     "birth_date"               date                           not null,

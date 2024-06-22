@@ -77,6 +77,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Sponsor whereFileNumber($value)
  * @method static Builder|Sponsor whereZoneId($value)
  *
+ * @property string $first_name
+ * @property string $last_name
+ *
+ * @method static Builder|Sponsor whereFirstName($value)
+ * @method static Builder|Sponsor whereLastName($value)
+ *
  * @mixin Eloquent
  */
 class Sponsor extends Model
