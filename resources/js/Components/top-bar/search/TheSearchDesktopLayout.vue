@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ComboboxInput, Combobox as HeadlessCombobox, TransitionRoot } from '@headlessui/vue'
+import { Combobox as HeadlessCombobox, ComboboxInput, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
 import { onMounted, onUnmounted, ref } from 'vue'
 
@@ -68,6 +68,7 @@ onUnmounted(() => {
             :placeholder="$t('Search...')"
             type="text"
             v-bind="attrs.attrs"
+            @blur="searchDropdown = false"
             @change="query = $event.target.value"
             @focus="searchDropdown = true"
             @keydown.esc.prevent="closeSearch"
