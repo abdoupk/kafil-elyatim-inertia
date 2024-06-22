@@ -2,6 +2,7 @@ import type { AppearanceType, ColorSchemesType } from '@/types/types'
 
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
+import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
 
 dayjs.extend(duration)
@@ -120,6 +121,12 @@ const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: Appearan
 
 const isEmpty = (obj) => !Object.entries(obj || {}).length && !obj?.length && !obj?.size
 
+const getResultsSize = (results: Array<Hit>) => {
+    return results?.reduce(
+        (acc, innerArr) => acc + innerArr?.filter((obj: Hit) => obj?.hasOwnProperty('id'))?.length,
+        0
+    )
+}
 const omit = (obj: any, props: any): any => {
     obj = { ...obj }
 
@@ -172,6 +179,7 @@ export {
     slideDown,
     setDarkModeClass,
     isEmpty,
+    getResultsSize,
     setColorSchemeClass,
     allowOnlyNumbersOnKeyDown,
     capitalizeFirstLetter

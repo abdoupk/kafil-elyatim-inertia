@@ -26,8 +26,6 @@ class HandleInertiaRequests extends Middleware
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {
-                ray($request->url());
-
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),
                 ]);

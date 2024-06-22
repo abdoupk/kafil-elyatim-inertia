@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { ComboboxInput, Combobox as HeadlessCombobox, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
-import { onMounted, onUnmounted } from 'vue'
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
@@ -69,7 +68,6 @@ onUnmounted(() => {
             :placeholder="$t('Search...')"
             type="text"
             v-bind="attrs.attrs"
-            @blur="searchDropdown = false"
             @change="query = $event.target.value"
             @focus="searchDropdown = true"
             @keydown.esc.prevent="closeSearch"
@@ -90,7 +88,7 @@ onUnmounted(() => {
             leave-to="mt-5 invisible opacity-0 translate-y-1"
         >
             <div class="absolute end-0 z-10 mt-[3px]">
-                <the-search-results :activeIndex :query class="max-h-[500px] w-[450px]">
+                <the-search-results @close="closeSearch" :activeIndex :query class="max-h-[500px] w-[450px]">
                     <template #notFound>
                         <the-no-results-found class="box w-[450px] text-center"></the-no-results-found>
                     </template>

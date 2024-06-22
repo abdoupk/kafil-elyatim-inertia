@@ -27,7 +27,7 @@ export const useMenuStore = defineStore('menu', {
                 subMenu: [
                     {
                         icon: 'icon-users',
-                        title: __('list', { attribute: __('branches') }),
+                        title: __('list', { attribute: __('the_members') }),
                         routeName: 'tenant.members.index',
                         url: route('tenant.members.index')
                     },
