@@ -267,13 +267,8 @@ export type IncomeType = {
 }
 
 export type HousingType = {
-    independent: string
-    with_family: string
-    inheritance: string
-    tenant: string
-    other: string
-    number_of_rooms: string
-    housing_receipt_number: string
+    name: string
+    value: string | number | boolean
 }
 
 export type CreateFamilyForm = {
@@ -286,6 +281,12 @@ export type CreateFamilyForm = {
     second_sponsor: SecondSponsorType
     spouse: SpouseType
     orphans: OrphanType[]
+    housing: {
+        name?: string
+        value?: string
+        number_of_rooms?: number
+        housing_receipt_number?: string
+    }
 }
 
 export interface CreateFamilyStepProps {

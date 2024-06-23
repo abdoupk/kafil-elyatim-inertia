@@ -41,7 +41,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[] }>()
 
-const currentStep = ref(4)
+const currentStep = ref(5)
 
 const totalSteps = 5
 
@@ -272,7 +272,11 @@ const submit = () => {
 
                 <step-five :currentStep :totalSteps>
                     <template #housingForm>
-                        <housing-form :form></housing-form>
+                        <housing-form
+                            :form
+                            v-model:housing-receipt-number="form.housing.housing_receipt_number"
+                            v-model:number-of-rooms="form.housing.number_of_rooms"
+                        ></housing-form>
                     </template>
 
                     <template #furnishingForm>

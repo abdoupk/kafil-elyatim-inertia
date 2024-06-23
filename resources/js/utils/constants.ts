@@ -118,15 +118,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             note: ''
         }
     ],
-    housing: {
-        independent: '',
-        with_family: '',
-        Inheritance: '',
-        tenant: '',
-        other: '',
-        number_of_rooms: '',
-        housing_receipt_number: ''
-    }
+    housing: []
 }
 
 // eslint-disable-next-line array-element-newline

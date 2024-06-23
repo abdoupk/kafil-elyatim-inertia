@@ -50,5 +50,5 @@ const localValue = computed({
 </script>
 
 <template>
-    <base-form-check-input :type="props.type" :class="computedClass" v-bind="attrs.attrs" v-model="localValue" />
+    <base-form-check-input :type="props.type" :class="computedClass" v-bind="$attrs" v-model="localValue" />
 </template>

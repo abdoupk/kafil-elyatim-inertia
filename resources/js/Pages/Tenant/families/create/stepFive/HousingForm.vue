@@ -1,55 +1,40 @@
 <script setup lang="ts">
-import type { CreateFamilyForm, HousingType } from '@/types/types'
+/* eslint-disable vue/no-parsing-error */
+import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { ref } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
-import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
-import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 
 defineProps<{ form: Form<CreateFamilyForm> }>()
 
-const independent = defineModel('independent')
-
-const withFamily = defineModel('withFamily')
-
-const inheritance = defineModel('inheritance')
-
-const tenant = defineModel('tenant')
-
-const other = defineModel('other')
-
-const numberOfRooms = defineModel('numberOfRooms')
-
-const housingReceiptNumber = defineModel('housingReceiptNumber')
-
-const items = ref<Record<keyof HousingType, boolean>>({
-    with_family: false,
-    independent: false,
-    Inheritance: false,
-    tenant: false,
-    other: false,
-    number_of_rooms: false,
-    housing_receipt_number: false
+const housingType = ref<{ name: HousingType; value: boolean | string | number }>({
+    name: 'independent',
+    value: false
 })
 
-const toggle = (key: keyof HousingType) => {
-    items.value[key] = !items.value[key]
+type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
+
+const toggle = (key: HousingType, value?: string | number | boolean) => {
+    housingType.value.name = key
+
+    if (value) housingType.value.value = value
 }
 </script>
 
 <template>
+    {{ housingType }}
     <div class="intro-x mt-2">
         <div class="flex gap-16">
             <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
                 <base-form-switch-input
-                    @click="toggle('independent')"
+                    @change="(event: Event) => toggle('independent', (event.target as HTMLInputElement).checked)"
+                    :checked="housingType.name === 'independent'"
                     id="independent"
                     type="checkbox"
                 ></base-form-switch-input>
@@ -62,8 +47,19 @@ const toggle = (key: keyof HousingType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('housing.independent')">
-                    {{ form.errors['housing.independent'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.independent'
+                        )
+                    "
+                >
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.independent']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -72,10 +68,10 @@ const toggle = (key: keyof HousingType) => {
     <div class="intro-x mt-6">
         <div class="flex gap-16">
             <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
                 <base-form-switch-input
-                    @click="toggle('with_family')"
+                    @change="(event: Event) => toggle('with_family', (event.target as HTMLInputElement).checked)"
                     id="with_family"
+                    :checked="housingType.name === 'with_family'"
                     type="checkbox"
                 ></base-form-switch-input>
 
@@ -87,8 +83,19 @@ const toggle = (key: keyof HousingType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('housing.with_family')">
-                    {{ form.errors['housing.with_family'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.with_family'
+                        )
+                    "
+                >
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.with_family']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -96,11 +103,11 @@ const toggle = (key: keyof HousingType) => {
 
     <div class="intro-x mt-6">
         <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
+            <base-form-switch class="text-lg md:w-1/2">
                 <base-form-switch-input
-                    @click="toggle('inheritance')"
+                    @change="toggle('inheritance')"
                     id="inheritance"
+                    :checked="housingType.name === 'inheritance'"
                     type="checkbox"
                 ></base-form-switch-input>
 
@@ -109,22 +116,32 @@ const toggle = (key: keyof HousingType) => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <base-form-input
-                class="w-3/4"
-                formInputSize="sm"
-                :disabled="!items.inheritance"
-                @change="form?.validate('housing.inheritance')"
-                type="text"
-                maxlength="6"
-                :placeholder="$t('')"
-                v-model="inheritance"
-            ></base-form-input>
+            <div class="w-full">
+                <base-form-input
+                    :disabled="housingType.name !== 'inheritance'"
+                    class="w-3/4"
+                    @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
+                    type="text"
+                    :placeholder="$t('the_amount')"
+                ></base-form-input>
+            </div>
         </div>
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('housing.inheritance')">
-                    {{ form.errors['housing.inheritance'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.inheritance'
+                        )
+                    "
+                >
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.inheritance']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -132,32 +149,45 @@ const toggle = (key: keyof HousingType) => {
 
     <div class="intro-x mt-6">
         <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
-                <base-form-switch-input @click="toggle('tenant')" id="tenant" type="checkbox"></base-form-switch-input>
+            <base-form-switch class="text-lg md:w-1/2">
+                <base-form-switch-input
+                    @change="toggle('tenant')"
+                    id="tenant"
+                    :checked="housingType.name === 'tenant'"
+                    type="checkbox"
+                ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="tenant">
                     {{ $t('housing.label.tenant') }}
                 </base-form-switch-label>
             </base-form-switch>
 
-            <base-input-group>
+            <div class="w-full">
                 <base-form-input
-                    :disabled="!items.tenant"
-                    @change="form?.validate('housing.tenant')"
+                    :disabled="housingType.name !== 'tenant'"
+                    class="w-3/4"
+                    @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                     type="text"
-                    maxlength="6"
                     :placeholder="$t('the_amount')"
-                    v-model="tenant"
-                    class="w-full"
                 ></base-form-input>
-            </base-input-group>
+            </div>
         </div>
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('housing.tenant')">
-                    {{ form.errors['housing.tenant'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.tenant'
+                        )
+                    "
+                >
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.tenant']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -165,107 +195,81 @@ const toggle = (key: keyof HousingType) => {
 
     <div class="intro-x mt-6">
         <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
-                <base-form-switch-input @click="toggle('other')" id="other" type="checkbox"></base-form-switch-input>
+            <base-form-switch class="text-lg md:w-1/2">
+                <base-form-switch-input
+                    @change="toggle('other')"
+                    id="other"
+                    :checked="housingType.name === 'other'"
+                    type="checkbox"
+                ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="other">
                     {{ $t('housing.label.other') }}
                 </base-form-switch-label>
             </base-form-switch>
 
-            <base-input-group>
+            <div class="w-full">
                 <base-form-input
-                    :disabled="!items.other"
-                    @change="form?.validate('housing.other')"
+                    :disabled="housingType.name !== 'other'"
+                    class="w-3/4"
+                    @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                     type="text"
-                    maxlength="6"
                     :placeholder="$t('the_amount')"
-                    v-model="other"
                 ></base-form-input>
-
-                <base-input-group-text>
-                    {{ $t('DA') }}
-                </base-input-group-text>
-            </base-input-group>
-        </div>
-
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('housing.other')">
-                    {{ form.errors['housing.other'] }}
-                </div>
-            </base-form-input-error>
-        </div>
-    </div>
-
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <div class="text-lg w-1/4">
-                <p class="ms-11">
-                    {{ $t('housing.label.number_of_rooms') }}
-                </p>
             </div>
-
-            <base-input-group>
-                <base-form-input
-                    @change="form?.validate('housing.number_of_rooms')"
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
-                    v-model="number_of_rooms"
-                ></base-form-input>
-
-                <base-input-group-text>
-                    {{ $t('DA') }}
-                </base-input-group-text>
-            </base-input-group>
         </div>
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
                 <div
                     class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="form?.invalid('housing.number_of_rooms')"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.other'
+                        )
+                    "
                 >
-                    {{ form.errors['housing.number_of_rooms'] }}
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.other']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
     </div>
 
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <div class="text-lg w-1/4">
-                <p class="ms-11">
-                    {{ $t('housing.label.housing_receipt_number') }}
-                </p>
-            </div>
-
-            <base-input-group>
-                <base-form-input
-                    @change="form?.validate('housing.housing_receipt_number')"
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
-                    v-model="housing_receipt_number"
-                ></base-form-input>
-
-                <base-input-group-text>
-                    {{ $t('DA') }}
-                </base-input-group-text>
-            </base-input-group>
+    <div class="flex gap-16 mt-6">
+        <div class="text-lg md:w-1/2">
+            <p class="ms-11">
+                {{ $t('housing.label.number_of_rooms') }}
+            </p>
         </div>
 
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="form?.invalid('housing.housing_receipt_number')"
-                >
-                    {{ form.errors['housing.housing_receipt_number'] }}
-                </div>
-            </base-form-input-error>
+        <div class="w-full">
+            <base-form-input
+                class="w-3/4"
+                @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
+                type="text"
+                :placeholder="$t('the_amount')"
+            ></base-form-input>
+        </div>
+    </div>
+
+    <div class="flex gap-16 mt-6">
+        <div class="text-lg md:w-1/2">
+            <p class="ms-11">
+                {{ $t('housing.label.housing_receipt_number') }}
+            </p>
+        </div>
+
+        <div class="w-full">
+            <base-form-input
+                class="w-3/4"
+                @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
+                type="text"
+                :placeholder="$t('the_amount')"
+            ></base-form-input>
         </div>
     </div>
 </template>
