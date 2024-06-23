@@ -193,9 +193,17 @@ const removePhone = (index: number) => {
                         <div
                             :data-test="`error_phones_${index}_message`"
                             class="mt-2 text-danger"
-                            v-if="form?.invalid('phones.' + index)"
+                            v-if="
+                                form?.invalid(
+                                    //@ts-ignore
+                                    'phones.' + index
+                                )
+                            "
                         >
-                            {{ form.errors[`phones.${index}`] }}
+                            {{
+                                //@ts-ignore
+                                form.errors[`phones.${index}`]
+                            }}
                         </div>
                     </base-form-input-error>
                 </template>
@@ -236,10 +244,20 @@ const removePhone = (index: number) => {
                     <base-form-input-error>
                         <div
                             :data-test="`error_links_${link}_message`"
-                            class="mr-24 mt-2 text-danger"
-                            v-if="form?.invalid(`links.${link}`)"
+                            class="ms-24 mt-2 text-danger"
+                            v-if="
+                                form?.invalid(
+                                    //@ts-ignore
+                                    `links.${link}`
+                                )
+                            "
                         >
-                            <p class="mr-2">{{ form.errors[`links.${link}`] }}</p>
+                            <p class="ms-2">
+                                {{
+                                    //@ts-ignore
+                                    form.errors[`links.${link}`]
+                                }}
+                            </p>
                         </div>
                     </base-form-input-error>
                 </template>

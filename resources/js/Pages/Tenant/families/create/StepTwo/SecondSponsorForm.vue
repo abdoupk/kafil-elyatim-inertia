@@ -39,16 +39,29 @@ const address = defineModel('address')
                         attribute: $t('validation.attributes.first_name')
                     })
                 "
-                @change="form?.validate('second_sponsor.first_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'second_sponsor.first_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_first_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('second_sponsor.first_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'second_sponsor.first_name'
+                        )
+                    "
                 >
-                    {{ form.errors['second_sponsor.first_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['second_sponsor.first_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -68,16 +81,29 @@ const address = defineModel('address')
                         attribute: $t('validation.attributes.last_name')
                     })
                 "
-                @change="form?.validate('second_sponsor.last_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'second_sponsor.last_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_last_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('second_sponsor.last_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'second_sponsor.last_name'
+                        )
+                    "
                 >
-                    {{ form.errors['second_sponsor.last_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['second_sponsor.last_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -97,16 +123,29 @@ const address = defineModel('address')
                         attribute: $t('validation.attributes.degree_of_kinship')
                     })
                 "
-                @change="form?.validate('second_sponsor.degree_of_kinship')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'second_sponsor.degree_of_kinship'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_degree_of_kinship_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('second_sponsor.degree_of_kinship')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'second_sponsor.degree_of_kinship'
+                        )
+                    "
                 >
-                    {{ form.errors['second_sponsor.degree_of_kinship'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['second_sponsor.degree_of_kinship']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -126,16 +165,29 @@ const address = defineModel('address')
                         attribute: $t('validation.attributes.phone')
                     })
                 "
-                @change="form?.validate('second_sponsor.phone_number')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'second_sponsor.phone_number'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_phone_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('second_sponsor.phone_number')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'second_sponsor.phone_number'
+                        )
+                    "
                 >
-                    {{ form.errors['second_sponsor.phone_number'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['second_sponsor.phone_number']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -155,16 +207,29 @@ const address = defineModel('address')
                         attribute: $t('validation.attributes.address')
                     })
                 "
-                @change="form?.validate('second_sponsor.address')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'second_sponsor.address'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_address_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('second_sponsor.address')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'second_sponsor.address'
+                        )
+                    "
                 >
-                    {{ form.errors['second_sponsor.address'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['second_sponsor.address']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -184,16 +249,29 @@ const address = defineModel('address')
                         attribute: $t('validation.attributes.income')
                     })
                 "
-                @change="form?.validate('second_sponsor.income')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'second_sponsor.income'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_income_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('second_sponsor.income')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'second_sponsor.income'
+                        )
+                    "
                 >
-                    {{ form.errors['second_sponsor.income'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['second_sponsor.income']
+                    }}
                 </div>
             </base-form-input-error>
         </div>

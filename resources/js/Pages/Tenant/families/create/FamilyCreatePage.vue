@@ -7,6 +7,7 @@ import { type Ref, ref } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import StepOne from '@/Pages/Tenant/families/create/StepOne/StepOne.vue'
+import StepThree from '@/Pages/Tenant/families/create/StepThree/StepThree.vue'
 import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
 import IncomeForm from '@/Pages/Tenant/families/create/StepTwo/IncomeForm.vue'
 import SecondSponsorForm from '@/Pages/Tenant/families/create/StepTwo/SecondSponsorForm.vue'
@@ -14,6 +15,16 @@ import SponsorForm from '@/Pages/Tenant/families/create/StepTwo/SponsorForm.vue'
 import SpouseForm from '@/Pages/Tenant/families/create/StepTwo/SpouseForm.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
+import FurnishingForm from '@/Pages/Tenant/families/create/stepFive/FurnishingForm.vue'
+import HousingForm from '@/Pages/Tenant/families/create/stepFive/HousingForm.vue'
+import OtherPropertiesForm from '@/Pages/Tenant/families/create/stepFive/OtherPropertiesForm.vue'
+import StepFive from '@/Pages/Tenant/families/create/stepFive/StepFive.vue'
+import OrphanForm from '@/Pages/Tenant/families/create/stepFour/OrphanForm.vue'
+import StepFour from '@/Pages/Tenant/families/create/stepFour/StepFour.vue'
+import TheOrphans from '@/Pages/Tenant/families/create/stepFour/TheOrphans.vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 import {
     createFamilyFormAttributes,
@@ -30,15 +41,25 @@ defineOptions({
 
 defineProps<{ zones: Zone[] }>()
 
-const currentStep = ref(2)
+const currentStep = ref(4)
 
-const totalSteps = 3
+const totalSteps = 5
 
 const form = useForm('post', route('tenant.families.store'), createFamilyFormAttributes)
 
 const stepOneCompleted = ref<boolean>(false)
 
 const stepTwoCompleted = ref<boolean>(false)
+
+const addOrphan = () => {
+    form.orphans.push({ first_name: '' })
+}
+
+const removeOrphan = (index: number) => {
+    if (form.orphans.length > 1) {
+        form.orphans.splice(index, 1)
+    }
+}
 
 const validating = ref<boolean>(false)
 
@@ -88,6 +109,10 @@ const goTo = async (index: number) => {
                     currentStep.value = 3
                 }
             })
+        }
+
+        if (index === 5) {
+            await form.submit()
         }
     }
 }
@@ -194,6 +219,48 @@ const submit = () => {
                     </template>
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-two>
+
+                <step-three :currentStep :totalSteps></step-three>
+
+                <step-four :currentStep :totalSteps>
+                    <template #orphansForm>
+                        <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
+                            <the-orphans :index @remove-orphan="removeOrphan">
+                                <orphan-form :form :index v-model:first_name="orphan.first_name"></orphan-form>
+                            </the-orphans>
+                        </template>
+
+                        <base-button
+                            type="button"
+                            variant="outline-primary"
+                            class="mx-auto mt-4 block w-1/2 border-dashed dark:text-slate-500"
+                            data-test="add_orphan"
+                            @click="addOrphan"
+                        >
+                            <svg-loader name="icon-plus" class="inline fill-primary dark:fill-slate-500"></svg-loader>
+
+                            {{ $t('auth.register.stepThree.add_new_phone') }}
+                        </base-button>
+                    </template>
+
+                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                </step-four>
+
+                <step-five :currentStep :totalSteps>
+                    <template #housingForm>
+                        <housing-form :form></housing-form>
+                    </template>
+
+                    <template #furnishingForm>
+                        <furnishing-form :form></furnishing-form>
+                    </template>
+
+                    <template #otherPropertiesForm>
+                        <other-properties-form :form></other-properties-form>
+                    </template>
+
+                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                </step-five>
             </form>
         </div>
     </div>

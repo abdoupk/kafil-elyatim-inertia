@@ -6,6 +6,13 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateFamilyRequest extends FormRequest
 {
+    public function messages(): array
+    {
+        return [
+            'orphans.*.first_name.required' => __('validation.required', ['attribute' => __('validation.attributes.first_name')]),
+        ];
+    }
+
     public function rules(): array
     {
         return [

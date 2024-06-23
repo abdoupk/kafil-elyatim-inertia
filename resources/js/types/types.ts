@@ -244,6 +244,19 @@ type SpouseType = {
     income: number
 }
 
+export type OrphanType = {
+    first_name: string
+    last_name: string
+    birth_date: string
+    family_status: string
+    health_status: string
+    academic_level: string
+    shoes_size: number
+    pants_size: string
+    shirt_size: string
+    note: string
+}
+
 export type IncomeType = {
     cnr: number
     casnos: number
@@ -251,6 +264,16 @@ export type IncomeType = {
     pension: number
     other_income: number
     account: number
+}
+
+export type HousingType = {
+    independent: string
+    with_family: string
+    inheritance: string
+    tenant: string
+    other: string
+    number_of_rooms: string
+    housing_receipt_number: string
 }
 
 export type CreateFamilyForm = {
@@ -262,6 +285,7 @@ export type CreateFamilyForm = {
     incomes: IncomeType
     second_sponsor: SecondSponsorType
     spouse: SpouseType
+    orphans: OrphanType[]
 }
 
 export interface CreateFamilyStepProps {

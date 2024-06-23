@@ -103,6 +103,29 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         income: 0,
         birth_date: '',
         death_date: ''
+    },
+    orphans: [
+        {
+            first_name: '',
+            last_name: '',
+            birth_date: '',
+            family_status: '',
+            health_status: '',
+            academic_level: '',
+            shoes_size: 30,
+            pants_size: '',
+            shirt_size: '',
+            note: ''
+        }
+    ],
+    housing: {
+        independent: '',
+        with_family: '',
+        Inheritance: '',
+        tenant: '',
+        other: '',
+        number_of_rooms: '',
+        housing_receipt_number: ''
     }
 }
 
@@ -137,6 +160,8 @@ export const registerStepsTitles = [
 export const createFamilyStepsTitles = [
     'families.titles.association',
     'families.titles.supervisor',
+    'families.titles.association_details',
+    'families.titles.association_details',
     'families.titles.association_details'
 ]
 

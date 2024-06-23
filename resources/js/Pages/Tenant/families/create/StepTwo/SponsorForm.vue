@@ -54,16 +54,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.first_name')
                     })
                 "
-                @change="form?.validate('sponsor.first_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.first_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_first_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.first_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.first_name'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.first_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.first_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -82,16 +95,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.last_name')
                     })
                 "
-                @change="form?.validate('sponsor.last_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.last_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_last_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.last_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.last_name'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.last_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.last_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -123,9 +149,17 @@ const birthDate = defineModel('birth_date', { default: '' })
                 <div
                     data-test="error_start_date_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.birth_date')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.birth_date'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.birth_date'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.birth_date']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -144,16 +178,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.phone')
                     })
                 "
-                @change="form?.validate('sponsor.phone_number')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.phone_number'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_phone_number_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.phone_number')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.phone_number'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.phone_number'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.phone_number']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -172,16 +219,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.father_name')
                     })
                 "
-                @change="form?.validate('sponsor.father_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.father_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_father_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.father_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.father_name'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.father_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.father_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -200,16 +260,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.mother_name')
                     })
                 "
-                @change="form?.validate('sponsor.mother_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.mother_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_mother_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.mother_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.mother_name'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.mother_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.mother_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -229,16 +302,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.birth_certificate_number')
                     })
                 "
-                @change="form?.validate('sponsor.birth_certificate_number')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.birth_certificate_number'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_birth_certificate_number_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.birth_certificate_number')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.birth_certificate_number'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.birth_certificate_number'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.birth_certificate_number']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -257,16 +343,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.academic_level')
                     })
                 "
-                @change="form?.validate('sponsor.academic_level')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.academic_level'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_academic_level_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.academic_level')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.academic_level'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.academic_level'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.academic_level']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -285,16 +384,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.function')
                     })
                 "
-                @change="form?.validate('sponsor.function')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.function'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_function_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.function')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.function'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.function'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.function']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -313,16 +425,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.health_status')
                     })
                 "
-                @change="form?.validate('sponsor.health_status')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.health_status'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_health_status_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.health_status')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.health_status'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.health_status'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.health_status']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -341,12 +466,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.diploma')
                     })
                 "
-                @change="form?.validate('sponsor.diploma')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.diploma'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
-                <div data-test="error_diploma_message" class="mt-2 text-danger" v-if="form?.invalid('sponsor.diploma')">
-                    {{ form.errors['sponsor.diploma'] }}
+                <div
+                    data-test="error_diploma_message"
+                    class="mt-2 text-danger"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.diploma'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.diploma']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -365,16 +507,29 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.sponsor.card_number')
                     })
                 "
-                @change="form?.validate('sponsor.card_number')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.card_number'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_card_number_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('sponsor.card_number')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.card_number'
+                        )
+                    "
                 >
-                    {{ form.errors['sponsor.card_number'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.card_number']
+                    }}
                 </div>
             </base-form-input-error>
         </div>

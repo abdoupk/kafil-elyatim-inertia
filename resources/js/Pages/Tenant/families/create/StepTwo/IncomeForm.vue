@@ -67,7 +67,12 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.cnr"
-                    @change="form?.validate('incomes.cnr')"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            'incomes.cnr'
+                        )
+                    "
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"
@@ -82,8 +87,19 @@ const toggle = (key: keyof IncomeType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('incomes.cnr')">
-                    {{ form.errors['incomes.cnr'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'incomes.cnr'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['incomes.cnr']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -103,7 +119,12 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.cnas"
-                    @change="form?.validate('incomes.cnas')"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            'incomes.cnas'
+                        )
+                    "
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"
@@ -118,8 +139,19 @@ const toggle = (key: keyof IncomeType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('incomes.cnas')">
-                    {{ form.errors['incomes.cnas'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'incomes.cnas'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['incomes.cnas']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -139,7 +171,12 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.casnos"
-                    @change="form?.validate('incomes.casnos')"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            'incomes.casnos'
+                        )
+                    "
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"
@@ -154,8 +191,19 @@ const toggle = (key: keyof IncomeType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('incomes.casnos')">
-                    {{ form.errors['incomes.casnos'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'incomes.casnos'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['incomes.casnos']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -179,7 +227,12 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.pension"
-                    @change="form?.validate('incomes.pension')"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            'incomes.pension'
+                        )
+                    "
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"
@@ -194,8 +247,19 @@ const toggle = (key: keyof IncomeType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('incomes.pension')">
-                    {{ form.errors['incomes.pension'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'incomes.pension'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['incomes.pension']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -219,7 +283,12 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.other_income"
-                    @change="form?.validate('incomes.other_income')"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            'incomes.other_income'
+                        )
+                    "
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"
@@ -234,8 +303,19 @@ const toggle = (key: keyof IncomeType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('incomes.other_income')">
-                    {{ form.errors['incomes.other_income'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'incomes.other_income'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['incomes.other_income']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -251,7 +331,12 @@ const toggle = (key: keyof IncomeType) => {
 
             <base-input-group>
                 <base-form-input
-                    @change="form?.validate('incomes.account')"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            'incomes.account'
+                        )
+                    "
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"
@@ -266,8 +351,19 @@ const toggle = (key: keyof IncomeType) => {
 
         <div class="grid grid-cols-12">
             <base-form-input-error>
-                <div class="mt-2 text-danger col-start-5 -ms-1 col-end-12" v-if="form?.invalid('incomes.account')">
-                    {{ form.errors['incomes.account'] }}
+                <div
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'incomes.account'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['incomes.account']
+                    }}
                 </div>
             </base-form-input-error>
         </div>

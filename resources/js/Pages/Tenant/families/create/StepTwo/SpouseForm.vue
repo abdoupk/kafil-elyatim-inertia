@@ -40,16 +40,29 @@ const job = defineModel('job')
                         attribute: $t('validation.attributes.first_name')
                     })
                 "
-                @change="form?.validate('spouse.first_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'spouse.first_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_first_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('spouse.first_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'spouse.first_name'
+                        )
+                    "
                 >
-                    {{ form.errors['spouse.first_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['spouse.first_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -69,16 +82,29 @@ const job = defineModel('job')
                         attribute: $t('validation.attributes.last_name')
                     })
                 "
-                @change="form?.validate('spouse.last_name')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'spouse.last_name'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_last_name_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('spouse.last_name')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'spouse.last_name'
+                        )
+                    "
                 >
-                    {{ form.errors['spouse.last_name'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['spouse.last_name']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -110,9 +136,17 @@ const job = defineModel('job')
                 <div
                     data-test="error_birth_date_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('spouse.birth_date')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'spouse.birth_date'
+                        )
+                    "
                 >
-                    {{ form.errors['spouse.birth_date'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['spouse.birth_date']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -144,9 +178,17 @@ const job = defineModel('job')
                 <div
                     data-test="error_death_date_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('spouse.death_date')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'spouse.death_date'
+                        )
+                    "
                 >
-                    {{ form.errors['spouse.death_date'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['spouse.death_date']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -166,16 +208,29 @@ const job = defineModel('job')
                         attribute: $t('validation.attributes.sponsor.function')
                     })
                 "
-                @change="form?.validate('spouse.function')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'spouse.function'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
                 <div
                     data-test="error_function_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('spouse.function')"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'spouse.function'
+                        )
+                    "
                 >
-                    {{ form.errors['spouse.function'] }}
+                    {{
+                        //@ts-ignore
+                        form.errors['spouse.function']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -195,12 +250,29 @@ const job = defineModel('job')
                         attribute: $t('validation.attributes.income')
                     })
                 "
-                @change="form?.validate('spouse.income')"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'spouse.income'
+                    )
+                "
             ></base-form-input>
 
             <base-form-input-error>
-                <div data-test="error_income_message" class="mt-2 text-danger" v-if="form?.invalid('spouse.income')">
-                    {{ form.errors['spouse.income'] }}
+                <div
+                    data-test="error_income_message"
+                    class="mt-2 text-danger"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'spouse.income'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['spouse.income']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
