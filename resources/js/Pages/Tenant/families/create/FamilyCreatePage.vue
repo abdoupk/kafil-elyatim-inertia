@@ -52,11 +52,22 @@ const stepOneCompleted = ref<boolean>(false)
 const stepTwoCompleted = ref<boolean>(false)
 
 const addOrphan = () => {
-    form.orphans.push({ first_name: '' })
+    form.orphans.push({
+        academic_level: '',
+        birth_date: '',
+        family_status: '',
+        health_status: '',
+        last_name: '',
+        note: '',
+        pants_size: '',
+        shirt_size: '',
+        shoes_size: '',
+        first_name: ''
+    })
 }
 
 const removeOrphan = (index: number) => {
-    if (form.orphans.length > 1) {
+    if (index > 0) {
         form.orphans.splice(index, 1)
     }
 }
@@ -226,7 +237,20 @@ const submit = () => {
                     <template #orphansForm>
                         <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
                             <the-orphans :index @remove-orphan="removeOrphan">
-                                <orphan-form :form :index v-model:first_name="orphan.first_name"></orphan-form>
+                                <orphan-form
+                                    v-model:first_name="orphan.first_name"
+                                    v-model:last_name="orphan.last_name"
+                                    v-model:academic_level="orphan.academic_level"
+                                    v-model:health_status="orphan.health_status"
+                                    v-model:family_status="orphan.family_status"
+                                    v-model:birth_date="orphan.birth_date"
+                                    v-model:shoes-size="orphan.shoes_size"
+                                    v-model:pants-size="orphan.pants_size"
+                                    v-model:shirt-size="orphan.shirt_size"
+                                    v-model:note="orphan.note"
+                                    :form
+                                    :index
+                                ></orphan-form>
                             </the-orphans>
                         </template>
 
@@ -239,7 +263,7 @@ const submit = () => {
                         >
                             <svg-loader name="icon-plus" class="inline fill-primary dark:fill-slate-500"></svg-loader>
 
-                            {{ $t('auth.register.stepThree.add_new_phone') }}
+                            {{ $t('add_new_orphan') }}
                         </base-button>
                     </template>
 

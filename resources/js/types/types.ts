@@ -251,7 +251,7 @@ export type OrphanType = {
     family_status: string
     health_status: string
     academic_level: string
-    shoes_size: number
+    shoes_size: string
     pants_size: string
     shirt_size: string
     note: string

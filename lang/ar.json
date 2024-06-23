@@ -141,5 +141,11 @@
     "DA": "دج",
     "the_amount": "المبلغ",
     "other_properties": "ممتلكات اخرى",
-    "child no": " الطفل رقم (:no) "
+    "child no": " الطفل رقم (:no) ",
+    "notes": "ملاحظات",
+    "shoes_size": "مقاس الحذاء",
+    "pants_size": "مقاس السروال",
+    "shirt_size": "مقاس القميص",
+    "family_status": "الحالة العائلبة",
+    "add_new_orphan": "اضف طفل اخر"
 }

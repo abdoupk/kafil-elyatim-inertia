@@ -112,7 +112,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             family_status: '',
             health_status: '',
             academic_level: '',
-            shoes_size: 30,
+            shoes_size: '',
             pants_size: '',
             shirt_size: '',
             note: ''
