@@ -226,12 +226,42 @@ type SponsorType = {
     card_number: string
 }
 
+type SecondSponsorType = {
+    first_name: string
+    last_name: string
+    phone_number: string
+    income: number
+    address: string
+    degree_of_kinship: string
+}
+
+type SpouseType = {
+    first_name: string
+    last_name: string
+    birth_date: string
+    death_date: string
+    function: string
+    income: number
+}
+
+export type IncomeType = {
+    cnr: number
+    casnos: number
+    cnas: number
+    pension: number
+    other_income: number
+    account: number
+}
+
 export type CreateFamilyForm = {
     address: string
     zone: string
     start_date: string
     file_number: string
     sponsor: SponsorType
+    incomes: IncomeType
+    second_sponsor: SecondSponsorType
+    spouse: SpouseType
 }
 
 export interface CreateFamilyStepProps {

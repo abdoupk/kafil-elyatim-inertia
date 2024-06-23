@@ -36,6 +36,19 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.health_status' => 'required|string',
             'sponsor.diploma' => 'required|string',
             'sponsor.card_number' => 'required|string',
+            'second_sponsor.first_name' => 'required|string',
+            'second_sponsor.last_name' => 'required|string',
+            'second_sponsor.phone_number' => 'required|string',
+            'second_sponsor.degree_of_kinship' => 'required|string',
+            'second_sponsor.address' => 'required|string',
+            'second_sponsor.income' => 'required|numeric',
+            'spouse.first_name' => 'required|string',
+            'spouse.last_name' => 'required|string',
+            'spouse.function' => 'required|string',
+            'spouse.birth_date' => 'required|string',
+            'spouse.death_date' => 'required|string',
+            'spouse.income' => 'sometimes|nullable|numeric',
+            'incomes.*' => 'sometimes|nullable|numeric',
         ];
     }
 

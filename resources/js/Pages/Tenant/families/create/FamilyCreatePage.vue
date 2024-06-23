@@ -8,7 +8,10 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import StepOne from '@/Pages/Tenant/families/create/StepOne/StepOne.vue'
 import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
+import IncomeForm from '@/Pages/Tenant/families/create/StepTwo/IncomeForm.vue'
+import SecondSponsorForm from '@/Pages/Tenant/families/create/StepTwo/SecondSponsorForm.vue'
 import SponsorForm from '@/Pages/Tenant/families/create/StepTwo/SponsorForm.vue'
+import SpouseForm from '@/Pages/Tenant/families/create/StepTwo/SpouseForm.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 
@@ -154,6 +157,41 @@ const submit = () => {
                         ></sponsor-form>
                     </template>
 
+                    <template #incomeForm>
+                        <income-form
+                            v-model:cnr="form.incomes.cnr"
+                            v-model:cnas="form.incomes.cnas"
+                            v-model:casnos="form.incomes.casnos"
+                            v-model:pension="form.incomes.pension"
+                            v-model:other_income="form.incomes.other_income"
+                            v-model:account="form.incomes.account"
+                            :form
+                        ></income-form>
+                    </template>
+
+                    <template #secondSponsorForm>
+                        <second-sponsor-form
+                            v-model:first_name="form.second_sponsor.first_name"
+                            v-model:last_name="form.second_sponsor.last_name"
+                            v-model:degree_of_kinship="form.second_sponsor.degree_of_kinship"
+                            v-model:address="form.second_sponsor.address"
+                            v-model:income="form.second_sponsor.income"
+                            v-model:phone="form.second_sponsor.phone_number"
+                            :form
+                        ></second-sponsor-form>
+                    </template>
+
+                    <template #spouseForm>
+                        <spouse-form
+                            v-model:first_name="form.spouse.first_name"
+                            v-model:last_name="form.spouse.last_name"
+                            v-model:death_date="form.spouse.death_date"
+                            v-model:birth_date="form.spouse.birth_date"
+                            v-model:income="form.spouse.income"
+                            v-model:job="form.spouse.function"
+                            :form
+                        ></spouse-form>
+                    </template>
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-two>
             </form>

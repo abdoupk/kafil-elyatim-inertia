@@ -80,6 +80,29 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         health_status: '',
         diploma: '',
         card_number: ''
+    },
+    incomes: {
+        cnr: 0,
+        cnas: 0,
+        casnos: 0,
+        pension: 0,
+        account: 0,
+        other_income: 0
+    },
+    second_sponsor: {
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        income: '',
+        address: '',
+        degree_of_kinship: ''
+    },
+    spouse: {
+        first_name: '',
+        last_name: '',
+        income: 0,
+        birth_date: '',
+        death_date: ''
     }
 }
 

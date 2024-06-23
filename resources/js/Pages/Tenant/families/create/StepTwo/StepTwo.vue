@@ -7,12 +7,6 @@ import BaseTabGroup from '@/Components/Base/headless/Tab/BaseTabGroup.vue'
 import BaseTabList from '@/Components/Base/headless/Tab/BaseTabList.vue'
 import BaseTabPanel from '@/Components/Base/headless/Tab/BaseTabPanel.vue'
 import BaseTabPanels from '@/Components/Base/headless/Tab/BaseTabPanels.vue'
-import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
-import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
-import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
-import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 
 defineProps<CreateFamilyStepProps>()
 </script>
@@ -54,27 +48,16 @@ defineProps<CreateFamilyStepProps>()
                 <base-tab-panel class="p-5">
                     <slot name="sponsorForm"></slot>
                 </base-tab-panel>
-                <base-tab-panel class="p-5 leading-relaxed">
-                    <base-form-switch>
-                        <base-form-switch-input id="checkbox-switch-7" type="checkbox" />
-                        <base-form-switch-label htmlFor="checkbox-switch-7">
-                            Default switch checkbox input
-                        </base-form-switch-label>
-                    </base-form-switch>
+                <base-tab-panel class="p-5">
+                    <slot name="incomeForm"></slot>
+                </base-tab-panel>
 
-                    <div class="flex gap-6 mt-4">
-                        <base-form-switch class="text-lg">
-                            <base-form-switch-input id="checkbox-switch-7" type="checkbox" />
-                            <base-form-switch-label htmlFor="checkbox-switch-7">
-                                Default switch checkbox input
-                            </base-form-switch-label>
-                        </base-form-switch>
-                        <base-input-group>
-                            <base-form-input type="text" placeholder="Price" />
-                            <base-input-group-text id="input-group-price"> .00</base-input-group-text>
-                        </base-input-group>
+                <base-tab-panel class="p-5">
+                    <slot name="secondSponsorForm"></slot>
+                </base-tab-panel>
 
-                    </div>
+                <base-tab-panel class="p-5">
+                    <slot name="spouseForm"></slot>
                 </base-tab-panel>
             </base-tab-panels>
         </base-tab-group>
