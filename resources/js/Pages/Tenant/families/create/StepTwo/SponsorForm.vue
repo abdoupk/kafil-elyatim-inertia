@@ -38,7 +38,91 @@ const birthDate = defineModel('birth_date', { default: '' })
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5">
+    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
+        <div class="intro-y col-span-12 sm:col-span-6">
+            <base-form-label for="card_number">
+                {{ $t('validation.attributes.sponsor.card_number') }}
+            </base-form-label>
+
+            <base-form-input
+                v-model="cardNumber"
+                id="card_number"
+                @keydown="allowOnlyNumbersOnKeyDown"
+                type="text"
+                :placeholder="
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.sponsor.card_number')
+                    })
+                "
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.card_number'
+                    )
+                "
+            ></base-form-input>
+
+            <base-form-input-error>
+                <div
+                    data-test="error_card_number_message"
+                    class="mt-2 text-danger"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.card_number'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.card_number']
+                    }}
+                </div>
+            </base-form-input-error>
+        </div>
+
+        <div class="intro-y col-span-12 sm:col-span-6">
+            <base-form-label for="sponsor.birth_date">
+                {{ $t('validation.attributes.sponsor.birth_date') }}
+            </base-form-label>
+
+            <base-lite-picker
+                id="sponsor.birth_date"
+                v-model="birthDate"
+                :options="{
+                    autoApply: false,
+                    lang: 'ar',
+                    showWeekNumbers: false,
+                    format: 'DD-MM-YYYY',
+                    dropdowns: {
+                        minYear: 1930,
+                        maxYear: null,
+                        months: true,
+                        years: true
+                    }
+                }"
+                class="block"
+            ></base-lite-picker>
+
+            <base-form-input-error>
+                <div
+                    data-test="error_start_date_message"
+                    class="mt-2 text-danger"
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.birth_date'
+                        )
+                    "
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.birth_date']
+                    }}
+                </div>
+            </base-form-input-error>
+        </div>
+
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
                 {{ $t('validation.attributes.first_name') }}
@@ -123,48 +207,6 @@ const birthDate = defineModel('birth_date', { default: '' })
         </div>
 
         <div class="intro-y col-span-12 sm:col-span-6">
-            <base-form-label for="sponsor.birth_date">
-                {{ $t('validation.attributes.sponsor.birth_date') }}
-            </base-form-label>
-
-            <base-lite-picker
-                id="sponsor.birth_date"
-                v-model="birthDate"
-                :options="{
-                    autoApply: false,
-                    lang: 'ar',
-                    showWeekNumbers: false,
-                    format: 'DD-MM-YYYY',
-                    dropdowns: {
-                        minYear: 1930,
-                        maxYear: null,
-                        months: true,
-                        years: true
-                    }
-                }"
-                class="block"
-            ></base-lite-picker>
-
-            <base-form-input-error>
-                <div
-                    data-test="error_start_date_message"
-                    class="mt-2 text-danger"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'sponsor.birth_date'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['sponsor.birth_date']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
-
-        <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="phone_number">
                 {{ $t('validation.attributes.phone') }}
             </base-form-label>
@@ -172,6 +214,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             <base-form-input
                 v-model="phone"
                 id="phone_number"
+                @keydown="allowOnlyNumbersOnKeyDown"
                 type="text"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -488,47 +531,6 @@ const birthDate = defineModel('birth_date', { default: '' })
                     {{
                         //@ts-ignore
                         form.errors['sponsor.diploma']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
-
-        <div class="intro-y col-span-12 sm:col-span-6">
-            <base-form-label for="card_number">
-                {{ $t('validation.attributes.sponsor.card_number') }}
-            </base-form-label>
-
-            <base-form-input
-                v-model="cardNumber"
-                id="card_number"
-                type="text"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('validation.attributes.sponsor.card_number')
-                    })
-                "
-                @change="
-                    form?.validate(
-                        //@ts-ignore
-                        'sponsor.card_number'
-                    )
-                "
-            ></base-form-input>
-
-            <base-form-input-error>
-                <div
-                    data-test="error_card_number_message"
-                    class="mt-2 text-danger"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'sponsor.card_number'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['sponsor.card_number']
                     }}
                 </div>
             </base-form-input-error>

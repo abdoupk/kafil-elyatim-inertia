@@ -1,14 +1,44 @@
 <script setup lang="ts">
 import type { CreateFamilyStepProps } from '@/types/types'
 
+import { computed } from 'vue'
+
 import BaseTab from '@/Components/Base/headless/Tab/BaseTab.vue'
 import BaseTabButton from '@/Components/Base/headless/Tab/BaseTabButton.vue'
 import BaseTabGroup from '@/Components/Base/headless/Tab/BaseTabGroup.vue'
 import BaseTabList from '@/Components/Base/headless/Tab/BaseTabList.vue'
 import BaseTabPanel from '@/Components/Base/headless/Tab/BaseTabPanel.vue'
 import BaseTabPanels from '@/Components/Base/headless/Tab/BaseTabPanels.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
-defineProps<CreateFamilyStepProps>()
+const props = defineProps<CreateFamilyStepProps>()
+
+const checkErrors = (pattern: string) => {
+    const regex = new RegExp(pattern)
+
+    return (
+        props.form?.errors &&
+        Object.keys(props.form.errors).some((error) => {
+            if (regex.test(error)) return true
+        })
+    )
+}
+
+const sponsorErrors = computed(() => {
+    return checkErrors('^sponsor')
+})
+
+const secondSponsorErrors = computed(() => {
+    return checkErrors('^second_sponsor')
+})
+
+const incomeErrors = computed(() => {
+    return checkErrors('^income')
+})
+
+const spouseErrors = computed(() => {
+    return checkErrors('^spouse')
+})
 </script>
 
 <template>
@@ -19,28 +49,53 @@ defineProps<CreateFamilyStepProps>()
         <div class="text-base font-medium">
             {{ $t('auth.register.stepTwo.title') }}
         </div>
+
         <base-tab-group class="mt-5">
             <base-tab-list variant="link-tabs">
                 <base-tab>
                     <base-tab-button class="w-full py-2" as="button" type="button">
                         {{ $t('sponsor information') }}
+
+                        <svg-loader
+                            v-if="sponsorErrors"
+                            name="icon-circle-exclamation"
+                            class="fill-red-500 inline ms-4"
+                        ></svg-loader>
                     </base-tab-button>
                 </base-tab>
                 <base-tab>
                     <base-tab-button class="w-full py-2" as="button" type="button">
                         {{ $t('income information') }}
+
+                        <svg-loader
+                            v-if="incomeErrors"
+                            name="icon-circle-exclamation"
+                            class="fill-red-500 inline ms-4"
+                        ></svg-loader>
                     </base-tab-button>
                 </base-tab>
 
                 <base-tab>
                     <base-tab-button class="w-full py-2" as="button" type="button">
                         {{ $t('second sponsor information') }}
+
+                        <svg-loader
+                            v-if="secondSponsorErrors"
+                            name="icon-circle-exclamation"
+                            class="fill-red-500 inline ms-4"
+                        ></svg-loader>
                     </base-tab-button>
                 </base-tab>
 
                 <base-tab>
                     <base-tab-button class="w-full py-2" as="button" type="button">
                         {{ $t('spouse information') }}
+
+                        <svg-loader
+                            v-if="spouseErrors"
+                            name="icon-circle-exclamation"
+                            class="fill-red-500 inline ms-4"
+                        ></svg-loader>
                     </base-tab-button>
                 </base-tab>
             </base-tab-list>

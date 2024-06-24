@@ -102,24 +102,6 @@ const setZone = (value: string | string[]) => {
             </div>
 
             <div class="intro-y col-span-12 sm:col-span-6">
-                <base-form-label for="address">
-                    {{ $t('validation.attributes.address') }}
-                </base-form-label>
-                <base-form-input
-                    v-model="address"
-                    type="text"
-                    id="address"
-                    placeholder="حي الحياة تجزئة ب رقم '89' البيض"
-                    @input="form?.validate('address')"
-                ></base-form-input>
-                <base-form-input-error>
-                    <div class="mt-2 text-danger" v-if="form?.invalid('address')" data-test="error_address_message">
-                        {{ form.errors.address }}
-                    </div>
-                </base-form-input-error>
-            </div>
-
-            <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="zone">
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
@@ -138,6 +120,24 @@ const setZone = (value: string | string[]) => {
                 <base-form-input-error>
                     <div class="mt-2 text-danger" v-if="form?.invalid('zone')" data-test="error_zone_message">
                         {{ form.errors.zone }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
+            <div class="intro-y col-span-12 sm:col-span-6">
+                <base-form-label for="address">
+                    {{ $t('validation.attributes.address') }}
+                </base-form-label>
+                <base-form-input
+                    v-model="address"
+                    type="text"
+                    id="address"
+                    placeholder="حي الحياة تجزئة ب رقم '89' البيض"
+                    @input="form?.validate('address')"
+                ></base-form-input>
+                <base-form-input-error>
+                    <div class="mt-2 text-danger" v-if="form?.invalid('address')" data-test="error_address_message">
+                        {{ form.errors.address }}
                     </div>
                 </base-form-input-error>
             </div>

@@ -57,7 +57,7 @@ const setValue = (event: Event) => {
 </script>
 
 <template>
-    <div class="intro-x mt-2">
+    <div class="intro-x mt-6">
         <div class="flex gap-16">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
@@ -267,7 +267,7 @@ const setValue = (event: Event) => {
         </div>
     </div>
 
-    <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+    <div class="flex flex-col md:gap-16 md:flex-row mt-6 intro-x">
         <div class="text-lg md:w-1/2 w-full">
             <p class="md:ms-11">
                 {{ $t('housing.label.number_of_rooms') }}
@@ -289,7 +289,7 @@ const setValue = (event: Event) => {
         </div>
     </div>
 
-    <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+    <div class="flex flex-col md:gap-16 md:flex-row mt-6 intro-x">
         <div class="text-lg md:w-1/2 w-full">
             <p class="md:ms-11">
                 {{ $t('housing.label.housing_receipt_number') }}

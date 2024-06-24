@@ -7,6 +7,8 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 
+import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+
 defineProps<{ form: Form<CreateFamilyForm> }>()
 
 const firstName = defineModel('first_name')
@@ -23,7 +25,7 @@ const address = defineModel('address')
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5">
+    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
         <div class="intro-y col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
                 {{ $t('validation.attributes.first_name') }}
@@ -158,6 +160,7 @@ const address = defineModel('address')
             <base-form-input
                 autofocus
                 v-model="phone"
+                @keydown="allowOnlyNumbersOnKeyDown"
                 id="phone"
                 type="text"
                 :placeholder="
@@ -242,6 +245,7 @@ const address = defineModel('address')
             <base-form-input
                 autofocus
                 v-model="income"
+                @keydown="allowOnlyNumbersOnKeyDown"
                 id="income"
                 type="text"
                 :placeholder="

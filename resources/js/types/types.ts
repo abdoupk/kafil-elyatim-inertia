@@ -66,6 +66,7 @@ export interface ISettingState {
 
 export type SVGType =
     | 'icon-hands-holding-child'
+    | 'icon-circle-exclamation'
     | 'icon-circle-question'
     | 'icon-left-from-bracket'
     | 'icon-backpack'
@@ -305,12 +306,18 @@ export type CreateFamilyForm = {
         housing_receipt_number?: string
     }
     furnishings: Record<FurnishingsType, any> & { notes: { [key in FurnishingsType]?: string } }
+    report: string
+    preview_date: string
+    inspectors_members: string | string[]
 }
+
+export type InspectorsMembersType = Array<{ 'id': string, 'name': string }>
 
 export interface CreateFamilyStepProps {
     currentStep: number
     totalSteps: number
     zones?: Zone[]
+    members?: InspectorsMembersType
     form?: Form<CreateFamilyForm>
 }
 

@@ -12,6 +12,8 @@ import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vu
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 
+import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+
 defineProps<{ form: Form<CreateFamilyForm> }>()
 
 const cnr = defineModel('cnr')
@@ -53,7 +55,7 @@ const toggle = (key: keyof IncomeType) => {
 </script>
 
 <template>
-    <div class="intro-x mt-2">
+    <div class="intro-x mt-6">
         <div class="flex gap-16">
             <base-form-switch class="text-lg w-1/4">
                 <!-- TODO add tabindex = -1 to prevent focus -->
@@ -67,6 +69,7 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.cnr"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                     @change="
                         form?.validate(
                             //@ts-ignore
@@ -119,6 +122,7 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.cnas"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                     @change="
                         form?.validate(
                             //@ts-ignore
@@ -171,6 +175,7 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.casnos"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                     @change="
                         form?.validate(
                             //@ts-ignore
@@ -227,6 +232,7 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.pension"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                     @change="
                         form?.validate(
                             //@ts-ignore
@@ -283,6 +289,7 @@ const toggle = (key: keyof IncomeType) => {
             <base-input-group>
                 <base-form-input
                     :disabled="!items.other_income"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                     @change="
                         form?.validate(
                             //@ts-ignore
@@ -337,6 +344,7 @@ const toggle = (key: keyof IncomeType) => {
                             'incomes.account'
                         )
                     "
+                    @keydown="allowOnlyNumbersOnKeyDown"
                     type="text"
                     maxlength="6"
                     :placeholder="$t('the_amount')"

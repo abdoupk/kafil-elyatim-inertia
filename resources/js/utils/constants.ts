@@ -118,7 +118,10 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             note: ''
         }
     ],
-    housing: []
+    housing: [],
+    report: '',
+    preview_date: '',
+    inspectors_members: []
 }
 
 // eslint-disable-next-line array-element-newline
@@ -164,9 +167,10 @@ export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = [
     'start_date'
 ]
 
-export const createFamilyStepTwoErrorProps: CreateFamilyStepTwoProps = [
-    'sponsor',
-    'second_sponsor',
-    'orphans',
-    'spouse'
-]
+export const createFamilyStepTwoErrorProps: CreateFamilyStepTwoProps = ['sponsor', 'second_sponsor', 'spouse']
+
+export const createFamilyStepThreeErrorProps = ['orphans']
+
+export const createFamilyStepFourErrorProps = ['housing', 'furnishings']
+
+export const createFamilyStepFiveErrorProps = ['report']

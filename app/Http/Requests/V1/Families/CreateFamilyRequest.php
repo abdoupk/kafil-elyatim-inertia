@@ -33,7 +33,7 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.first_name' => 'required|string',
             'sponsor.last_name' => 'required|string',
             'sponsor.phone_number' => 'required|string',
-            'sponsor.sponsorship_type' => 'required|string',
+            //            'sponsor.sponsorship_type' => 'required|string', TODO:uncomment
             'sponsor.birth_date' => 'required|string',
             'sponsor.father_name' => 'required|string',
             'sponsor.mother_name' => 'required|string',

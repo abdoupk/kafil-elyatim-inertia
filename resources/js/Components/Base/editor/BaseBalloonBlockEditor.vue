@@ -47,3 +47,6 @@ onMounted(() => {
 <template>
     <component :is="props.as" ref="editorRef" v-editor-directive class="select"></component>
 </template>
+<style lang="postcss">
+@import '/resources/css/vendors/ckeditor.css';
+</style>

@@ -1,5 +1,11 @@
 <script setup lang="ts">
-import type { CreateFamilyStepOneProps, CreateFamilyStepTwoProps, Zone } from '@/types/types'
+import type {
+    CreateFamilyForm,
+    CreateFamilyStepOneProps,
+    CreateFamilyStepTwoProps,
+    InspectorsMembersType,
+    Zone
+} from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
 import { type Ref, ref } from 'vue'
@@ -27,26 +33,34 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import {
     createFamilyFormAttributes,
+    createFamilyStepFiveErrorProps,
+    createFamilyStepFourErrorProps,
     createFamilyStepOneErrorProps,
     createFamilyStepsTitles,
+    createFamilyStepThreeErrorProps,
     createFamilyStepTwoErrorProps
 } from '@/utils/constants'
+import StepFive from '@/Pages/Tenant/families/create/stepFive/StepFive.vue'
 
 defineOptions({
     layout: TheLayout
 })
 
-defineProps<{ zones: Zone[] }>()
+defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
 
-const currentStep = ref(2)
+const currentStep = ref(5)
 
-const totalSteps = 5
+const totalSteps = 6
 
 const form = useForm('post', route('tenant.families.store'), createFamilyFormAttributes)
 
-const stepOneCompleted = ref<boolean>(false)
+const stepOneCompleted = ref<boolean>(true) //TODO change To False
 
-const stepTwoCompleted = ref<boolean>(false)
+const stepTwoCompleted = ref<boolean>(true) //TODO change To False
+
+const stepThreeCompleted = ref<boolean>(true) //TODO change To False
+
+const stepFourCompleted = ref<boolean>(true) //TODO change To False
 
 const addOrphan = () => {
     form.orphans.push({
@@ -71,19 +85,30 @@ const removeOrphan = (index: number) => {
 
 const validating = ref<boolean>(false)
 
-const validateStep = async (errorProps: CreateFamilyStepOneProps[], step: Ref) => {
+const validateStep = async (errorProps: CreateFamilyStepOneProps[] | CreateFamilyStepTwoProps[], step: Ref) => {
     validating.value = true
 
     await form.submit({
         onFinish() {
-            const hasErrors = errorProps.every((prop) => !form.errors[prop])
+            let errors = []
 
-            const touchedInputs = errorProps.some((prop) => form.touched(prop))
+            errorProps.forEach((prop) => {
+                const regex = prop === 'address' ? new RegExp(`^${prop}$`) : new RegExp(prop)
 
-            step.value = hasErrors && touchedInputs && !form.validating
+                Object.keys(form.errors).forEach((error) => {
+                    if (regex.test(error)) {
+
+                        errors.push(form.errors[error as keyof CreateFamilyForm])
+                    }
+                })
+            })
+
+            step.value = errors.length === 0 && !form.validating
 
             validating.value = false
         }
+    }).catch(() => {
+        console.error()
     })
 }
 
@@ -99,22 +124,57 @@ const prevStep = () => {
     }
 }
 
+const forgetErrors = (errors: string[]) => {
+    errors.forEach((prop: CreateFamilyStepTwoProps) => {
+        const regex = prop === 'address' ? new RegExp(`^${prop}$`) : new RegExp(prop)
+
+        Object.keys(form.errors).forEach((error) => {
+            if (regex.test(error)) {
+                form.forgetError(error as keyof CreateFamilyForm)
+            }
+        })
+
+    })
+}
+
 const goTo = async (index: number) => {
     if (index <= currentStep.value) {
         currentStep.value = index
     } else {
         if (index === 2) {
             await validateStep(createFamilyStepOneErrorProps, stepOneCompleted).finally(() => {
-                createFamilyStepTwoErrorProps.forEach((prop: CreateFamilyStepTwoProps) => form.forgetError(prop))
+                forgetErrors(createFamilyStepTwoErrorProps)
 
                 if (stepOneCompleted.value) currentStep.value = 2
             })
-        } else if (index === 3) {
+        }
+
+        if (index === 3) {
             await validateStep(createFamilyStepTwoErrorProps, stepTwoCompleted).finally(() => {
                 if (stepOneCompleted.value && stepTwoCompleted.value) {
-                    createFamilyStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
+                    forgetErrors(createFamilyStepThreeErrorProps)
 
                     currentStep.value = 3
+                }
+            })
+        }
+
+        if (index === 4) {
+            await validateStep(createFamilyStepThreeErrorProps, stepThreeCompleted).finally(() => {
+                if (stepOneCompleted.value && stepTwoCompleted.value && stepThreeCompleted.value) {
+                    forgetErrors(createFamilyStepFourErrorProps)
+
+                    currentStep.value = 4
+                }
+            })
+        }
+
+        if (index === 5) {
+            await validateStep(createFamilyStepFourErrorProps, stepFourCompleted).finally(() => {
+                if (stepOneCompleted.value && stepTwoCompleted.value && stepThreeCompleted.value && stepFourCompleted.value) {
+                    forgetErrors(createFamilyStepFiveErrorProps)
+
+                    currentStep.value = 5
                 }
             })
         }
@@ -167,7 +227,7 @@ const submit = () => {
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-one>
 
-                <step-two :currentStep :totalSteps>
+                <step-two :currentStep :totalSteps :form>
                     <template #sponsorForm>
                         <sponsor-form
                             :form
@@ -214,8 +274,8 @@ const submit = () => {
                         <spouse-form
                             v-model:first_name="form.spouse.first_name"
                             v-model:last_name="form.spouse.last_name"
-                            v-model:death_date="form.spouse.death_date"
-                            v-model:birth_date="form.spouse.birth_date"
+                            v-model:death-date="form.spouse.death_date"
+                            v-model:birth-date="form.spouse.birth_date"
                             v-model:income="form.spouse.income"
                             v-model:job="form.spouse.function"
                             :form
@@ -285,6 +345,8 @@ const submit = () => {
 
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-four>
+
+                <step-five :currentStep :totalSteps :form v-model:report="form.report" :members></step-five>
             </form>
         </div>
     </div>

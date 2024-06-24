@@ -52,7 +52,7 @@ const toggle = (key: FurnishingsType) => {
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5">
+    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
         <!-- Begin: Television -->
         <div class="intro-y col-span-12">
             <div class="grid grid-cols-12">
