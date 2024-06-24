@@ -91,6 +91,8 @@ const validateStep = async (errorProps: CreateFamilyStepOneProps[], step: Ref) =
 }
 
 const nextStep = async () => {
+    await form.submit() //TODO remove this and fix indexes
+
     if (currentStep.value < totalSteps) {
         await goTo(currentStep.value + 1)
     }
@@ -122,7 +124,7 @@ const goTo = async (index: number) => {
             })
         }
 
-        if (index === 5) {
+        if (index === 6) {
             await form.submit()
         }
     }
@@ -276,6 +278,11 @@ const submit = () => {
                             :form
                             v-model:housing-receipt-number="form.housing.housing_receipt_number"
                             v-model:number-of-rooms="form.housing.number_of_rooms"
+                            @set-house-type="
+                                (args) => {
+                                    form.housing = { ...args }
+                                }
+                            "
                         ></housing-form>
                     </template>
 

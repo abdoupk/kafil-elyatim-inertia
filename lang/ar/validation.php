@@ -237,5 +237,6 @@ return [
         'sponsor.card_number' => 'رقم بطاقة التعريف',
         'degree_of_kinship' => 'درجة القرابة',
         'income' => 'الدخل',
+        'other_properties' => 'ممتلكات اخرى',
     ],
 ];

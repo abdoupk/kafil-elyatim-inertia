@@ -24,21 +24,30 @@ const otherProperties = defineModel('otherProperties')
                 v-model="otherProperties"
                 id="other_properties"
                 rows="8"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('validation.attributes.other_properties')
-                    })
+                :placeholder="$t('housing.placeholders.other_properties')"
+                @change="
+                    form?.validate(
+                        // @ts-ignore
+                        'spouse.other_properties'
+                    )
                 "
-                @change="form?.validate('spouse.other_properties')"
             ></base-form-text-area>
 
             <base-form-input-error>
                 <div
                     data-test="error_other_properties_message"
                     class="mt-2 text-danger"
-                    v-if="form?.invalid('spouse.other_properties')"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'spouse.other_properties'
+                        )
+                    "
                 >
-                    {{ form.errors['spouse.other_properties'] }}
+                    {{
+                        // @ts-ignore
+                        form.errors['spouse.other_properties']
+                    }}
                 </div>
             </base-form-input-error>
         </div>

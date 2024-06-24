@@ -11,27 +11,52 @@ import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vu
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 
+type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
+
 defineProps<{ form: Form<CreateFamilyForm> }>()
+
+const emit = defineEmits(['setHouseType'])
+
+const numberOfRooms = defineModel('numberOfRooms')
+
+const housingReceiptNumber = defineModel('housingReceiptNumber')
+
+const items = ref<Record<HousingType, boolean>>({
+    independent: false,
+    with_family: false,
+    tenant: false,
+    inheritance: false,
+    other: false
+})
 
 const housingType = ref<{ name: HousingType; value: boolean | string | number }>({
     name: 'independent',
     value: false
 })
 
-type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
-
 const toggle = (key: HousingType, value?: string | number | boolean) => {
     housingType.value.name = key
 
+    items.value[key] = !items.value[key]
+
+    Object.keys(items.value).forEach((item) => {
+        if (item !== key) items.value[item as HousingType] = false
+    })
+
     if (value) housingType.value.value = value
+}
+
+const setValue = (key: HousingType, value: string | number | boolean) => {
+    housingType.value.value = value
+
+    emit('setHouseType', housingType.value)
 }
 </script>
 
 <template>
-    {{ housingType }}
     <div class="intro-x mt-2">
         <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
+            <base-form-switch class="text-lg">
                 <base-form-switch-input
                     @change="(event: Event) => toggle('independent', (event.target as HTMLInputElement).checked)"
                     :checked="housingType.name === 'independent'"
@@ -67,7 +92,7 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
 
     <div class="intro-x mt-6">
         <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
+            <base-form-switch class="text-lg">
                 <base-form-switch-input
                     @change="(event: Event) => toggle('with_family', (event.target as HTMLInputElement).checked)"
                     id="with_family"
@@ -102,8 +127,8 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
     </div>
 
     <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg md:w-1/2">
+        <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+            <base-form-switch class="text-lg md:w-1/2 w-full">
                 <base-form-switch-input
                     @change="toggle('inheritance')"
                     id="inheritance"
@@ -116,13 +141,13 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <div class="w-full">
+            <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    :disabled="housingType.name !== 'inheritance'"
-                    class="w-3/4"
-                    @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
+                    :disabled="!items.inheritance"
+                    class="w-full md:w-3/4"
+                    @input="(event) => setValue('inheritance', (event.target as HTMLInputElement).value)"
                     type="text"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('housing.placeholders.inheritance')"
                 ></base-form-input>
             </div>
         </div>
@@ -148,8 +173,8 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
     </div>
 
     <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg md:w-1/2">
+        <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+            <base-form-switch class="text-lg md:w-1/2 w-full">
                 <base-form-switch-input
                     @change="toggle('tenant')"
                     id="tenant"
@@ -162,13 +187,13 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <div class="w-full">
+            <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    :disabled="housingType.name !== 'tenant'"
-                    class="w-3/4"
-                    @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
+                    :disabled="!items.tenant"
+                    class="w-full md:w-3/4"
+                    @input="(event) => setValue('tenant', (event.target as HTMLInputElement).value)"
                     type="text"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('housing.placeholders.tenant')"
                 ></base-form-input>
             </div>
         </div>
@@ -194,8 +219,8 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
     </div>
 
     <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg md:w-1/2">
+        <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+            <base-form-switch class="text-lg md:w-1/2 w-full">
                 <base-form-switch-input
                     @change="toggle('other')"
                     id="other"
@@ -208,13 +233,13 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <div class="w-full">
+            <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    :disabled="housingType.name !== 'other'"
-                    class="w-3/4"
-                    @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
+                    :disabled="!items.other"
+                    class="w-full md:w-3/4"
+                    @input="(event) => setValue('other', (event.target as HTMLInputElement).value)"
                     type="text"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('housing.placeholders.other')"
                 ></base-form-input>
             </div>
         </div>
@@ -239,36 +264,42 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
         </div>
     </div>
 
-    <div class="flex gap-16 mt-6">
-        <div class="text-lg md:w-1/2">
-            <p class="ms-11">
+    <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+        <div class="text-lg md:w-1/2 w-full">
+            <p class="md:ms-11">
                 {{ $t('housing.label.number_of_rooms') }}
             </p>
         </div>
 
         <div class="w-full">
             <base-form-input
-                class="w-3/4"
+                v-model="numberOfRooms"
+                class="w-full md:w-3/4"
                 @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                 type="text"
-                :placeholder="$t('the_amount')"
+                :placeholder="
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('housing.label.number_of_rooms')
+                    })
+                "
             ></base-form-input>
         </div>
     </div>
 
-    <div class="flex gap-16 mt-6">
-        <div class="text-lg md:w-1/2">
-            <p class="ms-11">
+    <div class="flex flex-col md:gap-16 md:flex-row mt-6">
+        <div class="text-lg md:w-1/2 w-full">
+            <p class="md:ms-11">
                 {{ $t('housing.label.housing_receipt_number') }}
             </p>
         </div>
 
-        <div class="w-full">
+        <div class="w-full mt-2 md:mt-0">
             <base-form-input
-                class="w-3/4"
+                v-model="housingReceiptNumber"
+                class="w-full md:w-3/4"
+                :placeholder="$t('housing.placeholders.housing_receipt_number')"
                 @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                 type="text"
-                :placeholder="$t('the_amount')"
             ></base-form-input>
         </div>
     </div>
