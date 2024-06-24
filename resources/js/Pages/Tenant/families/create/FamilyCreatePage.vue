@@ -7,7 +7,9 @@ import { type Ref, ref } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import StepOne from '@/Pages/Tenant/families/create/StepOne/StepOne.vue'
+import OrphanForm from '@/Pages/Tenant/families/create/StepThree/OrphanForm.vue'
 import StepThree from '@/Pages/Tenant/families/create/StepThree/StepThree.vue'
+import TheOrphans from '@/Pages/Tenant/families/create/StepThree/TheOrphans.vue'
 import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
 import IncomeForm from '@/Pages/Tenant/families/create/StepTwo/IncomeForm.vue'
 import SecondSponsorForm from '@/Pages/Tenant/families/create/StepTwo/SecondSponsorForm.vue'
@@ -15,13 +17,10 @@ import SponsorForm from '@/Pages/Tenant/families/create/StepTwo/SponsorForm.vue'
 import SpouseForm from '@/Pages/Tenant/families/create/StepTwo/SpouseForm.vue'
 import StepTwo from '@/Pages/Tenant/families/create/StepTwo/StepTwo.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
-import FurnishingForm from '@/Pages/Tenant/families/create/stepFive/FurnishingForm.vue'
-import HousingForm from '@/Pages/Tenant/families/create/stepFive/HousingForm.vue'
-import OtherPropertiesForm from '@/Pages/Tenant/families/create/stepFive/OtherPropertiesForm.vue'
-import StepFive from '@/Pages/Tenant/families/create/stepFive/StepFive.vue'
-import OrphanForm from '@/Pages/Tenant/families/create/stepFour/OrphanForm.vue'
+import FurnishingForm from '@/Pages/Tenant/families/create/stepFour/FurnishingForm.vue'
+import HousingForm from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
+import OtherPropertiesForm from '@/Pages/Tenant/families/create/stepFour/OtherPropertiesForm.vue'
 import StepFour from '@/Pages/Tenant/families/create/stepFour/StepFour.vue'
-import TheOrphans from '@/Pages/Tenant/families/create/stepFour/TheOrphans.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
@@ -41,7 +40,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[] }>()
 
-const currentStep = ref(5)
+const currentStep = ref(4)
 
 const totalSteps = 5
 
@@ -150,7 +149,7 @@ const submit = () => {
     <div class="mx-auto flex-col content-center py-5">
         <div class="intro-y box py-10">
             <div
-                class="relative flex flex-col justify-center px-5 before:absolute before:bottom-0 before:top-0 before:mt-4 before:hidden before:h-[3px] before:w-[59%] before:bg-slate-100 before:dark:bg-darkmode-400 sm:px-20 lg:flex-row before:lg:block"
+                class="relative flex flex-col justify-center px-5 before:absolute before:bottom-0 before:top-0 before:mt-4 before:hidden before:h-[3px] before:w-[70%] before:bg-slate-100 before:dark:bg-darkmode-400 sm:px-20 lg:flex-row before:lg:block"
             >
                 <step-title
                     @go-to="goTo"
@@ -233,9 +232,7 @@ const submit = () => {
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-two>
 
-                <step-three :currentStep :totalSteps></step-three>
-
-                <step-four :currentStep :totalSteps>
+                <step-three :currentStep :totalSteps>
                     <template #orphansForm>
                         <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
                             <the-orphans :index @remove-orphan="removeOrphan">
@@ -270,9 +267,9 @@ const submit = () => {
                     </template>
 
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
-                </step-four>
+                </step-three>
 
-                <step-five :currentStep :totalSteps>
+                <step-four :currentStep :totalSteps>
                     <template #housingForm>
                         <housing-form
                             :form
@@ -295,7 +292,7 @@ const submit = () => {
                     </template>
 
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
-                </step-five>
+                </step-four>
             </form>
         </div>
     </div>
