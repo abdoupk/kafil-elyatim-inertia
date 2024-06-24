@@ -2,7 +2,16 @@ import type { Form } from 'laravel-precognition-vue/dist/types'
 
 import type { LitepickerElement } from '@/Components/Base/lite-picker'
 
-import { createFamilyStepTwoErrorProps } from '@/utils/constants'
+import {
+    colorSchemes,
+    createFamilyStepOneErrorProps,
+    createFamilyStepTwoErrorProps,
+    layouts,
+    registerStepOneErrorProps,
+    registerStepThreeErrorProps,
+    registerStepTwoErrorProps,
+    themes
+} from '@/utils/constants'
 
 export interface IPlacement {
     placement:
@@ -42,11 +51,11 @@ export interface ILocation {
 
 export type AppearanceType = 'light' | 'dark'
 
-export type ColorSchemesType = 'default' | 'theme_1' | 'theme_2' | 'theme_3' | 'theme_4'
+export type ColorSchemesType = typeof colorSchemes
 
-export type ThemesType = 'enigma' | 'icewall' | 'tinker' | 'rubick'
+export type ThemesType = typeof themes
 
-export type LayoutsType = 'simple_menu' | 'side_menu' | 'top_menu'
+export type LayoutsType = typeof layouts
 
 export interface ISettingState {
     appearance: AppearanceType
@@ -157,11 +166,11 @@ export interface RegistrationStepProps {
     form?: Form<RegisterForm>
 }
 
-export type RegisterStepOneProps = 'association' | 'domain' | 'address' | 'city'
+export type RegisterStepOneProps = typeof registerStepOneErrorProps
 
-export type RegisterStepTwoProps = 'email' | 'first_name' | 'last_name' | 'phone' | 'password_confirmation' | 'password'
+export type RegisterStepTwoProps = typeof registerStepTwoErrorProps
 
-export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones.0' | 'links'
+export type RegisterStepThreeProps = typeof registerStepThreeErrorProps
 
 export interface PaginationData<T> {
     data: Array<T>
@@ -266,10 +275,18 @@ export type IncomeType = {
     account: number
 }
 
-export type HousingType = {
-    name: string
-    value: string | number | boolean
-}
+export type FurnishingsType =
+    | 'television'
+    | 'refrigerator'
+    | 'fireplace'
+    | 'washing_machine'
+    | 'water_heater'
+    | 'oven'
+    | 'wardrobe'
+    | 'cupboard'
+    | 'covers'
+    | 'mattresses'
+    | 'other_furnishings'
 
 export type CreateFamilyForm = {
     address: string
@@ -287,6 +304,7 @@ export type CreateFamilyForm = {
         number_of_rooms?: number
         housing_receipt_number?: string
     }
+    furnishings: Record<FurnishingsType, any> & { notes: { [key in FurnishingsType]?: string } }
 }
 
 export interface CreateFamilyStepProps {
@@ -296,7 +314,7 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export type CreateFamilyStepOneProps = 'zone' | 'start_date' | 'address' | 'file_number'
+export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 
 export type CreateFamilyStepTwoProps = typeof createFamilyStepTwoErrorProps
 

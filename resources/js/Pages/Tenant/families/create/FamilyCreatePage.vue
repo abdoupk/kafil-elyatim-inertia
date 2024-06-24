@@ -28,10 +28,8 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import {
     createFamilyFormAttributes,
     createFamilyStepOneErrorProps,
-    createFamilyStepTwoErrorProps,
     createFamilyStepsTitles,
-    registerStepThreeErrorProps,
-    registerStepTwoErrorProps
+    createFamilyStepTwoErrorProps
 } from '@/utils/constants'
 
 defineOptions({
@@ -40,7 +38,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[] }>()
 
-const currentStep = ref(4)
+const currentStep = ref(2)
 
 const totalSteps = 5
 
@@ -90,8 +88,6 @@ const validateStep = async (errorProps: CreateFamilyStepOneProps[], step: Ref) =
 }
 
 const nextStep = async () => {
-    await form.submit() //TODO remove this and fix indexes
-
     if (currentStep.value < totalSteps) {
         await goTo(currentStep.value + 1)
     }
@@ -114,17 +110,13 @@ const goTo = async (index: number) => {
                 if (stepOneCompleted.value) currentStep.value = 2
             })
         } else if (index === 3) {
-            await validateStep(registerStepTwoErrorProps, stepTwoCompleted).finally(() => {
+            await validateStep(createFamilyStepTwoErrorProps, stepTwoCompleted).finally(() => {
                 if (stepOneCompleted.value && stepTwoCompleted.value) {
-                    registerStepThreeErrorProps.forEach((prop) => form.forgetError(prop))
+                    createFamilyStepTwoErrorProps.forEach((prop) => form.forgetError(prop))
 
                     currentStep.value = 3
                 }
             })
-        }
-
-        if (index === 6) {
-            await form.submit()
         }
     }
 }
@@ -284,7 +276,7 @@ const submit = () => {
                     </template>
 
                     <template #furnishingForm>
-                        <furnishing-form :form></furnishing-form>
+                        <furnishing-form :form @update:furnishings="form.furnishings = $event"></furnishing-form>
                     </template>
 
                     <template #otherPropertiesForm>

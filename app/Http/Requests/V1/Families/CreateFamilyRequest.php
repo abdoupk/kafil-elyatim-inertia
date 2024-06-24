@@ -56,6 +56,7 @@ class CreateFamilyRequest extends FormRequest
             'spouse.death_date' => 'required|string',
             'spouse.income' => 'sometimes|nullable|numeric',
             'incomes.*' => 'sometimes|nullable|numeric',
+            'housing.value' => 'required',
         ];
     }
 
