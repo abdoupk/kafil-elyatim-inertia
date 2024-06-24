@@ -311,7 +311,7 @@ export type CreateFamilyForm = {
     inspectors_members: string | string[]
 }
 
-export type InspectorsMembersType = Array<{ 'id': string, 'name': string }>
+export type InspectorsMembersType = Array<{ id: string; name: string }>
 
 export interface CreateFamilyStepProps {
     currentStep: number

@@ -86,10 +86,12 @@ const setInspectorsMembers = (value: string | string[]) => {
                 </base-form-label>
 
                 <div>
-                    <base-tom-select multiple :options="{create:false}"
-                                     :model-value="InspectorsMembers"
-                                     :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
-                                     @update:model-value="setInspectorsMembers"
+                    <base-tom-select
+                        multiple
+                        :options="{ create: false }"
+                        :model-value="InspectorsMembers"
+                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                        @update:model-value="setInspectorsMembers"
                     >
                         <option value=""></option>
                         <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
