@@ -301,8 +301,10 @@ export type CreateFamilyForm = {
     spouse: SpouseType
     orphans: OrphanType[]
     housing: {
-        name?: string
-        value?: string
+        housing_type: {
+            name: string
+            value: string
+        }
         number_of_rooms?: number
         housing_receipt_number?: string
         other_properties?: string

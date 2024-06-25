@@ -344,11 +344,7 @@ const submit = () => {
                             :form
                             v-model:housing-receipt-number="form.housing.housing_receipt_number"
                             v-model:number-of-rooms="form.housing.number_of_rooms"
-                            @set-house-type="
-                                (args) => {
-                                    form.housing = { ...form.housing, ...args }
-                                }
-                            "
+                            v-model:housing-type="form.housing.housing_type"
                         ></housing-form>
                     </template>
 

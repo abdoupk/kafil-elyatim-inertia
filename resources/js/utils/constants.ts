@@ -118,7 +118,12 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             note: ''
         }
     ],
-    housing: [],
+    housing: {
+        housing_type: {
+            value: null,
+            name: 'independent'
+        }
+    },
     furnishings: [],
     report: '',
     preview_date: '',

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/* eslint-disable vue/no-parsing-error */
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
@@ -19,8 +18,6 @@ type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'o
 
 defineProps<{ form: Form<CreateFamilyForm> }>()
 
-const emit = defineEmits(['setHouseType'])
-
 const numberOfRooms = defineModel('numberOfRooms')
 
 const housingReceiptNumber = defineModel('housingReceiptNumber')
@@ -33,13 +30,18 @@ const items = ref<Record<HousingType, boolean>>({
     other: false
 })
 
-const housingType = ref<{ name: HousingType; value: boolean | string | number | null }>({
-    name: 'independent',
-    value: false
+const housingType = defineModel<{
+    name: HousingType
+    value: string | number | boolean | null
+}>('housingType', {
+    default: {
+        value: null,
+        name: 'independent'
+    }
 })
 
 const toggle = (key: HousingType, value?: string | number | boolean) => {
-    housingType.value.name = key
+    if (housingType.value) housingType.value.name = key
 
     items.value[key] = !items.value[key]
 
@@ -47,16 +49,13 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
         if (item !== key) items.value[item as HousingType] = false
     })
 
-    if (value) housingType.value.value = value
-    else housingType.value.value = null
-
-    emit('setHouseType', housingType.value)
+    if (housingType.value) {
+        value ? (housingType.value.value = value) : (housingType.value.value = null)
+    }
 }
 
 const setValue = (event: Event) => {
-    housingType.value.value = (event.target as HTMLInputElement).value
-
-    emit('setHouseType', housingType.value)
+    if (housingType.value) housingType.value.value = (event.target as HTMLInputElement).value
 }
 </script>
 
@@ -66,7 +65,7 @@ const setValue = (event: Event) => {
             v-if="
                 form.invalid(
                     // @ts-ignore
-                    'housing.value'
+                    'housing.housing_type.value'
                 )
             "
             variant="soft-danger"
@@ -75,7 +74,7 @@ const setValue = (event: Event) => {
             <svg-loader name="icon-circle-exclamation" class="w-6 h-6 me-2 fill-current"></svg-loader>
             {{
                 // @ts-ignore
-                form.errors['housing.value']
+                form.errors['housing.housing_type.value']
             }}
         </base-alert>
     </base-form-input-error>
@@ -85,7 +84,7 @@ const setValue = (event: Event) => {
             <base-form-switch class="text-lg">
                 <base-form-switch-input
                     @change="(event: Event) => toggle('independent', (event.target as HTMLInputElement).checked)"
-                    :checked="housingType.name === 'independent' && housingType.value === true"
+                    :checked="housingType?.name === 'independent' && housingType?.value === true"
                     id="independent"
                     type="checkbox"
                 ></base-form-switch-input>
@@ -122,7 +121,7 @@ const setValue = (event: Event) => {
                 <base-form-switch-input
                     @change="(event: Event) => toggle('with_family', (event.target as HTMLInputElement).checked)"
                     id="with_family"
-                    :checked="housingType.name === 'with_family' && housingType.value === true"
+                    :checked="housingType?.name === 'with_family' && housingType?.value === true"
                     type="checkbox"
                 ></base-form-switch-input>
 
@@ -158,7 +157,7 @@ const setValue = (event: Event) => {
                 <base-form-switch-input
                     @change="toggle('inheritance')"
                     id="inheritance"
-                    :checked="housingType.name === 'inheritance'"
+                    :checked="housingType?.name === 'inheritance'"
                     type="checkbox"
                 ></base-form-switch-input>
 
@@ -169,9 +168,10 @@ const setValue = (event: Event) => {
 
             <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    :disabled="!items.inheritance"
-                    class="w-full md:w-3/4"
+                    :disabled="housingType?.name !== 'inheritance' || !items.inheritance"
                     @input="setValue"
+                    :value="housingType?.name === 'inheritance' ? housingType?.value : null"
+                    class="w-full md:w-3/4"
                     type="text"
                     :placeholder="$t('housing.placeholders.inheritance')"
                 ></base-form-input>
@@ -204,7 +204,7 @@ const setValue = (event: Event) => {
                 <base-form-switch-input
                     @change="toggle('tenant')"
                     id="tenant"
-                    :checked="housingType.name === 'tenant'"
+                    :checked="housingType?.name === 'tenant'"
                     type="checkbox"
                 ></base-form-switch-input>
 
@@ -215,9 +215,10 @@ const setValue = (event: Event) => {
 
             <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    :disabled="!items.tenant"
                     class="w-full md:w-3/4"
+                    :disabled="housingType?.name !== 'tenant' || !items.tenant"
                     @input="setValue"
+                    :value="housingType?.name === 'tenant' ? housingType?.value : null"
                     type="text"
                     :placeholder="$t('housing.placeholders.tenant')"
                 ></base-form-input>
@@ -250,7 +251,7 @@ const setValue = (event: Event) => {
                 <base-form-switch-input
                     @change="toggle('other')"
                     id="other"
-                    :checked="housingType.name === 'other'"
+                    :checked="housingType?.name === 'other'"
                     type="checkbox"
                 ></base-form-switch-input>
 
@@ -261,9 +262,10 @@ const setValue = (event: Event) => {
 
             <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    :disabled="!items.other"
                     class="w-full md:w-3/4"
+                    :disabled="housingType?.name !== 'other' || !items.other"
                     @input="setValue"
+                    :value="housingType?.name === 'other' ? housingType.value : null"
                     type="text"
                     :placeholder="$t('housing.placeholders.other')"
                 ></base-form-input>
@@ -302,7 +304,6 @@ const setValue = (event: Event) => {
                 v-model="numberOfRooms"
                 @keydown="allowOnlyNumbersOnKeyDown"
                 class="w-full md:w-3/4"
-                @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                 type="text"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -342,7 +343,6 @@ const setValue = (event: Event) => {
                 v-model="housingReceiptNumber"
                 class="w-full md:w-3/4"
                 :placeholder="$t('housing.placeholders.housing_receipt_number')"
-                @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                 type="text"
             ></base-form-input>
 

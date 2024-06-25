@@ -56,7 +56,7 @@ class CreateFamilyRequest extends FormRequest
             'spouse.death_date' => 'required|string',
             'spouse.income' => 'sometimes|nullable|numeric',
             'incomes.*' => 'sometimes|nullable|numeric',
-            'housing.value' => 'required',
+            'housing.housing_type.value' => 'required',
             'housing.number_of_rooms' => 'required|numeric',
             'housing.housing_receipt_number' => 'required|string',
             'housing.other_properties' => 'required|string',
