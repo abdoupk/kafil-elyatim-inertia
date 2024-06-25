@@ -102,7 +102,7 @@ const setInspectorsMembers = (value: string | string[]) => {
                             attribute: $t('preview_date')
                         })
                     "
-                    class="block w-1/2"
+                    class="block w-full"
                 ></base-lite-picker>
 
                 <base-form-input-error>

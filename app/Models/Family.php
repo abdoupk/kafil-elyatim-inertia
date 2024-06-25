@@ -142,7 +142,7 @@ class Family extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('zone');
+        return $models->load(['zone', 'secondSponsor', 'spouse']);
     }
 
     public function toSearchableArray(): array
@@ -160,6 +160,15 @@ class Family extends Model
                     'name' => $this->zone?->name,
                     'id' => $this->zone?->id,
                 ],
+            ],
+            'spouse' => [
+                'name' => $this->spouse?->first_name.' '.$this->spouse?->last_name,
+                'function' => $this->spouse?->function,
+            ],
+            'second_sponsor' => [
+                'name' => $this->secondSponsor?->first_name.' '.$this->secondSponsor?->last_name,
+                'degree_of_kinship' => $this->secondSponsor?->degree_of_kinship,
+                'address' => $this->secondSponsor?->address,
             ],
         ];
     }

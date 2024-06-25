@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -46,7 +45,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class Spouse extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, Searchable;
+    use BelongsToTenant, HasFactory, HasUuids;
 
     protected $fillable = [
         'first_name',

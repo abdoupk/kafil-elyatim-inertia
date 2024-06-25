@@ -33,8 +33,12 @@ export const search = async (q: string) => {
                     'file_number',
                     'address.zone.name',
                     'address.address',
-                    'report',
-                    'start_date'
+                    'start_date',
+                    'second_sponsor.name',
+                    'second_sponsor.degree_of_kinship',
+                    'second_sponsor.address',
+                    'spouse.name',
+                    'spouse.function'
                 ]
             }
         ]
@@ -84,6 +88,7 @@ const constructIcon = (indexUid: string): { icon: SVGType; color: string } => {
             }
     }
 }
+
 const constructHint = (hit: Hit, indexUid: string) => {
     switch (indexUid) {
         case 'users':
