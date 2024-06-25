@@ -8,7 +8,6 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
 
@@ -123,24 +122,15 @@ const birthDate = defineModel('birth_date', { default: '' })
             <base-form-label for="orphans.birth_date">
                 {{ $t('validation.attributes.date_of_birth') }}
             </base-form-label>
-            <div class="relative">
-                <div
-                    class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
-                >
-                    <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
-                </div>
 
-                <base-lite-picker
-                    @keydown.prevent
-                    id="orphans.birth_date"
-                    v-model="birthDate"
-                    :placeholder="
-                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })
-                    "
-                    :options="{ format: 'DD-MM-YYYY' }"
-                    class="block ps-12"
-                ></base-lite-picker>
-            </div>
+            <base-lite-picker
+                @keydown.prevent
+                id="orphans.birth_date"
+                v-model="birthDate"
+                :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })"
+                :options="{ format: 'DD-MM-YYYY' }"
+                class="block"
+            ></base-lite-picker>
 
             <base-form-input-error>
                 <div
