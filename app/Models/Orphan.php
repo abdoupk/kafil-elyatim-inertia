@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -68,9 +69,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Orphan extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'birth_date',
+        'family_status',
+        'health_status',
+        'academic_level',
+        'shoes_size',
+        'pants_size',
+        'shirt_size',
+        'note',
+        'tenant_id',
+        'family_id',
+        'created_by',
+        'deleted_by',
+        'deleted_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
+    }
 
     public function family(): BelongsTo
     {

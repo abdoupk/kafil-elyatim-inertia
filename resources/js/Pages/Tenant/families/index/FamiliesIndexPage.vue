@@ -176,12 +176,12 @@ watch(
                 </span>
             </div>
             <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <div class="relative w-56 text-slate-500">
+                <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input
                         autofocus
                         v-model="search"
                         type="text"
-                        class="!box w-56 pe-10"
+                        class="!box w-full md:w-56 pe-10"
                         :placeholder="$t('Search...')"
                     />
                     <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />

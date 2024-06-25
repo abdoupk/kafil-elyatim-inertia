@@ -21,9 +21,8 @@ class CreateFamilyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
             'address' => 'required|string',
-            'zone' => 'required|string|exists:App\Models\Zone,id',
+            'zone_id' => 'required|string|exists:App\Models\Zone,id',
             'file_number' => 'required|numeric',
             'start_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
             'orphans.*.first_name' => 'required|string',
@@ -38,7 +37,8 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.first_name' => 'required|string',
             'sponsor.last_name' => 'required|string',
             'sponsor.phone_number' => 'required|string',
-            //            'sponsor.sponsorship_type' => 'required|string', TODO:uncomment
+            'sponsor.sponsor_type' => 'required|string',
+            'sponsor.gender' => 'required|in:male,female',
             'sponsor.birth_date' => 'required|string',
             'sponsor.father_name' => 'required|string',
             'sponsor.mother_name' => 'required|string',
@@ -67,7 +67,7 @@ class CreateFamilyRequest extends FormRequest
             'other_properties' => 'required|string',
             'inspectors_members' => 'required|array|min:1',
             'preview_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
-            'inspectors_members.*' => 'required|exists:App\Models\User,id:',
+            'inspectors_members.*' => 'required|exists:App\Models\User,id',
             'report' => 'required|string',
         ];
     }

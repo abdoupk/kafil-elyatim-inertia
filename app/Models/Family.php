@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -73,12 +74,18 @@ use Laravel\Scout\Searchable;
  */
 class Family extends Model
 {
-    use HasFactory, HasUuids, Searchable, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable,SoftDeletes;
 
-    public function tenant(): BelongsTo
-    {
-        return $this->belongsTo(Tenant::class);
-    }
+    protected $fillable = [
+        'name',
+        'report',
+        'tenant_id',
+        'zone_id',
+        'address',
+        'file_number',
+        'start_date',
+        'branch_id',
+    ];
 
     public function orphans(): HasMany
     {
@@ -108,6 +115,11 @@ class Family extends Model
     public function sponsorships(): HasMany
     {
         return $this->hasMany(FamilySponsorship::class);
+    }
+
+    public function deceased(): HasOne
+    {
+        return $this->hasOne(Spouse::class);
     }
 
     public function zone(): BelongsTo

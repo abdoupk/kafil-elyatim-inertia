@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -87,9 +89,35 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Sponsor extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'id',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'sponsor_type',
+        'birth_date',
+        'father_name',
+        'mother_name',
+        'birth_certificate_number',
+        'academic_level',
+        'function',
+        'health_status',
+        'diploma',
+        'card_number',
+        'ccp',
+        'gender',
+        'created_by',
+        'deleted_by',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
+    }
 
     public function incomes(): BelongsToMany
     {

@@ -68,6 +68,8 @@ export interface ISettingState {
 
 export type SVGType =
     | 'icon-hands-holding-child'
+    | 'icon-note'
+    | 'icon-notes'
     | 'icon-calendar'
     | 'icon-circle-exclamation'
     | 'icon-circle-question'
@@ -237,6 +239,8 @@ type SponsorType = {
     health_status: string
     diploma: string
     card_number: string
+    sponsor_type: string
+    gender: 'male' | 'female'
 }
 
 type SecondSponsorType = {
@@ -294,7 +298,7 @@ export type FurnishingsType =
 
 export type CreateFamilyForm = {
     address: string
-    zone: string
+    zone_id: string
     start_date: string
     file_number: string
     sponsor: SponsorType

@@ -53,7 +53,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
 
-const currentStep = ref(5)
+const currentStep = ref(6)
 
 const totalSteps = 6
 
@@ -233,7 +233,7 @@ const submit = () => {
             <form @submit.prevent="submit">
                 <step-one
                     v-model:address="form.address"
-                    v-model:zone="form.zone"
+                    v-model:zone="form.zone_id"
                     v-model:file-number="form.file_number"
                     v-model:start-date="form.start_date"
                     :form

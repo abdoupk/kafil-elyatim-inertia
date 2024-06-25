@@ -13,7 +13,7 @@ class ZoneCreateController extends Controller
 {
     public function __invoke(ZoneCreateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
-        Zone::create([...$request->validated(), 'tenant_id' => tenant('id')]);
+        Zone::create($request->validated());
 
         return response('', 201);
     }

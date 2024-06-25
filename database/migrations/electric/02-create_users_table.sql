@@ -8,7 +8,7 @@ create table if not exists "users"
     "phone"             text                           not null,
     "email"             text                           not null,
     "gender"            gender                         null,
-    "qualification"     text                           not null,
+    "qualification"     text                           null,
     "zone_id"           text                           null,
     "email_verified_at" timestamp(0) without time zone null,
     "password"          text                           not null,

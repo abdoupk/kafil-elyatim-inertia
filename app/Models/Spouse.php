@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property string $first_name
@@ -44,7 +46,24 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Spouse extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'birth_date',
+        'death_date',
+        'function',
+        'income',
+        'family_id',
+        'tenant_id',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+            'death_date' => 'date',
+        ];
+    }
 }

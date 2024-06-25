@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property string $id
@@ -43,7 +44,7 @@ use Laravel\Scout\Searchable;
  */
 class Zone extends Model
 {
-    use HasFactory, HasUuids, Searchable, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $table = 'zones';
 

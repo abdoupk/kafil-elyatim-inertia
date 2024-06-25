@@ -10,7 +10,7 @@ create table if not exists orphans
     "shoes_size"     text                           not null,
     "pants_size"     text                           not null,
     "shirt_size"     text                           not null,
-    "note"           text                           not null,
+    "note"           text                           null,
     "tenant_id"      text                           not null references tenants (id) on delete cascade,
     "family_id"      uuid                           not null references families (id),
     "created_by"     uuid                           not null references users (id),

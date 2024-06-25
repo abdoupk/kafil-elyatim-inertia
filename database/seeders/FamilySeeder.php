@@ -48,6 +48,7 @@ class FamilySeeder extends Seeder
 
                     Sponsor::factory()->create([
                         'tenant_id' => $tenant->id,
+                        'family_id' => $family->id,
                         'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
                     ]);
                 }
