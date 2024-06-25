@@ -157,6 +157,7 @@ export const createFamilyStepsTitles = [
     'families.titles.supervisor',
     'families.titles.association_details',
     'families.titles.association_details',
+    'families.titles.association_details',
     'families.titles.association_details'
 ]
 
@@ -173,4 +174,6 @@ export const createFamilyStepThreeErrorProps = ['orphans']
 
 export const createFamilyStepFourErrorProps = ['housing', 'furnishings']
 
-export const createFamilyStepFiveErrorProps = ['report']
+export const createFamilyStepFiveErrorProps = ['report', 'preview_date', 'inspectors_members']
+
+export const createFamilyStepSixErrorProps = ['sponsorship']

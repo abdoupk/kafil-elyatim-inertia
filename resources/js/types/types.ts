@@ -66,6 +66,7 @@ export interface ISettingState {
 
 export type SVGType =
     | 'icon-hands-holding-child'
+    | 'icon-calendar'
     | 'icon-circle-exclamation'
     | 'icon-circle-question'
     | 'icon-left-from-bracket'
@@ -304,6 +305,7 @@ export type CreateFamilyForm = {
         value?: string
         number_of_rooms?: number
         housing_receipt_number?: string
+        other_properties?: string
     }
     furnishings: Record<FurnishingsType, any> & { notes: { [key in FurnishingsType]?: string } }
     report: string

@@ -34,6 +34,15 @@ const init = (el: LitepickerElement, props: LitepickerProps, emit: LitepickerEmi
 
     el.litePickerInstance = new Litepicker({
         ...props.options,
+        autoApply: false,
+        lang: 'ar', // TODO get locale from i18n
+        showWeekNumbers: false,
+        dropdowns: {
+            minYear: 1990,
+            maxYear: null,
+            months: true,
+            years: true
+        },
         buttonText: {
             apply: capitalizeFirstLetter(__('apply')),
             cancel: capitalizeFirstLetter(__('cancel')),

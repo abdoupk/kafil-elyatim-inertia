@@ -36,11 +36,16 @@ import {
     createFamilyStepFiveErrorProps,
     createFamilyStepFourErrorProps,
     createFamilyStepOneErrorProps,
+    createFamilyStepSixErrorProps,
     createFamilyStepsTitles,
     createFamilyStepThreeErrorProps,
     createFamilyStepTwoErrorProps
 } from '@/utils/constants'
 import StepFive from '@/Pages/Tenant/families/create/stepFive/StepFive.vue'
+import StepSix from '@/Pages/Tenant/families/create/StepSix/StepSix.vue'
+import FamilySponsorShipForm from '@/Pages/Tenant/families/create/StepSix/FamilySponsorShipForm.vue'
+import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/StepSix/SponsorSponsorShipForm.vue'
+import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/StepSix/OrphansSponsorShipForm.vue'
 
 defineOptions({
     layout: TheLayout
@@ -48,7 +53,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
 
-const currentStep = ref(5)
+const currentStep = ref(6)
 
 const totalSteps = 6
 
@@ -61,6 +66,8 @@ const stepTwoCompleted = ref<boolean>(true) //TODO change To False
 const stepThreeCompleted = ref<boolean>(true) //TODO change To False
 
 const stepFourCompleted = ref<boolean>(true) //TODO change To False
+
+const stepFiveCompleted = ref<boolean>(true) //TODO change To False
 
 const addOrphan = () => {
     form.orphans.push({
@@ -175,6 +182,16 @@ const goTo = async (index: number) => {
                     forgetErrors(createFamilyStepFiveErrorProps)
 
                     currentStep.value = 5
+                }
+            })
+        }
+
+        if (index === 6) {
+            await validateStep(createFamilyStepFiveErrorProps, stepFiveCompleted).finally(() => {
+                if (stepOneCompleted.value && stepTwoCompleted.value && stepThreeCompleted.value && stepFourCompleted.value && stepFiveCompleted.value) {
+                    forgetErrors(createFamilyStepSixErrorProps)
+
+                    currentStep.value = 6
                 }
             })
         }
@@ -340,13 +357,33 @@ const submit = () => {
                     </template>
 
                     <template #otherPropertiesForm>
-                        <other-properties-form :form></other-properties-form>
+                        <other-properties-form :form v-model:other-properties="form.housing.other_properties"></other-properties-form>
                     </template>
 
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-four>
 
-                <step-five :currentStep :totalSteps :form v-model:report="form.report" :members></step-five>
+                <step-five :currentStep :totalSteps :members :form
+                           v-model:inspectors-members="form.inspectors_members"
+                           v-model:preview-date="form.preview_date"
+                           v-model:report="form.report">
+                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                </step-five>
+
+                <step-six :currentStep :totalSteps :form>
+                    <template #FamilySponsorShipForm>
+                        <family-sponsor-ship-form></family-sponsor-ship-form>
+                    </template>
+
+                    <template #SponsorSponsorShipForm>
+                        <sponsor-sponsor-ship-form></sponsor-sponsor-ship-form>
+                    </template>
+
+                    <template #OrphansSponsorShipForm>
+                        <orphans-sponsor-ship-form></orphans-sponsor-ship-form>
+                    </template>
+                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep="submit"></the-actions>
+                </step-six>
             </form>
         </div>
     </div>

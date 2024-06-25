@@ -7,6 +7,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
@@ -116,24 +117,23 @@ const job = defineModel('job')
                 {{ $t('validation.attributes.sponsor.birth_date') }}
             </base-form-label>
 
-            <base-lite-picker
-                id="sponsor.birth_date"
-                v-model="birthDate"
-                :options="{
-                    autoApply: false,
-                    lang: 'ar',
-                    showWeekNumbers: false,
-                    format: 'DD-MM-YYYY',
-                    dropdowns: {
-                        minYear: 1930,
-                        maxYear: null,
-                        months: true,
-                        years: true
-                    }
-                }"
-                class="block"
-            ></base-lite-picker>
+            <div class="relative">
+                <div
+                    class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+                >
+                    <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
+                </div>
 
+                <base-lite-picker
+                    id="sponsor.birth_date"
+                    v-model="birthDate"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })
+                    "
+                    :options="{ format: 'DD-MM-YYYY' }"
+                    class="block ps-12"
+                ></base-lite-picker>
+            </div>
             <base-form-input-error>
                 <div
                     data-test="error_birth_date_message"
@@ -158,24 +158,23 @@ const job = defineModel('job')
                 {{ $t('validation.attributes.spouse.death_date') }}
             </base-form-label>
 
-            <base-lite-picker
-                id="sponsor.death_date"
-                v-model="deathDate"
-                :options="{
-                    autoApply: false,
-                    lang: 'ar',
-                    showWeekNumbers: false,
-                    format: 'DD-MM-YYYY',
-                    dropdowns: {
-                        minYear: 1930,
-                        maxYear: null,
-                        months: true,
-                        years: true
-                    }
-                }"
-                class="block"
-            ></base-lite-picker>
+            <div class="relative">
+                <div
+                    class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+                >
+                    <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
+                </div>
 
+                <base-lite-picker
+                    id="sponsor.death_date"
+                    v-model="deathDate"
+                    :options="{ format: 'DD-MM-YYYY' }"
+                    class="block ps-12"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.spouse.death_date') })
+                    "
+                ></base-lite-picker>
+            </div>
             <base-form-input-error>
                 <div
                     data-test="error_death_date_message"

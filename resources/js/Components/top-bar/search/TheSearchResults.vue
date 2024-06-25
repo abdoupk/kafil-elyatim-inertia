@@ -81,7 +81,7 @@ const goTo = (link: string) => {
                         <a
                             class="-my-2 mt-2.5 flex items-center py-1 pe-1"
                             @click.prevent="goTo(info.link)"
-                            href="javascript:"
+                            href="javascript:void(0)"
                         >
                             <div
                                 :class="info.icon.color"

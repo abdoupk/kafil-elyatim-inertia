@@ -8,6 +8,7 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
 
@@ -119,27 +120,26 @@ const birthDate = defineModel('birth_date', { default: '' })
         </div>
 
         <div class="intro-y col-span-12 sm:col-span-6">
-            <base-form-label for="sponsor.birth_date">
-                {{ $t('validation.attributes.sponsor.birth_date') }}
+            <base-form-label for="orphans.birth_date">
+                {{ $t('validation.attributes.date_of_birth') }}
             </base-form-label>
+            <div class="relative">
+                <div
+                    class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+                >
+                    <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
+                </div>
 
-            <base-lite-picker
-                id="sponsor.birth_date"
-                v-model="birthDate"
-                :options="{
-                    autoApply: false,
-                    lang: 'ar',
-                    showWeekNumbers: false,
-                    format: 'DD-MM-YYYY',
-                    dropdowns: {
-                        minYear: 1930,
-                        maxYear: null,
-                        months: true,
-                        years: true
-                    }
-                }"
-                class="block"
-            ></base-lite-picker>
+                <base-lite-picker
+                    id="orphans.birth_date"
+                    v-model="birthDate"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })
+                    "
+                    :options="{ format: 'DD-MM-YYYY' }"
+                    class="block ps-12"
+                ></base-lite-picker>
+            </div>
 
             <base-form-input-error>
                 <div

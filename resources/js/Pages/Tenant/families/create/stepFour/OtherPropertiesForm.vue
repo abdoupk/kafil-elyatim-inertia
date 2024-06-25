@@ -28,7 +28,7 @@ const otherProperties = defineModel('otherProperties')
                 @change="
                     form?.validate(
                         // @ts-ignore
-                        'spouse.other_properties'
+                        'housing.other_properties'
                     )
                 "
             ></base-form-text-area>
@@ -40,13 +40,13 @@ const otherProperties = defineModel('otherProperties')
                     v-if="
                         form?.invalid(
                             // @ts-ignore
-                            'spouse.other_properties'
+                            'housing.other_properties'
                         )
                     "
                 >
                     {{
                         // @ts-ignore
-                        form.errors['spouse.other_properties']
+                        form.errors['housing.other_properties']
                     }}
                 </div>
             </base-form-input-error>

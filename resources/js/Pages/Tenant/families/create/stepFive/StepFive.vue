@@ -6,6 +6,7 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
 import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<CreateFamilyStepProps>()
 
@@ -51,24 +52,33 @@ const setInspectorsMembers = (value: string | string[]) => {
                 <base-form-label for="preview_date">
                     {{ $t('validation.attributes.starting_sponsorship_date') }}
                 </base-form-label>
+                <div class="relative">
+                    <div
+                        class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+                    >
+                        <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
+                    </div>
 
-                <base-lite-picker
-                    v-model="previewDate"
-                    :options="{
-                        autoApply: false,
-                        lang: 'ar',
-                        showWeekNumbers: false,
-                        format: 'DD-MM-YYYY',
-                        dropdowns: {
-                            minYear: 2010,
-                            maxYear: null,
-                            months: true,
-                            years: true
-                        }
-                    }"
-                    class="block w-1/2"
-                ></base-lite-picker>
-
+                    <base-lite-picker
+                        id="preview_date"
+                        v-model="previewDate"
+                        :options="{
+                            format: 'DD-MM-YYYY',
+                            dropdowns: {
+                                minYear: 2010,
+                                maxYear: null,
+                                months: true,
+                                years: true
+                            }
+                        }"
+                        :placeholder="
+                            $t('auth.placeholders.fill', {
+                                attribute: $t('validation.attributes.starting_sponsorship_date')
+                            })
+                        "
+                        class="block w-1/2 ps-12"
+                    ></base-lite-picker>
+                </div>
                 <base-form-input-error>
                     <div
                         data-test="error_preview_date_message"
@@ -109,5 +119,7 @@ const setInspectorsMembers = (value: string | string[]) => {
                 </base-form-input-error>
             </div>
         </div>
+
+        <slot></slot>
     </div>
 </template>
