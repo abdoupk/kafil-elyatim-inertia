@@ -169,6 +169,17 @@ const capitalizeFirstLetter = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
+const checkErrors = (pattern: string, errors?: Record<string, string>) => {
+    const regex = new RegExp(pattern)
+
+    return (
+        errors &&
+        Object.keys(errors).some((error) => {
+            if (regex.test(error)) return true
+        })
+    )
+}
+
 export {
     isEqual,
     omit,
@@ -182,5 +193,6 @@ export {
     getResultsSize,
     setColorSchemeClass,
     allowOnlyNumbersOnKeyDown,
-    capitalizeFirstLetter
+    capitalizeFirstLetter,
+    checkErrors
 }

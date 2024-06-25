@@ -119,6 +119,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         }
     ],
     housing: [],
+    furnishings: [],
     report: '',
     preview_date: '',
     inspectors_members: []

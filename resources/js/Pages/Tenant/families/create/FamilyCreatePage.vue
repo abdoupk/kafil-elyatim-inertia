@@ -53,7 +53,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
 
-const currentStep = ref(6)
+const currentStep = ref(4)
 
 const totalSteps = 6
 
@@ -338,7 +338,7 @@ const submit = () => {
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
                 </step-three>
 
-                <step-four :currentStep :totalSteps>
+                <step-four :currentStep :totalSteps :form>
                     <template #housingForm>
                         <housing-form
                             :form
@@ -346,18 +346,19 @@ const submit = () => {
                             v-model:number-of-rooms="form.housing.number_of_rooms"
                             @set-house-type="
                                 (args) => {
-                                    form.housing = { ...args }
+                                    form.housing = { ...form.housing, ...args }
                                 }
                             "
                         ></housing-form>
                     </template>
 
                     <template #furnishingForm>
-                        <furnishing-form :form @update:furnishings="form.furnishings = $event"></furnishing-form>
+                        <furnishing-form :form @update:furnishings="form.furnishings = {...$event}"></furnishing-form>
                     </template>
 
                     <template #otherPropertiesForm>
-                        <other-properties-form :form v-model:other-properties="form.housing.other_properties"></other-properties-form>
+                        <other-properties-form :form
+                                               v-model:other-properties="form.housing.other_properties"></other-properties-form>
                     </template>
 
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>

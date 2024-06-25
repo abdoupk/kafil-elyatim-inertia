@@ -5,11 +5,15 @@ import type { CreateFamilyForm } from '@/types/types'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { ref } from 'vue'
 
+import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
 type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
 
@@ -57,6 +61,25 @@ const setValue = (event: Event) => {
 </script>
 
 <template>
+    <base-form-input-error>
+        <base-alert
+            v-if="
+                form.invalid(
+                    // @ts-ignore
+                    'housing.value'
+                )
+            "
+            variant="soft-danger"
+            class="flex items-center mb-2 w-full sm:w-1/2"
+        >
+            <svg-loader name="icon-circle-exclamation" class="w-6 h-6 me-2 fill-current"></svg-loader>
+            {{
+                // @ts-ignore
+                form.errors['housing.value']
+            }}
+        </base-alert>
+    </base-form-input-error>
+
     <div class="intro-x mt-6">
         <div class="flex gap-16">
             <base-form-switch class="text-lg">
@@ -277,6 +300,7 @@ const setValue = (event: Event) => {
         <div class="w-full">
             <base-form-input
                 v-model="numberOfRooms"
+                @keydown="allowOnlyNumbersOnKeyDown"
                 class="w-full md:w-3/4"
                 @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                 type="text"
@@ -286,6 +310,23 @@ const setValue = (event: Event) => {
                     })
                 "
             ></base-form-input>
+
+            <base-form-input-error>
+                <div
+                    class="mt-2 text-danger col-start-5 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.number_of_rooms'
+                        )
+                    "
+                >
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.number_of_rooms']
+                    }}
+                </div>
+            </base-form-input-error>
         </div>
     </div>
 
@@ -304,6 +345,23 @@ const setValue = (event: Event) => {
                 @input="(event) => (housingType.value = (event.target as HTMLInputElement).value)"
                 type="text"
             ></base-form-input>
+
+            <base-form-input-error>
+                <div
+                    class="mt-2 text-danger col-start-5 col-end-12"
+                    v-if="
+                        form?.invalid(
+                            // @ts-ignore
+                            'housing.housing_receipt_number'
+                        )
+                    "
+                >
+                    {{
+                        // @ts-ignore
+                        form.errors['housing.housing_receipt_number']
+                    }}
+                </div>
+            </base-form-input-error>
         </div>
     </div>
 </template>

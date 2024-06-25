@@ -11,29 +11,20 @@ import BaseTabPanel from '@/Components/Base/headless/Tab/BaseTabPanel.vue'
 import BaseTabPanels from '@/Components/Base/headless/Tab/BaseTabPanels.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { checkErrors } from '@/utils/helper'
+
 const props = defineProps<CreateFamilyStepProps>()
 
-const checkErrors = (pattern: string) => {
-    const regex = new RegExp(pattern)
-
-    return (
-        props.form?.errors &&
-        Object.keys(props.form.errors).some((error) => {
-            if (regex.test(error)) return true
-        })
-    )
-}
-
 const familySponsorShipErrors = computed(() => {
-    return checkErrors('^sponsor')
+    return checkErrors('^sponsor', props?.form?.errors)
 })
 
 const sponsorSponsorShipErrors = computed(() => {
-    return checkErrors('^second_sponsor')
+    return checkErrors('^second_sponsor', props?.form?.errors)
 })
 
 const orphansSponsorShipErrors = computed(() => {
-    return checkErrors('^income')
+    return checkErrors('^income', props?.form?.errors)
 })
 </script>
 
