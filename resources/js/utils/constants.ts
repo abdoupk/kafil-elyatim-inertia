@@ -63,7 +63,7 @@ export const registerFormAttributes: RegisterForm = {
 
 export const createFamilyFormAttributes: CreateFamilyForm = {
     file_number: '00000',
-    zone_id: '9c5e92ce-a87d-442f-861e-114853319380',
+    zone_id: '9c5ebdae-8035-4223-8144-5cc4ddfe7dff',
     address: '54545',
     start_date: '25-06-2024',
     sponsor: {
@@ -104,7 +104,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         income: 0,
         birth_date: '26-03-2000',
         death_date: '25-04-2022',
-        function: 'a',
+        function: 'a'
     },
     orphans: [
         {
@@ -128,10 +128,22 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         housing_receipt_number: '25',
         number_of_rooms: 3
     },
-    furnishings: [],
+    furnishings: {
+        television: true,
+        refrigerator: true,
+        fireplace: true,
+        washing_machine: true,
+        water_heater: true,
+        oven: true,
+        wardrobe: true,
+        cupboard: true,
+        covers: true,
+        mattresses: true,
+        other_furnishings: true
+    },
     report: '22',
     preview_date: '25-03-2012',
-    inspectors_members: ['9c5e92cc-5ad1-4334-9b44-169170729a45'],
+    inspectors_members: ['9c5ebdac-66b0-4492-bb7a-c7f3db195670'],
     other_properties: '00000'
 }
 

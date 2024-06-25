@@ -10,7 +10,13 @@ return new class extends Migration
     {
         Schema::create('incomes', static function (Blueprint $table) {
             $table->uuid('id')->primary()->index();
-            $table->text('name')->nullable(false);
+            $table->text('cnr')->nullable(false);
+            $table->text('cnas')->nullable(false);
+            $table->text('casnos')->nullable(false);
+            $table->text('pension')->nullable(false);
+            $table->text('account')->nullable(false);
+            $table->text('other_income')->nullable(false);
+            $table->uuid('sponsor_id')->nullable(false);
         });
     }
 

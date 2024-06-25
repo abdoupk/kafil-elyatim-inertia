@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int $id
@@ -32,10 +32,20 @@ class Income extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $fillable = [
+        'cnr',
+        'cnas',
+        'casnos',
+        'pension',
+        'account',
+        'other_income',
+        'sponsor_id',
+    ];
+
     public $timestamps = false;
 
-    public function sponsors(): BelongsToMany
+    public function sponsor(): BelongsTo
     {
-        return $this->belongsToMany(Sponsor::class)->using(IncomeSponsor::class);
+        return $this->belongsTo(Sponsor::class);
     }
 }

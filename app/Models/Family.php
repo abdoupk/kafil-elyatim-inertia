@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -74,7 +73,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class Family extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, Searchable,SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -85,6 +84,7 @@ class Family extends Model
         'file_number',
         'start_date',
         'branch_id',
+        'preview_date',
     ];
 
     public function orphans(): HasMany
@@ -107,11 +107,6 @@ class Family extends Model
         return $this->hasOne(Sponsor::class);
     }
 
-    public function furnishings(): BelongsToMany
-    {
-        return $this->belongsToMany(Furnishing::class);
-    }
-
     public function sponsorships(): HasMany
     {
         return $this->hasMany(FamilySponsorship::class);
@@ -120,6 +115,16 @@ class Family extends Model
     public function deceased(): HasOne
     {
         return $this->hasOne(Spouse::class);
+    }
+
+    public function housing(): HasOne
+    {
+        return $this->hasOne(Housing::class);
+    }
+
+    public function furnishings(): HasOne
+    {
+        return $this->hasOne(Furnishing::class);
     }
 
     public function zone(): BelongsTo
@@ -161,6 +166,7 @@ class Family extends Model
     {
         return [
             'start_date' => 'date',
+            'preview_date' => 'date',
         ];
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -24,7 +26,20 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Housing extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'value',
+        'family_id',
+        'tenant_id',
+        'housing_receipt_number',
+        'number_of_rooms',
+        'other_properties',
+    ];
+
+    public function family(): BelongsTo
+    {
+        return $this->belongsTo(Family::class);
+    }
 }

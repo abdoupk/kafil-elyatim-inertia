@@ -18,15 +18,15 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TenantSeeder::class);
 
-        $this->call(IncomeSeeder::class);
+        //        $this->call(IncomeSeeder::class);
 
-        $this->call(FurnishingSeeder::class);
+        //        $this->call(FurnishingSeeder::class);
 
-        $this->call(HousingSeeder::class);
+        //        $this->call(HousingSeeder::class);
 
         $this->call(FamilySeeder::class);
 
-        $this->call(IncomeSponsorSeeder::class);
+        //        $this->call(IncomeSponsorSeeder::class);
 
         $this->call(FamilyFurnishingSeeder::class);
 

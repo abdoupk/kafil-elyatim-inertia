@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -112,16 +112,16 @@ class Sponsor extends Model
         'deleted_by',
     ];
 
+    public function incomes(): HasOne
+    {
+        return $this->hasOne(Income::class);
+    }
+
     protected function casts(): array
     {
         return [
             'birth_date' => 'date',
         ];
-    }
-
-    public function incomes(): BelongsToMany
-    {
-        return $this->belongsToMany(Income::class)->using(IncomeSponsor::class);
     }
 
     public function sponsorships(): HasMany

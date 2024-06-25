@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property-read Collection<int, Family> $families
@@ -30,12 +31,27 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Furnishing extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'name',
+        'television',
+        'refrigerator',
+        'fireplace',
+        'washing_machine',
+        'water_heater',
+        'oven',
+        'wardrobe',
+        'cupboard',
+        'covers',
+        'mattresses',
+        'other_furnishings',
+        'family_id',
+        'tenant_id',
+    ];
 
-    public function families(): BelongsToMany
+    public function family(): BelongsTo
     {
-        return $this->belongsToMany(Family::class);
+        return $this->belongsTo(Family::class);
     }
 }

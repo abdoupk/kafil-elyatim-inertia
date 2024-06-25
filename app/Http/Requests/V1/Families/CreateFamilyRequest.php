@@ -62,8 +62,10 @@ class CreateFamilyRequest extends FormRequest
             'spouse.income' => 'sometimes|nullable|numeric',
             'incomes.*' => 'sometimes|nullable|numeric',
             'housing.housing_type.value' => 'required',
+            'housing.housing_type.name' => 'required',
             'housing.number_of_rooms' => 'required|numeric',
             'housing.housing_receipt_number' => 'required|string',
+            'furnishings.*' => 'required',
             'other_properties' => 'required|string',
             'inspectors_members' => 'required|array|min:1',
             'preview_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
