@@ -26,6 +26,8 @@ return new class extends Migration
             $table->text('function')->nullable(false);
             $table->text('health_status')->nullable(false);
             $table->text('diploma')->nullable();
+            $table->text('ccp')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable(false);
             $table->foreignUuid('tenant_id')->nullable(false);
             $table->uuid('created_by')->nullable(false);
             $table->uuid('deleted_by')->nullable();

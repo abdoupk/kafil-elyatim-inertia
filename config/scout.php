@@ -135,13 +135,14 @@ return [
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
             'users' => [
-                'filterableAttributes' => ['id', 'name', 'email', 'phone', 'tenant_id'],
-                'searchableAttributes' => ['name', 'email', 'phone', 'created_at'],
-                'sortableAttributes' => ['name', 'email', 'phone', 'created_at'],
+                'filterableAttributes' => ['id', 'name', 'email', 'phone', 'tenant_id', 'gender'],
+                'searchableAttributes' => ['name', 'email', 'phone', 'gender'],
+                'sortableAttributes' => ['name', 'email', 'phone', 'gender', 'created_at'],
             ],
             'families' => [
                 'rankingRules' => ['words', 'sort', 'typo', 'proximity', 'attribute', 'exactness'],
-                'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'zone_id', 'tenant_id'],
+                'searchableAttributes' => ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'report', 'start_date'],
+                'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'address.zone.name', 'tenant_id'],
                 'sortableAttributes' => ['name', 'file_number', 'created_at', 'start_date'],
             ],
             'zones' => [

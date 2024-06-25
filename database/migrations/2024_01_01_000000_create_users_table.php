@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('zone_id')->nullable(false);
             $table->text('email')->nullable(false);
             $table->enum('gender', ['male', 'female'])->nullable();
+            $table->text('qualification')->nullable(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->text('password')->nullable(false);
             $table->text('remember_token')->nullable();

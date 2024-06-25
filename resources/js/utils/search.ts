@@ -13,12 +13,18 @@ export const search = async (q: string) => {
             {
                 indexUid: 'users',
                 q,
-                limit: 5
+                limit: 5,
+                sort: ['created_at:desc'],
+                attributesToRetrieve: ['id', 'name', 'email'],
+                attributesToSearchOn: ['name', 'email', 'phone', 'gender']
             },
             {
                 indexUid: 'families',
                 q,
-                limit: 5
+                limit: 5,
+                sort: ['created_at:desc'],
+                attributesToRetrieve: ['id', 'name', 'address.zone.name'],
+                attributesToSearchOn: ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'report', 'start_date']
             }
         ]
     })

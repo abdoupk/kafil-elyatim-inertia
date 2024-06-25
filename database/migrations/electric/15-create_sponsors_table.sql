@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS sponsors
     "health_status"            text                           not null,
     "diploma"                  text                           null,
     "card_number"              text                           null,
+    "ccp"                      text                           null,
+    "gender"                   text                           not null,
     tenant_id                  text                           not null references tenants (id) on delete cascade,
     "created_by"               uuid                           not null references users (id),
     "deleted_by"               uuid                           null references users (id),
