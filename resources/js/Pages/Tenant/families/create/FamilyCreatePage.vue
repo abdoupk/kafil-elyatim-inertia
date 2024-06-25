@@ -53,7 +53,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
 
-const currentStep = ref(4)
+const currentStep = ref(5)
 
 const totalSteps = 6
 
@@ -354,7 +354,7 @@ const submit = () => {
 
                     <template #otherPropertiesForm>
                         <other-properties-form :form
-                                               v-model:other-properties="form.housing.other_properties"></other-properties-form>
+                                               v-model:other-properties="form.other_properties"></other-properties-form>
                     </template>
 
                     <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>

@@ -2,7 +2,11 @@
 import { type CkeditorElement, type CkeditorEmit, type CkeditorProps as GlobalCkeditorProps, init } from './ckeditor'
 
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import '@ckeditor/ckeditor5-build-classic/build/translations/ar'
+import '@ckeditor/ckeditor5-build-classic/build/translations/fr'
 import { inject, onMounted, ref } from 'vue'
+
+import { getLocale } from '@/utils/i18n'
 
 export type ProvideClassicEditor = (el: CkeditorElement) => void
 
@@ -12,7 +16,9 @@ interface CkeditorProps extends GlobalCkeditorProps {
 
 const props = withDefaults(defineProps<CkeditorProps>(), {
     as: 'div',
-    config: {}
+    config: () => ({
+        language: getLocale()
+    })
 })
 
 const emit = defineEmits<CkeditorEmit>()

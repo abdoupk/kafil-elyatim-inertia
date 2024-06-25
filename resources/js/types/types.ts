@@ -1,5 +1,7 @@
 import type { Form } from 'laravel-precognition-vue/dist/types'
 
+import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
+
 import type { LitepickerElement } from '@/Components/Base/lite-picker'
 
 import {
@@ -302,13 +304,13 @@ export type CreateFamilyForm = {
     orphans: OrphanType[]
     housing: {
         housing_type: {
-            name: string
-            value: string
+            name: HousingType
+            value: string | number | boolean | null
         }
         number_of_rooms?: number
         housing_receipt_number?: string
-        other_properties?: string
     }
+    other_properties?: string
     furnishings: Record<FurnishingsType, any> & { notes: { [key in FurnishingsType]?: string } }
     report: string
     preview_date: string

@@ -125,6 +125,7 @@ const job = defineModel('job')
                 </div>
 
                 <base-lite-picker
+                    @keydown.prevent
                     id="sponsor.birth_date"
                     v-model="birthDate"
                     :placeholder="
@@ -166,6 +167,7 @@ const job = defineModel('job')
                 </div>
 
                 <base-lite-picker
+                    @keydown.prevent
                     id="sponsor.death_date"
                     v-model="deathDate"
                     :options="{ format: 'DD-MM-YYYY' }"

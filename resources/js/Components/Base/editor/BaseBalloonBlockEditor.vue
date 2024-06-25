@@ -4,6 +4,8 @@ import { type CkeditorElement, type CkeditorEmit, type CkeditorProps as GlobalCk
 import BalloonBlockEditor from '@ckeditor/ckeditor5-build-balloon-block'
 import { inject, onMounted, ref } from 'vue'
 
+import { getLocale } from '@/utils/i18n'
+
 export type ProvideBalloonBlockEditor = (el: CkeditorElement) => void
 
 interface CkeditorProps extends GlobalCkeditorProps {
@@ -12,7 +14,9 @@ interface CkeditorProps extends GlobalCkeditorProps {
 
 const props = withDefaults(defineProps<CkeditorProps>(), {
     as: 'div',
-    config: {}
+    config: () => ({
+        language: getLocale()
+    })
 })
 
 const emit = defineEmits<CkeditorEmit>()

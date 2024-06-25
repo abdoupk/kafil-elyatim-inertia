@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateFamilyRequest extends FormRequest
 {
+    protected function prepareForValidation(): void
+    {
+        ray(request()->all());
+    }
+
     public function messages(): array
     {
         return [
@@ -59,7 +64,11 @@ class CreateFamilyRequest extends FormRequest
             'housing.housing_type.value' => 'required',
             'housing.number_of_rooms' => 'required|numeric',
             'housing.housing_receipt_number' => 'required|string',
-            'housing.other_properties' => 'required|string',
+            'other_properties' => 'required|string',
+            'inspectors_members' => 'required|array|min:1',
+            'preview_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
+            'inspectors_members.*' => 'required|exists:App\Models\User,id:',
+            'report' => 'required|string',
         ];
     }
 

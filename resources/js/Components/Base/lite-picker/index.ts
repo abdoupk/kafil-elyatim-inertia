@@ -6,7 +6,7 @@ import Litepicker from 'litepicker'
 import 'litepicker/dist/plugins/keyboardnav'
 
 import { capitalizeFirstLetter } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { __, getLocale } from '@/utils/i18n'
 
 interface Picker extends Litepicker {}
 
@@ -35,7 +35,7 @@ const init = (el: LitepickerElement, props: LitepickerProps, emit: LitepickerEmi
     el.litePickerInstance = new Litepicker({
         ...props.options,
         autoApply: false,
-        lang: 'ar', // TODO get locale from i18n
+        lang: getLocale(), // TODO get locale from i18n
         showWeekNumbers: false,
         dropdowns: {
             minYear: 1990,

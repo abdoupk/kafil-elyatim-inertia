@@ -14,7 +14,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
-type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
+export type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
 
 defineProps<{ form: Form<CreateFamilyForm> }>()
 

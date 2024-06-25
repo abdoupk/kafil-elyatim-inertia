@@ -131,6 +131,7 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
 
                 <base-lite-picker
+                    @keydown.prevent
                     id="orphans.birth_date"
                     v-model="birthDate"
                     :placeholder="

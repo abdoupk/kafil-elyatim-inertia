@@ -82,6 +82,7 @@ const setZone = (value: string | string[]) => {
                     </div>
 
                     <base-lite-picker
+                        @keydown.prevent
                         v-model="startDate"
                         :placeholder="
                             $t('auth.placeholders.fill', {

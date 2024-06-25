@@ -18,6 +18,10 @@ function setLocale(newLocale: LangType) {
     fetchLocale().then()
 }
 
+export function getLocale() {
+    return locale.value
+}
+
 export function __(key: string, replacements: Record<string, string> = {}) {
     let translation = langData.value[key] || key
 
@@ -84,5 +88,6 @@ export default {
 
         fetchLocale().then()
     },
-    setLocale
+    setLocale,
+    getLocale
 }

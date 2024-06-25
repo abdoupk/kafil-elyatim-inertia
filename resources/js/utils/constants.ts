@@ -127,7 +127,8 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
     furnishings: [],
     report: '',
     preview_date: '',
-    inspectors_members: []
+    inspectors_members: [],
+    other_properties: ''
 }
 
 // eslint-disable-next-line array-element-newline

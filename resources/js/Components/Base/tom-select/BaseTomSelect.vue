@@ -5,6 +5,7 @@ import { init, setValue, updateValue } from './index'
 import TomSelectPlugin from 'tom-select'
 import type { RecursivePartial, TomSettings } from 'tom-select/src/types'
 import { type SelectHTMLAttributes, computed, inject, onMounted, ref } from 'vue'
+import { __ } from '@/utils/i18n'
 
 export interface TomSelectElement extends HTMLSelectElement {
     TomSelect: TomSelectPlugin
@@ -48,7 +49,7 @@ const computedOptions = computed(() => {
                 return confirm(
                     values.length > 1
                         ? 'Are you sure you want to remove these ' + values.length + ' items?'
-                        : 'Are you sure you want to remove this item?'
+                        : __('Do you really want to delete this record?')
                 )
             },
             ...options,

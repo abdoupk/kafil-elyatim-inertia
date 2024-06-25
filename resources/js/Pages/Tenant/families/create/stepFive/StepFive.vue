@@ -14,11 +14,11 @@ const report = defineModel('report', { default: '' })
 
 const previewDate = defineModel('previewDate', { default: '' })
 
-const InspectorsMembers = defineModel('InspectorsMembers', { default: [] })
+const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
 
 const setInspectorsMembers = (value: string | string[]) => {
     // @ts-ignore
-    InspectorsMembers.value = value
+    inspectorsMembers.value = value
 
     props.form?.validate('inspectors_members')
 }
@@ -39,7 +39,8 @@ const setInspectorsMembers = (value: string | string[]) => {
                     {{ $t('the_report') }}
                 </base-form-label>
 
-                <base-classic-editor id="report" :model-value="report"></base-classic-editor>
+                <base-classic-editor @blur="form?.validate('report')" id="report"
+                                     v-model="report"></base-classic-editor>
 
                 <base-form-input-error>
                     <div data-test="error_report_message" class="mt-2 text-danger" v-if="form?.invalid('report')">
@@ -48,9 +49,37 @@ const setInspectorsMembers = (value: string | string[]) => {
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-6">
+            <div class="intro-y col-span-12 sm:col-span-8">
+                <base-form-label for="inspectors_members">
+                    {{ $t('inspectors_members') }}
+                </base-form-label>
+
+                <div>
+                    <base-tom-select
+                        multiple
+                        :options="{ create: false }"
+                        :model-value="inspectorsMembers"
+                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                        @update:model-value="setInspectorsMembers"
+                    >
+                        <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
+                    </base-tom-select>
+                </div>
+
+                <base-form-input-error>
+                    <div
+                        class="mt-2 text-danger"
+                        v-if="form?.invalid('inspectors_members')"
+                        data-test="error_inspectors_members_message"
+                    >
+                        {{ form.errors.inspectors_members }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
+            <div class="intro-y col-span-12 sm:col-span-4">
                 <base-form-label for="preview_date">
-                    {{ $t('validation.attributes.starting_sponsorship_date') }}
+                    {{ $t('preview_date') }}
                 </base-form-label>
                 <div class="relative">
                     <div
@@ -60,6 +89,7 @@ const setInspectorsMembers = (value: string | string[]) => {
                     </div>
 
                     <base-lite-picker
+                        @keydown.prevent
                         id="preview_date"
                         v-model="previewDate"
                         :options="{
@@ -73,7 +103,7 @@ const setInspectorsMembers = (value: string | string[]) => {
                         }"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.starting_sponsorship_date')
+                                attribute: $t('preview_date')
                             })
                         "
                         class="block w-1/2 ps-12"
@@ -86,35 +116,6 @@ const setInspectorsMembers = (value: string | string[]) => {
                         v-if="form?.invalid('preview_date')"
                     >
                         {{ form.errors.preview_date }}
-                    </div>
-                </base-form-input-error>
-            </div>
-
-            <div class="intro-y col-span-12 sm:col-span-6">
-                <base-form-label for="inspectors_members">
-                    {{ $t('inspectors_members') }}
-                </base-form-label>
-
-                <div>
-                    <base-tom-select
-                        multiple
-                        :options="{ create: false }"
-                        :model-value="InspectorsMembers"
-                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
-                        @update:model-value="setInspectorsMembers"
-                    >
-                        <option value=""></option>
-                        <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
-                    </base-tom-select>
-                </div>
-
-                <base-form-input-error>
-                    <div
-                        class="mt-2 text-danger"
-                        v-if="form?.invalid('inspectors_members')"
-                        data-test="error_inspectors_members_message"
-                    >
-                        {{ form.errors.inspectors_members }}
                     </div>
                 </base-form-input-error>
             </div>

@@ -94,6 +94,7 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
 
                 <base-lite-picker
+                    @keydown.prevent
                     id="sponsor.birth_date"
                     :placeholder="
                         $t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })
