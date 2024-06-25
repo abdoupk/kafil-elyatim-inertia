@@ -91,17 +91,6 @@ ALTER TABLE
     furnishings
     ENABLE ELECTRIC;
 
-ALTER TABLE
-    income_sponsor
-    ENABLE ELECTRIC;
-
-ALTER TABLE
-    family_housing
-    ENABLE ELECTRIC;
-
-ALTER TABLE
-    family_furnishing
-    ENABLE ELECTRIC;
 
 ALTER TABLE
     family_sponsorship

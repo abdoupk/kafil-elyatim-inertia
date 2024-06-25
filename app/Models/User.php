@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -80,7 +81,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User withTrashed()
  * @method static Builder|User withoutTrashed()
  *
- * @property-read \App\Models\Zone|null $zone
+ * @property-read Zone|null $zone
  *
  * @mixin Eloquent
  */
@@ -155,6 +156,11 @@ class User extends Authenticatable
             'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,
         ];
+    }
+
+    public function previews(): BelongsToMany
+    {
+        return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
     }
 
     /**

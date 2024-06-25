@@ -77,19 +77,22 @@ class Family extends Model
 
     protected $fillable = [
         'name',
-        'report',
         'tenant_id',
         'zone_id',
         'address',
         'file_number',
         'start_date',
         'branch_id',
-        'preview_date',
     ];
 
     public function orphans(): HasMany
     {
         return $this->hasMany(Orphan::class);
+    }
+
+    public function preview(): HasOne
+    {
+        return $this->hasOne(Preview::class);
     }
 
     public function secondSponsor(): HasOne

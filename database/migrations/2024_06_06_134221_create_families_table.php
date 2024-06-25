@@ -11,13 +11,9 @@ return new class extends Migration
         Schema::create('families', static function (Blueprint $table) {
             $table->uuid('id')->primary()->index();
             $table->text('name')->nullable(false);
-            $table->text('report')->nullable(false);
             $table->text('zone_id')->nullable(false);
-            $table->date('preview_date')->nullable(false);
             $table->text('tenant_id')->nullable(false);
-
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
 
             $table->foreign('tenant_id')->references('id')->on('tenants')
                 ->onDelete('cascade')

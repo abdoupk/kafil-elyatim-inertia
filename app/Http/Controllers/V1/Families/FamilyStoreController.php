@@ -13,7 +13,7 @@ class FamilyStoreController extends Controller
     {
         $family = Family::create(
             [
-                ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'report', 'preview_date'),
+                ...$request->only('address', 'zone_id', 'file_number', 'start_date'),
                 'name' => $request->validated('spouse.first_name').'  '.$request->validated('spouse.last_name'),
             ]
         );
@@ -21,6 +21,13 @@ class FamilyStoreController extends Controller
         $sponsor = $family->sponsor()->create([...$request->validated('sponsor'), 'created_by' => auth()->id()]);
 
         $sponsor->incomes()->create($request->validated('incomes'));
+
+        $preview = $family->preview()->create([
+            'preview_date' => $request->validated('preview_date'),
+            'report' => $request->validated('report'),
+        ]);
+
+        $preview->inspectors()->sync($request->validated('inspectors_members'));
 
         $family->orphans()->createMany(array_map(static function ($orphan) {
             $orphan['created_by'] = auth()->id();
