@@ -525,5 +525,6 @@
     "sponsorship for the family": "التكفل بالعائلة",
     "sponsorship for the sponsor": "التكفل بالمتكفل",
     "sponsorship for the orphans": "التكفل بالايتام",
-    "ccp": "رقم الحساب البريدي الجاري"
+    "ccp": "رقم الحساب البريدي الجاري",
+    "successfully_created": "تمت اضافة :attribute بنجاح"
 }

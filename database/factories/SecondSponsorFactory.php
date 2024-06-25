@@ -20,7 +20,6 @@ class SecondSponsorFactory extends Factory
             'income' => fake('ar_SA')->randomFloat(),
             'family_id' => fake()->uuid,
             'tenant_id' => fake()->uuid,
-            'deleted_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

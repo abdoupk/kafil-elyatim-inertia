@@ -39,8 +39,11 @@ const setInspectorsMembers = (value: string | string[]) => {
                     {{ $t('the_report') }}
                 </base-form-label>
 
-                <base-classic-editor @blur="form?.validate('report')" id="report"
-                                     v-model="report"></base-classic-editor>
+                <base-classic-editor
+                    @blur="form?.validate('report')"
+                    id="report"
+                    v-model="report"
+                ></base-classic-editor>
 
                 <base-form-input-error>
                     <div data-test="error_report_message" class="mt-2 text-danger" v-if="form?.invalid('report')">

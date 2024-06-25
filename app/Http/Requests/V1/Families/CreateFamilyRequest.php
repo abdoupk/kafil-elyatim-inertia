@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateFamilyRequest extends FormRequest
 {
-    protected function prepareForValidation(): void
-    {
-        ray(request()->all());
-    }
-
     public function messages(): array
     {
         return [
@@ -47,7 +42,8 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.function' => 'required|string',
             'sponsor.health_status' => 'required|string',
             'sponsor.diploma' => 'required|string',
-            'sponsor.card_number' => 'required|string',
+            'sponsor.card_number' => 'required|string|unique:App\Models\Sponsor,card_number',
+            'sponsor.ccp' => 'required|string|unique:App\Models\Sponsor,ccp',
             'second_sponsor.first_name' => 'required|string',
             'second_sponsor.last_name' => 'required|string',
             'second_sponsor.phone_number' => 'required|string',

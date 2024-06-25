@@ -69,6 +69,7 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-note'
+    | 'icon-couple'
     | 'icon-notes'
     | 'icon-calendar'
     | 'icon-circle-exclamation'
@@ -241,6 +242,7 @@ type SponsorType = {
     card_number: string
     sponsor_type: string
     gender: 'male' | 'female'
+    ccp: string
 }
 
 type SecondSponsorType = {

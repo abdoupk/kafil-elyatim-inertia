@@ -161,7 +161,6 @@ class Family extends Model
                     'id' => $this->zone?->id,
                 ],
             ],
-            'report' => $this->report,
         ];
     }
 

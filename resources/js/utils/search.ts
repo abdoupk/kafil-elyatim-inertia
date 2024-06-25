@@ -1,5 +1,6 @@
 import type { SVGType } from '@/types/types'
 
+import { usePage } from '@inertiajs/vue3'
 import { type Hit, MeiliSearch } from 'meilisearch'
 
 const client = new MeiliSearch({
@@ -15,6 +16,7 @@ export const search = async (q: string) => {
                 q,
                 limit: 5,
                 sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
                 attributesToRetrieve: ['id', 'name', 'email'],
                 attributesToSearchOn: ['name', 'email', 'phone', 'gender']
             },
@@ -23,8 +25,17 @@ export const search = async (q: string) => {
                 q,
                 limit: 5,
                 sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
                 attributesToRetrieve: ['id', 'name', 'address.zone.name'],
-                attributesToSearchOn: ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'report', 'start_date']
+                attributesToSearchOn: [
+                    'name',
+                    'phone',
+                    'file_number',
+                    'address.zone.name',
+                    'address.address',
+                    'report',
+                    'start_date'
+                ]
             }
         ]
     })

@@ -5,11 +5,10 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Models\Family;
-use Illuminate\Http\RedirectResponse;
 
 class FamilyStoreController extends Controller
 {
-    public function __invoke(CreateFamilyRequest $request): RedirectResponse
+    public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
     {
         $family = Family::create(
             [
@@ -49,6 +48,6 @@ class FamilyStoreController extends Controller
 
         $family->furnishings()->create($request->validated('furnishings'));
 
-        return to_route('tenant.families.show', $family); //TODO fix redirect not working
+        return response(['family' => $family->id], 201);
     }
 }

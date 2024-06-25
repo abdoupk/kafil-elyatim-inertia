@@ -46,6 +46,8 @@ import StepSix from '@/Pages/Tenant/families/create/StepSix/StepSix.vue'
 import FamilySponsorShipForm from '@/Pages/Tenant/families/create/StepSix/FamilySponsorShipForm.vue'
 import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/StepSix/SponsorSponsorShipForm.vue'
 import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/StepSix/OrphansSponsorShipForm.vue'
+import { router } from '@inertiajs/vue3'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 
 defineOptions({
     layout: TheLayout
@@ -56,6 +58,8 @@ defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
 const currentStep = ref(6)
 
 const totalSteps = 6
+
+const creatingCompleted = ref(false)
 
 const form = useForm('post', route('tenant.families.store'), createFamilyFormAttributes)
 
@@ -202,10 +206,12 @@ const submit = () => {
     validating.value = true
 
     form.submit({
-        onSuccess(response) {
+        onSuccess() {
+            creatingCompleted.value = true
+
             setTimeout(() => {
-                window.location.href = response.data.url
-            }, 4000)
+                router.visit(route('tenant.families.index'))
+            }, 2000)
         },
         onFinish() {
             validating.value = false
@@ -384,4 +390,10 @@ const submit = () => {
             </form>
         </div>
     </div>
+
+    <success-notification
+        :options="{ duration: 1500}"
+        :title="$t('successfully_created',{attribute: $t('the_family') })"
+        :open="creatingCompleted"
+    ></success-notification>
 </template>

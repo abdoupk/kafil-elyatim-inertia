@@ -141,7 +141,7 @@ return [
             ],
             'families' => [
                 'rankingRules' => ['words', 'sort', 'typo', 'proximity', 'attribute', 'exactness'],
-                'searchableAttributes' => ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'report', 'start_date'],
+                'searchableAttributes' => ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'start_date'],
                 'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'address.zone.name', 'tenant_id'],
                 'sortableAttributes' => ['name', 'file_number', 'created_at', 'start_date'],
             ],
