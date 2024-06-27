@@ -3,7 +3,11 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\V1\Branches\BranchDeleteController;
 use App\Http\Controllers\V1\Branches\BranchesIndexController;
+use App\Http\Controllers\V1\Branches\BranchShowController;
+use App\Http\Controllers\V1\Branches\BranchStoreController;
+use App\Http\Controllers\V1\Branches\BranchUpdateController;
 use App\Http\Controllers\V1\Dashboard\DashboardController;
 use App\Http\Controllers\V1\Families\ExportFamiliesPDFController;
 use App\Http\Controllers\V1\Families\ExportFamiliesXlsxController;
@@ -22,10 +26,10 @@ use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
-use App\Http\Controllers\V1\Zones\ZoneCreateController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
+use App\Http\Controllers\V1\Zones\ZoneShowController;
 use App\Http\Controllers\V1\Zones\ZonesIndexController;
-use App\Http\Controllers\V1\Zones\ZonesShowController;
+use App\Http\Controllers\V1\Zones\ZoneStoreController;
 use App\Http\Controllers\V1\Zones\ZoneUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
@@ -93,14 +97,24 @@ Route::middleware([
                 Route::get('', BranchesIndexController::class)
                     ->name('index');
 
-                Route::get('/create', FamilyCreateController::class)
-                    ->name('create');
+                Route::get('show/{branch}', BranchShowController::class)
+                    ->name('show');
+
+                Route::put('{branch}', BranchUpdateController::class)
+                    ->name('update');
+
+                Route::post('', BranchStoreController::class)
+                    ->name('store');
+
+                Route::delete('{branch}', BranchDeleteController::class)
+                    ->name('destroy');
             });
 
             Route::prefix('orphans')->name('orphans.')->group(function () {
                 Route::get('', OrphansIndexController::class)
                     ->name('index');
             });
+
             Route::prefix('members')->name('members.')->group(function () {
                 Route::get('', MembersIndexController::class)
                     ->name('index');
@@ -119,6 +133,7 @@ Route::middleware([
                 Route::get('', RolesIndexController::class)
                     ->name('index');
             });
+
             Route::prefix('sponsors')->name('sponsors.')->group(function () {
                 Route::get('', SponsorsIndexController::class)
                     ->name('index');
@@ -143,14 +158,14 @@ Route::middleware([
                 Route::get('', ZonesIndexController::class)
                     ->name('index');
 
-                Route::get('show/{zone}', ZonesShowController::class)
+                Route::get('show/{zone}', ZoneShowController::class)
                     ->name('show');
 
                 Route::put('{zone}', ZoneUpdateController::class)
                     ->name('update');
 
-                Route::post('create', ZoneCreateController::class)
-                    ->name('create');
+                Route::post('', ZoneStoreController::class)
+                    ->name('store');
 
                 Route::delete('{zone}', ZoneDeleteController::class)
                     ->name('destroy');

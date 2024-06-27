@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { Commune, Daira, Wilaya } from '@/types/types'
 
 import { useCityStore } from '@/stores/city'
@@ -19,7 +19,7 @@ const wilayas = ref<Wilaya[]>([])
 
 const cityStore = useCityStore()
 
-defineProps<{ errorMessage?: string }>()
+defineProps<{ errorMessage?: string | string[] }>()
 
 const emit = defineEmits(['select:commune'])
 
@@ -153,11 +153,11 @@ onMounted(() => {
 
             <div>
                 <base-tom-select
-                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('wilaya') })"
                     id="wilayas"
                     v-model="wilaya"
-                    class="h-full w-full"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('wilaya') })"
                     :options="{ maxOptions: 58 }"
+                    class="h-full w-full"
                     @update:modelValue="updateWilaya"
                 >
                     <option v-for="wilaya in wilayas" :key="wilaya.wilaya_code" :value="wilaya.wilaya_code">
@@ -167,7 +167,7 @@ onMounted(() => {
             </div>
 
             <base-form-input-error>
-                <div class="mt-2 text-danger" v-show="errorMessage && cityStore.wilaya.wilaya_code === ''">
+                <div v-show="errorMessage && cityStore.wilaya.wilaya_code === ''" class="mt-2 text-danger">
                     {{ $t('validation.required', { attribute: $t('wilaya') }) }}
                 </div>
             </base-form-input-error>
@@ -176,13 +176,13 @@ onMounted(() => {
             <base-form-label for="dairas">{{ $t('daira') }}</base-form-label>
             <div>
                 <select
+                    id="dairas"
                     :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('daira') })"
                     class="tom-select w-full"
-                    id="dairas"
                 ></select>
             </div>
             <base-form-input-error>
-                <div class="mt-2 text-danger" v-if="errorMessage && cityStore.daira.daira_name === ''">
+                <div v-if="errorMessage && cityStore.daira.daira_name === ''" class="mt-2 text-danger">
                     {{ $t('validation.required', { attribute: $t('daira') }) }}
                 </div>
             </base-form-input-error>
@@ -194,14 +194,14 @@ onMounted(() => {
             </base-form-label>
             <div>
                 <select
+                    id="communes"
                     :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('commune') })"
                     class="tom-select w-full"
-                    id="communes"
                 ></select>
             </div>
             <base-form-input-error>
-                <div class="mt-2 text-danger" v-if="errorMessage">
-                    {{ errorMessage }}
+                <div v-if="errorMessage" class="mt-2 text-danger">
+                    {{ Array.isArray(errorMessage) ? errorMessage[0] : errorMessage }}
                 </div>
             </base-form-input-error>
         </div>

@@ -34,8 +34,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-user-plus',
                         title: n__('add new', 1, { attribute: __('member') }),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
+                        routeName: 'tenant.families.create',
+                        url: route('tenant.families.create')
                     }
                 ]
             },
@@ -53,8 +53,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-grid-round-2-plus',
                         title: n__('add new', 1, { attribute: __('branch') }),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
+                        routeName: 'tenant.families.create',
+                        url: route('tenant.families.create')
                     }
                 ]
             },
@@ -104,8 +104,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-backpack',
                         title: __('school entry'),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
+                        routeName: 'tenant.families.create',
+                        url: route('tenant.families.create')
                     },
                     {
                         icon: 'icon-moon-stars',
@@ -116,14 +116,14 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-moon',
                         title: __('ramadan basket'),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
+                        routeName: 'tenant.families.create',
+                        url: route('tenant.families.create')
                     },
                     {
                         icon: 'icon-basket-shopping',
                         title: __('monthly basket'),
-                        routeName: 'tenant.branches.create',
-                        url: route('tenant.branches.create')
+                        routeName: 'tenant.families.create',
+                        url: route('tenant.families.create')
                     }
                 ]
             },

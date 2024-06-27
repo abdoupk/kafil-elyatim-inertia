@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
+import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -8,11 +9,11 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import BranchCreateEditModal from '@/Pages/Tenant/branches/BranchCreateEditModal.vue'
 import DataTable from '@/Pages/Tenant/branches/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { debounce, handleSort } from '@/utils/helper'
@@ -38,6 +39,8 @@ const params = reactive<IndexParams>({
 const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
+
+const createEditModalStatus = ref<boolean>(true)
 
 const deleteProgress = ref<boolean>(false)
 
@@ -124,6 +127,14 @@ watch(
         getData()
     }
 )
+
+const branchesStore = useBranchesStore()
+
+const showCreateModal = () => {
+    branchesStore.$reset()
+
+    createEditModalStatus.value = true
+}
 </script>
 
 <template>
@@ -135,11 +146,7 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button
-                class="me-2 shadow-md"
-                variant="primary"
-                @click.prevent="router.get(route('tenant.branches.create'))"
-            >
+            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
                 {{ n__('add new', 1, { attribute: $t('branch') }) }}
             </base-button>
 
@@ -170,20 +177,14 @@ watch(
         </div>
     </div>
 
-    <template v-if="branches.data.length > 0">
-        <data-table :branches :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+    <data-table :branches :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
-        <pagination-data-table
-            v-if="branches.meta.last_page > 1"
-            v-model:page="params.page"
-            v-model:per-page="params.perPage"
-            :pages="branches.meta.last_page"
-        ></pagination-data-table>
-    </template>
-
-    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
-        <no-results-found></no-results-found>
-    </div>
+    <pagination-data-table
+        v-if="branches.meta.last_page > 1"
+        v-model:page="params.page"
+        v-model:per-page="params.perPage"
+        :pages="branches.meta.last_page"
+    ></pagination-data-table>
 
     <delete-modal
         :deleteProgress
@@ -191,4 +192,9 @@ watch(
         @close="closeDeleteModal"
         @delete="deleteBranch"
     ></delete-modal>
+
+    <branch-create-edit-modal
+        :open="createEditModalStatus"
+        @close="createEditModalStatus = false"
+    ></branch-create-edit-modal>
 </template>

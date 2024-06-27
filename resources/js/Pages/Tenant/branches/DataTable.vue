@@ -9,6 +9,7 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ branches: PaginationData<BranchesIndexResource>; params: IndexParams }>()
@@ -17,7 +18,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
 
 <template>
-    <div class="@container">
+    <div v-if="branches.data.length > 0" class="@container">
         <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible">
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
@@ -177,5 +178,9 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 </div>
             </div>
         </div>
+    </div>
+
+    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
+        <no-results-found></no-results-found>
     </div>
 </template>

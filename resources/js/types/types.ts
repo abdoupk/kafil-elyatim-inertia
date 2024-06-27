@@ -212,6 +212,7 @@ export interface Zone {
 export interface Branch {
     id: string
     name: string
+    city_id?: string
 }
 
 export interface FamilyIndexResource {

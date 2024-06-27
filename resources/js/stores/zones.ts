@@ -45,7 +45,7 @@ export const useZonesStore = defineStore('zones', {
 
         async createZone() {
             await axios
-                .post('zones/create', { ...omit(this.zone, ['id']) })
+                .post('zones', { ...omit(this.zone, ['id']) })
                 .then(() => {
                     this.errors = []
                 })

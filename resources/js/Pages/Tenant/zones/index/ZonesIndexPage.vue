@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import CreateEditZone from '@/Pages/Tenant/zones/CreateEditZone.vue'
+import ZoneCreateEditModal from '@/Pages/Tenant/zones/ZoneCreateEditModal.vue'
 import DataTable from '@/Pages/Tenant/zones/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -213,5 +213,8 @@ watch(
         @delete="deleteZone"
     ></delete-modal>
 
-    <create-edit-zone :open="createEditModalStatus" @close="createEditModalStatus = false"></create-edit-zone>
+    <zone-create-edit-modal
+        :open="createEditModalStatus"
+        @close="createEditModalStatus = false"
+    ></zone-create-edit-modal>
 </template>

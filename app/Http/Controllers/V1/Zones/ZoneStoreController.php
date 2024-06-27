@@ -9,7 +9,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 
-class ZoneCreateController extends Controller
+class ZoneStoreController extends Controller
 {
     public function __invoke(ZoneCreateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
