@@ -11,7 +11,7 @@ class BranchShowController extends Controller
     public function __invoke(Branch $branch): JsonResponse
     {
         return response()->json([
-            'branch' => $branch,
+            'branch' => $branch->load(['city', 'president']),
         ]);
     }
 }

@@ -41,7 +41,7 @@ const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
-const createEditModalStatus = ref<boolean>(true)
+const createEditModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
@@ -186,7 +186,13 @@ const showEditModal = async (zoneId: string) => {
         </div>
     </div>
 
-    <data-table :branches :params @showDeleteModal="showDeleteModal" @sort="sort($event)" @show-edit-modal="showEditModal"></data-table>
+    <data-table
+        :branches
+        :params
+        @showDeleteModal="showDeleteModal"
+        @sort="sort($event)"
+        @show-edit-modal="showEditModal"
+    ></data-table>
 
     <pagination-data-table
         v-if="branches.meta.last_page > 1"

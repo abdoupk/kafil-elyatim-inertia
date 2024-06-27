@@ -101,7 +101,7 @@ Route::middleware([
                     ->name('show');
 
                 Route::put('{branch}', BranchUpdateController::class)
-                    ->name('update');
+                    ->name('update')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::post('', BranchStoreController::class)
                     ->name('store')->middleware([HandlePrecognitiveRequests::class]);

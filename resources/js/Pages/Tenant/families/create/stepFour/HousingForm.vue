@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* eslint-disable vue/no-parsing-error */
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'

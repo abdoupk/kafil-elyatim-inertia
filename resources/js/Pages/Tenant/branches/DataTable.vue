@@ -20,7 +20,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
 <template>
     <div v-if="branches.data.length > 0" class="@container">
-        <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible">
+        <div class="intro-y col-span-12 hidden overflow-auto @4xl:block lg:overflow-visible">
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>
@@ -45,7 +45,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center"
-                        >{{ $t('location') }}
+                            >{{ $t('location') }}
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
@@ -92,13 +92,13 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
                             {{ branch.city }}
                         </base-td-table>
 
                         <base-td-table
-                            class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="whitespace-nowrap text-center">
                                 {{ branch.families_count }}
@@ -117,8 +117,11 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <a class="me-3 flex items-center" href="#"
-                                   @click.prevent="emit('showEditModal', branch.id)">
+                                <a
+                                    class="me-3 flex items-center"
+                                    href="#"
+                                    @click.prevent="emit('showEditModal', branch.id)"
+                                >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
                                 </a>
@@ -137,7 +140,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
             </base-table>
         </div>
 
-        <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @3xl:hidden">
+        <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @4xl:hidden">
             <div v-for="branch in branches.data" :key="branch.id" class="intro-y col-span-12 @xl:col-span-6">
                 <div class="box p-5">
                     <div class="flex">
@@ -163,11 +166,12 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.families.index', branch.id)"
+                            <a
+                                href="#"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ $t('edit') }}
-                            </Link>
+                                @click.prevent="emit('showEditModal', branch.id)"
+                                >{{ $t('edit') }}
+                            </a>
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"

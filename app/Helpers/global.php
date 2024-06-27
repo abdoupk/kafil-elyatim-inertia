@@ -95,21 +95,14 @@ function generateFormattedSort(): array
 
 function search(User|Family|Branch|Zone $model): Builder
 {
-    // Get the search query from the request input.
     $query = request()->input('search', '');
+    $meilisearchOptions = [
+        'filter' => generateFilterConditions(),
+        'sort' => generateFormattedSort(),
+    ];
 
-    // Define the search callback function.
-    $searchCallback = static function ($meilisearch, string $query, array $meilisearchOptions) {
-        // Set the filter conditions.
-        $meilisearchOptions['filter'] = generateFilterConditions();
-
-        // Set the sort conditions.
-        $meilisearchOptions['sort'] = generateFormattedSort();
-
-        // Perform the search.
-        return $meilisearch->search($query, $meilisearchOptions);
-    };
-
-    /* @phpstan-ignore-next-line */
-    return $model::search($query, $searchCallback);
+    // @phpstan-ignore-next-line
+    return $model::search($query, static function ($meilisearch, string $query, array $options) use ($meilisearchOptions) {
+        return $meilisearch->search($query, $options + $meilisearchOptions);
+    });
 }

@@ -1,18 +1,21 @@
 <script lang="ts" setup>
+import type { MembersType } from '@/types/types'
+
 import { useBranchesStore } from '@/stores/branches'
-import { computed, ref } from 'vue'
+import { router } from '@inertiajs/vue3'
+import { computed, ref, watch } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
+import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
 import CitySelector from '@/Components/Global/CitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
-import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
-import type { MembersType } from '@/types/types'
 
 defineProps<{
     open: boolean
@@ -25,12 +28,33 @@ const loading = ref(false)
 
 const emit = defineEmits(['close', 'process'])
 
+const handleSuccess = () => {
+    setTimeout(() => {
+        router.get(
+            route('tenant.branches.index'),
+            {},
+            {
+                only: ['branches'],
+                preserveState: true
+            }
+        )
+    }, 200)
+
+    emit('close')
+}
+
 const handleSubmit = () => {
     loading.value = true
 
     branchesStore.branch.id
-        ? branchesStore.updateBranch().finally(() => (loading.value = false))
-        : branchesStore.createBranch().finally(() => (loading.value = false))
+        ? branchesStore
+              .updateBranch()
+              .then(handleSuccess)
+              .finally(() => (loading.value = false))
+        : branchesStore
+              .createBranch()
+              .then(handleSuccess)
+              .finally(() => (loading.value = false))
 }
 
 const modalTitle = computed(() => {
@@ -51,6 +75,12 @@ const form = computed(() => {
     return branchesStore.getCreateBranchForm
 })
 
+watch(form, (value) => {
+    if (!branchesStore.branch.id) {
+        value.reset()
+    }
+})
+
 const setBranchPresident = (value: string | string[]) => {
     if (typeof value === 'string') {
         // @ts-ignore
@@ -68,11 +98,11 @@ const setBranchPresident = (value: string | string[]) => {
         :modalType
         :open
         :title="modalTitle"
+        class="!overflow-auto !flex"
         size="lg"
         @close="emit('close')"
         @handle-submit="handleSubmit"
     >
-
         <template #description>
             <div class="col-span-12">
                 <base-form-label htmlFor="name">
@@ -97,9 +127,14 @@ const setBranchPresident = (value: string | string[]) => {
                 <city-selector
                     :error-message="form.errors.city_id"
                     @change="form.validate('city_id')"
-                    @select:commune="(e) => (
-                        // @ts-ignore
-                        form.city_id = e)"
+                    @select:commune="
+                        (e) => {
+                            // @ts-ignore
+                            form.city_id = e
+
+                            form.validate('city_id')
+                        }
+                    "
                 ></city-selector>
             </div>
 
@@ -111,16 +146,50 @@ const setBranchPresident = (value: string | string[]) => {
                 <div>
                     <base-tom-select
                         :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
-                        :model-value="branchesStore.branch.president_id"
+                        :model-value="form.president_id"
+                        :options="{ allowEmptyOption: false }"
                         @update:model-value="setBranchPresident"
                     >
+                        <option class="hidden" value=""></option>
                         <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
                     </base-tom-select>
                 </div>
 
                 <base-form-input-error>
-                    <div v-if="form?.invalid('president_id')" class="mt-2 text-danger" data-test="error_zone_message">
+                    <div
+                        v-if="form?.invalid('president_id')"
+                        class="mt-2 text-danger"
+                        data-test="error_president_message"
+                    >
                         {{ form.errors.president_id }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="start_date">
+                    {{ $t('validation.attributes.starting_sponsorship_date') }}
+                </base-form-label>
+
+                <base-lite-picker
+                    v-model="form.created_at"
+                    :options="{ format: 'DD-MM-YYYY' }"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.starting_sponsorship_date')
+                        })
+                    "
+                    class="block"
+                    @keydown.prevent
+                ></base-lite-picker>
+
+                <base-form-input-error>
+                    <div
+                        v-if="form?.invalid('created_at')"
+                        class="mt-2 text-danger"
+                        data-test="error_start_date_message"
+                    >
+                        {{ form.errors.created_at }}
                     </div>
                 </base-form-input-error>
             </div>

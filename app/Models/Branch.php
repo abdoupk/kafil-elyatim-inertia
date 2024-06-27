@@ -57,7 +57,7 @@ class Branch extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
-    protected $fillable = ['name', 'president_id', 'city_id'];
+    protected $fillable = ['name', 'president_id', 'city_id', 'created_at'];
 
     protected function casts(): array
     {

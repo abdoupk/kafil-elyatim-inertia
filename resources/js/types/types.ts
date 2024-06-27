@@ -212,8 +212,13 @@ export interface Zone {
 export interface Branch {
     id: string
     name: string
-    city_id?: string
-    president_id?: string
+}
+
+export interface CreateBranchForm {
+    name: string
+    city_id: string
+    president_id: string
+    created_at: string
 }
 
 export interface FamilyIndexResource {
