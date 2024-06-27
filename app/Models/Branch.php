@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\BranchFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,11 +43,11 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Branch whereDeletedAt($value)
  *
  * @property string $name
- * @property-read \App\Models\City $city
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Family> $families
+ * @property-read City $city
+ * @property-read Collection<int, Family> $families
  * @property-read int|null $families_count
- * @property-read \App\Models\User $president
- * @property-read \App\Models\Tenant $tenant
+ * @property-read User $president
+ * @property-read Tenant $tenant
  *
  * @method static Builder|Branch whereName($value)
  *
@@ -56,7 +57,7 @@ class Branch extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
-    protected $fillable = ['name', 'tenant_id', 'president_id'];
+    protected $fillable = ['name', 'president_id', 'city_id'];
 
     protected function casts(): array
     {

@@ -11,6 +11,7 @@ class BranchCreateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'city_id' => 'required|exists:cities,id',
+            'president_id' => 'required|exists:users,id',
         ];
     }
 

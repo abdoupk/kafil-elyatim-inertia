@@ -8,7 +8,12 @@ import { defineStore } from 'pinia'
 import { omit } from '@/utils/helper'
 
 interface State {
-    branch: Branch
+    branch: {
+        id: string,
+        name: string,
+        city_id: string,
+        president_id: string
+    }
     errors: {
         name: string[]
         city_id: string[]
@@ -18,15 +23,19 @@ interface State {
 export const useBranchesStore = defineStore('branches', {
     state: (): State => ({
         branch: {
-            name: '',
             id: '',
-            description: ''
+            name: '',
+            city_id: '',
+            president_id: ''
         },
         errors: []
     }),
     getters: {
         getCreateBranchForm(): Form<Branch> {
             return useForm('post', route('tenant.branches.store'), { ...omit(this.branch, ['id']) })
+        },
+        getUpdateBranchForm(): Form<Branch> {
+            return useForm('post', route('tenant.branches.update'), { ...omit(this.branch, ['id']) })
         }
     },
     actions: {
@@ -37,7 +46,16 @@ export const useBranchesStore = defineStore('branches', {
         },
 
         async updateBranch() {
-            console.log('45454')
+            await this.getUpdateBranchForm.submit({
+                onSuccess: () => {
+                    this.errors = []
+                },
+                onValidationError: (res) => {
+                    if (res.status == 422) {
+                        this.errors = res.data.errors
+                    }
+                }
+            })
         },
 
         async createBranch() {

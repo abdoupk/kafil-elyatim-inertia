@@ -213,6 +213,7 @@ export interface Branch {
     id: string
     name: string
     city_id?: string
+    president_id?: string
 }
 
 export interface FamilyIndexResource {
@@ -338,6 +339,8 @@ export type CreateFamilyForm = {
 }
 
 export type InspectorsMembersType = Array<{ id: string; name: string }>
+
+export type MembersType = Array<{ id: string; name: string }>
 
 export interface CreateFamilyStepProps {
     currentStep: number

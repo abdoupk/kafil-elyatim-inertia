@@ -14,7 +14,8 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ branches: PaginationData<BranchesIndexResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+// eslint-disable-next-line array-element-newline
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 </script>
 
 <template>
@@ -44,7 +45,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center"
-                            >{{ $t('location') }}
+                        >{{ $t('location') }}
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
@@ -116,10 +117,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <Link :href="route('tenant.families.index', branch.id)" class="me-3 flex items-center">
+                                <a class="me-3 flex items-center" href="#"
+                                   @click.prevent="emit('showEditModal', branch.id)">
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
-                                </Link>
+                                </a>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
@@ -164,7 +166,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             <Link
                                 :href="route('tenant.families.index', branch.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
+                            >{{ $t('edit') }}
                             </Link>
                             <a
                                 class="font-semibold text-danger"

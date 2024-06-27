@@ -104,7 +104,7 @@ Route::middleware([
                     ->name('update');
 
                 Route::post('', BranchStoreController::class)
-                    ->name('store');
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::delete('{branch}', BranchDeleteController::class)
                     ->name('destroy');

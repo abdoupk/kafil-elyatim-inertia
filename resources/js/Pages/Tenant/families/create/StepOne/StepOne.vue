@@ -117,7 +117,6 @@ const setBranch = (value: string | string[]) => {
                         :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
                         @update:model-value="setBranch"
                     >
-                        <option value=""></option>
                         <option v-for="branch in branches" :key="branch.id" :value="branch.id">
                             {{ branch.name }}
                         </option>
@@ -142,7 +141,6 @@ const setBranch = (value: string | string[]) => {
                         :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
                         @update:model-value="setZone"
                     >
-                        <option value=""></option>
                         <option v-for="zone in zones" :key="zone.id" :value="zone.id">{{ zone.name }}</option>
                     </base-tom-select>
                 </div>

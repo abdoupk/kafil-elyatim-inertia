@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types/types'
+import type { BranchesIndexResource, IndexParams, MembersType, PaginationData } from '@/types/types'
 
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
@@ -26,6 +26,7 @@ defineOptions({
 const props = defineProps<{
     branches: PaginationData<BranchesIndexResource>
     params: IndexParams
+    members: MembersType
 }>()
 
 const params = reactive<IndexParams>({
@@ -135,6 +136,14 @@ const showCreateModal = () => {
 
     createEditModalStatus.value = true
 }
+
+const showEditModal = async (zoneId: string) => {
+    selectedBranchId.value = zoneId
+
+    await branchesStore.getBranch(zoneId)
+
+    createEditModalStatus.value = true
+}
 </script>
 
 <template>
@@ -177,7 +186,7 @@ const showCreateModal = () => {
         </div>
     </div>
 
-    <data-table :branches :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+    <data-table :branches :params @showDeleteModal="showDeleteModal" @sort="sort($event)" @show-edit-modal="showEditModal"></data-table>
 
     <pagination-data-table
         v-if="branches.meta.last_page > 1"
@@ -194,6 +203,7 @@ const showCreateModal = () => {
     ></delete-modal>
 
     <branch-create-edit-modal
+        :members
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></branch-create-edit-modal>
