@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { FamilyIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
@@ -14,7 +14,6 @@ import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
@@ -25,7 +24,7 @@ defineOptions({
     layout: TheLayout
 })
 
-const filterModalStatus = ref<boolean>(true)
+const filterModalStatus = ref<boolean>(false)
 
 const props = defineProps<{
     families: PaginationData<FamilyIndexResource>
@@ -169,8 +168,8 @@ watch(
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
             <base-button
-                variant="primary"
                 class="me-2 shadow-md"
+                variant="primary"
                 @click.prevent="router.get(route('tenant.families.create'))"
             >
                 {{ n__('add new', 0, { attribute: $t('family') }) }}
@@ -192,38 +191,37 @@ watch(
             </div>
 
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <base-tippy
-                    content="Filter"
-                    :as="BaseButton"
-                    variant="outline-secondary"
-                    class="me-2"
-                    @click.prevent="filterModalStatus = true"
-                >
-                    <svg-loader name="icon-filters" class="h-5 w-5 fill-primary"></svg-loader>
-                </base-tippy>
-
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input
-                        autofocus
                         v-model="search"
-                        type="text"
-                        class="!box w-full md:w-56 pe-10"
                         :placeholder="$t('Search...')"
+                        autofocus
+                        class="!box w-full md:w-56 pe-10"
+                        type="text"
                     />
-                    <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />
+                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
                 </div>
+
+                <base-button
+                    class="ms-2"
+                    content="Filter"
+                    variant="outline-secondary"
+                    @click.prevent="filterModalStatus = true"
+                >
+                    <svg-loader class="h-5 w-5 fill-primary" name="icon-filters"></svg-loader>
+                </base-button>
             </div>
         </div>
     </div>
 
     <template v-if="families.data.length > 0">
-        <data-table :params :families @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+        <data-table :families :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
         <pagination-data-table
             v-if="families.meta.last_page > 1"
-            :pages="families.meta.last_page"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
+            :pages="families.meta.last_page"
         ></pagination-data-table>
     </template>
 
@@ -232,16 +230,16 @@ watch(
     </div>
 
     <delete-modal
-        :open="deleteModalStatus"
         :deleteProgress
+        :open="deleteModalStatus"
         @close="closeDeleteModal"
         @delete="deleteFamily"
     ></delete-modal>
 
     <filter-modal
+        :open="filterModalStatus"
         :processing
         @close="filterModalStatus = false"
-        :open="filterModalStatus"
         @filter="(args) => (params.filters = { ...args })"
     ></filter-modal>
 </template>

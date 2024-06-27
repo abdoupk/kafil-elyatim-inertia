@@ -65,6 +65,10 @@ function generateFilterConditions(): string
 {
     $filters = generateFormatedConditions();
 
+    if (! $filters) {
+        return 'tenant_id = '.tenant('id');
+    }
+
     return implode(' AND ', array_map(static function ($condition) {
         return implode(' ', $condition);
     }, $filters)).' AND tenant_id = '.tenant('id');
