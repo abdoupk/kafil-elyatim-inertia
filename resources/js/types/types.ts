@@ -209,6 +209,12 @@ export interface Zone {
     description?: string
 }
 
+export interface Branch {
+    id: string
+    name: string
+    president_name?: string
+}
+
 export interface FamilyIndexResource {
     id: string
     name: string
@@ -328,6 +334,7 @@ export type CreateFamilyForm = {
     report: string
     preview_date: string
     inspectors_members: string | string[]
+    branch_id: string
 }
 
 export type InspectorsMembersType = Array<{ id: string; name: string }>
@@ -336,6 +343,7 @@ export interface CreateFamilyStepProps {
     currentStep: number
     totalSteps: number
     zones?: Zone[]
+    branches?: Branch[]
     members?: InspectorsMembersType
     form?: Form<CreateFamilyForm>
 }

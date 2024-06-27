@@ -67,6 +67,7 @@ class CreateFamilyRequest extends FormRequest
             'preview_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
             'inspectors_members.*' => 'required|exists:App\Models\User,id',
             'report' => 'required|string',
+            'branch_id' => 'required|exists:App\Models\Branch,id',
         ];
     }
 

@@ -5,14 +5,17 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Models\Family;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Response;
 
 class FamilyStoreController extends Controller
 {
-    public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+    public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
         $family = Family::create(
             [
-                ...$request->only('address', 'zone_id', 'file_number', 'start_date'),
+                ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
                 'name' => $request->validated('spouse.first_name').'  '.$request->validated('spouse.last_name'),
             ]
         );

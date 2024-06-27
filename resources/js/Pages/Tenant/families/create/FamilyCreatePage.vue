@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {
+    Branch,
     CreateFamilyForm,
     CreateFamilyStepOneProps,
     CreateFamilyStepTwoProps,
@@ -53,7 +54,7 @@ defineOptions({
     layout: TheLayout
 })
 
-defineProps<{ zones: Zone[], members: InspectorsMembersType }>()
+defineProps<{ zones: Zone[], branches: Branch[]; members: InspectorsMembersType }>()
 
 const currentStep = ref(6)
 
@@ -242,7 +243,9 @@ const submit = () => {
                     v-model:zone="form.zone_id"
                     v-model:file-number="form.file_number"
                     v-model:start-date="form.start_date"
+                    v-model:branch="form.branch_id"
                     :form
+                    :branches
                     :zones
                     :currentStep
                     :totalSteps

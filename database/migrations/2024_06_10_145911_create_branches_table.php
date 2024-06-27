@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('branches', static function (Blueprint $table) {
             $table->uuid('id');
-            $table->integer('city_id');
+            $table->foreignId('city_id');
+            $table->string('name');
             $table->uuid('tenant_id');
             $table->softDeletes();
             $table->timestamps();

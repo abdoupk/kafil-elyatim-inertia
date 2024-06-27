@@ -5,8 +5,16 @@ import { defineStore } from 'pinia'
 
 import { omit } from '@/utils/helper'
 
+interface State {
+    zone: Zone
+    errors: {
+        name: string[]
+        description: string[]
+    }
+}
+
 export const useZonesStore = defineStore('zones', {
-    state: (): { zone: Zone; errors: [] } => ({
+    state: (): State => ({
         zone: {
             name: '',
             id: '',

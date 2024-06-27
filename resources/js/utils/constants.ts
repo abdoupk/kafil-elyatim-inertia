@@ -145,7 +145,8 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
     },
     report: '22',
     preview_date: '25-03-2012',
-    other_properties: '00000'
+    other_properties: '00000',
+    branch_id: ''
 }
 
 // eslint-disable-next-line array-element-newline

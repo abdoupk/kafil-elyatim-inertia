@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/types'
 
 import { useZonesStore } from '@/stores/zones'
@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import CreateEditModal from '@/Pages/Tenant/zones/CreateEditModal.vue'
+import CreateEditZone from '@/Pages/Tenant/zones/CreateEditZone.vue'
 import DataTable from '@/Pages/Tenant/zones/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -172,7 +172,7 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button variant="primary" class="me-2 shadow-md" @click.prevent="showCreateModal">
+            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
                 {{ n__('add new', 0, { attribute: $t('zone') }) }}
             </base-button>
 
@@ -191,13 +191,13 @@ watch(
             <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <div class="relative w-56 text-slate-500">
                     <base-form-input
-                        autofocus
                         v-model="search"
-                        type="text"
-                        class="!box w-56 pe-10"
                         :placeholder="$t('Search...')"
+                        autofocus
+                        class="!box w-56 pe-10"
+                        type="text"
                     />
-                    <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />
+                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
                 </div>
             </div>
         </div>
@@ -207,16 +207,16 @@ watch(
         <data-table
             :params
             :zones
-            @sort="sort($event)"
             @showDeleteModal="showDeleteModal"
+            @sort="sort($event)"
             @show-edit-modal="showEditModal"
         ></data-table>
 
         <pagination-data-table
             v-if="zones.meta.last_page > 1"
-            :pages="zones.meta.last_page"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
+            :pages="zones.meta.last_page"
         ></pagination-data-table>
     </template>
 
@@ -225,11 +225,11 @@ watch(
     </div>
 
     <delete-modal
-        :open="deleteModalStatus"
         :deleteProgress
+        :open="deleteModalStatus"
         @close="closeDeleteModal"
         @delete="deleteZone"
     ></delete-modal>
 
-    <create-edit-modal :open="createEditModalStatus" @close="createEditModalStatus = false"></create-edit-modal>
+    <create-edit-zone :open="createEditModalStatus" @close="createEditModalStatus = false"></create-edit-zone>
 </template>

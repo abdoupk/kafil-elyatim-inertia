@@ -13,6 +13,8 @@ const props = defineProps<CreateFamilyStepProps>()
 
 const zone = defineModel('zone', { default: '' })
 
+const branch = defineModel('branch', { default: '' })
+
 const startDate = defineModel('startDate', { default: '' })
 
 const address = defineModel('address')
@@ -23,7 +25,15 @@ const setZone = (value: string | string[]) => {
     if (typeof value === 'string') {
         zone.value = value
 
-        props.form?.validate('zone')
+        props.form?.validate('zone_id')
+    }
+}
+
+const setBranch = (value: string | string[]) => {
+    if (typeof value === 'string') {
+        branch.value = value
+
+        props.form?.validate('branch_id')
     }
 }
 </script>
@@ -97,6 +107,31 @@ const setZone = (value: string | string[]) => {
             </div>
 
             <div class="intro-y col-span-12 sm:col-span-6">
+                <base-form-label for="branch">
+                    {{ $t('validation.attributes.branch') }}
+                </base-form-label>
+
+                <div>
+                    <base-tom-select
+                        :model-value="branch"
+                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
+                        @update:model-value="setBranch"
+                    >
+                        <option value=""></option>
+                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">
+                            {{ branch.name }}
+                        </option>
+                    </base-tom-select>
+                </div>
+
+                <base-form-input-error>
+                    <div class="mt-2 text-danger" v-if="form?.invalid('branch_id')" data-test="error_branch_message">
+                        {{ form.errors.branch_id }}
+                    </div>
+                </base-form-input-error>
+            </div>
+
+            <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="zone">
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
@@ -104,7 +139,7 @@ const setZone = (value: string | string[]) => {
                 <div>
                     <base-tom-select
                         :model-value="zone"
-                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('zone') })"
+                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
                         @update:model-value="setZone"
                     >
                         <option value=""></option>
@@ -113,8 +148,8 @@ const setZone = (value: string | string[]) => {
                 </div>
 
                 <base-form-input-error>
-                    <div class="mt-2 text-danger" v-if="form?.invalid('zone')" data-test="error_zone_message">
-                        {{ form.errors.zone }}
+                    <div class="mt-2 text-danger" v-if="form?.invalid('zone_id')" data-test="error_zone_message">
+                        {{ form.errors.zone_id }}
                     </div>
                 </base-form-input-error>
             </div>
