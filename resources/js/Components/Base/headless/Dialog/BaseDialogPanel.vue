@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { ProvideDialog } from './BaseDialog.vue'
 
 import type { ExtractProps } from '@/types/utils'
@@ -38,18 +38,19 @@ const computedClass = computed(() =>
 
 <template>
     <transition-child
+        aria-hidden="true"
         as="div"
+        class="fixed inset-0 bg-black/60"
         enter="ease-in-out duration-500"
         enter-from="opacity-0"
         enter-to="opacity-100"
         leave="ease-in-out duration-[400ms]"
         leave-from="opacity-100"
         leave-to="opacity-0"
-        class="fixed inset-0 bg-black/60"
-        aria-hidden="true"
     />
     <transition-child
         as="div"
+        class="fixed inset-0"
         enter="ease-in-out duration-500"
         enter-from="opacity-0 -mt-16"
         enter-to="opacity-100 mt-16"
@@ -57,7 +58,6 @@ const computedClass = computed(() =>
         leave="ease-in-out duration-[400ms]"
         leave-from="opacity-100 mt-16"
         leave-to="opacity-0 -mt-16"
-        class="fixed inset-0"
     >
         <headless-dialog-panel as="template">
             <component :is="as" :class="computedClass" v-bind="attrs.attrs">

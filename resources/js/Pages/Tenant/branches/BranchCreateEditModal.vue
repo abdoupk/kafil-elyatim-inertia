@@ -123,19 +123,33 @@ const setBranchPresident = (value: string | string[]) => {
                 </div>
             </div>
 
-            <div class="col-span-12">
-                <city-selector
-                    :error-message="form.errors.city_id"
-                    @change="form.validate('city_id')"
-                    @select:commune="
-                        (e) => {
-                            // @ts-ignore
-                            form.city_id = e
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="created_at">
+                    {{ $t('validation.attributes.starting_sponsorship_date') }}
+                </base-form-label>
 
-                            form.validate('city_id')
-                        }
+                <base-lite-picker
+                    v-model="form.created_at"
+                    :options="{ format: 'DD-MM-YYYY' }"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.starting_sponsorship_date')
+                        })
                     "
-                ></city-selector>
+                    class="block"
+                    id="created_at"
+                    @keydown.prevent
+                ></base-lite-picker>
+
+                <base-form-input-error>
+                    <div
+                        v-if="form?.invalid('created_at')"
+                        class="mt-2 text-danger"
+                        data-test="error_start_date_message"
+                    >
+                        {{ form.errors.created_at }}
+                    </div>
+                </base-form-input-error>
             </div>
 
             <div class="col-span-12 lg:col-span-6">
@@ -166,32 +180,19 @@ const setBranchPresident = (value: string | string[]) => {
                 </base-form-input-error>
             </div>
 
-            <div class="col-span-12 sm:col-span-6">
-                <base-form-label for="start_date">
-                    {{ $t('validation.attributes.starting_sponsorship_date') }}
-                </base-form-label>
+            <div class="col-span-12">
+                <city-selector
+                    :error-message="form.errors.city_id"
+                    @change="form.validate('city_id')"
+                    @select:commune="
+                        (e) => {
+                            // @ts-ignore
+                            form.city_id = e
 
-                <base-lite-picker
-                    v-model="form.created_at"
-                    :options="{ format: 'DD-MM-YYYY' }"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.starting_sponsorship_date')
-                        })
+                            form.validate('city_id')
+                        }
                     "
-                    class="block"
-                    @keydown.prevent
-                ></base-lite-picker>
-
-                <base-form-input-error>
-                    <div
-                        v-if="form?.invalid('created_at')"
-                        class="mt-2 text-danger"
-                        data-test="error_start_date_message"
-                    >
-                        {{ form.errors.created_at }}
-                    </div>
-                </base-form-input-error>
+                ></city-selector>
             </div>
         </template>
     </create-edit-modal>
