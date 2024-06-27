@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamilyIndexResource, IndexFilters, PaginationData } from '@/types/types'
+import type { FamilyIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -11,7 +11,7 @@ import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-defineProps<{ families: PaginationData<FamilyIndexResource>; filters: IndexFilters }>()
+defineProps<{ families: PaginationData<FamilyIndexResource>; params: IndexParams }>()
 
 const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
@@ -26,7 +26,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-th-table
                             sortable
                             @click="emit('sort', 'name')"
-                            :direction="filters.directions?.name"
+                            :direction="params.directions?.name"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                         >
                             {{ $t('the_family') }}
@@ -37,7 +37,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-th-table
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
-                            :direction="filters.directions?.file_number"
+                            :direction="params.directions?.file_number"
                             @click="emit('sort', 'file_number')"
                         >
                             {{ $t('file_number') }}
@@ -45,7 +45,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-th-table
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
-                            :direction="filters.directions?.start_date"
+                            :direction="params.directions?.start_date"
                             @click="emit('sort', 'start_date')"
                         >
                             {{ $t('validation.attributes.starting_sponsorship_date') }}

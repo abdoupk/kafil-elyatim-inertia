@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IndexFilters, PaginationData, ZonesIndexResource } from '@/types/types'
+import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -11,7 +11,7 @@ import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-defineProps<{ zones: PaginationData<ZonesIndexResource>; filters: IndexFilters }>()
+defineProps<{ zones: PaginationData<ZonesIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
 const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
@@ -28,7 +28,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-th-table
                             sortable
                             @click="emit('sort', 'name')"
-                            :direction="filters.directions?.name"
+                            :direction="params.directions?.name"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                         >
                             {{ $t('the_zone') }}

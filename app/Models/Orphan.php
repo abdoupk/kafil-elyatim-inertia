@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -69,7 +70,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class Orphan extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $fillable = [
         'first_name',
@@ -105,4 +106,6 @@ class Orphan extends Model
     {
         return $this->hasMany(OrphanSponsorship::class);
     }
+
+    public function getName() {}
 }

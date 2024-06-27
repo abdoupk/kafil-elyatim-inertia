@@ -13,7 +13,7 @@ class ZonesIndexController extends Controller
     {
         return Inertia::render('Tenant/zones/index/ZonesIndexPage', [
             'zones' => ZonesIndexResource::collection(getZones()),
-            'filters' => getFilters(),
+            'params' => getParams(),
         ]);
     }
 }

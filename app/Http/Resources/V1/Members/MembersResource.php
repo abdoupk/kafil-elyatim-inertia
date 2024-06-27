@@ -7,8 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @property string $id
- * @property string $last_name
- * @property string $first_name
+ *
+ * @method string getName()
  */
 class MembersResource extends JsonResource
 {
@@ -16,7 +16,7 @@ class MembersResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->first_name.' '.$this->last_name,
+            'name' => $this->getName(),
         ];
     }
 }

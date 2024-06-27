@@ -149,7 +149,7 @@ class User extends Authenticatable
     {
         return [
             'id' => $this->id,
-            'name' => $this->first_name.' '.$this->last_name,
+            'name' => $this->getName(),
             'email' => $this->email,
             'phone' => $this->phone,
             'gender' => $this->gender,
@@ -174,5 +174,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 }

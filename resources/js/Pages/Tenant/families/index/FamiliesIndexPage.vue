@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamilyIndexResource, IndexFilters, PaginationData } from '@/types/types'
+import type { FamilyIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -7,12 +7,14 @@ import { reactive, ref, watch } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
+import FilterModal from '@/Pages/Shared/FilterModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
@@ -23,19 +25,21 @@ defineOptions({
     layout: TheLayout
 })
 
+const filterModalStatus = ref<boolean>(true)
+
 const props = defineProps<{
     families: PaginationData<FamilyIndexResource>
-    filters: IndexFilters
+    params: IndexParams
 }>()
 
-const filters = reactive<IndexFilters>({
-    perPage: props.filters.perPage,
-    page: props.filters.page,
-    directions: props.filters.directions,
-    fields: props.filters.fields
+const params = reactive<IndexParams>({
+    perPage: props.params.perPage,
+    page: props.params.page,
+    directions: props.params.directions,
+    fields: props.params.fields
 })
 
-const search = ref(props.filters.search)
+const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
@@ -56,39 +60,49 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
+const processing = ref(false)
+
 const getData = () => {
-    let data = { ...filters }
+    let data = { ...params }
 
     if (search.value !== '') {
         data.search = search.value
     }
 
     Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexFilters]) delete data[key as keyof IndexFilters]
+        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
-    router.get(route('tenant.families.index'), data, routerOptions)
+    router.get(route('tenant.families.index'), data, {
+        ...routerOptions,
+        onBefore: () => {
+            processing.value = true
+        },
+        onFinish: () => {
+            processing.value = false
+        }
+    })
 }
 
 const sort = (field: string) => {
-    filters.fields = (filters?.fields ?? []) || []
+    params.fields = (params?.fields ?? []) || []
 
-    filters.directions = { ...filters.directions }
+    params.directions = { ...params.directions }
 
-    if (filters.fields.includes(field)) {
-        const idx = filters.fields.indexOf(field)
+    if (params.fields.includes(field)) {
+        const idx = params.fields.indexOf(field)
 
-        if (filters.directions[field] === 'asc') {
-            filters.directions[field] = 'desc'
+        if (params.directions[field] === 'asc') {
+            params.directions[field] = 'desc'
         } else {
-            filters.fields.splice(idx, 1)
+            params.fields.splice(idx, 1)
 
-            delete filters.directions[field]
+            delete params.directions[field]
         }
     } else {
-        filters.fields.push(field)
+        params.fields.push(field)
 
-        filters.directions[field] = 'asc'
+        params.directions[field] = 'asc'
     }
 
     getData()
@@ -101,8 +115,8 @@ const deleteFamily = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.families.meta.last_page < filters.page) {
-                filters.page = filters.page - 1
+            if (props.families.meta.last_page < params.page) {
+                params.page = params.page - 1
             }
 
             closeDeleteModal()
@@ -119,21 +133,22 @@ const showDeleteModal = (familyId: string) => {
 watch(
     search,
     debounce(() => {
-        filters.page = 1
+        params.page = 1
 
         getData()
     }, 400)
 )
 
-watch(() => [filters.fields, filters.directions], getData)
+// eslint-disable-next-line array-element-newline
+watch(() => [params.fields, params.directions, params.filters], getData)
 
 watch(
-    () => [filters.perPage],
-    () => (filters.page = 1)
+    () => [params.perPage],
+    () => (params.page = 1)
 )
 
 watch(
-    () => [filters.page],
+    () => [params.page],
     () => {
         routerOptions.preserveState = false
 
@@ -161,7 +176,7 @@ watch(
                 {{ n__('add new', 0, { attribute: $t('family') }) }}
             </base-button>
 
-            <export-menu :filters></export-menu>
+            <export-menu :params></export-menu>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">
@@ -175,7 +190,18 @@ watch(
                     }}
                 </span>
             </div>
-            <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
+
+            <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
+                <base-tippy
+                    content="Filter"
+                    :as="BaseButton"
+                    variant="outline-secondary"
+                    class="me-2"
+                    @click.prevent="filterModalStatus = true"
+                >
+                    <svg-loader name="icon-filters" class="h-5 w-5 fill-primary"></svg-loader>
+                </base-tippy>
+
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input
                         autofocus
@@ -191,13 +217,13 @@ watch(
     </div>
 
     <template v-if="families.data.length > 0">
-        <data-table :filters :families @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+        <data-table :params :families @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
 
         <pagination-data-table
             v-if="families.meta.last_page > 1"
             :pages="families.meta.last_page"
-            v-model:page="filters.page"
-            v-model:per-page="filters.perPage"
+            v-model:page="params.page"
+            v-model:per-page="params.perPage"
         ></pagination-data-table>
     </template>
 
@@ -211,4 +237,11 @@ watch(
         @close="closeDeleteModal"
         @delete="deleteFamily"
     ></delete-modal>
+
+    <filter-modal
+        :processing
+        @close="filterModalStatus = false"
+        :open="filterModalStatus"
+        @filter="(args) => (params.filters = { ...args })"
+    ></filter-modal>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IndexFilters, PaginationData, ZonesIndexResource } from '@/types/types'
+import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/types'
 
 import { useZonesStore } from '@/stores/zones'
 import { Head, router } from '@inertiajs/vue3'
@@ -26,17 +26,17 @@ defineOptions({
 
 const props = defineProps<{
     zones: PaginationData<ZonesIndexResource>
-    filters: IndexFilters
+    params: IndexParams
 }>()
 
-const filters = reactive<IndexFilters>({
-    perPage: props.filters.perPage,
-    page: props.filters.page,
-    directions: props.filters.directions,
-    fields: props.filters.fields
+const params = reactive<IndexParams>({
+    perPage: props.params.perPage,
+    page: props.params.page,
+    directions: props.params.directions,
+    fields: props.params.fields
 })
 
-const search = ref(props.filters.search)
+const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
@@ -60,38 +60,38 @@ const closeDeleteModal = () => {
 }
 
 const getData = () => {
-    let data = { ...filters }
+    let data = { ...params }
 
     if (search.value !== '') {
         data.search = search.value
     }
 
     Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexFilters]) delete data[key as keyof IndexFilters]
+        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
     router.get(route('tenant.zones.index'), data, routerOptions)
 }
 
 const sort = (field: string) => {
-    filters.fields = (filters?.fields ?? []) || []
+    params.fields = (params?.fields ?? []) || []
 
-    filters.directions = { ...filters.directions }
+    params.directions = { ...params.directions }
 
-    if (filters.fields.includes(field)) {
-        const idx = filters.fields.indexOf(field)
+    if (params.fields.includes(field)) {
+        const idx = params.fields.indexOf(field)
 
-        if (filters.directions[field] === 'asc') {
-            filters.directions[field] = 'desc'
+        if (params.directions[field] === 'asc') {
+            params.directions[field] = 'desc'
         } else {
-            filters.fields.splice(idx, 1)
+            params.fields.splice(idx, 1)
 
-            delete filters.directions[field]
+            delete params.directions[field]
         }
     } else {
-        filters.fields.push(field)
+        params.fields.push(field)
 
-        filters.directions[field] = 'asc'
+        params.directions[field] = 'asc'
     }
 
     getData()
@@ -104,8 +104,8 @@ const deleteZone = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.zones.meta.last_page < filters.page) {
-                filters.page = filters.page - 1
+            if (props.zones.meta.last_page < params.page) {
+                params.page = params.page - 1
             }
 
             closeDeleteModal()
@@ -138,21 +138,21 @@ const showDeleteModal = (zoneId: string) => {
 watch(
     search,
     debounce(() => {
-        filters.page = 1
+        params.page = 1
 
         getData()
     }, 400)
 )
 
-watch(() => [filters.fields, filters.directions], getData)
+watch(() => [params.fields, params.directions], getData)
 
 watch(
-    () => [filters.perPage],
-    () => (filters.page = 1)
+    () => [params.perPage],
+    () => (params.page = 1)
 )
 
 watch(
-    () => [filters.page],
+    () => [params.page],
     () => {
         routerOptions.preserveState = false
 
@@ -205,7 +205,7 @@ watch(
 
     <template v-if="zones.data.length > 0">
         <data-table
-            :filters
+            :params
             :zones
             @sort="sort($event)"
             @showDeleteModal="showDeleteModal"
@@ -215,8 +215,8 @@ watch(
         <pagination-data-table
             v-if="zones.meta.last_page > 1"
             :pages="zones.meta.last_page"
-            v-model:page="filters.page"
-            v-model:per-page="filters.perPage"
+            v-model:page="params.page"
+            v-model:per-page="params.perPage"
         ></pagination-data-table>
     </template>
 

@@ -69,6 +69,8 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-note'
+    | 'icon-filters'
+    | 'icon-filter-list'
     | 'icon-couple'
     | 'icon-notes'
     | 'icon-calendar'
@@ -216,13 +218,18 @@ export interface FamilyIndexResource {
     address: string
 }
 
-export interface IndexFilters {
+export interface IndexParams {
     perPage: number
     search?: string
     page: number
     fields?: string[]
     directions?: {
         [key: string]: 'asc' | 'desc'
+    }
+    filters?: {
+        [key: string]: {
+            operator: 'like' | 'eq' | 'neq'
+        }
     }
 }
 

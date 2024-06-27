@@ -8,10 +8,10 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @property string $id
- * @property string first_name
- * @property string last_name
  * @property string $phone
  * @property string $email
+ *
+ * @method string getName()
  */
 class MembersIndexResource extends JsonResource
 {
@@ -19,7 +19,7 @@ class MembersIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->first_name.' '.$this->last_name,
+            'name' => $this->getName(),
             'email' => $this->email,
             'phone' => $this->phone,
             'zone' => ZoneResource::make($this->whenLoaded('zone')),

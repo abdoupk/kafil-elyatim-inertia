@@ -65,4 +65,9 @@ class Spouse extends Model
             'death_date' => 'date',
         ];
     }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->first_name;
+    }
 }

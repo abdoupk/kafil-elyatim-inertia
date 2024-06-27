@@ -57,4 +57,9 @@ class SecondSponsor extends Model
         'income',
         'family_id',
     ];
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

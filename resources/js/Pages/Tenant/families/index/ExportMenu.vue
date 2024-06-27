@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { FamiliesIndexFilters } from '@/types/types'
+import type { IndexParams } from '@/types/types'
 
 import print from 'print-js'
 import { ref } from 'vue'
@@ -14,14 +14,14 @@ import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
-    filters: FamiliesIndexFilters
+    params: IndexParams
 }>()
 
 const printStarting = ref<boolean>(false)
 
 const printPdf = () => {
     print({
-        printable: route('tenant.families.export.pdf', props.filters),
+        printable: route('tenant.families.export.pdf', props.params),
         type: 'pdf',
         onLoadingStart: () => {
             printStarting.value = true
@@ -51,11 +51,11 @@ const printPdf = () => {
                 {{ $t('print') }}
                 <spinner-button-loader :show="printStarting"></spinner-button-loader>
             </base-menu-item>
-            <base-menu-item as="a" :href="route('tenant.families.export.xlsx', filters)">
+            <base-menu-item as="a" :href="route('tenant.families.export.xlsx', params)">
                 <svg-loader name="icon-file-excel" class="me-2 h-4 w-4 fill-current" />
                 {{ $t('export', { type: 'excel' }) }}
             </base-menu-item>
-            <base-menu-item as="a" :href="route('tenant.families.export.pdf', filters)">
+            <base-menu-item as="a" :href="route('tenant.families.export.pdf', params)">
                 <svg-loader name="icon-file-pdf" class="me-2 h-4 w-4 fill-current" />
                 {{ $t('export', { type: 'pdf' }) }}
             </base-menu-item>

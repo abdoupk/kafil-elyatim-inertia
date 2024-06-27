@@ -162,11 +162,11 @@ class Family extends Model
                 ],
             ],
             'spouse' => [
-                'name' => $this->spouse?->first_name.' '.$this->spouse?->last_name,
+                'name' => $this->spouse?->getName(),
                 'function' => $this->spouse?->function,
             ],
             'second_sponsor' => [
-                'name' => $this->secondSponsor?->first_name.' '.$this->secondSponsor?->last_name,
+                'name' => $this->secondSponsor?->getName(),
                 'degree_of_kinship' => $this->secondSponsor?->degree_of_kinship,
                 'address' => $this->secondSponsor?->address,
             ],

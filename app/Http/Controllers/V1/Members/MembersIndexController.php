@@ -13,7 +13,7 @@ class MembersIndexController extends Controller
     {
         return Inertia::render('Tenant/members/index/MembersIndexPage', [
             'members' => MembersIndexResource::collection(getMembers()),
-            'filters' => getFilters(),
+            'params' => getParams(),
         ]);
     }
 }

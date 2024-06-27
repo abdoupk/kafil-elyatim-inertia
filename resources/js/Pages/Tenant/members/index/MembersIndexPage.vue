@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { IndexFilters, MembersIndexResource, PaginationData } from '@/types/types'
+import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -24,17 +24,18 @@ defineOptions({
 
 const props = defineProps<{
     members: PaginationData<MembersIndexResource>
-    filters: IndexFilters
+    params: IndexParams
 }>()
 
-const filters = reactive<IndexFilters>({
-    perPage: props.filters.perPage,
-    page: props.filters.page,
-    directions: props.filters.directions,
-    fields: props.filters.fields
+const filters = reactive<IndexParams>({
+    perPage: props.params.perPage,
+    page: props.params.page,
+    directions: props.params.directions,
+    fields: props.params.fields,
+    filters: props.params.filters
 })
 
-const search = ref(props.filters.search)
+const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
@@ -63,7 +64,7 @@ const getData = () => {
     }
 
     Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexFilters]) delete data[key as keyof IndexFilters]
+        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
     router.get(route('tenant.members.index'), data, routerOptions)
