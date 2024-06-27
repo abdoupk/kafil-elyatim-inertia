@@ -13,6 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string name
  * @property User $president
  * @property City $city
+ * @property string $created_at
  */
 class BranchesIndexResource extends JsonResource
 {
@@ -22,7 +23,11 @@ class BranchesIndexResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'city' => $this->whenLoaded('city', fn () => $this->city->getFullName()),
-            'president' => $this->whenLoaded('president', fn () => $this->president->getName()),
+            'president' => $this->whenLoaded('president', fn () => [
+                'id' => $this->president->id,
+                'name' => $this->president->getName(),
+            ]),
+            'families_count' => $this->whenLoaded('families', fn () => $this->families->count()),
             'created_at' => Carbon::createFromTimeString($this->created_at)->format('Y-m-d'),
         ];
     }

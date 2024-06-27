@@ -93,13 +93,7 @@ function generateFormattedSort(): array
     return ['created_at:desc'];
 }
 
-/**
- * Searches for a record in the specified model based on the search query and filter conditions.
- *
- * @param  User|Family|Branch|Zone  $model  The model to search in.
- * @return Builder The query builder instance.
- */
-function search(Family $model): Builder
+function search(User|Family|Branch|Zone $model): Builder
 {
     // Get the search query from the request input.
     $query = request()->input('search', '');

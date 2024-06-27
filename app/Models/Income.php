@@ -26,6 +26,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @method static IncomeFactory factory($count = null, $state = [])
  *
+ * @property string $cnr
+ * @property string $cnas
+ * @property string $casnos
+ * @property string $pension
+ * @property string $account
+ * @property string $other_income
+ * @property string $sponsor_id
+ * @property-read \App\Models\Sponsor $sponsor
+ *
+ * @method static Builder|Income whereAccount($value)
+ * @method static Builder|Income whereCasnos($value)
+ * @method static Builder|Income whereCnas($value)
+ * @method static Builder|Income whereCnr($value)
+ * @method static Builder|Income whereOtherIncome($value)
+ * @method static Builder|Income wherePension($value)
+ * @method static Builder|Income whereSponsorId($value)
+ *
  * @mixin Eloquent
  */
 class Income extends Model

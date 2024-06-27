@@ -127,10 +127,10 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_branches') })"></Head>
+    <Head :title="$t('list', { attribute: $t('branches') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_branches') }) }}
+        {{ $t('list', { attribute: $t('branches') }) }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">

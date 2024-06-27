@@ -155,5 +155,9 @@
   "sponsorship for the sponsor": "التكفل بالمتكفل",
   "sponsorship for the orphans": "التكفل بالايتام",
   "ccp": "رقم الحساب البريدي الجاري",
-  "successfully_created": "تمت اضافة :attribute بنجاح"
+  "successfully_created": "تمت اضافة :attribute بنجاح",
+  "families_count": "عدد العائلات",
+  "branch_president": "رئيس الفرع",
+  "location": "الموقع",
+  "the_branch": "الفرع"
 }

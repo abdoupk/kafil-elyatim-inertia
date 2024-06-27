@@ -41,6 +41,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Spouse whereId($value)
  * @method static SpouseFactory factory($count = null, $state = [])
  *
+ * @property-read \App\Models\Tenant $tenant
+ *
  * @mixin Eloquent
  */
 class Spouse extends Model
@@ -68,6 +70,6 @@ class Spouse extends Model
 
     public function getName(): string
     {
-        return $this->first_name.' '.$this->first_name;
+        return $this->first_name.' '.$this->last_name;
     }
 }

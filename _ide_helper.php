@@ -6,7 +6,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 11.11.1.
+ * Generated for Laravel 11.12.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -26968,7 +26968,7 @@ namespace {
         /**
          * Pass the query to a given callback.
          *
-         * @param  callable  $callback
+         * @param  \Illuminate\Database\Eloquent\callable($this):  mixed  $callback
          * @return \Illuminate\Database\Eloquent\Builder|static
          *
          * @static

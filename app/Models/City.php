@@ -55,6 +55,6 @@ class City extends Model
 
     public function getFullName()
     {
-        return $this->wilaya_name.', '.$this->daira_name.', '.$this->commune_name;
+        return $this->wilaya_name.'، '.$this->daira_name.'، '.$this->commune_name;
     }
 }

@@ -22,6 +22,26 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Housing whereId($value)
  * @method static Builder|Housing whereName($value)
  *
+ * @property string $value
+ * @property string|null $housing_receipt_number
+ * @property int|null $number_of_rooms
+ * @property string|null $other_properties
+ * @property string $family_id
+ * @property string $tenant_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Family $family
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|Housing whereCreatedAt($value)
+ * @method static Builder|Housing whereFamilyId($value)
+ * @method static Builder|Housing whereHousingReceiptNumber($value)
+ * @method static Builder|Housing whereNumberOfRooms($value)
+ * @method static Builder|Housing whereOtherProperties($value)
+ * @method static Builder|Housing whereTenantId($value)
+ * @method static Builder|Housing whereUpdatedAt($value)
+ * @method static Builder|Housing whereValue($value)
+ *
  * @mixin Eloquent
  */
 class Housing extends Model

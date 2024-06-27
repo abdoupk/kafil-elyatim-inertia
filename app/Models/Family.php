@@ -69,6 +69,10 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  *
  * @method static Builder|Family whereBranchId($value)
  *
+ * @property-read \App\Models\Spouse|null $deceased
+ * @property-read \App\Models\Housing|null $housing
+ * @property-read \App\Models\Preview|null $preview
+ *
  * @mixin Eloquent
  */
 class Family extends Model

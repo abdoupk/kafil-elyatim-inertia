@@ -42,6 +42,12 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|SecondSponsor whereUpdatedAt($value)
  * @method static SecondSponsorFactory factory($count = null, $state = [])
  *
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|SecondSponsor onlyTrashed()
+ * @method static Builder|SecondSponsor withTrashed()
+ * @method static Builder|SecondSponsor withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class SecondSponsor extends Model

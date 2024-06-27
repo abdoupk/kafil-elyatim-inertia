@@ -212,7 +212,6 @@ export interface Zone {
 export interface Branch {
     id: string
     name: string
-    president_name?: string
 }
 
 export interface FamilyIndexResource {
@@ -363,11 +362,13 @@ export interface MembersIndexResource {
 export interface BranchesIndexResource {
     id: string
     name: string
-    city: string
-    president: {
-        name: string
+    city?: string
+    president?: {
         id: string
+        name?: string
     }
+    families_count?: string
+    created_at?: string
 }
 
 export interface ZonesIndexResource extends Zone {

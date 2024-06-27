@@ -66,6 +66,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Orphan withTrashed()
  * @method static Builder|Orphan withoutTrashed()
  *
+ * @property-read \App\Models\Tenant $tenant
+ *
  * @mixin Eloquent
  */
 class Orphan extends Model

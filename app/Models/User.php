@@ -82,6 +82,11 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User withoutTrashed()
  *
  * @property-read Zone|null $zone
+ * @property string|null $qualification
+ * @property-read Collection<int, \App\Models\Preview> $previews
+ * @property-read int|null $previews_count
+ *
+ * @method static Builder|User whereQualification($value)
  *
  * @mixin Eloquent
  */

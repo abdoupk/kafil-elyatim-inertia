@@ -85,6 +85,20 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Sponsor whereFirstName($value)
  * @method static Builder|Sponsor whereLastName($value)
  *
+ * @property string $sponsor_type
+ * @property string|null $ccp
+ * @property string $gender
+ * @property string $family_id
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|Sponsor onlyTrashed()
+ * @method static Builder|Sponsor whereCcp($value)
+ * @method static Builder|Sponsor whereFamilyId($value)
+ * @method static Builder|Sponsor whereGender($value)
+ * @method static Builder|Sponsor whereSponsorType($value)
+ * @method static Builder|Sponsor withTrashed()
+ * @method static Builder|Sponsor withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Sponsor extends Model

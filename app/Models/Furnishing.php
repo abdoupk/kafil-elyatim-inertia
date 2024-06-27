@@ -27,6 +27,40 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Furnishing whereId($value)
  * @method static Builder|Furnishing whereName($value)
  *
+ * @property string $television
+ * @property string $refrigerator
+ * @property string $fireplace
+ * @property string $washing_machine
+ * @property string $water_heater
+ * @property string $oven
+ * @property string $wardrobe
+ * @property string $cupboard
+ * @property string $covers
+ * @property string $mattresses
+ * @property string $other_furnishings
+ * @property string $family_id
+ * @property string $tenant_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Family $family
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|Furnishing whereCovers($value)
+ * @method static Builder|Furnishing whereCreatedAt($value)
+ * @method static Builder|Furnishing whereCupboard($value)
+ * @method static Builder|Furnishing whereFamilyId($value)
+ * @method static Builder|Furnishing whereFireplace($value)
+ * @method static Builder|Furnishing whereMattresses($value)
+ * @method static Builder|Furnishing whereOtherFurnishings($value)
+ * @method static Builder|Furnishing whereOven($value)
+ * @method static Builder|Furnishing whereRefrigerator($value)
+ * @method static Builder|Furnishing whereTelevision($value)
+ * @method static Builder|Furnishing whereTenantId($value)
+ * @method static Builder|Furnishing whereUpdatedAt($value)
+ * @method static Builder|Furnishing whereWardrobe($value)
+ * @method static Builder|Furnishing whereWashingMachine($value)
+ * @method static Builder|Furnishing whereWaterHeater($value)
+ *
  * @mixin Eloquent
  */
 class Furnishing extends Model

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -40,6 +41,15 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  *
  * @method static Builder|Branch whereDeletedAt($value)
  *
+ * @property string $name
+ * @property-read \App\Models\City $city
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Family> $families
+ * @property-read int|null $families_count
+ * @property-read \App\Models\User $president
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|Branch whereName($value)
+ *
  * @mixin Eloquent
  */
 class Branch extends Model
@@ -64,5 +74,10 @@ class Branch extends Model
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function families(): HasMany
+    {
+        return $this->hasMany(Family::class);
     }
 }
