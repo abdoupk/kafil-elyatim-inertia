@@ -360,6 +360,16 @@ export interface MembersIndexResource {
     zone: Zone
 }
 
+export interface BranchesIndexResource {
+    id: string
+    name: string
+    city: string
+    president: {
+        name: string
+        id: string
+    }
+}
+
 export interface ZonesIndexResource extends Zone {
     created_at: string
     description: string

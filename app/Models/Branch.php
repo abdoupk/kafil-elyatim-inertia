@@ -60,4 +60,9 @@ class Branch extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
 }

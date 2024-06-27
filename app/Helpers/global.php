@@ -4,6 +4,11 @@
 
 /** @noinspection NullPointerExceptionInspection */
 
+use App\Models\Branch;
+use App\Models\Family;
+use App\Models\User;
+use App\Models\Zone;
+use Laravel\Scout\Builder;
 use Spatie\Browsershot\Browsershot;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -86,4 +91,31 @@ function generateFormattedSort(): array
     }
 
     return ['created_at:desc'];
+}
+
+/**
+ * Searches for a record in the specified model based on the search query and filter conditions.
+ *
+ * @param  User|Family|Branch|Zone  $model  The model to search in.
+ * @return Builder The query builder instance.
+ */
+function search(Family $model): Builder
+{
+    // Get the search query from the request input.
+    $query = request()->input('search', '');
+
+    // Define the search callback function.
+    $searchCallback = static function ($meilisearch, string $query, array $meilisearchOptions) {
+        // Set the filter conditions.
+        $meilisearchOptions['filter'] = generateFilterConditions();
+
+        // Set the sort conditions.
+        $meilisearchOptions['sort'] = generateFormattedSort();
+
+        // Perform the search.
+        return $meilisearch->search($query, $meilisearchOptions);
+    };
+
+    /* @phpstan-ignore-next-line */
+    return $model::search($query, $searchCallback);
 }

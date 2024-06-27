@@ -56,6 +56,7 @@
       "app/Helpers/families.php",
       "app/Helpers/members.php",
       "app/Helpers/zones.php",
+      "app/Helpers/branches.php",
       "app/Helpers/global.php"
     ],
     "psr-4": {

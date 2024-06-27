@@ -17,7 +17,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce } from '@/utils/helper'
+import { debounce, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -84,25 +84,7 @@ const getData = () => {
 }
 
 const sort = (field: string) => {
-    params.fields = (params?.fields ?? []) || []
-
-    params.directions = { ...params.directions }
-
-    if (params.fields.includes(field)) {
-        const idx = params.fields.indexOf(field)
-
-        if (params.directions[field] === 'asc') {
-            params.directions[field] = 'desc'
-        } else {
-            params.fields.splice(idx, 1)
-
-            delete params.directions[field]
-        }
-    } else {
-        params.fields.push(field)
-
-        params.directions[field] = 'asc'
-    }
+    handleSort(field, params)
 
     getData()
 }

@@ -150,6 +150,11 @@ return [
                 'searchableAttributes' => ['name', 'description'],
                 'sortableAttributes' => ['name', 'description', 'created_at'],
             ],
+            'branches' => [
+                'filterableAttributes' => ['id', 'name', 'description', 'tenant_id'],
+                'searchableAttributes' => ['name', 'description'],
+                'sortableAttributes' => ['name', 'description', 'created_at'],
+            ],
         ],
     ],
 

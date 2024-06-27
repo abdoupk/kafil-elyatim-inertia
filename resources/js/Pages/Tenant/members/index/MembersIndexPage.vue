@@ -15,7 +15,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce } from '@/utils/helper'
+import { debounce, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -27,7 +27,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const filters = reactive<IndexParams>({
+const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -57,7 +57,7 @@ const closeDeleteModal = () => {
 }
 
 const getData = () => {
-    let data = { ...filters }
+    let data = { ...params }
 
     if (search.value !== '') {
         data.search = search.value
@@ -71,25 +71,7 @@ const getData = () => {
 }
 
 const sort = (field: string) => {
-    filters.fields = (filters?.fields ?? []) || []
-
-    filters.directions = { ...filters.directions }
-
-    if (filters.fields.includes(field)) {
-        const idx = filters.fields.indexOf(field)
-
-        if (filters.directions[field] === 'asc') {
-            filters.directions[field] = 'desc'
-        } else {
-            filters.fields.splice(idx, 1)
-
-            delete filters.directions[field]
-        }
-    } else {
-        filters.fields.push(field)
-
-        filters.directions[field] = 'asc'
-    }
+    handleSort(field, params)
 
     getData()
 }
@@ -101,8 +83,8 @@ const deleteMember = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.members.meta.last_page < filters.page) {
-                filters.page = filters.page - 1
+            if (props.members.meta.last_page < params.page) {
+                params.page = params.page - 1
             }
 
             closeDeleteModal()
@@ -119,21 +101,21 @@ const showDeleteModal = (memberId: string) => {
 watch(
     search,
     debounce(() => {
-        filters.page = 1
+        params.page = 1
 
         getData()
     }, 400)
 )
 
-watch(() => [filters.fields, filters.directions], getData)
+watch(() => [params.fields, params.directions], getData)
 
 watch(
-    () => [filters.perPage],
-    () => (filters.page = 1)
+    () => [params.perPage],
+    () => (params.page = 1)
 )
 
 watch(
-    () => [filters.page],
+    () => [params.page],
     () => {
         routerOptions.preserveState = false
 
@@ -189,13 +171,13 @@ watch(
     </div>
 
     <template v-if="members.data.length > 0">
-        <data-table :filters :members @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+        <data-table :params :members @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
 
         <pagination-data-table
             v-if="members.meta.last_page > 1"
             :pages="members.meta.last_page"
-            v-model:page="filters.page"
-            v-model:per-page="filters.perPage"
+            v-model:page="params.page"
+            v-model:per-page="params.perPage"
         ></pagination-data-table>
     </template>
 
