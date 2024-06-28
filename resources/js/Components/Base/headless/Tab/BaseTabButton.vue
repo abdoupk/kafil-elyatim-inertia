@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { type ButtonHTMLAttributes, computed, inject } from 'vue'
 import type { ProvideList } from './BaseTabList.vue'
 import type { ProvideTab } from './BaseTabProvider.vue'
+
 import { twMerge } from 'tailwind-merge'
+import { type ButtonHTMLAttributes, computed, inject } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface ButtonProps extends /* @vue-ignore */ ButtonHTMLAttributes {

@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import AppearanceSelector from '@/Components/theme-switcher/AppearanceSelector.vue'
+import { ref } from 'vue'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseSlideover from '@/Components/Base/headless/Slideover/BaseSlideover.vue'
 import BaseSlideoverDescription from '@/Components/Base/headless/Slideover/BaseSlideoverDescription.vue'
 import BaseSlideoverPanel from '@/Components/Base/headless/Slideover/BaseSlideoverPanel.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
+import AppearanceSelector from '@/Components/theme-switcher/AppearanceSelector.vue'
 import ColorSchemeSelector from '@/Components/theme-switcher/ColorSchemeSelector.vue'
 import LayoutSelector from '@/Components/theme-switcher/LayoutSelector.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
 import ThemeSelector from '@/Components/theme-switcher/ThemeSelector.vue'
-import { ref } from 'vue'
 
 const slideoverStatus = ref<boolean>(false)
 

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { onMounted, provide, ref } from 'vue'
-import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
-import type { PopperElement } from 'tippy.js'
 import { router } from '@inertiajs/vue3'
+import type { PopperElement } from 'tippy.js'
+import { onMounted, provide, ref } from 'vue'
+
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 
 const { tag = 'span' } = defineProps<{ tag: string }>()
 

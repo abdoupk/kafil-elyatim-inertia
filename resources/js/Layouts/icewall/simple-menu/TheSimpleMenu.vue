@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import type { IFormattedMenu, ILocation } from '@/types/types'
-import { computed, onMounted, ref, watch } from 'vue'
-import { enter, leave, nestedMenu } from '@/Layouts/menu'
-import MenuDivider from '@/Layouts/icewall/side-menu/MenuDivider.vue'
-import SimpleMenuLink from '@/Layouts/icewall/simple-menu/SimpleMenuLink.vue'
-import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
-import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
-import { toRaw } from '@/utils/helper'
+
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { computed, onMounted, ref, watch } from 'vue'
+
+import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
+import MenuDivider from '@/Layouts/icewall/side-menu/MenuDivider.vue'
+import SimpleMenuLink from '@/Layouts/icewall/simple-menu/SimpleMenuLink.vue'
+import { enter, leave, nestedMenu } from '@/Layouts/menu'
+
+import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
+
+import { toRaw } from '@/utils/helper'
 
 const _route = { routeName: '' } as ILocation
 

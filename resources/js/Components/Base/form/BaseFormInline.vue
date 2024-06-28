@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, provide } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { computed, provide } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 export type ProvideFormInline = boolean

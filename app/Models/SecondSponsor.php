@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Database\Factories\SecondSponsorFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -37,13 +40,32 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|SecondSponsor wherePhoneNumber($value)
  * @method static Builder|SecondSponsor whereTenantId($value)
  * @method static Builder|SecondSponsor whereUpdatedAt($value)
- * @method static \Database\Factories\SecondSponsorFactory factory($count = null, $state = [])
+ * @method static SecondSponsorFactory factory($count = null, $state = [])
+ *
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|SecondSponsor onlyTrashed()
+ * @method static Builder|SecondSponsor withTrashed()
+ * @method static Builder|SecondSponsor withoutTrashed()
  *
  * @mixin Eloquent
  */
 class SecondSponsor extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'degree_of_kinship',
+        'phone_number',
+        'address',
+        'income',
+        'family_id',
+    ];
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { layouts } from '@/utils/constants'
-import { twMerge } from 'tailwind-merge'
 import { useSettingsStore } from '@/stores/settings'
+import { twMerge } from 'tailwind-merge'
+
+import { layouts } from '@/utils/constants'
 
 const settingsStore = useSettingsStore()
 </script>
@@ -25,11 +26,15 @@ const settingsStore = useSettingsStore()
                         "
                     >
                         <div class="image-fit h-full w-full overflow-hidden rounded-md">
-                            <img :alt="layout" class="h-full w-full" :src="`/images/layouts/${layout}.png`" />
+                            <img
+                                :alt="layout"
+                                class="h-full w-full"
+                                :src="`/images/layouts/${layout.replace('_', '-')}.png`"
+                            />
                         </div>
                     </a>
                     <div class="mt-2.5 text-center text-xs capitalize">
-                        {{ layout }}
+                        {{ layout.replace('_', '-') }}
                     </div>
                 </div>
             </template>

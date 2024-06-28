@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
+
+import { useMenuStore } from '@/stores/menu'
+import { usePage } from '@inertiajs/vue3'
 import { computed, onMounted, ref, watch } from 'vue'
-import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
+
 import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
 import TopMenuLink from '@/Layouts/enigma/top-menu/TopMenuLink.vue'
 import { nestedMenu } from '@/Layouts/menu'
+
+import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
+
 import { toRaw } from '@/utils/helper'
-import { useMenuStore } from '@/stores/menu'
-import { usePage } from '@inertiajs/vue3'
 
 const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 

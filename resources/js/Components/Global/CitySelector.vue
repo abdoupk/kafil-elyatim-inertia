@@ -1,11 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { Commune, Daira, Wilaya } from '@/types/types'
+
+import { useCityStore } from '@/stores/city'
+import TomSelect from 'tom-select'
 import { onMounted, ref, watch } from 'vue'
+
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
-import TomSelect from 'tom-select'
-import { useCityStore } from '@/stores/city'
 
 const communesTom = ref<TomSelect>()
 
@@ -17,7 +19,7 @@ const wilayas = ref<Wilaya[]>([])
 
 const cityStore = useCityStore()
 
-defineProps<{ errorMessage?: string }>()
+defineProps<{ errorMessage?: string | string[] }>()
 
 const emit = defineEmits(['select:commune'])
 
@@ -146,16 +148,16 @@ onMounted(() => {
     <div class="grid w-full flex-1 grid-cols-1 gap-4 gap-y-5 lg:grid-cols-3">
         <div>
             <base-form-label for="wilayas">
-                {{ __('wilaya') }}
+                {{ $t('wilaya') }}
             </base-form-label>
 
             <div>
                 <base-tom-select
-                    :data-placeholder="__('auth.placeholders.tomselect', { attribute: __('wilaya') })"
                     id="wilayas"
                     v-model="wilaya"
-                    class="h-full w-full"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('wilaya') })"
                     :options="{ maxOptions: 58 }"
+                    class="h-full w-full"
                     @update:modelValue="updateWilaya"
                 >
                     <option v-for="wilaya in wilayas" :key="wilaya.wilaya_code" :value="wilaya.wilaya_code">
@@ -165,41 +167,41 @@ onMounted(() => {
             </div>
 
             <base-form-input-error>
-                <div class="mt-2 text-danger" v-show="errorMessage && cityStore.wilaya.wilaya_code === ''">
-                    {{ __('validation.required', { attribute: __('wilaya') }) }}
+                <div v-show="errorMessage && cityStore.wilaya.wilaya_code === ''" class="mt-2 text-danger">
+                    {{ $t('validation.required', { attribute: $t('wilaya') }) }}
                 </div>
             </base-form-input-error>
         </div>
         <div>
-            <base-form-label for="dairas">{{ __('daira') }}</base-form-label>
+            <base-form-label for="dairas">{{ $t('daira') }}</base-form-label>
             <div>
                 <select
-                    :data-placeholder="__('auth.placeholders.tomselect', { attribute: __('daira') })"
-                    class="tom-select w-full"
                     id="dairas"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('daira') })"
+                    class="tom-select w-full"
                 ></select>
             </div>
             <base-form-input-error>
-                <div class="mt-2 text-danger" v-if="errorMessage && cityStore.daira.daira_name === ''">
-                    {{ __('validation.required', { attribute: __('daira') }) }}
+                <div v-if="errorMessage && cityStore.daira.daira_name === ''" class="mt-2 text-danger">
+                    {{ $t('validation.required', { attribute: $t('daira') }) }}
                 </div>
             </base-form-input-error>
         </div>
 
         <div>
             <base-form-label for="communes">
-                {{ __('commune') }}
+                {{ $t('commune') }}
             </base-form-label>
             <div>
                 <select
-                    :data-placeholder="__('auth.placeholders.tomselect', { attribute: __('commune') })"
-                    class="tom-select w-full"
                     id="communes"
+                    :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('commune') })"
+                    class="tom-select w-full"
                 ></select>
             </div>
             <base-form-input-error>
-                <div class="mt-2 text-danger" v-if="errorMessage">
-                    {{ errorMessage }}
+                <div v-if="errorMessage" class="mt-2 text-danger">
+                    {{ Array.isArray(errorMessage) ? errorMessage[0] : errorMessage }}
                 </div>
             </base-form-input-error>
         </div>

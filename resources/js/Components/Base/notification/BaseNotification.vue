@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { type HTMLAttributes, inject, onMounted, ref } from 'vue'
-import Toastify, { type Options } from 'toastify-js'
 import { init, reInit } from './index'
+
+import Toastify, { type Options } from 'toastify-js'
+import { type HTMLAttributes, inject, onMounted, ref } from 'vue'
 
 export interface NotificationElement extends HTMLDivElement {
     toastify: ReturnType<typeof Toastify>

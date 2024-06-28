@@ -1,12 +1,13 @@
-import { ref, type App } from 'vue'
 import type { LangType } from '@/types/types'
+
+import { type App, ref } from 'vue'
 
 const locale = ref('ar') // default locale
 
 const langData = ref<Record<string, string>>({})
 
 async function fetchLocale() {
-    const response = await fetch(`locales/${locale.value}.json`)
+    const response = await fetch(`/locales/${locale.value}.json`)
 
     langData.value = await response.json()
 }
@@ -17,7 +18,11 @@ function setLocale(newLocale: LangType) {
     fetchLocale().then()
 }
 
-function __(key: string, replacements: Record<string, string> = {}) {
+export function getLocale() {
+    return locale.value
+}
+
+export function __(key: string, replacements: Record<string, string> = {}) {
     let translation = langData.value[key] || key
 
     Object.keys(replacements).forEach((replacement) => {
@@ -27,21 +32,51 @@ function __(key: string, replacements: Record<string, string> = {}) {
     return translation
 }
 
-function n__(key: string, number: number, replacements: Record<string, string> = {}) {
-    const options = key.split('|')
-
-    key = options[1]
-
-    if (number === 1) {
-        key = options[0]
+const getInputPhrase = (count, rules) => {
+    for (const rule of rules) {
+        if (count >= rule.min && count <= rule.max) {
+            return rule.phrase
+        }
     }
+    return '' // or some default phrase
+}
 
-    return __(key, replacements)
+export function n__(key: string, number: number, replacements: Record<string, string> = {}) {
+    const rules = []
+    const parts = __(key).split('|')
+    parts.forEach((part) => {
+        const match = part.match(/\{.*?}|\[.*?]/)
+        if (match === null) {
+            return
+        }
+        const condition = part.match(/\{.*?}|\[.*?]/)[0]
+        const phrase = __(part.replace(condition, ''), replacements)
+        let min, max
+
+        if (condition.startsWith('{') && condition.endsWith('}')) {
+            min = parseInt(condition.substring(1, condition.length - 1), 10)
+            max = min
+        } else if (condition.startsWith('[') && condition.endsWith(']')) {
+            const range = condition.substring(1, condition.length - 1).split(',')
+            min = parseInt(range[0], 10)
+            max = range[1] === '*' ? Infinity : parseInt(range[1], 10)
+        }
+
+        rules.push({
+            min,
+            max,
+            phrase: phrase.trim()
+        })
+    })
+    if (rules.length === 0) {
+        return parts[0]
+    }
+    return getInputPhrase(number, rules)
 }
 
 export default {
     install(app: App) {
-        app.config.globalProperties.__ = (key: string, replacements: Record<string, string> = {}) =>
+        app.config.globalProperties.$t = (key: string, replacements: Record<string, string> = {}) =>
             __(key, replacements)
 
         app.config.globalProperties.n__ = (key: string, number: number, replacements: Record<string, string> = {}) =>
@@ -53,5 +88,6 @@ export default {
 
         fetchLocale().then()
     },
-    setLocale
+    setLocale,
+    getLocale
 }

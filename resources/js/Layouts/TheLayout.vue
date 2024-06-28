@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { useSettingsStore } from '@/stores/settings'
+import type { PageProps } from '@/types'
+import { usePage } from '@inertiajs/vue3'
 import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
-import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
+
 import EnigmaTheme from '@/Layouts/enigma/EnigmaTheme.vue'
 import IcewallTheme from '@/Layouts/icewall/IcewallTheme.vue'
-import type { PageProps } from '@/types'
 import RubickTheme from '@/Layouts/rubick/RubickTheme.vue'
 import TinkerTheme from '@/Layouts/tinker/TinkerTheme.vue'
-import { usePage } from '@inertiajs/vue3'
-import { useSettingsStore } from '@/stores/settings'
+
+import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
 
 const settingsStore = useSettingsStore()
 

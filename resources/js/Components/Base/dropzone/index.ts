@@ -1,8 +1,8 @@
-import '@pqina/pintura/pintura.css'
-import Dropzone, { type DropzoneFile } from 'dropzone'
-import { createDefaultImageReader, openDefaultEditor } from '@pqina/pintura'
 // @ts-expect-error
 import useEditorWithDropzone from '@pqina/dropzone-pintura/dist/useEditorWithDropzone.js'
+import { createDefaultImageReader, openDefaultEditor } from '@pqina/pintura'
+import '@pqina/pintura/pintura.css'
+import Dropzone, { type DropzoneFile } from 'dropzone'
 
 const init = (el: HTMLDivElement, emit: any, props: any) => {
     Dropzone.autoDiscover = false

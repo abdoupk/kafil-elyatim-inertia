@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed, inject, watch } from 'vue'
-import type { ExtractProps } from '@/types/utils'
-import { DisclosureButton as HeadlessDisclosureButton } from '@headlessui/vue'
-import type { ProvideDisclosure } from './BaseDisclosureProvider.vue'
 import type { ProvideGroup } from './BaseDisclosureGroup.vue'
+import type { ProvideDisclosure } from './BaseDisclosureProvider.vue'
+
+import type { ExtractProps } from '@/types/utils'
+
+import { DisclosureButton as HeadlessDisclosureButton } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { computed, inject, watch } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface ButtonProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessDisclosureButton> {

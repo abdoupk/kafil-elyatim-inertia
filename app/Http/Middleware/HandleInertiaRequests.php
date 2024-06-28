@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Enums\Lang;
 use App\Http\Resources\V1\LanguageResource;
+use Arr;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
@@ -19,15 +20,10 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => $request->user(),
-                'settings' => [
-                    'layout' => 'top-menu',
-                    'appearance' => 'dark',
-                    'theme' => 'tinker',
-                    'color_scheme' => 'theme-1',
-                ],
+                'user' => $this->getAuthData(),
+                'settings' => auth()->user()?->settings,
             ],
-            'language' => app()->getLocale(),
+            'language' => 'ar', // TODO: change to get automatically app()->getLocale()
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
@@ -35,5 +31,24 @@ class HandleInertiaRequests extends Middleware
                 ]);
             },
         ]);
+    }
+
+    /**
+     * @noinspection StaticClosureCanBeUsedInspection
+     * @noinspection UnknownInspectionInspection
+     */
+    protected function getAuthData(): ?array
+    {
+        if (auth()->user()) {
+            return Arr::map(auth()->user()->load(['roles'])->only(['roles', 'id', 'first_name', 'last_name', 'tenant_id']), function ($value, $key) {
+                if ($key === 'roles') {
+                    return $value->pluck('name')->toArray();
+                }
+
+                return $value;
+            });
+        }
+
+        return null;
     }
 }

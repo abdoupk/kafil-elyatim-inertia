@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import type { IFormattedMenu } from '@/types/types'
-import SideMenuTooltip from '@/Layouts/icewall/side-menu/SideMenuTooltip.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import { linkTo } from '@/Layouts/menu'
+
 import { twMerge } from 'tailwind-merge'
+
+import SideMenuTooltip from '@/Layouts/icewall/side-menu/SideMenuTooltip.vue'
+import { linkTo } from '@/Layouts/menu'
+
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     level: 'first' | 'second' | 'third'

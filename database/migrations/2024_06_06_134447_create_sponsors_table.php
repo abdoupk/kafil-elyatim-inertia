@@ -13,7 +13,8 @@ return new class extends Migration
             $table->foreignUuid('zone')->nullable(false);
             $table->integer('file_number')->nullable(false);
             $table->date('start_date')->nullable(false);
-            $table->text('name')->nullable(false);
+            $table->text('first_name')->nullable(false);
+            $table->text('last_name')->nullable(false);
             $table->text('address')->nullable(false);
             $table->text('phone_number')->nullable(false);
             $table->text('sponsorship_type')->nullable(false);
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->text('function')->nullable(false);
             $table->text('health_status')->nullable(false);
             $table->text('diploma')->nullable();
+            $table->text('ccp')->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable(false);
             $table->foreignUuid('tenant_id')->nullable(false);
             $table->uuid('created_by')->nullable(false);
             $table->uuid('deleted_by')->nullable();

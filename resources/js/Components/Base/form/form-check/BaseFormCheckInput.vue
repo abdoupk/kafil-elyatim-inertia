@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { type InputHTMLAttributes, computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { type InputHTMLAttributes, computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface InputProps extends /* @vue-ignore */ InputHTMLAttributes {
@@ -60,5 +61,5 @@ const localValue = computed({
 </script>
 
 <template>
-    <input :class="computedClass" :type="props.type" v-bind="attrs.attrs" v-model="localValue" />
+    <input :class="computedClass" :type="props.type" v-bind="$attrs" v-model="localValue" />
 </template>

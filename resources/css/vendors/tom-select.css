@@ -205,7 +205,6 @@
     }
 }
 
-
 :dir(ltr) {
     .tom-select {
         &.ts-wrapper,
@@ -223,7 +222,8 @@
         }
     }
 
-    .tom-select.ts-wrapper .ts-control, .tom-select.plugin-dropdown_input.focus.dropdown-active .ts-control {
+    .tom-select.ts-wrapper .ts-control,
+    .tom-select.plugin-dropdown_input.focus.dropdown-active .ts-control {
         padding-right: 0.5rem !important;
     }
 }

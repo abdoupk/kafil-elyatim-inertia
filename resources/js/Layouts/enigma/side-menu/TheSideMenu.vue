@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import type { IFormattedMenu, ILocation } from '@/types/types'
-import { computed, onMounted, ref, watch } from 'vue'
-import { enter, leave, nestedMenu } from '@/Layouts/menu'
-import MenuDivider from '@/Layouts/enigma/side-menu/MenuDivider.vue'
-import SideMenuLink from '@/Layouts/enigma/side-menu/SideMenuLink.vue'
-import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
-import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
-import { toRaw } from '@/utils/helper'
+
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { computed, onMounted, ref, watch } from 'vue'
+
+import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
+import MenuDivider from '@/Layouts/enigma/side-menu/MenuDivider.vue'
+import SideMenuLink from '@/Layouts/enigma/side-menu/SideMenuLink.vue'
+import { enter, leave, nestedMenu } from '@/Layouts/menu'
+
+import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
+
+import { toRaw } from '@/utils/helper'
 
 const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 
@@ -105,7 +109,7 @@ onMounted(() => {
             </nav>
 
             <div
-                class="md:pt-20'before:block relative mt-5 min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:h-px before:w-full before:content-[\'\'] dark:bg-darkmode-700 md:mt-1 md:max-w-none md:rounded-none md:px-[22px]"
+                class="relative mt-5 min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:block before:h-px before:w-full before:content-[\'\'] dark:bg-darkmode-700 md:mt-1 md:max-w-none md:rounded-none md:px-[22px] md:pt-20"
             >
                 <slot></slot>
             </div>

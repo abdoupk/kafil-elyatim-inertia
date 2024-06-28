@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { type TableHTMLAttributes, computed, provide } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { type TableHTMLAttributes, computed, provide } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 export type ProvideTable = {

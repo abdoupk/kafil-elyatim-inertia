@@ -1,6 +1,8 @@
-import type { AppearanceType, ColorSchemesType } from '@/types/types'
+import type { AppearanceType, ColorSchemesType, IndexParams } from '@/types/types'
+
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
+import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
 
 dayjs.extend(duration)
@@ -117,20 +119,14 @@ const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: Appearan
     appearance === 'dark' && el.classList.add('dark')
 }
 
-const groupArrayOfObject = (array: any[], group_by: string) => {
-    return array.reduce((group, item) => {
-        if (!group[item[group_by]]) {
-            group[item[group_by]] = []
-        }
+const isEmpty = (obj) => !Object.entries(obj || {}).length && !obj?.length && !obj?.size
 
-        group[item[group_by]].push(item)
-
-        return group
-    }, {})
+const getResultsSize = (results: Array<Hit>) => {
+    return results?.reduce(
+        (acc, innerArr) => acc + innerArr?.filter((obj: Hit) => obj?.hasOwnProperty('id'))?.length,
+        0
+    )
 }
-
-const size = (item: any) => (item.constructor === Object ? Object.keys(item).length : item.length)
-
 const omit = (obj: any, props: any): any => {
     obj = { ...obj }
 
@@ -156,16 +152,72 @@ const allowOnlyNumbersOnKeyDown = (event: KeyboardEvent) => {
     }
 }
 
+const debounce = (func, delay, { leading } = {}) => {
+    let timerId
+
+    return (...args) => {
+        if (!timerId && leading) {
+            func(...args)
+        }
+        clearTimeout(timerId)
+
+        timerId = setTimeout(() => func(...args), delay)
+    }
+}
+
+const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+const checkErrors = (pattern: string, errors?: Record<string, string>) => {
+    const regex = new RegExp(pattern)
+
+    return (
+        errors &&
+        Object.keys(errors).some((error) => {
+            if (regex.test(error)) return true
+        })
+    )
+}
+
+const handleSort = (field: string, params: IndexParams) => {
+    params.fields = (params?.fields ?? []) || []
+
+    params.directions = { ...params.directions }
+
+    if (params.fields.includes(field)) {
+        const idx = params.fields.indexOf(field)
+
+        if (params.directions[field] === 'asc') {
+            params.directions[field] = 'desc'
+        } else {
+            params.fields.splice(idx, 1)
+
+            delete params.directions[field]
+        }
+    } else {
+        params.fields.push(field)
+
+        params.directions[field] = 'asc'
+    }
+
+    return params
+}
+
 export {
-    size,
     isEqual,
+    handleSort,
     omit,
     toRaw,
     toRGB,
-    groupArrayOfObject,
     slideUp,
+    debounce,
     slideDown,
     setDarkModeClass,
+    isEmpty,
+    getResultsSize,
     setColorSchemeClass,
-    allowOnlyNumbersOnKeyDown
+    allowOnlyNumbersOnKeyDown,
+    capitalizeFirstLetter,
+    checkErrors
 }

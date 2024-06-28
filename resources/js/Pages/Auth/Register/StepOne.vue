@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { RegistrationStepProps } from '@/types/types'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
 import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import CitySelector from '@/Components/Global/CitySelector.vue'
-import type { RegistrationStepProps } from '@/types/types'
 
 defineProps<RegistrationStepProps>()
 
@@ -45,12 +46,12 @@ const updateDomainName = (event: Event) => {
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 1"
     >
-        <div class="text-base font-medium">{{ __('auth.register.stepOne.title') }}</div>
+        <div class="text-base font-medium">{{ $t('auth.register.stepOne.title') }}</div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="association">
-                    {{ __('validation.attributes.association_name') }}
+                    {{ $t('validation.attributes.association_name') }}
                 </base-form-label>
 
                 <base-form-input
@@ -59,8 +60,8 @@ const updateDomainName = (event: Event) => {
                     id="association"
                     type="text"
                     :placeholder="
-                        __('auth.placeholders.fill', {
-                            attribute: __('association_email')
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.association_name')
                         })
                     "
                     @input="form?.validate('association')"
@@ -78,7 +79,7 @@ const updateDomainName = (event: Event) => {
             </div>
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="domain">
-                    {{ __('validation.attributes.domain') }}
+                    {{ $t('validation.attributes.domain') }}
                 </base-form-label>
 
                 <base-input-group class="rtl:flex-row-reverse">
@@ -122,7 +123,7 @@ const updateDomainName = (event: Event) => {
             </div>
             <div class="intro-y col-span-12 sm:col-span-6">
                 <base-form-label for="address">
-                    {{ __('validation.attributes.address') }}
+                    {{ $t('validation.attributes.address') }}
                 </base-form-label>
                 <base-form-input
                     v-model="address"

@@ -1,8 +1,9 @@
-import flatten from 'flat'
-import resolveConfig from 'tailwindcss/resolveConfig'
-import tailwindColors from 'tailwindcss/colors'
-import tailwindConfig from 'tailwind-config'
 import { toRGB } from './helper'
+
+import flatten from 'flat'
+import tailwindConfig from 'tailwind-config'
+import tailwindColors from 'tailwindcss/colors'
+import resolveConfig from 'tailwindcss/resolveConfig'
 
 const twConfig = resolveConfig(tailwindConfig)
 

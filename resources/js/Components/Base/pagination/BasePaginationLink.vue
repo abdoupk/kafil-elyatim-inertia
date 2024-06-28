@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { type LiHTMLAttributes, computed } from 'vue'
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import { twMerge } from 'tailwind-merge'
+import { type LiHTMLAttributes, computed } from 'vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface LinkProps extends /* @vue-ignore */ LiHTMLAttributes {
@@ -27,7 +29,7 @@ const computedClass = computed(() =>
 </script>
 
 <template>
-    <li class="flex-1 sm:flex-initial">
+    <li class="flex-1">
         <base-button :as="as" :class="computedClass" v-bind="attrs.attrs">
             <slot></slot>
         </base-button>

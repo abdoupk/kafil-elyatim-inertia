@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\PersonalAccessToken;
 use Gate;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
@@ -46,11 +47,27 @@ class AppServiceProvider extends ServiceProvider
             // Remove hyphens before digits
             $domain = preg_replace('/-(?=\d+)/', '', (string) $domain);
 
-            return trim((string) $domain, '-').'.'.config('tenancy.central_domains')[0];
+            return trim((string) $domain, '-').
+                '.'.config('tenancy.central_domains')[0];
         });
 
         Gate::before(static function ($user, $ability) {
             return $user->hasRole('super_admin') ? true : null;
         });
+
+        Model::preventLazyLoading(! $this->app->isProduction());
+
+        Model::handleLazyLoadingViolationUsing(
+            static function ($model, $relation): void {
+                $class = get_class($model);
+
+                /* @phpstan-ignore-next-line */
+                ray()->notify(
+                    "Attempted to lazy load [{$relation}] on model [{$class}]."
+                );
+            }
+        );
+
+        Model::shouldBeStrict(! $this->app->isProduction());
     }
 }

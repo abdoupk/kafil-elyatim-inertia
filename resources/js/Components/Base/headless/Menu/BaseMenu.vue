@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { ExtractProps } from '@/types/utils'
+
 import { Menu as HeadlessMenu } from '@headlessui/vue'
-import { computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface MenuProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessMenu> {

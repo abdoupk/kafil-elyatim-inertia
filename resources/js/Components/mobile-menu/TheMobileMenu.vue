@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import type { IFormattedMenu, ILocation } from '@/types/types'
-import { Link, usePage } from '@inertiajs/vue3'
-import { computed, onMounted, ref, watch } from 'vue'
-import { enter, leave, linkTo, nestedMenu } from '@/Layouts/menu'
-import SimpleBar from 'simplebar'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import { toRaw } from '@/utils/helper'
-import { twMerge } from 'tailwind-merge'
+
 import { useMenuStore } from '@/stores/menu'
+import { Link, usePage } from '@inertiajs/vue3'
+import SimpleBar from 'simplebar'
+import { twMerge } from 'tailwind-merge'
+import { computed, onMounted, ref, watch } from 'vue'
+
+import { enter, leave, linkTo, nestedMenu } from '@/Layouts/menu'
+
+import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { toRaw } from '@/utils/helper'
 
 const activeMobileMenu = ref(false)
 
@@ -118,6 +122,7 @@ const setActiveMobileMenu = (value: boolean) => {
                             "
                         >
                             <div class="menu__icon">
+                                <!-- TODO: fix width and height  -->
                                 <svg-loader :name="menu.icon"></svg-loader>
                             </div>
                             <div class="menu__title ms-3 flex w-full items-center">

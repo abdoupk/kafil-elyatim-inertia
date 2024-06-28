@@ -1,12 +1,12 @@
-import './bootstrap'
 import '../css/app.css'
+import './bootstrap'
+import i18n from './utils/i18n'
 
-import { createApp, type DefineComponent, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { ZiggyVue } from 'ziggy-js'
-import i18n from './utils/i18n'
 import { createPinia } from 'pinia'
+import { type DefineComponent, createApp, h } from 'vue'
+import { ZiggyVue } from 'ziggy-js'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 

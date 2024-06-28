@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { ExtractProps } from '@/types/utils'
+
 import { DialogTitle as HeadlessDialogTitle } from '@headlessui/vue'
-import { computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface TitleProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessDialogTitle> {

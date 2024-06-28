@@ -41,7 +41,7 @@ const handleClick = (index: number) => emit('goTo', index)
             class="ms-3 text-base text-slate-600 transition-all duration-150 dark:text-slate-400 lg:mx-auto lg:mt-3 lg:w-32"
             :class="{ 'font-medium': currentStep === index }"
         >
-            {{ __(title) }}
+            {{ $t(title) }}
         </div>
 
         <div

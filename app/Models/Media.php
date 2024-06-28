@@ -76,6 +76,16 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
  * @method static MediaCollection<int, static> get($columns = ['*'])
  * @method static MediaCollection<int, static> all($columns = ['*'])
  * @method static MediaCollection<int, static> get($columns = ['*'])
+ * @method static MediaCollection<int, static> all($columns = ['*'])
+ * @method static MediaCollection<int, static> get($columns = ['*'])
+ * @method static MediaCollection<int, static> all($columns = ['*'])
+ * @method static MediaCollection<int, static> get($columns = ['*'])
+ * @method static MediaCollection<int, static> all($columns = ['*'])
+ * @method static MediaCollection<int, static> get($columns = ['*'])
+ * @method static MediaCollection<int, static> all($columns = ['*'])
+ * @method static MediaCollection<int, static> get($columns = ['*'])
+ * @method static MediaCollection<int, static> all($columns = ['*'])
+ * @method static MediaCollection<int, static> get($columns = ['*'])
  *
  * @mixin Eloquent
  */

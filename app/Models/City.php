@@ -52,4 +52,9 @@ class City extends Model
         'longitude',
         'post_code',
     ];
+
+    public function getFullName()
+    {
+        return $this->wilaya_name.'، '.$this->daira_name.'، '.$this->commune_name;
+    }
 }

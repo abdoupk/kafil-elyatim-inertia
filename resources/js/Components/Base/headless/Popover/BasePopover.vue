@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { ExtractProps } from '@/types/utils'
+
 import { Popover as HeadlessPopover } from '@headlessui/vue'
-import { computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface PopoverProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessPopover> {

@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
 import type { ProvideInputGroup } from './BaseInputGroup.vue'
+
 import { twMerge } from 'tailwind-merge'
+import { computed, inject } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({

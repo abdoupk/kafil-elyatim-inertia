@@ -1,5 +1,19 @@
-import type { LitepickerElement } from '@/Components/Base/lite-picker'
 import type { Form } from 'laravel-precognition-vue/dist/types'
+
+import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
+
+import type { LitepickerElement } from '@/Components/Base/lite-picker'
+
+import {
+    colorSchemes,
+    createFamilyStepOneErrorProps,
+    createFamilyStepTwoErrorProps,
+    layouts,
+    registerStepOneErrorProps,
+    registerStepThreeErrorProps,
+    registerStepTwoErrorProps,
+    themes
+} from '@/utils/constants'
 
 export interface IPlacement {
     placement:
@@ -39,11 +53,11 @@ export interface ILocation {
 
 export type AppearanceType = 'light' | 'dark'
 
-export type ColorSchemesType = 'default' | 'theme-1' | 'theme-2' | 'theme-3' | 'theme-4'
+export type ColorSchemesType = typeof colorSchemes
 
-export type ThemesType = 'enigma' | 'icewall' | 'tinker' | 'rubick'
+export type ThemesType = typeof themes
 
-export type LayoutsType = 'simple-menu' | 'side-menu' | 'top-menu'
+export type LayoutsType = typeof layouts
 
 export interface ISettingState {
     appearance: AppearanceType
@@ -53,6 +67,44 @@ export interface ISettingState {
 }
 
 export type SVGType =
+    | 'icon-hands-holding-child'
+    | 'icon-note'
+    | 'icon-filters'
+    | 'icon-filter-list'
+    | 'icon-couple'
+    | 'icon-notes'
+    | 'icon-calendar'
+    | 'icon-circle-exclamation'
+    | 'icon-circle-question'
+    | 'icon-left-from-bracket'
+    | 'icon-backpack'
+    | 'icon-ram'
+    | 'icon-moon-stars'
+    | 'icon-moon'
+    | 'icon-map-location-dot'
+    | 'icon-chart-pie-simple'
+    | 'icon-hand-holding-circle-dollar'
+    | 'icon-grid-round-2-plus'
+    | 'icon-code-merge'
+    | 'icon-children'
+    | 'icon-user-plus'
+    | 'icon-gears'
+    | 'icon-calendar-star'
+    | 'icon-hands-holding-dollar'
+    | 'icon-basket-shopping'
+    | 'icon-house'
+    | 'icon-users'
+    | 'icon-user-lock'
+    | 'icon-branches'
+    | 'icon-file-export'
+    | 'icon-family'
+    | 'icon-users-gear'
+    | 'icon-circle-nodes'
+    | 'icon-file-pdf'
+    | 'icon-pen'
+    | 'icon-file-excel'
+    | 'icon-print'
+    | 'icon-square-check'
     | 'icon-arrows-up-down'
     | 'icon-bars-staggered'
     | 'icon-bell'
@@ -77,6 +129,8 @@ export type SVGType =
     | 'icon-trash-can'
     | 'icon-plus'
     | 'loader-oval'
+    | 'no-data'
+    | 'no-data-astro'
 
 export interface Wilaya {
     wilaya_code: string
@@ -110,6 +164,8 @@ export type RegisterForm = {
     association_email: string
     landline: string
     phones: string[]
+    ccp: string
+    cpa: string
     links: { [key: string]: string }
 }
 
@@ -119,8 +175,212 @@ export interface RegistrationStepProps {
     form?: Form<RegisterForm>
 }
 
-export type RegisterStepOneProps = 'association' | 'domain' | 'address' | 'city'
+export type RegisterStepOneProps = typeof registerStepOneErrorProps
 
-export type RegisterStepTwoProps = 'email' | 'first_name' | 'last_name' | 'phone' | 'password_confirmation' | 'password'
+export type RegisterStepTwoProps = typeof registerStepTwoErrorProps
 
-export type RegisterStepThreeProps = 'association_email' | 'landline' | 'phones' | 'links'
+export type RegisterStepThreeProps = typeof registerStepThreeErrorProps
+
+export interface PaginationData<T> {
+    data: Array<T>
+    meta: {
+        current_page: number
+        first_page_url: string
+        from: number
+        last_page: number
+        last_page_url: string
+        next_page_url: string | null
+        path: string
+        per_page: number
+        prev_page_url: string | null
+        to: number
+        total: number
+    }
+    links: Array<{
+        url: string
+        label: string
+        active: boolean
+    }>
+}
+
+export interface Zone {
+    id: string
+    name: string
+    description?: string
+}
+
+export interface Branch {
+    id: string
+    name: string
+}
+
+export interface CreateBranchForm {
+    name: string
+    city_id: string
+    president_id: string
+    created_at: string
+}
+
+export interface FamilyIndexResource {
+    id: string
+    name: string
+    start_date: Date
+    file_number: number
+    zone: Zone
+    address: string
+}
+
+export interface IndexParams {
+    perPage: number
+    search?: string
+    page: number
+    fields?: string[]
+    directions?: {
+        [key: string]: 'asc' | 'desc'
+    }
+    filters?: {
+        [key: string]: {
+            operator: 'like' | 'eq' | 'neq'
+        }
+    }
+}
+
+type SponsorType = {
+    first_name: string
+    last_name: string
+    phone_number: string
+    sponsorship_type: string
+    birth_date: string
+    father_name: string
+    mother_name: string
+    birth_certificate_number: string
+    academic_level: string
+    function: string
+    health_status: string
+    diploma: string
+    card_number: string
+    sponsor_type: string
+    gender: 'male' | 'female'
+    ccp: string
+}
+
+type SecondSponsorType = {
+    first_name: string
+    last_name: string
+    phone_number: string
+    income: number
+    address: string
+    degree_of_kinship: string
+}
+
+type SpouseType = {
+    first_name: string
+    last_name: string
+    birth_date: string
+    death_date: string
+    function: string
+    income: number
+}
+
+export type OrphanType = {
+    first_name: string
+    last_name: string
+    birth_date: string
+    family_status: string
+    health_status: string
+    academic_level: string
+    shoes_size: string
+    pants_size: string
+    shirt_size: string
+    note: string
+}
+
+export type IncomeType = {
+    cnr: number
+    casnos: number
+    cnas: number
+    pension: number
+    other_income: number
+    account: number
+}
+
+export type FurnishingsType =
+    | 'television'
+    | 'refrigerator'
+    | 'fireplace'
+    | 'washing_machine'
+    | 'water_heater'
+    | 'oven'
+    | 'wardrobe'
+    | 'cupboard'
+    | 'covers'
+    | 'mattresses'
+    | 'other_furnishings'
+
+export type CreateFamilyForm = {
+    address: string
+    zone_id: string
+    start_date: string
+    file_number: string
+    sponsor: SponsorType
+    incomes: IncomeType
+    second_sponsor: SecondSponsorType
+    spouse: SpouseType
+    orphans: OrphanType[]
+    housing: {
+        housing_type: {
+            name: HousingType
+            value: string | number | boolean | null
+        }
+        number_of_rooms?: number
+        housing_receipt_number?: string
+    }
+    other_properties?: string
+    furnishings: Record<FurnishingsType, any> & { notes: { [key in FurnishingsType]?: string } }
+    report: string
+    preview_date: string
+    inspectors_members: string | string[]
+    branch_id: string
+}
+
+export type InspectorsMembersType = Array<{ id: string; name: string }>
+
+export type MembersType = Array<{ id: string; name: string }>
+
+export interface CreateFamilyStepProps {
+    currentStep: number
+    totalSteps: number
+    zones?: Zone[]
+    branches?: Branch[]
+    members?: InspectorsMembersType
+    form?: Form<CreateFamilyForm>
+}
+
+export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
+
+export type CreateFamilyStepTwoProps = typeof createFamilyStepTwoErrorProps
+
+export interface MembersIndexResource {
+    id: string
+    name: string
+    email: string
+    phone: string
+    zone: Zone
+}
+
+export interface BranchesIndexResource {
+    id: string
+    name: string
+    city?: string
+    president?: {
+        id: string
+        name?: string
+    }
+    families_count?: string
+    created_at?: string
+}
+
+export interface ZonesIndexResource extends Zone {
+    created_at: string
+    description: string
+}

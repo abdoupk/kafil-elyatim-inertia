@@ -1,5 +1,6 @@
-import Dropzone, { DropzoneOptions } from 'dropzone'
 import { DropzoneElement } from './BaseDropZone.vue'
+
+import Dropzone, { DropzoneOptions } from 'dropzone'
 
 const init = (
     el: DropzoneElement,

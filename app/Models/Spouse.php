@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Database\Factories\SpouseFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property string $first_name
@@ -37,13 +39,37 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  *
  * @method static Builder|Spouse whereId($value)
- * @method static \Database\Factories\SpouseFactory factory($count = null, $state = [])
+ * @method static SpouseFactory factory($count = null, $state = [])
+ *
+ * @property-read \App\Models\Tenant $tenant
  *
  * @mixin Eloquent
  */
 class Spouse extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'birth_date',
+        'death_date',
+        'function',
+        'income',
+        'family_id',
+        'tenant_id',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+            'death_date' => 'date',
+        ];
+    }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

@@ -1,4 +1,6 @@
 import type { AppearanceType, ColorSchemesType, ISettingState, LayoutsType, ThemesType } from '@/types/types'
+
+import axios from 'axios'
 import { defineStore } from 'pinia'
 
 export const useSettingsStore = defineStore('settings', {
@@ -13,32 +15,33 @@ export const useSettingsStore = defineStore('settings', {
         async toggleAppearance(value: AppearanceType) {
             if (this.appearance !== value) {
                 this.appearance = value
-            }
 
-            //TODO send request with axios!!!
+                await axios.put('/settings', { appearance: value })
+            }
         },
 
         async changeColorScheme(colorScheme: ColorSchemesType) {
             if (this.colorScheme !== colorScheme) {
                 this.colorScheme = colorScheme
-            }
 
-            //TODO send request with axios!!!
+                await axios.put('/settings', { color_scheme: colorScheme })
+            }
         },
 
         async changeTheme(theme: ThemesType) {
             if (this.theme !== theme) {
                 this.theme = theme
+
+                await axios.put('/settings', { theme })
             }
-            //TODO send request with axios!!!
         },
 
         async changeLayout(layout: LayoutsType) {
             if (this.layout !== layout) {
                 this.layout = layout
-            }
 
-            //TODO send request with axios!!!
+                await axios.put('/settings', { layout })
+            }
         }
     }
 })

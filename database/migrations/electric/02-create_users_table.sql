@@ -1,3 +1,5 @@
+CREATE TYPE gender AS ENUM ('male', 'female');
+
 create table if not exists "users"
 (
     "id"                uuid                           not null primary key,
@@ -5,12 +7,16 @@ create table if not exists "users"
     "last_name"         text                           not null,
     "phone"             text                           not null,
     "email"             text                           not null,
+    "gender"            gender                         null,
+    "qualification"     text                           null,
+    "zone_id"           text                           null,
     "email_verified_at" timestamp(0) without time zone null,
     "password"          text                           not null,
     "remember_token"    text                           null,
     "tenant_id"         text                           not null references "tenants" ("id") on delete cascade,
     "created_at"        timestamp(0) without time zone null,
-    "updated_at"        timestamp(0) without time zone null
+    "updated_at"        timestamp(0) without time zone null,
+    "deleted_at"        timestamp(0) without time zone null
 );
 -- TODO: check how to fix
 -- alter table "users"

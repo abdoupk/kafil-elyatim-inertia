@@ -44,6 +44,8 @@ class RegisterTenantRequest extends FormRequest
             'links.facebook' => ['sometimes', 'nullable', 'url', "regex:/^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9.]*$/i"],
             'city' => 'required|integer',
             'links.instagram' => ['sometimes', 'nullable', 'url', "regex:/^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9._-]*$/i"],
+            'cpa' => 'sometimes|string',
+            'ccp' => 'sometimes|string',
         ];
     }
 

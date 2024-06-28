@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { type LiHTMLAttributes, computed, inject } from 'vue'
-import { Link } from '@inertiajs/vue3'
 import type { ProvideBeradcrumb } from './BaseBreadcrumb.vue'
+
 import { useSettingsStore } from '@/stores/settings'
+import { Link } from '@inertiajs/vue3'
+import { type LiHTMLAttributes, computed, inject } from 'vue'
 
 interface LinkProps extends /* @vue-ignore */ LiHTMLAttributes {
     href?: string

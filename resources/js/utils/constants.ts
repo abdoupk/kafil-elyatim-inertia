@@ -1,7 +1,11 @@
 import type {
     ColorSchemesType,
+    CreateFamilyForm,
+    CreateFamilyStepOneProps,
+    CreateFamilyStepTwoProps,
     IPlacement,
     LayoutsType,
+    RegisterForm,
     RegisterStepOneProps,
     RegisterStepThreeProps,
     RegisterStepTwoProps,
@@ -24,10 +28,10 @@ export const placementClasses: Record<IPlacement['placement'], string> = {
 }
 
 // eslint-disable-next-line
-export const colorSchemes: ColorSchemesType[] = ['default', 'theme-1', 'theme-2', 'theme-3', 'theme-4']
+export const colorSchemes: ColorSchemesType[] = ['default', 'theme_1', 'theme_2', 'theme_3', 'theme_4']
 
 // eslint-disable-next-line
-export const layouts: LayoutsType[] = ['side-menu', 'simple-menu', 'top-menu']
+export const layouts: LayoutsType[] = ['side_menu', 'simple_menu', 'top_menu']
 
 // eslint-disable-next-line
 export const themes: ThemesType[] = ['enigma', 'icewall', 'tinker', 'rubick']
@@ -38,7 +42,7 @@ export const associationSocialMediaLinks: { [key: string]: string } = {
     twitter: ''
 }
 
-export const registerFormAttributes = {
+export const registerFormAttributes: RegisterForm = {
     association: '',
     domain: '',
     address: '',
@@ -51,8 +55,98 @@ export const registerFormAttributes = {
     password_confirmation: '',
     association_email: '',
     landline: '',
+    cpa: '',
+    ccp: '',
     links: associationSocialMediaLinks,
     phones: ['']
+}
+
+export const createFamilyFormAttributes: CreateFamilyForm = {
+    file_number: '00000',
+    zone_id: '',
+    inspectors_members: ['9c5f760c-7caa-4dc8-b7c3-5d833b2a647f'],
+    address: '54545',
+    start_date: '25-06-2024',
+    sponsor: {
+        first_name: 'a',
+        last_name: 'a',
+        phone_number: '0664954817',
+        birth_date: '25-06-2012',
+        father_name: 'aa',
+        mother_name: 'bb',
+        birth_certificate_number: '065',
+        academic_level: '1000',
+        function: '10065656',
+        health_status: 'a',
+        diploma: 'a',
+        card_number: '05656',
+        sponsor_type: 'a',
+        gender: 'male',
+        ccp: 'a'
+    },
+    incomes: {
+        cnr: 0,
+        cnas: 0,
+        casnos: 0,
+        pension: 0,
+        account: 0,
+        other_income: 0
+    },
+    second_sponsor: {
+        first_name: 'w',
+        last_name: 'w',
+        phone_number: 'w',
+        income: '20233',
+        address: 'w',
+        degree_of_kinship: '111'
+    },
+    spouse: {
+        first_name: 'a',
+        last_name: 'a',
+        income: 0,
+        birth_date: '26-03-2000',
+        death_date: '25-04-2022',
+        function: 'a'
+    },
+    orphans: [
+        {
+            first_name: 'a',
+            last_name: 'a',
+            birth_date: '25-03-2012',
+            family_status: 'a',
+            health_status: 'a',
+            academic_level: 'a',
+            shoes_size: '25',
+            pants_size: '25',
+            shirt_size: '25',
+            note: '25'
+        }
+    ],
+    housing: {
+        housing_type: {
+            value: true,
+            name: 'independent'
+        },
+        housing_receipt_number: '25',
+        number_of_rooms: 3
+    },
+    furnishings: {
+        television: true,
+        refrigerator: true,
+        fireplace: true,
+        washing_machine: true,
+        water_heater: true,
+        oven: true,
+        wardrobe: true,
+        cupboard: true,
+        covers: true,
+        mattresses: true,
+        other_furnishings: true
+    },
+    report: '22',
+    preview_date: '25-03-2012',
+    other_properties: '00000',
+    branch_id: ''
 }
 
 // eslint-disable-next-line array-element-newline
@@ -72,12 +166,39 @@ export const registerStepTwoErrorProps: RegisterStepTwoProps[] = [
 export const registerStepThreeErrorProps: RegisterStepThreeProps[] = [
     'association_email',
     'landline',
-    'phones',
+    'phones.0',
+    'cpa',
+    'ccp',
     'links'
 ]
-
 export const registerStepsTitles = [
     'auth.register.titles.association',
     'auth.register.titles.supervisor',
     'auth.register.titles.association_details'
 ]
+
+export const createFamilyStepsTitles = [
+    'families.titles.association',
+    'families.titles.supervisor',
+    'families.titles.association_details',
+    'families.titles.association_details',
+    'families.titles.association_details',
+    'families.titles.association_details'
+]
+
+export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = [
+    'file_number',
+    'address',
+    'zone',
+    'start_date'
+]
+
+export const createFamilyStepTwoErrorProps: CreateFamilyStepTwoProps = ['sponsor', 'second_sponsor', 'spouse']
+
+export const createFamilyStepThreeErrorProps = ['orphans']
+
+export const createFamilyStepFourErrorProps = ['housing', 'furnishings']
+
+export const createFamilyStepFiveErrorProps = ['report', 'preview_date', 'inspectors_members']
+
+export const createFamilyStepSixErrorProps = ['sponsorship']

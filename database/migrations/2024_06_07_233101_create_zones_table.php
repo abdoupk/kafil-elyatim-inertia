@@ -11,6 +11,9 @@ return new class extends Migration
         Schema::create('zones', static function (Blueprint $table) {
             $table->uuid('id')->primary()->index();
             $table->string('name');
+            $table->string('description');
+            $table->foreignUuid('tenant_id')->constrained()->cascadeOnDelete();
+            $table->timestamps();
         });
     }
 

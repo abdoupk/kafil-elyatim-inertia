@@ -16,12 +16,13 @@ class RolePermissionSeeder extends Seeder
         $this->call(PermissionSeeder::class);
 
         $this->call(RoleSeeder::class);
+
         Tenant::with('members')->each(function ($tenant) {
             $tenant->members->each(function (User $user, $key) {
                 if ($key === 0) {
-                    $user->assignRole('super_admin');
+                    $user->assignRole('president');
                 } elseif ($key === 1) {
-                    $user->assignRole('admin');
+                    $user->assignRole('vice_president');
                 } else {
                     $user->assignRole('member');
                 }

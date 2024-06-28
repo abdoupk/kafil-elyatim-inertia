@@ -1,7 +1,7 @@
-import type { Ref, UnwrapRef } from 'vue'
 import type BalloonEditor from '@ckeditor/ckeditor5-build-balloon-block'
 import type ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import type InlineEditor from '@ckeditor/ckeditor5-build-inline'
+import type { Ref, UnwrapRef } from 'vue'
 
 export interface CkeditorElement extends HTMLDivElement {
     CKEditor: unknown

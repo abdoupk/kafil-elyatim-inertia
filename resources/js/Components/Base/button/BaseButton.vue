@@ -1,7 +1,8 @@
 <script setup lang="ts">
 /* eslint-disable array-element-newline */
-import { type ButtonHTMLAttributes, computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { type ButtonHTMLAttributes, computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 type Variant =

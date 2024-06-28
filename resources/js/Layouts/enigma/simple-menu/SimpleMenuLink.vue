@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import type { IFormattedMenu } from '@/types/types'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import { linkTo } from '@/Layouts/menu'
+
 import { twMerge } from 'tailwind-merge'
+
+import { linkTo } from '@/Layouts/menu'
+
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     level: 'first' | 'second' | 'third'

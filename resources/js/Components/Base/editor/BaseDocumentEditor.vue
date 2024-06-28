@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { type CkeditorElement, type CkeditorEmit, type CkeditorProps as GlobalCkeditorProps, init } from './ckeditor'
-import { inject, onMounted, ref } from 'vue'
+
 import DocumentEditor from '@ckeditor/ckeditor5-build-decoupled-document'
+import { inject, onMounted, ref } from 'vue'
+
+import { getLocale } from '@/utils/i18n'
 
 export type ProvideDocumentEditor = (el: CkeditorElement) => void
 
@@ -11,7 +14,9 @@ interface CkeditorProps extends GlobalCkeditorProps {
 
 const props = withDefaults(defineProps<CkeditorProps>(), {
     as: 'div',
-    config: {}
+    config: () => ({
+        language: getLocale()
+    })
 })
 
 const emit = defineEmits<CkeditorEmit>()
@@ -46,3 +51,6 @@ onMounted(() => {
 <template>
     <component :is="props.as" ref="editorRef" v-editor-directive class="select"></component>
 </template>
+<style lang="postcss">
+@import '/resources/css/vendors/ckeditor.css';
+</style>

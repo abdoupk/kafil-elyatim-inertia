@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import type { ColorSchemesType } from '@/types/types'
+
+import { useSettingsStore } from '@/stores/settings'
+import { twMerge } from 'tailwind-merge'
+
 import { colorSchemes } from '@/utils/constants'
 import { setColorSchemeClass } from '@/utils/helper'
-import { twMerge } from 'tailwind-merge'
-import { useSettingsStore } from '@/stores/settings'
 
 const settingsStore = useSettingsStore()
 

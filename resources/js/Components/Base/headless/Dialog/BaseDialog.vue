@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
-import { type Ref, computed, provide, ref, useAttrs } from 'vue'
 import type { ExtractProps } from '@/types/utils'
-import { omit } from '@/utils/helper'
+
+import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { type Ref, computed, provide, ref, useAttrs } from 'vue'
+
+import { omit } from '@/utils/helper'
 
 type Size = 'sm' | 'md' | 'lg' | 'xl'
 
@@ -62,7 +64,7 @@ provide<ProvideDialog>('dialog', {
     <transition-root appear as="template" :show="open">
         <headless-dialog
             class="dialog"
-            :as="as"
+            :as
             @close="
                 (value) => {
                     handleClose(value)

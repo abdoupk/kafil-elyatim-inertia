@@ -60,9 +60,9 @@ module.exports = {
             }
         ],
         '@typescript-eslint/ban-ts-comment': 'off',
-        'sort-imports': [
-            'warn'
-        ],
+        // 'sort-imports': [
+        //     'warn'
+        // ],
         'array-element-newline': [
             'error',
             {

@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import type { IFormattedMenu, ILocation } from '@/types/types'
+
+import { useMenuStore } from '@/stores/menu'
 import { Link, usePage } from '@inertiajs/vue3'
 import { computed, onMounted, ref, watch } from 'vue'
+
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
+import TheTopBar from '@/Layouts/tinker/TheTopBar.vue'
 import MenuDivider from '@/Layouts/tinker/side-menu/MenuDivider.vue'
 import SimpleMenuLink from '@/Layouts/tinker/simple-menu/SimpleMenuLink.vue'
+
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
-import TheTopBar from '@/Layouts/tinker/TheTopBar.vue'
+
 import { toRaw } from '@/utils/helper'
-import { useMenuStore } from '@/stores/menu'
 
 const _route = { routeName: '' } as ILocation
 
@@ -107,7 +111,7 @@ onMounted(() => {
             </nav>
 
             <div
-                class="rtl:md:rounded-[35px/0px_50px_0px_0px]before:block relative min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:h-px before:w-full before:content-[''] after:absolute after:inset-y-0 after:start-0 after:z-[-1] after:-ms-4 after:mt-8 after:w-full after:bg-white/10 after:content-[''] dark:bg-darkmode-700 after:dark:bg-darkmode-400/50 md:ms-4 md:max-w-none md:px-6 ltr:after:rounded-[40px_0px_0px_0px] ltr:md:rounded-[35px/50px_0px_0px_0px] rtl:after:rounded-[0px_40px_0px_0px]"
+                class="relative min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:block before:h-px before:w-full before:content-[''] after:absolute after:inset-y-0 after:start-0 after:z-[-1] after:-ms-4 after:mt-8 after:w-full after:bg-white/10 after:content-[''] dark:bg-darkmode-700 after:dark:bg-darkmode-400/50 md:ms-4 md:max-w-none md:px-6 ltr:after:rounded-[40px_0px_0px_0px] ltr:md:rounded-[35px/50px_0px_0px_0px] rtl:after:rounded-[0px_40px_0px_0px] rtl:md:rounded-[35px/0px_50px_0px_0px]"
             >
                 <the-top-bar></the-top-bar>
 

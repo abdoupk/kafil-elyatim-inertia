@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { computed, provide } from 'vue'
 import type { ExtractProps } from '@/types/utils'
+
 import { TabList as HeadlessTabList } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { computed, provide } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 type Variant = 'tabs' | 'pills' | 'boxed-tabs' | 'link-tabs'
@@ -19,9 +21,7 @@ defineOptions({
     inheritAttrs: false
 })
 
-const { variant } = withDefaults(defineProps<ListProps>(), {
-    variant: 'tabs'
-})
+const { variant = 'tabs' } = defineProps<ListProps>()
 
 const attrs = useComputedAttrs()
 

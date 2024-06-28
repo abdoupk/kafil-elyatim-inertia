@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use Database\Factories\SponsorFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -64,28 +68,74 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $file_number
  * @property string $birth_certificate_number
  * @property string|null $card_number
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Income> $incomes
+ * @property-read Collection<int, Income> $incomes
  * @property-read int|null $incomes_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SponsorSponsorship> $sponsorships
+ * @property-read Collection<int, SponsorSponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
  *
- * @method static \Database\Factories\SponsorFactory factory($count = null, $state = [])
+ * @method static SponsorFactory factory($count = null, $state = [])
  * @method static Builder|Sponsor whereBirthCertificateNumber($value)
  * @method static Builder|Sponsor whereCardNumber($value)
  * @method static Builder|Sponsor whereFileNumber($value)
  * @method static Builder|Sponsor whereZoneId($value)
  *
+ * @property string $first_name
+ * @property string $last_name
+ *
+ * @method static Builder|Sponsor whereFirstName($value)
+ * @method static Builder|Sponsor whereLastName($value)
+ *
+ * @property string $sponsor_type
+ * @property string|null $ccp
+ * @property string $gender
+ * @property string $family_id
+ * @property-read \App\Models\Tenant $tenant
+ *
+ * @method static Builder|Sponsor onlyTrashed()
+ * @method static Builder|Sponsor whereCcp($value)
+ * @method static Builder|Sponsor whereFamilyId($value)
+ * @method static Builder|Sponsor whereGender($value)
+ * @method static Builder|Sponsor whereSponsorType($value)
+ * @method static Builder|Sponsor withTrashed()
+ * @method static Builder|Sponsor withoutTrashed()
+ *
  * @mixin Eloquent
  */
 class Sponsor extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'id',
+        'first_name',
+        'last_name',
+        'phone_number',
+        'sponsor_type',
+        'birth_date',
+        'father_name',
+        'mother_name',
+        'birth_certificate_number',
+        'academic_level',
+        'function',
+        'health_status',
+        'diploma',
+        'card_number',
+        'ccp',
+        'gender',
+        'created_by',
+        'deleted_by',
+    ];
 
-    public function incomes(): BelongsToMany
+    public function incomes(): HasOne
     {
-        return $this->belongsToMany(Income::class)->using(IncomeSponsor::class);
+        return $this->hasOne(Income::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
     }
 
     public function sponsorships(): HasMany

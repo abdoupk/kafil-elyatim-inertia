@@ -1,8 +1,11 @@
 <script lang="ts" setup>
 import type { IFormattedMenu } from '@/types/types'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import { linkTo } from '@/Layouts/menu'
+
 import { twMerge } from 'tailwind-merge'
+
+import { linkTo } from '@/Layouts/menu'
+
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     level: 'first' | 'second' | 'third'
@@ -53,7 +56,8 @@ defineProps<{
                 ])
             "
         >
-            <svg-loader :name="menu.icon"></svg-loader>
+            <!-- TODO: fix width and height  -->
+            <svg-loader :name="menu.icon" class="h-6 w-6"></svg-loader>
         </div>
         <div
             :class="

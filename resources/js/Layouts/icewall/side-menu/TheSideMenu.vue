@@ -1,14 +1,18 @@
 <script lang="ts" setup>
 import type { IFormattedMenu, ILocation } from '@/types/types'
-import { computed, onMounted, ref, watch } from 'vue'
-import { enter, leave, nestedMenu } from '@/Layouts/menu'
-import MenuDivider from '@/Layouts/icewall/side-menu/MenuDivider.vue'
-import SideMenuLink from '@/Layouts/icewall/side-menu/SideMenuLink.vue'
-import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
-import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
-import { toRaw } from '@/utils/helper'
+
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { computed, onMounted, ref, watch } from 'vue'
+
+import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
+import MenuDivider from '@/Layouts/icewall/side-menu/MenuDivider.vue'
+import SideMenuLink from '@/Layouts/icewall/side-menu/SideMenuLink.vue'
+import { enter, leave, nestedMenu } from '@/Layouts/menu'
+
+import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
+
+import { toRaw } from '@/utils/helper'
 
 const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 
@@ -110,7 +114,6 @@ onMounted(() => {
                 <div
                     class="md:max-w-auto min-h-screen min-w-0 max-w-full flex-1 rounded-[1.3rem] bg-slate-100 px-4 pb-10 shadow-sm before:block before:h-px before:w-full before:content-[''] dark:bg-darkmode-700 md:px-[22px]"
                 >
-                    hello
                     <slot></slot>
                 </div>
             </div>

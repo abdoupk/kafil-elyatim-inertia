@@ -30,8 +30,8 @@ class OrphanFactory extends Factory
             'note' => fake('ar_SA')->paragraph(5),
             'tenant_id' => fake()->uuid,
             'family_id' => fake()->uuid,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'created_at' => now()->subDays(random_int(0, 35)),
+            'updated_at' => now()->subDays(random_int(0, 35)),
         ];
     }
 }

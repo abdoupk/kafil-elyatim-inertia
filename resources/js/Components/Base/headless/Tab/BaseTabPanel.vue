@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { TabPanel as HeadlessTabPanel, TransitionRoot } from '@headlessui/vue'
 import type { ExtractProps } from '@/types/utils'
+
+import { TabPanel as HeadlessTabPanel, TransitionRoot } from '@headlessui/vue'
 
 interface PanelProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessTabPanel> {}
 

@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+import { useSettingsStore } from '@/stores/settings'
 import { Link } from '@inertiajs/vue3'
+import { twMerge } from 'tailwind-merge'
+
 import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
 import TheNotification from '@/Components/top-bar/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
-import { twMerge } from 'tailwind-merge'
-import { useSettingsStore } from '@/stores/settings'
 
 const settingsStore = useSettingsStore()
 </script>

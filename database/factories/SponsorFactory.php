@@ -16,14 +16,11 @@ class SponsorFactory extends Factory
     public function definition(): array
     {
         return [
-            'zone_id' => fake()->uuid,
             'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
-            'file_number' => fake()->randomNumber(),
-            'start_date' => now()->subDays(random_int(100, 1000)),
-            'name' => fake('ar_SA')->name,
-            'address' => fake('ar_SA')->address,
+            'first_name' => fake('ar_SA')->firstName,
+            'last_name' => fake('ar_SA')->lastName,
             'phone_number' => fake('ar_SA')->regexify('(06|07|05)[0-9]{8}'),
-            'sponsorship_type' => fake('ar_SA')->shuffleArray(['father', 'mother', 'grandMother', 'grandFather'])[0],
+            'sponsor_type' => fake('ar_SA')->shuffleArray(['father', 'mother', 'grandMother', 'grandFather'])[0],
             'birth_date' => now()->subYears(random_int(25, 60))->toDate(),
             'father_name' => fake('ar_SA')->name,
             'mother_name' => fake('ar_SA')->name,
@@ -34,6 +31,8 @@ class SponsorFactory extends Factory
             'diploma' => fake('ar_SA')->word,
             'tenant_id' => fake()->uuid,
             'created_by' => fake()->uuid,
+            'ccp' => fake()->regexify('[1-9][0-9]{8}'),
+            'gender' => fake()->randomElement(['male', 'female']),
             'deleted_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),

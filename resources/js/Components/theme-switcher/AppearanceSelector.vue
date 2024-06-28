@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { AppearanceType } from '@/types/types'
-import { twMerge } from 'tailwind-merge'
+
 import { useSettingsStore } from '@/stores/settings'
+import { twMerge } from 'tailwind-merge'
 
 const settingsStore = useSettingsStore()
 
@@ -12,7 +13,7 @@ const setDarkModeClass = () => {
 }
 
 const switchMode = (value: AppearanceType) => {
-    settingsStore.appearance = value
+    settingsStore.toggleAppearance(value)
 
     setDarkModeClass()
 }

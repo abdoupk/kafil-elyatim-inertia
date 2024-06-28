@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { type InputHTMLAttributes, computed, inject } from 'vue'
 import type { ProvideFormInline } from './BaseFormInline.vue'
 import type { ProvideInputGroup } from './InputGroup/BaseInputGroup.vue'
+
 import { twMerge } from 'tailwind-merge'
+import { type InputHTMLAttributes, computed, inject } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface FormTextareaProps extends /* @vue-ignore */ InputHTMLAttributes {

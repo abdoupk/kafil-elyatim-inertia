@@ -1,13 +1,10 @@
 CREATE TABLE IF NOT EXISTS sponsors
 (
     "id"                       uuid                           not null primary key,
-    "zone_id"                  uuid                           not null,
-    "file_number"              integer                        not null,
-    "start_date"               date                           not null,
-    "name"                     text                           not null,
-    "address"                  text                           not null,
+    "first_name"               text                           not null,
+    "last_name"                text                           not null,
     "phone_number"             text                           not null,
-    "sponsorship_type"         text                           not null,
+    "sponsor_type"             text                           not null,
     "birth_date"               date                           not null,
     "father_name"              text                           not null,
     "mother_name"              text                           not null,
@@ -17,6 +14,9 @@ CREATE TABLE IF NOT EXISTS sponsors
     "health_status"            text                           not null,
     "diploma"                  text                           null,
     "card_number"              text                           null,
+    "ccp"                      text                           null,
+    "gender"                   text                           not null,
+    "family_id"                uuid                           not null references families (id) on delete cascade,
     tenant_id                  text                           not null references tenants (id) on delete cascade,
     "created_by"               uuid                           not null references users (id),
     "deleted_by"               uuid                           null references users (id),
@@ -24,8 +24,6 @@ CREATE TABLE IF NOT EXISTS sponsors
     "created_at"               timestamp(0) without time zone null,
     "updated_at"               timestamp(0) without time zone null
 );
-
-CREATE INDEX idx_sponsors_zone_id ON sponsors ("zone_id");
 
 CREATE INDEX idx_sponsors_created_by ON sponsors ("created_by");
 

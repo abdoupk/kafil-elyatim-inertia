@@ -5,7 +5,31 @@
     "semi": false,
     "tabWidth": 4,
     "bracketSpacing": true,
+    "importOrder": [
+        "^[./]",
+        "^@/types/(.*)$",
+        "<THIRD_PARTY_MODULES>",
+        "^@/Layouts/(.*)$",
+        "^@/Pages/(.*)$",
+        "^@/Components/(.*)$",
+        "^@/utils/(.*)$"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
     "plugins": [
-        "prettier-plugin-tailwindcss"
+        "prettier-plugin-tailwindcss",
+        "@shufo/prettier-plugin-blade",
+        "@trivago/prettier-plugin-sort-imports"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.blade.php"
+            ],
+            "options": {
+                "parser": "blade",
+                "tabWidth": 4
+            }
+        }
     ]
 }

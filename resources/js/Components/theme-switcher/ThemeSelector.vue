@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { themes } from '@/utils/constants'
-import { twMerge } from 'tailwind-merge'
 import { useSettingsStore } from '@/stores/settings'
+import { twMerge } from 'tailwind-merge'
+
+import { themes } from '@/utils/constants'
 
 const settingsStore = useSettingsStore()
 </script>

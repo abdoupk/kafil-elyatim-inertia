@@ -1,21 +1,25 @@
 <script setup lang="ts">
 import type { ExtractProps } from '@/types/utils'
+
 import { MenuItem as HeadlessMenuItem } from '@headlessui/vue'
 import { Link } from '@inertiajs/vue3'
-import { computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface ItemProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessMenuItem> {
     method?: 'get' | 'post' | 'put' | 'patch' | 'delete'
     href?: string
+    as?: string | Record<string, unknown>
+    Vslot?: unknown
 }
 
 defineOptions({
     inheritAttrs: false
 })
 
-const { href = route('tenant.dashboard'), method = 'get' } = defineProps<ItemProps>()
+const { href = route('tenant.dashboard'), method = 'get', as = Link } = defineProps<ItemProps>()
 
 const attrs = useComputedAttrs()
 
@@ -27,9 +31,9 @@ const computedClass = computed(() =>
 </script>
 
 <template>
-    <headless-menu-item as="template">
-        <Link :href="href" :method="method" :class="computedClass" v-bind="attrs.attrs" as="button">
+    <headless-menu-item as="template" v-bind="$attrs">
+        <component :is="as" :href :method :class="computedClass" v-bind="$attrs" as="button">
             <slot></slot>
-        </Link>
+        </component>
     </headless-menu-item>
 </template>

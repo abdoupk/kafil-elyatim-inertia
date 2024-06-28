@@ -5,11 +5,15 @@ namespace App\Models;
 use Database\Factories\OrphanFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -52,17 +56,48 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Orphan whereTenantId($value)
  * @method static Builder|Orphan whereUpdatedAt($value)
  *
- * @property-read \App\Models\Family $family
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\OrphanSponsorship> $sponsorships
+ * @property-read Family $family
+ * @property-read Collection<int, OrphanSponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ *
+ * @method static Builder|Orphan onlyTrashed()
+ * @method static Builder|Orphan whereDeletedAt($value)
+ * @method static Builder|Orphan withTrashed()
+ * @method static Builder|Orphan withoutTrashed()
+ *
+ * @property-read \App\Models\Tenant $tenant
  *
  * @mixin Eloquent
  */
 class Orphan extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
-    public $timestamps = false;
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'birth_date',
+        'family_status',
+        'health_status',
+        'academic_level',
+        'shoes_size',
+        'pants_size',
+        'shirt_size',
+        'note',
+        'tenant_id',
+        'family_id',
+        'created_by',
+        'deleted_by',
+        'deleted_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
+    }
 
     public function family(): BelongsTo
     {
@@ -73,4 +108,6 @@ class Orphan extends Model
     {
         return $this->hasMany(OrphanSponsorship::class);
     }
+
+    public function getName() {}
 }

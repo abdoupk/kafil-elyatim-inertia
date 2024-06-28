@@ -22,6 +22,9 @@ return [
             'title' => 'step Three title',
             'add_new_phone' => 'add new',
         ],
+        'success' => [
+            'title' => 'تم التسجيل بنجاح',
+        ],
     ],
     'placeholders' => [
         'tomselect' => 'قم بتحديد :attribute',
@@ -33,7 +36,6 @@ return [
     'Login' => 'تسجيل الدخول',
     'Logout' => 'تسجيل الخروج',
     'Sign in' => 'تسجيل الدخول',
-
     'first_usage_without_connection' => 'مرحبا يبدو ان هذا استعمال الأول للبرنامج. يجب الاتصال بالإنترنت حتى نقوم بتسجيل ثم يمكن استعماله بدون إنترنت لكن بدون بعض خصائص',
     'hints' => [
         'leading' => 'بضع نقرات إضافية <br /> لتسجيل الدخول إلى حسابك.',

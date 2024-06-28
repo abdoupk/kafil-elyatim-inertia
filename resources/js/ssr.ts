@@ -1,9 +1,10 @@
-import { createSSRApp, h, DefineComponent } from 'vue'
-import { renderToString } from '@vue/server-renderer'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy'
+
 import { createInertiaApp } from '@inertiajs/vue3'
 import createServer from '@inertiajs/vue3/server'
+import { renderToString } from '@vue/server-renderer'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { ZiggyVue } from '../../vendor/tightenco/ziggy'
+import { DefineComponent, createSSRApp, h } from 'vue'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 

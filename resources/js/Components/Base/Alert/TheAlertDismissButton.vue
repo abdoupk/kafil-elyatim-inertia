@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { type ButtonHTMLAttributes, computed } from 'vue'
 import { twMerge } from 'tailwind-merge'
+import { type ButtonHTMLAttributes, computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface DismissButtonProps extends /* @vue-ignore */ ButtonHTMLAttributes {

@@ -38,11 +38,21 @@ use Stancl\Tenancy\Database\TenantCollection;
  * @method static TenantCollection<int, static> all($columns = ['*'])
  * @method static TenantCollection<int, static> get($columns = ['*'])
  *
- * @property-read Collection<int, \App\Models\Family> $families
+ * @property-read Collection<int, Family> $families
  * @property-read int|null $families_count
- * @property-read Collection<int, \App\Models\User> $members
+ * @property-read Collection<int, User> $members
  * @property-read int|null $members_count
  *
+ * @method static TenantCollection<int, static> all($columns = ['*'])
+ * @method static TenantCollection<int, static> get($columns = ['*'])
+ * @method static TenantCollection<int, static> all($columns = ['*'])
+ * @method static TenantCollection<int, static> get($columns = ['*'])
+ * @method static TenantCollection<int, static> all($columns = ['*'])
+ * @method static TenantCollection<int, static> get($columns = ['*'])
+ * @method static TenantCollection<int, static> all($columns = ['*'])
+ * @method static TenantCollection<int, static> get($columns = ['*'])
+ * @method static TenantCollection<int, static> all($columns = ['*'])
+ * @method static TenantCollection<int, static> get($columns = ['*'])
  * @method static TenantCollection<int, static> all($columns = ['*'])
  * @method static TenantCollection<int, static> get($columns = ['*'])
  * @method static TenantCollection<int, static> all($columns = ['*'])
@@ -62,6 +72,13 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 {
     use HasDatabase, HasDomains, HasFactory;
 
+    public static function booted(): void
+    {
+        static::creating(function ($tenant) {
+            $tenant->password = bcrypt($tenant->password);
+        });
+    }
+
     public function families(): HasMany
     {
         return $this->hasMany(Family::class);
@@ -70,12 +87,5 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     public function members(): HasMany
     {
         return $this->hasMany(User::class);
-    }
-
-    public static function booted(): void
-    {
-        static::creating(function ($tenant) {
-            $tenant->password = bcrypt($tenant->password);
-        });
     }
 }

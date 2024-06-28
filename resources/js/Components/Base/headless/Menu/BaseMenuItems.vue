@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { MenuItems as HeadlessMenuItems, TransitionRoot } from '@headlessui/vue'
 import type { ExtractProps } from '@/types/utils'
-import { computed } from 'vue'
+
+import { MenuItems as HeadlessMenuItems, TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
+import { computed } from 'vue'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface ItemsProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessMenuItems> {

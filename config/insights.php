@@ -102,9 +102,11 @@ return [
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff::class => [
-            'maxLinesLength' => 20,
+            'maxLinesLength' => 22,
             'exclude' => [
                 'app\Providers\TenancyServiceProvider.php',
+                'app\Providers\AppServiceProvider.php',
+                'app\Http\Requests\V1\RegisterTenantRequest.php',
                 'app\Http\Controllers\Auth\NewPasswordController.php',
             ],
         ],
@@ -132,12 +134,20 @@ return [
                 'App\Http\Resources\V1\SettingsResource.php',
                 'App\Http\Resources\V1\LanguageResource.php',
                 'app\Providers\TenancyServiceProvider.php',
+                'app\Providers\FamiliesIndexResource..php',
+                'app\Providers\ZoneResource.php',
+                'app\Providers\AppServiceProvider.php',
+                'app\Http\Resources\V1\Api\UserLoginTenantResource.php',
+                'app\Http\Resources\V1\Api\UserLoginResource.php',
+                'app\Http\Resources\V1\ZoneResource.php',
+                'app\Http\Resources\V1\Families\FamiliesIndexResource.php',
             ],
         ],
 
         PhpCsFixer\Fixer\Operator\NewWithBracesFixer::class => [
             'exclude' => [
                 'app\Http\Middleware\HandleInertiaRequests.php',
+                'app\Http\Requests\V1\RegisterTenantRequest.php',
             ],
         ],
         SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff::class => [

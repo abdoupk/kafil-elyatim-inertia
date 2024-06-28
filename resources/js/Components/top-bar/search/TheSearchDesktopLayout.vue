@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { ComboboxInput, Combobox as HeadlessCombobox, TransitionRoot } from '@headlessui/vue'
-import { onMounted, onUnmounted } from 'vue'
+import { twMerge } from 'tailwind-merge'
+import { onMounted, onUnmounted, ref } from 'vue'
+
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheSearchResults from '@/Components/top-bar/search/TheSearchResults.vue'
-import { ref } from 'vue'
-import { twMerge } from 'tailwind-merge'
+
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 defineOptions({
@@ -64,7 +65,7 @@ onUnmounted(() => {
                     typeof attrs.class === 'string' && attrs.class
                 )
             "
-            placeholder="Search..."
+            :placeholder="$t('Search...')"
             type="text"
             v-bind="attrs.attrs"
             @blur="searchDropdown = false"
@@ -88,7 +89,7 @@ onUnmounted(() => {
             leave-to="mt-5 invisible opacity-0 translate-y-1"
         >
             <div class="absolute end-0 z-10 mt-[3px]">
-                <the-search-results :active-index="activeIndex" :query="query" class="max-h-[500px] w-[450px]">
+                <the-search-results @close="closeSearch" :activeIndex :query class="max-h-[500px] w-[450px]">
                     <template #notFound>
                         <the-no-results-found class="box w-[450px] text-center"></the-no-results-found>
                     </template>

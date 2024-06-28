@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { init } from './dropzeone'
+
 import DropzoneJs, { type DropzoneOptions } from 'dropzone'
 import { type HTMLAttributes, inject, onMounted, ref } from 'vue'
-import { init } from './dropzeone'
 
 export type ProvideDropzone = (el: DropzoneElement) => void
 

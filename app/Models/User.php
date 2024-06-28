@@ -9,13 +9,17 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -54,9 +58,9 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User whereTenantId($value)
  * @method static Builder|User whereUpdatedAt($value)
  *
- * @property-read Collection<int, \App\Models\Permission> $permissions
+ * @property-read Collection<int, Permission> $permissions
  * @property-read int|null $permissions_count
- * @property-read Collection<int, \App\Models\Role> $roles
+ * @property-read Collection<int, Role> $roles
  * @property-read int|null $roles_count
  *
  * @method static Builder|User permission($permissions, $without = false)
@@ -64,11 +68,31 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User withoutPermission($permissions)
  * @method static Builder|User withoutRole($roles, $guard = null)
  *
+ * @property string|null $zone_id
+ *
+ * @method static Builder|User whereZoneId($value)
+ *
+ * @property string|null $gender
+ * @property Carbon|null $deleted_at
+ *
+ * @method static Builder|User onlyTrashed()
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereGender($value)
+ * @method static Builder|User withTrashed()
+ * @method static Builder|User withoutTrashed()
+ *
+ * @property-read Zone|null $zone
+ * @property string|null $qualification
+ * @property-read Collection<int, \App\Models\Preview> $previews
+ * @property-read int|null $previews_count
+ *
+ * @method static Builder|User whereQualification($value)
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable
 {
-    use BelongsToTenant, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable;
+    use BelongsToTenant, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable, Searchable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -106,6 +130,44 @@ class User extends Authenticatable
         return $this->hasOne(Settings::class);
     }
 
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(Zone::class);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'users';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load('roles');
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ! $this->roles()->pluck('name')->contains('super_admin');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->getName(),
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'gender' => $this->gender,
+            'tenant_id' => $this->tenant_id,
+            'created_at' => $this->created_at,
+        ];
+    }
+
+    public function previews(): BelongsToMany
+    {
+        return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -117,5 +179,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
     }
 }
