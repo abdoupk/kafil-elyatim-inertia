@@ -64,8 +64,8 @@ const setInspectorsMembers = (value: string | string[]) => {
                         multiple
                         @update:model-value="setInspectorsMembers"
                     >
-                        <option value="">{{ $t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })
-                            }}
+                        <option value="">
+                            {{ $t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') }) }}
                         </option>
                         <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
                     </base-tom-select>
