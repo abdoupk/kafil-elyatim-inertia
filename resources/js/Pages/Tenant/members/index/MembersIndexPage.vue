@@ -1,6 +1,7 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
+import { useMembersStore } from '@/stores/members'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -8,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import MemberCreateSlideover from '@/Pages/Tenant/members/MemberCreateSlideover.vue'
 import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -43,9 +45,27 @@ const deleteProgress = ref<boolean>(false)
 
 const selectedMemberId = ref<string>('')
 
+const createEditSlideoverStatus = ref<boolean>(true)
+
+const memberStore = useMembersStore()
+
 let routerOptions = {
     preserveState: true,
     preserveScroll: true
+}
+
+const showCreateSlideover = () => {
+    memberStore.$reset()
+
+    createEditSlideoverStatus.value = true
+}
+
+const showEditSlideover = async (branchId: string) => {
+    selectedMemberId.value = branchId
+
+    await memberStore.getMember(branchId)
+
+    createEditSlideoverStatus.value = true
 }
 
 const closeDeleteModal = () => {
@@ -135,11 +155,7 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button
-                variant="primary"
-                class="me-2 shadow-md"
-                @click.prevent="router.get(route('tenant.members.create'))"
-            >
+            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateSlideover">
                 {{ n__('add new', 1, { attribute: $t('member') }) }}
             </base-button>
 
@@ -155,29 +171,36 @@ watch(
                     }}
                 </span>
             </div>
+
             <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <div class="relative w-56 text-slate-500">
                     <base-form-input
-                        autofocus
                         v-model="search"
-                        type="text"
-                        class="!box w-56 pe-10"
                         :placeholder="$t('Search...')"
+                        autofocus
+                        class="!box w-56 pe-10"
+                        type="text"
                     />
-                    <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />
+                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
                 </div>
             </div>
         </div>
     </div>
 
     <template v-if="members.data.length > 0">
-        <data-table :params :members @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
+        <data-table
+            :members
+            :params
+            @showDeleteModal="showDeleteModal"
+            @sort="sort($event)"
+            @show-edit-modal="showEditSlideover"
+        ></data-table>
 
         <pagination-data-table
             v-if="members.meta.last_page > 1"
-            :pages="members.meta.last_page"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
+            :pages="members.meta.last_page"
         ></pagination-data-table>
     </template>
 
@@ -186,9 +209,14 @@ watch(
     </div>
 
     <delete-modal
-        :open="deleteModalStatus"
         :deleteProgress
+        :open="deleteModalStatus"
         @close="closeDeleteModal"
         @delete="deleteMember"
     ></delete-modal>
+
+    <member-create-slideover
+        :open="createEditSlideoverStatus"
+        @close="createEditSlideoverStatus = false"
+    ></member-create-slideover>
 </template>

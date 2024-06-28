@@ -99,7 +99,20 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $guarded = [];
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'phone',
+        'email',
+        'email_verified_at',
+        'password',
+        'remember_token',
+        'tenant_id',
+        'zone_id',
+        'branch_id',
+        'gender',
+        'qualification',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -133,6 +146,11 @@ class User extends Authenticatable
     public function zone(): BelongsTo
     {
         return $this->belongsTo(Zone::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function searchableAs(): string

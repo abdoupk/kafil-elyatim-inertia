@@ -221,6 +221,20 @@ export interface CreateBranchForm {
     created_at: string
 }
 
+export interface CreateMemberForm {
+    first_name: string
+    last_name: string
+    email: string
+    phone: string
+    zone_id: string
+    qualification: string
+    password: string
+    password_confirmation: string
+    branch_id: string
+    roles: string[]
+    gender: 'male' | 'female'
+}
+
 export interface FamilyIndexResource {
     id: string
     name: string

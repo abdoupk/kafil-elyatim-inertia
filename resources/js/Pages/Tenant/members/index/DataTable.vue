@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -13,7 +13,8 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ members: PaginationData<MembersIndexResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+// eslint-disable-next-line array-element-newline
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 </script>
 
 <template>
@@ -25,18 +26,18 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
 
                         <base-th-table
-                            sortable
-                            @click="emit('sort', 'name')"
                             :direction="params.directions?.name"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'name')"
                         >
                             {{ $t('the_member') }}
                         </base-th-table>
 
                         <base-th-table
+                            :direction="params.directions?.email"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
-                            :direction="params.directions?.email"
                             @click="emit('sort', 'email')"
                         >
                             {{ $t('validation.attributes.email') }}
@@ -57,7 +58,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 </base-thead-table>
 
                 <base-tbody-table>
-                    <base-tr-table class="intro-x" v-for="(member, index) in members.data" :key="member.id">
+                    <base-tr-table v-for="(member, index) in members.data" :key="member.id" class="intro-x">
                         <base-td-table
                             class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
@@ -96,16 +97,20 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <Link class="me-3 flex items-center" :href="route('tenant.members.edit', member.id)">
-                                    <svg-loader name="icon-pen" class="me-1 h-4 w-4 fill-current" />
+                                <a
+                                    href="javascript:void(0)"
+                                    @click.prevent="emit('showEditModal', member.id)"
+                                    class="me-3 flex items-center"
+                                >
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
-                                </Link>
+                                </a>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', member.id)"
                                 >
-                                    <svg-loader name="icon-trash-can" class="me-1 h-4 w-4 fill-current" />
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
                                     {{ $t('delete') }}
                                 </a>
                             </div>
@@ -116,7 +121,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
         </div>
 
         <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @3xl:hidden">
-            <div class="intro-y col-span-12 @xl:col-span-6" v-for="member in members.data" :key="member.id">
+            <div v-for="member in members.data" :key="member.id" class="intro-y col-span-12 @xl:col-span-6">
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
@@ -141,14 +146,15 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.members.show', member.id)"
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
-                            </Link>
                             <a
+                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
+                                @click.prevent="emit('showEditModal', member.id)"
+                                >{{ $t('edit') }}
+                            </a>
+                            <a
                                 class="font-semibold text-danger"
+                                href="javascript:void(0)"
                                 @click="emit('showDeleteModal', member.id)"
                             >
                                 {{ $t('delete') }}

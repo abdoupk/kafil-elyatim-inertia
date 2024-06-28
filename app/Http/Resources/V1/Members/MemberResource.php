@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *
  * @method string getName()
  */
-class MembersResource extends JsonResource
+class MemberResource extends JsonResource
 {
     public function toArray(Request $request): array
     {

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('last_name')->nullable(false);
             $table->text('phone')->nullable(false);
             $table->text('zone_id')->nullable(false);
+            $table->text('branch_id')->nullable();
             $table->text('email')->nullable(false);
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->text('qualification')->nullable(false);

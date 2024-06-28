@@ -18,8 +18,11 @@ use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
-use App\Http\Controllers\V1\Members\MemberCreateController;
+use App\Http\Controllers\V1\Members\MemberDeleteController;
+use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
+use App\Http\Controllers\V1\Members\MemberStoreController;
+use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
@@ -119,14 +122,17 @@ Route::middleware([
                 Route::get('', MembersIndexController::class)
                     ->name('index');
 
-                Route::get('/create', MemberCreateController::class)
-                    ->name('create');
-
-                Route::get('show/{member}', FamilyShowController::class)
+                Route::get('show/{member}', MemberShowController::class)
                     ->name('show');
 
-                Route::get('edit/{member}', FamilyShowController::class)
-                    ->name('edit');
+                Route::put('{member}', MemberUpdateController::class)
+                    ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::post('', MemberStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::delete('{member}', MemberDeleteController::class)
+                    ->name('destroy');
             });
 
             Route::prefix('roles')->name('roles.')->group(function () {

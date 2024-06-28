@@ -47,6 +47,8 @@ const deleteProgress = ref<boolean>(false)
 
 const selectedBranchId = ref<string>('')
 
+const branchesStore = useBranchesStore()
+
 let routerOptions = {
     preserveState: true,
     preserveScroll: true
@@ -102,6 +104,20 @@ const showDeleteModal = (branchId: string) => {
     deleteModalStatus.value = true
 }
 
+const showCreateModal = () => {
+    branchesStore.$reset()
+
+    createEditModalStatus.value = true
+}
+
+const showEditModal = async (branchId: string) => {
+    selectedBranchId.value = branchId
+
+    await branchesStore.getBranch(branchId)
+
+    createEditModalStatus.value = true
+}
+
 watch(
     search,
     debounce(() => {
@@ -128,22 +144,6 @@ watch(
         getData()
     }
 )
-
-const branchesStore = useBranchesStore()
-
-const showCreateModal = () => {
-    branchesStore.$reset()
-
-    createEditModalStatus.value = true
-}
-
-const showEditModal = async (zoneId: string) => {
-    selectedBranchId.value = zoneId
-
-    await branchesStore.getBranch(zoneId)
-
-    createEditModalStatus.value = true
-}
 </script>
 
 <template>
