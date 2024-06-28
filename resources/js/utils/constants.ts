@@ -63,7 +63,7 @@ export const registerFormAttributes: RegisterForm = {
 
 export const createFamilyFormAttributes: CreateFamilyForm = {
     file_number: '00000',
-    zone_id: '9c5f760e-b5d3-4470-a531-e87f697faa01',
+    zone_id: '',
     inspectors_members: ['9c5f760c-7caa-4dc8-b7c3-5d833b2a647f'],
     address: '54545',
     start_date: '25-06-2024',

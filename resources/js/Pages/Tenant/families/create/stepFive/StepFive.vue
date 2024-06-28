@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
 import BaseClassicEditor from '@/Components/Base/editor/BaseClassicEditor.vue'
@@ -25,8 +25,8 @@ const setInspectorsMembers = (value: string | string[]) => {
 
 <template>
     <div
-        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 5"
+        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
         <div class="text-base font-medium">
             {{ $t('auth.register.stepOne.title') }}
@@ -39,13 +39,13 @@ const setInspectorsMembers = (value: string | string[]) => {
                 </base-form-label>
 
                 <base-classic-editor
-                    @blur="form?.validate('report')"
                     id="report"
                     v-model="report"
+                    @blur="form?.validate('report')"
                 ></base-classic-editor>
 
                 <base-form-input-error>
-                    <div data-test="error_report_message" class="mt-2 text-danger" v-if="form?.invalid('report')">
+                    <div v-if="form?.invalid('report')" class="mt-2 text-danger" data-test="error_report_message">
                         {{ form.errors.report }}
                     </div>
                 </base-form-input-error>
@@ -58,20 +58,23 @@ const setInspectorsMembers = (value: string | string[]) => {
 
                 <div>
                     <base-tom-select
-                        multiple
-                        :options="{ create: false }"
-                        :model-value="inspectorsMembers"
                         :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                        :model-value="inspectorsMembers"
+                        :options="{ create: false }"
+                        multiple
                         @update:model-value="setInspectorsMembers"
                     >
+                        <option value="">{{ $t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })
+                            }}
+                        </option>
                         <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
                     </base-tom-select>
                 </div>
 
                 <base-form-input-error>
                     <div
-                        class="mt-2 text-danger"
                         v-if="form?.invalid('inspectors_members')"
+                        class="mt-2 text-danger"
                         data-test="error_inspectors_members_message"
                     >
                         {{ form.errors.inspectors_members }}
@@ -85,7 +88,6 @@ const setInspectorsMembers = (value: string | string[]) => {
                 </base-form-label>
 
                 <base-lite-picker
-                    @keydown.prevent
                     id="preview_date"
                     v-model="previewDate"
                     :options="{
@@ -103,13 +105,14 @@ const setInspectorsMembers = (value: string | string[]) => {
                         })
                     "
                     class="block w-full"
+                    @keydown.prevent
                 ></base-lite-picker>
 
                 <base-form-input-error>
                     <div
-                        data-test="error_preview_date_message"
-                        class="mt-2 text-danger"
                         v-if="form?.invalid('preview_date')"
+                        class="mt-2 text-danger"
+                        data-test="error_preview_date_message"
                     >
                         {{ form.errors.preview_date }}
                     </div>

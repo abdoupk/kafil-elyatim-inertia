@@ -164,7 +164,7 @@ const setBranchPresident = (value: string | string[]) => {
                         :options="{ allowEmptyOption: false }"
                         @update:model-value="setBranchPresident"
                     >
-                        <option class="hidden" value=""></option>
+                        <option value="">{{$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })}}</option>
                         <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
                     </base-tom-select>
                 </div>
