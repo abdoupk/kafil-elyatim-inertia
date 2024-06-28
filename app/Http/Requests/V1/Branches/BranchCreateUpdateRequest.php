@@ -4,8 +4,18 @@ namespace App\Http\Requests\V1\Branches;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BranchUpdateRequest extends FormRequest
+class BranchCreateUpdateRequest extends FormRequest
 {
+    public function attributes(): array
+    {
+        return [
+            'name' => __('branch name'),
+            'city_id' => __('commune'),
+            'president_id' => __('branch_president'),
+            'created_at' => __('validation.attributes.created_at'),
+        ];
+    }
+
     public function rules(): array
     {
         return [

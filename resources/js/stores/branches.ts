@@ -30,6 +30,7 @@ export const useBranchesStore = defineStore('branches', {
 
             return useForm('post', route('tenant.branches.store'), { ...omit(this.branch, ['id']) })
         },
+
         getUpdateBranchForm(): Form<CreateBranchForm> {
             return useForm('put', route('tenant.branches.update', this.branch.id), { ...omit(this.branch, ['id']) })
         }
@@ -47,7 +48,7 @@ export const useBranchesStore = defineStore('branches', {
 
                 cityStore.daira.daira_name = res.data.branch.city.daira_name
 
-                this.branch = res.data.branch
+                this.branch = omit(res.data.branch, ['city'])
             })
         },
 

@@ -21,7 +21,7 @@ module.exports = {
         extraFileExtensions: ['.vue'],
         ecmaVersion: 'latest',
         sourceType: 'module',
-        files: ['cypress/**/*.{ts,tsx,mts,cts}'],
+        // files: ['tests/cypress/**/*.{ts,tsx,mts,cts}'],
         parser: {
             ts: '@typescript-eslint/parser',
             '<template>': 'espree'

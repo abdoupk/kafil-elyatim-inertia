@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// Import necessary dependencies and components
 import type { MembersType } from '@/types/types'
 
 import { useBranchesStore } from '@/stores/branches'
@@ -17,17 +18,22 @@ import CitySelector from '@/Components/Global/CitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
 
+// Define props
 defineProps<{
     open: boolean
     members: MembersType
 }>()
 
+// Get the branches store
 const branchesStore = useBranchesStore()
 
+// Initialize a ref for loading state
 const loading = ref(false)
 
-const emit = defineEmits(['close', 'process'])
+// Define custom event emitter for 'close' event
+const emit = defineEmits(['close'])
 
+// Function to handle success and close the modal after a delay
 const handleSuccess = () => {
     setTimeout(() => {
         router.get(
@@ -43,30 +49,37 @@ const handleSuccess = () => {
     emit('close')
 }
 
-const handleSubmit = () => {
+// Function to handle form submission
+const handleSubmit = async () => {
     loading.value = true
 
-    branchesStore.branch.id
-        ? branchesStore
-              .updateBranch()
-              .then(handleSuccess)
-              .finally(() => (loading.value = false))
-        : branchesStore
-              .createBranch()
-              .then(handleSuccess)
-              .finally(() => (loading.value = false))
+    try {
+        if (branchesStore.branch.id) {
+            await branchesStore.updateBranch()
+        } else {
+            await branchesStore.createBranch()
+        }
+
+        handleSuccess()
+    } finally {
+        loading.value = false
+    }
 }
 
+// Compute the modal title based on the branch id
 const modalTitle = computed(() => {
     return branchesStore.branch.id ? __('update branch') : n__('add new', 0, { attribute: __('branch') })
 })
 
+// Initialize a ref for the first input element
 const firstInputRef = ref<HTMLElement>()
 
+// Compute the modal type based on the branch id
 const modalType = computed(() => {
     return branchesStore.branch.id ? 'update' : 'create'
 })
 
+// Compute the form based on the branch id
 const form = computed(() => {
     if (branchesStore.branch.id) {
         return branchesStore.getUpdateBranchForm
@@ -75,12 +88,14 @@ const form = computed(() => {
     return branchesStore.getCreateBranchForm
 })
 
+// Watch for changes in the form and reset if no branch id
 watch(form, (value) => {
     if (!branchesStore.branch.id) {
         value.reset()
     }
 })
 
+// Function to set the branch president in the form
 const setBranchPresident = (value: string | string[]) => {
     if (typeof value === 'string') {
         // @ts-ignore
@@ -98,7 +113,6 @@ const setBranchPresident = (value: string | string[]) => {
         :modalType
         :open
         :title="modalTitle"
-        class="!overflow-auto !flex"
         size="lg"
         @close="emit('close')"
         @handle-submit="handleSubmit"
@@ -125,10 +139,11 @@ const setBranchPresident = (value: string | string[]) => {
 
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="created_at">
-                    {{ $t('validation.attributes.starting_sponsorship_date') }}
+                    {{ $t('validation.attributes.created_at') }}
                 </base-form-label>
 
                 <base-lite-picker
+                    id="created_at"
                     v-model="form.created_at"
                     :options="{ format: 'DD-MM-YYYY' }"
                     :placeholder="
@@ -137,7 +152,6 @@ const setBranchPresident = (value: string | string[]) => {
                         })
                     "
                     class="block"
-                    id="created_at"
                     @keydown.prevent
                 ></base-lite-picker>
 
@@ -161,12 +175,12 @@ const setBranchPresident = (value: string | string[]) => {
                     <base-tom-select
                         :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
                         :model-value="form.president_id"
-                        :options="{ allowEmptyOption: false }"
                         @update:model-value="setBranchPresident"
                     >
                         <option value="">
                             {{ $t('auth.placeholders.tomselect', { attribute: $t('branch_president') }) }}
                         </option>
+
                         <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
                     </base-tom-select>
                 </div>

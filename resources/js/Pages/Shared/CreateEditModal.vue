@@ -22,7 +22,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
 
 <template>
     <base-dialog :initialFocus="focusableInput" :open @close="emit('close')">
-        <base-dialog-panel class="">
+        <base-dialog-panel>
             <form @submit.prevent="emit('handleSubmit')">
                 <base-dialog-title>
                     <h2 class="me-auto text-base font-medium">

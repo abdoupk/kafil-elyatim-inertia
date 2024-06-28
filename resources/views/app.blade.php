@@ -17,6 +17,10 @@
 
 <body class="font-roboto overflow-x-hidden dark:bg-darkmode-700 scroll-smooth">
     @inertia
+
+    @env('local')
+    <script src="http://localhost:8098"></script>
+    @endenv
 </body>
 
 </html>

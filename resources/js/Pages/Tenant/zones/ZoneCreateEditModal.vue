@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useZonesStore } from '@/stores/zones'
 import { router } from '@inertiajs/vue3'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
@@ -18,33 +18,37 @@ const zonesStore = useZonesStore()
 
 const loading = ref(false)
 
-const emit = defineEmits(['close', 'process'])
+const emit = defineEmits(['close'])
 
 const handleSubmit = async () => {
     loading.value = true
 
-    zonesStore.zone.id
-        ? await zonesStore.updateZone().finally(handleSuccess)
-        : await zonesStore.createZone().finally(handleSuccess)
+    try {
+        if (zonesStore.zone.id) {
+            await zonesStore.updateZone()
+        } else {
+            await zonesStore.createZone()
+        }
+
+        handleSuccess()
+    } finally {
+        loading.value = false
+    }
 }
 
 const handleSuccess = () => {
-    loading.value = false
+    setTimeout(() => {
+        router.get(
+            route('tenant.zones.index'),
+            {},
+            {
+                only: ['zones'],
+                preserveState: true
+            }
+        )
+    }, 200)
 
-    if (Object.keys(zonesStore.errors).length === 0) {
-        setTimeout(() => {
-            router.get(
-                route('tenant.zones.index'),
-                {},
-                {
-                    only: ['zones'],
-                    preserveState: true
-                }
-            )
-        }, 200)
-
-        emit('close')
-    }
+    emit('close')
 }
 
 const modalTitle = computed(() => {
@@ -55,6 +59,20 @@ const firstInputRef = ref<HTMLElement>()
 
 const modalType = computed(() => {
     return zonesStore.zone.id ? 'update' : 'create'
+})
+
+const form = computed(() => {
+    if (zonesStore.zone.id) {
+        return zonesStore.getUpdateZoneForm
+    }
+
+    return zonesStore.getCreateZoneForm
+})
+
+watch(form, (value) => {
+    if (!zonesStore.zone.id) {
+        value.reset()
+    }
 })
 </script>
 
@@ -77,13 +95,14 @@ const modalType = computed(() => {
                 <base-form-input
                     id="name"
                     ref="firstInputRef"
-                    v-model="zonesStore.zone.name"
+                    v-model="form.name"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('zone name') })"
                     type="text"
+                    @change="form.validate('name')"
                 />
 
-                <div v-if="zonesStore.errors?.name" class="mt-2">
-                    <base-input-error :message="zonesStore.errors.name[0]"></base-input-error>
+                <div v-if="form.errors.name" class="mt-2">
+                    <base-input-error :message="form.errors.name"></base-input-error>
                 </div>
             </div>
 
@@ -94,14 +113,15 @@ const modalType = computed(() => {
 
                 <base-form-text-area
                     id="description"
-                    v-model="zonesStore.zone.description"
+                    v-model="form.description"
                     placeholder="example@gmail.com"
                     rows="5"
                     type="text"
+                    @change="form.validate('description')"
                 />
 
-                <div v-if="zonesStore.errors?.description" class="mt-2">
-                    <base-input-error :message="zonesStore.errors.description[0]"></base-input-error>
+                <div v-if="form.errors.description" class="mt-2">
+                    <base-input-error :message="form.errors.description"></base-input-error>
                 </div>
             </div>
         </template>

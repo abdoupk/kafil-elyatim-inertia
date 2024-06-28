@@ -162,10 +162,10 @@ Route::middleware([
                     ->name('show');
 
                 Route::put('{zone}', ZoneUpdateController::class)
-                    ->name('update');
+                    ->name('update')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::post('', ZoneStoreController::class)
-                    ->name('store');
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::delete('{zone}', ZoneDeleteController::class)
                     ->name('destroy');

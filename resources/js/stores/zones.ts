@@ -1,16 +1,14 @@
 import type { Zone } from '@/types/types'
 
 import axios from 'axios'
+import { useForm } from 'laravel-precognition-vue'
+import type { Form } from 'laravel-precognition-vue/dist/types'
 import { defineStore } from 'pinia'
 
 import { omit } from '@/utils/helper'
 
 interface State {
     zone: Zone
-    errors: {
-        name: string[]
-        description: string[]
-    }
 }
 
 export const useZonesStore = defineStore('zones', {
@@ -19,10 +17,17 @@ export const useZonesStore = defineStore('zones', {
             name: '',
             id: '',
             description: ''
-        },
-        errors: []
+        }
     }),
-    getters: {},
+    getters: {
+        getCreateZoneForm(): Form<Zone> {
+            return useForm('post', route('tenant.zones.store'), { ...omit(this.zone, ['id']) })
+        },
+
+        getUpdateZoneForm(): Form<Zone> {
+            return useForm('put', route('tenant.zones.update', this.zone.id), { ...omit(this.zone, ['id']) })
+        }
+    },
     actions: {
         async getZone(zoneId: string) {
             await axios.get(`zones/show/${zoneId}`).then((res) => {
@@ -31,29 +36,11 @@ export const useZonesStore = defineStore('zones', {
         },
 
         async updateZone() {
-            await axios
-                .put(`zones/${this.zone.id}`, { ...omit(this.zone, ['id']) })
-                .then(() => {
-                    this.errors = []
-                })
-                .catch((res) => {
-                    if (res.response.status == 422) {
-                        this.errors = res.response.data.errors
-                    }
-                })
+            await this.getUpdateZoneForm.submit()
         },
 
         async createZone() {
-            await axios
-                .post('zones', { ...omit(this.zone, ['id']) })
-                .then(() => {
-                    this.errors = []
-                })
-                .catch((res) => {
-                    if (res.response.status == 422) {
-                        this.errors = res.response.data.errors
-                    }
-                })
+            await this.getCreateZoneForm.submit()
         }
     }
 })
