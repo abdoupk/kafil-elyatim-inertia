@@ -6,9 +6,10 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Models\Role as SpatieRole;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property string $uuid
@@ -36,8 +37,22 @@ use Spatie\Permission\Models\Role as SpatieRole;
  */
 class Role extends SpatieRole
 {
-    use HasFactory;
-    use HasUuids;
+    use BelongsToTenant, HasUuids, Searchable;
 
     protected $primaryKey = 'uuid';
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->loadCount(['users', 'permissions']);
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'uuid' => $this->uuid,
+            'name' => $this->name,
+            'permissions_count' => $this->permissions_count,
+            'users_count' => $this->users_count,
+        ];
+    }
 }

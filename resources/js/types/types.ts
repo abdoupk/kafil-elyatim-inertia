@@ -240,13 +240,21 @@ export interface CreateMemberForm {
     gender: 'male' | 'female'
 }
 
-export interface FamilyIndexResource {
+export interface FamiliesIndexResource {
     id: string
     name: string
     start_date: Date
     file_number: number
     zone: Zone
     address: string
+}
+
+export interface RolesIndexResource {
+    uuid: string
+    name: string
+    created_at: string
+    permissions_count: string
+    users_count: string
 }
 
 export interface IndexParams {

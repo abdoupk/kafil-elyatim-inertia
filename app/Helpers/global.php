@@ -6,6 +6,9 @@
 
 use App\Models\Branch;
 use App\Models\Family;
+use App\Models\Orphan;
+use App\Models\Role;
+use App\Models\Sponsor;
 use App\Models\User;
 use App\Models\Zone;
 use Laravel\Scout\Builder;
@@ -93,7 +96,7 @@ function generateFormattedSort(): array
     return ['created_at:desc'];
 }
 
-function search(User|Family|Branch|Zone $model): Builder
+function search(User|Family|Branch|Orphan|Sponsor|Role|Zone $model): Builder
 {
     $query = request()->input('search', '');
     $meilisearchOptions = [

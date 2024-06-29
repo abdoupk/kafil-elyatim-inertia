@@ -139,6 +139,11 @@ return [
                 'searchableAttributes' => ['name', 'email', 'phone', 'gender'],
                 'sortableAttributes' => ['name', 'email', 'phone', 'gender', 'created_at'],
             ],
+            'roles' => [
+                'filterableAttributes' => ['uuid', 'name', 'tenant_id'],
+                'searchableAttributes' => ['name'],
+                'sortableAttributes' => ['name', 'permissions_count', 'users_count', 'created_at'],
+            ],
             'families' => [
                 'rankingRules' => ['words', 'sort', 'typo', 'proximity', 'attribute', 'exactness'],
                 'searchableAttributes' => ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'start_date', 'second_sponsor.name', 'second_sponsor.degree_of_kinship', 'second_sponsor.address', 'spouse.name', 'spouse.function'],

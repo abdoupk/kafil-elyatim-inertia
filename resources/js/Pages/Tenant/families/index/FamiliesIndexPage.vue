@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FamilyIndexResource, IndexParams, PaginationData } from '@/types/types'
+import type { FamiliesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -27,7 +27,7 @@ defineOptions({
 const filterModalStatus = ref<boolean>(false)
 
 const props = defineProps<{
-    families: PaginationData<FamilyIndexResource>
+    families: PaginationData<FamiliesIndexResource>
     params: IndexParams
 }>()
 
