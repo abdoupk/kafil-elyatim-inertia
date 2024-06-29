@@ -34,8 +34,12 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ $t('the_role') }}
                         </base-th-table>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-start">
-                            {{ $t('validation.attributes.description') }}
+                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center">
+                            {{ $t('permissions_count') }}
+                        </base-th-table>
+
+                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center">
+                            {{ $t('users_count') }}
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
@@ -65,9 +69,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-start"
+                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
-                            {{ role.description }}
+                            {{ role.users_count }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                        >
+                            {{ role.permissions_count }}
                         </base-td-table>
 
                         <base-td-table

@@ -46,6 +46,11 @@ class Role extends SpatieRole
         return $models->loadCount(['users', 'permissions']);
     }
 
+    public function shouldBeSearchable(): bool
+    {
+        return $this->name !== 'super_admin';
+    }
+
     public function toSearchableArray(): array
     {
         return [
@@ -53,6 +58,7 @@ class Role extends SpatieRole
             'name' => $this->name,
             'permissions_count' => $this->permissions_count,
             'users_count' => $this->users_count,
+            'tenant_id' => $this->tenant_id,
         ];
     }
 }

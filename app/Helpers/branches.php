@@ -15,6 +15,7 @@ function getBranches(): LengthAwarePaginator
         ->query(fn (Builder $query) => $query->with([
             'president',
             'city',
+        ]))->query(fn (Builder $query) => $query->withCount([
             'families',
         ]))
         /** @phpstan-ignore-next-line */

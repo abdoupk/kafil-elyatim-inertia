@@ -11,18 +11,19 @@ class RolePermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        Tenant::with('members')->each(function ($tenant) {
-            $tenant->members->each(function (User $user, $key) {
-                if ($key === 0) {
-                    $user->assignRole('super_admin');
-                }
-
+        Tenant::with('members')->each(function (Tenant $tenant) {
+            setPermissionsTeamId($tenant->id);
+            $tenant->members->each(function (User $user, $key) use ($tenant) {
                 if ($key === 1) {
-                    $role = Role::create(['name' => 'vice_president']);
-
-                    $user->assignRole($role);
+                    $role = Role::create(['name' => 'vice_president', 'tenant_id' => $tenant->id]);
+                } else {
+                    $role = Role::firstOrCreate([
+                        'tenant_id' => $tenant->id,
+                        'name' => 'member',
+                    ]);
                 }
 
+                $user->assignRole($role);
             });
         });
     }

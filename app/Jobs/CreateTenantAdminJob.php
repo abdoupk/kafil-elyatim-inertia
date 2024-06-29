@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Role;
 use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
@@ -14,9 +15,7 @@ class CreateTenantAdminJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Tenant $tenant)
-    {
-    }
+    public function __construct(public Tenant $tenant) {}
 
     /**
      * Execute the job.
@@ -24,9 +23,11 @@ class CreateTenantAdminJob implements ShouldQueue
     public function handle(): void
     {
         $this->tenant->run(function ($tenant) {
+            setPermissionsTeamId($tenant->id);
+
             $user = User::create($tenant->only('first_name', 'last_name', 'phone', 'email', 'password'));
 
-            $user->assignRole('super_admin');
+            $user->assignRole(Role::create(['name' => 'super_admin', 'tenant_id' => $tenant->id]));
         });
     }
 }

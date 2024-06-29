@@ -531,5 +531,10 @@
     "branch_president": "رئيس الفرع",
     "location": "الموقع",
     "the_branch": "الفرع",
-    "update": "تحديث"
+    "update": "تحديث",
+    "permissions_count": "عدد الصلاحيات",
+    "the_role": "الدور",
+    "the_roles": "الادوار",
+    "role": "دور",
+    "users_count": "عدد الاعضاء"
 }
