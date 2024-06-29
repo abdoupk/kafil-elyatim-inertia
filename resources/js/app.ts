@@ -2,6 +2,10 @@ import '../css/app.css'
 import './bootstrap'
 import i18n from './utils/i18n'
 
+import vSelect from "vue-select";
+// import "vue-select/dist/vue-select.css";
+import VCalendar from 'v-calendar';
+import 'v-calendar/style.css';
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
@@ -20,6 +24,9 @@ createInertiaApp({
             .use(plugin)
             .use(createPinia())
             .use(ZiggyVue)
+
+        // app.component("v-select", vSelect);
+        app.use(VCalendar, {})
 
         app.mount(el)
 

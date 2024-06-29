@@ -13,7 +13,9 @@ class MemberStoreController extends Controller
 {
     public function __invoke(MemberCreateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
-        User::create($request->validated());
+        $user = User::create($request->only(['password', 'email', 'last_name', 'first_name', 'phone', 'zone_id', 'branch_id', 'qualification', 'gender']));
+
+        $user->assignRole($request->roles);
 
         return response('', 201);
     }

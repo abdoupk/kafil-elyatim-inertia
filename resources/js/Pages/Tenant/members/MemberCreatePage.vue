@@ -13,10 +13,11 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
 
 import { createMemberFormAttribute } from '@/utils/constants'
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineOptions({
     layout: TheLayout
@@ -249,19 +250,20 @@ const updateRoles = (roles: string | string[]) => {
                     </base-form-label>
 
                     <div>
-                        <base-tom-select
-                            v-model="form.qualification"
-                            :options="{ maxOptions: 200 }"
-                            :placeholder="
-                                $t('auth.placeholders.fill', { attribute: $t('validation.attributes.qualification') })
-                            "
-                            class="h-full w-full"
-                            @update:modelValue="updateQualification"
-                        >
-                            <option v-for="qualification in qualifications" :key="qualification" :value="qualification">
-                                {{ qualification }}
-                            </option>
-                        </base-tom-select>
+                        <!--                        <base-tom-select-->
+                        <!--                            v-model="form.qualification"-->
+                        <!--                            :options="{ maxOptions: 200 }"-->
+                        <!--                            :placeholder="-->
+                        <!--                                $t('auth.placeholders.fill', { attribute: $t('validation.attributes.qualification') })-->
+                        <!--                            "-->
+                        <!--                            class="h-full w-full"-->
+                        <!--                            @update:modelValue="updateQualification"-->
+                        <!--                        >-->
+                        <!--                            <option v-for="qualification in qualifications" :key="qualification" :value="qualification">-->
+                        <!--                                {{ qualification }}-->
+                        <!--                            </option>-->
+                        <!--                        </base-tom-select>-->
+                        <base-vue-select></base-vue-select>
                     </div>
 
                     <div v-if="form.errors?.qualification" class="mt-2">
@@ -277,16 +279,17 @@ const updateRoles = (roles: string | string[]) => {
                     </base-form-label>
 
                     <div>
-                        <base-tom-select
-                            v-model="form.zone_id"
-                            :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.zone') })"
-                            class="h-full w-full"
-                            @update:modelValue="updateZone"
-                        >
-                            <option v-for="role in zones" :key="role.id" :value="role.id">
-                                {{ role.name }}
-                            </option>
-                        </base-tom-select>
+                        <!--                        <base-tom-select-->
+                        <!--                            v-model="form.zone_id"-->
+                        <!--                            :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.zone') })"-->
+                        <!--                            class="h-full w-full"-->
+                        <!--                            @update:modelValue="updateZone"-->
+                        <!--                        >-->
+                        <!--                            <option v-for="role in zones" :key="role.id" :value="role.id">-->
+                        <!--                                {{ role.name }}-->
+                        <!--                            </option>-->
+                        <!--                        </base-tom-select>-->
+                        <base-vue-select></base-vue-select>
                     </div>
 
                     <div v-if="form.errors?.zone_id" class="mt-2">
@@ -302,19 +305,21 @@ const updateRoles = (roles: string | string[]) => {
                     </base-form-label>
 
                     <div>
-                        <base-tom-select
-                            v-model="form.branch_id"
-                            :options="{ maxOptions: 200 }"
-                            :placeholder="
-                                $t('auth.placeholders.fill', { attribute: $t('validation.attributes.branch') })
-                            "
-                            class="h-full w-full"
-                            @update:modelValue="updateBranch"
-                        >
-                            <option v-for="branch in branches" :key="branch.id" :value="branch.id">
-                                {{ branch.name }}
-                            </option>
-                        </base-tom-select>
+                        <!--                        <base-tom-select-->
+                        <!--                            v-model="form.branch_id"-->
+                        <!--                            :options="{ maxOptions: 200 }"-->
+                        <!--                            :placeholder="-->
+                        <!--                                $t('auth.placeholders.fill', { attribute: $t('validation.attributes.branch') })-->
+                        <!--                            "-->
+                        <!--                            class="h-full w-full"-->
+                        <!--                            @update:modelValue="updateBranch"-->
+                        <!--                        >-->
+                        <!--                            <option v-for="branch in branches" :key="branch.id" :value="branch.id">-->
+                        <!--                                {{ branch.name }}-->
+                        <!--                            </option>-->
+                        <!--                        </base-tom-select>-->
+
+                        <base-vue-select></base-vue-select>
                     </div>
 
                     <div v-if="form.errors?.branch_id" class="mt-2">
@@ -330,18 +335,19 @@ const updateRoles = (roles: string | string[]) => {
                     </base-form-label>
 
                     <div>
-                        <base-tom-select
-                            v-model="form.roles"
-                            :options="{ maxOptions: 200 }"
-                            :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.zone') })"
-                            class="h-full w-full"
-                            multiple
-                            @update:modelValue="updateRoles"
-                        >
-                            <option v-for="role in roles" :key="role.uuid" :value="role.uuid">
-                                {{ role.name }}
-                            </option>
-                        </base-tom-select>
+                        <!--                        <base-tom-select-->
+                        <!--                            v-model="form.roles"-->
+                        <!--                            :options="{ maxOptions: 200 }"-->
+                        <!--                            :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.zone') })"-->
+                        <!--                            class="h-full w-full"-->
+                        <!--                            multiple-->
+                        <!--                            @update:modelValue="updateRoles"-->
+                        <!--                        >-->
+                        <!--                            <option v-for="role in roles" :key="role.uuid" :value="role.uuid">-->
+                        <!--                                {{ role.name }}-->
+                        <!--                            </option>-->
+                        <!--                        </base-tom-select>-->
+                        <base-vue-select></base-vue-select>
                     </div>
 
                     <div v-if="rolesErrors" class="mt-2">
@@ -350,7 +356,9 @@ const updateRoles = (roles: string | string[]) => {
                 </div>
                 <!-- End: roles-->
             </div>
-
+            <div class="p-5 w-1/6">
+                <base-v-calendar></base-v-calendar>
+            </div>
             <div class="flex justify-end px-5 py-3">
                 <base-button class="w-20 me-1" type="button" variant="outline-secondary">
                     {{ $t('cancel') }}

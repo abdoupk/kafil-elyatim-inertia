@@ -1,0 +1,24 @@
+
+.multiselect__tag {
+    background-color: theme('colors.primary');
+    color: theme('colors.white');
+}
+
+.multiselect__tag-icon {
+    color: theme('colors.white') !important;
+}
+
+.multiselect__input:focus {
+    padding: theme('spacing.1') !important;
+    margin-top: theme('spacing.1') !important;
+    box-shadow: 0 0 0 1px theme('colors.primary') !important;
+}
+
+.multiselect__placeholder {
+    color: theme('colors.slate.400') !important;
+}
+
+.multiselect__option--highlight {
+    background-color: theme('colors.primary') !important;
+    color: theme('colors.white') !important;
+}
