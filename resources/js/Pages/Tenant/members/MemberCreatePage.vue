@@ -372,6 +372,7 @@ const rolesErrors = computed(() => {
                     </div>
 
                     <div v-if="rolesErrors" class="mt-2">
+                        <!-- @vue-expect-error -->
                         <base-input-error :message="form.errors[rolesErrors[0]]"></base-input-error>
                     </div>
                 </div>
