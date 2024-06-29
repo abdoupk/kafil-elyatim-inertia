@@ -8,16 +8,16 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { createMemberFormAttribute } from '@/utils/constants'
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineOptions({
     layout: TheLayout
@@ -37,38 +37,6 @@ const rolesErrors = computed(() => {
 
     return Object.keys(form.errors).filter((error) => regx.test(error))
 })
-
-const updateQualification = (qualification: string | string[]) => {
-    if (typeof qualification === 'string') {
-        form.qualification = qualification
-
-        form.validate('qualification')
-    }
-}
-
-const updateBranch = (branch_id: string | string[]) => {
-    if (typeof branch_id === 'string') {
-        form.branch_id = branch_id
-
-        form.validate('branch_id')
-    }
-}
-
-const updateZone = (zone_id: string | string[]) => {
-    if (typeof zone_id === 'string') {
-        form.zone_id = zone_id
-
-        form.validate('zone_id')
-    }
-}
-
-const updateRoles = (roles: string | string[]) => {
-    if (typeof roles !== 'string') {
-        form.roles = roles
-
-        form.validate('roles')
-    }
-}
 </script>
 
 <template>
@@ -263,7 +231,7 @@ const updateRoles = (roles: string | string[]) => {
                         <!--                                {{ qualification }}-->
                         <!--                            </option>-->
                         <!--                        </base-tom-select>-->
-                        <base-vue-select></base-vue-select>
+                        <!--                        <base-vue-select></base-vue-select>-->
                     </div>
 
                     <div v-if="form.errors?.qualification" class="mt-2">
@@ -289,7 +257,7 @@ const updateRoles = (roles: string | string[]) => {
                         <!--                                {{ role.name }}-->
                         <!--                            </option>-->
                         <!--                        </base-tom-select>-->
-                        <base-vue-select></base-vue-select>
+                        <!--                        <base-vue-select></base-vue-select>-->
                     </div>
 
                     <div v-if="form.errors?.zone_id" class="mt-2">
@@ -319,7 +287,7 @@ const updateRoles = (roles: string | string[]) => {
                         <!--                            </option>-->
                         <!--                        </base-tom-select>-->
 
-                        <base-vue-select></base-vue-select>
+                        <!--                        <base-vue-select></base-vue-select>-->
                     </div>
 
                     <div v-if="form.errors?.branch_id" class="mt-2">
@@ -347,7 +315,60 @@ const updateRoles = (roles: string | string[]) => {
                         <!--                                {{ role.name }}-->
                         <!--                            </option>-->
                         <!--                        </base-tom-select>-->
-                        <base-vue-select></base-vue-select>
+                        {{ form.roles }}
+                        <base-vue-select
+                            :options="[
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options',
+                                'list',
+                                'of',
+                                'options'
+                            ]"
+                            v-model:value="form.roles"
+                        ></base-vue-select>
                     </div>
 
                     <div v-if="rolesErrors" class="mt-2">
@@ -356,9 +377,11 @@ const updateRoles = (roles: string | string[]) => {
                 </div>
                 <!-- End: roles-->
             </div>
+
             <div class="p-5 w-1/6">
                 <base-v-calendar></base-v-calendar>
             </div>
+
             <div class="flex justify-end px-5 py-3">
                 <base-button class="w-20 me-1" type="button" variant="outline-secondary">
                     {{ $t('cancel') }}

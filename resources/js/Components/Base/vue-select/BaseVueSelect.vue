@@ -2,19 +2,12 @@
     <multiselect v-model="value" :options="options" :show-labels="false" multiple></multiselect>
 </template>
 
-<script>
+<script lang="ts" setup>
 import Multiselect from 'vue-multiselect'
 
-export default {
-    // OR register locally
-    components: { Multiselect },
-    data() {
-        return {
-            value: null,
-            options: ['list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options', 'list', 'of', 'options']
-        }
-    }
-}
+defineProps<{ options: string[] | Record<string, string> }>()
+
+const value = defineModel('value')
 </script>
 
 <!-- TODO change vue-multiselect.ssr.css  -->
