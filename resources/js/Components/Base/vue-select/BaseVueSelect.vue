@@ -1,5 +1,5 @@
 <template>
-    <multiselect v-model="value" :options="options" :show-labels="false" multiple></multiselect>
+    <multiselect placeholder="hello" v-model="value" :options="options" :show-labels="false" multiple></multiselect>
 </template>
 
 <script lang="ts" setup>
