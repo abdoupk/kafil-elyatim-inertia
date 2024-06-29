@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\Families;
 
-use App\Http\Resources\V1\ZoneResource;
+use App\Http\Resources\V1\Zones\ZoneResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

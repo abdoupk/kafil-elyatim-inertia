@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\Members;
 
-use App\Http\Resources\V1\ZoneResource;
+use App\Http\Resources\V1\Zones\ZoneResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

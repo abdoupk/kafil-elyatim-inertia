@@ -18,6 +18,7 @@ use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
+use App\Http\Controllers\V1\Members\MemberCreateController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
@@ -124,6 +125,9 @@ Route::middleware([
 
                 Route::get('show/{member}', MemberShowController::class)
                     ->name('show');
+
+                Route::get('create', MemberCreateController::class)
+                    ->name('create');
 
                 Route::put('{member}', MemberUpdateController::class)
                     ->name('update')->middleware([HandlePrecognitiveRequests::class]);

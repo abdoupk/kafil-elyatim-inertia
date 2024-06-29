@@ -214,6 +214,11 @@ export interface Branch {
     name: string
 }
 
+export interface Role {
+    uuid: string
+    name: string
+}
+
 export interface CreateBranchForm {
     name: string
     city_id: string

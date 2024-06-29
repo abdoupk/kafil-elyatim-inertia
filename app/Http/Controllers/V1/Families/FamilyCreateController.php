@@ -5,7 +5,7 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Branches\BranchesResource;
 use App\Http\Resources\V1\Members\MemberResource;
-use App\Http\Resources\V1\ZoneResource;
+use App\Http\Resources\V1\Zones\ZoneResource;
 use App\Models\Branch;
 use App\Models\User;
 use App\Models\Zone;

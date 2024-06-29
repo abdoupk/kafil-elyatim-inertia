@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
-import { useMembersStore } from '@/stores/members'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -9,7 +8,6 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import MemberCreateSlideover from '@/Pages/Tenant/members/MemberCreateSlideover.vue'
 import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -45,27 +43,9 @@ const deleteProgress = ref<boolean>(false)
 
 const selectedMemberId = ref<string>('')
 
-const createEditSlideoverStatus = ref<boolean>(true)
-
-const memberStore = useMembersStore()
-
 let routerOptions = {
     preserveState: true,
     preserveScroll: true
-}
-
-const showCreateSlideover = () => {
-    memberStore.$reset()
-
-    createEditSlideoverStatus.value = true
-}
-
-const showEditSlideover = async (branchId: string) => {
-    selectedMemberId.value = branchId
-
-    await memberStore.getMember(branchId)
-
-    createEditSlideoverStatus.value = true
 }
 
 const closeDeleteModal = () => {
@@ -155,7 +135,11 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateSlideover">
+            <base-button
+                @click.prevent="router.get(route('tenant.members.create'))"
+                class="me-2 shadow-md"
+                variant="primary"
+            >
                 {{ n__('add new', 1, { attribute: $t('member') }) }}
             </base-button>
 
@@ -188,13 +172,7 @@ watch(
     </div>
 
     <template v-if="members.data.length > 0">
-        <data-table
-            :members
-            :params
-            @showDeleteModal="showDeleteModal"
-            @sort="sort($event)"
-            @show-edit-modal="showEditSlideover"
-        ></data-table>
+        <data-table :members :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
         <pagination-data-table
             v-if="members.meta.last_page > 1"
@@ -214,9 +192,4 @@ watch(
         @close="closeDeleteModal"
         @delete="deleteMember"
     ></delete-modal>
-
-    <member-create-slideover
-        :open="createEditSlideoverStatus"
-        @close="createEditSlideoverStatus = false"
-    ></member-create-slideover>
 </template>

@@ -3,6 +3,7 @@ import type {
     CreateFamilyForm,
     CreateFamilyStepOneProps,
     CreateFamilyStepTwoProps,
+    CreateMemberForm,
     IPlacement,
     LayoutsType,
     RegisterForm,
@@ -61,6 +62,19 @@ export const registerFormAttributes: RegisterForm = {
     phones: ['']
 }
 
+export const createMemberFormAttribute: CreateMemberForm = {
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    zone_id: '',
+    qualification: '',
+    gender: 'male',
+    roles: [''],
+    branch_id: '',
+    password: '',
+    password_confirmation: ''
+}
 export const createFamilyFormAttributes: CreateFamilyForm = {
     file_number: '00000',
     zone_id: '',
