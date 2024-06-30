@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\V1\Families;
+namespace App\Http\Controllers\V1\Orphans;
 
-use App\Exports\FamiliesIndexExport;
+use App\Exports\orphansIndexExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Exception;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ExportFamiliesXlsxController extends Controller
+class ExportOrphansXlsxController extends Controller
 {
     /**
      * @throws Exception
@@ -16,6 +16,6 @@ class ExportFamiliesXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new FamiliesIndexExport, 'families.xlsx');
+        return Excel::download(new OrphansIndexExport, 'orphans.xlsx');
     }
 }

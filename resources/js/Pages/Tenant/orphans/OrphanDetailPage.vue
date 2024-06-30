@@ -1,3 +1,14 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import TheLayout from '@/Layouts/TheLayout.vue'
+import type { OrphanType } from '@/types/types'
 
-<template></template>
+defineOptions({
+    layout: TheLayout
+})
+
+defineProps<{
+    orphan: OrphanType
+}>()
+</script>
+
+<template>{{ orphan }}</template>

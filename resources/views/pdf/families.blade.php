@@ -11,63 +11,48 @@
 </head>
 
 <body>
-    <div class="col-span-12 overflow-auto md:block ">
-        <table class="w-full text-start mt-2 border-separate border-spacing-y-[10px]">
-            <thead class="">
-                <tr class="">
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-start font-semibold flex-col">
-                        <span> #</span>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-start font-semibold flex-col">
-                        <div class="flex cursor-pointer"><span class="flex-grow">العائلة</span></div>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-start font-semibold flex-col">
-                        <span>العنوان</span>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center font-semibold flex-col">
-                        <div class="flex cursor-pointer"><span class="flex-grow">رقم الملف</span></div>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center font-semibold flex-col">
-                        <div class="flex cursor-pointer"><span class="flex-grow">تاريخ بدء التكفل</span>
-                        </div>
-                    </th>
+    <table class="w-full table table-bordered">
+        <thead>
+            <tr>
+                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
+                    <span> #</span>
+                </th>
+                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
+                    العائلة
+                </th>
+                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
+                    العنوان
+                </th>
+                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
+                    رقم الملف
+                </th>
+                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
+                    تاريخ بدء التكفل
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($families as $family)
+                <tr>
+                    <td class="px-5 py-3 border-b border-l border-r border-t">
+                        {{ $loop->iteration }}
+                    </td>
+                    <td class="px-5 py-3 border-b border-l border-r border-t">
+                        {{ $family->name }}
+                    </td>
+                    <td class="px-5 py-3 border-b border-l border-r border-t">
+                        {{ $family->address }}
+                    </td>
+                    <td class="px-5 py-3 border-b border-l border-r border-t">
+                        {{ $family->file_number }}
+                    </td>
+                    <td class="px-5 py-3 border-b border-l border-r border-t">
+                        {{ $family->start_date->format('Y-m-d') }}
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($families as $family)
-                    <tr>
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            {{ $loop->iteration }}
-                        </td>
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 !min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            <a class="font-medium">{{ $family->name }}</a>
-                        </td>
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            {{ $family->address }}
-                            <a class="mt-0.5 block whitespace-nowrap text-xs text-slate-500" href="">
-                                {{ $family->zone?->name }}</a>
-                        </td>
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            {{ $family->file_number }}
-                        </td>
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            <div class="whitespace-nowrap">{{ $family->start_date->format('Y-m-d') }}</div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 
 </html>

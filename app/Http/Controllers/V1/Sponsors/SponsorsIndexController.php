@@ -10,6 +10,9 @@ class SponsorsIndexController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/sponsors/SponsorsIndexPage');
+        return Inertia::render('Tenant/sponsors/index/SponsorsIndexPage', [
+            'sponsors' => '',
+            'params' => getParams(),
+        ]);
     }
 }

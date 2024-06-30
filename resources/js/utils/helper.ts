@@ -212,9 +212,9 @@ const isAssociationNameLatin = computed(() => {
     return /^[a-z]+/i.test(usePage().props.association)
 })
 
-const formatDate = (date: string) => {
+const formatDate = (date: string, dateStyle: 'full' | 'long' | 'medium' | 'short' | undefined) => {
     return new Intl.DateTimeFormat(`${getLocale()}-DZ`, {
-        dateStyle: 'full'
+        dateStyle
     }).format(new Date(date))
 }
 

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -59,14 +60,14 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read Family $family
  * @property-read Collection<int, OrphanSponsorship> $sponsorships
  * @property-read int|null $sponsorships_count
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $deleted_at
  *
  * @method static Builder|Orphan onlyTrashed()
  * @method static Builder|Orphan whereDeletedAt($value)
  * @method static Builder|Orphan withTrashed()
  * @method static Builder|Orphan withoutTrashed()
  *
- * @property-read \App\Models\Tenant $tenant
+ * @property-read Tenant $tenant
  *
  * @mixin Eloquent
  */
@@ -109,5 +110,25 @@ class Orphan extends Model
         return $this->hasMany(OrphanSponsorship::class);
     }
 
-    public function getName() {}
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'birth_date' => $this->birth_date,
+            'academic_level' => $this->academic_level,
+            'health_status' => $this->health_status,
+            'family_status' => $this->family_status,
+            'shoes_size' => $this->shoes_size,
+            'shirt_size' => $this->shirt_size,
+            'pants_size' => $this->pants_size,
+            'note' => $this->note,
+            'tenant_id' => $this->tenant_id,
+            'family_id' => $this->family_id,
+        ];
+    }
 }

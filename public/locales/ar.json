@@ -37,6 +37,7 @@
     "breadcrumb.statistics": "الاحصائيات",
     "breadcrumb.zones": "المناطق",
     "breadcrumb.financial": "الماليات",
+    "breadcrumb.show": "تفاصيل",
     "furnishings.television": "تلفاز",
     "furnishings.refrigerator": "ثلاجة",
     "furnishings.fireplace": "مِدْفَأَة",
@@ -535,6 +536,8 @@
     "permissions_count": "عدد الصلاحيات",
     "the_role": "الدور",
     "the_roles": "الادوار",
+    "the_orphans": "الايتام",
+    "orphan": "يتيم",
     "role": "دور",
     "users_count": "عدد الاعضاء"
 }

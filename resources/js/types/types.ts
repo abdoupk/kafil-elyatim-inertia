@@ -249,6 +249,18 @@ export interface FamiliesIndexResource {
     address: string
 }
 
+export interface OrphansIndexResource {
+    id: string
+    name: string
+    birth_date: string
+    family_status: string
+    health_status: string
+    academic_level: string
+    shoes_size: string
+    pants_size: string
+    shirt_size: string
+}
+
 export interface RolesIndexResource {
     uuid: string
     name: string

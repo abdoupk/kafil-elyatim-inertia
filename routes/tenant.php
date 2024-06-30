@@ -24,6 +24,10 @@ use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
+use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
+use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
+use App\Http\Controllers\V1\Orphans\OrphanDeleteController;
+use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
@@ -117,6 +121,18 @@ Route::middleware([
             Route::prefix('orphans')->name('orphans.')->group(function () {
                 Route::get('', OrphansIndexController::class)
                     ->name('index');
+
+                Route::get('show/{orphan}', OrphanShowController::class)
+                    ->name('show');
+
+                Route::delete('{orphan}', OrphanDeleteController::class)
+                    ->name('destroy');
+
+                Route::get('export-pdf', ExportOrphansPDFController::class)
+                    ->name('export.pdf');
+
+                Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                    ->name('export.xlsx');
             });
 
             Route::prefix('members')->name('members.')->group(function () {

@@ -142,4 +142,9 @@ class Sponsor extends Model
     {
         return $this->hasMany(SponsorSponsorship::class);
     }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
 }

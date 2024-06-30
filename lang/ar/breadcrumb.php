@@ -14,4 +14,5 @@ return [
     'statistics' => 'الاحصائيات',
     'zones' => 'المناطق',
     'financial' => 'الماليات',
+    'show' => 'تفاصيل',
 ];
