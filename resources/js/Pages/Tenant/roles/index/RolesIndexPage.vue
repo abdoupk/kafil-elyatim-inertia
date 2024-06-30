@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, RolesIndexResource, PaginationData } from '@/types/types'
+import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -8,7 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import DataTable from '@/Pages/Tenant/roles/DataTable.vue'
+import DataTable from '@/Pages/Tenant/roles/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'

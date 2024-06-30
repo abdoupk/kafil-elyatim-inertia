@@ -34,15 +34,30 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ $t('the_role') }}
                         </base-th-table>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center">
+                        <base-th-table
+                            sortable
+                            @click="emit('sort', 'permissions_count')"
+                            :direction="params.directions?.permissions_count"
+                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                        >
                             {{ $t('permissions_count') }}
                         </base-th-table>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center">
+                        <base-th-table
+                            sortable
+                            @click="emit('sort', 'users_count')"
+                            :direction="params.directions?.users_count"
+                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                        >
                             {{ $t('users_count') }}
                         </base-th-table>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <base-th-table
+                            sortable
+                            @click="emit('sort', 'created_at')"
+                            :direction="params.directions?.created_at"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                        >
                             {{ $t('validation.attributes.created_at') }}
                         </base-th-table>
 
@@ -71,13 +86,13 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
-                            {{ role.users_count }}
+                            {{ role.permissions_count }}
                         </base-td-table>
 
                         <base-td-table
                             class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
-                            {{ role.permissions_count }}
+                            {{ role.users_count }}
                         </base-td-table>
 
                         <base-td-table
@@ -140,7 +155,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <Link href="#" class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </Link>
                             <a
                                 href="javascript:void(0)"

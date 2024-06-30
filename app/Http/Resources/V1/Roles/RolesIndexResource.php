@@ -14,9 +14,9 @@ class RolesIndexResource extends JsonResource
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'created_at' => $this->created_at->format('Y-m-d'),
             'permissions_count' => $this->permissions_count,
             'users_count' => $this->users_count,
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }
