@@ -12,11 +12,11 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
-import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
-import CitySelector from '@/Components/Global/CitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import CitySelector from '@/Components/Global/CitySelector.vue'
 
 // Define props
 defineProps<{
@@ -95,15 +95,6 @@ watch(form, (value) => {
     }
 })
 
-// Function to set the branch president in the form
-const setBranchPresident = (value: string | string[]) => {
-    if (typeof value === 'string') {
-        // @ts-ignore
-        form.value.president_id = value
-
-        form.value?.validate('president_id')
-    }
-}
 </script>
 
 <template>
@@ -141,19 +132,8 @@ const setBranchPresident = (value: string | string[]) => {
                 <base-form-label for="created_at">
                     {{ $t('validation.attributes.created_at') }}
                 </base-form-label>
-
-                <base-lite-picker
-                    id="created_at"
-                    v-model="form.created_at"
-                    :options="{ format: 'DD-MM-YYYY' }"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.starting_sponsorship_date')
-                        })
-                    "
-                    class="block"
-                    @keydown.prevent
-                ></base-lite-picker>
+                {{ new Date().toDateString() }}
+                <base-v-calendar v-model:date="form.created_at"></base-v-calendar>
 
                 <base-form-input-error>
                     <div
@@ -172,17 +152,16 @@ const setBranchPresident = (value: string | string[]) => {
                 </base-form-label>
 
                 <div>
-                    <base-tom-select
-                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
-                        :model-value="form.president_id"
-                        @update:model-value="setBranchPresident"
-                    >
-                        <option value="">
-                            {{ $t('auth.placeholders.tomselect', { attribute: $t('branch_president') }) }}
-                        </option>
+                    <base-vue-select
+                        :options="members"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="value => {
+                            form.president_id =value.id
 
-                        <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
-                    </base-tom-select>
+                            form.validate('president_id')
+                        }"></base-vue-select>
                 </div>
 
                 <base-form-input-error>
@@ -195,19 +174,15 @@ const setBranchPresident = (value: string | string[]) => {
                     </div>
                 </base-form-input-error>
             </div>
-
+            {{ form.city_id }}
             <div class="col-span-12">
                 <city-selector
                     :error-message="form.errors.city_id"
-                    @change="form.validate('city_id')"
-                    @select:commune="
-                        (e) => {
-                            // @ts-ignore
-                            form.city_id = e
+                    @update:city-id="(ev)=>{
+                        form.city_id=ev.id
 
-                            form.validate('city_id')
-                        }
-                    "
+                        form.validate('city_id')
+                    }"
                 ></city-selector>
             </div>
         </template>

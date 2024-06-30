@@ -22,7 +22,7 @@ class BranchesIndexResource extends JsonResource
                 'name' => $this->president->getName(),
             ]),
             'families_count' => $this->families_count,
-            'created_at' => $this->created_at->format('Y-m-d'),
+            'created_at' => $this->created_at, // TODO: change all dates like this
         ];
     }
 }

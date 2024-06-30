@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
 import { ref } from 'vue'
 
@@ -9,7 +9,11 @@ import { getLocale } from '@/utils/i18n.js'
 
 const settingsStore = useSettingsStore()
 
-const date = defineModel('date', { default: new Date() })
+const date = defineModel('date')
+
+const masks = ref({
+    input: 'DD/MM/YYYY'
+})
 
 const popover = ref({
     visibility: 'click',
@@ -19,26 +23,28 @@ const popover = ref({
 
 <template>
     <VDatePicker
-        color="primary"
         v-model="date"
         :is-dark="settingsStore.appearance === 'dark'"
+        :masks="masks"
         :popover
         :update-on-input="false"
         borderless
+        color="primary"
         locale="ar"
         mode="date"
         title-position="left"
         transparent
     >
-        <template v-slot="{ inputValue, inputEvents }">
+        <template v-slot="{ togglePopover,inputValue, inputEvents }">
             <div class="relative">
                 <div
                     class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+                    @click="() => togglePopover()"
                 >
-                    <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
+                    <svg-loader class="w-4 h-4 fill-current" name="icon-calendar" />
                 </div>
 
-                <base-form-input class="ps-12" :value="inputValue" v-on="inputEvents"></base-form-input>
+                <base-form-input :value="inputValue" class="ps-12" v-on="inputEvents"></base-form-input>
             </div>
         </template>
     </VDatePicker>

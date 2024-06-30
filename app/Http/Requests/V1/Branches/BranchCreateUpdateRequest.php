@@ -22,7 +22,7 @@ class BranchCreateUpdateRequest extends FormRequest
             'name' => 'required|string',
             'city_id' => 'required|exists:cities,id',
             'president_id' => 'required|exists:users,id',
-            'created_at' => 'required|date|date_format:d-m-Y',
+            'created_at' => 'required|date',
         ];
     }
 

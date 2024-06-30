@@ -19,7 +19,7 @@ export const useBranchesStore = defineStore('branches', {
             name: '',
             city_id: '',
             president_id: '',
-            created_at: ''
+            created_at: new Date()
         }
     }),
     getters: {
@@ -47,7 +47,7 @@ export const useBranchesStore = defineStore('branches', {
                 cityStore.commune.id = res.data.branch.city.id
 
                 cityStore.daira.daira_name = res.data.branch.city.daira_name
-
+                console.log(res.data.branch)
                 this.branch = omit(res.data.branch, ['city'])
             })
         },

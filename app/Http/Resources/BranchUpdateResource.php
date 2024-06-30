@@ -14,7 +14,7 @@ class BranchUpdateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'created_at' => $this->created_at->format('d-m-Y'),
+            'created_at' => $this->created_at->format('Y/m/d'),
             'name' => $this->name,
 
             'city_id' => $this->city_id,

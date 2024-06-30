@@ -134,7 +134,7 @@ export type SVGType =
 
 export interface Wilaya {
     wilaya_code: string
-    wilaya_name: string | undefined
+    wilaya_name: string
 }
 
 export interface Daira {
@@ -145,7 +145,7 @@ export interface Daira {
 
 export interface Commune {
     id: number
-    commune_name: string | null | undefined
+    commune_name: string
 }
 
 export type LangType = 'ar' | 'en' | 'fr' | 'tam'
@@ -404,7 +404,7 @@ export interface BranchesIndexResource {
         name?: string
     }
     families_count?: string
-    created_at?: string
+    created_at: string
 }
 
 export interface ZonesIndexResource extends Zone {

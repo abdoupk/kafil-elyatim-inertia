@@ -1,11 +1,11 @@
 <template>
-    <multiselect placeholder="hello" v-model="value" :options="options" :show-labels="false" multiple></multiselect>
+    <multiselect v-model="value" :options="options" :show-labels="false" placeholder="hello"></multiselect>
 </template>
 
 <script lang="ts" setup>
 import Multiselect from 'vue-multiselect'
 
-defineProps<{ options: string[] | Record<string, string> }>()
+defineProps<{ options: Record<string, string | any>  }>()
 
 const value = defineModel('value')
 </script>

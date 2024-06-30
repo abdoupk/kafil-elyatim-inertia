@@ -12,12 +12,10 @@ use Illuminate\Database\Eloquent\Builder;
 function getBranches(): LengthAwarePaginator
 {
     return search(Branch::getModel())
-        ->query(fn (Builder $query) => $query->with([
-            'president',
-            'city',
-        ]))->query(fn (Builder $query) => $query->withCount([
-            'families',
-        ]))
+        ->query(fn (Builder $query) => $query
+            ->with(['president', 'city'])
+            ->withCount('families')
+        )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()->input('perPage', 10));
 }
