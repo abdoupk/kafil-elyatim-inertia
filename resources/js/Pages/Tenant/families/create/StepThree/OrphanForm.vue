@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
@@ -7,7 +7,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
-import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
 
@@ -40,15 +40,15 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                data-test="orphan_first_name"
-                v-model="firstName"
                 id="first_name"
-                type="text"
+                v-model="firstName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.first_name')
                     })
                 "
+                data-test="orphan_first_name"
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -59,14 +59,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_first_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.first_name`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_first_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -82,15 +82,15 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                data-test="orphan_last_name"
-                v-model="lastName"
                 id="last_name"
-                type="text"
+                v-model="lastName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.last_name')
                     })
                 "
+                data-test="orphan_last_name"
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -101,14 +101,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_last_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.last_name`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_last_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -123,25 +123,19 @@ const birthDate = defineModel('birth_date', { default: '' })
                 {{ $t('validation.attributes.date_of_birth') }}
             </base-form-label>
 
-            <base-lite-picker
-                @keydown.prevent
-                id="orphans.birth_date"
-                v-model="birthDate"
-                :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })"
-                :options="{ format: 'DD-MM-YYYY' }"
-                class="block"
-            ></base-lite-picker>
+            <base-v-calendar v-model:date="birthDate"></base-v-calendar>
+
 
             <base-form-input-error>
                 <div
-                    data-test="error_start_date_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.birth_date`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_start_date_message"
                 >
                     {{
                         //@ts-ignore
@@ -157,14 +151,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="healthStatus"
                 id="health_status"
-                type="text"
+                v-model="healthStatus"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.health_status')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -175,14 +169,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_health_status_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.health_status`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_health_status_message"
                 >
                     {{
                         //@ts-ignore
@@ -198,14 +192,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="familyStatus"
                 id="family_status"
-                type="text"
+                v-model="familyStatus"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('family_status')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -216,14 +210,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_family_status_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.family_status`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_family_status_message"
                 >
                     {{
                         //@ts-ignore
@@ -239,14 +233,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="academicLevel"
                 id="academic_level"
-                type="text"
+                v-model="academicLevel"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.academic_level')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -257,14 +251,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_academic_level_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.academic_level`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_academic_level_message"
                 >
                     {{
                         //@ts-ignore
@@ -280,14 +274,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="shoesSize"
                 id="shoes_size"
-                type="text"
+                v-model="shoesSize"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('shoes_size')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -298,14 +292,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_shoes_size_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.shoes_size`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_shoes_size_message"
                 >
                     {{
                         //@ts-ignore
@@ -321,14 +315,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="shirtSize"
                 id="shirt_size"
-                type="text"
+                v-model="shirtSize"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('shirt_size')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -339,14 +333,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_shirt_size_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.shirt_size`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_shirt_size_message"
                 >
                     {{
                         //@ts-ignore
@@ -362,14 +356,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="pantsSize"
                 id="pants_size"
-                type="text"
+                v-model="pantsSize"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('pants_size')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -380,14 +374,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_pants_size_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.pants_size`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_pants_size_message"
                 >
                     {{
                         //@ts-ignore
@@ -403,14 +397,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-text-area
-                v-model="note"
                 id="note"
-                type="text"
+                v-model="note"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('notes')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -421,14 +415,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_note_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             `orphans.${index}.note`
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_note_message"
                 >
                     {{
                         //@ts-ignore

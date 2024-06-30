@@ -4,23 +4,16 @@ import type { CreateFamilyStepProps } from '@/types/types'
 import BaseClassicEditor from '@/Components/Base/editor/BaseClassicEditor.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
-import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
-const props = defineProps<CreateFamilyStepProps>()
+defineProps<CreateFamilyStepProps>()
 
 const report = defineModel('report', { default: '' })
 
 const previewDate = defineModel('previewDate', { default: '' })
 
 const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
-
-const setInspectorsMembers = (value: string | string[]) => {
-    // @ts-ignore
-    inspectorsMembers.value = value
-
-    props.form?.validate('inspectors_members')
-}
 </script>
 
 <template>
@@ -57,18 +50,16 @@ const setInspectorsMembers = (value: string | string[]) => {
                 </base-form-label>
 
                 <div>
-                    <base-tom-select
-                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
-                        :model-value="inspectorsMembers"
-                        :options="{ create: false }"
-                        multiple
-                        @update:model-value="setInspectorsMembers"
-                    >
-                        <option value="">
-                            {{ $t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') }) }}
-                        </option>
-                        <option v-for="member in members" :key="member.id" :value="member.id">{{ member.name }}</option>
-                    </base-tom-select>
+                    <base-vue-select
+                        :options="members"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="value => {
+                          inspectorsMembers = value
+
+                          form?.validate('inspectors_members')
+                        }"></base-vue-select>
                 </div>
 
                 <base-form-input-error>
@@ -87,26 +78,7 @@ const setInspectorsMembers = (value: string | string[]) => {
                     {{ $t('preview_date') }}
                 </base-form-label>
 
-                <base-lite-picker
-                    id="preview_date"
-                    v-model="previewDate"
-                    :options="{
-                        format: 'DD-MM-YYYY',
-                        dropdowns: {
-                            minYear: 2010,
-                            maxYear: null,
-                            months: true,
-                            years: true
-                        }
-                    }"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('preview_date')
-                        })
-                    "
-                    class="block w-full"
-                    @keydown.prevent
-                ></base-lite-picker>
+                <base-v-calendar v-model:date="previewDate"></base-v-calendar>
 
                 <base-form-input-error>
                     <div

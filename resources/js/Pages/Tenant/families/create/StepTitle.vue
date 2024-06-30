@@ -15,7 +15,7 @@ const handleClick = (index: number) => emit('goTo', index)
 </script>
 
 <template>
-    <div class="intro-x !z-50 mt-5 flex flex-1 items-center first:mt-0 lg:mt-0 lg:block lg:text-center">
+    <div class="intro-x !z-10 mt-5 flex flex-1 items-center first:mt-0 lg:mt-0 lg:block lg:text-center">
         <!-- TODO: fix animation delay   -->
         <transition :duration="150" mode="out-in" type="transition">
             <base-button

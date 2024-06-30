@@ -1,15 +1,15 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
-import BaseTomSelect from '@/Components/Base/tom-select/BaseTomSelect.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-const props = defineProps<CreateFamilyStepProps>()
+defineProps<CreateFamilyStepProps>()
 
 const zone = defineModel('zone', { default: '' })
 
@@ -20,28 +20,12 @@ const startDate = defineModel('startDate', { default: '' })
 const address = defineModel('address')
 
 const fileNumber = defineModel('fileNumber')
-
-const setZone = (value: string | string[]) => {
-    if (typeof value === 'string') {
-        zone.value = value
-
-        props.form?.validate('zone_id')
-    }
-}
-
-const setBranch = (value: string | string[]) => {
-    if (typeof value === 'string') {
-        branch.value = value
-
-        props.form?.validate('branch_id')
-    }
-}
 </script>
 
 <template>
     <div
-        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 1"
+        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
         <div class="text-base font-medium">
             {{ $t('auth.register.stepOne.title') }}
@@ -54,24 +38,24 @@ const setBranch = (value: string | string[]) => {
                 </base-form-label>
 
                 <base-form-input
-                    autofocus
-                    v-model="fileNumber"
                     id="file_number"
-                    type="text"
+                    v-model="fileNumber"
                     :placeholder="
                         $t('auth.placeholders.fill', {
                             attribute: $t('file_number')
                         })
                     "
-                    @keydown="allowOnlyNumbersOnKeyDown"
+                    autofocus
+                    type="text"
                     @input="form?.validate('file_number')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                 ></base-form-input>
 
                 <base-form-input-error>
                     <div
-                        data-test="error_file_number_message"
-                        class="mt-2 text-danger"
                         v-if="form?.invalid('file_number')"
+                        class="mt-2 text-danger"
+                        data-test="error_file_number_message"
                     >
                         {{ form.errors.file_number }}
                     </div>
@@ -83,23 +67,13 @@ const setBranch = (value: string | string[]) => {
                     {{ $t('validation.attributes.starting_sponsorship_date') }}
                 </base-form-label>
 
-                <base-lite-picker
-                    @keydown.prevent
-                    v-model="startDate"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.starting_sponsorship_date')
-                        })
-                    "
-                    :options="{ format: 'DD-MM-YYYY' }"
-                    class="block w-1/2"
-                ></base-lite-picker>
+                <base-v-calendar v-model:date="startDate"></base-v-calendar>
 
                 <base-form-input-error>
                     <div
-                        data-test="error_start_date_message"
-                        class="mt-2 text-danger"
                         v-if="form?.invalid('start_date')"
+                        class="mt-2 text-danger"
+                        data-test="error_start_date_message"
                     >
                         {{ form.errors.start_date }}
                     </div>
@@ -112,22 +86,20 @@ const setBranch = (value: string | string[]) => {
                 </base-form-label>
 
                 <div>
-                    <base-tom-select
-                        :model-value="branch"
-                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
-                        @update:model-value="setBranch"
-                    >
-                        <option value="">
-                            {{ $t('auth.placeholders.tomselect', { attribute: $t('the_branch') }) }}
-                        </option>
-                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">
-                            {{ branch.name }}
-                        </option>
-                    </base-tom-select>
+                    <base-vue-select
+                        :options="branches"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="value => {
+                            branch =value.id
+
+                            form?.validate('branch_id')
+                        }"></base-vue-select>
                 </div>
 
                 <base-form-input-error>
-                    <div class="mt-2 text-danger" v-if="form?.invalid('branch_id')" data-test="error_branch_message">
+                    <div v-if="form?.invalid('branch_id')" class="mt-2 text-danger" data-test="error_branch_message">
                         {{ form.errors.branch_id }}
                     </div>
                 </base-form-input-error>
@@ -139,18 +111,20 @@ const setBranch = (value: string | string[]) => {
                 </base-form-label>
 
                 <div>
-                    <base-tom-select
-                        :model-value="zone"
-                        :data-placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
-                        @update:model-value="setZone"
-                    >
-                        <option value="">{{ $t('auth.placeholders.tomselect', { attribute: $t('the_zone') }) }}</option>
-                        <option v-for="zone in zones" :key="zone.id" :value="zone.id">{{ zone.name }}</option>
-                    </base-tom-select>
+                    <base-vue-select
+                        :options="zones"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="value => {
+                            zone = value.id
+
+                            form?.validate('zone_id')
+                        }"></base-vue-select>
                 </div>
 
                 <base-form-input-error>
-                    <div class="mt-2 text-danger" v-if="form?.invalid('zone_id')" data-test="error_zone_message">
+                    <div v-if="form?.invalid('zone_id')" class="mt-2 text-danger" data-test="error_zone_message">
                         {{ form.errors.zone_id }}
                     </div>
                 </base-form-input-error>
@@ -161,14 +135,14 @@ const setBranch = (value: string | string[]) => {
                     {{ $t('validation.attributes.address') }}
                 </base-form-label>
                 <base-form-input
-                    v-model="address"
-                    type="text"
                     id="address"
+                    v-model="address"
                     placeholder="حي الحياة تجزئة ب رقم '89' البيض"
+                    type="text"
                     @input="form?.validate('address')"
                 ></base-form-input>
                 <base-form-input-error>
-                    <div class="mt-2 text-danger" v-if="form?.invalid('address')" data-test="error_address_message">
+                    <div v-if="form?.invalid('address')" class="mt-2 text-danger" data-test="error_address_message">
                         {{ form.errors.address }}
                     </div>
                 </base-form-input-error>

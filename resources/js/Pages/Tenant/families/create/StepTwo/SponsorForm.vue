@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
@@ -6,9 +6,9 @@ import type { Form } from 'laravel-precognition-vue/dist/types'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineProps<{ form?: Form<CreateFamilyForm> }>()
 
@@ -45,33 +45,33 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="cardNumber"
                 id="card_number"
-                @keydown="allowOnlyNumbersOnKeyDown"
-                type="text"
+                v-model="cardNumber"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.card_number')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
                         'sponsor.card_number'
                     )
                 "
+                @keydown="allowOnlyNumbersOnKeyDown"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    data-test="error_card_number_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.card_number'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_card_number_message"
                 >
                     {{
                         //@ts-ignore
@@ -86,25 +86,18 @@ const birthDate = defineModel('birth_date', { default: '' })
                 {{ $t('validation.attributes.sponsor.birth_date') }}
             </base-form-label>
 
-            <base-lite-picker
-                @keydown.prevent
-                id="sponsor.birth_date"
-                :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.date_of_birth') })"
-                :options="{ format: 'DD-MM-YYYY' }"
-                v-model="birthDate"
-                class="block"
-            ></base-lite-picker>
+            <base-v-calendar v-model:date="birthDate"></base-v-calendar>
 
             <base-form-input-error>
                 <div
-                    data-test="error_start_date_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.birth_date'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_start_date_message"
                 >
                     {{
                         //@ts-ignore
@@ -120,15 +113,15 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="firstName"
                 id="first_name"
-                type="text"
+                v-model="firstName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.first_name')
                     })
                 "
+                autofocus
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -139,14 +132,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_first_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.first_name'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_first_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -162,14 +155,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="lastName"
                 id="last_name"
-                type="text"
+                v-model="lastName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.last_name')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -180,14 +173,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_last_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.last_name'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_last_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -203,33 +196,33 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="phone"
                 id="phone_number"
-                @keydown="allowOnlyNumbersOnKeyDown"
-                type="text"
+                v-model="phone"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.phone')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
                         'sponsor.phone_number'
                     )
                 "
+                @keydown="allowOnlyNumbersOnKeyDown"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    data-test="error_phone_number_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.phone_number'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_phone_number_message"
                 >
                     {{
                         //@ts-ignore
@@ -245,14 +238,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="fatherName"
                 id="father_name"
-                type="text"
+                v-model="fatherName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.father_name')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -263,14 +256,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_father_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.father_name'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_father_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -286,14 +279,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="motherName"
                 id="mother_name"
-                type="text"
+                v-model="motherName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.mother_name')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -304,14 +297,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_mother_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.mother_name'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_mother_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -327,33 +320,33 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="birthCertificateNumber"
                 id="birth_certificate_number"
-                type="text"
-                @keydown="allowOnlyNumbersOnKeyDown"
+                v-model="birthCertificateNumber"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.birth_certificate_number')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
                         'sponsor.birth_certificate_number'
                     )
                 "
+                @keydown="allowOnlyNumbersOnKeyDown"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    data-test="error_birth_certificate_number_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.birth_certificate_number'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_birth_certificate_number_message"
                 >
                     {{
                         //@ts-ignore
@@ -369,14 +362,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="academicLevel"
                 id="academic_level"
-                type="text"
+                v-model="academicLevel"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.academic_level')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -387,14 +380,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_academic_level_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.academic_level'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_academic_level_message"
                 >
                     {{
                         //@ts-ignore
@@ -410,14 +403,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="job"
                 id="function"
-                type="text"
+                v-model="job"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.function')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -428,14 +421,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_function_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.function'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_function_message"
                 >
                     {{
                         //@ts-ignore
@@ -451,14 +444,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="healthStatus"
                 id="health_status"
-                type="text"
+                v-model="healthStatus"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.health_status')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -469,14 +462,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_health_status_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.health_status'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_health_status_message"
                 >
                     {{
                         //@ts-ignore
@@ -492,14 +485,14 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                v-model="diploma"
                 id="diploma"
-                type="text"
+                v-model="diploma"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.sponsor.diploma')
                     })
                 "
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -510,14 +503,14 @@ const birthDate = defineModel('birth_date', { default: '' })
 
             <base-form-input-error>
                 <div
-                    data-test="error_diploma_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'sponsor.diploma'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_diploma_message"
                 >
                     {{
                         //@ts-ignore
