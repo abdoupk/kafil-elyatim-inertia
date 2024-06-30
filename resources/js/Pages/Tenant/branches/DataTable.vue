@@ -80,9 +80,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            <Link :href="route('tenant.families.index', branch.id)" class="font-medium">
-                                {{ branch.name }}
-                            </Link>
+                            {{ branch.name }}
                         </base-td-table>
 
                         <base-td-table

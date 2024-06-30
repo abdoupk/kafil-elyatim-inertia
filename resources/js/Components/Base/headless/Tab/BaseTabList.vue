@@ -28,7 +28,7 @@ const attrs = useComputedAttrs()
 const computedClass = computed(() =>
     twMerge([
         variant == 'tabs' && 'border-b border-slate-200 dark:border-darkmode-400',
-        'w-full flex',
+        'w-1/2 flex flex-col items-center mx-auto sm:w-full md:flex-row',
         typeof attrs.class === 'string' && attrs.class
     ])
 )
