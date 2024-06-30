@@ -3,12 +3,12 @@ import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineProps<{ form?: Form<CreateFamilyForm> }>()
 
@@ -39,7 +39,7 @@ const birthDate = defineModel('birth_date', { default: '' })
 
 <template>
     <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="card_number">
                 {{ $t('validation.attributes.sponsor.card_number') }}
             </base-form-label>
@@ -81,7 +81,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="sponsor.birth_date">
                 {{ $t('validation.attributes.sponsor.birth_date') }}
             </base-form-label>
@@ -107,7 +107,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
                 {{ $t('validation.attributes.first_name') }}
             </base-form-label>
@@ -149,7 +149,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="last_name">
                 {{ $t('validation.attributes.last_name') }}
             </base-form-label>
@@ -190,7 +190,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="phone_number">
                 {{ $t('validation.attributes.phone') }}
             </base-form-label>
@@ -232,7 +232,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="father_name">
                 {{ $t('validation.attributes.sponsor.father_name') }}
             </base-form-label>
@@ -273,7 +273,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="mother_name">
                 {{ $t('validation.attributes.sponsor.mother_name') }}
             </base-form-label>
@@ -314,7 +314,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="birth_certificate_number">
                 {{ $t('validation.attributes.sponsor.birth_certificate_number') }}
             </base-form-label>
@@ -356,7 +356,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="academic_level">
                 {{ $t('validation.attributes.sponsor.academic_level') }}
             </base-form-label>
@@ -397,7 +397,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="function">
                 {{ $t('validation.attributes.sponsor.function') }}
             </base-form-label>
@@ -438,7 +438,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="health_status">
                 {{ $t('validation.attributes.sponsor.health_status') }}
             </base-form-label>
@@ -479,7 +479,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="diploma">
                 {{ $t('validation.attributes.sponsor.diploma') }}
             </base-form-label>

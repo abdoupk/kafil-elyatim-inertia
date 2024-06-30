@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseClassicEditor from '@/Components/Base/editor/BaseClassicEditor.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineProps<CreateFamilyStepProps>()
 
@@ -26,7 +26,7 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
-            <div class="intro-y col-span-12">
+            <div class="col-span-12">
                 <base-form-label for="report">
                     {{ $t('the_report') }}
                 </base-form-label>
@@ -44,7 +44,7 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-8">
+            <div class="col-span-12 sm:col-span-8">
                 <base-form-label for="inspectors_members">
                     {{ $t('inspectors_members') }}
                 </base-form-label>
@@ -55,11 +55,14 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
                         label="name"
                         track-by="name"
-                        @update:value="value => {
-                          inspectorsMembers = value
+                        @update:value="
+                            (value) => {
+                                inspectorsMembers = value
 
-                          form?.validate('inspectors_members')
-                        }"></base-vue-select>
+                                form?.validate('inspectors_members')
+                            }
+                        "
+                    ></base-vue-select>
                 </div>
 
                 <base-form-input-error>
@@ -73,7 +76,7 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-4">
+            <div class="col-span-12 sm:col-span-4">
                 <base-form-label for="preview_date">
                     {{ $t('preview_date') }}
                 </base-form-label>

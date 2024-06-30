@@ -35,7 +35,7 @@ const popover = ref({
         title-position="left"
         transparent
     >
-        <template v-slot="{ togglePopover,inputValue, inputEvents }">
+        <template v-slot="{ togglePopover, inputValue, inputEvents }">
             <div class="relative">
                 <div
                     class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"

@@ -14,7 +14,7 @@ const otherProperties = defineModel('otherProperties')
 
 <template>
     <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
-        <div class="intro-y col-span-8">
+        <div class="intro-y col-span-12 lg:col-span-8">
             <base-form-label for="other_properties">
                 {{ $t('validation.attributes.other_properties') }}
             </base-form-label>

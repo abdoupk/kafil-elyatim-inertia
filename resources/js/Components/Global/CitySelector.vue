@@ -37,17 +37,23 @@ watch(
     }
 )
 
-watch(() => daira.value, (daira) => {
-    cityStore.fetchCommunes(daira.daira_name, wilaya.value.wilaya_code).then((res) => {
-        commune.value = ''
+watch(
+    () => daira.value,
+    (daira) => {
+        cityStore.fetchCommunes(daira.daira_name, wilaya.value.wilaya_code).then((res) => {
+            commune.value = ''
 
-        communes.value = res.data
-    })
-})
+            communes.value = res.data
+        })
+    }
+)
 
-watch(() => commune.value, (value) => {
-    cityId.value = value
-})
+watch(
+    () => commune.value,
+    (value) => {
+        cityId.value = value
+    }
+)
 
 onMounted(() => {
     cityStore.fetchWilayas().then((res) => {

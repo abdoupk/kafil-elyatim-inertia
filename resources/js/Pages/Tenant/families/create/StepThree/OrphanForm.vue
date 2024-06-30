@@ -3,11 +3,11 @@ import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
 
@@ -34,7 +34,7 @@ const birthDate = defineModel('birth_date', { default: '' })
 
 <template>
     <div class="grid grid-cols-12 gap-4 gap-y-5 pt-2 pb-2.5 px-2 border-dashed border-2">
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
                 {{ $t('validation.attributes.first_name') }}
             </base-form-label>
@@ -76,7 +76,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="last_name">
                 {{ $t('validation.attributes.last_name') }}
             </base-form-label>
@@ -118,13 +118,12 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="orphans.birth_date">
                 {{ $t('validation.attributes.date_of_birth') }}
             </base-form-label>
 
             <base-v-calendar v-model:date="birthDate"></base-v-calendar>
-
 
             <base-form-input-error>
                 <div
@@ -145,7 +144,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="health_status">
                 {{ $t('validation.attributes.sponsor.health_status') }}
             </base-form-label>
@@ -186,7 +185,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="family_status">
                 {{ $t('family_status') }}
             </base-form-label>
@@ -227,7 +226,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="academic_level">
                 {{ $t('validation.attributes.sponsor.academic_level') }}
             </base-form-label>
@@ -268,7 +267,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="shoes_size">
                 {{ $t('shoes_size') }}
             </base-form-label>
@@ -309,7 +308,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="shirt_size">
                 {{ $t('shirt_size') }}
             </base-form-label>
@@ -350,7 +349,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-12 sm:col-span-6">
+        <div class="col-span-12 sm:col-span-6">
             <base-form-label for="pants_size">
                 {{ $t('pants_size') }}
             </base-form-label>
@@ -391,7 +390,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
 
-        <div class="intro-y col-span-8">
+        <div class="col-span-8">
             <base-form-label for="note">
                 {{ $t('notes') }}
             </base-form-label>

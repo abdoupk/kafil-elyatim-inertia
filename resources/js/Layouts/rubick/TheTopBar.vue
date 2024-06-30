@@ -6,6 +6,7 @@ import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 </script>
 
 <template>
+    <!-- TODO: fix z-index value   -->
     <div class="relative z-[51] flex h-[67px] items-center border-b border-slate-200">
         <the-breadcrumb></the-breadcrumb>
 

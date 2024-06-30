@@ -11,6 +11,7 @@ import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
 import { formatDate } from '@/utils/helper'
 
 defineProps<{ branches: PaginationData<BranchesIndexResource>; params: IndexParams }>()
@@ -46,7 +47,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center"
-                        >{{ $t('location') }}
+                            >{{ $t('location') }}
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
@@ -109,7 +110,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            <div class="whitespace-nowrap text-center   ">
+                            <div class="whitespace-nowrap text-center">
                                 {{ formatDate(branch.created_at) }}
                             </div>
                         </base-td-table>
@@ -171,7 +172,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="#"
                                 @click.prevent="emit('showEditModal', branch.id)"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </a>
                             <a
                                 class="font-semibold text-danger"

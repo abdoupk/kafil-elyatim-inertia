@@ -8,15 +8,15 @@ import { computed, ref, watch } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-
-import { __, n__ } from '@/utils/i18n'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import CitySelector from '@/Components/Global/CitySelector.vue'
+
+import { __, n__ } from '@/utils/i18n'
 
 // Define props
 defineProps<{
@@ -94,7 +94,6 @@ watch(form, (value) => {
         value.reset()
     }
 })
-
 </script>
 
 <template>
@@ -157,11 +156,14 @@ watch(form, (value) => {
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
                         label="name"
                         track-by="name"
-                        @update:value="value => {
-                            form.president_id =value.id
+                        @update:value="
+                            (value) => {
+                                form.president_id = value.id
 
-                            form.validate('president_id')
-                        }"></base-vue-select>
+                                form.validate('president_id')
+                            }
+                        "
+                    ></base-vue-select>
                 </div>
 
                 <base-form-input-error>
@@ -178,11 +180,13 @@ watch(form, (value) => {
             <div class="col-span-12">
                 <city-selector
                     :error-message="form.errors.city_id"
-                    @update:city-id="(ev)=>{
-                        form.city_id=ev.id
+                    @update:city-id="
+                        (ev) => {
+                            form.city_id = ev.id
 
-                        form.validate('city_id')
-                    }"
+                            form.validate('city_id')
+                        }
+                    "
                 ></city-selector>
             </div>
         </template>

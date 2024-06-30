@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 defineProps<CreateFamilyStepProps>()
 
@@ -32,7 +32,7 @@ const fileNumber = defineModel('fileNumber')
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
-            <div class="intro-y col-span-12 sm:col-span-6">
+            <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="file_number">
                     {{ $t('validation.attributes.file_number') }}
                 </base-form-label>
@@ -62,7 +62,7 @@ const fileNumber = defineModel('fileNumber')
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-6">
+            <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="start_date">
                     {{ $t('validation.attributes.starting_sponsorship_date') }}
                 </base-form-label>
@@ -80,7 +80,7 @@ const fileNumber = defineModel('fileNumber')
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-6">
+            <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="branch">
                     {{ $t('validation.attributes.branch') }}
                 </base-form-label>
@@ -91,11 +91,14 @@ const fileNumber = defineModel('fileNumber')
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
                         label="name"
                         track-by="name"
-                        @update:value="value => {
-                            branch =value.id
+                        @update:value="
+                            (value) => {
+                                branch = value.id
 
-                            form?.validate('branch_id')
-                        }"></base-vue-select>
+                                form?.validate('branch_id')
+                            }
+                        "
+                    ></base-vue-select>
                 </div>
 
                 <base-form-input-error>
@@ -105,7 +108,7 @@ const fileNumber = defineModel('fileNumber')
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-6">
+            <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="zone">
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
@@ -116,11 +119,14 @@ const fileNumber = defineModel('fileNumber')
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
                         label="name"
                         track-by="name"
-                        @update:value="value => {
-                            zone = value.id
+                        @update:value="
+                            (value) => {
+                                zone = value.id
 
-                            form?.validate('zone_id')
-                        }"></base-vue-select>
+                                form?.validate('zone_id')
+                            }
+                        "
+                    ></base-vue-select>
                 </div>
 
                 <base-form-input-error>
@@ -130,7 +136,7 @@ const fileNumber = defineModel('fileNumber')
                 </base-form-input-error>
             </div>
 
-            <div class="intro-y col-span-12 sm:col-span-6">
+            <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="address">
                     {{ $t('validation.attributes.address') }}
                 </base-form-label>
