@@ -14,7 +14,7 @@ import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
 import TheNotification from '@/Components/top-bar/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 
-import { toRaw } from '@/utils/helper'
+import { isAssociationNameLatin, toRaw } from '@/utils/helper'
 
 const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 
@@ -48,9 +48,14 @@ onMounted(() => {
             class="relative z-[51] -mx-5 mb-10 mt-12 h-[70px] border-b border-white/[0.08] px-4 sm:-mx-8 sm:px-8 md:mx-0 md:mb-8 md:mt-0 md:px-6"
         >
             <div class="flex h-full items-center">
-                <Link :href="route('dashboard')" class="-intro-x hidden md:flex">
+                <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
-                    <span class="ms-3 text-lg text-white"> Tinker </span>
+                    <span
+                        class="ms-3 font-semibold max-w-40 capitalize truncate text-white"
+                        :class="isAssociationNameLatin ? 'text-sm' : 'text-base'"
+                    >
+                        {{ $page.props.association }}
+                    </span>
                 </Link>
 
                 <the-breadcrumb

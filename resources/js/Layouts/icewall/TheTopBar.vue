@@ -8,6 +8,8 @@ import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
 import TheNotification from '@/Components/top-bar/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 
+import { isAssociationNameLatin } from '@/utils/helper'
+
 const settingsStore = useSettingsStore()
 </script>
 
@@ -16,18 +18,20 @@ const settingsStore = useSettingsStore()
         class="top-bar-boxed relative z-[51] -mx-5 mb-12 mt-12 h-[70px] border-b border-white/[0.08] px-3 sm:-mx-8 sm:px-8 md:-mt-5 md:pt-0"
     >
         <div class="flex h-full items-center">
-            <Link href="/" class="-intro-x hidden md:flex">
+            <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
                 <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
                 <span
                     :class="
                         twMerge([
-                            'ms-3 text-lg text-white',
+                            'ms-3 text-white font-semibold max-w-40 capitalize truncate',
                             settingsStore.layout == 'side-menu' && 'hidden xl:block',
-                            settingsStore.layout == 'simple-menu' && 'hidden'
+                            settingsStore.layout == 'simple-menu' && 'hidden',
+                            isAssociationNameLatin && 'text-sm',
+                            !isAssociationNameLatin && 'text-base'
                         ])
                     "
                 >
-                    Tinker
+                    {{ $page.props.association }}
                 </span>
             </Link>
 

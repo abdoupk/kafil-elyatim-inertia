@@ -1,9 +1,11 @@
 import type { AppearanceType, ColorSchemesType, IndexParams } from '@/types/types'
 
+import { usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
+import { computed } from 'vue'
 
 dayjs.extend(duration)
 const toRaw = (obj: object) => {
@@ -204,8 +206,13 @@ const handleSort = (field: string, params: IndexParams) => {
     return params
 }
 
+const isAssociationNameLatin = computed(() => {
+    return /^[a-z]+/i.test(usePage().props.association)
+})
+
 export {
     isEqual,
+    isAssociationNameLatin,
     handleSort,
     omit,
     toRaw,

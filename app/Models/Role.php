@@ -56,8 +56,8 @@ class Role extends SpatieRole
         return [
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'permissions_count' => $this->permissions_count,
-            'users_count' => $this->users_count,
+            'permissions_count' => (int) $this->permissions_count,
+            'users_count' => (int) $this->users_count,
             'tenant_id' => $this->tenant_id,
         ];
     }

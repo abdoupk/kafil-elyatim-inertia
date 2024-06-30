@@ -67,7 +67,7 @@ const setActiveMobileMenu = (value: boolean) => {
         ]"
     >
         <div class="flex h-[70px] items-center px-3 sm:px-8">
-            <Link class="me-auto flex" href="/">
+            <Link class="me-auto flex" :href="route('tenant.dashboard')">
                 <img alt="Tinker Starter" class="w-6" src="/images/logo.svg" />
             </Link>
             <a href="#" @click="(e) => e.preventDefault()">

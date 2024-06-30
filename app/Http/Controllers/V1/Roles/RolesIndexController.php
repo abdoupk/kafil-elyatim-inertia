@@ -11,7 +11,7 @@ class RolesIndexController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/roles/RolesIndexPage', [
+        return Inertia::render('Tenant/roles/index/RolesIndexPage', [
             'roles' => RolesIndexResource::collection(getRoles()),
             'params' => getParams(),
         ]);

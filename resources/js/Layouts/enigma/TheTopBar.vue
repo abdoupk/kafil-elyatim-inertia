@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
 
 import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
 import TheNotification from '@/Components/top-bar/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
+
+import { isAssociationNameLatin } from '@/utils/helper'
 
 const settingsStore = useSettingsStore()
 </script>
@@ -25,18 +27,20 @@ const settingsStore = useSettingsStore()
         "
     >
         <div class="flex h-full items-center">
-            <Link href="/" class="-intro-x hidden md:flex">
+            <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
                 <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
                 <span
                     :class="
                         twMerge([
-                            'ms-3 text-lg text-white',
+                            'ms-3 font-semibold max-w-40 capitalize truncate text-white',
                             settingsStore.layout == 'side-menu' && 'hidden xl:block',
-                            settingsStore.layout == 'simple-menu' && 'hidden'
+                            settingsStore.layout == 'simple-menu' && 'hidden',
+                            isAssociationNameLatin && 'text-sm',
+                            !isAssociationNameLatin && 'text-base'
                         ])
                     "
                 >
-                    Tinker
+                    {{ usePage().props.association }}
                 </span>
             </Link>
 

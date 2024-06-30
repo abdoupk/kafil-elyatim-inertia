@@ -14,7 +14,7 @@ import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
 import TheNotification from '@/Components/top-bar/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 
-import { toRaw } from '@/utils/helper'
+import { isAssociationNameLatin, toRaw } from '@/utils/helper'
 
 const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 
@@ -45,9 +45,14 @@ onMounted(() => {
         <the-mobile-menu></the-mobile-menu>
         <div class="-mx-3 mb-10 mt-[2.2rem] border-b border-white/[0.08] px-3 pt-3 sm:-mx-8 sm:px-8 md:-mt-5 md:pt-0">
             <div class="relative z-[51] flex h-[70px] items-center">
-                <Link href="/" class="-intro-x hidden md:flex">
+                <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
-                    <span class="ms-3 text-lg text-white"> Rubick </span>
+                    <span
+                        class="ms-3 font-semibold text-white max-w-40 capitalize truncate"
+                        :class="isAssociationNameLatin ? 'text-sm' : 'text-base'"
+                    >
+                        {{ $page.props.association }}
+                    </span>
                 </Link>
 
                 <the-breadcrumb

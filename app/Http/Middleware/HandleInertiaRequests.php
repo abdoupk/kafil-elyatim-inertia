@@ -18,11 +18,14 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        ray();
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $this->getAuthData(),
                 'settings' => auth()->user()?->settings,
             ],
+            'association' => tenant('association'),
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {

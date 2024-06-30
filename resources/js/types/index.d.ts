@@ -25,5 +25,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User
         settings: UserSettings
     }
+    association: string
     ziggy: Config & { location: string }
 }
