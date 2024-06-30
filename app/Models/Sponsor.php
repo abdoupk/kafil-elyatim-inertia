@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -103,7 +104,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class Sponsor extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $fillable = [
         'id',
@@ -126,6 +127,11 @@ class Sponsor extends Model
         'deleted_by',
     ];
 
+    public function searchableAs(): string
+    {
+        return 'sponsors';
+    }
+
     public function incomes(): HasOne
     {
         return $this->hasOne(Income::class);
@@ -146,5 +152,26 @@ class Sponsor extends Model
     public function getName(): string
     {
         return $this->first_name.' '.$this->last_name;
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->getName(),
+            'phone_number' => $this->phone_number,
+            'sponsor_type' => $this->sponsor_type,
+            'birth_date' => $this->birth_date,
+            'father_name' => $this->father_name,
+            'mother_name' => $this->mother_name,
+            'birth_certificate_number' => $this->birth_certificate_number,
+            'academic_level' => $this->academic_level,
+            'function' => $this->function,
+            'health_status' => $this->health_status,
+            'diploma' => $this->diploma,
+            'card_number' => $this->card_number,
+            'ccp' => $this->ccp,
+            'gender' => $this->gender,
+            'tenant_id' => $this->tenant_id,
+        ];
     }
 }

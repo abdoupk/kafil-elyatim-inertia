@@ -32,6 +32,10 @@ use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
+use App\Http\Controllers\V1\Sponsors\ExportSponsorsPDFController;
+use App\Http\Controllers\V1\Sponsors\ExportSponsorsXlsxController;
+use App\Http\Controllers\V1\Sponsors\SponsorDeleteController;
+use App\Http\Controllers\V1\Sponsors\SponsorShowController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
@@ -163,6 +167,20 @@ Route::middleware([
             Route::prefix('sponsors')->name('sponsors.')->group(function () {
                 Route::get('', SponsorsIndexController::class)
                     ->name('index');
+
+                // TODO fix 404 issue
+                Route::get('show/{sponsor}', SponsorShowController::class)
+                    ->name('show');
+
+                // TODO fix 404 issue
+                Route::delete('{sponsor}', SponsorDeleteController::class)
+                    ->name('destroy');
+
+                Route::get('export-pdf', ExportSponsorsPDFController::class)
+                    ->name('export.pdf');
+
+                Route::get('export-xlsx', ExportSponsorsXlsxController::class)
+                    ->name('export.xlsx');
             });
 
             Route::prefix('settings')->name('settings.')->group(function () {

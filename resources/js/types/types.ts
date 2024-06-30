@@ -261,6 +261,17 @@ export interface OrphansIndexResource {
     shirt_size: string
 }
 
+export interface SponsorsIndexResource {
+    id: string
+    name: string
+    phone_number: string
+    birth_date: string
+    academic_level: string
+    function: string
+    health_status: string
+    sponsor_type: string
+}
+
 export interface RolesIndexResource {
     uuid: string
     name: string

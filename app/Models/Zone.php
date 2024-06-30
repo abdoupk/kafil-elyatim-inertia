@@ -40,7 +40,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Zone withTrashed()
  * @method static Builder|Zone withoutTrashed()
  *
- * @property-read \App\Models\Tenant $tenant
+ * @property-read Tenant $tenant
  *
  * @mixin Eloquent
  */

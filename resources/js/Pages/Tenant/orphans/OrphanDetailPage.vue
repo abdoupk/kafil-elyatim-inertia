@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import TheLayout from '@/Layouts/TheLayout.vue'
 import type { OrphanType } from '@/types/types'
+
+import TheLayout from '@/Layouts/TheLayout.vue'
 
 defineOptions({
     layout: TheLayout

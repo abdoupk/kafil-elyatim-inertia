@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { formatDate } from '../../../../utils/helper'
-
 import type { IndexParams, OrphansIndexResource, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -12,6 +10,8 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { formatDate } from '@/utils/helper'
 
 defineProps<{ orphans: PaginationData<OrphansIndexResource>; params: IndexParams }>()
 
