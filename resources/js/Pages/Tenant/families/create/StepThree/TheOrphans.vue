@@ -19,9 +19,8 @@ const removeOrphan = (index: number) => {
         <button class="ms-auto me-2"></button>
 
         <a
-            tabindex="-1"
-            class="ms-2 inline-block"
-            :class="{ 'cursor-not-allowed': index === 0 }"
+            class="ms-2 inline-block !outline-none focus-visible:!rounded-sm focus-visible:!outline-red-300/70"
+            :class="{ 'hidden': index === 0 }"
             href="#"
             @click.prevent="removeOrphan(index)"
         >

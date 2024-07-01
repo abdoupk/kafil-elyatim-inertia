@@ -8,8 +8,13 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
+import { watch } from 'vue'
 
-defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
+const props = defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
+
+watch(props.form.orphans, (value) => {
+    document.getElementById(`first_name_${value.length - 1}`)?.focus()
+})
 
 const firstName = defineModel('first_name', { default: '' })
 
@@ -40,7 +45,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="first_name"
+                :id="`first_name_${index}`"
                 v-model="firstName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -82,7 +87,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="last_name"
+                :id="`last_name_${index}`"
                 v-model="lastName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -150,7 +155,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="health_status"
+                :id="`health_status_${index}`"
                 v-model="healthStatus"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -191,7 +196,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="family_status"
+                :id="`family_status_${index}`"
                 v-model="familyStatus"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -232,7 +237,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="academic_level"
+                :id="`academic_level_${index}`"
                 v-model="academicLevel"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -273,7 +278,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="shoes_size"
+                :id="`shoes_size_${index}`"
                 v-model="shoesSize"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -314,7 +319,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="shirt_size"
+                :id="`shirt_size_${index}`"
                 v-model="shirtSize"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -355,7 +360,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-input
-                id="pants_size"
+                :id="`pants_size_${index}`"
                 v-model="pantsSize"
                 :placeholder="
                     $t('auth.placeholders.fill', {
@@ -396,7 +401,7 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <base-form-text-area
-                id="note"
+                :id="`note_${index}`"
                 v-model="note"
                 :placeholder="
                     $t('auth.placeholders.fill', {
