@@ -1,14 +1,24 @@
 import type { CreateMemberForm } from '@/types/types'
 
 import axios from 'axios'
-import { useForm } from 'laravel-precognition-vue'
-import type { Form } from 'laravel-precognition-vue/dist/types'
 import { defineStore } from 'pinia'
 
-import { omit } from '@/utils/helper'
-
 interface State {
-    member: CreateMemberForm & { id: string }
+    member: CreateMemberForm & {
+        id?: string
+        formatted_roles: {
+            id: string
+            name: string
+        }[]
+        branch: {
+            id: string
+            name: string
+        }
+        zone: {
+            id: string
+            name: string
+        }
+    }
 }
 
 export const useMembersStore = defineStore('members', {
@@ -26,30 +36,19 @@ export const useMembersStore = defineStore('members', {
             branch_id: '',
             password: '',
             password_confirmation: ''
+
         }
     }),
-    getters: {
-        getCreateMemberForm(): Form<CreateMemberForm> {
-            return useForm('post', route('tenant.members.store'), { ...omit(this.member, ['id']) })
-        },
-
-        getUpdateMemberForm(): Form<CreateMemberForm> {
-            return useForm('put', route('tenant.members.update', this.member.id), { ...omit(this.member, ['id']) })
-        }
-    },
     actions: {
         async getMember(memberId: string) {
-            await axios.get(`members/show/${memberId}`).then((res) => {
-                this.member = res.data.member
-            })
-        },
-
-        async updateMember() {
-            await this.getUpdateMemberForm.submit()
-        },
-
-        async createMember() {
-            await this.getCreateMemberForm.submit()
+            const { data: { member } } = await axios.get(`members/show/${memberId}`)
+            this.member = { ...member }
+            this.member.formatted_roles = member.roles
+            this.member.roles = member.roles.map(role => role.uuid)
+            this.member.branch_id = member.branch.id
+            this.member.branch = { ...member.branch }
+            this.member.zone_id = member.zone.id
+            this.member.zone = { ...member.zone }
         }
     }
 })

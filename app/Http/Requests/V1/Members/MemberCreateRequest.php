@@ -19,6 +19,7 @@ class MemberCreateRequest extends FormRequest
             'branch_id' => 'required|exists:branches,id',
             'password' => ['required', Password::defaults(), 'confirmed'],
             'qualification' => 'required|string',
+            'roles' => 'array|min:1',
             'roles.*' => 'required|exists:roles,uuid',
         ];
     }

@@ -38,9 +38,11 @@
         }
     },
     "include": [
-        "resources/js/stores/city.ts",
         "resources/js/**/*.ts",
         "resources/js/**/*.d.ts",
         "resources/js/**/*.vue"
+    ],
+    "exclude": [
+        "resources/js/stores/*.ts",
     ]
 }

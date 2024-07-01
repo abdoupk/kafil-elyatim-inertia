@@ -62,18 +62,20 @@ export const registerFormAttributes: RegisterForm = {
     phones: ['']
 }
 
+
+
 export const createMemberFormAttribute: CreateMemberForm = {
-    first_name: 'abdou',
-    last_name: 'pk',
-    email: 'abdouabdou169@gmailc.com',
-    phone: '0664954823',
-    zone_id: '9c666fe4-bbe9-4f53-ad7d-c57a43327c3c',
-    qualification: 'test qualification',
-    gender: 'male',
-    roles: ['9c666fe0-dfc0-4519-b8ea-124bf0803423'],
-    branch_id: '9c666fe7-01a7-43a7-8a65-f2fff5124051',
-    password: 'password',
-    password_confirmation: 'password'
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    zone_id: '',
+    qualification: '',
+    gender: '',
+    roles: [''],
+    branch_id: '',
+    password: '',
+    password_confirmation: ''
 }
 export const createFamilyFormAttributes: CreateFamilyForm = {
     file_number: '00000',

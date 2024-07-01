@@ -15,7 +15,7 @@ class MemberStoreController extends Controller
     {
         $user = User::create($request->only(['password', 'email', 'last_name', 'first_name', 'phone', 'zone_id', 'branch_id', 'qualification', 'gender']));
 
-        $user->assignRole($request->roles);
+        $user->syncRoles($request->roles);
 
         return response('', 201);
     }

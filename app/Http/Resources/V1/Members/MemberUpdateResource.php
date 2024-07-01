@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Members;
 
+use App\Http\Resources\V1\Roles\RoleResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -20,9 +21,15 @@ class MemberUpdateResource extends JsonResource
             'gender' => $this->gender,
             'qualification' => $this->qualification,
 
-            'zone_id' => $this->zone_id,
-            'branch_id' => $this->branch_id,
-            'roles' => $this->whenLoaded('roles', fn () => $this->roles->pluck('id')->toArray()),
+            'zone' => $this->whenLoaded('zone', fn () => [
+                'id' => $this->zone->id,
+                'name' => $this->zone->name,
+            ]),
+            'branch' => $this->whenLoaded('branch', fn () => [
+                'id' => $this->branch->id,
+                'name' => $this->branch->name,
+            ]),
+            'roles' => RoleResource::collection($this->roles),
         ];
     }
 }

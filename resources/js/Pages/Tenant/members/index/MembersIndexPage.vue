@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
+import type { Branch, IndexParams, MembersIndexResource, PaginationData, Role, Zone } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -17,6 +17,8 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { debounce, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+import MemberCreateSlideover from '@/Pages/Tenant/members/MemberCreateSlideover.vue'
+import { useMembersStore } from '@/stores/members'
 
 defineOptions({
     layout: TheLayout
@@ -25,6 +27,10 @@ defineOptions({
 const props = defineProps<{
     members: PaginationData<MembersIndexResource>
     params: IndexParams
+    qualifications: string[]
+    branches: Branch[]
+    roles: Role[]
+    zones: Zone[]
 }>()
 
 const params = reactive<IndexParams>({
@@ -47,6 +53,11 @@ let routerOptions = {
     preserveState: true,
     preserveScroll: true
 }
+
+const membersStore = useMembersStore()
+
+
+const createUpdateSlideoverStatus = ref<boolean>(false)
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -98,6 +109,20 @@ const showDeleteModal = (memberId: string) => {
     deleteModalStatus.value = true
 }
 
+const showCreateModal = () => {
+    membersStore.$reset()
+
+    createUpdateSlideoverStatus.value = true
+}
+
+const showEditModal = (memberId: string) => {
+    selectedMemberId.value = memberId
+
+    membersStore.getMember(memberId)
+
+    createUpdateSlideoverStatus.value = true
+}
+
 watch(
     search,
     debounce(() => {
@@ -124,6 +149,7 @@ watch(
         getData()
     }
 )
+
 </script>
 
 <template>
@@ -136,9 +162,9 @@ watch(
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
             <base-button
-                @click.prevent="router.get(route('tenant.members.create'))"
                 class="me-2 shadow-md"
                 variant="primary"
+                @click.prevent="showCreateModal"
             >
                 {{ n__('add new', 1, { attribute: $t('member') }) }}
             </base-button>
@@ -172,7 +198,8 @@ watch(
     </div>
 
     <template v-if="members.data.length > 0">
-        <data-table :members :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+        <data-table :members :params @showDeleteModal="showDeleteModal" @sort="sort($event)"
+                    @show-edit-modal="showEditModal"></data-table>
 
         <pagination-data-table
             v-if="members.meta.last_page > 1"
@@ -192,4 +219,8 @@ watch(
         @close="closeDeleteModal"
         @delete="deleteMember"
     ></delete-modal>
+
+    <member-create-slideover
+        :branches :open="createUpdateSlideoverStatus" :qualifications :roles
+        :zones @close="createUpdateSlideoverStatus = false"></member-create-slideover>
 </template>

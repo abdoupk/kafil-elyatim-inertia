@@ -22,7 +22,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
 
 <template>
     <base-slideover :initialFocus="focusableInput" :open @close="emit('close')">
-        <base-slideover-panel class="">
+        <base-slideover-panel class="overflow-y-auto">
             <a class="absolute top-0 start-0 end-auto mt-4 -ms-12" href="#" @click="emit('close')">
                 <svg-loader class="w-8 h-8 fill-slate-400" name="icon-x-mark"></svg-loader>
             </a>
@@ -34,7 +34,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
                     </h2>
                 </base-slideover-title>
 
-                <base-slideover-description class="grid grid-cols-12 gap-4 gap-y-3">
+                <base-slideover-description>
                     <slot name="description"></slot>
                 </base-slideover-description>
 
