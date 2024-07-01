@@ -14,18 +14,18 @@ export const search = async (q: string) => {
             {
                 indexUid: 'users',
                 q,
-                limit: 5,
+                limit: 25,
                 sort: ['created_at:desc'],
-                filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
+                // filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
                 attributesToRetrieve: ['id', 'name', 'email'],
                 attributesToSearchOn: ['name', 'email', 'phone', 'gender']
             },
             {
                 indexUid: 'families',
                 q,
-                limit: 5,
+                limit: 25,
                 sort: ['created_at:desc'],
-                filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
+                // filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
                 attributesToRetrieve: ['id', 'name', 'address.zone.name'],
                 attributesToSearchOn: [
                     'name',
@@ -47,7 +47,7 @@ export const search = async (q: string) => {
     a.results.forEach((result) => {
         result.hits.forEach((hit) => {
             hit.index = result.indexUid
-            hit.link = constructLink(hit, result.indexUid)
+            hit.url = constructLink(hit, result.indexUid)
             hit.icon = constructIcon(result.indexUid)
             hit.hint = constructHint(hit, result.indexUid)
             hit.title = constructTitle(hit, result.indexUid)

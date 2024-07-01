@@ -1,17 +1,19 @@
 <script lang="ts" setup>
+/* eslint-disable vue/no-parsing-error */
 import { TransitionRoot } from '@headlessui/vue'
+import { router } from '@inertiajs/vue3'
 import type { Hit } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheResults from '@/Components/top-bar/search/TheResults.vue'
-import TheSearchResults from '@/Components/top-bar/search/TheSearchResults.vue'
 
-import { getResultsSize } from '@/utils/helper'
 import { search } from '@/utils/search'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
+import { isEmpty } from '@/utils/helper'
+import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 
 defineOptions({
     inheritAttrs: false
@@ -51,54 +53,103 @@ const results = ref<Hit[]>([])
 
 const resultsRefs = ref([])
 
-const selectedIndex = ref(0)
-
 watch(
     () => query.value,
     async (query: string) => {
-        if (query != '') await search(query).then((res) => (results.value = res.map((r) => r.hits)))
+        if (query != '')
+            await search(query)
+                .then((res) => (results.value = res.map((r) => r.hits)))
+                .finally(() => {
+                    currentIndex.value.group = currentIndex.value.item = 0
+                })
     },
     { immediate: true }
 )
 
-const goTo = (step: string) => {
-    console.log(step)
+const goTo = () => {
+    const item = results.value[currentIndex.value.group][currentIndex.value.item]
 
-    if (results.value[selectedIndex.value]) {
-        window.location = results.value[selectedIndex.value].url
+    if (item) {
+        searchDropdown.value = false
+
+        setTimeout(() => {
+            router.visit(item.url, {
+                method: 'get',
+                preserveState: true
+            })
+        }, 100)
+    }
+}
+
+const currentIndex = ref({
+    group: 0,
+    item: 0
+})
+
+function jumpToPreviousItem() {
+    const previousItemIndex = currentIndex.value.item - 1
+
+    if (previousItemIndex >= 0) {
+        // Jump to previous item in current group
+        currentIndex.value.item = previousItemIndex
+    } else {
+        // Jump to last item in previous group
+        const previousGroupIndex = currentIndex.value.group - 1
+
+        if (previousGroupIndex >= 0) {
+            const previousGroup = results.value[previousGroupIndex]
+
+            currentIndex.value.group = previousGroupIndex
+
+            currentIndex.value.item = previousGroup.length - 1
+        }
+    }
+}
+
+function jumpToNextItem() {
+    const currentGroup = results.value[currentIndex.value.group]
+
+    const nextItemIndex = currentIndex.value.item + 1
+
+    if (nextItemIndex < currentGroup.length) {
+        // Jump to next item in current group
+        currentIndex.value.item = nextItemIndex
+    } else {
+        // Jump to first item in next group
+        const nextGroupIndex = currentIndex.value.group + 1
+
+        if (nextGroupIndex < results.value.length) {
+            currentIndex.value.group = nextGroupIndex
+
+            currentIndex.value.item = 0
+        }
     }
 }
 
 const onTermKeydown = (event: KeyboardEvent) => {
-    console.log(event.code)
-
     if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
         event.preventDefault()
     }
 
-    console.log(selectedIndex.value)
-
     switch (event.code) {
         case 'ArrowDown':
-            if (selectedIndex.value === getResultsSize(results.value) - 1) {
-                selectedIndex.value = 0
-            } else {
-                selectedIndex.value += 1
-            }
+            jumpToNextItem()
 
             break
 
         case 'ArrowUp':
-            if (selectedIndex.value === 0) {
-                selectedIndex.value = getResultsSize(results.value) - 1
-            } else {
-                selectedIndex.value -= 1
-            }
+            jumpToPreviousItem()
 
             break
     }
 
-    ;(resultsRefs.value[selectedIndex.value] as HTMLElement)?.scrollIntoView(false)
+    ;
+
+    (
+        resultsRefs.value[
+        results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
+            ] as HTMLElement
+    )?.scrollIntoView(false)
 }
 
 onMounted(() => {
@@ -106,6 +157,9 @@ onMounted(() => {
 })
 
 onUnmounted(() => window.removeEventListener('keydown', onKeydown))
+
+const noResults = computed(() => results.value.every((a) => isEmpty(a)))
+
 </script>
 
 <template>
@@ -126,6 +180,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             @focus="searchDropdown = true"
             @input="query = ($event.target as HTMLInputElement).value"
             @keydown="onTermKeydown"
+            @keydown.enter.prevent="goTo"
             @keydown.esc.prevent="closeSearch"
         ></base-form-input>
         <svg-loader
@@ -144,11 +199,17 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
             leave-to="mt-5 invisible opacity-0 translate-y-1"
         >
             <div class="absolute end-0 z-10 mt-[3px]">
-                <div class="w-[450px] px-5 pt-5 box scroll-smooth overflow-y-auto max-h-[calc(100vh-10rem)]">
-                    <the-results
-                        :results-refs="resultsRefs"
-                        :results="results"
-                        :selected-index="selectedIndex"
+                <div
+                    class="w-[450px] px-5 pt-5 box scroll-smooth overflow-y-auto max-h-[500px] scrollbar-hidden"
+                >
+                    <the-no-results-found v-if="noResults"></the-no-results-found>
+
+                    <!-- @vue-expect-error Results Types -->
+                    <the-results :currentIndex
+                                 :results
+                                 :results-refs="resultsRefs"
+                                 v-else
+                                 @hover="currentIndex = $event"
                     ></the-results>
                 </div>
             </div>

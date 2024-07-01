@@ -12,7 +12,7 @@ const attrs = useComputedAttrs()
 
 <template>
     <p
-        :class="twMerge(['p-4 text-sm text-gray-500', typeof attrs.class === 'string' && attrs.class])"
+        :class="twMerge(['p-4 text-sm text-gray-500 dark:text-slate-400 text-center', typeof attrs.class === 'string' && attrs.class])"
         v-bind="attrs.attrs"
     >
         No results found.
