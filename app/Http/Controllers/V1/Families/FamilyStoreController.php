@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Models\Family;
+use App\Models\Orphan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
@@ -31,15 +32,39 @@ class FamilyStoreController extends Controller
 
         $preview->inspectors()->sync($request->validated('inspectors_members'));
 
+        /* @var Orphan[] $orphans */
+        $validatedOrphans = $request->orphans;
+        $babiesToCreate = [];
+
         $orphans = $family->orphans()->createMany(array_map(static function ($orphan) {
             $orphan['created_by'] = auth()->id();
 
             return array_filter($orphan, function ($key) {
                 return ! in_array($key, ['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type']);
             }, ARRAY_FILTER_USE_KEY);
-        }, $request->validated('orphans')));
+        }, $validatedOrphans));
 
-        ray($orphans);
+        foreach ($validatedOrphans as $key => $orphan) {
+            $orphan = array_filter($orphan);
+
+            if (! empty($orphan) && isset($orphan['baby_milk_quantity'], $orphan['baby_milk_type'], $orphan['diapers_quantity'], $orphan['diapers_type'])) {
+                $babiesToCreate[] = [
+                    'baby_milk_quantity' => $orphan['baby_milk_quantity'],
+                    'baby_milk_type' => $orphan['baby_milk_type'],
+                    'diapers_quantity' => $orphan['diapers_quantity'],
+                    'diapers_type' => $orphan['diapers_type'],
+                    'orphan_id' => $orphans[$key]->id,
+                ];
+            }
+
+            $orphans[$key]->sponsorships()->create([
+                ...$request->validated('orphans_sponsorship')[$key],
+            ]);
+        }
+
+        if (! empty($babiesToCreate)) {
+            $family->babies()->createMany($babiesToCreate);
+        }
 
         $family->secondSponsor()->create($request->validated('second_sponsor'));
 
@@ -54,6 +79,10 @@ class FamilyStoreController extends Controller
         ]);
 
         $family->furnishings()->create($request->validated('furnishings'));
+
+        $family->sponsorships()->create($request->validated('family_sponsorship'));
+
+        $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
 
         return response(['family' => $family->id], 201);
     }

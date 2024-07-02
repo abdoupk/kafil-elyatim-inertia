@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -36,9 +39,26 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OrphanSponsorship extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
+
+    protected $fillable = [
+        'orphan_id',
+        'medical_sponsorship',
+        'university_scholarship',
+        'university_trips',
+        'summer_camp',
+        'eid_suit',
+        'private_lessons',
+        'school_bag',
+        'tenant_id',
+    ];
 
     public $timestamps = false;
 
     protected $table = 'orphan_sponsorship';
+
+    public function orphan(): BelongsTo
+    {
+        return $this->belongsTo(Orphan::class);
+    }
 }

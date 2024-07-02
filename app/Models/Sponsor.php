@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -144,9 +143,9 @@ class Sponsor extends Model
         ];
     }
 
-    public function sponsorships(): HasMany
+    public function sponsorships(): HasOne
     {
-        return $this->hasMany(SponsorSponsorship::class);
+        return $this->hasOne(SponsorSponsorship::class);
     }
 
     public function getName(): string

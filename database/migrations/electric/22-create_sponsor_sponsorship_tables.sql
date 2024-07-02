@@ -2,10 +2,10 @@ create table if not exists sponsor_sponsorship
 (
     "id"                  uuid primary key,
     "sponsor_id"          uuid                           not null references sponsors (id) on delete cascade,
-    "medical_sponsorship" boolean                        not null,
-    "literacy_lessons"    boolean                        not null,
-    "direct_sponsorship"  double precision               not null,
-    "project_support"     text                           not null,
+    "medical_sponsorship" boolean                        null,
+    "literacy_lessons"    boolean                        null,
+    "direct_sponsorship"  double precision               null,
+    "project_support"     text                           null,
     "tenant_id"           text                           not null references "tenants" ("id") on delete cascade on update cascade,
     "created_at"          timestamp(0) without time zone null,
     "updated_at"          timestamp(0) without time zone null

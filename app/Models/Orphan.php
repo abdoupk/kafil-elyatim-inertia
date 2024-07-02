@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -106,9 +106,9 @@ class Orphan extends Model
         return $this->belongsTo(Family::class);
     }
 
-    public function sponsorships(): HasMany
+    public function sponsorships(): HasOne
     {
-        return $this->hasMany(OrphanSponsorship::class);
+        return $this->hasOne(OrphanSponsorship::class);
     }
 
     public function getName(): string

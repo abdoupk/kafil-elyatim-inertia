@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -58,7 +59,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Family whereStartDate($value)
  * @method static Builder|Family whereZoneId($value)
  *
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $deleted_at
  *
  * @method static Builder|Family onlyTrashed()
  * @method static Builder|Family whereDeletedAt($value)
@@ -69,9 +70,9 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  *
  * @method static Builder|Family whereBranchId($value)
  *
- * @property-read \App\Models\Spouse|null $deceased
- * @property-read \App\Models\Housing|null $housing
- * @property-read \App\Models\Preview|null $preview
+ * @property-read Spouse|null $deceased
+ * @property-read Housing|null $housing
+ * @property-read Preview|null $preview
  *
  * @mixin Eloquent
  */
@@ -114,9 +115,9 @@ class Family extends Model
         return $this->hasOne(Sponsor::class);
     }
 
-    public function sponsorships(): HasMany
+    public function sponsorships(): HasOne
     {
-        return $this->hasMany(FamilySponsorship::class);
+        return $this->hasOne(FamilySponsorship::class);
     }
 
     public function deceased(): HasOne
@@ -137,6 +138,11 @@ class Family extends Model
     public function zone(): BelongsTo
     {
         return $this->belongsTo(Zone::class);
+    }
+
+    public function babies(): HasMany
+    {
+        return $this->hasMany(Baby::class);
     }
 
     public function searchableAs(): string

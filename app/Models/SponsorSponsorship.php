@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property int $id
@@ -36,9 +39,23 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SponsorSponsorship extends Model
 {
-    use HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'sponsor_id',
+        'medical_sponsorship',
+        'literacy_lessons',
+        'direct_sponsorship',
+        'project_support',
+        'tenant_id',
+    ];
+
     protected $table = 'sponsor_sponsorship';
+
+    public function sponsor(): BelongsTo
+    {
+        return $this->belongsTo(Sponsor::class);
+    }
 }

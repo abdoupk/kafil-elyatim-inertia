@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /* eslint-disable vue/no-parsing-error */
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -58,6 +58,10 @@ const toggle = (key: HousingType, value?: string | number | boolean) => {
 const setValue = (event: Event) => {
     if (housingType.value) housingType.value.value = (event.target as HTMLInputElement).value
 }
+
+onMounted(() => {
+    if (housingType.value) items.value[housingType.value.name] = true
+})
 </script>
 
 <template>
@@ -69,10 +73,10 @@ const setValue = (event: Event) => {
                     'housing.housing_type.value'
                 )
             "
-            variant="soft-danger"
             class="flex items-center mb-2 w-full sm:w-1/2"
+            variant="soft-danger"
         >
-            <svg-loader name="icon-circle-exclamation" class="w-6 h-6 me-2 fill-current"></svg-loader>
+            <svg-loader class="w-6 h-6 me-2 fill-current" name="icon-circle-exclamation"></svg-loader>
             {{
                 // @ts-ignore
                 form.errors['housing.housing_type.value']
@@ -84,10 +88,10 @@ const setValue = (event: Event) => {
         <div class="flex gap-16">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
-                    @change="(event: Event) => toggle('independent', (event.target as HTMLInputElement).checked)"
-                    :checked="housingType?.name === 'independent' && housingType?.value === true"
                     id="independent"
+                    :checked="housingType?.name === 'independent' && housingType?.value === true"
                     type="checkbox"
+                    @change="(event: Event) => toggle('independent', (event.target as HTMLInputElement).checked)"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="independent">
@@ -99,13 +103,13 @@ const setValue = (event: Event) => {
         <div class="grid grid-cols-12">
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.independent'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                 >
                     {{
                         // @ts-ignore
@@ -120,10 +124,10 @@ const setValue = (event: Event) => {
         <div class="flex gap-16">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
-                    @change="(event: Event) => toggle('with_family', (event.target as HTMLInputElement).checked)"
                     id="with_family"
                     :checked="housingType?.name === 'with_family' && housingType?.value === true"
                     type="checkbox"
+                    @change="(event: Event) => toggle('with_family', (event.target as HTMLInputElement).checked)"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="with_family">
@@ -135,13 +139,13 @@ const setValue = (event: Event) => {
         <div class="grid grid-cols-12">
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.with_family'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                 >
                     {{
                         // @ts-ignore
@@ -156,10 +160,10 @@ const setValue = (event: Event) => {
         <div class="flex flex-col md:gap-16 md:flex-row mt-6">
             <base-form-switch class="text-lg md:w-1/2 w-full">
                 <base-form-switch-input
-                    @change="toggle('inheritance')"
                     id="inheritance"
                     :checked="housingType?.name === 'inheritance'"
                     type="checkbox"
+                    @change="toggle('inheritance')"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="inheritance">
@@ -170,11 +174,11 @@ const setValue = (event: Event) => {
             <div class="w-full mt-2 md:mt-0">
                 <base-form-input
                     :disabled="housingType?.name !== 'inheritance' || !items.inheritance"
-                    @input="setValue"
+                    :placeholder="$t('housing.placeholders.inheritance')"
                     :value="housingType?.name === 'inheritance' ? housingType?.value : null"
                     class="w-full md:w-3/4"
                     type="text"
-                    :placeholder="$t('housing.placeholders.inheritance')"
+                    @input="setValue"
                 ></base-form-input>
             </div>
         </div>
@@ -182,13 +186,13 @@ const setValue = (event: Event) => {
         <div class="grid grid-cols-12">
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.inheritance'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                 >
                     {{
                         // @ts-ignore
@@ -203,10 +207,10 @@ const setValue = (event: Event) => {
         <div class="flex flex-col md:gap-16 md:flex-row mt-6">
             <base-form-switch class="text-lg md:w-1/2 w-full">
                 <base-form-switch-input
-                    @change="toggle('tenant')"
                     id="tenant"
                     :checked="housingType?.name === 'tenant'"
                     type="checkbox"
+                    @change="toggle('tenant')"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="tenant">
@@ -216,12 +220,12 @@ const setValue = (event: Event) => {
 
             <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    class="w-full md:w-3/4"
                     :disabled="housingType?.name !== 'tenant' || !items.tenant"
-                    @input="setValue"
-                    :value="housingType?.name === 'tenant' ? housingType?.value : null"
-                    type="text"
                     :placeholder="$t('housing.placeholders.tenant')"
+                    :value="housingType?.name === 'tenant' ? housingType?.value : null"
+                    class="w-full md:w-3/4"
+                    type="text"
+                    @input="setValue"
                 ></base-form-input>
             </div>
         </div>
@@ -229,13 +233,13 @@ const setValue = (event: Event) => {
         <div class="grid grid-cols-12">
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.tenant'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                 >
                     {{
                         // @ts-ignore
@@ -250,10 +254,10 @@ const setValue = (event: Event) => {
         <div class="flex flex-col md:gap-16 md:flex-row mt-6">
             <base-form-switch class="text-lg md:w-1/2 w-full">
                 <base-form-switch-input
-                    @change="toggle('other')"
                     id="other"
                     :checked="housingType?.name === 'other'"
                     type="checkbox"
+                    @change="toggle('other')"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="other">
@@ -263,12 +267,12 @@ const setValue = (event: Event) => {
 
             <div class="w-full mt-2 md:mt-0">
                 <base-form-input
-                    class="w-full md:w-3/4"
                     :disabled="housingType?.name !== 'other' || !items.other"
-                    @input="setValue"
-                    :value="housingType?.name === 'other' ? housingType.value : null"
-                    type="text"
                     :placeholder="$t('housing.placeholders.other')"
+                    :value="housingType?.name === 'other' ? housingType.value : null"
+                    class="w-full md:w-3/4"
+                    type="text"
+                    @input="setValue"
                 ></base-form-input>
             </div>
         </div>
@@ -276,13 +280,13 @@ const setValue = (event: Event) => {
         <div class="grid grid-cols-12">
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.other'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
                 >
                     {{
                         // @ts-ignore
@@ -303,25 +307,25 @@ const setValue = (event: Event) => {
         <div class="w-full">
             <base-form-input
                 v-model="numberOfRooms"
-                @keydown="allowOnlyNumbersOnKeyDown"
-                class="w-full md:w-3/4"
-                type="text"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('housing.label.number_of_rooms')
                     })
                 "
+                class="w-full md:w-3/4"
+                type="text"
+                @keydown="allowOnlyNumbersOnKeyDown"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.number_of_rooms'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 col-end-12"
                 >
                     {{
                         // @ts-ignore
@@ -342,20 +346,20 @@ const setValue = (event: Event) => {
         <div class="w-full mt-2 md:mt-0">
             <base-form-input
                 v-model="housingReceiptNumber"
-                class="w-full md:w-3/4"
                 :placeholder="$t('housing.placeholders.housing_receipt_number')"
+                class="w-full md:w-3/4"
                 type="text"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    class="mt-2 text-danger col-start-5 col-end-12"
                     v-if="
                         form?.invalid(
                             // @ts-ignore
                             'housing.housing_receipt_number'
                         )
                     "
+                    class="mt-2 text-danger col-start-5 col-end-12"
                 >
                     {{
                         // @ts-ignore
