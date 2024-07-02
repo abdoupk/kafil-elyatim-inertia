@@ -34,10 +34,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(FamilyHousingSeeder::class);
 
-        $this->call(OrphanSponsorshipSeeder::class);
+        //        $this->call(OrphanSponsorshipSeeder::class);
 
-        $this->call(FamilySponsorshipSeeder::class);
+        //        $this->call(FamilySponsorshipSeeder::class);
 
-        $this->call(SponsorSponsorshipSeeder::class);
+        //        $this->call(SponsorSponsorshipSeeder::class);
     }
 }

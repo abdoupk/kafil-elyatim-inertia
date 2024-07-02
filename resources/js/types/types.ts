@@ -438,9 +438,9 @@ export type MembersType = Array<{ id: string; name: string }>
 export interface CreateFamilyStepProps {
     currentStep: number
     totalSteps: number
-    zones?: Zone[]
-    branches?: Branch[]
-    members?: InspectorsMembersType
+    zones: Zone[]
+    branches: Branch[]
+    members: InspectorsMembersType
     form?: Form<CreateFamilyForm>
 }
 

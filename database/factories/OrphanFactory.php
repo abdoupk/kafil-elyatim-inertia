@@ -27,6 +27,7 @@ class OrphanFactory extends Factory
             'shoes_size' => random_int(30, 45),
             'pants_size' => fake()->shuffleArray($this->sizes)[0],
             'shirt_size' => fake()->shuffleArray($this->sizes)[0],
+            'gender' => fake()->randomElement(['male', 'female']),
             'note' => fake('ar_SA')->paragraph(5),
             'tenant_id' => fake()->uuid,
             'family_id' => fake()->uuid,

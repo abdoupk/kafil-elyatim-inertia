@@ -16,7 +16,7 @@ import { checkErrors } from '@/utils/helper'
 const props = defineProps<CreateFamilyStepProps>()
 
 const sponsorErrors = computed(() => {
-    return checkErrors('^sponsor', props?.form?.errors)
+    return checkErrors('^sponsor.', props?.form?.errors)
 })
 
 const secondSponsorErrors = computed(() => {

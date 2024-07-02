@@ -17,8 +17,4 @@ CREATE INDEX idx_family_sponsorship_id ON family_sponsorship ("id");
 
 CREATE INDEX idx_family_sponsorship_family_id ON family_sponsorship ("family_id");
 
-CREATE INDEX idx_family_sponsorship_type ON family_sponsorship ("type");
-
-CREATE INDEX idx_family_sponsorship_value ON family_sponsorship ("value");
-
 CREATE INDEX idx_family_sponsorship_tenant_id ON family_sponsorship ("tenant_id");

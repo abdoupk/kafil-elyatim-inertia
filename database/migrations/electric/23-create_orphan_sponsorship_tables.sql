@@ -19,8 +19,5 @@ CREATE INDEX idx_orphan_sponsorship_id ON orphan_sponsorship ("id");
 
 CREATE INDEX idx_orphan_sponsorship_orphan_id ON orphan_sponsorship ("orphan_id");
 
-CREATE INDEX idx_orphan_sponsorship_type ON orphan_sponsorship ("type");
-
-CREATE INDEX idx_orphan_sponsorship_value ON orphan_sponsorship ("value");
 
 CREATE INDEX idx_orphan_sponsorship_tenant_id ON orphan_sponsorship ("tenant_id");

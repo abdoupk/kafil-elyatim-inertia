@@ -58,7 +58,7 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
                         track-by="name"
                         @update:value="
                             (value) => {
-                                inspectorsMembers = value
+                                inspectorsMembers = value.map((member) => member.id)
 
                                 form?.validate('inspectors_members')
                             }

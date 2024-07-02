@@ -31,11 +31,15 @@ class FamilyStoreController extends Controller
 
         $preview->inspectors()->sync($request->validated('inspectors_members'));
 
-        $family->orphans()->createMany(array_map(static function ($orphan) {
+        $orphans = $family->orphans()->createMany(array_map(static function ($orphan) {
             $orphan['created_by'] = auth()->id();
 
-            return $orphan;
+            return array_filter($orphan, function ($key) {
+                return ! in_array($key, ['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type']);
+            }, ARRAY_FILTER_USE_KEY);
         }, $request->validated('orphans')));
+
+        ray($orphans);
 
         $family->secondSponsor()->create($request->validated('second_sponsor'));
 
