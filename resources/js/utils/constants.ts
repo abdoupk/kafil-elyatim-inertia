@@ -80,12 +80,12 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
     zone_id: '',
     inspectors_members: ['9c5f760c-7caa-4dc8-b7c3-5d833b2a647f'],
     address: '54545',
-    start_date: '25-06-2024',
+    start_date: new Date(),
     sponsor: {
         first_name: 'a',
         last_name: 'a',
         phone_number: '0664954817',
-        birth_date: '25-06-2012',
+        birth_date: new Date(),
         father_name: 'aa',
         mother_name: 'bb',
         birth_certificate_number: '065',
@@ -126,13 +126,17 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         {
             first_name: 'a',
             last_name: 'a',
-            birth_date: '25-03-2012',
+            birth_date: '',
             family_status: 'a',
             health_status: 'a',
             academic_level: 'a',
-            shoes_size: '25',
-            pants_size: '25',
-            shirt_size: '25',
+            shoes_size: '',
+            pants_size: '',
+            shirt_size: '',
+            baby_milk_quantity: '',
+            baby_milk_type: '',
+            diapers_quantity: '',
+            diapers_type: '',
             note: '25'
         }
     ],
@@ -158,9 +162,33 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         other_furnishings: true
     },
     report: '22',
-    preview_date: '25-03-2012',
+    preview_date: '',
     other_properties: '00000',
-    branch_id: ''
+    branch_id: '',
+    family_sponsorship: {
+        monthly_allowance: true,
+        ramadan_basket: true,
+        zakat: true,
+        housing_assistance: true,
+        eid_al_adha: true
+    },
+    sponsor_sponsorship: {
+        medical_sponsorship: true,
+        literacy_lessons: true,
+        direct_sponsorship: 2000,
+        project_support: ''
+    },
+    orphans_sponsorship: [
+        {
+            medical_sponsorship: true,
+            university_scholarship: true,
+            university_trips: true,
+            summer_camp: true,
+            eid_suit: true,
+            private_lessons: true,
+            school_bag: true
+        }
+    ]
 }
 
 // eslint-disable-next-line array-element-newline

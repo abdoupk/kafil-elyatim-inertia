@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateFamilyRequest extends FormRequest
 {
+    protected function prepareForValidation()
+    {
+        ray(request()->all());
+    }
+
     public function messages(): array
     {
         return [
@@ -19,16 +24,14 @@ class CreateFamilyRequest extends FormRequest
             'address' => 'required|string',
             'zone_id' => 'required|string|exists:App\Models\Zone,id',
             'file_number' => 'required|numeric',
-            'start_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
+            'start_date' => 'required|date',
             'orphans.*.first_name' => 'required|string',
             'orphans.*.last_name' => 'required|string',
-            'orphans.*.birth_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
+            'orphans.*.birth_date' => 'required|date',
             'orphans.*.family_status' => 'required|string',
             'orphans.*.health_status' => 'required|string',
             'orphans.*.academic_level' => 'required|string',
-            'orphans.*.shoes_size' => 'required|numeric',
-            'orphans.*.shirt_size' => 'required|numeric',
-            'orphans.*.pants_size' => 'required|numeric',
+            'orphans.*.gender' => 'required|in:male,female',
             'sponsor.first_name' => 'required|string',
             'sponsor.last_name' => 'required|string',
             'sponsor.phone_number' => 'required|string',
@@ -64,10 +67,28 @@ class CreateFamilyRequest extends FormRequest
             'furnishings.*' => 'required',
             'other_properties' => 'required|string',
             'inspectors_members' => 'required|array|min:1',
-            'preview_date' => 'required|date|date_format:d-m-Y', //TODO change format to j M, Y
+            'preview_date' => 'required|date',
             'inspectors_members.*' => 'required|exists:App\Models\User,id',
             'report' => 'required|string',
             'branch_id' => 'required|exists:App\Models\Branch,id',
+
+            'orphans.*.shoes_size' => 'required_with:orphans.*.shirt_size,orphans.*.pants_size |required_without:orphans.*.baby_milk_quantity,orphans.*.baby_milk_type,orphans.*.diapers_quantity,orphans.*.diapers_type',
+            'orphans.*.shirt_size' => 'required_with:orphans.*.shirt_size,orphans.*.pants_size |required_without:orphans.*.baby_milk_quantity,orphans.*.baby_milk_type,orphans.*.diapers_quantity,orphans.*.diapers_type',
+            'orphans.*.pants_size' => 'required_with:orphans.*.shirt_size,orphans.*.pants_size |required_without:orphans.*.baby_milk_quantity,orphans.*.baby_milk_type,orphans.*.diapers_quantity,orphans.*.diapers_type',
+            'orphans.*.baby_milk_quantity' => 'required_with:baby_milk_type|required_without:orphans.*.shoes_size
+,orphans.*.shirt_size,orphans.*.pants_size',
+            'orphans.*.baby_milk_type' => 'required_with:baby_milk_type|required_without:orphans.*.shoes_size
+,orphans.*.shirt_size,orphans.*.pants_size',
+            'orphans.*.diapers_quantity' => 'required_with:baby_milk_type|required_without:orphans.*.shoes_size
+,orphans.*.shirt_size,orphans.*.pants_size',
+            'orphans.*.diapers_type' => 'required_with:baby_milk_type|required_without:orphans.*.shoes_size
+,orphans.*.shirt_size,orphans.*.pants_size',
+            'orphans_sponsorship.*.*' => 'required|boolean',
+            'sponsor_sponsorship.direct_sponsorship' => 'required|numeric',
+            'sponsor_sponsorship.project_support' => 'required|string',
+            'sponsor_sponsorship.medical_sponsorship' => 'required|boolean',
+            'sponsor_sponsorship.literacy_lessons' => 'required|boolean',
+            'family_sponsorship.*' => 'required|boolean',
         ];
     }
 

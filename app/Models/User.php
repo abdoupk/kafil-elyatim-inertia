@@ -111,6 +111,7 @@ class User extends Authenticatable
         'zone_id',
         'branch_id',
         'gender',
+        'address',
         'qualification',
     ];
 

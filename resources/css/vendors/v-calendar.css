@@ -1,3 +1,7 @@
+.vc-popover-content-wrapper {
+    z-index: 50 !important;
+}
+
 :dir(rtl) {
     .vc-arrow,
     .vc-nav-arrow {

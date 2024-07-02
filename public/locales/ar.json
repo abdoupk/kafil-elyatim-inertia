@@ -548,5 +548,6 @@
     "users_count": "عدد الاعضاء",
     "item": "عنصر",
     "the_item": "العنصر",
-    "item_name": "اسم المنتج"
+    "item_name": "اسم المنتج",
+    "the_child :": "الطفل: :name"
 }

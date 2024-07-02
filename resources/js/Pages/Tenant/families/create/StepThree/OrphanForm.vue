@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 import type { CreateFamilyForm } from '@/types/types'
 
+import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { watch } from 'vue'
+import { computed } from 'vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 
-const props = defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
+defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
 
-watch(props.form.orphans, (value) => {
-    document.getElementById(`first_name_${value.length - 1}`)?.focus()
-})
+// TODO: fix this when add new orphan change focus
 
 const firstName = defineModel('first_name', { default: '' })
 
@@ -34,11 +34,26 @@ const shirtSize = defineModel('shirtSize')
 
 const note = defineModel('note')
 
+const babyMilkQuantity = defineModel('babyMilkQuantity')
+
+const gender = defineModel('gender')
+
+const babyMilkType = defineModel('babyMilkType')
+
+const diapersType = defineModel('diapersType')
+
+const diapersQuantity = defineModel('diapersQuantity')
+
 const birthDate = defineModel('birth_date', { default: '' })
+
+const isStillBaby = computed(() => {
+    return birthDate.value && dayjs().diff(dayjs(birthDate.value), 'year') < 2
+})
 </script>
 
 <template>
     <div class="grid grid-cols-12 gap-4 gap-y-5 pt-2 pb-2.5 px-2 border-dashed border-2">
+        <!-- Begin: First Name-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
                 {{ $t('validation.attributes.first_name') }}
@@ -80,7 +95,9 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: First Name-->
 
+        <!-- Begin: Last Name-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="last_name">
                 {{ $t('validation.attributes.last_name') }}
@@ -122,7 +139,9 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: Last Name-->
 
+        <!-- Begin: Birth Date-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="orphans.birth_date">
                 {{ $t('validation.attributes.date_of_birth') }}
@@ -148,7 +167,55 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: Birth Date-->
 
+        <!-- Begin: Gender-->
+        <div class="col-span-12 sm:col-span-6">
+            <base-form-label for="orphans.gender">
+                {{ $t('validation.attributes.date_of_birth') }}
+            </base-form-label>
+
+            <base-form-select
+                :id="`last_name_${index}`"
+                v-model="gender"
+                :placeholder="
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.gender')
+                    })
+                "
+                data-test="orphan_gender"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        `orphans.${index}.gender`
+                    )
+                "
+            >
+                <option value="male">{{ $t('male') }}</option>
+                <option value="female">{{ $t('female') }}</option>
+            </base-form-select>
+
+            <base-form-input-error>
+                <div
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            `orphans.${index}.gender`
+                        )
+                    "
+                    class="mt-2 text-danger"
+                    data-test="error_gender_message"
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors[`orphans.${index}.gender`]
+                    }}
+                </div>
+            </base-form-input-error>
+        </div>
+        <!-- End: Gender-->
+
+        <!-- Begin: Health Status-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="health_status">
                 {{ $t('validation.attributes.sponsor.health_status') }}
@@ -189,7 +256,9 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: Health Status-->
 
+        <!-- Begin: Family Status-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="family_status">
                 {{ $t('family_status') }}
@@ -230,7 +299,9 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: Family Status-->
 
+        <!-- Begin: Academic Level-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="academic_level">
                 {{ $t('validation.attributes.sponsor.academic_level') }}
@@ -271,130 +342,318 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: Academic Level-->
 
-        <div class="col-span-12 sm:col-span-6">
-            <base-form-label for="shoes_size">
-                {{ $t('shoes_size') }}
-            </base-form-label>
+        <!-- Begin: if orphan is still baby-->
+        <div v-if="isStillBaby" class="col-span-12 grid grid-cols-12 gap-4 gap-y-5">
+            <!-- Begin: Baby Milk Type-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="baby_milk_type">
+                    {{ $t('baby_milk_type') }}
+                </base-form-label>
 
-            <base-form-input
-                :id="`shoes_size_${index}`"
-                v-model="shoesSize"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('shoes_size')
-                    })
-                "
-                type="text"
-                @change="
-                    form?.validate(
-                        //@ts-ignore
-                        `orphans.${index}.shoes_size`
-                    )
-                "
-            ></base-form-input>
+                <base-form-input
+                    :id="`baby_milk_type_${index}`"
+                    v-model="babyMilkType"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('baby_milk_type')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            `orphans.${index}.baby_milk_type`
+                        )
+                    "
+                ></base-form-input>
 
-            <base-form-input-error>
-                <div
-                    v-if="
-                        form?.invalid(
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.baby_milk_type`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_baby_milk_type_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.baby_milk_type`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Baby Milk Type-->
+
+            <!-- Begin: Baby Milk Quantity-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="baby_milk_quantity">
+                    {{ $t('baby_milk_quantity') }}
+                </base-form-label>
+
+                <base-form-input
+                    :id="`baby_milk_quantity_${index}`"
+                    v-model="babyMilkQuantity"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('baby_milk_quantity')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            `orphans.${index}.baby_milk_quantity`
+                        )
+                    "
+                ></base-form-input>
+
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.baby_milk_quantity`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_baby_milk_quantity_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.baby_milk_quantity`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Baby Milk Quantity-->
+
+            <!-- Begin: Diapers Type-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="diapers_type">
+                    {{ $t('diapers_type') }}
+                </base-form-label>
+
+                <base-form-input
+                    :id="`diapers_type_${index}`"
+                    v-model="diapersType"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('diapers_type')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            `orphans.${index}.diapers_type`
+                        )
+                    "
+                ></base-form-input>
+
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.diapers_type`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_diapers_type_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.diapers_type`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Diapers Type-->
+
+            <!-- Begin: Diapers Quantity-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="diapers_quantity">
+                    {{ $t('diapers_quantity') }}
+                </base-form-label>
+
+                <base-form-input
+                    :id="`diapers_quantity_${index}`"
+                    v-model="diapersQuantity"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('diapers_quantity')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
+                            //@ts-ignore
+                            `orphans.${index}.diapers_quantity`
+                        )
+                    "
+                ></base-form-input>
+
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.diapers_quantity`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_diapers_quantity_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.diapers_quantity`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Diapers Quantity-->
+        </div>
+        <!-- End: if orphan is still baby-->
+
+        <!-- Begin: if orphan is adult-->
+        <template v-else>
+            <!-- Begin: Shoes Size-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="shoes_size">
+                    {{ $t('shoes_size') }}
+                </base-form-label>
+
+                <base-form-input
+                    :id="`shoes_size_${index}`"
+                    v-model="shoesSize"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('shoes_size')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
                             //@ts-ignore
                             `orphans.${index}.shoes_size`
                         )
                     "
-                    class="mt-2 text-danger"
-                    data-test="error_shoes_size_message"
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors[`orphans.${index}.shoes_size`]
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+                ></base-form-input>
 
-        <div class="col-span-12 sm:col-span-6">
-            <base-form-label for="shirt_size">
-                {{ $t('shirt_size') }}
-            </base-form-label>
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.shoes_size`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_shoes_size_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.shoes_size`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Shoes Size-->
 
-            <base-form-input
-                :id="`shirt_size_${index}`"
-                v-model="shirtSize"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('shirt_size')
-                    })
-                "
-                type="text"
-                @change="
-                    form?.validate(
-                        //@ts-ignore
-                        `orphans.${index}.shirt_size`
-                    )
-                "
-            ></base-form-input>
+            <!-- Begin: Shirt Size-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="shirt_size">
+                    {{ $t('shirt_size') }}
+                </base-form-label>
 
-            <base-form-input-error>
-                <div
-                    v-if="
-                        form?.invalid(
+                <base-form-input
+                    :id="`shirt_size_${index}`"
+                    v-model="shirtSize"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('shirt_size')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
                             //@ts-ignore
                             `orphans.${index}.shirt_size`
                         )
                     "
-                    class="mt-2 text-danger"
-                    data-test="error_shirt_size_message"
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors[`orphans.${index}.shirt_size`]
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+                ></base-form-input>
 
-        <div class="col-span-12 sm:col-span-6">
-            <base-form-label for="pants_size">
-                {{ $t('pants_size') }}
-            </base-form-label>
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.shirt_size`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_shirt_size_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.shirt_size`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Shirt Size-->
 
-            <base-form-input
-                :id="`pants_size_${index}`"
-                v-model="pantsSize"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('pants_size')
-                    })
-                "
-                type="text"
-                @change="
-                    form?.validate(
-                        //@ts-ignore
-                        `orphans.${index}.pants_size`
-                    )
-                "
-            ></base-form-input>
+            <!-- Begin: Pants Size-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label for="pants_size">
+                    {{ $t('pants_size') }}
+                </base-form-label>
 
-            <base-form-input-error>
-                <div
-                    v-if="
-                        form?.invalid(
+                <base-form-input
+                    :id="`pants_size_${index}`"
+                    v-model="pantsSize"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('pants_size')
+                        })
+                    "
+                    type="text"
+                    @change="
+                        form?.validate(
                             //@ts-ignore
                             `orphans.${index}.pants_size`
                         )
                     "
-                    class="mt-2 text-danger"
-                    data-test="error_pants_size_message"
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors[`orphans.${index}.pants_size`]
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+                ></base-form-input>
 
+                <base-form-input-error>
+                    <div
+                        v-if="
+                            form?.invalid(
+                                //@ts-ignore
+                                `orphans.${index}.pants_size`
+                            )
+                        "
+                        class="mt-2 text-danger"
+                        data-test="error_pants_size_message"
+                    >
+                        {{
+                            //@ts-ignore
+                            form.errors[`orphans.${index}.pants_size`]
+                        }}
+                    </div>
+                </base-form-input-error>
+            </div>
+            <!-- End: Pants Size-->
+        </template>
+        <!-- End: if orphan is adult-->
+
+        <!-- Begin: Note -->
         <div class="col-span-8">
             <base-form-label for="note">
                 {{ $t('notes') }}
@@ -435,6 +694,7 @@ const birthDate = defineModel('birth_date', { default: '' })
                 </div>
             </base-form-input-error>
         </div>
+        <!-- End: Note -->
         <slot></slot>
     </div>
 </template>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type {
     Branch,
     CreateFamilyForm,
@@ -76,6 +76,11 @@ const stepFiveCompleted = ref<boolean>(true) //TODO change To False
 
 const addOrphan = () => {
     form.orphans.push({
+        baby_milk_quantity: 0,
+        baby_milk_type: '',
+        diapers_quantity: 0,
+        diapers_type: '',
+        gender: 'male',
         academic_level: '',
         birth_date: '',
         family_status: '',
@@ -86,6 +91,16 @@ const addOrphan = () => {
         shirt_size: '',
         shoes_size: '',
         first_name: ''
+    })
+
+    form.orphans_sponsorship.push({
+        medical_sponsorship: false,
+        private_lessons: false,
+        school_bag: false,
+        summer_camp: false,
+        university_scholarship: false,
+        university_trips: false,
+        eid_suit: false
     })
 }
 
@@ -228,69 +243,69 @@ const submit = () => {
                 class="relative flex flex-col justify-center px-5 before:absolute before:bottom-0 before:top-0 before:mt-4 before:hidden before:h-[3px] before:w-[70%] before:bg-slate-100 before:dark:bg-darkmode-400 sm:px-20 lg:flex-row before:lg:block"
             >
                 <step-title
-                    @go-to="goTo"
                     v-for="(title, index) in createFamilyStepsTitles"
                     :key="`step-${index}`"
                     :current-step="currentStep"
                     :index="index + 1"
                     :title="title"
+                    @go-to="goTo"
                 ></step-title>
             </div>
 
             <form @submit.prevent="submit">
                 <step-one
                     v-model:address="form.address"
-                    v-model:zone="form.zone_id"
+                    v-model:branch="form.branch_id"
                     v-model:file-number="form.file_number"
                     v-model:start-date="form.start_date"
-                    v-model:branch="form.branch_id"
-                    :form
+                    v-model:zone="form.zone_id"
                     :branches
-                    :zones
                     :currentStep
+                    :form
                     :totalSteps
+                    :zones
                 >
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-one>
 
-                <step-two :currentStep :totalSteps :form>
+                <step-two :currentStep :form :totalSteps>
                     <template #sponsorForm>
                         <sponsor-form
-                            :form
-                            v-model:first_name="form.sponsor.first_name"
-                            v-model:last_name="form.sponsor.last_name"
-                            v-model:phone="form.sponsor.phone_number"
-                            v-model:father_name="form.sponsor.father_name"
-                            v-model:mother_name="form.sponsor.mother_name"
-                            v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
                             v-model:academic_level="form.sponsor.academic_level"
+                            v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
+                            v-model:birth_date="form.sponsor.birth_date"
+                            v-model:card_number="form.sponsor.card_number"
+                            v-model:diploma="form.sponsor.diploma"
+                            v-model:father_name="form.sponsor.father_name"
+                            v-model:first_name="form.sponsor.first_name"
                             v-model:function="form.sponsor.function"
                             v-model:health_status="form.sponsor.health_status"
-                            v-model:diploma="form.sponsor.diploma"
-                            v-model:card_number="form.sponsor.card_number"
-                            v-model:birth_date="form.sponsor.birth_date"
+                            v-model:last_name="form.sponsor.last_name"
+                            v-model:mother_name="form.sponsor.mother_name"
+                            v-model:phone="form.sponsor.phone_number"
+                            :form
                         ></sponsor-form>
                     </template>
 
                     <template #incomeForm>
                         <income-form
-                            v-model:cnr="form.incomes.cnr"
-                            v-model:cnas="form.incomes.cnas"
-                            v-model:casnos="form.incomes.casnos"
-                            v-model:pension="form.incomes.pension"
-                            v-model:other_income="form.incomes.other_income"
                             v-model:account="form.incomes.account"
+                            v-model:casnos="form.incomes.casnos"
+                            v-model:cnas="form.incomes.cnas"
+                            v-model:cnr="form.incomes.cnr"
+                            v-model:other_income="form.incomes.other_income"
+                            v-model:pension="form.incomes.pension"
                             :form
                         ></income-form>
                     </template>
 
                     <template #secondSponsorForm>
                         <second-sponsor-form
-                            v-model:first_name="form.second_sponsor.first_name"
-                            v-model:last_name="form.second_sponsor.last_name"
-                            v-model:degree_of_kinship="form.second_sponsor.degree_of_kinship"
                             v-model:address="form.second_sponsor.address"
+                            v-model:degree_of_kinship="form.second_sponsor.degree_of_kinship"
+                            v-model:first_name="form.second_sponsor.first_name"
                             v-model:income="form.second_sponsor.income"
+                            v-model:last_name="form.second_sponsor.last_name"
                             v-model:phone="form.second_sponsor.phone_number"
                             :form
                         ></second-sponsor-form>
@@ -298,16 +313,16 @@ const submit = () => {
 
                     <template #spouseForm>
                         <spouse-form
-                            v-model:first_name="form.spouse.first_name"
-                            v-model:last_name="form.spouse.last_name"
-                            v-model:death-date="form.spouse.death_date"
                             v-model:birth-date="form.spouse.birth_date"
+                            v-model:death-date="form.spouse.death_date"
+                            v-model:first_name="form.spouse.first_name"
                             v-model:income="form.spouse.income"
                             v-model:job="form.spouse.function"
+                            v-model:last_name="form.spouse.last_name"
                             :form
                         ></spouse-form>
                     </template>
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-two>
 
                 <step-three :currentStep :totalSteps>
@@ -315,16 +330,21 @@ const submit = () => {
                         <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
                             <the-orphans :index @remove-orphan="removeOrphan">
                                 <orphan-form
-                                    v-model:first_name="orphan.first_name"
-                                    v-model:last_name="orphan.last_name"
                                     v-model:academic_level="orphan.academic_level"
-                                    v-model:health_status="orphan.health_status"
-                                    v-model:family_status="orphan.family_status"
+                                    v-model:baby-milk-quantity="orphan.baby_milk_quantity"
+                                    v-model:baby-milk-type="orphan.baby_milk_type"
                                     v-model:birth_date="orphan.birth_date"
-                                    v-model:shoes-size="orphan.shoes_size"
+                                    v-model:diapers-quantity="orphan.diapers_quantity"
+                                    v-model:diapers-type="orphan.diapers_type"
+                                    v-model:family_status="orphan.family_status"
+                                    v-model:first_name="orphan.first_name"
+                                    v-model:gender="orphan.gender"
+                                    v-model:health_status="orphan.health_status"
+                                    v-model:last_name="orphan.last_name"
+                                    v-model:note="orphan.note"
                                     v-model:pants-size="orphan.pants_size"
                                     v-model:shirt-size="orphan.shirt_size"
-                                    v-model:note="orphan.note"
+                                    v-model:shoes-size="orphan.shoes_size"
                                     :form
                                     :index
                                 ></orphan-form>
@@ -332,28 +352,28 @@ const submit = () => {
                         </template>
 
                         <base-button
-                            type="button"
-                            variant="outline-primary"
                             class="mx-auto mt-4 block w-1/2 border-dashed dark:text-slate-500"
                             data-test="add_orphan"
+                            type="button"
+                            variant="outline-primary"
                             @click="addOrphan"
                         >
-                            <svg-loader name="icon-plus" class="inline fill-primary dark:fill-slate-500"></svg-loader>
+                            <svg-loader class="inline fill-primary dark:fill-slate-500" name="icon-plus"></svg-loader>
 
                             {{ $t('add_new_orphan') }}
                         </base-button>
                     </template>
 
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-three>
 
-                <step-four :currentStep :totalSteps :form>
+                <step-four :currentStep :form :totalSteps>
                     <template #housingForm>
                         <housing-form
-                            :form
                             v-model:housing-receipt-number="form.housing.housing_receipt_number"
-                            v-model:number-of-rooms="form.housing.number_of_rooms"
                             v-model:housing-type="form.housing.housing_type"
+                            v-model:number-of-rooms="form.housing.number_of_rooms"
+                            :form
                         ></housing-form>
                     </template>
 
@@ -362,21 +382,22 @@ const submit = () => {
                     </template>
 
                     <template #otherPropertiesForm>
-                        <other-properties-form :form
-                                               v-model:other-properties="form.other_properties"></other-properties-form>
+                        <other-properties-form v-model:other-properties="form.other_properties"
+                                               :form></other-properties-form>
                     </template>
 
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-four>
 
-                <step-five :currentStep :totalSteps :members :form
-                           v-model:inspectors-members="form.inspectors_members"
-                           v-model:preview-date="form.preview_date"
-                           v-model:report="form.report">
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                <step-five v-model:inspectors-members="form.inspectors_members" v-model:preview-date="form.preview_date"
+                           v-model:report="form.report" :currentStep
+                           :form
+                           :members
+                           :totalSteps>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-five>
 
-                <step-six :currentStep :totalSteps :form>
+                <step-six :currentStep :form :totalSteps>
                     <template #FamilySponsorShipForm>
                         <family-sponsor-ship-form></family-sponsor-ship-form>
                     </template>
@@ -386,17 +407,23 @@ const submit = () => {
                     </template>
 
                     <template #OrphansSponsorShipForm>
-                        <orphans-sponsor-ship-form></orphans-sponsor-ship-form>
+                        <template v-for="(orphanSponsorship,index) in form.orphans_sponsorship"
+                                  :key="`orphan-${index}`">
+                            <orphans-sponsor-ship-form
+                                :form :index
+                                @update:orphans-sponsorship="form.orphans_sponsorship[index] = {...$event}"></orphans-sponsor-ship-form>
+                        </template>
                     </template>
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep="submit"></the-actions>
+
+                    <the-actions :currentStep :nextStep="submit" :prevStep :totalSteps :validating></the-actions>
                 </step-six>
             </form>
         </div>
     </div>
 
     <success-notification
+        :open="creatingCompleted"
         :options="{ duration: 1500}"
         :title="$t('successfully_created',{attribute: $t('the_family') })"
-        :open="creatingCompleted"
     ></success-notification>
 </template>

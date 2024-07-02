@@ -32,6 +32,7 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail,
             'zone_id' => Zone::inRandomOrder()->first()?->id,
             'gender' => fake()->randomElement(['male', 'female']),
+            'address' => fake()->address,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

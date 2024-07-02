@@ -7,6 +7,7 @@ create table if not exists "users"
     "last_name"         text                           not null,
     "phone"             text                           not null,
     "email"             text                           not null,
+    "address"           text                           not null,
     "gender"            gender                         null,
     "qualification"     text                           null,
     "zone_id"           uuid                           null,

@@ -360,6 +360,11 @@ export type OrphanType = {
     pants_size: string
     shirt_size: string
     note: string
+    gender: 'male' | 'female'
+    baby_milk_quantity: number
+    baby_milk_type: string
+    diapers_type: string
+    diapers_quantity: number
 }
 
 export type IncomeType = {
@@ -370,6 +375,19 @@ export type IncomeType = {
     other_income: number
     account: number
 }
+
+export type FamilySponsorship = 'monthly_allowance' | 'ramadan_basket' | 'zakat' | 'housing_assistance' | 'eid_al_adha'
+
+export type SponsorSponsorship = 'medical_sponsorship' | 'literacy_lessons' | 'direct_sponsorship' | 'project_support'
+
+export type OrphanSponsorship =
+    | 'medical_sponsorship'
+    | 'university_scholarship'
+    | 'university_trips'
+    | 'summer_camp'
+    | 'eid_suit'
+    | 'private_lessons'
+    | 'school_bag'
 
 export type FurnishingsType =
     | 'television'
@@ -408,6 +426,9 @@ export type CreateFamilyForm = {
     preview_date: string
     inspectors_members: string | string[]
     branch_id: string
+    family_sponsorship: Record<FamilySponsorship, any> & { notes: { [key in FamilySponsorship]?: string } }
+    sponsor_sponsorship: Record<SponsorSponsorship, any> & { notes: { [key in SponsorSponsorship]?: string } }
+    orphans_sponsorship: Array<Record<OrphanSponsorship, any>>
 }
 
 export type InspectorsMembersType = Array<{ id: string; name: string }>

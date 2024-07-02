@@ -52,6 +52,7 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
                 <div>
                     <base-vue-select
                         :options="members"
+                        multiple
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
                         label="name"
                         track-by="name"
