@@ -16,4 +16,5 @@ return [
     'financial' => 'الماليات',
     'show' => 'تفاصيل',
     'users' => 'الاعضاء',
+    'inventory' => 'المخزن',
 ];

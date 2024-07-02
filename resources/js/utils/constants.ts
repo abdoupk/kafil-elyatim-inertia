@@ -62,8 +62,6 @@ export const registerFormAttributes: RegisterForm = {
     phones: ['']
 }
 
-
-
 export const createMemberFormAttribute: CreateMemberForm = {
     first_name: '',
     last_name: '',

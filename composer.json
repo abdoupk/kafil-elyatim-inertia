@@ -58,6 +58,7 @@
             "app/Helpers/zones.php",
             "app/Helpers/branches.php",
             "app/Helpers/orphans.php",
+            "app/Helpers/inventory.php",
             "app/Helpers/sponsors.php",
             "app/Helpers/roles.php",
             "app/Helpers/global.php"

@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Inventory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class InventoryFactory extends Factory
 {
@@ -13,12 +12,13 @@ class InventoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'name' => $this->faker->name(),
-            'qty' => $this->faker->randomNumber(),
-            'tenant_id' => $this->faker->words(),
-            'note' => $this->faker->word(),
+            'created_at' => now(),
+            'updated_at' => now(),
+            'name' => fake()->name(),
+            'qty' => fake()->randomNumber(),
+            'unit' => fake()->randomElement(['kg', 'liter', 'piece']),
+            'tenant_id' => fake()->words(),
+            'note' => fake()->paragraph(5),
         ];
     }
 }

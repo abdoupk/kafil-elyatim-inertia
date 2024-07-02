@@ -39,6 +39,7 @@
     "breadcrumb.financial": "الماليات",
     "breadcrumb.show": "تفاصيل",
     "breadcrumb.users": "الاعضاء",
+    "breadcrumb.inventory": "المخزن",
     "furnishings.television": "تلفاز",
     "furnishings.refrigerator": "ثلاجة",
     "furnishings.fireplace": "مِدْفَأَة",
@@ -277,6 +278,9 @@
     "validation.url": "صيغة رابط حقل :attribute غير صحيحة.",
     "validation.uuid": "حقل :attribute يجب أن يكون بصيغة UUID سليمة.",
     "validation.attributes.address": "العنوان",
+    "validation.attributes.qty": "الكمية",
+    "validation.attributes.note": "الملاحظة",
+    "validation.attributes.notes": "الملاحظات",
     "validation.attributes.age": "العمر",
     "validation.attributes.amount": "الكمية",
     "validation.attributes.area": "المنطقة",
@@ -538,7 +542,11 @@
     "the_role": "الدور",
     "the_roles": "الادوار",
     "the_orphans": "الايتام",
+    "the_sponsor": "المتكفل",
     "orphan": "يتيم",
     "role": "دور",
-    "users_count": "عدد الاعضاء"
+    "users_count": "عدد الاعضاء",
+    "item": "عنصر",
+    "the_item": "العنصر",
+    "item_name": "اسم المنتج"
 }

@@ -145,12 +145,17 @@ return [
                 'sortableAttributes' => ['name', 'permissions_count', 'users_count', 'created_at'],
             ],
             'orphans' => [
-                'filterableAttributes' => ['uuid', 'name', 'tenant_id'],
+                'filterableAttributes' => ['id', 'name', 'tenant_id'],
                 'searchableAttributes' => ['name'],
                 'sortableAttributes' => ['name', 'created_at'],
             ],
+            'inventory' => [
+                'filterableAttributes' => ['id', 'name', 'qty', 'unit', 'tenant_id'],
+                'searchableAttributes' => ['name', 'qty', ' unit'],
+                'sortableAttributes' => ['name', 'created_at', 'qty', 'unit'],
+            ],
             'sponsors' => [
-                'filterableAttributes' => ['uuid', 'name', 'tenant_id'],
+                'filterableAttributes' => ['id', 'name', 'tenant_id'],
                 'searchableAttributes' => ['name'],
                 'sortableAttributes' => ['name', 'created_at'],
             ],

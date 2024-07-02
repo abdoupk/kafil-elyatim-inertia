@@ -8,12 +8,12 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheResults from '@/Components/top-bar/search/TheResults.vue'
 
+import { isEmpty } from '@/utils/helper'
 import { search } from '@/utils/search'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
-import { isEmpty } from '@/utils/helper'
-import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 
 defineOptions({
     inheritAttrs: false
@@ -145,10 +145,10 @@ const onTermKeydown = (event: KeyboardEvent) => {
 
     ;
 
-    (
+(
         resultsRefs.value[
-        results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
-            ] as HTMLElement
+            results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
+        ] as HTMLElement
     )?.scrollIntoView(false)
 }
 
@@ -159,7 +159,6 @@ onMounted(() => {
 onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 
 const noResults = computed(() => results.value.every((a) => isEmpty(a)))
-
 </script>
 
 <template>
@@ -199,17 +198,16 @@ const noResults = computed(() => results.value.every((a) => isEmpty(a)))
             leave-to="mt-5 invisible opacity-0 translate-y-1"
         >
             <div class="absolute end-0 z-10 mt-[3px]">
-                <div
-                    class="w-[450px] px-5 pt-5 box scroll-smooth overflow-y-auto max-h-[500px] scrollbar-hidden"
-                >
+                <div class="w-[450px] px-5 pt-5 box scroll-smooth overflow-y-auto max-h-[500px] scrollbar-hidden">
                     <the-no-results-found v-if="noResults"></the-no-results-found>
 
                     <!-- @vue-expect-error Results Types -->
-                    <the-results :currentIndex
-                                 :results
-                                 :results-refs="resultsRefs"
-                                 v-else
-                                 @hover="currentIndex = $event"
+                    <the-results
+                        :currentIndex
+                        :results
+                        :results-refs="resultsRefs"
+                        v-else
+                        @hover="currentIndex = $event"
                     ></the-results>
                 </div>
             </div>

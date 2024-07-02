@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('qty');
+            $table->enum('unit', ['kg', 'piece', 'liter']);
             $table->uuid('tenant_id');
             $table->text('note');
             $table->softDeletes();

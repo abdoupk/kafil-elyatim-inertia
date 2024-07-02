@@ -7,7 +7,6 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseLitePicker from '@/Components/Base/lite-picker/BaseLitePicker.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 

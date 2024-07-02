@@ -68,6 +68,7 @@ export interface ISettingState {
 
 export type SVGType =
     | 'icon-hands-holding-child'
+    | 'icon-shelves'
     | 'icon-note'
     | 'icon-filters'
     | 'icon-filter-list'
@@ -240,6 +241,13 @@ export interface CreateMemberForm {
     gender: 'male' | 'female'
 }
 
+export interface AddItemToInventoryForm {
+    name: string
+    qty: number
+    unit: 'kg' | 'piece' | 'liter'
+    note: string
+}
+
 export interface FamiliesIndexResource {
     id: string
     name: string
@@ -247,6 +255,15 @@ export interface FamiliesIndexResource {
     file_number: number
     zone: Zone
     address: string
+}
+
+export interface InventoryIndexResource {
+    id: string
+    name: string
+    qty: number
+    unit: string
+    note?: string
+    created_at: string
 }
 
 export interface OrphansIndexResource {

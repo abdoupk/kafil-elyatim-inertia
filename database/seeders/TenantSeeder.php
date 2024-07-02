@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Branch;
 use App\Models\Domain;
+use App\Models\Inventory;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Models\Zone;
@@ -59,6 +60,10 @@ class TenantSeeder extends Seeder
                 'president_id' => User::inRandomOrder()->whereTenantId(
                     $tenant?->id
                 )->first()?->id,
+            ]);
+
+            Inventory::factory()->count(50)->create([
+                'tenant_id' => $tenant?->id,
             ]);
         }
     }

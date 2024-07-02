@@ -1,8 +1,10 @@
+create type item_unit as enum ( 'kg', 'liter', 'piece' );
 create table if not exists "inventories"
 (
     "id"         uuid                           not null primary key,
     "name"       text                           not null,
     "qty"        integer                        not null,
+    "unit"       item_unit                      not null,
     "note"       text                           null,
     "tenant_id"  text                           not null references "tenants" ("id") on delete cascade,
     "created_at" timestamp(0) without time zone null,

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { Branch, IndexParams, MembersIndexResource, PaginationData, Role, Zone } from '@/types/types'
+import type { IndexParams, InventoryIndexResource, PaginationData } from '@/types/types'
 
-import { useMembersStore } from '@/stores/members'
+import { useInventoryStore } from '@/stores/inventory'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -9,8 +9,8 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import MemberCreateModal from '@/Pages/Tenant/members/MemberCreateModal.vue'
-import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
+import ItemCreateEditModal from '@/Pages/Tenant/inventory/ItemCreateEditModal.vue'
+import DataTable from '@/Pages/Tenant/inventory/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -25,12 +25,8 @@ defineOptions({
 })
 
 const props = defineProps<{
-    members: PaginationData<MembersIndexResource>
+    items: PaginationData<InventoryIndexResource>
     params: IndexParams
-    qualifications: string[]
-    branches: Branch[]
-    roles: Role[]
-    zones: Zone[]
 }>()
 
 const params = reactive<IndexParams>({
@@ -47,21 +43,21 @@ const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
-const selectedMemberId = ref<string>('')
+const selectedItemId = ref<string>('')
 
 let routerOptions = {
     preserveState: true,
     preserveScroll: true
 }
 
-const membersStore = useMembersStore()
+const inventoryStore = useInventoryStore()
 
-const createUpdateSlideoverStatus = ref<boolean>(false)
+const createUpdateModalStatus = ref<boolean>(false)
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
 
-    selectedMemberId.value = ''
+    selectedItemId.value = ''
 
     deleteProgress.value = false
 }
@@ -77,7 +73,7 @@ const getData = () => {
         if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
-    router.get(route('tenant.members.index'), data, routerOptions)
+    router.get(route('tenant.inventory.index'), data, routerOptions)
 }
 
 const sort = (field: string) => {
@@ -87,13 +83,13 @@ const sort = (field: string) => {
 }
 
 const deleteMember = () => {
-    router.delete(route('tenant.members.destroy', selectedMemberId.value), {
+    router.delete(route('tenant.inventory.destroy', selectedItemId.value), {
         preserveScroll: true,
         onStart: () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.members.meta.last_page < params.page) {
+            if (props.items.meta.last_page < params.page) {
                 params.page = params.page - 1
             }
 
@@ -102,24 +98,24 @@ const deleteMember = () => {
     })
 }
 
-const showDeleteModal = (memberId: string) => {
-    selectedMemberId.value = memberId
+const showDeleteModal = (itemId: string) => {
+    selectedItemId.value = itemId
 
     deleteModalStatus.value = true
 }
 
 const showCreateModal = () => {
-    membersStore.$reset()
+    inventoryStore.$reset()
 
-    createUpdateSlideoverStatus.value = true
+    createUpdateModalStatus.value = true
 }
 
-const showEditModal = (memberId: string) => {
-    selectedMemberId.value = memberId
+const showEditModal = (itemID: string) => {
+    selectedItemId.value = itemID
 
-    membersStore.getMember(memberId)
+    inventoryStore.getItem(itemID)
 
-    createUpdateSlideoverStatus.value = true
+    createUpdateModalStatus.value = true
 }
 
 watch(
@@ -151,26 +147,26 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_members') })"></Head>
+    <Head :title="$t('list', { attribute: $t('the_inventory') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_members') }) }}
+        {{ $t('list', { attribute: $t('the_inventory') }) }}
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
             <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                {{ n__('add new', 1, { attribute: $t('member') }) }}
+                {{ n__('add new', 1, { attribute: $t('item') }) }}
             </base-button>
 
             <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="members.meta.total > 0">
+                <span v-if="items.meta.total > 0">
                     {{
                         $t('showing_results', {
-                            from: members.meta.from?.toString(),
-                            to: members.meta.to?.toString(),
-                            total: members.meta.total?.toString(),
-                            entries: n__('members', members.meta.total)
+                            from: items.meta.from?.toString(),
+                            to: items.meta.to?.toString(),
+                            total: items.meta.total?.toString(),
+                            entries: n__('items', items.meta.total)
                         })
                     }}
                 </span>
@@ -191,9 +187,9 @@ watch(
         </div>
     </div>
 
-    <template v-if="members.data.length > 0">
+    <template v-if="items.data.length > 0">
         <data-table
-            :members
+            :items
             :params
             @showDeleteModal="showDeleteModal"
             @sort="sort($event)"
@@ -201,10 +197,10 @@ watch(
         ></data-table>
 
         <pagination-data-table
-            v-if="members.meta.last_page > 1"
+            v-if="items.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
-            :pages="members.meta.last_page"
+            :pages="items.meta.last_page"
         ></pagination-data-table>
     </template>
 
@@ -219,12 +215,8 @@ watch(
         @delete="deleteMember"
     ></delete-modal>
 
-    <member-create-modal
-        :branches
-        :open="createUpdateSlideoverStatus"
-        :qualifications
-        :roles
-        :zones
-        @close="createUpdateSlideoverStatus = false"
-    ></member-create-modal>
+    <item-create-edit-modal
+        :open="createUpdateModalStatus"
+        @close="createUpdateModalStatus = false"
+    ></item-create-edit-modal>
 </template>

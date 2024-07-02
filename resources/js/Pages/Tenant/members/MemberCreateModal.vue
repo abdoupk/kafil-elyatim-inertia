@@ -1,21 +1,22 @@
 <script lang="ts" setup>
-// Define props
+/* eslint-disable vue/no-parsing-error */
 import type { Branch, Role, Zone } from '@/types/types'
 
 import { useMembersStore } from '@/stores/members'
 import { router } from '@inertiajs/vue3'
+import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
+
+import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-
-import { __, n__ } from '@/utils/i18n'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
-import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
-import { useForm } from 'laravel-precognition-vue'
+import { __, n__ } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
@@ -70,7 +71,7 @@ const handleSubmit = async () => {
 }
 
 // Compute the slideover title based on the member id
-const slideoverTitle = computed(() => {
+const modalTitle = computed(() => {
     return membersStore.member.id ? __('update member') : n__('add new', 0, { attribute: __('member') })
 })
 
@@ -78,7 +79,7 @@ const slideoverTitle = computed(() => {
 const firstInputRef = ref<HTMLElement>()
 
 // Compute the slideover type based on the member id
-const slideoverType = computed(() => {
+const modalType = computed(() => {
     return membersStore.member.id ? 'update' : 'create'
 })
 </script>
@@ -87,9 +88,9 @@ const slideoverType = computed(() => {
     <create-edit-modal
         :focusable-input="firstInputRef"
         :loading
-        :modal-type="slideoverType"
+        :modal-type="modalType"
         :open
-        :title="slideoverTitle"
+        :title="modalTitle"
         size="xl"
         @close="emit('close')"
         @handle-submit="handleSubmit"
@@ -105,9 +106,7 @@ const slideoverType = computed(() => {
                     id="first_name"
                     ref="firstInputRef"
                     v-model="form.first_name"
-                    :placeholder="
-                            $t('auth.placeholders.fill', { attribute: $t('validation.attributes.first_name') })
-                        "
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.first_name') })"
                     type="text"
                     @change="form.validate('first_name')"
                 />
@@ -127,9 +126,7 @@ const slideoverType = computed(() => {
                 <base-form-input
                     id="last_name"
                     v-model="form.last_name"
-                    :placeholder="
-                            $t('auth.placeholders.fill', { attribute: $t('validation.attributes.last_name') })
-                        "
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.last_name') })"
                     type="text"
                     @change="form.validate('last_name')"
                 />
@@ -267,10 +264,7 @@ const slideoverType = computed(() => {
                     {{ $t('validation.attributes.qualification') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model:value="form.qualification"
-                    :options="qualifications"
-                ></base-vue-select>
+                <base-vue-select v-model:value="form.qualification" :options="qualifications"></base-vue-select>
 
                 <div v-if="form.errors?.qualification" class="mt-2">
                     <base-input-error :message="form.errors.qualification"></base-input-error>
@@ -289,7 +283,12 @@ const slideoverType = computed(() => {
                     :options="zones"
                     label="name"
                     track-by="id"
-                    @update:value="value => { form.zone_id = value.id  ;form.validate('zone_id')}"
+                    @update:value="
+                        (value) => {
+                            form.zone_id = value.id
+                            form.validate('zone_id')
+                        }
+                    "
                 ></base-vue-select>
 
                 <div v-if="form.errors?.zone_id" class="mt-2">
@@ -309,7 +308,12 @@ const slideoverType = computed(() => {
                     :options="branches"
                     label="name"
                     track-by="id"
-                    @update:value="value => { form.branch_id = value.id  ;form.validate('branch_id')}"
+                    @update:value="
+                        (value) => {
+                            form.branch_id = value.id
+                            form.validate('branch_id')
+                        }
+                    "
                 ></base-vue-select>
 
                 <div v-if="form.errors?.branch_id" class="mt-2">
@@ -330,11 +334,16 @@ const slideoverType = computed(() => {
                     label="name"
                     multiple
                     track-by="uuid"
-                    @update:value="value => { form.roles = value.map((role) => role.uuid)  ;form.validate('roles')}"
+                    @update:value="
+                        (value) => {
+                            form.roles = value.map((role: Role) => role.uuid)
+                            form.validate('roles')
+                        }
+                    "
                 ></base-vue-select>
 
                 <div v-if="form.errors?.roles" class="mt-2">
-                    <base-input-error :message="form.errors.roles   "></base-input-error>
+                    <base-input-error :message="form.errors.roles"></base-input-error>
                 </div>
             </div>
             <!-- End: roles-->

@@ -20,7 +20,7 @@ const removeOrphan = (index: number) => {
 
         <a
             class="ms-2 inline-block !outline-none focus-visible:!rounded-sm focus-visible:!outline-red-300/70"
-            :class="{ 'hidden': index === 0 }"
+            :class="{ hidden: index === 0 }"
             href="#"
             @click.prevent="removeOrphan(index)"
         >
