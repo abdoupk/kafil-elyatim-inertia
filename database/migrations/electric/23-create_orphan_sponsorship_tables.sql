@@ -4,7 +4,7 @@ create table if not exists orphan_sponsorship
     "orphan_id"              uuid                           not null references orphans (id) on delete cascade,
     "medical_sponsorship"    boolean                        not null,
     "university_scholarship" boolean                        not null,
-    "university_trips"       boolean                        not null,
+    "association_trips"       boolean                        not null,
     "summer_camp"            boolean                        not null,
     "eid_suit"               boolean                        not null,
     "private_lessons"        boolean                        not null,

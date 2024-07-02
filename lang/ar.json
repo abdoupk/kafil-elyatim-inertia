@@ -172,5 +172,9 @@
     "item": "عنصر",
     "the_item": "العنصر",
     "item_name": "اسم المنتج",
-    "the_child :": "الطفل: :name"
+    "the_child :": "الطفل: :name",
+    "male": "ذكر",
+    "female": "انثى",
+    "housing information": "معلومات عن المنزل",
+    "furnishing information": "معلومات عن الاثاث"
 }

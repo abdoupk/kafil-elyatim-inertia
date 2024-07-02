@@ -17,7 +17,7 @@ const emit = defineEmits(['update:orphansSponsorship'])
 const items = ref<Record<OrphanSponsorship, boolean>>({
     medical_sponsorship: false,
     university_scholarship: false,
-    university_trips: false,
+    association_trips: false,
     summer_camp: false,
     eid_suit: false,
     private_lessons: false,
@@ -81,13 +81,13 @@ const childName = computed(() => {
         <div class="intro-y col-span-12">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
-                    id="university_trips"
+                    id="association_trips"
                     type="checkbox"
-                    @change="toggle('university_trips')"
+                    @change="toggle('association_trips')"
                 ></base-form-switch-input>
 
-                <base-form-switch-label htmlFor="university_trips">
-                    {{ $t('sponsorships.university_trips') }}
+                <base-form-switch-label htmlFor="association_trips">
+                    {{ $t('sponsorships.association_trips') }}
                 </base-form-switch-label>
             </base-form-switch>
         </div>
@@ -129,13 +129,13 @@ const childName = computed(() => {
         <div class="intro-y col-span-12">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
-                    id="university_trips"
+                    id="association_trips"
                     type="checkbox"
-                    @change="toggle('university_trips')"
+                    @change="toggle('association_trips')"
                 ></base-form-switch-input>
 
-                <base-form-switch-label htmlFor="university_trips">
-                    {{ $t('sponsorships.university_trips') }}
+                <base-form-switch-label htmlFor="association_trips">
+                    {{ $t('sponsorships.association_trips') }}
                 </base-form-switch-label>
             </base-form-switch>
         </div>

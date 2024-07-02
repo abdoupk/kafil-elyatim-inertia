@@ -383,7 +383,7 @@ export type SponsorSponsorship = 'medical_sponsorship' | 'literacy_lessons' | 'd
 export type OrphanSponsorship =
     | 'medical_sponsorship'
     | 'university_scholarship'
-    | 'university_trips'
+    | 'association_trips'
     | 'summer_camp'
     | 'eid_suit'
     | 'private_lessons'

@@ -82,7 +82,7 @@ const fileNumber = defineModel('fileNumber')
 
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label for="branch">
-                    {{ $t('validation.attributes.branch') }}
+                    {{ $t('the_branch') }}
                 </base-form-label>
 
                 <div>

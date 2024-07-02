@@ -99,7 +99,7 @@ const addOrphan = () => {
         school_bag: false,
         summer_camp: false,
         university_scholarship: false,
-        university_trips: false,
+        association_trips: false,
         eid_suit: false
     })
 }

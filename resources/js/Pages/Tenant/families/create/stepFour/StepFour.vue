@@ -63,7 +63,7 @@ const furnishingsErrors = computed(() => {
 
                 <base-tab>
                     <base-tab-button class="w-full py-2" as="button" type="button">
-                        {{ $t('other properties') }}
+                        {{ $t('other_properties') }}
 
                         <svg-loader
                             v-if="otherPropertiesErrors"

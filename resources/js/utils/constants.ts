@@ -182,7 +182,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         {
             medical_sponsorship: true,
             university_scholarship: true,
-            university_trips: true,
+            association_trips: true,
             summer_camp: true,
             eid_suit: true,
             private_lessons: true,

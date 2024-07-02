@@ -45,7 +45,7 @@ class OrphanSponsorship extends Model
         'orphan_id',
         'medical_sponsorship',
         'university_scholarship',
-        'university_trips',
+        'association_trips',
         'summer_camp',
         'eid_suit',
         'private_lessons',
