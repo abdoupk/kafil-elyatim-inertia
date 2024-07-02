@@ -115,28 +115,22 @@ const validating = ref<boolean>(false)
 const validateStep = async (errorProps: CreateFamilyStepOneProps[] | CreateFamilyStepTwoProps[], step: Ref) => {
     validating.value = true
 
-    await form.submit({
-        onFinish() {
-            let errors = []
+    let errors = []
 
-            errorProps.forEach((prop) => {
-                const regex = prop === 'address' ? new RegExp(`^${prop}$`) : new RegExp(prop)
+    errorProps.forEach((prop) => {
+        const regex = prop === 'address' ? new RegExp(`^${prop}$`) : new RegExp(prop)
 
-                Object.keys(form.errors).forEach((error) => {
-                    if (regex.test(error)) {
+        Object.keys(form.errors).forEach((error) => {
+            if (regex.test(error)) {
 
-                        errors.push(form.errors[error as keyof CreateFamilyForm])
-                    }
-                })
-            })
-
-            step.value = errors.length === 0 && !form.validating
-
-            validating.value = false
-        }
-    }).catch(() => {
-        console.error()
+                errors.push(form.errors[error as keyof CreateFamilyForm])
+            }
+        })
     })
+
+    step.value = errors.length === 0 && !form.validating
+
+    validating.value = false
 }
 
 const nextStep = async () => {

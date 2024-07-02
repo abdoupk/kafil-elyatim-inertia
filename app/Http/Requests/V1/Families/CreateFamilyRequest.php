@@ -6,11 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CreateFamilyRequest extends FormRequest
 {
-    protected function prepareForValidation()
-    {
-        ray(request()->all());
-    }
-
     public function messages(): array
     {
         return [
