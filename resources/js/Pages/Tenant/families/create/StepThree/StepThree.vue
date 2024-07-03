@@ -5,7 +5,14 @@ defineProps<CreateFamilyStepProps>()
 </script>
 
 <template>
-    <div class="mt-10 border-t border-slate-200/60 px-5 dark:border-darkmode-400 sm:px-20" v-if="currentStep === 3">
+    <div
+        class="mt-10 border-t border-slate-200/60 pt-10 px-5 dark:border-darkmode-400 sm:px-20"
+        v-if="currentStep === 3"
+    >
+        <div class="text-lg font-medium hidden lg:block mb-6">
+            {{ $t('families.create_family.stepThree') }}
+        </div>
+
         <slot name="orphansForm"></slot>
 
         <slot></slot>

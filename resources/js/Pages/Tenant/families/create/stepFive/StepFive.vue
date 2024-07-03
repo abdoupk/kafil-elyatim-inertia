@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
+import { ref } from 'vue'
+
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseClassicEditor from '@/Components/Base/editor/BaseClassicEditor.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
@@ -14,6 +16,8 @@ const report = defineModel('report', { default: '' })
 const previewDate = defineModel('previewDate', { default: '' })
 
 const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
+
+const vueSelectInspectorsMembers = ref([])
 </script>
 
 <template>
@@ -21,8 +25,8 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
         v-if="currentStep === 5"
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
-        <div class="text-base font-medium">
-            {{ $t('auth.register.stepOne.title') }}
+        <div class="text-lg font-medium hidden lg:block mb-6">
+            {{ $t('families.create_family.stepFive') }}
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
@@ -49,22 +53,22 @@ const inspectorsMembers = defineModel('inspectorsMembers', { default: [] })
                     {{ $t('inspectors_members') }}
                 </base-form-label>
 
-                <div>
-                    <base-vue-select
-                        :options="members"
-                        multiple
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (value) => {
-                                inspectorsMembers = value.map((member) => member.id)
+                <base-vue-select
+                    v-model="vueSelectInspectorsMembers"
+                    :options="members ?? []"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                    label="name"
+                    multiple
+                    track-by="name"
+                    @update:value="
+                        (value) => {
+                            // @ts-ignore
+                            inspectorsMembers = value.map((member) => member.id)
 
-                                form?.validate('inspectors_members')
-                            }
-                        "
-                    ></base-vue-select>
-                </div>
+                            form?.validate('inspectors_members')
+                        }
+                    "
+                ></base-vue-select>
 
                 <base-form-input-error>
                     <div

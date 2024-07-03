@@ -76,27 +76,27 @@ export const createMemberFormAttribute: CreateMemberForm = {
     password_confirmation: ''
 }
 export const createFamilyFormAttributes: CreateFamilyForm = {
-    file_number: '00000',
+    file_number: '',
     zone_id: '',
-    inspectors_members: ['9c5f760c-7caa-4dc8-b7c3-5d833b2a647f'],
-    address: '54545',
+    inspectors_members: [],
+    address: '',
     start_date: new Date(),
     sponsor: {
-        first_name: 'a',
-        last_name: 'a',
-        phone_number: '0664954817',
+        first_name: '',
+        last_name: '',
+        phone_number: '',
         birth_date: new Date(),
-        father_name: 'aa',
-        mother_name: 'bb',
-        birth_certificate_number: '065',
-        academic_level: '1000',
-        function: '10065656',
-        health_status: 'a',
-        diploma: 'a',
-        card_number: '05656',
-        sponsor_type: 'a',
+        father_name: '',
+        mother_name: '',
+        birth_certificate_number: '',
+        academic_level: '',
+        function: '',
+        health_status: '',
+        diploma: '',
+        card_number: '',
+        sponsor_type: '',
         gender: 'male',
-        ccp: 'a'
+        ccp: ''
     },
     incomes: {
         cnr: 0,
@@ -107,29 +107,29 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
         other_income: 0
     },
     second_sponsor: {
-        first_name: 'w',
-        last_name: 'w',
-        phone_number: 'w',
-        income: '20233',
-        address: 'w',
-        degree_of_kinship: '111'
+        first_name: '',
+        last_name: '',
+        phone_number: '',
+        income: '',
+        address: '',
+        degree_of_kinship: ''
     },
     spouse: {
-        first_name: 'a',
-        last_name: 'a',
+        first_name: '',
+        last_name: '',
         income: 0,
-        birth_date: '26-03-2000',
-        death_date: '25-04-2022',
-        function: 'a'
+        birth_date: '',
+        death_date: '',
+        function: ''
     },
     orphans: [
         {
-            first_name: 'a',
-            last_name: 'a',
+            first_name: '',
+            last_name: '',
             birth_date: '',
-            family_status: 'a',
-            health_status: 'a',
-            academic_level: 'a',
+            family_status: '',
+            health_status: '',
+            academic_level: '',
             shoes_size: '',
             pants_size: '',
             shirt_size: '',
@@ -137,7 +137,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             baby_milk_type: '',
             diapers_quantity: '',
             diapers_type: '',
-            note: '25',
+            note: '',
             gender: 'male'
         }
     ],
@@ -146,25 +146,25 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             value: true,
             name: 'independent'
         },
-        housing_receipt_number: '25',
-        number_of_rooms: 3
+        housing_receipt_number: '',
+        number_of_rooms: 0
     },
     furnishings: {
-        television: true,
-        refrigerator: true,
-        fireplace: true,
-        washing_machine: true,
-        water_heater: true,
-        oven: true,
-        wardrobe: true,
-        cupboard: true,
-        covers: true,
-        mattresses: true,
-        other_furnishings: true
+        television: false,
+        refrigerator: false,
+        fireplace: false,
+        washing_machine: false,
+        water_heater: false,
+        oven: false,
+        wardrobe: false,
+        cupboard: false,
+        covers: false,
+        mattresses: false,
+        other_furnishings: false
     },
-    report: '22',
-    preview_date: '',
-    other_properties: '00000',
+    report: '',
+    preview_date: new Date(),
+    other_properties: '',
     branch_id: '',
     family_sponsorship: {
         monthly_allowance: null,
@@ -221,12 +221,12 @@ export const registerStepsTitles = [
 ]
 
 export const createFamilyStepsTitles = [
-    'families.titles.association',
-    'families.titles.supervisor',
-    'families.titles.association_details',
-    'families.titles.association_details',
-    'families.titles.association_details',
-    'families.titles.association_details'
+    'families.create_family.stepOne',
+    'families.create_family.stepTwo',
+    'families.create_family.stepThree',
+    'families.create_family.stepFour',
+    'families.create_family.stepFive',
+    'families.create_family.stepSix'
 ]
 
 export const createFamilyStepOneErrorProps: CreateFamilyStepOneProps[] = [

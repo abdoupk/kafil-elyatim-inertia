@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyForm, IncomeType } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
@@ -55,31 +55,29 @@ const toggle = (key: keyof IncomeType) => {
 </script>
 
 <template>
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
-                <base-form-switch-input @click="toggle('cnr')" id="cnr" type="checkbox"></base-form-switch-input>
+    <!-- Begin: CNR -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <div class="col-span-12 lg:col-span-4">
+            <base-form-switch class="text-lg">
+                <base-form-switch-input id="cnr" type="checkbox" @click="toggle('cnr')"></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="cnr">
                     {{ $t('incomes.label.cnr') }}
                 </base-form-switch-label>
             </base-form-switch>
+        </div>
 
+        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
             <base-input-group>
+                <!-- @vue-ignore -->
                 <base-form-input
-                    :disabled="!items.cnr"
-                    @keydown="allowOnlyNumbersOnKeyDown"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            'incomes.cnr'
-                        )
-                    "
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
                     v-model="cnr"
+                    :disabled="!items.cnr"
+                    :placeholder="$t('the_amount')"
+                    maxlength="6"
+                    type="text"
+                    @change="form?.validate('incomes.cnr')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                 ></base-form-input>
 
                 <base-input-group-text>
@@ -88,51 +86,41 @@ const toggle = (key: keyof IncomeType) => {
             </base-input-group>
         </div>
 
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'incomes.cnr'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['incomes.cnr']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+        <base-form-input-error class="col-span-12 lg:col-start-5">
+            <!-- @vue-ignore -->
+            <div v-if="form?.invalid('incomes.cnr')" class="mt-2 text-danger">
+                {{
+                    // @ts-ignore
+                    form.errors['incomes.cnr']
+                }}
+            </div>
+        </base-form-input-error>
     </div>
+    <!-- End: CNR -->
 
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
-                <base-form-switch-input @click="toggle('cnas')" id="cnas" type="checkbox"></base-form-switch-input>
+    <!-- Begin: CNAS -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <div class="col-span-12 lg:col-span-4">
+            <base-form-switch class="text-lg">
+                <base-form-switch-input id="cnas" type="checkbox" @click="toggle('cnas')"></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="cnas">
                     {{ $t('incomes.label.cnas') }}
                 </base-form-switch-label>
             </base-form-switch>
+        </div>
 
+        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
             <base-input-group>
+                <!-- @vue-ignore -->
                 <base-form-input
-                    :disabled="!items.cnas"
-                    @keydown="allowOnlyNumbersOnKeyDown"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            'incomes.cnas'
-                        )
-                    "
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
                     v-model="cnas"
+                    :disabled="!items.cnas"
+                    :placeholder="$t('the_amount')"
+                    maxlength="6"
+                    type="text"
+                    @change="form?.validate('incomes.cnas')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                 ></base-form-input>
 
                 <base-input-group-text>
@@ -141,51 +129,41 @@ const toggle = (key: keyof IncomeType) => {
             </base-input-group>
         </div>
 
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'incomes.cnas'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['incomes.cnas']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+        <base-form-input-error class="col-span-12 lg:col-start-5">
+            <!-- @vue-ignore -->
+            <div v-if="form?.invalid('incomes.cnas')" class="mt-2 text-danger">
+                {{
+                    // @ts-ignore
+                    form.errors['incomes.cnas']
+                }}
+            </div>
+        </base-form-input-error>
     </div>
+    <!-- End: CNAS -->
 
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
-                <base-form-switch-input @click="toggle('casnos')" id="casnos" type="checkbox"></base-form-switch-input>
+    <!-- Begin: CASNOS -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <div class="col-span-12 lg:col-span-4">
+            <base-form-switch class="text-lg">
+                <base-form-switch-input id="casnos" type="checkbox" @click="toggle('casnos')"></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="casnos">
                     {{ $t('incomes.label.casnos') }}
                 </base-form-switch-label>
             </base-form-switch>
+        </div>
 
+        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
             <base-input-group>
+                <!-- @vue-ignore -->
                 <base-form-input
-                    :disabled="!items.casnos"
-                    @keydown="allowOnlyNumbersOnKeyDown"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            'incomes.casnos'
-                        )
-                    "
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
                     v-model="casnos"
+                    :disabled="!items.casnos"
+                    :placeholder="$t('the_amount')"
+                    maxlength="6"
+                    type="text"
+                    @change="form?.validate('incomes.casnos')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                 ></base-form-input>
 
                 <base-input-group-text>
@@ -194,55 +172,45 @@ const toggle = (key: keyof IncomeType) => {
             </base-input-group>
         </div>
 
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'incomes.casnos'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['incomes.casnos']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+        <base-form-input-error class="col-span-12 lg:col-start-5">
+            <!-- @vue-ignore -->
+            <div v-if="form?.invalid('incomes.casnos')" class="mt-2 text-danger">
+                {{
+                    // @ts-ignore
+                    form.errors['incomes.casnos']
+                }}
+            </div>
+        </base-form-input-error>
     </div>
+    <!-- End: CASNOS -->
 
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
+    <!-- Begin: PENSION -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <div class="col-span-12 lg:col-span-4">
+            <base-form-switch class="text-lg">
                 <base-form-switch-input
-                    @click="toggle('pension')"
                     id="pension"
                     type="checkbox"
+                    @click="toggle('pension')"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="pension">
                     {{ $t('incomes.label.pension') }}
                 </base-form-switch-label>
             </base-form-switch>
+        </div>
 
+        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
             <base-input-group>
+                <!-- @vue-ignore -->
                 <base-form-input
-                    :disabled="!items.pension"
-                    @keydown="allowOnlyNumbersOnKeyDown"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            'incomes.pension'
-                        )
-                    "
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
                     v-model="pension"
+                    :disabled="!items.pension"
+                    :placeholder="$t('the_amount')"
+                    maxlength="6"
+                    type="text"
+                    @change="form?.validate('incomes.pension')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                 ></base-form-input>
 
                 <base-input-group-text>
@@ -251,104 +219,45 @@ const toggle = (key: keyof IncomeType) => {
             </base-input-group>
         </div>
 
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'incomes.pension'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['incomes.pension']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+        <base-form-input-error class="col-span-12 lg:col-start-5">
+            <!-- @vue-ignore -->
+            <div v-if="form?.invalid('incomes.pension')" class="mt-2 text-danger">
+                {{
+                    // @ts-ignore
+                    form.errors['incomes.pension']
+                }}
+            </div>
+        </base-form-input-error>
     </div>
+    <!-- End: PENSION -->
 
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <base-form-switch class="text-lg w-1/4">
-                <!-- TODO add tabindex = -1 to prevent focus -->
+    <!-- Begin: OTHER -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <div class="col-span-12 lg:col-span-4">
+            <base-form-switch class="text-lg">
                 <base-form-switch-input
-                    @click="toggle('other_income')"
-                    id="other"
+                    id="other_income"
                     type="checkbox"
+                    @click="toggle('other_income')"
                 ></base-form-switch-input>
 
-                <base-form-switch-label htmlFor="other">
+                <base-form-switch-label htmlFor="other_income">
                     {{ $t('incomes.label.other_income') }}
                 </base-form-switch-label>
             </base-form-switch>
+        </div>
 
+        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
             <base-input-group>
+                <!-- @vue-ignore -->
                 <base-form-input
-                    :disabled="!items.other_income"
-                    @keydown="allowOnlyNumbersOnKeyDown"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            'incomes.other_income'
-                        )
-                    "
-                    type="text"
-                    maxlength="6"
-                    :placeholder="$t('the_amount')"
                     v-model="other_income"
-                ></base-form-input>
-
-                <base-input-group-text>
-                    {{ $t('DA') }}
-                </base-input-group-text>
-            </base-input-group>
-        </div>
-
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'incomes.other_income'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['incomes.other_income']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
-    </div>
-
-    <div class="intro-x mt-6">
-        <div class="flex gap-16">
-            <div class="text-lg w-1/4">
-                <p class="ms-11">
-                    {{ $t('incomes.label.account') }}
-                </p>
-            </div>
-
-            <base-input-group>
-                <base-form-input
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            'incomes.account'
-                        )
-                    "
-                    @keydown="allowOnlyNumbersOnKeyDown"
-                    type="text"
-                    maxlength="6"
+                    :disabled="!items.other_income"
                     :placeholder="$t('the_amount')"
-                    v-model="account"
+                    maxlength="6"
+                    type="text"
+                    @change="form?.validate('incomes.other_income')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
                 ></base-form-input>
 
                 <base-input-group-text>
@@ -357,35 +266,73 @@ const toggle = (key: keyof IncomeType) => {
             </base-input-group>
         </div>
 
-        <div class="grid grid-cols-12">
-            <base-form-input-error>
-                <div
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
-                    v-if="
-                        form?.invalid(
-                            //@ts-ignore
-                            'incomes.account'
-                        )
-                    "
-                >
-                    {{
-                        //@ts-ignore
-                        form.errors['incomes.account']
-                    }}
-                </div>
-            </base-form-input-error>
-        </div>
+        <base-form-input-error class="col-span-12 lg:col-start-5">
+            <!-- @vue-ignore -->
+            <div v-if="form?.invalid('incomes.other_income')" class="mt-2 text-danger">
+                {{
+                    // @ts-ignore
+                    form.errors['incomes.other_income']
+                }}
+            </div>
+        </base-form-input-error>
     </div>
+    <!-- End: OTHER -->
+
+    <!-- Begin: ACCOUNT -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <div class="col-span-12 lg:col-span-4">
+            <base-form-switch class="text-lg">
+                <base-form-switch-input
+                    id="account"
+                    type="checkbox"
+                    @click="toggle('account')"
+                ></base-form-switch-input>
+
+                <base-form-switch-label htmlFor="account">
+                    {{ $t('incomes.label.account') }}
+                </base-form-switch-label>
+            </base-form-switch>
+        </div>
+
+        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+            <base-input-group>
+                <!-- @vue-ignore -->
+                <base-form-input
+                    v-model="account"
+                    :disabled="!items.account"
+                    :placeholder="$t('the_amount')"
+                    maxlength="6"
+                    type="text"
+                    @change="form?.validate('incomes.account')"
+                    @keydown="allowOnlyNumbersOnKeyDown"
+                ></base-form-input>
+
+                <base-input-group-text>
+                    {{ $t('DA') }}
+                </base-input-group-text>
+            </base-input-group>
+        </div>
+
+        <base-form-input-error class="col-span-12 lg:col-start-5">
+            <!-- @vue-ignore -->
+            <div v-if="form?.invalid('incomes.account')" class="mt-2 text-danger">
+                {{
+                    // @ts-ignore
+                    form.errors['incomes.account']
+                }}
+            </div>
+        </base-form-input-error>
+    </div>
+    <!-- End: ACCOUNT -->
 
     <hr class="mt-6 mb-4" />
 
-    <div class="flex gap-16 intro-x">
-        <div class="text-lg w-1/4">
-            <p class="ms-11">
-                {{ $t('incomes.label.total_income') }}
-            </p>
-        </div>
-
-        <p class="font-bold text-base">{{ totalIncome }}</p>
+    <!-- Begin: TOTAL INCOME -->
+    <div class="grid grid-cols-12 intro-x mt-6">
+        <p class="col-span-4 text-lg ms-0 lg:ms-11">
+            {{ $t('incomes.label.total_income') }}
+        </p>
+        <p class="font-bold col-span-8 text-base">{{ totalIncome }}</p>
     </div>
+    <!-- End: TOTAL INCOME -->
 </template>

@@ -31,8 +31,8 @@ const furnishingsErrors = computed(() => {
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 4"
     >
-        <div class="text-base font-medium">
-            {{ $t('auth.register.stepTwo.title') }}
+        <div class="text-lg font-medium hidden lg:block mb-6">
+            {{ $t('families.create_family.stepFour') }}
         </div>
 
         <base-tab-group class="mt-5">

@@ -7,8 +7,10 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import { __ } from '@/utils/i18n'
 
 defineProps<{ form?: Form<CreateFamilyForm> }>()
 
@@ -34,7 +36,34 @@ const diploma = defineModel('diploma')
 
 const cardNumber = defineModel('card_number')
 
+const ccp = defineModel('ccp')
+
+const sponsorType = defineModel('sponsorType')
+
 const birthDate = defineModel('birth_date', { default: '' })
+
+const sponsorTypes = [
+    {
+        label: __('father'),
+        value: 'father'
+    },
+    {
+        label: __('mother'),
+        value: 'mother'
+    },
+    {
+        label: __('grand_father'),
+        value: 'grand_father'
+    },
+    {
+        label: __('grand_mother'),
+        value: 'grand_mother'
+    },
+    {
+        label: __('other'),
+        value: 'other'
+    }
+]
 </script>
 
 <template>
@@ -77,6 +106,76 @@ const birthDate = defineModel('birth_date', { default: '' })
                         //@ts-ignore
                         form.errors['sponsor.card_number']
                     }}
+                </div>
+            </base-form-input-error>
+        </div>
+
+        <div class="col-span-12 sm:col-span-6">
+            <base-form-label for="ccp">
+                {{ $t('ccp') }}
+            </base-form-label>
+
+            <base-form-input
+                id="ccp"
+                v-model="ccp"
+                :placeholder="
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('ccp')
+                    })
+                "
+                type="text"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        'sponsor.ccp'
+                    )
+                "
+                @keydown="allowOnlyNumbersOnKeyDown"
+            ></base-form-input>
+
+            <base-form-input-error>
+                <div
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            'sponsor.ccp'
+                        )
+                    "
+                    class="mt-2 text-danger"
+                    data-test="error_ccp_message"
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors['sponsor.ccp']
+                    }}
+                </div>
+            </base-form-input-error>
+        </div>
+
+        <div class="col-span-12 sm:col-span-6">
+            <base-form-label for="branch">
+                {{ $t('the_sponsor') }}
+            </base-form-label>
+
+            <div>
+                <base-vue-select
+                    :options="sponsorTypes"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_sponsor') })"
+                    label="label"
+                    track_by="value"
+                    @update:value="
+                        (type) => {
+                            sponsorType = type.value
+
+                            form?.validate('sponsor.sponsor_type')
+                        }
+                    "
+                ></base-vue-select>
+            </div>
+
+            <base-form-input-error>
+                <div v-if="form?.invalid('branch_id')" class="mt-2 text-danger" data-test="error_branch_message">
+                    {{ form.errors.branch_id }}
                 </div>
             </base-form-input-error>
         </div>

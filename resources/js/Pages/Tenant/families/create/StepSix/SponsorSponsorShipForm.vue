@@ -3,7 +3,7 @@ import type { SponsorSponsorship } from '@/types/types'
 
 import { ref } from 'vue'
 
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
@@ -51,14 +51,14 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         v-model="medicalSponsorship"
                         :disabled="!items.medical_sponsorship"
                         :placeholder="$t('notes')"
                         class="w-full md:w-3/4"
-                        type="text"
-                    ></base-form-input>
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -81,14 +81,14 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         v-model="literacyLessons"
                         :disabled="!items.literacy_lessons"
                         :placeholder="$t('notes')"
                         class="w-full md:w-3/4"
-                        type="text"
-                    ></base-form-input>
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -111,14 +111,14 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         v-model="directSponsorship"
                         :disabled="!items.direct_sponsorship"
                         :placeholder="$t('notes')"
                         class="w-full md:w-3/4"
-                        type="text"
-                    ></base-form-input>
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -141,14 +141,14 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         v-model="projectSupport"
                         :disabled="!items.project_support"
                         :placeholder="$t('notes')"
                         class="w-full md:w-3/4"
-                        type="text"
-                    ></base-form-input>
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>

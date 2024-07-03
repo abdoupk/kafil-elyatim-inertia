@@ -4,6 +4,7 @@ import type { FurnishingsType } from '@/types/types'
 import { ref } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
@@ -70,13 +71,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.television"
                         class="w-full md:w-3/4"
                         v-model="television"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -99,13 +100,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.refrigerator"
                         class="w-full md:w-3/4"
                         v-model="refrigerator"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -128,13 +129,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.fireplace"
                         class="w-full md:w-3/4"
                         v-model="fireplace"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -157,13 +158,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.washing_machine"
                         class="w-full md:w-3/4"
                         v-model="washingMachine"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -186,13 +187,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.water_heater"
                         class="w-full md:w-3/4"
                         v-model="waterHeater"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -215,13 +216,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.oven"
                         class="w-full md:w-3/4"
                         v-model="oven"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -244,13 +245,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.wardrobe"
                         class="w-full md:w-3/4"
                         v-model="wardrobe"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -273,13 +274,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.cupboard"
                         class="w-full md:w-3/4"
                         v-model="cupboard"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -302,13 +303,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.covers"
                         class="w-full md:w-3/4"
                         v-model="covers"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -331,13 +332,13 @@ const toggle = (key: FurnishingsType) => {
                     </base-form-switch>
                 </div>
                 <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                    <base-form-text-area
                         :disabled="!items.mattresses"
                         class="w-full md:w-3/4"
                         v-model="mattresses"
-                        type="text"
+                        rows="4"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>

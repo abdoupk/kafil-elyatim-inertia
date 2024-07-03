@@ -16,8 +16,6 @@ import { checkErrors } from '@/utils/helper'
 const props = defineProps<CreateFamilyStepProps>()
 
 const sponsorErrors = computed(() => {
-    console.log(checkErrors('^sponsor.+', props?.form?.errors))
-
     return checkErrors('^sponsor.+', props?.form?.errors)
 })
 
@@ -39,8 +37,8 @@ const spouseErrors = computed(() => {
         v-if="currentStep === 2"
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
-        <div class="text-base font-medium">
-            {{ $t('auth.register.stepTwo.title') }}
+        <div class="text-lg font-medium hidden lg:block mb-6">
+            {{ $t('families.create_family.stepTwo') }}
         </div>
 
         <base-tab-group class="mt-5">

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
+import { ref } from 'vue'
+
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
@@ -20,6 +22,10 @@ const startDate = defineModel('startDate', { default: '' })
 const address = defineModel('address')
 
 const fileNumber = defineModel('fileNumber')
+
+const vueSelectBranches = ref([])
+
+const vueSelectZones = ref([])
 </script>
 
 <template>
@@ -27,8 +33,8 @@ const fileNumber = defineModel('fileNumber')
         v-if="currentStep === 1"
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
-        <div class="text-base font-medium">
-            {{ $t('auth.register.stepOne.title') }}
+        <div class="text-lg font-medium hidden lg:block mb-6">
+            {{ $t('families.create_family.stepOne') }}
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
@@ -85,21 +91,20 @@ const fileNumber = defineModel('fileNumber')
                     {{ $t('the_branch') }}
                 </base-form-label>
 
-                <div>
-                    <base-vue-select
-                        :options="branches"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (value) => {
-                                branch = value.id
+                <base-vue-select
+                    v-model="vueSelectBranches"
+                    :options="branches ?? []"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
+                    label="name"
+                    track-by="name"
+                    @update:value="
+                        (value) => {
+                            branch = value.id
 
-                                form?.validate('branch_id')
-                            }
-                        "
-                    ></base-vue-select>
-                </div>
+                            form?.validate('branch_id')
+                        }
+                    "
+                ></base-vue-select>
 
                 <base-form-input-error>
                     <div v-if="form?.invalid('branch_id')" class="mt-2 text-danger" data-test="error_branch_message">
@@ -113,21 +118,20 @@ const fileNumber = defineModel('fileNumber')
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
 
-                <div>
-                    <base-vue-select
-                        :options="zones"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (value) => {
-                                zone = value.id
+                <base-vue-select
+                    v-model="vueSelectZones"
+                    :options="zones ?? []"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
+                    label="name"
+                    track-by="name"
+                    @update:value="
+                        (value) => {
+                            zone = value.id
 
-                                form?.validate('zone_id')
-                            }
-                        "
-                    ></base-vue-select>
-                </div>
+                            form?.validate('zone_id')
+                        }
+                    "
+                ></base-vue-select>
 
                 <base-form-input-error>
                     <div v-if="form?.invalid('zone_id')" class="mt-2 text-danger" data-test="error_zone_message">

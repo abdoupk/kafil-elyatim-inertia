@@ -1,14 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { FamilySponsorship } from '@/types/types'
 
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
-
-const emit = defineEmits(['update:familySponsorship'])
 
 const items = ref<Record<FamilySponsorship, boolean>>({
     monthly_allowance: false,
@@ -28,11 +27,36 @@ const housingAssistance = defineModel('housingAssistance')
 
 const eidAlAdha = defineModel('eidAlAdha')
 
+const valueMap = {
+    monthly_allowance: monthlyAllowance,
+    ramadan_basket: ramadanBasket,
+    zakat: zakat,
+    housing_assistance: housingAssistance,
+    eid_al_adha: eidAlAdha
+}
+
 const toggle = (key: FamilySponsorship) => {
     items.value[key] = !items.value[key]
 
-    emit('update:familySponsorship', items.value)
+    if (items.value[key]) valueMap[key].value = true
+    else valueMap[key].value = null
 }
+
+const setValue = (key: FamilySponsorship, event: Event) => {
+    valueMap[key].value = (event.target as HTMLInputElement).value
+}
+
+onMounted(() => {
+    if (zakat.value) items.value['zakat'] = true
+
+    if (housingAssistance.value) items.value['housing_assistance'] = true
+
+    if (eidAlAdha.value) items.value['eid_al_adha'] = true
+
+    if (ramadanBasket.value) items.value['ramadan_basket'] = true
+
+    if (monthlyAllowance.value) items.value['monthly_allowance'] = true
+})
 </script>
 
 <template>
@@ -43,9 +67,10 @@ const toggle = (key: FamilySponsorship) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('monthly_allowance')"
                             id="monthly_allowance"
+                            :checked="items.monthly_allowance"
                             type="checkbox"
+                            @change="toggle('monthly_allowance')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="monthly_allowance">
@@ -54,14 +79,15 @@ const toggle = (key: FamilySponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         :disabled="!items.monthly_allowance"
-                        class="w-full md:w-3/4"
-                        v-model="monthlyAllowance"
-                        type="text"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        :value="monthlyAllowance === true ? null : monthlyAllowance"
+                        class="w-full md:w-3/4"
+                        rows="4"
+                        @input="setValue('monthly_allowance', $event)"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -73,9 +99,10 @@ const toggle = (key: FamilySponsorship) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('ramadan_basket')"
                             id="ramadan_basket"
+                            :checked="items.ramadan_basket"
                             type="checkbox"
+                            @change="toggle('ramadan_basket')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="ramadan_basket">
@@ -84,14 +111,15 @@ const toggle = (key: FamilySponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         :disabled="!items.ramadan_basket"
-                        class="w-full md:w-3/4"
-                        v-model="ramadanBasket"
-                        type="text"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        :value="ramadanBasket === true ? null : ramadanBasket"
+                        class="w-full md:w-3/4"
+                        rows="4"
+                        @input="setValue('ramadan_basket', $event)"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -103,9 +131,10 @@ const toggle = (key: FamilySponsorship) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('zakat')"
                             id="zakat"
+                            :checked="items.zakat"
                             type="checkbox"
+                            @change="toggle('zakat')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="zakat">
@@ -114,14 +143,15 @@ const toggle = (key: FamilySponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         :disabled="!items.zakat"
-                        class="w-full md:w-3/4"
-                        v-model="zakat"
-                        type="text"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        :value="zakat === true ? null : zakat"
+                        class="w-full md:w-3/4"
+                        rows="4"
+                        @input="setValue('zakat', $event)"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -133,9 +163,10 @@ const toggle = (key: FamilySponsorship) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('housing_assistance')"
                             id="housing_assistance"
+                            :checked="items.housing_assistance"
                             type="checkbox"
+                            @change="toggle('housing_assistance')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="housing_assistance">
@@ -144,14 +175,15 @@ const toggle = (key: FamilySponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         :disabled="!items.housing_assistance"
-                        class="w-full md:w-3/4"
-                        v-model="housingAssistance"
-                        type="text"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        :value="housingAssistance === true ? null : housingAssistance"
+                        class="w-full md:w-3/4"
+                        rows="4"
+                        @input="setValue('housing_assistance', $event)"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -163,9 +195,10 @@ const toggle = (key: FamilySponsorship) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('eid_al_adha')"
                             id="eid_al_adha"
+                            :checked="items.eid_al_adha"
                             type="checkbox"
+                            @change="toggle('eid_al_adha')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="eid_al_adha">
@@ -174,14 +207,15 @@ const toggle = (key: FamilySponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
+                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                    <base-form-text-area
                         :disabled="!items.eid_al_adha"
-                        class="w-full md:w-3/4"
-                        v-model="eidAlAdha"
-                        type="text"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        :value="eidAlAdha === true ? null : eidAlAdha"
+                        class="w-full md:w-3/4"
+                        rows="4"
+                        @input="setValue('eid_al_adha', $event)"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>

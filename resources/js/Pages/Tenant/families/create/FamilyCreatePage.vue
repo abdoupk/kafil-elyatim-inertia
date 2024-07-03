@@ -56,7 +56,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], branches: Branch[]; members: InspectorsMembersType }>()
 
-const currentStep = ref(1)
+const currentStep = ref(6)
 
 const totalSteps = 6
 
@@ -64,15 +64,15 @@ const creatingCompleted = ref(false)
 
 const form = useForm('post', route('tenant.families.store'), createFamilyFormAttributes)
 
-const stepOneCompleted = ref<boolean>(false) //TODO change To False
+const stepOneCompleted = ref<boolean>(false)
 
-const stepTwoCompleted = ref<boolean>(false) //TODO change To False
+const stepTwoCompleted = ref<boolean>(false)
 
-const stepThreeCompleted = ref<boolean>(false) //TODO change To False
+const stepThreeCompleted = ref<boolean>(false)
 
-const stepFourCompleted = ref<boolean>(false) //TODO change To False
+const stepFourCompleted = ref<boolean>(false)
 
-const stepFiveCompleted = ref<boolean>(true) //TODO change To False
+const stepFiveCompleted = ref<boolean>(false)
 
 const addOrphan = () => {
     form.orphans.push({
@@ -273,6 +273,7 @@ const submit = () => {
                             v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
                             v-model:birth_date="form.sponsor.birth_date"
                             v-model:card_number="form.sponsor.card_number"
+                            v-model:ccp="form.sponsor.ccp"
                             v-model:diploma="form.sponsor.diploma"
                             v-model:father_name="form.sponsor.father_name"
                             v-model:first_name="form.sponsor.first_name"
@@ -281,6 +282,7 @@ const submit = () => {
                             v-model:last_name="form.sponsor.last_name"
                             v-model:mother_name="form.sponsor.mother_name"
                             v-model:phone="form.sponsor.phone_number"
+                            v-model:sponsor-type="form.sponsor.sponsor_type"
                             :form
                         ></sponsor-form>
                     </template>

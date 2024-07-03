@@ -5,7 +5,7 @@ create table if not exists families
     "zone_id"     uuid                           not null,
     "branch_id"   uuid                           null,
     "address"     text                           not null,
-    "file_number" integer                        not null,
+    "file_number" text                           not null,
     "start_date"  date                           not null,
     "tenant_id"   text                           not null references "tenants" ("id") on delete cascade on update cascade,
     "created_at"  timestamp(0) without time zone null,
