@@ -12,7 +12,7 @@ class FamilyShowController extends Controller
     public function __invoke(Family $family): Response
     {
         return Inertia::render('Tenant/families/FamilyDetailPage', [
-            'family' => $family->load(['zone', 'orphans', 'furnishings', 'secondSponsor', 'furnishings', 'sponsorships']),
+            'family' => $family->load(['zone', 'orphans', 'furnishings', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships']),
         ]);
     }
 }

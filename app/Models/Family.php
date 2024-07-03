@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -118,6 +119,16 @@ class Family extends Model
     public function sponsorships(): HasOne
     {
         return $this->hasOne(FamilySponsorship::class);
+    }
+
+    public function orphansSponsorships(): HasManyThrough
+    {
+        return $this->hasManyThrough(OrphanSponsorship::class, Orphan::class);
+    }
+
+    public function sponsorSponsorships(): HasManyThrough
+    {
+        return $this->hasManyThrough(SponsorSponsorship::class, Sponsor::class);
     }
 
     public function deceased(): HasOne
