@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
 import { computed } from 'vue'
@@ -16,7 +16,9 @@ import { checkErrors } from '@/utils/helper'
 const props = defineProps<CreateFamilyStepProps>()
 
 const sponsorErrors = computed(() => {
-    return checkErrors('^sponsor.', props?.form?.errors)
+    console.log(checkErrors('^sponsor.+', props?.form?.errors))
+
+    return checkErrors('^sponsor.+', props?.form?.errors)
 })
 
 const secondSponsorErrors = computed(() => {
@@ -34,8 +36,8 @@ const spouseErrors = computed(() => {
 
 <template>
     <div
-        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 2"
+        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
         <div class="text-base font-medium">
             {{ $t('auth.register.stepTwo.title') }}
@@ -44,48 +46,48 @@ const spouseErrors = computed(() => {
         <base-tab-group class="mt-5">
             <base-tab-list variant="link-tabs">
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('sponsor information') }}
 
                         <svg-loader
                             v-if="sponsorErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('income information') }}
 
                         <svg-loader
                             v-if="incomeErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>
 
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('second sponsor information') }}
 
                         <svg-loader
                             v-if="secondSponsorErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>
 
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('spouse information') }}
 
                         <svg-loader
                             v-if="spouseErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>

@@ -56,7 +56,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], branches: Branch[]; members: InspectorsMembersType }>()
 
-const currentStep = ref(6)
+const currentStep = ref(1)
 
 const totalSteps = 6
 
@@ -64,13 +64,13 @@ const creatingCompleted = ref(false)
 
 const form = useForm('post', route('tenant.families.store'), createFamilyFormAttributes)
 
-const stepOneCompleted = ref<boolean>(true) //TODO change To False
+const stepOneCompleted = ref<boolean>(false) //TODO change To False
 
-const stepTwoCompleted = ref<boolean>(true) //TODO change To False
+const stepTwoCompleted = ref<boolean>(false) //TODO change To False
 
-const stepThreeCompleted = ref<boolean>(true) //TODO change To False
+const stepThreeCompleted = ref<boolean>(false) //TODO change To False
 
-const stepFourCompleted = ref<boolean>(true) //TODO change To False
+const stepFourCompleted = ref<boolean>(false) //TODO change To False
 
 const stepFiveCompleted = ref<boolean>(true) //TODO change To False
 
@@ -115,22 +115,26 @@ const validating = ref<boolean>(false)
 const validateStep = async (errorProps: CreateFamilyStepOneProps[] | CreateFamilyStepTwoProps[], step: Ref) => {
     validating.value = true
 
-    let errors = []
+    await form.submit({
+        onFinish() {
+            let errors = []
 
-    errorProps.forEach((prop) => {
-        const regex = prop === 'address' ? new RegExp(`^${prop}$`) : new RegExp(prop)
+            errorProps.forEach((prop) => {
+                const regex = prop === 'address' ? new RegExp(`^${prop}$`) : new RegExp(prop)
 
-        Object.keys(form.errors).forEach((error) => {
-            if (regex.test(error)) {
+                Object.keys(form.errors).forEach((error) => {
+                    if (regex.test(error)) {
 
-                errors.push(form.errors[error as keyof CreateFamilyForm])
-            }
-        })
+                        errors.push(form.errors[error as keyof CreateFamilyForm])
+                    }
+                })
+            })
+
+            step.value = errors.length === 0 && !form.validating
+
+            validating.value = false
+        }
     })
-
-    step.value = errors.length === 0 && !form.validating
-
-    validating.value = false
 }
 
 const nextStep = async () => {
@@ -393,11 +397,22 @@ const submit = () => {
 
                 <step-six :currentStep :form :totalSteps>
                     <template #FamilySponsorShipForm>
-                        <family-sponsor-ship-form></family-sponsor-ship-form>
+                        <family-sponsor-ship-form
+                            v-model:eid-al-adha="form.family_sponsorship.eid_al_adha"
+                            v-model:housing-assistance="form.family_sponsorship.housing_assistance"
+                            v-model:monthly-allowance="form.family_sponsorship.monthly_allowance"
+                            v-model:ramadan-basket="form.family_sponsorship.ramadan_basket"
+                            v-model:zakat="form.family_sponsorship.zakat"
+                        ></family-sponsor-ship-form>
                     </template>
 
                     <template #SponsorSponsorShipForm>
-                        <sponsor-sponsor-ship-form></sponsor-sponsor-ship-form>
+                        <sponsor-sponsor-ship-form
+                            v-model:direct-sponsorship="form.sponsor_sponsorship.direct_sponsorship"
+                            v-model:literacy-lessons="form.sponsor_sponsorship.literacy_lessons"
+                            v-model:medical-sponsorship="form.sponsor_sponsorship.medical_sponsorship"
+                            v-model:project-support="form.sponsor_sponsorship.project_support"
+                        ></sponsor-sponsor-ship-form>
                     </template>
 
                     <template #OrphansSponsorShipForm>

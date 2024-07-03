@@ -137,7 +137,8 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             baby_milk_type: '',
             diapers_quantity: '',
             diapers_type: '',
-            note: '25'
+            note: '25',
+            gender: 'male'
         }
     ],
     housing: {
@@ -166,27 +167,27 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
     other_properties: '00000',
     branch_id: '',
     family_sponsorship: {
-        monthly_allowance: true,
-        ramadan_basket: true,
-        zakat: true,
-        housing_assistance: true,
-        eid_al_adha: true
+        monthly_allowance: null,
+        ramadan_basket: null,
+        zakat: null,
+        housing_assistance: null,
+        eid_al_adha: null
     },
     sponsor_sponsorship: {
-        medical_sponsorship: true,
-        literacy_lessons: true,
-        direct_sponsorship: 2000,
-        project_support: ''
+        medical_sponsorship: null,
+        literacy_lessons: null,
+        direct_sponsorship: null,
+        project_support: null
     },
     orphans_sponsorship: [
         {
-            medical_sponsorship: true,
-            university_scholarship: true,
-            association_trips: true,
-            summer_camp: true,
-            eid_suit: true,
-            private_lessons: true,
-            school_bag: true
+            medical_sponsorship: false,
+            university_scholarship: false,
+            association_trips: false,
+            summer_camp: false,
+            eid_suit: false,
+            private_lessons: false,
+            school_bag: false
         }
     ]
 }

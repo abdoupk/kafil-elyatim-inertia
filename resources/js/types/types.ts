@@ -426,8 +426,8 @@ export type CreateFamilyForm = {
     preview_date: string
     inspectors_members: string | string[]
     branch_id: string
-    family_sponsorship: Record<FamilySponsorship, any> & { notes: { [key in FamilySponsorship]?: string } }
-    sponsor_sponsorship: Record<SponsorSponsorship, any> & { notes: { [key in SponsorSponsorship]?: string } }
+    family_sponsorship: Record<FamilySponsorship, string | number | null>
+    sponsor_sponsorship: Record<SponsorSponsorship, string | number | null>
     orphans_sponsorship: Array<Record<OrphanSponsorship, any>>
 }
 

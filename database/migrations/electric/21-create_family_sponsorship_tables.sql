@@ -2,11 +2,11 @@ create table if not exists family_sponsorship
 (
     "id"                 uuid primary key,
     "family_id"          uuid                           not null references families (id) on delete cascade,
-    "monthly_allowance"  boolean                        not null,
-    "ramadan_basket"     boolean                        not null,
-    "zakat"              boolean                        not null,
-    "housing_assistance" boolean                        not null,
-    "eid_al_adha"        boolean                        not null,
+    "monthly_allowance"  text                           null,
+    "ramadan_basket"     text                           null,
+    "zakat"              text                           null,
+    "housing_assistance" text                           null,
+    "eid_al_adha"        text                           null,
     "tenant_id"          text                           not null references "tenants" ("id") on delete cascade on update cascade,
     "created_at"         timestamp(0) without time zone null,
     "updated_at"         timestamp(0) without time zone null

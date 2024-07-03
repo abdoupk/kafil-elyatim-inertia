@@ -40,8 +40,8 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.function' => 'required|string',
             'sponsor.health_status' => 'required|string',
             'sponsor.diploma' => 'required|string',
-            'sponsor.card_number' => 'required|string|unique:App\Models\Sponsor,card_number',
-            'sponsor.ccp' => 'required|string|unique:App\Models\Sponsor,ccp',
+            //            'sponsor.card_number' => 'required|string|unique:App\Models\Sponsor,card_number',
+            //            'sponsor.ccp' => 'required|string|unique:App\Models\Sponsor,ccp',
             'second_sponsor.first_name' => 'required|string',
             'second_sponsor.last_name' => 'required|string',
             'second_sponsor.phone_number' => 'required|string',
@@ -78,17 +78,22 @@ class CreateFamilyRequest extends FormRequest
 ,orphans.*.shirt_size,orphans.*.pants_size',
             'orphans.*.diapers_type' => 'required_with:baby_milk_type|required_without:orphans.*.shoes_size
 ,orphans.*.shirt_size,orphans.*.pants_size',
-            'orphans_sponsorship.*.*' => 'required|boolean',
-            'sponsor_sponsorship.direct_sponsorship' => 'required|numeric',
-            'sponsor_sponsorship.project_support' => 'nullable|string',
-            'sponsor_sponsorship.medical_sponsorship' => 'required|boolean',
-            'sponsor_sponsorship.literacy_lessons' => 'required|boolean',
-            'family_sponsorship.*' => 'required|boolean',
+            'orphans_sponsorship.*.*' => 'present|nullable',
+            'sponsor_sponsorship.*' => 'present|nullable',
+            'family_sponsorship.*' => 'present|nullable',
         ];
     }
 
     public function authorize(): bool
     {
         return true;
+    }
+
+    public function prepareForValidation(): void
+    {
+        ray($this->all());
+        $this->merge(array_map(function ($value) {
+            return $value === null ? false : ($value === '' ? true : $value);
+        }, $this->only(['orphans_sponsorship', 'sponsor_sponsorship', 'family_sponsorship'])));
     }
 }

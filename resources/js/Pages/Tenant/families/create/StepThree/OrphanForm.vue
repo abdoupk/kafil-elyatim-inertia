@@ -176,7 +176,7 @@ const isStillBaby = computed(() => {
             </base-form-label>
 
             <base-form-select
-                :id="`last_name_${index}`"
+                :id="`gender_${index}`"
                 v-model="gender"
                 :placeholder="
                     $t('auth.placeholders.fill', {
