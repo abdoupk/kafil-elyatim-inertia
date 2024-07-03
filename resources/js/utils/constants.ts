@@ -242,6 +242,6 @@ export const createFamilyStepThreeErrorProps = ['orphans']
 
 export const createFamilyStepFourErrorProps = ['housing', 'furnishings']
 
-export const createFamilyStepFiveErrorProps = ['report', 'preview_date', 'inspectors_members']
+export const createFamilyStepSixErrorProps = ['report', 'preview_date', 'inspectors_members']
 
-export const createFamilyStepSixErrorProps = ['sponsorship']
+export const createFamilyStepFiveErrorProps = ['sponsorship']

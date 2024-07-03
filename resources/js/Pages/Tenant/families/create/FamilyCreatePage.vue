@@ -42,11 +42,11 @@ import {
     createFamilyStepThreeErrorProps,
     createFamilyStepTwoErrorProps
 } from '@/utils/constants'
-import StepFive from '@/Pages/Tenant/families/create/stepFive/StepFive.vue'
-import StepSix from '@/Pages/Tenant/families/create/StepSix/StepSix.vue'
-import FamilySponsorShipForm from '@/Pages/Tenant/families/create/StepSix/FamilySponsorShipForm.vue'
-import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/StepSix/SponsorSponsorShipForm.vue'
-import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/StepSix/OrphansSponsorShipForm.vue'
+import StepFive from '@/Pages/Tenant/families/create/StepFive/StepFive.vue'
+import StepSix from '@/Pages/Tenant/families/create/stepSix/StepSix.vue'
+import FamilySponsorShipForm from '@/Pages/Tenant/families/create/StepFive/FamilySponsorShipForm.vue'
+import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/StepFive/SponsorSponsorShipForm.vue'
+import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/StepFive/OrphansSponsorShipForm.vue'
 import { router } from '@inertiajs/vue3'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 
@@ -56,7 +56,7 @@ defineOptions({
 
 defineProps<{ zones: Zone[], branches: Branch[]; members: InspectorsMembersType }>()
 
-const currentStep = ref(6)
+const currentStep = ref(1)
 
 const totalSteps = 6
 
@@ -389,15 +389,7 @@ const submit = () => {
                     <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-four>
 
-                <step-five v-model:inspectors-members="form.inspectors_members" v-model:preview-date="form.preview_date"
-                           v-model:report="form.report" :currentStep
-                           :form
-                           :members
-                           :totalSteps>
-                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
-                </step-five>
-
-                <step-six :currentStep :form :totalSteps>
+                <step-five :currentStep :form :totalSteps>
                     <template #FamilySponsorShipForm>
                         <family-sponsor-ship-form
                             v-model:eid-al-adha="form.family_sponsorship.eid_al_adha"
@@ -426,6 +418,14 @@ const submit = () => {
                         </template>
                     </template>
 
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
+                </step-five>
+
+                <step-six v-model:inspectors-members="form.inspectors_members" v-model:preview-date="form.preview_date"
+                          v-model:report="form.report" :currentStep
+                          :form
+                          :members
+                          :totalSteps>
                     <the-actions :currentStep :nextStep="submit" :prevStep :totalSteps :validating></the-actions>
                 </step-six>
             </form>

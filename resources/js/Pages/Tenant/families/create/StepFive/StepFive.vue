@@ -13,11 +13,11 @@ defineProps<CreateFamilyStepProps>()
 
 <template>
     <div
-        v-if="currentStep === 6"
+        v-if="currentStep === 5"
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
         <div class="text-lg font-medium hidden lg:block mb-6">
-            {{ $t('families.create_family.stepSix') }}
+            {{ $t('families.create_family.stepFive') }}
         </div>
 
         <base-tab-group class="mt-5">

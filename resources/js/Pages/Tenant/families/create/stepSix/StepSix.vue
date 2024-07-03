@@ -22,11 +22,11 @@ const vueSelectInspectorsMembers = ref([])
 
 <template>
     <div
-        v-if="currentStep === 5"
+        v-if="currentStep === 6"
         class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
         <div class="text-lg font-medium hidden lg:block mb-6">
-            {{ $t('families.create_family.stepFive') }}
+            {{ $t('families.create_family.stepSix') }}
         </div>
 
         <div class="mt-5 grid grid-cols-12 gap-4 gap-y-5">
