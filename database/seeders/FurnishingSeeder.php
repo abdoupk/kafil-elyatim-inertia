@@ -2,18 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Family;
 use App\Models\Furnishing;
 use Illuminate\Database\Seeder;
-use Str;
 
 class FurnishingSeeder extends Seeder
 {
     public function run(): void
     {
-        $furnishings = ['television', 'refrigerator', 'fireplace', 'washing_machine', 'water_heater', 'oven', 'wardrobe', 'cupboard', 'covers', 'mattresses', 'other_furnishings'];
-
-        Furnishing::insert(array_map(static function ($furnishing) {
-            return ['id' => Str::uuid(), 'name' => $furnishing];
-        }, $furnishings));
+        Family::select(['id', 'tenant_id'])->lazy(100)->each(function (Family $family) {
+            Furnishing::factory()->create([
+                'family_id' => $family->id,
+                'tenant_id' => $family->tenant_id,
+            ]);
+        });
     }
 }

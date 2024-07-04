@@ -12,8 +12,15 @@ class IncomeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
-            'value' => fake()->numberBetween(0, 100000),
+            'cnr' => fake()->numberBetween(0, 5000),
+            'cnas' => fake()->numberBetween(0, 5000),
+            'casnos' => fake()->numberBetween(0, 5000),
+            'pension' => fake()->numberBetween(0, 5000),
+            'account' => fake()->numberBetween(0, 5000),
+            'other_income' => fake()->numberBetween(0, 5000),
+            'total_income' => fake()->numberBetween(0, 5000),
+            'sponsor_id' => fake()->numberBetween(0, 5000),
+            'tenant_id' => fake()->uuid,
         ];
     }
 }

@@ -106,7 +106,6 @@ class Sponsor extends Model
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $fillable = [
-        'id',
         'first_name',
         'last_name',
         'phone_number',
@@ -120,6 +119,7 @@ class Sponsor extends Model
         'health_status',
         'diploma',
         'card_number',
+        'tenant_id',
         'ccp',
         'gender',
         'created_by',

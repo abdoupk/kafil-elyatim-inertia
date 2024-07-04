@@ -1,13 +1,15 @@
 create table if not exists incomes
 (
     "id"           uuid primary key,
-    "cnr"          text not null,
-    "cnas"         text not null,
-    "casnos"       text not null,
-    "pension"      text not null,
-    "account"      text not null,
-    "other_income" text not null,
-    "sponsor_id"   uuid not null references sponsors ("id")
+    "cnr"          text             not null,
+    "cnas"         text             not null,
+    "casnos"       text             not null,
+    "pension"      text             not null,
+    "account"      text             not null,
+    "other_income" text             not null,
+    "total_income" double precision not null,
+    "sponsor_id"   uuid             not null references sponsors ("id"),
+    "tenant_id"    text             not null references tenants ("id")
 );
 
 -- Create Indexes

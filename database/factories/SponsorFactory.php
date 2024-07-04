@@ -33,7 +33,6 @@ class SponsorFactory extends Factory
             'created_by' => fake()->uuid,
             'ccp' => fake()->regexify('[1-9][0-9]{8}'),
             'gender' => fake()->randomElement(['male', 'female']),
-            'deleted_at' => now(),
             'created_at' => now(),
             'updated_at' => now(),
         ];
