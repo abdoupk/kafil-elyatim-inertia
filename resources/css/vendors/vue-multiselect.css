@@ -30,8 +30,13 @@
 /*}*/
 
 .dark {
+    & .multiselect__option {
+        background-color: theme('colors.darkmode.700/50') !important;
+        color: theme('colors.white') !important;
+    }
+
     & .multiselect__option--highlight {
-        background-color: theme('colors.darkmode.800') !important;
+        background-color: theme('colors.primary') !important;
         color: theme('colors.white') !important;
     }
 
@@ -71,15 +76,6 @@
 
     & .multiselect__content-wrapper {
         border: none;
-    }
-
-    & .multiselect__option {
-        background-color: theme('colors.darkmode.700/50') !important;
-        color: theme('colors.white') !important;
-
-        &:hover {
-            background-color: theme('colors.primary') !important;
-        }
     }
 
     & .multiselect__tag-icon {

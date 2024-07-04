@@ -23,7 +23,6 @@ class CreateFamilyRequest extends FormRequest
             'orphans.*.diapers_type.required_without' => __('validation.required', ['attribute' => __('diapers_type')]),
             'orphans.*.diapers_quantity.required_without' => __('validation.required', ['attribute' => __('diapers_quantity')]),
             'sponsor.ccp.required' => __('validation.required', ['attribute' => __('ccp')]),
-            'second_sponsor.ph',
         ];
     }
 
@@ -56,12 +55,12 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.diploma' => 'required|string',
             'sponsor.card_number' => 'required|string|unique:App\Models\Sponsor,card_number',
             'sponsor.ccp' => 'required|string|unique:App\Models\Sponsor,ccp',
-            'second_sponsor.first_name' => 'required|string',
-            'second_sponsor.last_name' => 'required|string',
-            'second_sponsor.phone_number' => 'required|string',
-            'second_sponsor.degree_of_kinship' => 'required|string',
-            'second_sponsor.address' => 'required|string',
-            'second_sponsor.income' => 'required|numeric',
+            'second_sponsor.first_name' => 'nullable|string',
+            'second_sponsor.last_name' => 'nullable|string',
+            'second_sponsor.phone_number' => 'nullable|string',
+            'second_sponsor.degree_of_kinship' => 'nullable|string',
+            'second_sponsor.address' => 'nullable|string',
+            'second_sponsor.income' => 'nullable|numeric',
             'spouse.first_name' => 'required|string',
             'spouse.last_name' => 'required|string',
             'spouse.function' => 'required|string',

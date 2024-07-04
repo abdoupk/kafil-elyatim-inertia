@@ -42,7 +42,7 @@ const spouseErrors = computed(() => {
         </div>
 
         <base-tab-group class="mt-5">
-            <base-tab-list variant="link-tabs">
+            <base-tab-list class="md:flex" variant="link-tabs">
                 <base-tab>
                     <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('sponsor information') }}

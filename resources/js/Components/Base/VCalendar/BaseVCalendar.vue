@@ -16,7 +16,7 @@ const masks = ref({
 })
 
 const popover = ref({
-    visibility: 'click',
+    visibility: 'focus',
     placement: getLocale() === 'ar' ? 'top-end' : 'top-start'
 })
 </script>
@@ -44,7 +44,9 @@ const popover = ref({
                     <svg-loader class="w-4 h-4 fill-current" name="icon-calendar" />
                 </div>
 
-                <base-form-input :value="inputValue" class="ps-12" v-on="inputEvents"></base-form-input>
+                <base-form-input :placeholder="$t('auth.placeholders.tomselect',{attribute:$t('the date')})" :value="inputValue"
+                                 class="ps-12"
+                                 v-on="inputEvents"></base-form-input>
             </div>
         </template>
     </VDatePicker>

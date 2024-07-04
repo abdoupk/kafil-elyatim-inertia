@@ -1,10 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import { computed, provide } from 'vue'
 import type { ExtractProps } from '@/types/utils'
-
 import { TabList as HeadlessTabList } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
-import { computed, provide } from 'vue'
-
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 type Variant = 'tabs' | 'pills' | 'boxed-tabs' | 'link-tabs'
@@ -28,7 +26,7 @@ const attrs = useComputedAttrs()
 const computedClass = computed(() =>
     twMerge([
         variant == 'tabs' && 'border-b border-slate-200 dark:border-darkmode-400',
-        'w-1/2 flex flex-col items-center mx-auto sm:w-full md:flex-row',
+        'w-full',
         typeof attrs.class === 'string' && attrs.class
     ])
 )
@@ -39,7 +37,7 @@ provide<ProvideList>('list', {
 </script>
 
 <template>
-    <headless-tab-list as="ul" :class="computedClass" v-bind="attrs.attrs">
+    <headless-tab-list :class="computedClass" as="ul" v-bind="$attrs">
         <slot></slot>
     </headless-tab-list>
 </template>

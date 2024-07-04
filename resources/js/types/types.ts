@@ -444,6 +444,10 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
+export interface FamilyShow {
+    
+}
+
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 
 export type CreateFamilyStepTwoProps = typeof createFamilyStepTwoErrorProps
