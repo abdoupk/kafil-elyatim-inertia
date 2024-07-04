@@ -130,24 +130,27 @@ export const useMenuStore = defineStore('menu', {
             'divider',
             {
                 icon: 'icon-chart-pie-simple',
-                routeName: '',
                 title: __('statistics'),
                 routeName: 'tenant.statistics.index',
                 url: route('tenant.statistics.index')
             },
             {
                 icon: 'icon-map-location-dot',
-                routeName: '',
                 title: __('the_zones'),
                 routeName: 'tenant.zones.index',
                 url: route('tenant.zones.index')
             },
             {
                 icon: 'icon-hands-holding-dollar',
-                routeName: '',
                 title: __('financial'),
                 routeName: 'tenant.financial.index',
                 url: route('tenant.financial.index')
+            },
+            {
+                icon: 'icon-shelves',
+                title: __('the_inventory'),
+                routeName: 'tenant.inventory.index',
+                url: route('tenant.inventory.index')
             },
             {
                 icon: 'icon-gear',

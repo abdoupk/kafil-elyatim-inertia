@@ -34,7 +34,7 @@ export interface IPlacement {
 export interface IMenu {
     icon: SVGType
     title: string
-    url: string
+    url?: string
     routeName: string
     subMenu?: IMenu[]
     ignore?: boolean
@@ -69,6 +69,7 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-shelves'
+    | 'icon-users-plus'
     | 'icon-note'
     | 'icon-filters'
     | 'icon-filter-list'
@@ -444,7 +445,8 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {}
+export interface FamilyShow {
+}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 

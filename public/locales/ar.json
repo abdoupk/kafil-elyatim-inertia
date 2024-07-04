@@ -606,5 +606,6 @@
     "families.create_family.stepFour": "معلومات عن السكن و التاثيث",
     "families.create_family.stepSix": "تقرير عن الاسرة",
     "families.create_family.stepFive": "التكفل بالاسرة",
-    "the date": "التاريخ"
+    "the date": "التاريخ",
+    "the_inventory": "المخزن"
 }
