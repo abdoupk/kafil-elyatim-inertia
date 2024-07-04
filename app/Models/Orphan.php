@@ -68,6 +68,9 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Orphan withoutTrashed()
  *
  * @property-read Tenant $tenant
+ * @property string $gender
+ *
+ * @method static Builder|Orphan whereGender($value)
  *
  * @mixin Eloquent
  */

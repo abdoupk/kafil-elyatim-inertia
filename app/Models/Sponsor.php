@@ -89,7 +89,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property string|null $ccp
  * @property string $gender
  * @property string $family_id
- * @property-read \App\Models\Tenant $tenant
+ * @property-read Tenant $tenant
  *
  * @method static Builder|Sponsor onlyTrashed()
  * @method static Builder|Sponsor whereCcp($value)

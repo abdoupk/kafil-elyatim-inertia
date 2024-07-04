@@ -34,6 +34,18 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|SponsorSponsorship whereUpdatedAt($value)
  * @method static Builder|SponsorSponsorship whereValue($value)
  *
+ * @property string|null $medical_sponsorship
+ * @property string|null $literacy_lessons
+ * @property float|null $direct_sponsorship
+ * @property string|null $project_support
+ * @property-read Sponsor $sponsor
+ * @property-read Tenant $tenant
+ *
+ * @method static Builder|SponsorSponsorship whereDirectSponsorship($value)
+ * @method static Builder|SponsorSponsorship whereLiteracyLessons($value)
+ * @method static Builder|SponsorSponsorship whereMedicalSponsorship($value)
+ * @method static Builder|SponsorSponsorship whereProjectSupport($value)
+ *
  * @mixin Eloquent
  */
 class SponsorSponsorship extends Model

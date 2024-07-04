@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\MemberPreviewFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -11,15 +14,15 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property string $user_id
  * @property string $preview_id
  *
- * @method static \Database\Factories\MemberPreviewFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|MemberPreview newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|MemberPreview newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|MemberPreview query()
- * @method static \Illuminate\Database\Eloquent\Builder|MemberPreview whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|MemberPreview wherePreviewId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|MemberPreview whereUserId($value)
+ * @method static MemberPreviewFactory factory($count = null, $state = [])
+ * @method static Builder|MemberPreview newModelQuery()
+ * @method static Builder|MemberPreview newQuery()
+ * @method static Builder|MemberPreview query()
+ * @method static Builder|MemberPreview whereId($value)
+ * @method static Builder|MemberPreview wherePreviewId($value)
+ * @method static Builder|MemberPreview whereUserId($value)
  *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class MemberPreview extends Pivot
 {

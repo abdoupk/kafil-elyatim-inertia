@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -28,10 +29,10 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property string|null $other_properties
  * @property string $family_id
  * @property string $tenant_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Family $family
- * @property-read \App\Models\Tenant $tenant
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Family $family
+ * @property-read Tenant $tenant
  *
  * @method static Builder|Housing whereCreatedAt($value)
  * @method static Builder|Housing whereFamilyId($value)

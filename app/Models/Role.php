@@ -33,6 +33,11 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Role whereUuid($value)
  * @method static Builder|Role withoutPermission($permissions)
  *
+ * @property string|null $tenant_id
+ * @property-read Tenant|null $tenant
+ *
+ * @method static Builder|Role whereTenantId($value)
+ *
  * @mixin Eloquent
  */
 class Role extends SpatieRole

@@ -83,10 +83,17 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  *
  * @property-read Zone|null $zone
  * @property string|null $qualification
- * @property-read Collection<int, \App\Models\Preview> $previews
+ * @property-read Collection<int, Preview> $previews
  * @property-read int|null $previews_count
  *
  * @method static Builder|User whereQualification($value)
+ *
+ * @property string|null $address
+ * @property string|null $branch_id
+ * @property-read Branch|null $branch
+ *
+ * @method static Builder|User whereAddress($value)
+ * @method static Builder|User whereBranchId($value)
  *
  * @mixin Eloquent
  */

@@ -19,7 +19,7 @@ defineOptions({
     layout: TheLayout
 })
 
-defineProps<{ family: object }>()
+const props = defineProps<{ family: object }>()
 
 const view = ref('sponsor_information')
 
@@ -31,6 +31,8 @@ provide('familyDetailView', {
     view,
     updateView
 })
+
+console.log(props.family)
 </script>
 
 <template>

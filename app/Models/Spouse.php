@@ -41,7 +41,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Spouse whereId($value)
  * @method static SpouseFactory factory($count = null, $state = [])
  *
- * @property-read \App\Models\Tenant $tenant
+ * @property-read Tenant $tenant
  *
  * @mixin Eloquent
  */

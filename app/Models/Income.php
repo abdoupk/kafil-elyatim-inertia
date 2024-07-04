@@ -34,7 +34,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property string $account
  * @property string $other_income
  * @property string $sponsor_id
- * @property-read \App\Models\Sponsor $sponsor
+ * @property-read Sponsor $sponsor
  *
  * @method static Builder|Income whereAccount($value)
  * @method static Builder|Income whereCasnos($value)
@@ -43,6 +43,13 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Income whereOtherIncome($value)
  * @method static Builder|Income wherePension($value)
  * @method static Builder|Income whereSponsorId($value)
+ *
+ * @property float $total_income
+ * @property string $tenant_id
+ * @property-read Tenant $tenant
+ *
+ * @method static Builder|Income whereTenantId($value)
+ * @method static Builder|Income whereTotalIncome($value)
  *
  * @mixin Eloquent
  */

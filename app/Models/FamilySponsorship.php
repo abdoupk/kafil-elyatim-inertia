@@ -34,6 +34,20 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|FamilySponsorship whereUpdatedAt($value)
  * @method static Builder|FamilySponsorship whereValue($value)
  *
+ * @property string|null $monthly_allowance
+ * @property string|null $ramadan_basket
+ * @property string|null $zakat
+ * @property string|null $housing_assistance
+ * @property string|null $eid_al_adha
+ * @property-read Family $family
+ * @property-read Tenant $tenant
+ *
+ * @method static Builder|FamilySponsorship whereEidAlAdha($value)
+ * @method static Builder|FamilySponsorship whereHousingAssistance($value)
+ * @method static Builder|FamilySponsorship whereMonthlyAllowance($value)
+ * @method static Builder|FamilySponsorship whereRamadanBasket($value)
+ * @method static Builder|FamilySponsorship whereZakat($value)
+ *
  * @mixin Eloquent
  */
 class FamilySponsorship extends Model

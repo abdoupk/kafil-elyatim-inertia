@@ -74,6 +74,12 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read Spouse|null $deceased
  * @property-read Housing|null $housing
  * @property-read Preview|null $preview
+ * @property-read Collection<int, Baby> $babies
+ * @property-read int|null $babies_count
+ * @property-read Collection<int, OrphanSponsorship> $orphansSponsorships
+ * @property-read int|null $orphans_sponsorships_count
+ * @property-read Collection<int, SponsorSponsorship> $sponsorSponsorships
+ * @property-read int|null $sponsor_sponsorships_count
  *
  * @mixin Eloquent
  */
@@ -99,6 +105,11 @@ class Family extends Model
     public function preview(): HasOne
     {
         return $this->hasOne(Preview::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function secondSponsor(): HasOne

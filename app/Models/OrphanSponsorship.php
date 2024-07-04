@@ -34,6 +34,24 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|OrphanSponsorship whereUpdatedAt($value)
  * @method static Builder|OrphanSponsorship whereValue($value)
  *
+ * @property string|null $medical_sponsorship
+ * @property string|null $university_scholarship
+ * @property string|null $association_trips
+ * @property string|null $summer_camp
+ * @property string|null $eid_suit
+ * @property string|null $private_lessons
+ * @property string|null $school_bag
+ * @property-read Orphan $orphan
+ * @property-read Tenant $tenant
+ *
+ * @method static Builder|OrphanSponsorship whereAssociationTrips($value)
+ * @method static Builder|OrphanSponsorship whereEidSuit($value)
+ * @method static Builder|OrphanSponsorship whereMedicalSponsorship($value)
+ * @method static Builder|OrphanSponsorship wherePrivateLessons($value)
+ * @method static Builder|OrphanSponsorship whereSchoolBag($value)
+ * @method static Builder|OrphanSponsorship whereSummerCamp($value)
+ * @method static Builder|OrphanSponsorship whereUniversityScholarship($value)
+ *
  * @mixin Eloquent
  */
 class OrphanSponsorship extends Model
