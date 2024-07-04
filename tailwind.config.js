@@ -1,5 +1,6 @@
 import colors from 'tailwindcss/colors'
 import containerQueries from '@tailwindcss/container-queries'
+import typography from '@tailwindcss/typography'
 import forms from '@tailwindcss/forms'
 import { parseColor } from 'tailwindcss/lib/util/color'
 import plugin from 'tailwindcss/plugin'
@@ -147,6 +148,7 @@ export default {
 
     plugins: [
         containerQueries,
+        typography,
         forms,
         plugin(function({ addBase, matchUtilities }) {
             addBase({

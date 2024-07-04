@@ -1,8 +1,7 @@
 <template>
     <multiselect v-model="value" :options="options" :show-labels="false" placeholder="hello">
-
         <template #noResult>
-            <span>{{$t('No results found.')}}</span>
+            <span>{{ $t('No results found.') }}</span>
         </template>
     </multiselect>
 </template>
