@@ -54,6 +54,8 @@ defineProps<{ orphans: OrphanType[] }>()
                 </h3>
             </div>
 
+            <!-- TODO: handle when the orphan still baby-->
+
             <div class="@xl:col-span-6 col-span-12">
                 <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>
 
