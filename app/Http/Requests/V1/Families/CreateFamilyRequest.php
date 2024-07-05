@@ -104,7 +104,6 @@ class CreateFamilyRequest extends FormRequest
 
     public function prepareForValidation(): void
     {
-        ray($this->all());
         $this->merge(array_map(function ($value) {
             return $value === null ? false : ($value === '' ? true : $value);
         }, $this->only(['orphans_sponsorship', 'sponsor_sponsorship', 'family_sponsorship'])));

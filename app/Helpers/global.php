@@ -70,9 +70,9 @@ function generateFormatedConditions(): array
     return [];
 }
 
-function generateFilterConditions(): string
+function generateFilterConditions(?array $_filters = []): string
 {
-    $filters = generateFormatedConditions();
+    $filters = array_merge($_filters, generateFormatedConditions());
 
     if (! $filters) {
         return 'tenant_id = '.tenant('id');
@@ -97,11 +97,11 @@ function generateFormattedSort(): array
     return ['created_at:desc'];
 }
 
-function search(Inventory|User|Family|Branch|Orphan|Sponsor|Role|Zone $model): Builder
+function search(Inventory|User|Family|Branch|Orphan|Sponsor|Role|Zone $model, ?array $filters = []): Builder
 {
     $query = request()->input('search', '');
     $meilisearchOptions = [
-        'filter' => generateFilterConditions(),
+        'filter' => generateFilterConditions($filters),
         'sort' => generateFormattedSort(),
     ];
 
