@@ -7,7 +7,7 @@ import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
 import { computed } from 'vue'
 
-import { getLocale } from '@/utils/i18n'
+import { __, getLocale } from '@/utils/i18n'
 
 dayjs.extend(duration)
 const toRaw = (obj: object) => {
@@ -212,7 +212,7 @@ const isAssociationNameLatin = computed(() => {
     return /^[a-z]+/i.test(usePage().props.association)
 })
 
-const formatDate = (date: string, dateStyle: 'full' | 'long' | 'medium' | 'short' | undefined) => {
+const formatDate = (date: string | Date, dateStyle: 'full' | 'long' | 'medium' | 'short' | undefined) => {
     return new Intl.DateTimeFormat(`${getLocale()}-DZ`, {
         dateStyle
     }).format(new Date(date))
@@ -224,11 +224,11 @@ const formatCurrency = (amount) => {
 
 const handleSponsorship = (sponsorshipValue: string) => {
     if (sponsorshipValue === '0') {
-        return 'no'
+        return __('no')
     }
 
     if (sponsorshipValue === '1') {
-        return 'yes'
+        return __('yes')
     }
 
     const parsedValue = parseFloat(sponsorshipValue)
@@ -241,13 +241,29 @@ const handleSponsorship = (sponsorshipValue: string) => {
 }
 
 const handleFurnishings = (sponsorshipValue) => {
+    if (sponsorshipValue === '0') {
+        return __('no')
+    }
+
+    if (sponsorshipValue === '1') {
+        return __('yes')
+    }
+
     return sponsorshipValue
+}
+
+const groupByKey = (arr, key) => {
+    return arr.reduce((acc, current) => {
+        ;(acc[current[key]] = acc[current[key]] || []).push(current)
+        return acc
+    }, {})
 }
 
 export {
     isEqual,
     formatDate,
     isAssociationNameLatin,
+    groupByKey,
     handleSponsorship,
     handleFurnishings,
     formatCurrency,

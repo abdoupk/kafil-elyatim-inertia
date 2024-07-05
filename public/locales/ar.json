@@ -175,6 +175,7 @@
     "sponsorships.eid_suit": "بدلة العيد",
     "sponsorships.private_lessons": "دروس خصوصية",
     "sponsorships.school_bag": "حقيبة مدرسية",
+    "sponsorships.school_bags": "حقائب المدرسية",
     "validation.accepted": "يجب قبول :attribute.",
     "validation.accepted_if": "يجب قبول :attribute في حالة :other يساوي :value.",
     "validation.active_url": "حقل :attribute لا يُمثّل رابطًا صحيحًا.",
@@ -625,5 +626,6 @@
     "ramadan_basket": "السلة الرمضانية",
     "zakat": "الزكاة",
     "new need": "اضافة احتياج",
-    "furnishings information": "معلومات عن الاثاث"
+    "furnishings information": "معلومات عن الاثاث",
+    "family details": "تفاصيل العائلة"
 }

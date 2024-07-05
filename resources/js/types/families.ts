@@ -47,6 +47,10 @@ export interface SponsorType {
     card_number: string
     ccp: string
     id: string
+    creator: {
+        id: string
+        name: string
+    }
     incomes: IncomeType
 }
 
@@ -115,7 +119,10 @@ export interface PreviewType {
     id: string
     report: string
     preview_date: string
-    inspectors: string[]
+    inspectors: {
+        id: string
+        name: string
+    }[]
 }
 
 export interface FamilyShowType {

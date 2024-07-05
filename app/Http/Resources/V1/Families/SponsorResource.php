@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Families;
 
+use App\Http\Resources\V1\Members\MemberResource;
 use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -25,6 +26,7 @@ class SponsorResource extends JsonResource
             'diploma' => $this->diploma,
             'card_number' => $this->card_number,
             'ccp' => $this->ccp,
+            'creator' => new MemberResource($this->whenLoaded('creator')),
             'incomes' => new IncomeResource($this->whenLoaded('incomes')),
         ];
     }

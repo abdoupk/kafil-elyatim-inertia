@@ -106,6 +106,6 @@ class CreateFamilyRequest extends FormRequest
     {
         $this->merge(array_map(function ($value) {
             return $value === null ? false : ($value === '' ? true : $value);
-        }, $this->only(['orphans_sponsorship', 'sponsor_sponsorship', 'family_sponsorship'])));
+        }, $this->only(['sponsor_sponsorship', 'family_sponsorship'])));
     }
 }

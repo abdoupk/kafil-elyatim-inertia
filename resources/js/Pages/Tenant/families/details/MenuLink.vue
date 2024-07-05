@@ -25,7 +25,7 @@ const { view, updateView } = inject('familyDetailView') as FamilyDetailView
         href="javascript:void(0)"
         @click="updateView(viewName)"
     >
-        <svg-loader :name="icon" class="w-4 h-4 me-2"></svg-loader>
+        <svg-loader :name="icon" class="w-5 h-5 me-2"></svg-loader>
         {{ $t(viewName) }}
     </a>
 </template>

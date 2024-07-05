@@ -20,6 +20,10 @@ class OrphanSponsorshipResource extends JsonResource
             'eid_suit' => $this->eid_suit,
             'private_lessons' => $this->private_lessons,
             'school_bag' => $this->school_bag,
+            'orphan' => [
+                'id' => $this->orphan->id,
+                'name' => $this->orphan->getName(),
+            ],
         ];
     }
 }

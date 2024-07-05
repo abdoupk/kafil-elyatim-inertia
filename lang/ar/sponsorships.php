@@ -18,4 +18,5 @@ return [
     'eid_suit' => 'بدلة العيد',
     'private_lessons' => 'دروس خصوصية',
     'school_bag' => 'حقيبة مدرسية',
+    'school_bags' => 'حقائب المدرسية',
 ];

@@ -21,9 +21,11 @@ defineOptions({
     layout: TheLayout
 })
 
-defineProps<{ family: FamilyShowType }>()
+const props = defineProps<{ family: FamilyShowType }>()
 
-const view = ref('sponsor_information')
+const view = ref('general_information')
+
+console.log(props.family)
 
 function updateView(newValue: string) {
     view.value = newValue
@@ -36,14 +38,14 @@ provide('familyDetailView', { view, updateView })
 
 <template>
     <div class="flex items-center mt-8 intro-y">
-        <h2 class="me-auto text-lg font-medium">Profile Layout</h2>
+        <h2 class="me-auto text-lg font-medium ltr:capitalize">{{ $t('family details') }}</h2>
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">
         <family-menu :family></family-menu>
 
         <div class="col-span-12 lg:col-span-8 2xl:col-span-9">
             <div class="grid grid-cols-12 gap-6">
-                <the-general-information v-if="view === 'general_information'"></the-general-information>
+                <the-general-information v-if="view === 'general_information'" :family></the-general-information>
 
                 <the-sponsor-information
                     v-if="view === 'sponsor_information'"

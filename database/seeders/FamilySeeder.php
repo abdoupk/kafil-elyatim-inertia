@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Branch;
 use App\Models\Family;
 use App\Models\Orphan;
 use App\Models\SecondSponsor;
@@ -25,7 +26,8 @@ class FamilySeeder extends Seeder
                 for ($i = 0; $i < 10; $i++) {
                     $family = Family::factory()->create([
                         'tenant_id' => $tenant->id,
-                        'zone_id' => Zone::inRandomOrder()->first()?->id,
+                        'branch_id' => Branch::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
+                        'zone_id' => Zone::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
                     ]);
 
                     Spouse::factory()->create([

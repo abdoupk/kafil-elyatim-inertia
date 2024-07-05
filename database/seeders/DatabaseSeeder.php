@@ -33,5 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FamilySponsorshipSeeder::class);
 
         $this->call(SponsorSponsorshipSeeder::class);
+
+        $this->call(PreviewSeeder::class);
     }
 }
