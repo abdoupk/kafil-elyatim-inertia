@@ -12,7 +12,7 @@ class OrphanShowController extends Controller
     public function __invoke(Orphan $orphan): Response
     {
         return Inertia::render('Tenant/orphans/OrphanDetailPage', [
-            'orphan' => $orphan,
+            'orphan' => $orphan->load('sponsorships', 'academicAchievements'),
         ]);
     }
 }
