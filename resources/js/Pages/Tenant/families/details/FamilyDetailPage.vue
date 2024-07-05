@@ -52,6 +52,7 @@ provide('familyDetailView', { view, updateView })
 
                 <the-housing-information
                     v-if="view === 'housing_information'"
+                    :furnishings="family.furnishings"
                     :housing="family.housing"
                 ></the-housing-information>
 
@@ -69,12 +70,12 @@ provide('familyDetailView', { view, updateView })
 
                 <the-family-sponsorship
                     v-if="view === 'family_sponsorship'"
-                    :sponsor-ship="family.family_sponsorships"
+                    :sponsorships="family.family_sponsorships"
                 ></the-family-sponsorship>
 
                 <the-sponsor-sponsorship
                     v-if="view === 'sponsor_sponsorship'"
-                    :sponsor-ship="family.sponsor_sponsorships"
+                    :sponsorships="family.sponsor_sponsorships"
                 ></the-sponsor-sponsorship>
 
                 <the-orphans-sponsorship

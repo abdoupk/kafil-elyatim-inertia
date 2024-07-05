@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { formatDate } from '../../../../utils/helper'
-
 import type { IndexParams, InventoryIndexResource, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -13,6 +11,8 @@ import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { formatDate } from '@/utils/helper'
 
 defineProps<{ items: PaginationData<InventoryIndexResource>; params: IndexParams }>()
 

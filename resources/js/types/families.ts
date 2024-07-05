@@ -33,23 +33,20 @@ interface IncomeType {
 }
 
 export interface SponsorType {
-    id: string
-    file_number: string
+    name: string
     phone_number: string
-    sponsorship_type: string
+    sponsor_type: string
     birth_date: string
     father_name: string
     mother_name: string
-    birth_certificate: string
+    birth_certificate_number: string
     academic_level: string
     function: string
     health_status: string
     diploma: string
-    ccp: string
-    gender: 'male' | 'female'
-    birth_certificate_number: string
     card_number: string
-    sponsor_type: string
+    ccp: string
+    id: string
     incomes: IncomeType
 }
 

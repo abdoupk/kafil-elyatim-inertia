@@ -12,7 +12,7 @@ import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vu
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 
-import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import { allowOnlyNumbersOnKeyDown, formatCurrency } from '@/utils/helper'
 
 defineProps<{ form: Form<CreateFamilyForm> }>()
 
@@ -29,7 +29,7 @@ const account = defineModel('account')
 const other_income = defineModel('other_income')
 
 const totalIncome = computed(() => {
-    let a =
+    let totalIncome =
         Number(cnr.value) +
         Number(cnas.value) +
         Number(casnos.value) +
@@ -37,7 +37,7 @@ const totalIncome = computed(() => {
         Number(other_income.value) +
         Number(account.value)
 
-    return new Intl.NumberFormat('ar-DZ', { style: 'currency', currency: 'DZD' }).format(a)
+    return formatCurrency(totalIncome)
 })
 
 const items = ref<Record<keyof IncomeType, boolean>>({

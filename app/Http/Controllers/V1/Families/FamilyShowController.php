@@ -15,7 +15,7 @@ class FamilyShowController extends Controller
         ray(FamilyShowResource::make($family->load(['zone', 'orphans', 'furnishings', 'housing', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships', 'preview', 'deceased'])));
 
         return Inertia::render('Tenant/families/details/FamilyDetailPage', [
-            'family' => FamilyShowResource::make($family->load(['zone', 'orphans', 'furnishings', 'housing', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships', 'preview', 'deceased'])),
+            'family' => FamilyShowResource::make($family->load(['zone', 'orphans', 'furnishings', 'housing', 'sponsor.incomes', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships', 'preview', 'deceased'])),
         ]);
     }
 }

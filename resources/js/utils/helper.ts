@@ -218,10 +218,39 @@ const formatDate = (date: string, dateStyle: 'full' | 'long' | 'medium' | 'short
     }).format(new Date(date))
 }
 
+const formatCurrency = (amount) => {
+    return new Intl.NumberFormat(`${getLocale()}-DZ`, { style: 'currency', currency: 'DZD' }).format(amount)
+}
+
+const handleSponsorship = (sponsorshipValue: string) => {
+    if (sponsorshipValue === '0') {
+        return 'no'
+    }
+
+    if (sponsorshipValue === '1') {
+        return 'yes'
+    }
+
+    const parsedValue = parseFloat(sponsorshipValue)
+
+    if (!isNaN(parsedValue)) {
+        return formatCurrency(parsedValue)
+    } else {
+        return sponsorshipValue
+    }
+}
+
+const handleFurnishings = (sponsorshipValue) => {
+    return sponsorshipValue
+}
+
 export {
     isEqual,
     formatDate,
     isAssociationNameLatin,
+    handleSponsorship,
+    handleFurnishings,
+    formatCurrency,
     handleSort,
     omit,
     toRaw,
