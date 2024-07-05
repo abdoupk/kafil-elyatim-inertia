@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -140,5 +141,10 @@ class Orphan extends Model
     public function academicAchievements(): HasMany
     {
         return $this->hasMany(AcademicAchievement::class);
+    }
+
+    public function needs(): MorphMany
+    {
+        return $this->morphMany(Need::class, 'needable');
     }
 }

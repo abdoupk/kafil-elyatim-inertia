@@ -1,4 +1,4 @@
-\App\Enums\Theme::cases()<?php
+<?php
 
 use App\Enums\Appearance;
 use App\Enums\ColorScheme;
@@ -19,10 +19,10 @@ return new class extends Migration
         Schema::create('settings', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained();
-            $table->enum('theme', Theme::cases());
-            $table->enum('appearance', Appearance::cases());
-            $table->enum('color_scheme', ColorScheme::cases());
-            $table->enum('layout', Layout::cases());
+            //            $table->enum('theme', Theme::cases());
+            //            $table->enum('appearance', Appearance::cases());
+            //            $table->enum('color_scheme', ColorScheme::cases());
+            //            $table->enum('layout', Layout::cases());
             $table->json('notifications')->nullable();
             $table->timestamps();
         });
