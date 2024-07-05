@@ -38,6 +38,8 @@ const params = reactive<IndexParams>({
 
 const search = ref(props.params.search)
 
+const zonesStore = useZonesStore()
+
 const deleteModalStatus = ref<boolean>(false)
 
 const createEditModalStatus = ref<boolean>(false)
@@ -94,8 +96,6 @@ const deleteZone = () => {
         }
     })
 }
-
-const zonesStore = useZonesStore()
 
 const showEditModal = async (zoneId: string) => {
     selectedZoneId.value = zoneId

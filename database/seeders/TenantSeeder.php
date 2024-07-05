@@ -49,17 +49,19 @@ class TenantSeeder extends Seeder
                 'domain' => $tenant?->domain,
             ]);
 
-            Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
+            $zones = Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
 
-            User::factory(10)->create([
-                'tenant_id' => $tenant?->id,
-            ]);
-
-            Branch::factory(random_int(1, 6))->create([
+            $branches = Branch::factory(random_int(1, 6))->create([
                 'tenant_id' => $tenant?->id,
                 'president_id' => User::inRandomOrder()->whereTenantId(
                     $tenant?->id
                 )->first()?->id,
+            ]);
+
+            User::factory(10)->create([
+                'tenant_id' => $tenant?->id,
+                'branch_id' => $branches->random()?->id,
+                'zone_id' => $zones->random()?->id,
             ]);
 
             Inventory::factory()->count(50)->create([

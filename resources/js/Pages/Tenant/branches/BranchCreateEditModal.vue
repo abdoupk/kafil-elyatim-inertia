@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-// Import necessary dependencies and components
+/* eslint-disable vue/no-parsing-error */
 import type { MembersType } from '@/types/types'
 
 import { useBranchesStore } from '@/stores/branches'
 import { router } from '@inertiajs/vue3'
-import { computed, ref, watch } from 'vue'
+import { useForm } from 'laravel-precognition-vue'
+import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
@@ -18,7 +19,6 @@ import CitySelector from '@/Components/Global/CitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
 
-// Define props
 defineProps<{
     open: boolean
     members: MembersType
@@ -30,10 +30,18 @@ const branchesStore = useBranchesStore()
 // Initialize a ref for loading state
 const loading = ref(false)
 
+const form = computed(() => {
+    if (branchesStore.branch.id) {
+        return useForm('put', route('tenant.branches.update', branchesStore.branch.id), { ...branchesStore.branch })
+    }
+
+    return useForm('post', route('tenant.branches.store'), { ...branchesStore.branch })
+})
+
 // Define custom event emitter for 'close' event
 const emit = defineEmits(['close'])
 
-// Function to handle success and close the modal after a delay
+// Function to handle success and close the slideover after a delay
 const handleSuccess = () => {
     setTimeout(() => {
         router.get(
@@ -54,45 +62,23 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        if (branchesStore.branch.id) {
-            await branchesStore.updateBranch()
-        } else {
-            await branchesStore.createBranch()
-        }
-
-        handleSuccess()
+        await form.value.submit().then(handleSuccess)
     } finally {
         loading.value = false
     }
 }
 
-// Compute the modal title based on the branch id
+// Compute the slideover title based on the branch id
 const modalTitle = computed(() => {
-    return branchesStore.branch.id ? __('update branch') : n__('add new', 0, { attribute: __('branch') })
+    return branchesStore.branch.id ? __('update branch') : n__('add new', 1, { attribute: __('branch') })
 })
 
 // Initialize a ref for the first input element
 const firstInputRef = ref<HTMLElement>()
 
-// Compute the modal type based on the branch id
+// Compute the slideover type based on the branch id
 const modalType = computed(() => {
     return branchesStore.branch.id ? 'update' : 'create'
-})
-
-// Compute the form based on the branch id
-const form = computed(() => {
-    if (branchesStore.branch.id) {
-        return branchesStore.getUpdateBranchForm
-    }
-
-    return branchesStore.getCreateBranchForm
-})
-
-// Watch for changes in the form and reset if no branch id
-watch(form, (value) => {
-    if (!branchesStore.branch.id) {
-        value.reset()
-    }
 })
 </script>
 
@@ -131,7 +117,7 @@ watch(form, (value) => {
                 <base-form-label for="created_at">
                     {{ $t('validation.attributes.created_at') }}
                 </base-form-label>
-                {{ new Date().toDateString() }}
+
                 <base-v-calendar v-model:date="form.created_at"></base-v-calendar>
 
                 <base-form-input-error>
@@ -150,21 +136,20 @@ watch(form, (value) => {
                     {{ $t('branch_president') }}
                 </base-form-label>
 
-                <div>
-                    <base-vue-select
-                        :options="members"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
+                <!-- TODO: fetch the members and map them to the vue-select -->
+                <base-vue-select
+                    :options="members"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
+                    label="name"
+                    track-by="name"
+                    @update:value="
                             (value) => {
                                 form.president_id = value.id
 
                                 form.validate('president_id')
                             }
                         "
-                    ></base-vue-select>
-                </div>
+                ></base-vue-select>
 
                 <base-form-input-error>
                     <div
@@ -176,7 +161,7 @@ watch(form, (value) => {
                     </div>
                 </base-form-input-error>
             </div>
-            {{ form.city_id }}
+
             <div class="col-span-12">
                 <city-selector
                     :error-message="form.errors.city_id"
