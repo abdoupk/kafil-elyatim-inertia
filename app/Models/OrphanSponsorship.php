@@ -58,6 +58,8 @@ class OrphanSponsorship extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'orphan_id',
         'medical_sponsorship',
@@ -69,8 +71,6 @@ class OrphanSponsorship extends Model
         'school_bag',
         'tenant_id',
     ];
-
-    public $timestamps = false;
 
     protected $table = 'orphan_sponsorship';
 

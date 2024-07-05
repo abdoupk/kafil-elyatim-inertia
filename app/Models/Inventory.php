@@ -56,15 +56,15 @@ class Inventory extends Model
         'note',
     ];
 
+    public function searchableAs(): string
+    {
+        return 'inventory';
+    }
+
     protected function casts(): array
     {
         return [
             'tenant_id' => 'string',
         ];
-    }
-
-    public function searchableAs(): string
-    {
-        return 'inventory';
     }
 }

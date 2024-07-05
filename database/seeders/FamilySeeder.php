@@ -36,11 +36,18 @@ class FamilySeeder extends Seeder
                     ]);
 
                     for ($j = 0; $j < random_int(2, 6); $j++) {
-                        Orphan::factory()->create([
-                            'tenant_id' => $tenant->id,
-                            'family_id' => $family?->id,
-                            'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
-                        ]);
+                        Orphan::factory()
+                            ->hasAcademicAchievements(3, function (array $attributes, Orphan $orphan) {
+                                return [
+                                    'tenant_id' => $orphan->tenant_id,
+                                    'orphan_id' => $orphan->id,
+                                ];
+                            })
+                            ->create([
+                                'tenant_id' => $tenant->id,
+                                'family_id' => $family?->id,
+                                'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
+                            ]);
                     }
 
                     SecondSponsor::factory()->create([

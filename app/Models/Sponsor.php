@@ -100,6 +100,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Sponsor withTrashed()
  * @method static Builder|Sponsor withoutTrashed()
  *
+ * @property-read User $creator
+ *
  * @mixin Eloquent
  */
 class Sponsor extends Model
@@ -137,21 +139,9 @@ class Sponsor extends Model
         return $this->hasOne(Income::class);
     }
 
-    protected function casts(): array
-    {
-        return [
-            'birth_date' => 'date',
-        ];
-    }
-
     public function sponsorships(): HasOne
     {
         return $this->hasOne(SponsorSponsorship::class);
-    }
-
-    public function getName(): string
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 
     public function toSearchableArray(): array
@@ -175,8 +165,20 @@ class Sponsor extends Model
         ];
     }
 
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
     }
 }

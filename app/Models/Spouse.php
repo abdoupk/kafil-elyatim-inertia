@@ -60,16 +60,16 @@ class Spouse extends Model
         'tenant_id',
     ];
 
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     protected function casts(): array
     {
         return [
             'birth_date' => 'date',
             'death_date' => 'date',
         ];
-    }
-
-    public function getName(): string
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 }

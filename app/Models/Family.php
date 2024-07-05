@@ -81,6 +81,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read int|null $orphans_sponsorships_count
  * @property-read Collection<int, SponsorSponsorship> $sponsorSponsorships
  * @property-read int|null $sponsor_sponsorships_count
+ * @property-read Branch|null $branch
  *
  * @mixin Eloquent
  */

@@ -245,3 +245,47 @@ export const createFamilyStepFourErrorProps = ['housing', 'furnishings']
 export const createFamilyStepSixErrorProps = ['report', 'preview_date', 'inspectors_members']
 
 export const createFamilyStepFiveErrorProps = ['sponsorship']
+
+export const academicLevels = [
+    {
+        phase: 'الطور الابتدائي',
+        levels: [
+            'الاولى ابتدائي',
+            'الثانية ابتدائي',
+            'الثالثة ابتدائي',
+            'الرابعة ابتدائي',
+            'الخامسة ابتدائي'
+        ]
+    },
+    {
+        phase: ' الطور المتوسط',
+        levels: [
+            'الاولى المتوسط',
+            'الثانية المتوسط',
+            'الثالثة المتوسط',
+            'الرابعة المتوسط'
+        ]
+    }, {
+        phase: ' الطور الثانوي',
+        levels: [
+            'الاولى ثانوي',
+            'الثانية ثانوي',
+            'الثالثة ثانوي'
+        ]
+    },
+    {
+        phase: ' الطور الجامعي',
+        levels: [
+            'الاولى ليسانس',
+            'الثانية ليسانس',
+            'الثالثة ليسانس',
+            'الاولى ماستر',
+            'الثانية ماستر',
+            'الاولى دكتوراة',
+            'الثانية دكتوراة',
+            'الثالثة دكتوراة',
+            'الرابعة دكتوراة',
+            'الخامسة دكتوراة'
+        ]
+    }
+]

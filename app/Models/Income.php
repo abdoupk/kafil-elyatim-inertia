@@ -57,6 +57,8 @@ class Income extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'cnr',
         'cnas',
@@ -67,8 +69,6 @@ class Income extends Model
         'sponsor_id',
         'tenant_id',
     ];
-
-    public $timestamps = false;
 
     public function sponsor(): BelongsTo
     {

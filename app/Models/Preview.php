@@ -61,15 +61,6 @@ class Preview extends Model
         'tenant_id',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'preview_date' => 'date',
-            'family_id' => 'string',
-            'tenant_id' => 'string',
-        ];
-    }
-
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
@@ -78,5 +69,14 @@ class Preview extends Model
     public function inspectors(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'member_preview', 'preview_id', 'user_id')->using(MemberPreview::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'preview_date' => 'date',
+            'family_id' => 'string',
+            'tenant_id' => 'string',
+        ];
     }
 }

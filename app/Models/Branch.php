@@ -59,14 +59,6 @@ class Branch extends Model
 
     protected $fillable = ['name', 'president_id', 'city_id', 'created_at'];
 
-    protected function casts(): array
-    {
-        return [
-            'id' => 'string',
-            'tenant_id' => 'string',
-        ];
-    }
-
     public function president(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -80,5 +72,13 @@ class Branch extends Model
     public function families(): HasMany
     {
         return $this->hasMany(Family::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'id' => 'string',
+            'tenant_id' => 'string',
+        ];
     }
 }

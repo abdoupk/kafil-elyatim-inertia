@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
@@ -97,13 +98,6 @@ class Orphan extends Model
         'deleted_at',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'birth_date' => 'date',
-        ];
-    }
-
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
@@ -112,11 +106,6 @@ class Orphan extends Model
     public function sponsorships(): HasOne
     {
         return $this->hasOne(OrphanSponsorship::class);
-    }
-
-    public function getName(): string
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 
     public function toSearchableArray(): array
@@ -134,5 +123,22 @@ class Orphan extends Model
             'tenant_id' => $this->tenant_id,
             'family_id' => $this->family_id,
         ];
+    }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
+    }
+
+    public function academicAchievements(): HasMany
+    {
+        return $this->hasMany(AcademicAchievement::class);
     }
 }

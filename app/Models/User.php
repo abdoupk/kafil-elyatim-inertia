@@ -189,6 +189,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     public function previews(): BelongsToMany
     {
         return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
@@ -205,10 +210,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function getName(): string
-    {
-        return $this->first_name.' '.$this->last_name;
     }
 }
