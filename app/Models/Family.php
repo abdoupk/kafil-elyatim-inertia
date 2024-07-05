@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -137,9 +138,9 @@ class Family extends Model
         return $this->hasManyThrough(OrphanSponsorship::class, Orphan::class);
     }
 
-    public function sponsorSponsorships(): HasManyThrough
+    public function sponsorSponsorships(): HasOneThrough
     {
-        return $this->hasManyThrough(SponsorSponsorship::class, Sponsor::class);
+        return $this->hasOneThrough(SponsorSponsorship::class, Sponsor::class);
     }
 
     public function deceased(): HasOne

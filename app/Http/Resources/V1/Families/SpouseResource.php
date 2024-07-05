@@ -13,8 +13,7 @@ class SpouseResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
+            'name' => $this->getName(),
             'birth_date' => $this->birth_date,
             'death_date' => $this->death_date,
             'function' => $this->function,

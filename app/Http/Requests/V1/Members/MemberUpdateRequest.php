@@ -3,6 +3,7 @@
 namespace App\Http\Requests\V1\Members;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
 class MemberUpdateRequest extends FormRequest
@@ -13,8 +14,10 @@ class MemberUpdateRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'gender' => 'required|in:male,female',
-            'email' => 'required|email|unique:users,email',
-            'phone' => ['required', 'regex:/^(06|07|05)\d{8}$/', 'unique:users,phone'],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($this->email, 'email'),
+            ],
+            'phone' => ['required', 'regex:/^(06|07|05)\d{8}$/', Rule::unique('users')->ignore($this->phone, 'phone'),
+            ],
             'zone_id' => 'required|exists:zones,id',
             'branch_id' => 'required|exists:branches,id',
             'password' => ['required', Password::defaults(), 'confirmed'],

@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { PreviewType } from '@/types/families'
+
+defineProps<{ preview: PreviewType }>()
+</script>
 
 <template>
     <!-- BEGIN: Sponsor Information -->

@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { HousingType } from '@/types/families'
+
+defineProps<{ housing: HousingType }>()
+</script>
 
 <template>
     <!-- BEGIN: Sponsor Information -->

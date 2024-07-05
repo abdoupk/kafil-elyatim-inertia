@@ -14,9 +14,7 @@ class SponsorResource extends JsonResource
         return [
             'id' => $this->id,
             'file_number' => $this->file_number,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name,
-            'address' => $this->address,
+            //            'name' => $this->getName(),
             'phone_number' => $this->phone_number,
             'sponsorship_type' => $this->sponsorship_type,
             'birth_date' => $this->birth_date,
@@ -38,7 +36,7 @@ class SponsorResource extends JsonResource
             'birth_certificate_number' => $this->birth_certificate_number,
             'card_number' => $this->card_number,
             'sponsor_type' => $this->sponsor_type,
-            'incomes' => $this->whenLoaded('incomes'),
+            'incomes' => new IncomeResource($this->whenLoaded('incomes')),
         ];
     }
 }

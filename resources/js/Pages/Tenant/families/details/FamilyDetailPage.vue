@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { FamilyShowType } from '@/types/families'
+
 import { provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
@@ -19,7 +21,7 @@ defineOptions({
     layout: TheLayout
 })
 
-const props = defineProps<{ family: object }>()
+defineProps<{ family: FamilyShowType }>()
 
 const view = ref('sponsor_information')
 
@@ -27,12 +29,9 @@ function updateView(newValue: string) {
     view.value = newValue
 }
 
-provide('familyDetailView', {
-    view,
-    updateView
-})
-
-console.log(props.family)
+// eslint-disable-next-line capitalized-comments
+// noinspection JSUnusedGlobalSymbols
+provide('familyDetailView', { view, updateView })
 </script>
 
 <template>
@@ -46,25 +45,47 @@ console.log(props.family)
             <div class="grid grid-cols-12 gap-6">
                 <the-general-information v-if="view === 'general_information'"></the-general-information>
 
-                <the-sponsor-information v-if="view === 'sponsor_information'"></the-sponsor-information>
+                <the-sponsor-information
+                    v-if="view === 'sponsor_information'"
+                    :sponsor="family.sponsor"
+                ></the-sponsor-information>
 
-                <the-housing-information v-if="view === 'housing_information'"></the-housing-information>
+                <the-housing-information
+                    v-if="view === 'housing_information'"
+                    :housing="family.housing"
+                ></the-housing-information>
 
                 <the-second-sponsor-information
                     v-if="view === 'second_sponsor_information'"
+                    :second-sponsor="family.second_sponsor"
                 ></the-second-sponsor-information>
 
-                <the-orphans-information v-if="view === 'orphans_information'"></the-orphans-information>
+                <the-orphans-information
+                    v-if="view === 'orphans_information'"
+                    :orphans="family.orphans"
+                ></the-orphans-information>
 
-                <the-report v-if="view === 'the_report'"></the-report>
+                <the-report v-if="view === 'the_report'" :preview="family.preview"></the-report>
 
-                <the-family-sponsorship v-if="view === 'family_sponsorship'"></the-family-sponsorship>
+                <the-family-sponsorship
+                    v-if="view === 'family_sponsorship'"
+                    :sponsor-ship="family.family_sponsorships"
+                ></the-family-sponsorship>
 
-                <the-sponsor-sponsorship v-if="view === 'sponsor_sponsorship'"></the-sponsor-sponsorship>
+                <the-sponsor-sponsorship
+                    v-if="view === 'sponsor_sponsorship'"
+                    :sponsor-ship="family.sponsor_sponsorships"
+                ></the-sponsor-sponsorship>
 
-                <the-orphans-sponsorship v-if="view === 'orphans_sponsorship'"></the-orphans-sponsorship>
+                <the-orphans-sponsorship
+                    v-if="view === 'orphans_sponsorship'"
+                    :sponsor-ships="family.orphans_sponsorships"
+                ></the-orphans-sponsorship>
 
-                <the-spouse-information v-if="view === 'spouse_information'"></the-spouse-information>
+                <the-spouse-information
+                    v-if="view === 'spouse_information'"
+                    :spouse="family.spouse"
+                ></the-spouse-information>
             </div>
         </div>
     </div>

@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { OrphanType } from '@/types/families'
+
+defineProps<{ orphans: OrphanType[] }>()
+</script>
 
 <template>
     <!-- BEGIN: Sponsor Information -->

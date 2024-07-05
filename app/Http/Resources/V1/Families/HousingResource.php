@@ -18,14 +18,6 @@ class HousingResource extends JsonResource
             'housing_receipt_number' => $this->housing_receipt_number,
             'number_of_rooms' => $this->number_of_rooms,
             'other_properties' => $this->other_properties,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
-            'family_id' => $this->family_id,
-            'tenant_id' => $this->tenant_id,
-
-            'family' => new FamilyShowResource($this->whenLoaded('family')),
-            'family' => new FamilyShowResource($this->whenLoaded('family')),
         ];
     }
 }

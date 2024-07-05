@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { SpouseType } from '@/types/families'
+
+defineProps<{ spouse: SpouseType }>()
+</script>
 
 <template>
     <!-- BEGIN: Sponsor Information -->

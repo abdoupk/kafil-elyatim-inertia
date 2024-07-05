@@ -12,7 +12,7 @@ class FamilyShowController extends Controller
 {
     public function __invoke(Family $family): Response
     {
-        ray($family->load(['zone', 'orphans', 'furnishings', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships', 'preview', 'deceased']));
+        ray(FamilyShowResource::make($family->load(['zone', 'orphans', 'furnishings', 'housing', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships', 'preview', 'deceased'])));
 
         return Inertia::render('Tenant/families/details/FamilyDetailPage', [
             'family' => FamilyShowResource::make($family->load(['zone', 'orphans', 'furnishings', 'housing', 'secondSponsor', 'furnishings', 'sponsorships', 'orphansSponsorships', 'sponsorSponsorships', 'preview', 'deceased'])),

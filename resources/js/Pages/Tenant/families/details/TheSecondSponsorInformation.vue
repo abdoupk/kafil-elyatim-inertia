@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { SecondSponsorType } from '@/types/families'
+
+defineProps<{ secondSponsor: SecondSponsorType }>()
+</script>
 
 <template>
     <!-- BEGIN: Sponsor Information -->

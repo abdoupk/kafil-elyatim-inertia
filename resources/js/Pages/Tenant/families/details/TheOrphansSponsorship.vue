@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { OrphanSponsorshipType } from '@/types/families'
+
+defineProps<{ sponsorShips: OrphanSponsorshipType[] }>()
+</script>
 
 <template>
     <!-- BEGIN: Sponsor Information -->
