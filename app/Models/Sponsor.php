@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -186,5 +187,10 @@ class Sponsor extends Model
     public function needs(): MorphMany
     {
         return $this->morphMany(Need::class, 'needable');
+    }
+
+    public function orphans(): HasMany
+    {
+        return $this->hasMany(Orphan::class);
     }
 }

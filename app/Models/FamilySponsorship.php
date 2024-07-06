@@ -77,7 +77,7 @@ class FamilySponsorship extends Model
 
     public function searchableAs(): string
     {
-        return 'family_sponsorship';
+        return 'family_sponsorships';
     }
 
     public function makeSearchableUsing(Collection $models): Collection
@@ -94,10 +94,12 @@ class FamilySponsorship extends Model
             'housing_assistance' => $this->housing_assistance,
             'eid_al_adha' => $this->eid_al_adha,
             'family' => [
-                'name' => $this->family->name,
-                'phone_number' => $this->family->sponsor->phone_number,
                 'address' => $this->family->address,
                 'zone' => $this->family->zone->name,
+            ],
+            'sponsor' => [
+                'name' => $this->family->sponsor->getName(),
+                'phone_number' => $this->family->sponsor->phone_number,
             ],
         ];
     }

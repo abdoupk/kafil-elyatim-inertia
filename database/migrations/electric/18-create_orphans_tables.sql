@@ -14,6 +14,7 @@ create table if not exists orphans
     "note"           text                           null,
     "tenant_id"      text                           not null references tenants (id) on delete cascade,
     "family_id"      uuid                           not null references families (id),
+    "sponsor_id"     uuid                           not null references sponsors (id),
     "created_by"     uuid                           not null references users (id),
     "deleted_by"     uuid                           null references users (id),
     "created_at"     timestamp(0) without time zone null,

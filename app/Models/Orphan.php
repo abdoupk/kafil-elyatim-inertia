@@ -94,6 +94,7 @@ class Orphan extends Model
         'note',
         'tenant_id',
         'family_id',
+        'sponsor_id',
         'created_by',
         'deleted_by',
         'deleted_at',
@@ -102,6 +103,11 @@ class Orphan extends Model
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
+    }
+
+    public function sponsor(): BelongsTo
+    {
+        return $this->belongsTo(Sponsor::class);
     }
 
     public function sponsorships(): HasOne

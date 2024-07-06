@@ -5,10 +5,12 @@ namespace App\Models;
 use Database\Factories\OrphanSponsorshipFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -56,7 +58,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class OrphanSponsorship extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable;
 
     public $timestamps = false;
 
@@ -77,5 +79,36 @@ class OrphanSponsorship extends Model
     public function orphan(): BelongsTo
     {
         return $this->belongsTo(Orphan::class);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'orphan_sponsorships';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load('orphan');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'medical_sponsorship' => $this->medical_sponsorship,
+            'university_scholarship' => $this->university_scholarship,
+            'association_trips' => $this->association_trips,
+            'summer_camp' => $this->summer_camp,
+            'eid_suit' => $this->eid_suit,
+            'private_lessons' => $this->private_lessons,
+            'school_bag' => $this->school_bag,
+            'family' => [
+                'address' => $this->orphan->family->address,
+                'zone' => $this->orphan->family->zone->name,
+            ],
+            'sponsor' => [
+                'name' => $this->orphan->sponsor->getName(),
+                'phone_number' => $this->orphan->sponsor->phone_number,
+            ],
+        ];
     }
 }

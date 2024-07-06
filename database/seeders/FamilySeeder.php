@@ -28,11 +28,23 @@ class FamilySeeder extends Seeder
                         'tenant_id' => $tenant->id,
                         'branch_id' => Branch::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
                         'zone_id' => Zone::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
+                        'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()->id,
                     ]);
 
                     Spouse::factory()->create([
                         'tenant_id' => $tenant->id,
                         'family_id' => $family->id,
+                    ]);
+
+                    SecondSponsor::factory()->create([
+                        'tenant_id' => $tenant->id,
+                        'family_id' => $family->id,
+                    ]);
+
+                    $sponsor = Sponsor::factory()->create([
+                        'tenant_id' => $tenant->id,
+                        'family_id' => $family->id,
+                        'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
                     ]);
 
                     for ($j = 0; $j < random_int(2, 6); $j++) {
@@ -47,19 +59,9 @@ class FamilySeeder extends Seeder
                                 'tenant_id' => $tenant->id,
                                 'family_id' => $family?->id,
                                 'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
+                                'sponsor_id' => $sponsor->id,
                             ]);
                     }
-
-                    SecondSponsor::factory()->create([
-                        'tenant_id' => $tenant->id,
-                        'family_id' => $family->id,
-                    ]);
-
-                    Sponsor::factory()->create([
-                        'tenant_id' => $tenant->id,
-                        'family_id' => $family->id,
-                        'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
-                    ]);
                 }
             });
     }
