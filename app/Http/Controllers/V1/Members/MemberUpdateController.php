@@ -13,7 +13,9 @@ class MemberUpdateController extends Controller
 {
     public function __invoke(MemberUpdateRequest $request, User $member): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
-        $member->update($request->validated());
+        $member->update($request->except(['roles', 'formatted_roles', 'zone', 'branch', 'id']));
+
+        $member->syncRoles($request->roles);
 
         return response('', 201);
     }

@@ -4,7 +4,6 @@ namespace App\Http\Requests\V1\Members;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
 class MemberUpdateRequest extends FormRequest
 {
@@ -20,7 +19,6 @@ class MemberUpdateRequest extends FormRequest
             ],
             'zone_id' => 'required|exists:zones,id',
             'branch_id' => 'required|exists:branches,id',
-            'password' => ['required', Password::defaults(), 'confirmed'],
             'qualification' => 'required|string',
             'roles' => 'array|min:1',
             'roles.*' => 'required|exists:roles,uuid',
