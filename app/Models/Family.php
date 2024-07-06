@@ -207,6 +207,11 @@ class Family extends Model
         ];
     }
 
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     protected function casts(): array
     {
         return [

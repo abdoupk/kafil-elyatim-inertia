@@ -143,6 +143,11 @@ class Orphan extends Model
         return $this->hasMany(AcademicAchievement::class);
     }
 
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     public function needs(): MorphMany
     {
         return $this->morphMany(Need::class, 'needable');

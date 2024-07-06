@@ -143,12 +143,12 @@ const modalType = computed(() => {
                     label="name"
                     track-by="name"
                     @update:value="
-                            (value) => {
-                                form.president_id = value.id
+                        (value) => {
+                            form.president_id = value.id
 
-                                form.validate('president_id')
-                            }
-                        "
+                            form.validate('president_id')
+                        }
+                    "
                 ></base-vue-select>
 
                 <base-form-input-error>

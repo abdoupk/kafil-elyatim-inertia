@@ -21,11 +21,9 @@ defineOptions({
     layout: TheLayout
 })
 
-const props = defineProps<{ family: FamilyShowType }>()
+defineProps<{ family: FamilyShowType }>()
 
 const view = ref('general_information')
-
-console.log(props.family)
 
 function updateView(newValue: string) {
     view.value = newValue
