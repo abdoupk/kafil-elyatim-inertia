@@ -69,6 +69,7 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-shelves'
+    | 'icon-triangle-exclamation'
     | 'icon-memo-circle-info'
     | 'icon-handshake-angle'
     | 'icon-hands-holding-heart'
@@ -262,6 +263,26 @@ export interface FamiliesIndexResource {
     file_number: number
     zone: Zone
     address: string
+}
+
+export interface EidAlAdhaFamiliesResource {
+    id: string
+    address: string
+    zone: {
+        id: string
+        name: string
+    }
+    branch: {
+        id: string
+        name: string
+    }
+    sponsor: {
+        id: string
+        name: string
+        phone_number: string
+    }
+    orphans_count: number
+    total_income: number
 }
 
 export interface InventoryIndexResource {

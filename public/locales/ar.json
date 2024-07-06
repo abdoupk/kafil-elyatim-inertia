@@ -40,6 +40,8 @@
     "breadcrumb.show": "تفاصيل",
     "breadcrumb.users": "الاعضاء",
     "breadcrumb.inventory": "المخزن",
+    "breadcrumb.occasions": "المناسبات",
+    "breadcrumb.eid-al-adha": "عيد الاضحى",
     "furnishings.television": "تلفاز",
     "furnishings.refrigerator": "ثلاجة",
     "furnishings.fireplace": "مِدْفَأَة",
@@ -630,5 +632,6 @@
     "furnishings information": "معلومات عن الاثاث",
     "family details": "تفاصيل العائلة",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "children_count": "عدد الاطفال"
 }

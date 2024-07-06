@@ -219,4 +219,9 @@ class Family extends Model
             'preview_date' => 'date',
         ];
     }
+
+    public function totalIncomes(): float
+    {
+        return (float) number_format($this->sponsor->incomes->total_income, 2);
+    }
 }

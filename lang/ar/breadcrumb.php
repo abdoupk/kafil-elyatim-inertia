@@ -17,4 +17,6 @@ return [
     'show' => 'تفاصيل',
     'users' => 'الاعضاء',
     'inventory' => 'المخزن',
+    'occasions' => 'المناسبات',
+    'eid-al-adha' => 'عيد الاضحى',
 ];

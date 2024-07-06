@@ -82,7 +82,7 @@ class FamilySponsorship extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('family');
+        return $models->load('family.sponsor.incomes', 'family.zone', 'family.orphans', 'family.branch');
     }
 
     public function toSearchableArray(): array
@@ -96,11 +96,17 @@ class FamilySponsorship extends Model
             'family' => [
                 'address' => $this->family->address,
                 'zone' => $this->family->zone->name,
+                'branch' => $this->family->branch->name,
+                'orphans_count' => $this->family->orphans->count(),
             ],
             'sponsor' => [
                 'name' => $this->family->sponsor->getName(),
                 'phone_number' => $this->family->sponsor->phone_number,
             ],
+            'tenant_id' => $this->tenant_id,
+            'created_at' => $this->created_at,
+            //TODO: add orphans income and second sponsor
+            'total_income' => $this->family->totalIncomes(),
         ];
     }
 }

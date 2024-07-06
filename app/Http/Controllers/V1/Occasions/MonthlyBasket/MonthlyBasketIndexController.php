@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\Occasions;
+namespace App\Http\Controllers\V1\Occasions\MonthlyBasket;
 
 use App\Http\Controllers\Controller;
 use Inertia\Inertia;

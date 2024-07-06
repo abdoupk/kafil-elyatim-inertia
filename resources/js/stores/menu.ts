@@ -98,8 +98,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-ram',
                         title: __('eid_el_adha'),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
+                        routeName: 'tenant.occasions.eid-al-adha.index',
+                        url: route('tenant.occasions.eid-al-adha.index')
                     },
                     {
                         icon: 'icon-backpack',

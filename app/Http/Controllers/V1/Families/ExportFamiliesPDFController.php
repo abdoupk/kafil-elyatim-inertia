@@ -16,7 +16,7 @@ class ExportFamiliesPDFController extends Controller
      */
     public function __invoke(FamiliesIndexRequest $request): StreamedResponse
     {
-        return saveToPDF('families', function () {
+        return saveToPDF('families', 'families', function () {
             return getFamilies();
         });
     }

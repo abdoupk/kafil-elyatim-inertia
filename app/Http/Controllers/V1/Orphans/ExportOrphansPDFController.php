@@ -16,7 +16,7 @@ class ExportOrphansPDFController extends Controller
      */
     public function __invoke(OrphansIndexRequest $request): StreamedResponse
     {
-        return saveToPDF('orphans', function () {
+        return saveToPDF('orphans', 'orphans', function () {
             return getOrphans();
         });
     }

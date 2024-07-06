@@ -16,7 +16,7 @@ class ExportSponsorsPDFController extends Controller
      */
     public function __invoke(SponsorsIndexRequest $request): StreamedResponse
     {
-        return saveToPDF('sponsors', function () {
+        return saveToPDF('sponsors', 'sponsors', function () {
             return getSponsors();
         });
     }

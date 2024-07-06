@@ -4,14 +4,7 @@
 
 /** @noinspection NullPointerExceptionInspection */
 
-use App\Models\Branch;
-use App\Models\Family;
-use App\Models\Inventory;
-use App\Models\Orphan;
-use App\Models\Role;
-use App\Models\Sponsor;
-use App\Models\User;
-use App\Models\Zone;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
 use Spatie\Browsershot\Browsershot;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
@@ -21,7 +14,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * @throws Throwable
  * @throws CouldNotTakeBrowsershot
  */
-function saveToPDF(string $directory, callable $function): StreamedResponse
+function saveToPDF(string $directory, string $variableName, callable $function): StreamedResponse
 {
     $disk = Storage::disk('public');
 
@@ -32,7 +25,7 @@ function saveToPDF(string $directory, callable $function): StreamedResponse
     $pdfFile = "$directory/$directory-".now()->format('y-m-d').'.pdf';
     $pdfPath = $disk->path($pdfFile);
 
-    Browsershot::html(view("pdf.$directory", [$directory => $function()])
+    Browsershot::html(view("pdf.$directory", [$variableName => $function()])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()
@@ -70,12 +63,12 @@ function generateFormatedConditions(): array
     return [];
 }
 
-function generateFilterConditions(?array $_filters = []): string
+function generateFilterConditions(?string $additional_filters = ''): string
 {
-    $filters = array_merge($_filters, generateFormatedConditions());
+    $filters = array_merge(generateFormatedConditions());
 
     if (! $filters) {
-        return 'tenant_id = '.tenant('id');
+        return 'tenant_id = '.tenant('id').' '.$additional_filters;
     }
 
     return implode(' AND ', array_map(static function ($condition) {
@@ -97,15 +90,14 @@ function generateFormattedSort(): array
     return ['created_at:desc'];
 }
 
-function search(Inventory|User|Family|Branch|Orphan|Sponsor|Role|Zone $model, ?array $filters = []): Builder
+function search(Model $model, ?string $additional_filters = ''): Builder
 {
-    $query = request()->input('search', '');
+    $query = trim(request()->input('search', '')) ?? '';
     $meilisearchOptions = [
-        'filter' => generateFilterConditions($filters),
+        'filter' => generateFilterConditions($additional_filters),
         'sort' => generateFormattedSort(),
     ];
 
-    // @phpstan-ignore-next-line
     return $model::search($query, static function ($meilisearch, string $query, array $options) use ($meilisearchOptions) {
         return $meilisearch->search($query, $options + $meilisearchOptions);
     });
