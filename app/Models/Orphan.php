@@ -169,4 +169,13 @@ class Orphan extends Model
     {
         return $this->morphMany(Need::class, 'needable');
     }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::updated(function ($orphan) {
+            $orphan->sponsorships->searchable();
+        });
+    }
 }

@@ -224,4 +224,13 @@ class Family extends Model
     {
         return (float) $this->sponsor->incomes->total_income;
     }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::updated(function (Family $family) {
+            $family->sponsorships->searchable();
+        });
+    }
 }

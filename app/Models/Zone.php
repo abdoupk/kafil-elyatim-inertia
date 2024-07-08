@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
@@ -55,6 +56,11 @@ class Zone extends Model
     public function searchableAs(): string
     {
         return 'zones';
+    }
+
+    public function families(): HasMany
+    {
+        return $this->hasMany(Family::class);
     }
 
     public function toSearchableArray(): array

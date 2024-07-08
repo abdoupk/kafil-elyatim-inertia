@@ -122,6 +122,4 @@ class OrphanSponsorship extends Model
             'tenant_id' => $this->orphan->tenant_id,
         ];
     }
-
-    public function searchable() {}
 }

@@ -193,4 +193,13 @@ class Sponsor extends Model
     {
         return $this->hasMany(Orphan::class);
     }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::updated(function (Sponsor $sponsor) {
+            $sponsor->sponsorships->searchable();
+        });
+    }
 }
