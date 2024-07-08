@@ -44,3 +44,13 @@ function listOfFamiliesBenefitingFromTheRamadanBasketSponsorship(): LengthAwareP
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
 }
+
+function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginator
+{
+    return search(OrphanSponsorship::getModel(), 'AND eid_suit = true AND eid_suit IS NOT NULL')
+        ->query(fn ($query) => $query
+            ->with(['orphan.sponsor', 'orphan.family.zone'])
+        )
+        /** @phpstan-ignore-next-line */
+        ->paginate(perPage: request()?->input('perPage', 10));
+}

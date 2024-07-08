@@ -90,12 +90,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.orphan.academic_level }}
-                            <Link
-                                :href="route('tenant.zones.index')"
+                            <p
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                             >
                                 {{ orphan.orphan?.academic_phase }}
-                            </Link>
+                            </p>
                         </base-td-table>
 
                         <base-td-table

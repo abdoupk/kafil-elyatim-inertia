@@ -11,7 +11,7 @@ class EidSuitIndexController extends Controller
     public function __invoke()
     {
         return Inertia::render('Tenant/occasions/eid-suit/EidSuitIndex', [
-            'orphans' => EidSuitResource::collection(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()),
+            'orphans' => EidSuitResource::collection(listOfOrphansBenefitingFromTheEidSuitSponsorship()),
             'params' => getParams(),
         ]);
     }

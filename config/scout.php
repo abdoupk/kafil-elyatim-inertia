@@ -184,7 +184,7 @@ return [
                 'filterableAttributes' => ['id', 'medical_sponsorship', 'university_scholarship', 'association_trips', 'summer_camp',
                     'eid_suit', 'private_lessons', 'school_bag', 'tenant_id'],
                 'searchableAttributes' => ['orphan.name', 'orphan.phone_number', 'orphan.age', 'orphan.gender'],
-                'sortableAttributes' => ['created_at', 'orphan.name', 'orphan.year_average', 'orphan.academic_level', 'orphan.academic_phase', 'sponsor.name', 'family.zone'],
+                'sortableAttributes' => ['created_at', 'orphan.name', 'orphan.year_average', 'orphan.academic_level', 'orphan.academic_phase', 'sponsor.name', 'family.zone', 'orphan.shirt_size', 'orphan.pants_size', 'orphan.shoes_size'],
             ],
         ],
     ],

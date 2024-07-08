@@ -330,22 +330,25 @@ export interface SchoolEntryOrphansResource {
 
 export interface EidSuitOrphansResource {
     id: string
-    address: string
-    zone: {
-        id: string
-        name: string
-    }
-    branch: {
-        id: string
-        name: string
-    }
     sponsor: {
         id: string
         name: string
         phone_number: string
     }
-    orphans_count: number
-    total_income: number
+    family: {
+        zone: {
+            id: string
+            name: string
+        }
+        address: string
+    }
+    orphan: {
+        id: string
+        name: string
+        shoes_size: string
+        pants_size: string
+        shirt_size: string
+    }
 }
 
 export interface InventoryIndexResource {

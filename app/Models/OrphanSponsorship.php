@@ -110,7 +110,7 @@ class OrphanSponsorship extends Model
                 'name' => $this->orphan->getName(),
                 'academic_level' => $this->orphan?->lastAcademicYearAchievement?->academic_level,
                 'academic_phase' => $this->orphan?->lastAcademicYearAchievement?->academic_phase,
-                'year_average' => $this->orphan?->lastAcademicYearAchievement?->average,
+                'year_average' => (float) $this->orphan?->lastAcademicYearAchievement?->average,
                 'shirt_size' => $this->orphan->shirt_size,
                 'pants_size' => $this->orphan->pants_size,
                 'shoes_size' => $this->orphan->shoes_size,
@@ -122,4 +122,6 @@ class OrphanSponsorship extends Model
             'tenant_id' => $this->orphan->tenant_id,
         ];
     }
+
+    public function searchable() {}
 }

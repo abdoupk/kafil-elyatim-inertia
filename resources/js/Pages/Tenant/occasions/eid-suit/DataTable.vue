@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
+import type { EidSuitOrphansResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -10,7 +10,7 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 
-defineProps<{ orphans: PaginationData<SchoolEntryOrphansResource>; params: IndexParams }>()
+defineProps<{ orphans: PaginationData<EidSuitOrphansResource>; params: IndexParams }>()
 
 const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
@@ -22,6 +22,42 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <base-thead-table>
                     <base-tr-table>
                         <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.name']"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'orphan.name')"
+                        >
+                            {{ $t('the_child') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.pants_size']"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            sortable
+                            @click="emit('sort', 'orphan.pants_size')"
+                        >
+                            {{ $t('pants_size') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.shoes_size']"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            sortable
+                            @click="emit('sort', 'orphan.shoes_size')"
+                        >
+                            {{ $t('shoes_size') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.shirt_size']"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            sortable
+                            @click="emit('sort', 'orphan.shirt_size')"
+                        >
+                            {{ $t('shirt_size') }}
+                        </base-th-table>
 
                         <base-th-table
                             :direction="params.directions && params.directions['sponsor.name']"
@@ -37,37 +73,8 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-th-table>
 
                         <base-th-table
-                            :direction="params.directions && params.directions['orphan.branch']"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
-                            sortable
-                            @click="emit('sort', 'orphan.branch')"
-                        >{{ $t('the_branch') }}
-                        </base-th-table>
-
-                        <base-th-table
-                            :direction="params.directions && params.directions['orphan.zone']"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
-                            sortable
-                            @click="emit('sort', 'orphan.zone')"
                         >{{ $t('validation.attributes.address') }}
-                        </base-th-table>
-
-                        <base-th-table
-                            :direction="params.directions && params.directions['orphan.orphans_count']"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold !w-32"
-                            sortable
-                            @click="emit('sort', 'orphan.orphans_count')"
-                        >
-                            {{ $t('children_count') }}
-                        </base-th-table>
-
-                        <base-th-table
-                            :direction="params.directions?.total_income"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold !w-32"
-                            sortable
-                            @click="emit('sort', 'total_income')"
-                        >
-                            {{ $t('incomes.label.total_income') }}
                         </base-th-table>
                     </base-tr-table>
                 </base-thead-table>
@@ -78,6 +85,32 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ (orphans.meta.from ?? 0) + index }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="!min-w-24 !max-w-24 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            <Link :href="route('tenant.orphans.show', orphan.orphan.id)" class="font-medium">
+                                {{ orphan.orphan.name }}
+                            </Link>
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40  text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.orphan.pants_size }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40  text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.orphan.shoes_size }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40  text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.orphan.shirt_size }}
                         </base-td-table>
 
                         <base-td-table
@@ -97,41 +130,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-td-table
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            <Link
-                                :href="route('tenant.branches.index')"
-                                class="mt-0.5 block whitespace-nowrap truncate"
-                            >
-                                {{ orphan.branch?.name }}
-                            </Link>
-                        </base-td-table>
-
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
-                            {{ orphan.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', orphan.zone.id)-->
+                            {{ orphan.family.address }}
+                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
                             <Link
                                 :href="route('tenant.zones.index')"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                             >
-                                {{ orphan.zone?.name }}
+                                {{ orphan.family.zone?.name }}
                             </Link>
-                        </base-td-table>
-
-                        <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
-                        >
-                            <div class="whitespace-nowrap">
-                                {{ orphan.orphans_count }}
-                            </div>
-                        </base-td-table>
-
-                        <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
-                        >
-                            <div class="whitespace-nowrap">
-                                {{ orphan.total_income }}
-                            </div>
                         </base-td-table>
                     </base-tr-table>
                 </base-tbody-table>
