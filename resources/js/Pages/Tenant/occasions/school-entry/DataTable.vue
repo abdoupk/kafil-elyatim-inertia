@@ -24,28 +24,28 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
 
                         <base-th-table
-                            :direction="params.directions && params.directions['sponsor.name']"
+                            :direction="params.directions && params.directions['orphan.name']"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
-                            @click="emit('sort', 'sponsor.name')"
+                            @click="emit('sort', 'orphan.name')"
                         >
                             {{ $t('the_child') }}
                         </base-th-table>
 
                         <base-th-table
-                            :direction="params.directions && params.directions['sponsor.name']"
+                            :direction="params.directions && params.directions['orphan.academic_level']"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
-                            @click="emit('sort', 'sponsor.name')"
+                            @click="emit('sort', 'orphan.academic_level')"
                         >
                             {{ $t('academic_level') }}
                         </base-th-table>
 
                         <base-th-table
-                            :direction="params.directions && params.directions['sponsor.name']"
+                            :direction="params.directions && params.directions['orphan.year_average']"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
-                            @click="emit('sort', 'sponsor.name')"
+                            @click="emit('sort', 'orphan.year_average')"
                         >
                             {{ $t('year_average') }}
                         </base-th-table>
@@ -64,10 +64,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-th-table>
 
                         <base-th-table
-                            :direction="params.directions && params.directions['orphan.zone']"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
-                            sortable
-                            @click="emit('sort', 'orphan.zone')"
                         >{{ $t('validation.attributes.address') }}
                         </base-th-table>
                     </base-tr-table>
@@ -93,7 +90,6 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.orphan.academic_level }}
-                            <!--  TODO: change href to route('tenant.zones.show', orphan.zone.id)-->
                             <Link
                                 :href="route('tenant.zones.index')"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
