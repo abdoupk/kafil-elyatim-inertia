@@ -88,6 +88,8 @@ class Orphan extends Model
         'family_status',
         'health_status',
         'academic_level',
+        'academic_phase',
+        'academic_year',
         'shoes_size',
         'pants_size',
         'shirt_size',
@@ -120,7 +122,6 @@ class Orphan extends Model
         return [
             'name' => $this->getName(),
             'birth_date' => $this->birth_date,
-            'academic_level' => $this->academic_level,
             'health_status' => $this->health_status,
             'family_status' => $this->family_status,
             'shoes_size' => $this->shoes_size,
@@ -147,6 +148,16 @@ class Orphan extends Model
     public function academicAchievements(): HasMany
     {
         return $this->hasMany(AcademicAchievement::class);
+    }
+
+    public function lastAcademicYearAchievement(): HasOne
+    {
+        return $this->hasOne(AcademicAchievement::class, 'orphan_id')
+            ->where(function ($query) {
+                $query->whereRaw('academic_achievements.academic_year = ?', now()->year)
+                    ->orWhereRaw('academic_achievements.academic_year = ? ', now()->year - 1);
+            })
+            ->latest('academic_achievements.academic_year');
     }
 
     public function creator(): BelongsTo

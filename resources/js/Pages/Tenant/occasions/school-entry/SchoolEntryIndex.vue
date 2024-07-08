@@ -59,7 +59,7 @@ const getData = () => {
         if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
-    router.get(route('tenant.occasions.eid-al-adha.index'), data, {
+    router.get(route('tenant.occasions.school-entry.index'), data, {
         ...routerOptions,
         onBefore: () => {
             processing.value = true

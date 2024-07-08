@@ -635,5 +635,7 @@
     "family details": "تفاصيل العائلة",
     "yes": "نعم",
     "no": "لا",
-    "children_count": "عدد الاطفال"
+    "children_count": "عدد الاطفال",
+    "the_child": "الطفل",
+    "year_average": "المعدل العام"
 }

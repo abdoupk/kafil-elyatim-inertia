@@ -26,10 +26,12 @@ class AcademicAchievement extends Model
     protected $fillable = [
         'orphan_id',
         'academic_level',
+        'academic_phase',
+        'academic_year',
         'first_trimester',
         'second_trimester',
         'third_trimester',
-        'total',
+        'average',
         'first_semester',
         'second_semester',
         'tenant_id',

@@ -11,7 +11,7 @@ class SchoolEntryIndexController extends Controller
     public function __invoke()
     {
         return Inertia::render('Tenant/occasions/school-entry/SchoolEntryIndex', [
-            'orphans' => SchoolEntryResource::collection(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()),
+            'orphans' => SchoolEntryResource::collection(listOfOrphansBenefitingFromTheSchoolEntrySponsorship()),
             'params' => getParams(),
         ]);
     }

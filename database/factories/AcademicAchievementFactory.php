@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\AcademicAchievement;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Random\RandomException;
 
 class AcademicAchievementFactory extends Factory
 {
@@ -54,6 +55,9 @@ class AcademicAchievementFactory extends Factory
         ],
     ];
 
+    /**
+     * @throws RandomException
+     */
     public function definition(): array
     {
         $academicLevel = fake()->randomElement($this->academicLevels);
@@ -65,10 +69,11 @@ class AcademicAchievementFactory extends Factory
             'orphan_id' => fake()->uuid,
             'academic_level' => $academicLevelName,
             'academic_phase' => $academicLevel['phase'],
+            'academic_year' => now()->subYears(random_int(0, 3))->year,
             'first_trimester' => fake()->randomFloat(min: 3, max: 18),
             'second_trimester' => fake()->randomFloat(min: 3, max: 18),
             'third_trimester' => fake()->randomFloat(min: 3, max: 18),
-            'total' => fake()->randomFloat(min: 3, max: 18),
+            'average' => fake()->randomFloat(min: 3, max: 18),
             'first_semester' => fake()->randomFloat(min: 3, max: 18),
             'second_semester' => fake()->randomFloat(min: 3, max: 18),
             'tenant_id' => fake()->uuid,

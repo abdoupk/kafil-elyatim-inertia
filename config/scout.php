@@ -180,6 +180,12 @@ return [
                 'searchableAttributes' => ['family.address', 'family.zone', 'family.branch', 'sponsor.name', 'sponsor.phone_number', 'family.orphans_count', 'total_income'],
                 'sortableAttributes' => ['created_at', 'family.orphans_count', 'family.zone', 'family.branch', 'sponsor.name', 'total_income'],
             ],
+            'orphan_sponsorships' => [
+                'filterableAttributes' => ['id', 'medical_sponsorship', 'university_scholarship', 'association_trips', 'summer_camp',
+                    'eid_suit', 'private_lessons', 'school_bag', 'tenant_id'],
+                'searchableAttributes' => ['orphan.name', 'orphan.phone_number', 'orphan.age', 'orphan.gender'],
+                'sortableAttributes' => ['created_at', 'orphan.name', 'orphan.last_year_average', 'orphan.academic_level', 'orphan.academic_phase', 'sponsor.name', 'family.zone'],
+            ],
         ],
     ],
 
