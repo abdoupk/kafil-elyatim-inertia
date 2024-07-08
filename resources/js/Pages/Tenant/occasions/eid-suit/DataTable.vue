@@ -1,0 +1,185 @@
+<script lang="ts" setup>
+import type { IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
+
+import { Link } from '@inertiajs/vue3'
+
+import BaseTable from '@/Components/Base/table/BaseTable.vue'
+import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
+import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
+import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
+import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
+import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+
+defineProps<{ orphans: PaginationData<SchoolEntryOrphansResource>; params: IndexParams }>()
+
+const emit = defineEmits(['sort', 'showDeleteModal'])
+</script>
+
+<template>
+    <div class="@container">
+        <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible">
+            <base-table class="mt-2 border-separate border-spacing-y-[10px]">
+                <base-thead-table>
+                    <base-tr-table>
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['sponsor.name']"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'sponsor.name')"
+                        >
+                            {{ $t('the_sponsor') }}
+                        </base-th-table>
+
+                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                            {{ $t('validation.attributes.sponsor.phone_number') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.branch']"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'orphan.branch')"
+                        >{{ $t('the_branch') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.zone']"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'orphan.zone')"
+                        >{{ $t('validation.attributes.address') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.orphans_count']"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold !w-32"
+                            sortable
+                            @click="emit('sort', 'orphan.orphans_count')"
+                        >
+                            {{ $t('children_count') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions?.total_income"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold !w-32"
+                            sortable
+                            @click="emit('sort', 'total_income')"
+                        >
+                            {{ $t('incomes.label.total_income') }}
+                        </base-th-table>
+                    </base-tr-table>
+                </base-thead-table>
+
+                <base-tbody-table>
+                    <base-tr-table v-for="(orphan, index) in orphans.data" :key="orphan.id" class="intro-x">
+                        <base-td-table
+                            class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ (orphans.meta.from ?? 0) + index }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="!min-w-24 !max-w-24 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            <Link :href="route('tenant.sponsors.show', orphan.sponsor.id)" class="font-medium">
+                                {{ orphan.sponsor.name }}
+                            </Link>
+                        </base-td-table>
+
+                        <base-td-table
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.sponsor.phone_number }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            <Link
+                                :href="route('tenant.branches.index')"
+                                class="mt-0.5 block whitespace-nowrap truncate"
+                            >
+                                {{ orphan.branch?.name }}
+                            </Link>
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.address }}
+                            <!--  TODO: change href to route('tenant.zones.show', orphan.zone.id)-->
+                            <Link
+                                :href="route('tenant.zones.index')"
+                                class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
+                            >
+                                {{ orphan.zone?.name }}
+                            </Link>
+                        </base-td-table>
+
+                        <base-td-table
+                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                        >
+                            <div class="whitespace-nowrap">
+                                {{ orphan.orphans_count }}
+                            </div>
+                        </base-td-table>
+
+                        <base-td-table
+                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                        >
+                            <div class="whitespace-nowrap">
+                                {{ orphan.total_income }}
+                            </div>
+                        </base-td-table>
+                    </base-tr-table>
+                </base-tbody-table>
+            </base-table>
+        </div>
+
+        <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @3xl:hidden">
+            <div v-for="orphan in orphans.data" :key="orphan.id" class="intro-y col-span-12 @xl:col-span-6">
+                <div class="box p-5">
+                    <div class="flex">
+                        <div class="me-3 truncate text-lg font-medium">
+                            {{ orphan.name }}
+                        </div>
+                        <div
+                            class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
+                        >
+                            {{ orphan.file_number }}
+                        </div>
+                    </div>
+                    <div class="mt-6 flex">
+                        <div class="w-3/4">
+                            <p class="truncate">{{ orphan.address }}</p>
+                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                                {{ orphan.zone?.name }}
+                            </div>
+                            <div
+                                class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                            >
+                                {{ orphan.start_date }}
+                            </div>
+                        </div>
+                        <div class="flex w-1/4 items-center justify-end">
+                            <Link
+                                :href="route('tenant.orphans.show', orphan.id)"
+                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                            >{{ $t('edit') }}
+                            </Link>
+                            <a
+                                class="font-semibold text-danger"
+                                href="javascript:void(0)"
+                                @click="emit('showDeleteModal', orphan.id)"
+                            >
+                                {{ $t('delete') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

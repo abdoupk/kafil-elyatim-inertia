@@ -110,8 +110,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-moon-stars',
                         title: __('eid_el_fitr'),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
+                        routeName: 'tenant.occasions.eid-suit.index',
+                        url: route('tenant.occasions.eid-suit.index')
                     },
                     {
                         icon: 'icon-moon',

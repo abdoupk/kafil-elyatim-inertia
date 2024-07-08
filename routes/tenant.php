@@ -32,6 +32,9 @@ use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDF;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
+use App\Http\Controllers\V1\Occasions\EidSuit\EidSuitIndexController;
+use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitPDF;
+use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDF;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
@@ -279,13 +282,13 @@ Route::middleware([
                 });
 
                 Route::prefix('eid-suit')->name('eid-suit.')->group(function () {
-                    Route::get('', SchoolEntryIndexController::class)
+                    Route::get('', EidSuitIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                    Route::get('export-pdf', ExportOrphansEidSuitPDF::class)
                         ->name('export.pdf');
 
-                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                    Route::get('export-xlsx', ExportOrphansEidSuitXlsxController::class)
                         ->name('export.xlsx');
                 });
             });

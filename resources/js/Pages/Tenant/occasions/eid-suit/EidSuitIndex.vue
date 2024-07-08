@@ -7,8 +7,8 @@ import { reactive, ref, watch } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import DataTable from '@/Pages/Tenant/occasions/ramadan-basket/DataTable.vue'
-import ExportMenu from '@/Pages/Tenant/occasions/ramadan-basket/ExportMenu.vue'
+import DataTable from '@/Pages/Tenant/occasions/eid-suit/DataTable.vue'
+import ExportMenu from '@/Pages/Tenant/occasions/eid-suit/ExportMenu.vue'
 
 import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -26,7 +26,7 @@ defineOptions({
 const filterModalStatus = ref<boolean>(false)
 
 const props = defineProps<{
-    families: PaginationData<EidAlAdhaFamiliesResource>
+    orphans: PaginationData<EidAlAdhaFamiliesResource>
     params: IndexParams
 }>()
 
@@ -46,7 +46,7 @@ let routerOptions = {
 
 const processing = ref(false)
 
-console.log(props.families)
+console.log(props.orphans)
 
 const getData = () => {
     let data = { ...params }
@@ -106,10 +106,10 @@ watch(
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_families') }) }}
+        {{ $t('list', { attribute: $t('the_orphans') }) }}
     </h2>
 
     <base-alert
@@ -133,13 +133,13 @@ watch(
             <export-menu :params></export-menu>
 
             <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="families.meta.total > 0">
+                <span v-if="orphans.meta.total > 0">
                     {{
                         $t('showing_results', {
-                            from: families.meta.from?.toString(),
-                            to: families.meta.to?.toString(),
-                            total: families.meta.total?.toString(),
-                            entries: n__('families', families.meta.total)
+                            from: orphans.meta.from?.toString(),
+                            to: orphans.meta.to?.toString(),
+                            total: orphans.meta.total?.toString(),
+                            entries: n__('orphans', orphans.meta.total)
                         })
                     }}
                 </span>
@@ -169,14 +169,14 @@ watch(
         </div>
     </div>
 
-    <template v-if="families.data.length > 0">
-        <data-table :families :params @sort="sort($event)"></data-table>
+    <template v-if="orphans.data.length > 0">
+        <data-table :orphans :params @sort="sort($event)"></data-table>
 
         <pagination-data-table
-            v-if="families.meta.last_page > 1"
+            v-if="orphans.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
-            :pages="families.meta.last_page"
+            :pages="orphans.meta.last_page"
         ></pagination-data-table>
     </template>
 
