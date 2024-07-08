@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
@@ -67,5 +68,10 @@ class Baby extends Model
             'tenant_id' => 'string',
             'orphan_id' => 'string',
         ];
+    }
+
+    public function orphan(): BelongsTo
+    {
+        return $this->belongsTo(Orphan::class);
     }
 }

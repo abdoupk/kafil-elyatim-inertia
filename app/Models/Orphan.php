@@ -170,6 +170,11 @@ class Orphan extends Model
         return $this->morphMany(Need::class, 'needable');
     }
 
+    public function babyNeeds(): HasOne
+    {
+        return $this->hasOne(Baby::class);
+    }
+
     protected static function boot(): void
     {
         parent::boot();

@@ -18,7 +18,7 @@ class AcademicAchievementResource extends JsonResource
             'first_trimester' => $this->first_trimester,
             'second_trimester' => $this->second_trimester,
             'third_trimester' => $this->third_trimester,
-            'total' => $this->total,
+            'average' => $this->average,
         ];
     }
 }

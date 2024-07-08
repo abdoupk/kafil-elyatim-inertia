@@ -23,7 +23,7 @@ class OrphanShowResource extends JsonResource
             'shoes_size' => $this->shoes_size,
             'pants_size' => $this->pants_size,
             'shirt_size' => $this->shirt_size,
-            '' => $this->whenLoaded('ba'),
+            'baby_needs' => new BabyResource($this->whenLoaded('babyNeeds')),
             'note' => $this->note,
             'creator' => new MemberResource($this->whenLoaded('creator')),
             'gender' => $this->gender,

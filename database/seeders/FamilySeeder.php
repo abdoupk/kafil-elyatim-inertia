@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Baby;
 use App\Models\Branch;
 use App\Models\Family;
 use App\Models\Orphan;
@@ -48,7 +49,7 @@ class FamilySeeder extends Seeder
                     ]);
 
                     for ($j = 0; $j < random_int(2, 6); $j++) {
-                        Orphan::factory()
+                        $orphan = Orphan::factory()
                             ->hasAcademicAchievements(3, function (array $attributes, Orphan $orphan) {
                                 return [
                                     'tenant_id' => $orphan->tenant_id,
@@ -61,6 +62,12 @@ class FamilySeeder extends Seeder
                                 'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
                                 'sponsor_id' => $sponsor->id,
                             ]);
+
+                        Baby::factory()->create([
+                            'tenant_id' => $tenant->id,
+                            'orphan_id' => $orphan->id,
+                            'family_id' => $family->id,
+                        ]);
                     }
                 }
             });

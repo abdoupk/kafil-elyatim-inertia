@@ -2,8 +2,14 @@
 import type { OrphanShowType } from '@/types/orphans'
 
 import { formatDate } from '@/utils/helper'
+import { computed } from 'vue'
+import dayjs from 'dayjs'
 
-defineProps<{ orphan: OrphanShowType }>()
+const props = defineProps<{ orphan: OrphanShowType }>()
+
+const isStillBaby = computed(() => {
+    return dayjs().diff(dayjs(props.orphan.birth_date), 'year') < 2
+})
 </script>
 
 <template>
@@ -54,31 +60,65 @@ defineProps<{ orphan: OrphanShowType }>()
                 </h3>
             </div>
 
-            <!-- TODO: handle when the orphan still baby-->
+            <template v-if="!isStillBaby">
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>
 
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>
+                    <h3 class="font-medium text-base">
+                        {{ orphan.pants_size }}
+                    </h3>
+                </div>
 
-                <h3 class="font-medium text-base">
-                    {{ orphan.pants_size }}
-                </h3>
-            </div>
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('shirt_size') }}</h2>
 
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('shirt_size') }}</h2>
+                    <h3 class="font-medium text-base">
+                        {{ orphan.shirt_size }}
+                    </h3>
+                </div>
 
-                <h3 class="font-medium text-base">
-                    {{ orphan.shirt_size }}
-                </h3>
-            </div>
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('shoes_size') }}</h2>
 
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('shoes_size') }}</h2>
+                    <h3 class="font-medium text-base">
+                        {{ orphan.shoes_size }}
+                    </h3>
+                </div>
+            </template>
 
-                <h3 class="font-medium text-base">
-                    {{ orphan.shoes_size }}
-                </h3>
-            </div>
+            <template v-else>
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('diapers_type') }}</h2>
+
+                    <h3 class="font-medium text-base">
+                        {{ orphan.baby_needs.diapers_type }}
+                    </h3>
+                </div>
+
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('diapers_quantity') }}</h2>
+
+                    <h3 class="font-medium text-base">
+                        {{ orphan.baby_needs.diapers_quantity }}
+                    </h3>
+                </div>
+
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('baby_milk_type') }}</h2>
+
+                    <h3 class="font-medium text-base">
+                        {{ orphan.baby_needs.baby_milk_type }}
+                    </h3>
+                </div>
+
+                <div class="@xl:col-span-6 col-span-12">
+                    <h2 class="text-lg font-semibold">{{ $t('baby_milk_quantity') }}</h2>
+
+                    <h3 class="font-medium text-base">
+                        {{ orphan.baby_needs.baby_milk_quantity }}
+                    </h3>
+                </div>
+            </template>
 
             <div class="col-span-12">
                 <h2 class="text-lg font-semibold">{{ $t('notes') }}</h2>
