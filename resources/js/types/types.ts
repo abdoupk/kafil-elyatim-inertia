@@ -285,6 +285,26 @@ export interface EidAlAdhaFamiliesResource {
     total_income: number
 }
 
+export interface SchoolEntryOrphansResource {
+    id: string
+    address: string
+    zone: {
+        id: string
+        name: string
+    }
+    branch: {
+        id: string
+        name: string
+    }
+    sponsor: {
+        id: string
+        name: string
+        phone_number: string
+    }
+    orphans_count: number
+    total_income: number
+}
+
 export interface InventoryIndexResource {
     id: string
     name: string
@@ -472,7 +492,8 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {}
+export interface FamilyShow {
+}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 

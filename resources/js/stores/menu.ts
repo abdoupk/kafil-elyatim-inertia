@@ -104,8 +104,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-backpack',
                         title: __('school entry'),
-                        routeName: 'tenant.families.create',
-                        url: route('tenant.families.create')
+                        routeName: 'tenant.occasions.school-entry.index',
+                        url: route('tenant.occasions.school-entry.index')
                     },
                     {
                         icon: 'icon-moon-stars',

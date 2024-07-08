@@ -32,6 +32,7 @@ use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDF;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
+use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
 use App\Http\Controllers\V1\Orphans\OrphanDeleteController;
@@ -252,6 +253,16 @@ Route::middleware([
                         ->name('export.xlsx');
                 });
 
+                Route::prefix('school-entry')->name('school-entry.')->group(function () {
+                    Route::get('', SchoolEntryIndexController::class)
+                        ->name('index');
+
+                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                        ->name('export.pdf');
+
+                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                        ->name('export.xlsx');
+                });
             });
         });
 

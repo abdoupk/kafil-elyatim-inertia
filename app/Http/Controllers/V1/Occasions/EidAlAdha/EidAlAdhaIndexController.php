@@ -10,7 +10,7 @@ class EidAlAdhaIndexController extends Controller
 {
     public function __invoke()
     {
-        return Inertia::render('Tenant/occasions/eid-al-adha/eidAlAdhaIndex', [
+        return Inertia::render('Tenant/occasions/eid-al-adha/EidAlAdhaIndex', [
             'families' => EidAlAdhaResource::collection(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()),
             'params' => getParams(),
         ]);

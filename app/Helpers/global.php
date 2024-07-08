@@ -73,7 +73,7 @@ function generateFilterConditions(?string $additional_filters = ''): string
 
     return implode(' AND ', array_map(static function ($condition) {
         return implode(' ', $condition);
-    }, $filters)).' AND tenant_id = '.tenant('id');
+    }, $filters)).' AND tenant_id = '.tenant('id').' '.$additional_filters;
 }
 
 function generateFormattedSort(): array
