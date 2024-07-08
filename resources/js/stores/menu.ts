@@ -116,8 +116,8 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-moon',
                         title: __('ramadan basket'),
-                        routeName: 'tenant.families.create',
-                        url: route('tenant.families.create')
+                        routeName: 'tenant.occasions.ramadan-basket.index',
+                        url: route('tenant.occasions.ramadan-basket.index')
                     },
                     {
                         icon: 'icon-basket-shopping',

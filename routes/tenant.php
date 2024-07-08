@@ -32,6 +32,9 @@ use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDF;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
+use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDF;
+use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
+use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
@@ -254,6 +257,28 @@ Route::middleware([
                 });
 
                 Route::prefix('school-entry')->name('school-entry.')->group(function () {
+                    Route::get('', SchoolEntryIndexController::class)
+                        ->name('index');
+
+                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                        ->name('export.pdf');
+
+                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                        ->name('export.xlsx');
+                });
+
+                Route::prefix('ramadan-basket')->name('ramadan-basket.')->group(function () {
+                    Route::get('', RamadanBasketIndexController::class)
+                        ->name('index');
+
+                    Route::get('export-pdf', ExportFamiliesRamadanBasketPDF::class)
+                        ->name('export.pdf');
+
+                    Route::get('export-xlsx', ExportFamiliesRamadanBasketXlsxController::class)
+                        ->name('export.xlsx');
+                });
+
+                Route::prefix('eid-suit')->name('eid-suit.')->group(function () {
                     Route::get('', SchoolEntryIndexController::class)
                         ->name('index');
 
