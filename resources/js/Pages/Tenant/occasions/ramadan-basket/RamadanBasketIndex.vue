@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { EidAlAdhaFamiliesResource, IndexParams, PaginationData } from '@/types/types'
+import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -26,7 +26,7 @@ defineOptions({
 const filterModalStatus = ref<boolean>(false)
 
 const props = defineProps<{
-    families: PaginationData<EidAlAdhaFamiliesResource>
+    families: PaginationData<RamadanBasketFamiliesResource>
     params: IndexParams
 }>()
 
@@ -59,7 +59,7 @@ const getData = () => {
         if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
-    router.get(route('tenant.occasions.eid-al-adha.index'), data, {
+    router.get(route('tenant.occasions.ramadan-basket.index'), data, {
         ...routerOptions,
         onBefore: () => {
             processing.value = true

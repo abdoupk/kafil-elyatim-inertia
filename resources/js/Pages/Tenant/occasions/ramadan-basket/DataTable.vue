@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { EidAlAdhaFamiliesResource, IndexParams, PaginationData } from '@/types/types'
+import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -9,8 +9,9 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import { formatCurrency } from '../../../../utils/helper'
 
-defineProps<{ families: PaginationData<EidAlAdhaFamiliesResource>; params: IndexParams }>()
+defineProps<{ families: PaginationData<RamadanBasketFamiliesResource>; params: IndexParams }>()
 
 const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
@@ -41,7 +42,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
                             @click="emit('sort', 'family.branch')"
-                            >{{ $t('the_branch') }}
+                        >{{ $t('the_branch') }}
                         </base-th-table>
 
                         <base-th-table
@@ -49,7 +50,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
                             @click="emit('sort', 'family.zone')"
-                            >{{ $t('validation.attributes.address') }}
+                        >{{ $t('validation.attributes.address') }}
                         </base-th-table>
 
                         <base-th-table
@@ -130,7 +131,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
                             <div class="whitespace-nowrap">
-                                {{ family.total_income }}
+                                {{ formatCurrency(family.total_income) }}
                             </div>
                         </base-td-table>
                     </base-tr-table>
@@ -167,7 +168,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             <Link
                                 :href="route('tenant.families.show', family.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
+                            >{{ $t('edit') }}
                             </Link>
                             <a
                                 class="font-semibold text-danger"

@@ -222,6 +222,6 @@ class Family extends Model
 
     public function totalIncomes(): float
     {
-        return (float) number_format($this->sponsor->incomes->total_income, 2);
+        return (float) $this->sponsor->incomes->total_income;
     }
 }

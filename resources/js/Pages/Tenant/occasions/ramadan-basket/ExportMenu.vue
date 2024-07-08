@@ -21,7 +21,7 @@ const printStarting = ref<boolean>(false)
 
 const printPdf = () => {
     print({
-        printable: route('tenant.occasions.eid-al-adha.export.pdf', props.params),
+        printable: route('tenant.occasions.ramadan-basket.export.pdf', props.params),
         type: 'pdf',
         onLoadingStart: () => {
             printStarting.value = true
@@ -51,11 +51,11 @@ const printPdf = () => {
                 {{ $t('print') }}
                 <spinner-button-loader :show="printStarting" class="ms-auto"></spinner-button-loader>
             </base-menu-item>
-            <base-menu-item :href="route('tenant.occasions.eid-al-adha.export.xlsx', params)" as="a">
+            <base-menu-item :href="route('tenant.occasions.ramadan-basket.export.xlsx', params)" as="a">
                 <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-excel" />
                 {{ $t('export', { type: 'excel' }) }}
             </base-menu-item>
-            <base-menu-item :href="route('tenant.occasions.eid-al-adha.export.pdf', params)" as="a">
+            <base-menu-item :href="route('tenant.occasions.ramadan-basket.export.pdf', params)" as="a">
                 <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-pdf" />
                 {{ $t('export', { type: 'pdf' }) }}
             </base-menu-item>

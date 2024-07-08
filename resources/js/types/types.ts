@@ -285,7 +285,47 @@ export interface EidAlAdhaFamiliesResource {
     total_income: number
 }
 
+export interface RamadanBasketFamiliesResource {
+    id: string
+    address: string
+    zone: {
+        id: string
+        name: string
+    }
+    branch: {
+        id: string
+        name: string
+    }
+    sponsor: {
+        id: string
+        name: string
+        phone_number: string
+    }
+    orphans_count: number
+    total_income: number
+}
+
 export interface SchoolEntryOrphansResource {
+    id: string
+    address: string
+    zone: {
+        id: string
+        name: string
+    }
+    branch: {
+        id: string
+        name: string
+    }
+    sponsor: {
+        id: string
+        name: string
+        phone_number: string
+    }
+    orphans_count: number
+    total_income: number
+}
+
+export interface EidSuitOrphansResource {
     id: string
     address: string
     zone: {

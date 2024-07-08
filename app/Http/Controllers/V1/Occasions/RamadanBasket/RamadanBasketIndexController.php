@@ -12,7 +12,7 @@ class RamadanBasketIndexController extends Controller
     public function __invoke(): Response
     {
         return Inertia::render('Tenant/occasions/ramadan-basket/RamadanBasketIndex', [
-            'families' => RamadanBasketResource::collection(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()),
+            'families' => RamadanBasketResource::collection(listOfFamiliesBenefitingFromTheRamadanBasketSponsorship()),
             'params' => getParams(),
         ]);
     }

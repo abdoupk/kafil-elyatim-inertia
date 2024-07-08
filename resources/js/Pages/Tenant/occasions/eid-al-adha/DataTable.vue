@@ -9,6 +9,7 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import { formatCurrency } from '../../../../utils/helper'
 
 defineProps<{ families: PaginationData<EidAlAdhaFamiliesResource>; params: IndexParams }>()
 
@@ -130,7 +131,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
                             <div class="whitespace-nowrap">
-                                {{ family.total_income }}
+                                {{ formatCurrency(family.total_income) }}
                             </div>
                         </base-td-table>
                     </base-tr-table>
