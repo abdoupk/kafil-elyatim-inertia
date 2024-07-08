@@ -1,7 +1,8 @@
 create table if not exists "academic_achievements"
 (
     "id"               uuid                           not null primary key,
-    "academic_level"   text               null,
+    "academic_level"   text                           null,
+    "academic_phase"   text                           null,
     "first_trimester"  double precision               null,
     "second_trimester" double precision               null,
     "third_trimester"  double precision               null,
