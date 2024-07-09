@@ -12,8 +12,6 @@ class SponsorShowController extends Controller
 {
     public function __invoke(Sponsor $sponsor): Response
     {
-        ray(new SponsorShowResource($sponsor->load('sponsorships', 'family.zone', 'family.branch', 'incomes', 'creator')->loadCount('orphans')));
-
         return Inertia::render('Tenant/sponsors/details/SponsorDetailPage', [
             'sponsor' => new SponsorShowResource($sponsor->load('sponsorships', 'family.zone', 'family.branch', 'incomes', 'creator')->loadCount('orphans')),
         ]);
