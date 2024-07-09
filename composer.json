@@ -66,6 +66,7 @@
             "app/Helpers/inventory.php",
             "app/Helpers/sponsors.php",
             "app/Helpers/roles.php",
+            "app/Helpers/needs.php",
             "app/Helpers/global.php"
         ],
         "psr-4": {

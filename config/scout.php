@@ -175,6 +175,11 @@ return [
                 'searchableAttributes' => ['name', 'description'],
                 'sortableAttributes' => ['name', 'description', 'created_at'],
             ],
+            'needs' => [
+                'filterableAttributes' => ['id', 'needable.name', 'needable.type', 'status', 'tenant_id'],
+                'searchableAttributes' => ['note', 'subject', 'demand', 'needable.name', 'needable.type', 'status'],
+                'sortableAttributes' => ['note', 'needable.name', 'needable.type', 'status', 'created_at'],
+            ],
             'family_sponsorships' => [
                 'filterableAttributes' => ['id', 'monthly_allowance', 'ramadan_basket', 'zakat', 'housing_assistance', 'eid_al_adha', 'tenant_id'],
                 'searchableAttributes' => ['family.address', 'family.zone', 'family.branch', 'sponsor.name', 'sponsor.phone_number', 'family.orphans_count', 'total_income'],

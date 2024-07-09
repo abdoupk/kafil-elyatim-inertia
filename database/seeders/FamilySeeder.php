@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Baby;
 use App\Models\Branch;
 use App\Models\Family;
+use App\Models\Need;
 use App\Models\Orphan;
 use App\Models\SecondSponsor;
 use App\Models\Sponsor;
@@ -67,6 +68,18 @@ class FamilySeeder extends Seeder
                             'tenant_id' => $tenant->id,
                             'orphan_id' => $orphan->id,
                             'family_id' => $family->id,
+                        ]);
+
+                        Need::factory()->create([
+                            'tenant_id' => $tenant->id,
+                            'needable_id' => $orphan->id,
+                            'needable_type' => 'orphan',
+                        ]);
+
+                        Need::factory()->create([
+                            'tenant_id' => $tenant->id,
+                            'needable_id' => $sponsor->id,
+                            'needable_type' => 'sponsor',
                         ]);
                     }
                 }

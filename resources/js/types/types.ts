@@ -69,6 +69,8 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-shelves'
+    | 'icon-message-dots'
+    | 'icon-right-left-large'
     | 'icon-triangle-exclamation'
     | 'icon-memo-circle-info'
     | 'icon-handshake-angle'
@@ -538,7 +540,8 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {}
+export interface FamilyShow {
+}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 
@@ -550,6 +553,19 @@ export interface MembersIndexResource {
     email: string
     phone: string
     zone: Zone
+}
+
+export interface NeedsIndexResource {
+    id: string
+    demand: string
+    subject: string
+    status: 'pending' | 'completed' | 'rejected'
+    needable: {
+        id: string
+        type: string
+        name: string
+    }
+    note: string
 }
 
 export interface BranchesIndexResource {

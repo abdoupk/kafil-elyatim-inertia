@@ -26,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
             'tenant' => 'App\Models\Tenant',
             'domain' => 'App\Models\Domain',
             'user' => 'App\Models\User',
+            'orphan' => 'App\Models\Orphan',
+            'sponsor' => 'App\Models\Sponsor',
             'settings' => 'App\Models\Settings',
         ]);
 

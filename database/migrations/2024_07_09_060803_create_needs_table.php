@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('needs', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->text('demand');
-            $table->text('status');
+            $table->text('subject');
             $table->text('needable_type');
             $table->uuid('needable_id');
             $table->text('tenant_id');
             $table->text('note')->nullable();
+            $table->enum('status', ['pending', 'in_progress', 'completed', 'rejected'])->default('pending');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->index(['needable_type', 'needable_id']);

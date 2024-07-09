@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Need;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 
 class NeedFactory extends Factory
 {
@@ -12,12 +11,18 @@ class NeedFactory extends Factory
 
     public function definition(): array
     {
+        $status = ['pending', 'in_progress', 'completed', 'rejected'];
+
         return [
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'demand' => $this->faker->word(),
-            'status' => $this->faker->word(),
-            'note' => $this->faker->word(),
+            'tenant_id' => fake()->uuid(),
+            'needable_id' => fake()->uuid(),
+            'needable_type' => fake()->randomElement(['sponsor', 'orphan'])[0],
+            'subject' => fake()->sentence(2),
+            'demand' => fake()->paragraph(),
+            'status' => fake()->randomElement($status),
+            'note' => fake()->sentence(),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
