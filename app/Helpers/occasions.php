@@ -30,7 +30,7 @@ function listOfOrphansBenefitingFromTheSchoolEntrySponsorship(): LengthAwarePagi
 {
     return search(OrphanSponsorship::getModel(), 'AND school_bag = true AND school_bag IS NOT NULL')
         ->query(fn ($query) => $query
-            ->with(['orphan.sponsor', 'orphan.lastAcademicYearAchievement', 'orphan.family.zone'])
+            ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.lastAcademicYearAchievement:id,orphan_id,academic_year,academic_phase,academic_level,average', 'orphan.family.zone:id,name'])
         )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
@@ -49,7 +49,7 @@ function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginato
 {
     return search(OrphanSponsorship::getModel(), 'AND eid_suit = true AND eid_suit IS NOT NULL')
         ->query(fn ($query) => $query
-            ->with(['orphan.sponsor', 'orphan.family.zone'])
+            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
         )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));

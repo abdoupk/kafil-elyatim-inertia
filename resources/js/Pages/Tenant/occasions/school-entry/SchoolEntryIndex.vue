@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { EidAlAdhaFamiliesResource, IndexParams, PaginationData } from '@/types/types'
+import type { SchoolEntryOrphansResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -26,7 +26,7 @@ defineOptions({
 const filterModalStatus = ref<boolean>(false)
 
 const props = defineProps<{
-    orphans: PaginationData<EidAlAdhaFamiliesResource>
+    orphans: PaginationData<SchoolEntryOrphansResource>
     params: IndexParams
 }>()
 
