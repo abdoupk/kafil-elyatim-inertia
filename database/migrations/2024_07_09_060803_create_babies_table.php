@@ -6,22 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('babies', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->integer('baby_milk_quantity')->nullable();
-            $table->string('baby_milk_type')->nullable();
+            $table->text('baby_milk_type')->nullable();
             $table->integer('diapers_quantity')->nullable();
-            $table->string('diapers_type')->nullable();
-            $table->uuid('tenant_id');
+            $table->text('diapers_type')->nullable();
             $table->uuid('orphan_id');
             $table->uuid('family_id');
-            $table->softDeletes();
+            $table->text('tenant_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('babies');

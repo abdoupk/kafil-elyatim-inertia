@@ -6,15 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('member_preview', static function (Blueprint $table) {
-            $table->uuid('id')->primary()->index();
+        Schema::create('member_preview', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->uuid('preview_id');
+
+            $table->index(['id'], 'idx_member_preview_id');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('member_preview');

@@ -6,19 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('previews', static function (Blueprint $table) {
-            $table->uuid('id')->primary()->index();
+        Schema::create('previews', function (Blueprint $table) {
+            $table->uuid('id')->primary();
             $table->text('report');
             $table->date('preview_date');
-            $table->uuid('family_id');
-            $table->uuid('tenant_id');
+            $table->text('family_id');
+            $table->text('tenant_id');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index(['id'], 'idx_preview_id');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('previews');
