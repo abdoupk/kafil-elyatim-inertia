@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { formatCurrency } from '../../../../utils/helper'
+
 import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -9,7 +11,6 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
-import { formatCurrency } from '../../../../utils/helper'
 
 defineProps<{ families: PaginationData<RamadanBasketFamiliesResource>; params: IndexParams }>()
 
@@ -42,7 +43,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
                             @click="emit('sort', 'family.branch')"
-                        >{{ $t('the_branch') }}
+                            >{{ $t('the_branch') }}
                         </base-th-table>
 
                         <base-th-table
@@ -50,7 +51,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
                             @click="emit('sort', 'family.zone')"
-                        >{{ $t('validation.attributes.address') }}
+                            >{{ $t('validation.attributes.address') }}
                         </base-th-table>
 
                         <base-th-table
@@ -168,7 +169,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             <Link
                                 :href="route('tenant.families.show', family.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </Link>
                             <a
                                 class="font-semibold text-danger"

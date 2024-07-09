@@ -177,6 +177,11 @@ class Sponsor extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function family(): BelongsTo
+    {
+        return $this->belongsTo(Family::class);
+    }
+
     protected function casts(): array
     {
         return [

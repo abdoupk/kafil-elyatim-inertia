@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { formatCurrency } from '../../../../utils/helper'
+
 import type { EidAlAdhaFamiliesResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -9,7 +11,6 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
-import { formatCurrency } from '../../../../utils/helper'
 
 defineProps<{ families: PaginationData<EidAlAdhaFamiliesResource>; params: IndexParams }>()
 

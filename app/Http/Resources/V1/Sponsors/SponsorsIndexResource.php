@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources\V1;
+namespace App\Http\Resources\V1\Sponsors;
 
 use App\Models\Sponsor;
 use Illuminate\Http\Request;

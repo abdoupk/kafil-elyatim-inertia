@@ -63,9 +63,8 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('validation.attributes.sponsor.phone_number') }}
                         </base-th-table>
 
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
-                        >{{ $t('validation.attributes.address') }}
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            >{{ $t('validation.attributes.address') }}
                         </base-th-table>
                     </base-tr-table>
                 </base-thead-table>
@@ -90,9 +89,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.orphan.academic_level }}
-                            <p
-                                class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
-                            >
+                            <p class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
                                 {{ orphan.orphan?.academic_phase }}
                             </p>
                         </base-td-table>
@@ -100,7 +97,10 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-td-table
                             class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ orphan.orphan.last_year_average ? parseFloat(orphan.orphan.last_year_average).toFixed(2) : '-'
+                            {{
+                                orphan.orphan.last_year_average
+                                    ? parseFloat(orphan.orphan.last_year_average).toFixed(2)
+                                    : '-'
                             }}
                         </base-td-table>
 
@@ -164,7 +164,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             <Link
                                 :href="route('tenant.orphans.show', orphan.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </Link>
                             <a
                                 class="font-semibold text-danger"

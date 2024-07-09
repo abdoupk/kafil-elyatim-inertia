@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { SchoolEntryOrphansResource, IndexParams, PaginationData } from '@/types/types'
+import type { IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'

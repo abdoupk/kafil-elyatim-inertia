@@ -72,9 +72,8 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('validation.attributes.sponsor.phone_number') }}
                         </base-th-table>
 
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
-                        >{{ $t('validation.attributes.address') }}
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            >{{ $t('validation.attributes.address') }}
                         </base-th-table>
                     </base-tr-table>
                 </base-thead-table>
@@ -96,19 +95,19 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40  text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.orphan.pants_size }}
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40  text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.orphan.shoes_size }}
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40  text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.orphan.shirt_size }}
                         </base-td-table>
@@ -173,7 +172,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             <Link
                                 :href="route('tenant.orphans.show', orphan.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </Link>
                             <a
                                 class="font-semibold text-danger"
