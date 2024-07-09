@@ -69,6 +69,8 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-shelves'
+    | 'icon-angles-up-down'
+    | 'icon-bars-filter'
     | 'icon-message-dots'
     | 'icon-right-left-large'
     | 'icon-triangle-exclamation'
@@ -540,8 +542,7 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {
-}
+export interface FamilyShow {}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 

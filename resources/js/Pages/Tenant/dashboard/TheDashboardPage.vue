@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/vue3'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
+import TestDropDown from '@/Pages/Tenant/dashboard/TestDropDown.vue'
 
 defineOptions({
     layout: TheLayout
@@ -71,4 +72,6 @@ defineProps<{
             </div>
         </div>
     </div>
+
+    <test-drop-down class="mt-8"></test-drop-down>
 </template>

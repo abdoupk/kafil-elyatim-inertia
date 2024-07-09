@@ -21,4 +21,5 @@ return [
     'eid-al-adha' => 'عيد الاضحى',
     'ramadan-basket' => 'القفة الرمضانية',
     'eid-suit' => 'بدلة العيد',
+    'needs' => 'الاحتياجات',
 ];

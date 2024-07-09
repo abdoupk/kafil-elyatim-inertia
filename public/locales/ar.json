@@ -44,6 +44,7 @@
     "breadcrumb.eid-al-adha": "عيد الاضحى",
     "breadcrumb.ramadan-basket": "القفة الرمضانية",
     "breadcrumb.eid-suit": "بدلة العيد",
+    "breadcrumb.needs": "الاحتياجات",
     "furnishings.television": "تلفاز",
     "furnishings.refrigerator": "ثلاجة",
     "furnishings.fireplace": "مِدْفَأَة",
@@ -646,5 +647,9 @@
     "pending": "قيد الانتظار",
     "rejected": "مرفوض",
     "in_progress": "قيد التنفيذ",
-    "completed": "تمت العملية"
+    "completed": "تمت العملية",
+    "the_needs": "الاحتياجات",
+    "needs": "احتياجات",
+    "add_filter": "اضافة فلتر",
+    "delete_filter": "حذف الفلتر"
 }

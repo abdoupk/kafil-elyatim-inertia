@@ -1,8 +1,8 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { SVGType } from '@/types/types'
 
 import { twMerge } from 'tailwind-merge'
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, shallowRef, watch } from 'vue'
 
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
@@ -16,14 +16,19 @@ const props = withDefaults(defineProps<{ name: SVGType }>(), {
 
 const attrs = useComputedAttrs()
 
-// eslint-disable-next-line capitalized-comments
-// noinspection TypeScriptCheckImport
-const svg = defineAsyncComponent(() => import(`../../svg/${props.name}.svg`))
+const svgComponent = shallowRef(defineAsyncComponent(() => import(`../../svg/${props.name}.svg`)))
+
+watch(
+    () => props.name,
+    async (newName) => {
+        svgComponent.value = await import(`../../svg/${newName}.svg`)
+    }
+)
 </script>
 
 <template>
     <component
-        :is="svg"
+        :is="svgComponent"
         :class="twMerge(['h-5 w-5 stroke-1.5', typeof attrs.class === 'string' && attrs.class])"
     ></component>
 </template>

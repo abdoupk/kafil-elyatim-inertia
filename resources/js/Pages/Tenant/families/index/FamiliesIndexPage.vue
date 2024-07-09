@@ -9,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import FilterModal from '@/Pages/Shared/FilterModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
 
@@ -157,7 +158,7 @@ watch(
                 {{ n__('add new', 0, { attribute: $t('family') }) }}
             </base-button>
 
-            <export-menu :params></export-menu>
+            <advanced-filter></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">
@@ -173,6 +174,8 @@ watch(
             </div>
 
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
+                <export-menu :params></export-menu>
+
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input
                         v-model="search"
@@ -183,15 +186,6 @@ watch(
                     />
                     <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
                 </div>
-
-                <base-button
-                    class="ms-2"
-                    content="Filter"
-                    variant="outline-secondary"
-                    @click.prevent="filterModalStatus = true"
-                >
-                    <svg-loader class="h-5 w-5 fill-primary" name="icon-filters"></svg-loader>
-                </base-button>
             </div>
         </div>
     </div>

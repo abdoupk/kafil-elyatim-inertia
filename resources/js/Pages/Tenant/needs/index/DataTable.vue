@@ -3,15 +3,16 @@ import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/ty
 
 import { Link } from '@inertiajs/vue3'
 
+import NeedStatus from '@/Pages/Tenant/needs/index/NeedStatus.vue'
+
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
-import NeedStatus from '@/Pages/Tenant/needs/index/NeedStatus.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{ needs: PaginationData<NeedsIndexResource>; params: IndexParams }>()
 
@@ -29,7 +30,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
 
                         <base-th-table
-                            :direction="params.directions&&params.directions['needable.name']"
+                            :direction="params.directions && params.directions['needable.name']"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
                             @click="emit('sort', 'needable.name')"
@@ -38,12 +39,10 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
-                        >{{ $t('validation.attributes.subject') }}
+                            >{{ $t('validation.attributes.subject') }}
                         </base-th-table>
 
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
-                        >
+                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
                             {{ $t('the_demand') }}
                         </base-th-table>
 
@@ -56,9 +55,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('validation.attributes.status') }}
                         </base-th-table>
 
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
-                        >
+                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
                             {{ $t('validation.attributes.note') }}
                         </base-th-table>
 
@@ -167,11 +164,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <p
-
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                            >{{ $t('edit') }}
-                            </p>
+                            <p class="me-2 font-semibold text-slate-500 dark:text-slate-400">{{ $t('edit') }}</p>
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
