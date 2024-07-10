@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, FinancesIndexResource, PaginationData } from '@/types/types'
+import type { FinancesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -31,6 +31,7 @@ const props = defineProps<{
 }>()
 
 console.log(props.finances)
+
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,

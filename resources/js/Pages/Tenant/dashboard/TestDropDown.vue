@@ -3,7 +3,6 @@ import type { ListBoxFilter } from '@/types/types'
 
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
 
-
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{ filters: ListBoxFilter[] }>()
@@ -58,8 +57,8 @@ const selected = defineModel('selected', {
                             <div class="flex items-center">
                                 <svg-loader :name="filter.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                        filter.field
-                                    }}</span>
+                                    filter.field
+                                }}</span>
                             </div>
 
                             <span

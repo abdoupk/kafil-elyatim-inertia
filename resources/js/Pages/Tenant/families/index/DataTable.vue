@@ -10,6 +10,7 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
 import { formatDate } from '@/utils/helper'
 
 defineProps<{ families: PaginationData<FamiliesIndexResource>; params: IndexParams }>()

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import FilterRule from '@/Pages/Tenant/families/index/FilterRule.vue'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'
 import BasePopoverButton from '@/Components/Base/headless/Popover/BasePopoverButton.vue'
 import BasePopoverPanel from '@/Components/Base/headless/Popover/BasePopoverPanel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import FilterRule from '@/Pages/Tenant/families/index/FilterRule.vue'
 </script>
 
 <template>
@@ -24,8 +25,8 @@ import FilterRule from '@/Pages/Tenant/families/index/FilterRule.vue'
                         <svg-loader class="w-4 h-4 fill-slate-500 dark:fill-slate-400" name="icon-plus"></svg-loader>
 
                         <span class="ms-0.5 font-medium dark:text-slate-400 text-slate-500">{{
-                                $t('add_filter')
-                            }}</span>
+                            $t('add_filter')
+                        }}</span>
                     </a>
                 </div>
 
@@ -40,8 +41,8 @@ import FilterRule from '@/Pages/Tenant/families/index/FilterRule.vue'
                         ></svg-loader>
 
                         <span class="ms-1 font-medium dark:text-slate-300 text-slate-500 group-hover:text-red-500">{{
-                                $t('delete_filter')
-                            }}</span>
+                            $t('delete_filter')
+                        }}</span>
                     </a>
                 </div>
             </base-popover-panel>

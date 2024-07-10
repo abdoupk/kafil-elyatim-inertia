@@ -1,3 +1,4 @@
+import _default from 'chart.js/dist/plugins/plugin.tooltip'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 
 import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
@@ -8,13 +9,12 @@ import {
     colorSchemes,
     createFamilyStepOneErrorProps,
     createFamilyStepTwoErrorProps,
-    layouts,
     registerStepOneErrorProps,
     registerStepThreeErrorProps,
     registerStepTwoErrorProps,
     themes
 } from '@/utils/constants'
-import _default from 'chart.js/dist/plugins/plugin.tooltip'
+
 import numbers = _default.defaults.animations.numbers
 
 export interface IPlacement {
@@ -59,7 +59,7 @@ export type ColorSchemesType = typeof colorSchemes
 
 export type ThemesType = typeof themes
 
-export type LayoutsType = typeof layouts
+export type LayoutsType = 'side_menu' | 'simple_menu' | 'top_menu'
 
 export interface ISettingState {
     appearance: AppearanceType
@@ -544,8 +544,7 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {
-}
+export interface FamilyShow {}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 
@@ -601,9 +600,8 @@ export interface ZonesIndexResource extends Zone {
     description: string
 }
 
-
 export interface ListBoxFilter {
-    field: string;
-    icon: SVGType;
+    field: string
+    icon: SVGType
     operators: Array<string>
 }

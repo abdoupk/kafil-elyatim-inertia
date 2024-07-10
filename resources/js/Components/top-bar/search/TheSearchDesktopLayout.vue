@@ -11,7 +11,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheResults from '@/Components/top-bar/search/TheResults.vue'
 
-import { isEmpty } from '@/utils/helper'
+import { isEmpty, jumpToNextItem, jumpToPreviousItem } from '@/utils/helper'
 import { search } from '@/utils/search'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
@@ -86,46 +86,6 @@ const currentIndex = ref({
     item: 0
 })
 
-function jumpToPreviousItem() {
-    const previousItemIndex = currentIndex.value.item - 1
-
-    if (previousItemIndex >= 0) {
-        // Jump to previous item in current group
-        currentIndex.value.item = previousItemIndex
-    } else {
-        // Jump to last item in previous group
-        const previousGroupIndex = currentIndex.value.group - 1
-
-        if (previousGroupIndex >= 0) {
-            const previousGroup = results.value[previousGroupIndex]
-
-            currentIndex.value.group = previousGroupIndex
-
-            currentIndex.value.item = previousGroup.length - 1
-        }
-    }
-}
-
-function jumpToNextItem() {
-    const currentGroup = results.value[currentIndex.value.group]
-
-    const nextItemIndex = currentIndex.value.item + 1
-
-    if (nextItemIndex < currentGroup.length) {
-        // Jump to next item in current group
-        currentIndex.value.item = nextItemIndex
-    } else {
-        // Jump to first item in next group
-        const nextGroupIndex = currentIndex.value.group + 1
-
-        if (nextGroupIndex < results.value.length) {
-            currentIndex.value.group = nextGroupIndex
-
-            currentIndex.value.item = 0
-        }
-    }
-}
-
 const onTermKeydown = (event: KeyboardEvent) => {
     if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
         event.preventDefault()
@@ -133,12 +93,12 @@ const onTermKeydown = (event: KeyboardEvent) => {
 
     switch (event.code) {
         case 'ArrowDown':
-            jumpToNextItem()
+            jumpToNextItem(results.value, currentIndex.value)
 
             break
 
         case 'ArrowUp':
-            jumpToPreviousItem()
+            jumpToPreviousItem(results.value, currentIndex.value)
 
             break
     }
@@ -203,10 +163,10 @@ const noResults = computed(() => results.value.every((a) => isEmpty(a)))
 
                     <!-- @vue-expect-error Results Types -->
                     <the-results
+                        v-else
                         :currentIndex
                         :results
                         :results-refs="resultsRefs"
-                        v-else
                         @hover="currentIndex = $event"
                     ></the-results>
                 </div>
