@@ -16,7 +16,7 @@ class HousingFactory extends Factory
             'value' => fake()->word,
             'housing_receipt_number' => fake()->regexify('[1-9][0-9]{8}'),
             'number_of_rooms' => fake()->numberBetween(1, 3),
-            'other_properties' => fake('ar_SA')->paragraph(),
+            'other_properties' => fake('ar_SA')->realText(500),
             'family_id' => fake()->uuid,
             'tenant_id' => fake()->uuid,
         ];

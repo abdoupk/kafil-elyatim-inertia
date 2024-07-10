@@ -18,7 +18,7 @@ class InventoryFactory extends Factory
             'qty' => fake()->randomNumber(),
             'unit' => fake()->randomElement(['kg', 'liter', 'piece']),
             'tenant_id' => fake()->words(),
-            'note' => fake()->paragraph(5),
+            'note' => fake()->realText(600),
         ];
     }
 }

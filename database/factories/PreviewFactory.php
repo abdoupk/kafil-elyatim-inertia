@@ -42,7 +42,7 @@ class PreviewFactory extends Factory
             $numberOfParagraphs = rand(2, 5);
 
             for ($i = 0; $i < $numberOfParagraphs; $i++) {
-                $content .= '<p>'.$this->faker->paragraph.'</p>';
+                $content .= '<p>'.fake('ar_SA')->realText(1000).'</p>';
             }
 
             if ($section == 'Results') {
@@ -58,7 +58,7 @@ class PreviewFactory extends Factory
                         $tableRow = [];
 
                         foreach ($tableHeaders as $header) {
-                            $tableRow[] = $this->faker->word;
+                            $tableRow[] = fake('ar_SA')->word;
                         }
                         $content .= '<tr><td>'.implode('</td><td>', $tableRow).'</td></tr>';
                     }

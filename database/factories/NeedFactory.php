@@ -18,7 +18,7 @@ class NeedFactory extends Factory
             'needable_id' => fake()->uuid(),
             'needable_type' => fake()->randomElement(['sponsor', 'orphan'])[0],
             'subject' => fake()->sentence(2),
-            'demand' => fake()->paragraph(),
+            'demand' => fake()->realText(800),
             'status' => fake()->randomElement($status),
             'note' => fake()->sentence(),
             'created_at' => now(),

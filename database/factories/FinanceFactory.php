@@ -17,7 +17,7 @@ class FinanceFactory extends Factory
     {
         return [
             'amount' => fake()->numberBetween(-100000, 1000000),
-            'description' => fake('ar_SA')->paragraph(),
+            'description' => fake('ar_SA')->realText(),
             'date' => now()->subDays(random_int(1, 720)),
             'created_by' => fake()->uuid,
             'tenant_id' => fake()->uuid,
