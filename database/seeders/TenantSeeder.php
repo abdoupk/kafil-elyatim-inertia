@@ -71,7 +71,7 @@ class TenantSeeder extends Seeder
 
             Finance::factory()->count(100)->create([
                 'tenant_id' => $tenant->id,
-                'created_by' => $tenant->members->random()->id,
+                'created_by' => $tenant->members->random()->first()->id,
             ]);
         }
     }

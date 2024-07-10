@@ -577,6 +577,7 @@ export interface FinancesIndexResource {
     description: string
     amount: numbers
     date: Date
+    specification: string
     creator: {
         id: string
         name: string

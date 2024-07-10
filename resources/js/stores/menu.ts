@@ -153,6 +153,12 @@ export const useMenuStore = defineStore('menu', {
                 url: route('tenant.inventory.index')
             },
             {
+                icon: 'icon-handshake-angle',
+                title: __('the_needs'),
+                routeName: 'tenant.needs.index',
+                url: route('tenant.needs.index')
+            },
+            {
                 icon: 'icon-gear',
                 routeName: 'tenant.settings.index',
                 title: __('settings'),

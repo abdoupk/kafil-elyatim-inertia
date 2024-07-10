@@ -12,7 +12,7 @@ import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate } from '@/utils/helper'
+import { formatDate, formatNumber } from '@/utils/helper'
 
 defineProps<{ items: PaginationData<InventoryIndexResource>; params: IndexParams }>()
 
@@ -84,11 +84,11 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="max-w-40 text-center border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ item.qty }} {{ $t(item.unit) }}
+                            {{ formatNumber(item.qty) }} {{ $t(item.unit) }}
                         </base-td-table>
 
                         <base-td-table
-                            class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="w-48 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
                         >
                             {{ formatDate(item.created_at, 'full') }}
                         </base-td-table>

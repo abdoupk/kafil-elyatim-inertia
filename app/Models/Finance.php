@@ -51,6 +51,11 @@ class Finance extends Model
             'amount' => $this->amount,
             'description' => $this->description,
             'date' => $this->date,
+            'specification' => [
+                'ar' => __($this->specification, locale: 'ar'),
+                'en' => __($this->specification, locale: 'en'),
+                'fr' => __($this->specification, locale: 'fr'),
+            ],
             'creator' => $this->creator->getName(),
             'tenant_id' => $this->tenant_id,
         ];

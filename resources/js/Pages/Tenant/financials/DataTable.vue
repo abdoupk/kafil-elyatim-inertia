@@ -47,6 +47,15 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-th-table>
 
                         <base-th-table
+                            :direction="params.directions?.specification"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            sortable
+                            @click="emit('sort', 'specification')"
+                        >
+                            {{ $t('validation.attributes.specification') }}
+                        </base-th-table>
+
+                        <base-th-table
                             :direction="params.directions?.date"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
@@ -84,7 +93,15 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-td-table
                             class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ formatCurrency(finance.amount) }}
+                            <div :class="finance.amount < 0 ? 'text-danger' : 'text-success'">
+                                {{ formatCurrency(Math.abs(finance.amount)) }}
+                            </div>
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ $t(finance.specification) }}
                         </base-td-table>
 
                         <base-td-table

@@ -262,5 +262,6 @@ return [
         'incomes.pension' => 'منحة مجاهد',
         'incomes.cnas' => 'أجير',
         'status' => 'الحالة',
+        'specification' => 'التعيين',
     ],
 ];
