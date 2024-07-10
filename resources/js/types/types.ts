@@ -14,6 +14,8 @@ import {
     registerStepTwoErrorProps,
     themes
 } from '@/utils/constants'
+import _default from 'chart.js/dist/plugins/plugin.tooltip'
+import numbers = _default.defaults.animations.numbers
 
 export interface IPlacement {
     placement:
@@ -568,6 +570,17 @@ export interface NeedsIndexResource {
         name: string
     }
     note: string
+}
+
+export interface FinancesIndexResource {
+    id: string
+    description: string
+    amount: numbers
+    date: Date
+    creator: {
+        id: string
+        name: string
+    }
 }
 
 export interface BranchesIndexResource {

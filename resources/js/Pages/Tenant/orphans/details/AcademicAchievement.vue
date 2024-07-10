@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { formatDate } from '../../../../utils/helper'
+import { formatDate } from '@/utils/helper'
 
 import type { OrphanShowType } from '@/types/orphans'
 

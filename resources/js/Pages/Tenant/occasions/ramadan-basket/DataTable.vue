@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { formatCurrency } from '../../../../utils/helper'
+import { formatCurrency } from '@/utils/helper'
 
 import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 

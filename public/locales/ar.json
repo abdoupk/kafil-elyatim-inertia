@@ -535,7 +535,7 @@
     "reportTooltip": ":percentage% :range من الشهر الماضي",
     "results": "نتيجة",
     "roles": "الادوار",
-    "school entry": "دخول المدرسي",
+    "school_entry": "دخول المدرسي",
     "settings": "الاعدادات",
     "show": "عرض",
     "showing_results": "عرض :from إلى :to من :total :entries",
@@ -651,5 +651,10 @@
     "the_needs": "الاحتياجات",
     "needs": "احتياجات",
     "add_filter": "اضافة فلتر",
-    "delete_filter": "حذف الفلتر"
+    "delete_filter": "حذف الفلتر",
+    "receiving_member": "العضو المستلم",
+    "drilling_wells": "حفر الأبار",
+    "monthly_sponsorship": "كفالة شهرية",
+    "analysis": "التحاليل",
+    "therapy": "العلاج"
 }

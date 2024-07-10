@@ -191,6 +191,11 @@ return [
                 'searchableAttributes' => ['orphan.name', 'orphan.phone_number', 'orphan.age', 'orphan.gender'],
                 'sortableAttributes' => ['created_at', 'orphan.name', 'orphan.year_average', 'orphan.academic_level', 'orphan.academic_phase', 'sponsor.name', 'family.zone', 'orphan.shirt_size', 'orphan.pants_size', 'orphan.shoes_size'],
             ],
+            'finances' => [
+                'filterableAttributes' => ['id', 'amount', 'creator', 'tenant_id'],
+                'searchableAttributes' => ['description', 'date', 'amount', 'creator'],
+                'sortableAttributes' => ['date', 'amount', 'creator', 'created_at'],
+            ],
         ],
     ],
 
