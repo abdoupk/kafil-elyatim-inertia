@@ -542,7 +542,8 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {}
+export interface FamilyShow {
+}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 
@@ -584,4 +585,11 @@ export interface BranchesIndexResource {
 export interface ZonesIndexResource extends Zone {
     created_at: string
     description: string
+}
+
+
+export interface ListBoxFilter {
+    field: string;
+    icon: SVGType;
+    operators: Array<string>
 }

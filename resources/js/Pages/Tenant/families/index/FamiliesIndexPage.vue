@@ -158,7 +158,9 @@ watch(
                 {{ n__('add new', 0, { attribute: $t('family') }) }}
             </base-button>
 
-            <advanced-filter></advanced-filter>
+            <export-menu :params class="block sm:hidden"></export-menu>
+
+            <advanced-filter class="hidden sm:block"></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">
@@ -174,7 +176,9 @@ watch(
             </div>
 
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <export-menu :params></export-menu>
+                <export-menu :params class="hidden sm:block sm:me-2"></export-menu>
+
+                <advanced-filter class="me-2 sm:hidden"></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input

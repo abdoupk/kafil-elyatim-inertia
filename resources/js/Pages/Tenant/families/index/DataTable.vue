@@ -10,6 +10,7 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+import { formatDate } from '../../../../utils/helper'
 
 defineProps<{ families: PaginationData<FamiliesIndexResource>; params: IndexParams }>()
 
@@ -43,7 +44,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('file_number') }}
                         </base-th-table>
                         <base-th-table
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
                             sortable
                             :direction="params.directions?.start_date"
                             @click="emit('sort', 'start_date')"
@@ -84,10 +85,10 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ family.file_number }}
                         </base-td-table>
                         <base-td-table
-                            class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="w-40 text-start border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="whitespace-nowrap">
-                                {{ family.start_date }}
+                                {{ formatDate(family.start_date, 'long') }}
                             </div>
                         </base-td-table>
                         <base-td-table

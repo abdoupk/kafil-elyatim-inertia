@@ -1,31 +1,20 @@
 <script lang="ts" setup>
-import type { SVGType } from '@/types/types'
+import type { ListBoxFilter } from '@/types/types'
 
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { ref } from 'vue'
+
 
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-const people: Array<{ field: string; icon: SVGType; operators: Array<string> }> = [
-    {
-        field: 'name',
-        icon: 'icon-bell',
-        operators: ['contains',
-'not_contains',
-'starts_with',
-'ends_with']
-    },
-    {
-        field: 'age',
-        icon: 'icon-users-gear',
-        operators: ['contains',
-'not_contains',
-'starts_with',
-'ends_with']
-    }
-]
+defineProps<{ filters: ListBoxFilter[] }>()
 
-const selected = ref(people[0])
+const selected = defineModel('selected', {
+    default: {
+        field: 'init',
+        icon: 'icon-calendar',
+        operators: []
+    } as ListBoxFilter
+})
 </script>
 
 <template>
@@ -36,6 +25,7 @@ const selected = ref(people[0])
             >
                 <span class="flex items-center">
                     <svg-loader :name="selected.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
+
                     <span class="ms-3 block truncate">{{ selected.field }}</span>
                 </span>
 
@@ -53,10 +43,10 @@ const selected = ref(people[0])
                     class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-darkmode-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
                     <listbox-option
-                        v-for="person in people"
-                        :key="person.field"
+                        v-for="filter in filters"
+                        :key="filter.field"
                         v-slot="{ active, selected }"
-                        :value="person"
+                        :value="filter"
                         as="template"
                     >
                         <li
@@ -66,10 +56,10 @@ const selected = ref(people[0])
                             ]"
                         >
                             <div class="flex items-center">
-                                <svg-loader :name="person.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
+                                <svg-loader :name="filter.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                    person.field
-                                }}</span>
+                                        filter.field
+                                    }}</span>
                             </div>
 
                             <span
