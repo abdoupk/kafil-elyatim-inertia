@@ -29,7 +29,11 @@ use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
+use App\Http\Controllers\V1\Needs\NeedDeleteController;
+use App\Http\Controllers\V1\Needs\NeedShowController;
 use App\Http\Controllers\V1\Needs\NeedsIndexController;
+use App\Http\Controllers\V1\Needs\NeedStoreController;
+use App\Http\Controllers\V1\Needs\NeedUpdateController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDF;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
@@ -297,6 +301,18 @@ Route::middleware([
             Route::prefix('needs')->name('needs.')->group(function () {
                 Route::get('', NeedsIndexController::class)
                     ->name('index');
+
+                Route::get('show/{need}', NeedShowController::class)
+                    ->name('show');
+
+                Route::put('{need}', NeedUpdateController::class)
+                    ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::post('', NeedStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::delete('{need}', NeedDeleteController::class)
+                    ->name('destroy');
             });
         });
 

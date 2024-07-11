@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/types'
 
+import { useNeedsStore } from '@/stores/needs'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import FilterModal from '@/Pages/Shared/FilterModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 import DataTable from '@/Pages/Tenant/needs/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -43,7 +44,9 @@ const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
-const selectedFamilyId = ref<string>('')
+const selectedNeedId = ref<string>('')
+
+const updateModalStatus = ref<boolean>(false)
 
 let routerOptions = {
     preserveState: true,
@@ -53,12 +56,14 @@ let routerOptions = {
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
 
-    selectedFamilyId.value = ''
+    selectedNeedId.value = ''
 
     deleteProgress.value = false
 }
 
 const processing = ref(false)
+
+const needsStore = useNeedsStore()
 
 const getData = () => {
     let data = { ...params }
@@ -88,8 +93,8 @@ const sort = (field: string) => {
     getData()
 }
 
-const deleteFamily = () => {
-    router.delete(route('tenant.needs.destroy', selectedFamilyId.value), {
+const deleteNeed = () => {
+    router.delete(route('tenant.needs.destroy', selectedNeedId.value), {
         preserveScroll: true,
         onStart: () => {
             deleteProgress.value = true
@@ -105,9 +110,17 @@ const deleteFamily = () => {
 }
 
 const showDeleteModal = (needId: string) => {
-    selectedFamilyId.value = needId
+    selectedNeedId.value = needId
 
     deleteModalStatus.value = true
+}
+
+const showEditModal = (needId: string) => {
+    selectedNeedId.value = needId
+
+    needsStore.getNeed(needId)
+
+    updateModalStatus.value = true
 }
 
 watch(
@@ -186,7 +199,13 @@ watch(
     </div>
 
     <template v-if="needs.data.length > 0">
-        <data-table :needs :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+        <data-table
+            :needs
+            :params
+            @showDeleteModal="showDeleteModal"
+            @sort="sort($event)"
+            @show-edit-modal="showEditModal"
+        ></data-table>
 
         <pagination-data-table
             v-if="needs.meta.last_page > 1"
@@ -204,13 +223,8 @@ watch(
         :deleteProgress
         :open="deleteModalStatus"
         @close="closeDeleteModal"
-        @delete="deleteFamily"
+        @delete="deleteNeed"
     ></delete-modal>
 
-    <filter-modal
-        :open="filterModalStatus"
-        :processing
-        @close="filterModalStatus = false"
-        @filter="(args) => (params.filters = { ...args })"
-    ></filter-modal>
+    <need-create-update-modal :open="updateModalStatus" @close="updateModalStatus = false"></need-create-update-modal>
 </template>

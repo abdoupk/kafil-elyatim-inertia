@@ -1,0 +1,208 @@
+<script lang="ts" setup>
+/* eslint-disable vue/no-parsing-error */
+import { useNeedsStore } from '@/stores/needs'
+import { router } from '@inertiajs/vue3'
+import { useForm } from 'laravel-precognition-vue'
+import { computed, ref } from 'vue'
+
+import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+
+import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
+import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+
+import { omit } from '@/utils/helper'
+import { __, n__ } from '@/utils/i18n'
+
+defineProps<{
+    open: boolean
+}>()
+
+// Get the needs store
+const needsStore = useNeedsStore()
+
+const needStatuses = [
+    {
+        label: 'pending',
+        value: 'pending'
+    },
+    {
+        label: 'in_progress',
+        value: 'in_progress'
+    },
+    {
+        label: 'completed',
+        value: 'completed'
+    },
+    {
+        label: 'rejected',
+        value: 'rejected'
+    }
+]
+
+const needStatusesLabels = ({ label }) => {
+    return __(label)
+}
+
+// Initialize a ref for loading state
+const loading = ref(false)
+
+const form = computed(() => {
+    if (needsStore.need.id) {
+        return useForm('put', route('tenant.needs.update', needsStore.need.id), omit({ ...needsStore.need }, ['id']))
+    }
+
+    return useForm('post', route('tenant.needs.store'), omit({ ...needsStore.need }, ['id']))
+})
+
+// Define custom event emitter for 'close' event
+const emit = defineEmits(['close'])
+
+// Function to handle success and close the slideover after a delay
+const handleSuccess = () => {
+    setTimeout(() => {
+        router.get(
+            route('tenant.needs.index'),
+            {},
+            {
+                only: ['needs'],
+                preserveState: true
+            }
+        )
+    }, 200)
+
+    emit('close')
+}
+
+// Function to handle form submission
+const handleSubmit = async () => {
+    loading.value = true
+
+    try {
+        await form.value.submit().then(handleSuccess)
+    } finally {
+        loading.value = false
+    }
+}
+
+// Compute the slideover title based on the need id
+const modalTitle = computed(() => {
+    return needsStore.need.id ? __('update need') : n__('add new', 0, { attribute: __('need') })
+})
+
+// Initialize a ref for the first input element
+const firstInputRef = ref<HTMLElement>()
+
+// Compute the slideover type based on the need id
+const modalType = computed(() => {
+    return needsStore.need.id ? 'update' : 'create'
+})
+</script>
+
+<template>
+    <create-edit-modal
+        :focusable-input="firstInputRef"
+        :loading
+        :modal-type="modalType"
+        :open
+        :title="modalTitle"
+        size="xl"
+        @close="emit('close')"
+        @handle-submit="handleSubmit"
+    >
+        <template #description>
+            <!-- Begin: Subject  -->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="subject">
+                    {{ $t('validation.attributes.subject') }}
+                </base-form-label>
+
+                <base-form-input
+                    id="subject"
+                    ref="firstInputRef"
+                    v-model="form.subject"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.subject') })"
+                    type="text"
+                    @change="form.validate('subject')"
+                />
+
+                <div v-if="form.errors?.subject" class="mt-2">
+                    <base-input-error :message="form.errors.subject"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Subject  -->
+
+            <!-- Begin: Subject  -->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="status">
+                    {{ $t('validation.attributes.status') }}
+                </base-form-label>
+
+                <base-vue-select
+                    v-model:value="form.formatted_status"
+                    :custom-label="needStatusesLabels"
+                    :options="needStatuses"
+                    :placeholder="
+                        $t('auth.placeholders.tomselect', { attribute: $t('validation.attributes.the_status') })
+                    "
+                    label="label"
+                    track_by="value"
+                    @update:value="
+                        (status) => {
+                            form.status = status.value
+
+                            form?.validate('status')
+                        }
+                    "
+                ></base-vue-select>
+
+                <div v-if="form.errors?.status" class="mt-2">
+                    <base-input-error :message="form.errors.status"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Subject  -->
+
+            <!-- Begin: Demand-->
+            <div class="col-span-12">
+                <base-form-label htmlFor="demand">
+                    {{ $t('the_demand') }}
+                </base-form-label>
+
+                <base-form-text-area
+                    id="demand"
+                    v-model="form.demand"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.demand') })"
+                    rows="7"
+                    @change="form.validate('demand')"
+                />
+
+                <div v-if="form.errors?.demand" class="mt-2">
+                    <base-input-error :message="form.errors.demand"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Demand-->
+
+            <!-- Begin: Note-->
+            <div class="col-span-12">
+                <base-form-label htmlFor="note">
+                    {{ $t('the_note') }}
+                </base-form-label>
+
+                <base-form-text-area
+                    id="note"
+                    v-model="form.note"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.note') })"
+                    rows="7"
+                    @change="form.validate('note')"
+                />
+
+                <div v-if="form.errors?.note" class="mt-2">
+                    <base-input-error :message="form.errors.note"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Note-->
+        </template>
+    </create-edit-modal>
+</template>

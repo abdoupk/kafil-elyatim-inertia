@@ -9,7 +9,7 @@ defineProps<{ status: 'pending' | 'in_progress' | 'completed' | 'rejected' }>()
         :class="
             twMerge([
                 status === 'pending' && 'bg-pending/30 text-pending/90 dark:bg-pending/10',
-                status === 'in_progress' && 'bg-secondary/30 text-secondary/90 dark:bg-secondary/10',
+                status === 'in_progress' && 'bg-secondary dark:bg-secondary/10',
                 status === 'completed' && 'bg-success/30 text-success/90 dark:bg-success/10',
                 status === 'rejected' && 'bg-danger/30 text-danger/90 dark:bg-danger/10'
             ])

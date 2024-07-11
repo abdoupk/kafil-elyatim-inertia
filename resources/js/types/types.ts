@@ -255,6 +255,13 @@ export interface CreateMemberForm {
     gender: 'male' | 'female'
 }
 
+export interface CreateNeedForm {
+    demand: string
+    subject: string
+    status: string
+    note: string
+}
+
 export interface AddItemToInventoryForm {
     name: string
     qty: number

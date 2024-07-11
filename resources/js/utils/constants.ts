@@ -13,6 +13,8 @@ import type {
     ThemesType
 } from '@/types/types'
 
+import { __ } from '@/utils/i18n'
+
 export const placementClasses: Record<IPlacement['placement'], string> = {
     'top-start': 'start-0 bottom-[100%]',
     top: 'start-[50%] translate-x-[-50%] bottom-[100%]',
@@ -288,5 +290,24 @@ export const academicLevels = [
             'الرابعة دكتوراة',
             'الخامسة دكتوراة'
         ]
+    }
+]
+
+export const needStatuses = [
+    {
+        label: __('pending'),
+        value: 'pending'
+    },
+    {
+        label: __('in_progress'),
+        value: 'in_progress'
+    },
+    {
+        label: __('completed'),
+        value: 'completed'
+    },
+    {
+        label: __('rejected'),
+        value: 'rejected'
     }
 ]

@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/types'
 
-import { Link } from '@inertiajs/vue3'
-
 import NeedStatus from '@/Pages/Tenant/needs/index/NeedStatus.vue'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
@@ -18,7 +16,8 @@ const props = defineProps<{ needs: PaginationData<NeedsIndexResource>; params: I
 
 console.log(props.needs)
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+// eslint-disable-next-line array-element-newline
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 </script>
 
 <template>
@@ -52,7 +51,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'status')"
                         >
-                            {{ $t('validation.attributes.status') }}
+                            {{ $t('validation.attributes.the_status') }}
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
@@ -108,6 +107,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-td-table
                             class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
+                            <!-- FIXME: need note doesn't update without refresh -->
                             <base-tippy v-if="need.note" :content="need.note">
                                 <svg-loader class="block mx-auto" name="icon-note"></svg-loader>
                             </base-tippy>
@@ -119,10 +119,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <Link class="me-3 flex items-center" href="#">
+                                <a
+                                    class="me-3 flex items-center"
+                                    href="#"
+                                    @click.prevent="emit('showEditModal', need.id)"
+                                >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
-                                </Link>
+                                </a>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"

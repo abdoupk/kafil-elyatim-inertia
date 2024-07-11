@@ -89,10 +89,10 @@ const onTermKeydown = (event: KeyboardEvent) => {
 
     ;
 
-    (
+(
         resultsRefs.value[
-        results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
-            ] as HTMLElement
+            results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
+        ] as HTMLElement
     )?.scrollIntoView(false)
 }
 
