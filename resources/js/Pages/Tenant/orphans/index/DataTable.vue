@@ -33,7 +33,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             sortable
                             @click="emit('sort', 'name')"
                         >
-                            {{ $t('the_orphan') }}
+                            {{ $t('the_child') }}
                         </base-th-table>
 
                         <base-th-table
