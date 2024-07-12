@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import type { FamilyShowType } from '@/types/families'
 
+import { useNeedsStore } from '@/stores/needs'
 import { Link } from '@inertiajs/vue3'
+import { ref } from 'vue'
 
 import MenuLink from '@/Pages/Tenant/families/details/MenuLink.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
-import { useNeedsStore } from '@/stores/needs'
-import { ref } from 'vue'
 
 defineProps<{ family: FamilyShowType }>()
 
@@ -64,12 +64,7 @@ const showNeedCreateModal = () => {
             </div>
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                <base-button
-                    class="px-2 py-1"
-                    type="button"
-                    variant="primary"
-                    @click.prevent="showNeedCreateModal"
-                >
+                <base-button class="px-2 py-1" type="button" variant="primary" @click.prevent="showNeedCreateModal">
                     {{ $t('new need') }}
                 </base-button>
             </div>
@@ -77,6 +72,9 @@ const showNeedCreateModal = () => {
     </div>
     <!-- END: Profile Menu -->
 
-    <need-create-update-modal :close-only="true" :open="needCreateModalStatus"
-                              @close="needCreateModalStatus=false"></need-create-update-modal>
+    <need-create-update-modal
+        :close-only="true"
+        :open="needCreateModalStatus"
+        @close="needCreateModalStatus = false"
+    ></need-create-update-modal>
 </template>

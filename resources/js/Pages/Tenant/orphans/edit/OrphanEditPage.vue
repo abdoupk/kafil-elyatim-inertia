@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
+import type { ClothesSizesType, ShoesSizesType } from '@/types/types'
 
 import { provide, ref } from 'vue'
 
@@ -16,6 +17,8 @@ defineOptions({
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
+    shoesSizes: ShoesSizesType
+    clothesSizes: ClothesSizesType
 }>()
 
 const orphan = ref(props.orphan)
@@ -44,7 +47,9 @@ provide('orphanDetailView', { view, updateView })
             <div class="grid grid-cols-12 gap-6">
                 <general-information
                     v-if="view === 'general_information'"
+                    :clothesSizes
                     :orphan
+                    :shoesSizes
                     @orphan-updated="orphan = $event"
                 ></general-information>
 

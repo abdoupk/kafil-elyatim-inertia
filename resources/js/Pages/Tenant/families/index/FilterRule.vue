@@ -11,18 +11,12 @@ const filters: ListBoxFilter[] = [
     {
         field: 'name',
         icon: 'icon-bell',
-        operators: ['contains',
-'not_contains',
-'starts_with',
-'ends_with']
+        operators: ['contains', 'not_contains', 'starts_with', 'ends_with']
     },
     {
         field: 'age',
         icon: 'icon-users-gear',
-        operators: ['contains',
-'not_contains',
-'starts_with',
-'ends_with']
+        operators: ['contains', 'not_contains', 'starts_with', 'ends_with']
     }
 ]
 

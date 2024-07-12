@@ -117,6 +117,21 @@ class Orphan extends Model
         return $this->hasOne(OrphanSponsorship::class);
     }
 
+    public function shoesSize(): BelongsTo
+    {
+        return $this->belongsTo(ShoeSize::class, 'shoes_size', 'id');
+    }
+
+    public function pantsSize(): BelongsTo
+    {
+        return $this->belongsTo(ClothesSize::class, 'pants_size', 'id');
+    }
+
+    public function shirtSize(): BelongsTo
+    {
+        return $this->belongsTo(ClothesSize::class, 'shirt_size', 'id');
+    }
+
     public function toSearchableArray(): array
     {
         return [

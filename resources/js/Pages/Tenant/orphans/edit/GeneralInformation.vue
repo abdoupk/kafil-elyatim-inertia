@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
+import type { ClothesSizesType, ShoesSizesType } from '@/types/types'
 
 import dayjs from 'dayjs'
 import { useForm } from 'laravel-precognition-vue'
@@ -8,20 +9,25 @@ import { computed, reactive, ref } from 'vue'
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { omit } from '@/utils/helper'
-import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
-const props = defineProps<{ orphan: OrphanUpdateFormType }>()
+const props = defineProps<{
+    orphan: OrphanUpdateFormType
+    shoesSizes: ShoesSizesType
+    clothesSizes: ClothesSizesType
+}>()
 
 const emit = defineEmits(['orphan-updated'])
-
+console.log(props.orphan)
 const isStillBaby = computed(() => {
     return dayjs().diff(dayjs(form.birth_date), 'year') < 2
 })
@@ -220,7 +226,6 @@ const submit = () => {
                             })
                         "
                         data-test="orphan_gender"
-                        type="text"
                         @change="form?.validate('gender')"
                     >
                         <option value="male">{{ $t('male') }}</option>
@@ -242,18 +247,20 @@ const submit = () => {
                             {{ $t('pants_size') }}
                         </base-form-label>
 
-                        <base-form-input
+                        <base-vue-select
                             id="pants_size"
-                            v-model="form.pants_size"
+                            :options="clothesSizes"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.pants_size')
+                                    attribute: $t('pants_size')
                                 })
                             "
                             data-test="orphan_pants_size"
-                            type="text"
-                            @change="form?.validate('pants_size')"
-                        ></base-form-input>
+                            label="label"
+                            track-by="id"
+                            v-model="form.pants_size"
+                            @change="form.validate('pants_size')"
+                        ></base-vue-select>
 
                         <base-form-input-error>
                             <div
@@ -273,18 +280,20 @@ const submit = () => {
                             {{ $t('shirt_size') }}
                         </base-form-label>
 
-                        <base-form-input
+                        <base-vue-select
                             id="shirt_size"
-                            v-model="form.shirt_size"
+                            :options="clothesSizes"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.shirt_size')
+                                    attribute: $t('shirt_size')
                                 })
                             "
                             data-test="orphan_shirt_size"
-                            type="text"
-                            @change="form?.validate('shirt_size')"
-                        ></base-form-input>
+                            label="label"
+                            track-by="id"
+                            v-model="form.shirt_size"
+                            @change="form.validate('shirt_size')"
+                        ></base-vue-select>
 
                         <base-form-input-error>
                             <div
@@ -304,18 +313,20 @@ const submit = () => {
                             {{ $t('shoes_size') }}
                         </base-form-label>
 
-                        <base-form-input
+                        <base-vue-select
                             id="shoes_size"
-                            v-model="form.shoes_size"
+                            :options="shoesSizes"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.shoes_size')
+                                    attribute: $t('shoes_size')
                                 })
                             "
                             data-test="orphan_shoes_size"
-                            type="text"
-                            @change="form?.validate('shoes_size')"
-                        ></base-form-input>
+                            label="label"
+                            track-by="id"
+                            v-model="form.shoes_size"
+                            @change="form.validate('shoes_size')"
+                        ></base-vue-select>
 
                         <base-form-input-error>
                             <div
@@ -327,7 +338,7 @@ const submit = () => {
                             </div>
                         </base-form-input-error>
                     </div>
-                    <!-- END: Boots Size -->
+                    <!-- END: Shoes Size -->
                 </template>
 
                 <template v-else>

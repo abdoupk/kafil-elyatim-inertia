@@ -14,6 +14,7 @@ import {
     registerStepTwoErrorProps,
     themes
 } from '@/utils/constants'
+
 import numbers = _default.defaults.animations.numbers
 
 export interface IPlacement {
@@ -570,8 +571,7 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {
-}
+export interface FamilyShow {}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 
@@ -632,3 +632,7 @@ export interface ListBoxFilter {
     icon: SVGType
     operators: Array<string>
 }
+
+export type ShoesSizesType = { id: number; label: string }[]
+
+export type ClothesSizesType = { id: number; label: string }[]

@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\ClothesSize;
 use App\Models\Orphan;
+use App\Models\ShoeSize;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Random\RandomException;
 
@@ -24,9 +26,9 @@ class OrphanFactory extends Factory
             'family_status' => fake('ar_SA')->word,
             'health_status' => fake('ar_SA')->word,
             'academic_level' => fake('ar_SA')->word,
-            'shoes_size' => random_int(30, 45),
-            'pants_size' => fake()->shuffleArray($this->sizes)[0],
-            'shirt_size' => fake()->shuffleArray($this->sizes)[0],
+            'shoes_size' => ShoeSize::inRandomOrder()->first()->id,
+            'pants_size' => ClothesSize::inRandomOrder()->first()->id,
+            'shirt_size' => ClothesSize::inRandomOrder()->first()->id,
             'gender' => fake()->randomElement(['male', 'female']),
             'note' => fake('ar_SA')->realText(500),
             'tenant_id' => fake()->uuid,
