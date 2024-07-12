@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 /* eslint-disable vue/no-parsing-error */
 import { useNeedsStore } from '@/stores/needs'
-import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
@@ -15,11 +14,14 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { needStatuses } from '@/utils/constants'
 import { omit } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { __ } from '@/utils/i18n'
+import { router } from '@inertiajs/vue3'
 
-defineProps<{
+const props = defineProps<{
     open: boolean
+    closeOnly?: boolean
 }>()
+
 
 // Get the needs store
 const needsStore = useNeedsStore()
@@ -44,16 +46,18 @@ const emit = defineEmits(['close'])
 
 // Function to handle success and close the slideover after a delay
 const handleSuccess = () => {
-    setTimeout(() => {
-        router.get(
-            route('tenant.needs.index'),
-            {},
-            {
-                only: ['needs'],
-                preserveState: true
-            }
-        )
-    }, 200)
+    if (!props.closeOnly) {
+        setTimeout(() => {
+            router.get(
+                route('tenant.needs.index'),
+                {},
+                {
+                    only: ['needs'],
+                    preserveState: true
+                }
+            )
+        }, 200)
+    }
 
     emit('close')
 }
@@ -71,7 +75,7 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the need id
 const modalTitle = computed(() => {
-    return needsStore.need.id ? __('update need') : n__('add new', 0, { attribute: __('need') })
+    return needsStore.need.id ? __('update need') : __('new need')
 })
 
 // Initialize a ref for the first input element
@@ -169,7 +173,7 @@ const modalType = computed(() => {
             <!-- Begin: Note-->
             <div class="col-span-12">
                 <base-form-label htmlFor="note">
-                    {{ $t('the_note') }}
+                    {{ $t('validation.attributes.note') }}
                 </base-form-label>
 
                 <base-form-text-area

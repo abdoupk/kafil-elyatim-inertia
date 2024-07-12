@@ -112,7 +112,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 <svg-loader class="block mx-auto" name="icon-note"></svg-loader>
                             </base-tippy>
 
-                            <span v-else>-</span>
+                            <span v-else class="block mx-auto text-center">-</span>
                         </base-td-table>
 
                         <base-td-table

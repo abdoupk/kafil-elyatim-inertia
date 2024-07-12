@@ -214,6 +214,7 @@
     "new need": "اضافة احتياج",
     "furnishings information": "معلومات عن الاثاث",
     "family details": "تفاصيل العائلة",
+    "orphan details": "تفاصيل اليتيم",
     "yes": "نعم",
     "no": "لا",
     "children_count": "عدد الاطفال",
@@ -240,5 +241,6 @@
     "income": "دخل",
     "orphans_count": "عدد الأولاد",
     "display information": "عرض المعلومات",
-    "save": "حفظ"
+    "save": "حفظ",
+    "need": "احتياج"
 }

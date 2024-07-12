@@ -6,8 +6,21 @@ import { Link } from '@inertiajs/vue3'
 import MenuLink from '@/Pages/Tenant/families/details/MenuLink.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import { useNeedsStore } from '@/stores/needs'
+import { ref } from 'vue'
 
 defineProps<{ family: FamilyShowType }>()
+
+const needsStore = useNeedsStore()
+
+const needCreateModalStatus = ref<boolean>(false)
+
+const showNeedCreateModal = () => {
+    needsStore.$reset()
+
+    needCreateModalStatus.value = true
+}
 </script>
 
 <template>
@@ -52,11 +65,10 @@ defineProps<{ family: FamilyShowType }>()
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                 <base-button
-                    :as="Link"
-                    :href="route('tenant.families.create')"
                     class="px-2 py-1"
                     type="button"
                     variant="primary"
+                    @click.prevent="showNeedCreateModal"
                 >
                     {{ $t('new need') }}
                 </base-button>
@@ -64,4 +76,7 @@ defineProps<{ family: FamilyShowType }>()
         </div>
     </div>
     <!-- END: Profile Menu -->
+
+    <need-create-update-modal :close-only="true" :open="needCreateModalStatus"
+                              @close="needCreateModalStatus=false"></need-create-update-modal>
 </template>

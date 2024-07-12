@@ -13,6 +13,8 @@ class NeedCreateRequest extends FormRequest
             'demand' => 'required|string',
             'subject' => 'required|string',
             'note' => 'nullable|string',
+            'needable_type' => 'required|in:orphan,sponsor',
+            'needable_id' => 'required',
             'status' => 'required|in:'.implode(',', array_map(fn ($case) => $case->value, NeedStatus::cases())),
         ];
     }

@@ -330,7 +330,7 @@
     "validation.attributes.excerpt": "المُلخص",
     "validation.attributes.filter": "تصفية",
     "validation.attributes.first_name": "الاسم",
-    "validation.attributes.gender": "النوع",
+    "validation.attributes.gender": "الجنس",
     "validation.attributes.group": "مجموعة",
     "validation.attributes.hour": "ساعة",
     "validation.attributes.image": "صورة",
@@ -421,10 +421,11 @@
     "validation.attributes.incomes.cnr": "تقاعد",
     "validation.attributes.incomes.pension": "منحة مجاهد",
     "validation.attributes.incomes.cnas": "أجير",
-    "validation.attributes.status": "حالة",
+    "validation.attributes.status": "الحالة",
     "validation.attributes.the_status": "الحالة",
     "validation.attributes.specification": "التعيين",
     "validation.attributes.the_amount": "المبلغ",
+    "validation.attributes.demand": "الطلب",
     "(and :count more error)": "(و :count خطأ إضافي)",
     "(and :count more errors)": "(و :count أخطاء إضافية)",
     "A new verification link has been sent to the email address you provided during registration.": "تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قمت بالتسجيل به.",
@@ -640,6 +641,7 @@
     "new need": "اضافة احتياج",
     "furnishings information": "معلومات عن الاثاث",
     "family details": "تفاصيل العائلة",
+    "orphan details": "تفاصيل اليتيم",
     "yes": "نعم",
     "no": "لا",
     "children_count": "عدد الاطفال",
@@ -666,5 +668,6 @@
     "income": "دخل",
     "orphans_count": "عدد الأولاد",
     "display information": "عرض المعلومات",
-    "save": "حفظ"
+    "save": "حفظ",
+    "need": "احتياج"
 }

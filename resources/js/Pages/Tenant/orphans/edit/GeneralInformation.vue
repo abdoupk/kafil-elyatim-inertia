@@ -15,21 +15,21 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 
 import { omit } from '@/utils/helper'
+import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 const props = defineProps<{ orphan: OrphanUpdateFormType }>()
 
 const emit = defineEmits(['orphan-updated'])
 
 const isStillBaby = computed(() => {
-    return dayjs().diff(dayjs(props.orphan.birth_date), 'year') < 2
+    return dayjs().diff(dayjs(form.birth_date), 'year') < 2
 })
 
 // eslint-disable-next-line array-element-newline
 const inputs = reactive<OrphanUpdateFormType>(
-    omit(props.orphan, ['sponsorships',
-'academicAchievements',
-'id',
-'creator'])
+    // eslint-disable-next-line array-element-newline
+    omit(props.orphan, ['sponsorships', 'academicAchievements', 'id', 'creator'])
 )
 
 const form = useForm('put', route('tenant.orphans.infos-update', props.orphan.id), inputs)
@@ -40,6 +40,10 @@ const submit = () => {
     form.submit({
         onSuccess() {
             updateSuccess.value = true
+
+            Object.keys(form.errors).forEach((error) => {
+                form.forgetError(error as keyof OrphanUpdateFormType)
+            })
 
             emit('orphan-updated', { ...props.orphan, ...form.data() })
         },
@@ -120,6 +124,25 @@ const submit = () => {
                 </div>
                 <!-- END: Last Name -->
 
+                <!-- BEGIN: BirthDate -->
+                <div class="@xl:col-span-6 col-span-12">
+                    <base-form-label for="birth_date">
+                        {{ $t('validation.attributes.spouse.birth_date') }}
+                    </base-form-label>
+
+                    <base-v-calendar v-model:date="form.birth_date"></base-v-calendar>
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('birth_date')"
+                            class="mt-2 text-danger"
+                            data-test="error_birth_date_message"
+                        >
+                            {{ form.errors.birth_date }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+                <!-- END: BirthDate -->
+
                 <!-- BEGIN: Family Status -->
                 <div class="@xl:col-span-6 col-span-12">
                     <base-form-label for="family_status">
@@ -131,7 +154,7 @@ const submit = () => {
                         v-model="form.family_status"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.family_status')
+                                attribute: $t('family_status')
                             })
                         "
                         data-test="orphan_family_status"
@@ -162,7 +185,7 @@ const submit = () => {
                         v-model="form.academic_level"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.academic_level')
+                                attribute: $t('academic_level')
                             })
                         "
                         data-test="orphan_academic_level"
@@ -188,7 +211,7 @@ const submit = () => {
                         {{ $t('validation.attributes.gender') }}
                     </base-form-label>
 
-                    <base-form-input
+                    <base-form-select
                         id="gender"
                         v-model="form.gender"
                         :placeholder="
@@ -199,7 +222,10 @@ const submit = () => {
                         data-test="orphan_gender"
                         type="text"
                         @change="form?.validate('gender')"
-                    ></base-form-input>
+                    >
+                        <option value="male">{{ $t('male') }}</option>
+                        <option value="female">{{ $t('female') }}</option>
+                    </base-form-select>
 
                     <base-form-input-error>
                         <div v-if="form?.invalid('gender')" class="mt-2 text-danger" data-test="error_gender_message">
@@ -308,7 +334,7 @@ const submit = () => {
                     <!-- BEGIN: Diapers Type -->
                     <div class="@xl:col-span-6 col-span-12">
                         <base-form-label for="diapers_type">
-                            {{ $t('validation.attributes.diapers_type') }}
+                            {{ $t('diapers_type') }}
                         </base-form-label>
 
                         <base-form-input
@@ -316,7 +342,7 @@ const submit = () => {
                             v-model="form.diapers_type"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.diapers_type')
+                                    attribute: $t('diapers_type')
                                 })
                             "
                             data-test="orphan_diapers_type"
@@ -339,7 +365,7 @@ const submit = () => {
                     <!-- BEGIN: Diapers Quantity -->
                     <div class="@xl:col-span-6 col-span-12">
                         <base-form-label for="diapers_quantity">
-                            {{ $t('validation.attributes.diapers_quantity') }}
+                            {{ $t('diapers_quantity') }}
                         </base-form-label>
 
                         <base-form-input
@@ -347,7 +373,7 @@ const submit = () => {
                             v-model="form.diapers_quantity"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.diapers_quantity')
+                                    attribute: $t('diapers_quantity')
                                 })
                             "
                             data-test="orphan_diapers_quantity"
@@ -370,7 +396,7 @@ const submit = () => {
                     <!-- BEGIN: Baby Milk Type -->
                     <div class="@xl:col-span-6 col-span-12">
                         <base-form-label for="baby_milk_type">
-                            {{ $t('validation.attributes.baby_milk_type') }}
+                            {{ $t('baby_milk_type') }}
                         </base-form-label>
 
                         <base-form-input
@@ -378,7 +404,7 @@ const submit = () => {
                             v-model="form.baby_milk_type"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.baby_milk_type')
+                                    attribute: $t('baby_milk_type')
                                 })
                             "
                             data-test="orphan_baby_milk_type"
@@ -401,7 +427,7 @@ const submit = () => {
                     <!-- BEGIN: Baby Milk Quantity -->
                     <div class="@xl:col-span-6 col-span-12">
                         <base-form-label for="baby_milk_quantity">
-                            {{ $t('validation.attributes.baby_milk_quantity') }}
+                            {{ $t('baby_milk_quantity') }}
                         </base-form-label>
 
                         <base-form-input
@@ -409,7 +435,7 @@ const submit = () => {
                             v-model="form.baby_milk_quantity"
                             :placeholder="
                                 $t('auth.placeholders.fill', {
-                                    attribute: $t('validation.attributes.baby_milk_quantity')
+                                    attribute: $t('baby_milk_quantity')
                                 })
                             "
                             data-test="orphan_baby_milk_quantity"

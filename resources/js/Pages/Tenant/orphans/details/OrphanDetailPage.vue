@@ -32,7 +32,7 @@ provide('orphanDetailView', { view, updateView })
 <template>
     <div class="flex items-center mt-8 intro-y">
         <h2 class="me-auto text-lg font-medium ltr:capitalize">
-            {{ $t('family details') }}
+            {{ $t('orphan details') }}
         </h2>
     </div>
     <div class="grid grid-cols-12 gap-6 mt-5">

@@ -6,8 +6,6 @@ import { computed } from 'vue'
 
 import MenuLink from '@/Pages/Tenant/orphans/details/MenuLink.vue'
 
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-
 const props = defineProps<{ orphan: OrphanUpdateFormType }>()
 
 const name = computed(() => {
@@ -35,18 +33,6 @@ const name = computed(() => {
                 <menu-link icon="icon-couple" view-name="sponsorships_information"></menu-link>
 
                 <menu-link icon="icon-couple" view-name="academic_achievement"></menu-link>
-            </div>
-
-            <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                <base-button
-                    :as="Link"
-                    :href="route('tenant.families.create')"
-                    class="px-2 py-1"
-                    type="button"
-                    variant="primary"
-                >
-                    {{ $t('new need') }}
-                </base-button>
             </div>
         </div>
     </div>
