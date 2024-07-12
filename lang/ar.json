@@ -158,6 +158,7 @@
     "sponsorship for the orphans": "التكفل بالايتام",
     "ccp": "رقم الحساب البريدي الجاري",
     "successfully_created": "تمت اضافة :attribute بنجاح",
+    "successfully_updated": "تمت التحديث بنجاح",
     "families_count": "عدد العائلات",
     "branch_president": "رئيس الفرع",
     "location": "الموقع",
@@ -237,5 +238,7 @@
     "therapy": "العلاج",
     "expense": "مصروف",
     "income": "دخل",
-    "orphans_count": "عدد الأولاد"
+    "orphans_count": "عدد الأولاد",
+    "display information": "عرض المعلومات",
+    "save": "حفظ"
 }

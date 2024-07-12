@@ -97,7 +97,7 @@ export interface FamilySponsorshipType {
 }
 
 export interface OrphanSponsorshipType {
-    id: boolean
+    id: string
     medical_sponsorship: boolean
     university_scholarship: boolean
     association_trips: boolean

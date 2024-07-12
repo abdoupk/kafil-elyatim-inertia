@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\V1\Orphans;
 
+use App\Models\Baby;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Baby */
+/** @mixin Baby */
 class BabyResource extends JsonResource
 {
     public function toArray(Request $request): array

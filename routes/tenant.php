@@ -51,8 +51,11 @@ use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
 use App\Http\Controllers\V1\Orphans\OrphanDeleteController;
+use App\Http\Controllers\V1\Orphans\OrphanEditController;
 use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
+use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
+use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
@@ -169,6 +172,15 @@ Route::middleware([
 
                 Route::get('show/{orphan}', OrphanShowController::class)
                     ->name('show');
+
+                Route::put('infos/{orphan}', OrphanUpdateInfosController::class)
+                    ->name('infos-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('sponsorships/{orphan}', OrphanUpdateSponsorshipsController::class)
+                    ->name('sponsorships-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::get('edit/{orphan}', OrphanEditController::class)
+                    ->name('edit');
 
                 Route::delete('{orphan}', OrphanDeleteController::class)
                     ->name('destroy');

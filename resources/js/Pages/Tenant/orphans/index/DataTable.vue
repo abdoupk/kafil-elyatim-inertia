@@ -161,14 +161,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <a
+                                <Link
+                                    :href="route('tenant.orphans.edit', orphan.id)"
                                     class="me-3 flex items-center"
-                                    href="javascript:void(0)"
                                     @click.prevent="emit('showEditModal', orphan.id)"
                                 >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
-                                </a>
+                                </Link>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
