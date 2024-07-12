@@ -262,6 +262,24 @@ export interface CreateNeedForm {
     note: string
 }
 
+export interface CreateFinancialTransactionForm {
+    amount: number
+    description: string
+    date: Date | string
+    member_id: string
+    type: 'income' | 'expense'
+    specification:
+        | 'drilling_wells'
+        | 'monthly_sponsorship'
+        | 'eid_el_adha'
+        | 'eid_el_fitr'
+        | 'other'
+        | 'school_entry'
+        | 'analysis'
+        | 'therapy'
+        | 'ramadan_basket'
+}
+
 export interface AddItemToInventoryForm {
     name: string
     qty: number
@@ -578,7 +596,7 @@ export interface NeedsIndexResource {
     note: string
 }
 
-export interface FinancesIndexResource {
+export interface FinancialTransactionsIndexResource {
     id: string
     description: string
     amount: numbers

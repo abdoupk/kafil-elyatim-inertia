@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\V1\Branches;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BranchUpdateResource;
+use App\Http\Resources\V1\Branches\BranchUpdateResource;
 use App\Models\Branch;
 use Illuminate\Http\JsonResponse;
 

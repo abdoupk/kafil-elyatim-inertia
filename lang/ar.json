@@ -234,5 +234,7 @@
     "drilling_wells": "حفر الأبار",
     "monthly_sponsorship": "كفالة شهرية",
     "analysis": "التحاليل",
-    "therapy": "العلاج"
+    "therapy": "العلاج",
+    "expense": "مصروف",
+    "income": "دخل"
 }

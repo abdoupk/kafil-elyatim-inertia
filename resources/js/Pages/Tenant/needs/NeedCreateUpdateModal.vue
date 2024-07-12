@@ -13,6 +13,7 @@ import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
+import { needStatuses } from '@/utils/constants'
 import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
@@ -23,26 +24,7 @@ defineProps<{
 // Get the needs store
 const needsStore = useNeedsStore()
 
-const needStatuses = [
-    {
-        label: 'pending',
-        value: 'pending'
-    },
-    {
-        label: 'in_progress',
-        value: 'in_progress'
-    },
-    {
-        label: 'completed',
-        value: 'completed'
-    },
-    {
-        label: 'rejected',
-        value: 'rejected'
-    }
-]
-
-const needStatusesLabels = ({ label }) => {
+const needStatusesLabels = ({ label }: { label: string }) => {
     return __(label)
 }
 
@@ -134,7 +116,7 @@ const modalType = computed(() => {
             </div>
             <!-- End: Subject  -->
 
-            <!-- Begin: Subject  -->
+            <!-- Begin: Status  -->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="status">
                     {{ $t('validation.attributes.status') }}
@@ -162,7 +144,7 @@ const modalType = computed(() => {
                     <base-input-error :message="form.errors.status"></base-input-error>
                 </div>
             </div>
-            <!-- End: Subject  -->
+            <!-- End: Status  -->
 
             <!-- Begin: Demand-->
             <div class="col-span-12">

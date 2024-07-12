@@ -423,6 +423,7 @@
     "validation.attributes.status": "حالة",
     "validation.attributes.the_status": "الحالة",
     "validation.attributes.specification": "التعيين",
+    "validation.attributes.the_amount": "المبلغ",
     "(and :count more error)": "(و :count خطأ إضافي)",
     "(and :count more errors)": "(و :count أخطاء إضافية)",
     "A new verification link has been sent to the email address you provided during registration.": "تم إرسال رابط تحقق جديد إلى عنوان البريد الإلكتروني الذي قمت بالتسجيل به.",
@@ -658,5 +659,7 @@
     "drilling_wells": "حفر الأبار",
     "monthly_sponsorship": "كفالة شهرية",
     "analysis": "التحاليل",
-    "therapy": "العلاج"
+    "therapy": "العلاج",
+    "expense": "مصروف",
+    "income": "دخل"
 }

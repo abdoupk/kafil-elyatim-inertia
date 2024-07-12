@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FinancesIndexResource, IndexParams, PaginationData } from '@/types/types'
+import type { FinancialTransactionsIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -14,7 +14,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatCurrency, formatDate } from '@/utils/helper'
 
-const props = defineProps<{ finances: PaginationData<FinancesIndexResource>; params: IndexParams }>()
+const props = defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
 
 console.log(props.finances)
 
@@ -115,7 +115,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="border-b-0 truncate max-w-40 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <base-tippy :content="finance.description">
-                                <svg-loader class="block mx-auto h-6 w-6" name="icon-file-lines"></svg-loader>
+                                <svg-loader class="block mx-auto h-6 w-6" name="icon-note"></svg-loader>
                             </base-tippy>
                         </base-td-table>
 

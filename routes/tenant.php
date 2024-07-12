@@ -17,7 +17,11 @@ use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
+use App\Http\Controllers\V1\Financial\FinancialDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
+use App\Http\Controllers\V1\Financial\FinancialShowController;
+use App\Http\Controllers\V1\Financial\FinancialStoreController;
+use App\Http\Controllers\V1\Financial\FinancialUpdateController;
 use App\Http\Controllers\V1\Inventory\InventoryIndexController;
 use App\Http\Controllers\V1\Inventory\ItemDeleteController;
 use App\Http\Controllers\V1\Inventory\ItemShowController;
@@ -228,6 +232,18 @@ Route::middleware([
             Route::prefix('financial')->name('financial.')->group(function () {
                 Route::get('', FinancialIndexController::class)
                     ->name('index');
+
+                Route::get('show/{finance}', FinancialShowController::class)
+                    ->name('show');
+
+                Route::put('{finance}', FinancialUpdateController::class)
+                    ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::post('', FinancialStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::delete('{finance}', FinancialDeleteController::class)
+                    ->name('destroy');
             });
 
             Route::prefix('statistics')->name('statistics.')->group(function () {

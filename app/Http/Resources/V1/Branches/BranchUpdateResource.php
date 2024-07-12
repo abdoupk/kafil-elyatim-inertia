@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\V1\Branches;
 
 use App\Http\Resources\V1\Cities\CityResource;
 use App\Models\Branch;

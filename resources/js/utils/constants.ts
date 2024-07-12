@@ -13,8 +13,6 @@ import type {
     ThemesType
 } from '@/types/types'
 
-import { __ } from '@/utils/i18n'
-
 export const placementClasses: Record<IPlacement['placement'], string> = {
     'top-start': 'start-0 bottom-[100%]',
     top: 'start-[50%] translate-x-[-50%] bottom-[100%]',
@@ -295,19 +293,58 @@ export const academicLevels = [
 
 export const needStatuses = [
     {
-        label: __('pending'),
+        label: 'pending',
         value: 'pending'
     },
     {
-        label: __('in_progress'),
+        label: 'in_progress',
         value: 'in_progress'
     },
     {
-        label: __('completed'),
+        label: 'completed',
         value: 'completed'
     },
     {
-        label: __('rejected'),
+        label: 'rejected',
         value: 'rejected'
+    }
+]
+
+export const financialTransactionSpecifications = [
+    {
+        label: 'drilling_wells',
+        value: 'drilling_wells'
+    },
+    {
+        label: 'monthly_sponsorship',
+        value: 'monthly_sponsorship'
+    },
+    {
+        label: 'eid_el_adha',
+        value: 'eid_el_adha'
+    },
+    {
+        label: 'eid_el_fitr',
+        value: 'eid_el_fitr'
+    },
+    {
+        label: 'school_entry',
+        value: 'school_entry'
+    },
+    {
+        label: 'analysis',
+        value: 'analysis'
+    },
+    {
+        label: 'therapy',
+        value: 'therapy'
+    },
+    {
+        label: 'ramadan_basket',
+        value: 'ramadan_basket'
+    },
+    {
+        label: 'other',
+        value: 'other'
     }
 ]

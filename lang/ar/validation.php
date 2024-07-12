@@ -264,5 +264,6 @@ return [
         'status' => 'حالة',
         'the_status' => 'الحالة',
         'specification' => 'التعيين',
+        'the_amount' => 'المبلغ',
     ],
 ];

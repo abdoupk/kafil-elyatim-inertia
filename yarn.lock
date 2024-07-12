@@ -1136,6 +1136,33 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
+"@fullcalendar/daygrid@^6.1.14", "@fullcalendar/daygrid@~6.1.14":
+  version "6.1.14"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-6.1.14.tgz#4afc48adbdd905b79777ff4c822c9ed0205df995"
+  integrity sha512-DSyjiA1dEM8k3bOCrZpZOmAOZu71KGtH02ze+4QKuhxkmn/zQghmmLRdfzpOrcyJg6xGKkoB4pBcO+2lXar8XQ==
+
+"@fullcalendar/interaction@^6.1.14":
+  version "6.1.14"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/interaction/-/interaction-6.1.14.tgz#c758581419e324cf82b53a38e7941942f7f0dd14"
+  integrity sha512-rXum5XCjq+WEPNctFeYL/JKZGeU2rlxrElygocdMegcrIBJQW5hnWWVE+i4/1dOmUKF80CbGVlXUyYXoqK2eFg==
+
+"@fullcalendar/list@^6.1.14":
+  version "6.1.14"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/list/-/list-6.1.14.tgz#526a8f9ce1d98457ab030c3e4ae47302afb92ebf"
+  integrity sha512-eV0/6iCumYfvlPzIUTAONWH17/JlQCyCChUz8m06L4E/sOiNjkHGz8vlVTmZKqXzx9oWOOyV/Nm3pCtHmVZh+Q==
+
+"@fullcalendar/timegrid@^6.1.14":
+  version "6.1.14"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-6.1.14.tgz#ff1849278b4991002ae1337d5435aaba3ae9aadc"
+  integrity sha512-ZByc3BVAtxWSVfyaNedROLlg/Tb2NQ43+MZZAfBSrVwVm2xyfQ+Bsx3pJyCXsRsUh2TFFTO07q7nMWe0jet3KQ==
+  dependencies:
+    "@fullcalendar/daygrid" "~6.1.14"
+
+"@fullcalendar/vue3@^6.1.14":
+  version "6.1.14"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/vue3/-/vue3-6.1.14.tgz#6e98011338bea3f010eb47e769ea48793dd97636"
+  integrity sha512-cD4tGlXOoIfRn5sz/+uT+50rAuCtPEgXfG3O5LJXI4xRWztAXqkmZetcuTEDb3OOy/D03IdtpjvoayCHib7rZg==
+
 "@googlemaps/js-api-loader@^1.16.2":
   version "1.16.6"
   resolved "https://registry.yarnpkg.com/@googlemaps/js-api-loader/-/js-api-loader-1.16.6.tgz#c89970c94b55796d51746c092f0e52953994a171"

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { SecondSponsorType } from '@/types/families'
 
-import { formatCurrency, formatDate } from '@/utils/helper'
+import { formatCurrency } from '@/utils/helper'
 
 defineProps<{ secondSponsor: SecondSponsorType }>()
 </script>

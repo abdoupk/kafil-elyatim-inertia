@@ -18,6 +18,7 @@ class Finance extends Model
         'amount',
         'description',
         'date',
+        'specification',
         'created_by',
         'tenant_id',
     ];

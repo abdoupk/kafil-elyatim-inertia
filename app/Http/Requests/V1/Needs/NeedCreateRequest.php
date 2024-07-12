@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\Needs;
 
+use App\Enums\NeedStatus;
 use Illuminate\Foundation\Http\FormRequest;
 
 class NeedCreateRequest extends FormRequest
@@ -9,14 +10,10 @@ class NeedCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'demand' => ['required'],
-            'subject' => ['required'],
-            'needable_type' => ['required'],
-            'needable_id' => ['required'],
-            'tenant_id' => ['required', 'exists:tenants'],
-            'note' => ['nullable'],
-            'status' => ['required'],
-            'deleted_at' => ['nullable', 'date'],
+            'demand' => 'required|string',
+            'subject' => 'required|string',
+            'note' => 'nullable|string',
+            'status' => 'required|in:'.implode(',', array_map(fn ($case) => $case->value, NeedStatus::cases())),
         ];
     }
 

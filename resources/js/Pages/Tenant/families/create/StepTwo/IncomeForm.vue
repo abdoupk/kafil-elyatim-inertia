@@ -73,7 +73,7 @@ const toggle = (key: keyof IncomeType) => {
                 <base-form-input
                     v-model="cnr"
                     :disabled="!items.cnr"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('validation.attributes.the_amount')"
                     maxlength="6"
                     type="text"
                     @change="form?.validate('incomes.cnr')"
@@ -116,7 +116,7 @@ const toggle = (key: keyof IncomeType) => {
                 <base-form-input
                     v-model="cnas"
                     :disabled="!items.cnas"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('validation.attributes.the_amount')"
                     maxlength="6"
                     type="text"
                     @change="form?.validate('incomes.cnas')"
@@ -159,7 +159,7 @@ const toggle = (key: keyof IncomeType) => {
                 <base-form-input
                     v-model="casnos"
                     :disabled="!items.casnos"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('validation.attributes.the_amount')"
                     maxlength="6"
                     type="text"
                     @change="form?.validate('incomes.casnos')"
@@ -206,7 +206,7 @@ const toggle = (key: keyof IncomeType) => {
                 <base-form-input
                     v-model="pension"
                     :disabled="!items.pension"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('validation.attributes.the_amount')"
                     maxlength="6"
                     type="text"
                     @change="form?.validate('incomes.pension')"
@@ -253,7 +253,7 @@ const toggle = (key: keyof IncomeType) => {
                 <base-form-input
                     v-model="other_income"
                     :disabled="!items.other_income"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('validation.attributes.the_amount')"
                     maxlength="6"
                     type="text"
                     @change="form?.validate('incomes.other_income')"
@@ -300,7 +300,7 @@ const toggle = (key: keyof IncomeType) => {
                 <base-form-input
                     v-model="account"
                     :disabled="!items.account"
-                    :placeholder="$t('the_amount')"
+                    :placeholder="$t('validation.attributes.the_amount')"
                     maxlength="6"
                     type="text"
                     @change="form?.validate('incomes.account')"
