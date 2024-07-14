@@ -109,10 +109,10 @@ export interface OrphanSponsorshipType {
 
 export interface SponsorSponsorshipType {
     id: string
-    medical_sponsorship: string
-    literacy_lessons: string
-    direct_sponsorship: string
-    project_support: string
+    medical_sponsorship: string | boolean
+    literacy_lessons: string | boolean
+    direct_sponsorship: string | boolean
+    project_support: string | boolean
 }
 
 export interface PreviewType {

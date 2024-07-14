@@ -2,17 +2,33 @@
 import type { SponsorUpdateFormType } from '@/types/sponsors'
 
 import { Link } from '@inertiajs/vue3'
+import { computed, ref } from 'vue'
 
 import MenuLink from '@/Pages/Tenant/sponsors/details/MenuLink.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import { computed } from 'vue'
+import { useNeedsStore } from '@/stores/needs'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 
 const props = defineProps<{ sponsor: SponsorUpdateFormType }>()
 
 const name = computed(() => {
     return props.sponsor.first_name + ' ' + props.sponsor.last_name
 })
+
+const needsStore = useNeedsStore()
+
+const needCreateModalStatus = ref<boolean>(false)
+
+const showNeedCreateModal = () => {
+    needsStore.$reset()
+
+    needsStore.need.needable_type = 'sponsor'
+
+    needsStore.need.needable_id = props.sponsor.id
+
+    needCreateModalStatus.value = true
+}
 </script>
 
 <template>
@@ -40,11 +56,10 @@ const name = computed(() => {
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                 <base-button
-                    :as="Link"
-                    :href="route('tenant.families.create')"
                     class="px-2 py-1"
                     type="button"
                     variant="primary"
+                    @click.prevent="showNeedCreateModal"
                 >
                     {{ $t('new need') }}
                 </base-button>
@@ -52,4 +67,10 @@ const name = computed(() => {
         </div>
     </div>
     <!-- END: Profile Menu -->
+
+    <need-create-update-modal
+        :close-only="true"
+        :open="needCreateModalStatus"
+        @close="needCreateModalStatus = false"
+    ></need-create-update-modal>
 </template>

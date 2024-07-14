@@ -50,7 +50,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             class="whitespace-nowrap border-b-0 font-semibold text-center"
                             sortable
                             @click="emit('sort', 'health_status')"
-                        >{{ $t('validation.attributes.sponsor.health_status') }}
+                            >{{ $t('validation.attributes.sponsor.health_status') }}
                         </base-th-table>
 
                         <base-th-table
@@ -58,7 +58,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             class="whitespace-nowrap border-b-0 font-semibold text-center"
                             sortable
                             @click="emit('sort', 'academic_level')"
-                        >{{ $t('validation.attributes.sponsor.academic_level') }}
+                            >{{ $t('validation.attributes.sponsor.academic_level') }}
                         </base-th-table>
 
                         <!--                        <base-th-table-->
@@ -90,7 +90,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             class="whitespace-nowrap border-b-0 font-semibold text-center"
                             sortable
                             @click="emit('sort', 'birth_date')"
-                        >{{ $t('validation.attributes.date_of_birth') }}
+                            >{{ $t('validation.attributes.date_of_birth') }}
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
@@ -161,11 +161,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="flex items-center justify-center">
-                                <Link
-                                    :href="route('tenant.sponsors.edit',sponsor.id)"
-                                    class="me-3 flex items-center"
-
-                                >
+                                <Link :href="route('tenant.sponsors.edit', sponsor.id)" class="me-3 flex items-center">
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
                                 </Link>
@@ -214,7 +210,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showEditModal', sponsor.id)"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </a>
                             <a
                                 class="font-semibold text-danger"

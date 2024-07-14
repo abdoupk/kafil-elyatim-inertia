@@ -1,17 +1,20 @@
 <script lang="ts" setup>
-import { omit } from '@/utils/helper'
-import { reactive, ref } from 'vue'
 import type { SponsorUpdateFormType } from '@/types/sponsors'
+
 import { useForm } from 'laravel-precognition-vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import { reactive, ref } from 'vue'
+
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+
+import { omit } from '@/utils/helper'
 
 const props = defineProps<{ sponsor: SponsorUpdateFormType }>()
-
 
 const emit = defineEmits(['sponsor-updated'])
 
@@ -277,11 +280,7 @@ const submit = () => {
                     ></base-form-input>
 
                     <base-form-input-error>
-                        <div
-                            v-if="form?.invalid('ccp')"
-                            class="mt-2 text-danger"
-                            data-test="error_ccp_message"
-                        >
+                        <div v-if="form?.invalid('ccp')" class="mt-2 text-danger" data-test="error_ccp_message">
                             {{ form.errors.ccp }}
                         </div>
                     </base-form-input-error>
@@ -370,11 +369,7 @@ const submit = () => {
                     ></base-form-input>
 
                     <base-form-input-error>
-                        <div
-                            v-if="form?.invalid('diploma')"
-                            class="mt-2 text-danger"
-                            data-test="error_diploma_message"
-                        >
+                        <div v-if="form?.invalid('diploma')" class="mt-2 text-danger" data-test="error_diploma_message">
                             {{ form.errors.diploma }}
                         </div>
                     </base-form-input-error>

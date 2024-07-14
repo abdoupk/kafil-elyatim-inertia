@@ -1,20 +1,23 @@
 <script lang="ts" setup>
 import type { SponsorUpdateFormType } from '@/types/sponsors'
+import type { IncomeType } from '@/types/types'
 
-import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
-import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
+import { useForm } from 'laravel-precognition-vue'
+import { reactive, ref } from 'vue'
+
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
 import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
-import { reactive, ref } from 'vue'
-import type { IncomeType } from '@/types/types'
-import { useForm } from 'laravel-precognition-vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
+
+import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
 
 const props = defineProps<{ sponsor: SponsorUpdateFormType }>()
 
@@ -76,9 +79,11 @@ const submit = () => {
                 <div class="grid col-span-12 grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
-                            <base-form-switch-input id="cnr" :checked="isChecked('cnr')"
-                                                    type="checkbox"
-                                                    @click="toggle('cnr')"
+                            <base-form-switch-input
+                                id="cnr"
+                                :checked="isChecked('cnr')"
+                                type="checkbox"
+                                @click="toggle('cnr')"
                             ></base-form-switch-input>
 
                             <base-form-switch-label htmlFor="cnr">
@@ -109,10 +114,7 @@ const submit = () => {
                     <base-form-input-error class="col-span-12 lg:col-start-5">
                         <!-- @vue-ignore -->
                         <div v-if="form?.invalid('incomes.cnr')" class="mt-2 text-danger">
-                            {{
-
-                                form.errors.cnr
-                            }}
+                            {{ form.errors.cnr }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -122,8 +124,12 @@ const submit = () => {
                 <div class="grid col-span-12 grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
-                            <base-form-switch-input id="cnas" :checked="isChecked('cnas')" type="checkbox"
-                                                    @click="toggle('cnas')"></base-form-switch-input>
+                            <base-form-switch-input
+                                id="cnas"
+                                :checked="isChecked('cnas')"
+                                type="checkbox"
+                                @click="toggle('cnas')"
+                            ></base-form-switch-input>
 
                             <base-form-switch-label htmlFor="cnas">
                                 {{ $t('incomes.label.cnas') }}
@@ -153,10 +159,7 @@ const submit = () => {
                     <base-form-input-error class="col-span-12 lg:col-start-5">
                         <!-- @vue-ignore -->
                         <div v-if="form?.invalid('incomes.cnas')" class="mt-2 text-danger">
-                            {{
-
-                                form.errors.cnas
-                            }}
+                            {{ form.errors.cnas }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -166,8 +169,12 @@ const submit = () => {
                 <div class="grid col-span-12 grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
-                            <base-form-switch-input id="casnos" :checked="isChecked('casnos')" type="checkbox"
-                                                    @click="toggle('casnos')"></base-form-switch-input>
+                            <base-form-switch-input
+                                id="casnos"
+                                :checked="isChecked('casnos')"
+                                type="checkbox"
+                                @click="toggle('casnos')"
+                            ></base-form-switch-input>
 
                             <base-form-switch-label htmlFor="casnos">
                                 {{ $t('incomes.label.casnos') }}
@@ -197,10 +204,7 @@ const submit = () => {
                     <base-form-input-error class="col-span-12 lg:col-start-5">
                         <!-- @vue-ignore -->
                         <div v-if="form?.invalid('incomes.casnos')" class="mt-2 text-danger">
-                            {{
-
-                                form.errors.casnos
-                            }}
+                            {{ form.errors.casnos }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -245,10 +249,7 @@ const submit = () => {
                     <base-form-input-error class="col-span-12 lg:col-start-5">
                         <!-- @vue-ignore -->
                         <div v-if="form?.invalid('incomes.pension')" class="mt-2 text-danger">
-                            {{
-
-                                form.errors.pension
-                            }}
+                            {{ form.errors.pension }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -293,10 +294,7 @@ const submit = () => {
                     <base-form-input-error class="col-span-12 lg:col-start-5">
                         <!-- @vue-ignore -->
                         <div v-if="form?.invalid('incomes.other_income')" class="mt-2 text-danger">
-                            {{
-
-                                form.errors.other_income
-                            }}
+                            {{ form.errors.other_income }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -341,10 +339,7 @@ const submit = () => {
                     <base-form-input-error class="col-span-12 lg:col-start-5">
                         <!-- @vue-ignore -->
                         <div v-if="form?.invalid('incomes.account')" class="mt-2 text-danger">
-                            {{
-
-                                form.errors.account
-                            }}
+                            {{ form.errors.account }}
                         </div>
                     </base-form-input-error>
                 </div>

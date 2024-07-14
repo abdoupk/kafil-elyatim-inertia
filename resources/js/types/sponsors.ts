@@ -56,4 +56,5 @@ export interface SponsorUpdateFormType {
         name: string
     }
     incomes: IncomeType
+    sponsorships: SponsorSponsorshipType
 }

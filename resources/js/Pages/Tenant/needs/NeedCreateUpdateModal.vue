@@ -93,7 +93,7 @@ const modalType = computed(() => {
         :modal-type="modalType"
         :open
         :title="modalTitle"
-        size="xl"
+        size="lg"
         @close="emit('close')"
         @handle-submit="handleSubmit"
     >
