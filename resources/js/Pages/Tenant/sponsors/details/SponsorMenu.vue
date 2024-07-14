@@ -6,8 +6,25 @@ import { Link } from '@inertiajs/vue3'
 import MenuLink from '@/Pages/Tenant/sponsors/details/MenuLink.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import { useNeedsStore } from '@/stores/needs'
+import { ref } from 'vue'
 
-defineProps<{ sponsor: SponsorShowType }>()
+const props = defineProps<{ sponsor: SponsorShowType }>()
+
+const needsStore = useNeedsStore()
+
+const needCreateModalStatus = ref<boolean>(false)
+
+const showNeedCreateModal = () => {
+    needsStore.$reset()
+
+    needsStore.need.needable_type = 'sponsor'
+
+    needsStore.need.needable_id = props.sponsor.id
+
+    needCreateModalStatus.value = true
+}
 </script>
 
 <template>
@@ -34,17 +51,17 @@ defineProps<{ sponsor: SponsorShowType }>()
             </div>
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                <base-button
-                    :as="Link"
-                    :href="route('tenant.families.create')"
-                    class="px-2 py-1"
-                    type="button"
-                    variant="primary"
-                >
+                <base-button class="px-2 py-1" type="button" variant="primary" @click.prevent="showNeedCreateModal">
                     {{ $t('new need') }}
                 </base-button>
             </div>
         </div>
     </div>
     <!-- END: Profile Menu -->
+
+    <need-create-update-modal
+        :close-only="true"
+        :open="needCreateModalStatus"
+        @close="needCreateModalStatus = false"
+    ></need-create-update-modal>
 </template>

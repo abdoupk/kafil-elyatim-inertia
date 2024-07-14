@@ -16,10 +16,12 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import { needStatuses } from '@/utils/constants'
 import { omit } from '@/utils/helper'
 import { __ } from '@/utils/i18n'
+import TheNeedable from '@/Pages/Tenant/needs/TheNeedable.vue'
 
 const props = defineProps<{
     open: boolean
     closeOnly?: boolean
+    showTheNeedable?: boolean
 }>()
 
 // Get the needs store
@@ -148,6 +150,16 @@ const modalType = computed(() => {
                 </div>
             </div>
             <!-- End: Status  -->
+
+            <div class="col-span-12">
+                <the-needable v-if="!needsStore.need.id && showTheNeedable" v-model:needable-type="form.needable_type"
+                              :error-message="form.errors.needable_id"
+                              @update:needable="value => {
+                                  form.needable_id=value.id
+
+                                  form.validate('needable_id')
+                              }"></the-needable>
+            </div>
 
             <!-- Begin: Demand-->
             <div class="col-span-12">

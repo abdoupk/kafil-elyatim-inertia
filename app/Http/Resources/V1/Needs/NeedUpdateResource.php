@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\V1\Needs;
 
+use App\Models\Need;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Need */
+/** @mixin Need */
 class NeedUpdateResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -16,6 +17,8 @@ class NeedUpdateResource extends JsonResource
             'subject' => $this->subject,
             'note' => $this->note,
             'status' => $this->status,
+            'needable_id' => $this->needable_id,
+            'needable_type' => $this->needable_type,
         ];
     }
 }

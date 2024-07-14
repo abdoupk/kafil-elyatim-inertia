@@ -2,15 +2,33 @@
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import { Link } from '@inertiajs/vue3'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 import MenuLink from '@/Pages/Tenant/orphans/details/MenuLink.vue'
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import { useNeedsStore } from '@/stores/needs'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 
 const props = defineProps<{ orphan: OrphanUpdateFormType }>()
 
 const name = computed(() => {
     return props.orphan.first_name + ' ' + props.orphan.last_name
 })
+
+
+const needsStore = useNeedsStore()
+
+const needCreateModalStatus = ref<boolean>(false)
+
+const showNeedCreateModal = () => {
+    needsStore.$reset()
+
+    needsStore.need.needable_type = 'orphan'
+
+    needsStore.need.needable_id = props.orphan.id
+
+    needCreateModalStatus.value = true
+}
 </script>
 
 <template>
@@ -34,7 +52,18 @@ const name = computed(() => {
 
                 <menu-link icon="icon-couple" view-name="academic_achievement"></menu-link>
             </div>
+            <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
+                <base-button class="px-2 py-1" type="button" variant="primary" @click.prevent="showNeedCreateModal">
+                    {{ $t('new need') }}
+                </base-button>
+            </div>
         </div>
     </div>
     <!-- END: Profile Menu -->
+
+    <need-create-update-modal
+        :close-only="true"
+        :open="needCreateModalStatus"
+        @close="needCreateModalStatus = false"
+    ></need-create-update-modal>
 </template>

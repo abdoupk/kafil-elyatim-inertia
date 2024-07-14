@@ -20,7 +20,9 @@ export const useNeedsStore = defineStore('needs', {
             demand: '',
             subject: '',
             status: '',
-            note: ''
+            note: '',
+            needable_id: '',
+            needable_type: 'orphan'
         }
     }),
     actions: {
@@ -32,6 +34,14 @@ export const useNeedsStore = defineStore('needs', {
             this.need = { ...need }
 
             this.need.formatted_status = { label: need.status, value: need.status }
+        },
+
+        async getOrphans() {
+            return await axios.get(route('tenant.needs.get-orphans'))
+        },
+
+        async getSponsors() {
+            return await axios.get(route('tenant.needs.get-sponsors'))
         }
     }
 })

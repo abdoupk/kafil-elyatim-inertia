@@ -115,10 +115,20 @@ const showDeleteModal = (needId: string) => {
     deleteModalStatus.value = true
 }
 
+const showTheNeedable = ref(false)
+
+const showCreateModal = () => {
+    updateModalStatus.value = true
+
+    showTheNeedable.value = true
+}
+
 const showEditModal = (needId: string) => {
     selectedNeedId.value = needId
 
     needsStore.getNeed(needId)
+
+    showTheNeedable.value = false
 
     updateModalStatus.value = true
 }
@@ -161,6 +171,10 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
+            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                {{ n__('add new', 1, { attribute: $t('demand') }) }}
+            </base-button>
+
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="needs.meta.total > 0">
                     {{
@@ -226,5 +240,6 @@ watch(
         @delete="deleteNeed"
     ></delete-modal>
 
-    <need-create-update-modal :open="updateModalStatus" @close="updateModalStatus = false"></need-create-update-modal>
+    <need-create-update-modal :open="updateModalStatus" :show-the-needable="showTheNeedable"
+                              @close="updateModalStatus = false"></need-create-update-modal>
 </template>

@@ -74,6 +74,7 @@ const showNeedCreateModal = () => {
 
     <need-create-update-modal
         :close-only="true"
+        show-the-needable
         :open="needCreateModalStatus"
         @close="needCreateModalStatus = false"
     ></need-create-update-modal>

@@ -33,6 +33,8 @@ use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
+use App\Http\Controllers\V1\Needs\GetOrphansController;
+use App\Http\Controllers\V1\Needs\GetSponsorsController;
 use App\Http\Controllers\V1\Needs\NeedDeleteController;
 use App\Http\Controllers\V1\Needs\NeedShowController;
 use App\Http\Controllers\V1\Needs\NeedsIndexController;
@@ -355,6 +357,10 @@ Route::middleware([
 
                 Route::delete('{need}', NeedDeleteController::class)
                     ->name('destroy');
+
+                Route::get('get-orphans', GetOrphansController::class)->name('get-orphans');
+
+                Route::get('get-sponsors', GetSponsorsController::class)->name('get-sponsors');
             });
         });
 
