@@ -202,9 +202,9 @@ class Sponsor extends Model
     protected static function boot(): void
     {
         parent::boot();
-
-        static::updated(function (Sponsor $sponsor) {
-            $sponsor->sponsorships->searchable();
-        });
+        // TODO: should be searchable error
+        //        static::updated(function (Sponsor $sponsor) {
+        //            $sponsor->sponsorships()->searchable();
+        //        });
     }
 }

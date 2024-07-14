@@ -14,11 +14,13 @@ defineOptions({
     layout: TheLayout
 })
 
-defineProps<{
+const props = defineProps<{
     sponsor: SponsorUpdateFormType
 }>()
 
 const view = ref('general_information')
+
+const sponsor = ref(props.sponsor)
 
 function updateView(newValue: string) {
     view.value = newValue
@@ -40,7 +42,11 @@ provide('sponsorDetailView', { view, updateView })
 
         <div class="col-span-12 lg:col-span-8 2xl:col-span-9">
             <div class="grid grid-cols-12 gap-6">
-                <general-information v-if="view === 'general_information'" :sponsor></general-information>
+                <general-information
+                    v-if="view === 'general_information'"
+                    :sponsor
+                    @sponsor-updated="sponsor = $event"
+                ></general-information>
 
                 <sponsorships-information
                     v-if="view === 'sponsorships_information'"

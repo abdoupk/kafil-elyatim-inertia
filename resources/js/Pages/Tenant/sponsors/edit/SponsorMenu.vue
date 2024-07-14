@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import type { SponsorUpdateFormType } from '@/types/sponsors'
 
+import { useNeedsStore } from '@/stores/needs'
 import { Link } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 import MenuLink from '@/Pages/Tenant/sponsors/details/MenuLink.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import { useNeedsStore } from '@/stores/needs'
-import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 
 const props = defineProps<{ sponsor: SponsorUpdateFormType }>()
 
@@ -55,12 +55,7 @@ const showNeedCreateModal = () => {
             </div>
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
-                <base-button
-                    class="px-2 py-1"
-                    type="button"
-                    variant="primary"
-                    @click.prevent="showNeedCreateModal"
-                >
+                <base-button class="px-2 py-1" type="button" variant="primary" @click.prevent="showNeedCreateModal">
                     {{ $t('new need') }}
                 </base-button>
             </div>
