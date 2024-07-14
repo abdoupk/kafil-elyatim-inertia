@@ -62,8 +62,12 @@ use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsPDFController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsXlsxController;
 use App\Http\Controllers\V1\Sponsors\SponsorDeleteController;
+use App\Http\Controllers\V1\Sponsors\SponsorEditController;
 use App\Http\Controllers\V1\Sponsors\SponsorShowController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
+use App\Http\Controllers\V1\Sponsors\SponsorUpdateIncomesController;
+use App\Http\Controllers\V1\Sponsors\SponsorUpdateInfosController;
+use App\Http\Controllers\V1\Sponsors\SponsorUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
 use App\Http\Controllers\V1\Zones\ZoneShowController;
@@ -221,11 +225,21 @@ Route::middleware([
                 Route::get('', SponsorsIndexController::class)
                     ->name('index');
 
-                // TODO fix 404 issue
                 Route::get('show/{sponsor}', SponsorShowController::class)
                     ->name('show');
 
-                // TODO fix 404 issue
+                Route::put('infos/{sponsor}', SponsorUpdateInfosController::class)
+                    ->name('infos-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('incomes/{sponsor}', SponsorUpdateIncomesController::class)
+                    ->name('incomes-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('sponsorships/{sponsor}', SponsorUpdateSponsorshipsController::class)
+                    ->name('sponsorships-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::get('edit/{sponsor}', SponsorEditController::class)
+                    ->name('edit');
+
                 Route::delete('{sponsor}', SponsorDeleteController::class)
                     ->name('destroy');
 

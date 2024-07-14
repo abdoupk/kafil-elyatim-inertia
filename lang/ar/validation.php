@@ -231,6 +231,7 @@ return [
         'spouse.income' => 'الدخل قبل الوفاة',
         'sponsor.father_name' => 'اسم الاب',
         'sponsor.mother_name' => 'اسم ولقب الام',
+        'sponsor.sponsor_type' => 'المتكفل',
         'sponsor.birth_certificate_number' => 'رقم شهادة الميلاد',
         'sponsor.academic_level' => 'المستوى الدراسي',
         'sponsor.function' => 'الوظيفة',

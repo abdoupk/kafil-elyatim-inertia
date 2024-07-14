@@ -391,6 +391,7 @@
     "validation.attributes.spouse.income": "الدخل قبل الوفاة",
     "validation.attributes.sponsor.father_name": "اسم الاب",
     "validation.attributes.sponsor.mother_name": "اسم ولقب الام",
+    "validation.attributes.sponsor.sponsor_type": "المتكفل",
     "validation.attributes.sponsor.birth_certificate_number": "رقم شهادة الميلاد",
     "validation.attributes.sponsor.academic_level": "المستوى الدراسي",
     "validation.attributes.sponsor.function": "الوظيفة",

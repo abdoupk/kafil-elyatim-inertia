@@ -33,3 +33,27 @@ export interface SponsorShowType {
         name: string
     }
 }
+
+export interface SponsorUpdateFormType {
+    id: string
+    first_name: string
+    last_name: string
+    phone_number: string
+    sponsor_type: string
+    birth_date: string | Date
+    father_name: string
+    mother_name: string
+    birth_certificate_number: string
+    academic_level: string
+    function: string
+    health_status: string
+    diploma: string
+    card_number: string
+    ccp: string
+    gender: 'male' | 'female'
+    creator: {
+        id: string
+        name: string
+    }
+    incomes: IncomeType
+}

@@ -27,7 +27,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['orphan-updated'])
-console.log(props.orphan)
+
 const isStillBaby = computed(() => {
     return dayjs().diff(dayjs(form.birth_date), 'year') < 2
 })
