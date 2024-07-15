@@ -240,6 +240,9 @@ watch(
         @delete="deleteNeed"
     ></delete-modal>
 
-    <need-create-update-modal :open="updateModalStatus" :show-the-needable="showTheNeedable"
-                              @close="updateModalStatus = false"></need-create-update-modal>
+    <need-create-update-modal
+        :open="updateModalStatus"
+        :show-the-needable="showTheNeedable"
+        @close="updateModalStatus = false"
+    ></need-create-update-modal>
 </template>

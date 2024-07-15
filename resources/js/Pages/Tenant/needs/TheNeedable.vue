@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
-import { onMounted, ref, watch } from 'vue'
 import { useNeedsStore } from '@/stores/needs'
-import { __ } from '@/utils/i18n'
+import { onMounted, ref, watch } from 'vue'
 
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+
+import { __ } from '@/utils/i18n'
 
 const needableType = defineModel('needableType', { default: 'orphan' })
 
@@ -74,10 +75,10 @@ onMounted(() => {
                 label="label"
                 track_by="value"
                 @update:value="
-                        (type) => {
-                            needableType = type.value
-                        }
-                    "
+                    (type) => {
+                        needableType = type.value
+                    }
+                "
             >
             </base-vue-select>
         </div>

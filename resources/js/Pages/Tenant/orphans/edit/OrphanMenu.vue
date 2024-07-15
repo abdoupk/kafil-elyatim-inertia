@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
+import { useNeedsStore } from '@/stores/needs'
 import { Link } from '@inertiajs/vue3'
 import { computed, ref } from 'vue'
 
-import MenuLink from '@/Pages/Tenant/orphans/details/MenuLink.vue'
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import { useNeedsStore } from '@/stores/needs'
 import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import MenuLink from '@/Pages/Tenant/orphans/details/MenuLink.vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
 
 const props = defineProps<{ orphan: OrphanUpdateFormType }>()
 
 const name = computed(() => {
     return props.orphan.first_name + ' ' + props.orphan.last_name
 })
-
 
 const needsStore = useNeedsStore()
 

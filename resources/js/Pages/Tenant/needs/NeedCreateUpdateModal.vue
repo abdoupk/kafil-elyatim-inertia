@@ -6,6 +6,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import TheNeedable from '@/Pages/Tenant/needs/TheNeedable.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
@@ -16,7 +17,6 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import { needStatuses } from '@/utils/constants'
 import { omit } from '@/utils/helper'
 import { __ } from '@/utils/i18n'
-import TheNeedable from '@/Pages/Tenant/needs/TheNeedable.vue'
 
 const props = defineProps<{
     open: boolean
@@ -152,13 +152,18 @@ const modalType = computed(() => {
             <!-- End: Status  -->
 
             <div class="col-span-12">
-                <the-needable v-if="!needsStore.need.id && showTheNeedable" v-model:needable-type="form.needable_type"
-                              :error-message="form.errors.needable_id"
-                              @update:needable="value => {
-                                  form.needable_id=value.id
+                <the-needable
+                    v-if="!needsStore.need.id && showTheNeedable"
+                    v-model:needable-type="form.needable_type"
+                    :error-message="form.errors.needable_id"
+                    @update:needable="
+                        (value) => {
+                            form.needable_id = value.id
 
-                                  form.validate('needable_id')
-                              }"></the-needable>
+                            form.validate('needable_id')
+                        }
+                    "
+                ></the-needable>
             </div>
 
             <!-- Begin: Demand-->
