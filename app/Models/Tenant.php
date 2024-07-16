@@ -92,4 +92,9 @@ class Tenant extends BaseTenant implements TenantWithDatabase
     {
         return $this->hasMany(User::class);
     }
+
+    public function schools(): HasMany
+    {
+        return $this->hasMany(PrivateSchool::class);
+    }
 }

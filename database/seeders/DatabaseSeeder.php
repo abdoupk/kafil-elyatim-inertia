@@ -35,5 +35,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SponsorSponsorshipSeeder::class);
 
         $this->call(PreviewSeeder::class);
+
+        $this->call(PrivateSchoolSeeder::class);
+
+        $this->call(EventSeeder::class);
     }
 }
