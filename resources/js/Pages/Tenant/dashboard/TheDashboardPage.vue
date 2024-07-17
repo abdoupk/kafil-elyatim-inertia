@@ -1,9 +1,7 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { Head } from '@inertiajs/vue3'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
-
-import TestDropDown from '@/Pages/Tenant/dashboard/FieldsFilterDropDown.vue'
 import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
 
 defineOptions({
@@ -37,41 +35,39 @@ defineProps<{
                     </div>
                     <div class="mt-5 grid grid-cols-12 gap-6">
                         <report-box
+                            :percentageDifference="parseInt(orphans.percentageDifference)"
                             :stat="orphans.total"
                             :title="$t('total orphans')"
-                            :percentageDifference="parseInt(orphans.percentageDifference)"
-                            icon-color="primary"
                             icon="icon-hands-holding-child"
+                            icon-color="primary"
                         ></report-box>
 
                         <report-box
+                            :percentageDifference="parseInt(families.percentageDifference)"
                             :stat="families.total"
                             :title="$t('total families')"
-                            :percentageDifference="parseInt(families.percentageDifference)"
-                            icon-color="dark"
                             icon="icon-family"
+                            icon-color="dark"
                         ></report-box>
 
                         <report-box
+                            :percentageDifference="parseInt(members.percentageDifference)"
                             :stat="members.total"
                             :title="$t('total members')"
-                            :percentageDifference="parseInt(members.percentageDifference)"
-                            icon-color="pending"
                             icon="icon-users-gear"
+                            icon-color="pending"
                         ></report-box>
 
                         <report-box
+                            :percentageDifference="parseInt(branches.percentageDifference)"
                             :stat="branches.total"
                             :title="$t('total branches')"
-                            :percentageDifference="parseInt(branches.percentageDifference)"
-                            icon-color="success"
                             icon="icon-branches"
+                            icon-color="success"
                         ></report-box>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <test-drop-down class="mt-8"></test-drop-down>
 </template>

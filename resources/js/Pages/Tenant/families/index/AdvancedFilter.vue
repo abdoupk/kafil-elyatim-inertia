@@ -3,7 +3,7 @@ import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
 import { ref } from 'vue'
 
-import FilterRule from '@/Pages/Tenant/families/index/FilterRule.vue'
+import FilterRule from '@/Pages/Shared/FilterRule.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'

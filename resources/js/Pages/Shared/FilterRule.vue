@@ -3,8 +3,8 @@ import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
 import { ref, watch } from 'vue'
 
-import FieldsFilterDropDown from '@/Pages/Tenant/dashboard/FieldsFilterDropDown.vue'
-import OperatorsFilterDropDown from '@/Pages/Tenant/dashboard/OperatorsFilterDropDown.vue'
+import FieldsFilterDropDown from '@/Pages/Shared/FieldsFilterDropDown.vue'
+import OperatorsFilterDropDown from '@/Pages/Shared/OperatorsFilterDropDown.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 
