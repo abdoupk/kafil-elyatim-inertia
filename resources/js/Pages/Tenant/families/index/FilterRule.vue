@@ -1,45 +1,46 @@
 <script lang="ts" setup>
-import type { ListBoxFilter } from '@/types/types'
+import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-import TestDropDown from '@/Pages/Tenant/dashboard/TestDropDown.vue'
+import FieldsFilterDropDown from '@/Pages/Tenant/dashboard/FieldsFilterDropDown.vue'
+import OperatorsFilterDropDown from '@/Pages/Tenant/dashboard/OperatorsFilterDropDown.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 
-const filters: ListBoxFilter[] = [
-    {
-        field: 'name',
-        icon: 'icon-bell',
-        operators: ['contains',
-'not_contains',
-'starts_with',
-'ends_with']
-    },
-    {
-        field: 'age',
-        icon: 'icon-users-gear',
-        operators: ['contains',
-'not_contains',
-'starts_with',
-'ends_with']
+defineProps<{ filters: ListBoxFilter[] }>()
+
+const operators = ref<ListBoxOperator[]>([])
+
+const field = defineModel<ListBoxFilter>('field')
+
+const operator = defineModel<ListBoxOperator>('operator')
+
+const value = defineModel('value')
+
+watch(
+    () => field.value,
+    (newField) => {
+        newField?.operators && (operators.value = newField.operators)
+
+        operator.value = operators.value[0]
+
+        value.value = ''
     }
-]
+)
 
-const field = ref('')
-
-const operator = ref('')
-
-const value = ref('')
+watch(
+    () => operator.value,
+    () => {
+        value.value = ''
+    }
+)
 </script>
 
 <template>
-    {{ field }}
-    <test-drop-down v-model="field" :filters class="col-span-4"></test-drop-down>
+    <fields-filter-drop-down v-model:selected="field" :filters class="col-span-4"></fields-filter-drop-down>
 
-    <!--    <test-drop-down v-model:selected="operator" class="col-span-4"></test-drop-down>-->
+    <operators-filter-drop-down v-model:selected="operator" :operators class="col-span-4"></operators-filter-drop-down>
 
     <base-form-input v-model="value" class="col-span-4 mt-2 text-sm"></base-form-input>
 </template>
-
-<style lang="postcss" scoped></style>

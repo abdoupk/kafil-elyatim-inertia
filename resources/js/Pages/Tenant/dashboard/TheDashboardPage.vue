@@ -3,8 +3,8 @@ import { Head } from '@inertiajs/vue3'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
+import TestDropDown from '@/Pages/Tenant/dashboard/FieldsFilterDropDown.vue'
 import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
-import TestDropDown from '@/Pages/Tenant/dashboard/TestDropDown.vue'
 
 defineOptions({
     layout: TheLayout

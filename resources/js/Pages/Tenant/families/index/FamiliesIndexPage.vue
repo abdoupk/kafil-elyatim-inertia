@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FamiliesIndexResource, IndexParams, PaginationData } from '@/types/types'
+import type { FamiliesIndexResource, IndexParams, ListBoxFilter, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -139,6 +139,63 @@ watch(
         getData()
     }
 )
+
+const filters = ref<ListBoxFilter[]>([
+    {
+        icon: 'icon-users',
+        field: 'name',
+        operators: [
+            {
+                label: 'is',
+                value: '='
+            },
+            {
+                label: 'is not',
+                value: '!='
+            }
+        ]
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'age',
+        operators: [
+            {
+                label: 'equals',
+                value: '='
+            },
+            {
+                label: 'is greater than',
+                value: '>'
+            },
+            {
+                label: 'is less than',
+                value: '<'
+            },
+            {
+                label: 'is greater than or equal to',
+                value: '>='
+            },
+            {
+                label: 'is less than or equal to',
+                value: '<='
+            }
+        ]
+    }
+])
+
+const handleFilter = (filters: IndexParams['filters']) => {
+    params.filters = {
+        ...filters
+            ?.map((filter) => {
+                return {
+                    field: filter.field.field,
+                    operator: filter.operator.value,
+                    value: filter.value
+                }
+            })
+            .filter((filter) => filter.value !== '')
+    }
+}
 </script>
 
 <template>
@@ -160,7 +217,7 @@ watch(
 
             <export-menu :params class="block sm:hidden"></export-menu>
 
-            <advanced-filter class="hidden sm:block"></advanced-filter>
+            <advanced-filter :filters class="hidden sm:block" @update:value="handleFilter"></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">
@@ -178,7 +235,7 @@ watch(
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <export-menu :params class="hidden sm:block sm:me-2"></export-menu>
 
-                <advanced-filter class="me-2 sm:hidden"></advanced-filter>
+                <advanced-filter :filters class="me-2 sm:hidden"></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input

@@ -56,7 +56,8 @@ function generateFormatedConditions(): array
     if ($filters) {
         /** @phpstan-ignore-next-line */
         return array_map(static function (array $condition) {
-            return [$condition['field'], $condition['operator'], $condition['value']];
+
+            return [$condition['field'], $condition['operator'],  (str_contains($condition['value'], ' ')) ? '"'.$condition['value'].'"' : $condition['value']];
         }, $filters);
     }
 

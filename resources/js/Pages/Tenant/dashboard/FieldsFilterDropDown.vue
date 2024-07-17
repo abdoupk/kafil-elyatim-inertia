@@ -2,17 +2,16 @@
 import type { ListBoxFilter } from '@/types/types'
 
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
+import { onMounted } from 'vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-defineProps<{ filters: ListBoxFilter[] }>()
+const props = defineProps<{ filters: ListBoxFilter[] }>()
 
-const selected = defineModel('selected', {
-    default: {
-        field: 'init',
-        icon: 'icon-calendar',
-        operators: []
-    } as ListBoxFilter
+const selected = defineModel<ListBoxFilter>('selected')
+
+onMounted(() => {
+    selected.value = props.filters[0]
 })
 </script>
 
@@ -23,9 +22,13 @@ const selected = defineModel('selected', {
                 class="relative w-full cursor-default rounded-md bg-white dark:bg-darkmode-800 py-1.5 ps-3 pe-10 text-start text-gray-900 dark:text-slate-300 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 border dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
             >
                 <span class="flex items-center">
-                    <svg-loader :name="selected.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
+                    <svg-loader
+                        v-if="selected?.icon"
+                        :name="selected?.icon"
+                        class="h-5 w-5 flex-shrink-0 rounded-full"
+                    />
 
-                    <span class="ms-3 block truncate">{{ selected.field }}</span>
+                    <span class="ms-3 block truncate">{{ selected?.field }}</span>
                 </span>
 
                 <span class="pointer-events-none absolute inset-y-0 end-0 ms-3 flex items-center pe-2">

@@ -1,21 +1,21 @@
 <script lang="ts" setup>
-import rrulePlugin from '@fullcalendar/rrule'
-import '@fullcalendar/core/index.js'
-import FullCalendar from '@fullcalendar/vue3'
-import interactionPlugin from '@fullcalendar/interaction'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import listPlugin from '@fullcalendar/list'
 import type { CalendarOptions } from '@fullcalendar/core'
+import '@fullcalendar/core/index.js'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import listPlugin from '@fullcalendar/list'
+import rrulePlugin from '@fullcalendar/rrule'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import FullCalendar from '@fullcalendar/vue3'
+
 import { getLocale } from '@/utils/i18n'
 
 const options: CalendarOptions = {
-    plugins: [
-        rrulePlugin,
-        interactionPlugin,
-        dayGridPlugin,
-        timeGridPlugin,
-        listPlugin],
+    plugins: [rrulePlugin,
+interactionPlugin,
+dayGridPlugin,
+timeGridPlugin,
+listPlugin],
     droppable: true,
     locales: [
         {
@@ -34,7 +34,7 @@ const options: CalendarOptions = {
         {
             code: 'fr',
             buttonText: {
-                today: 'Aujourd\'hui',
+                today: "Aujourd'hui",
                 month: 'Mois',
                 week: 'Semaine',
                 day: 'Jour',
@@ -42,7 +42,6 @@ const options: CalendarOptions = {
                 prev: 'Precedent',
                 nextYear: 'Prochain Annee',
                 prevYear: 'Annee precedente'
-
             }
         },
         {
@@ -77,9 +76,9 @@ const options: CalendarOptions = {
             rrule: {
                 freq: 'weekly',
                 interval: 5,
-                byweekday: [ 'mo', 'fr' ],
-                dtstart: '2024-07-16T10:30:00', // will also accept '20120201T103000'
-                until: '2024-07-21' // will also accept '20120201'
+                byweekday: ['mo', 'fr'],
+                dtstart: '2024-07-16T10:30:00', // Will also accept '20120201T103000'
+                until: '2024-07-21' // Will also accept '20120201'
             }
         },
         {
@@ -103,20 +102,17 @@ const options: CalendarOptions = {
             end: '2024-07-27'
         }
     ],
-    drop: function(info) {
+    drop: function (info) {
         if (
             document.querySelectorAll('#checkbox-events').length &&
-            (document.querySelectorAll('#checkbox-events')[0] as HTMLInputElement)
-                ?.checked
+            (document.querySelectorAll('#checkbox-events')[0] as HTMLInputElement)?.checked
         ) {
-            (info.draggedEl.parentNode as HTMLElement).remove()
+            ;
 
-            if (
-                document.querySelectorAll('#calendar-events')[0].children.length == 1
-            ) {
-                document
-                    .querySelectorAll('#calendar-no-events')[0]
-                    .classList.remove('hidden')
+(info.draggedEl.parentNode as HTMLElement).remove()
+
+            if (document.querySelectorAll('#calendar-events')[0].children.length == 1) {
+                document.querySelectorAll('#calendar-no-events')[0].classList.remove('hidden')
             }
         }
     }

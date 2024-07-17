@@ -434,11 +434,13 @@ export interface IndexParams {
     directions?: {
         [key: string]: 'asc' | 'desc'
     }
-    filters?: {
-        [key: string]: {
-            operator: 'like' | 'eq' | 'neq'
+    filters?: [
+        {
+            field: string
+            value: string
+            operator: string
         }
-    }
+    ]
 }
 
 type SponsorType = {
@@ -632,7 +634,12 @@ export interface ZonesIndexResource extends Zone {
 export interface ListBoxFilter {
     field: string
     icon: SVGType
-    operators: Array<string>
+    operators: Array<ListBoxOperator>
+}
+
+export interface ListBoxOperator {
+    label: string
+    value: string
 }
 
 export type ShoesSizesType = { id: number; label: string }[]
