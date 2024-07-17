@@ -9,7 +9,7 @@ class Subject extends Model
 {
     use Sushi;
 
-    protected $rows = [
+    protected array $rows = [
         [
             'id' => 1,
             'en_name' => 'physic',

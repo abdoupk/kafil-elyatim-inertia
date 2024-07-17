@@ -9,7 +9,7 @@ class ShoeSize extends Model
 {
     use Sushi;
 
-    protected $rows = [
+    protected array $rows = [
         [
             'id' => 1,
             'label' => '25',
