@@ -38,6 +38,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(PrivateSchoolSeeder::class);
 
-        $this->call(EventSeeder::class);
+        //        $this->call(EventSeeder::class);
     }
 }

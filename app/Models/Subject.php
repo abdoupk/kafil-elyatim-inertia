@@ -125,4 +125,9 @@ class Subject extends Model
             'en_name' => 'Computer Science',
         ],
     ];
+
+    public function getName(): string
+    {
+        return $this[app()->getLocale().'_name'];
+    }
 }

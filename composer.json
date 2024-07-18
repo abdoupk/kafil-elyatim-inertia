@@ -24,7 +24,10 @@
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
         "meilisearch/meilisearch-php": "^1.7",
+        "mohammedmanssour/laravel-recurring-models": "^0.7.0",
         "predis/predis": "^2.2",
+        "rlanvin/php-rrule": "^2.5",
+        "simshaun/recurr": "^5.0",
         "spatie/browsershot": "^4.1",
         "spatie/laravel-data": "^4.6",
         "spatie/laravel-medialibrary": "^11.4",
@@ -68,6 +71,7 @@
             "app/Helpers/roles.php",
             "app/Helpers/needs.php",
             "app/Helpers/finances.php",
+            "app/Helpers/private-schools.php",
             "app/Helpers/global.php"
         ],
         "psr-4": {

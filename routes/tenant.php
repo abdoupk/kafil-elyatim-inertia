@@ -58,6 +58,8 @@ use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
+use App\Http\Controllers\V1\PrivateSchools\LessonsIndexController;
+use App\Http\Controllers\V1\PrivateSchools\LessonStoreController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
@@ -361,6 +363,20 @@ Route::middleware([
                 Route::get('get-orphans', GetOrphansController::class)->name('get-orphans');
 
                 Route::get('get-sponsors', GetSponsorsController::class)->name('get-sponsors');
+            });
+
+            Route::prefix('lessons')->name('lessons.')->group(function () {
+                Route::get('', LessonsIndexController::class)
+                    ->name('index');
+
+                Route::get('list-events', LessonsIndexController::class)
+                    ->name('list-events');
+
+                Route::post('', LessonStoreController::class)
+                    ->name('store');
+
+                Route::get('{lesson}', LessonStoreController::class)
+                    ->name('show');
             });
         });
 

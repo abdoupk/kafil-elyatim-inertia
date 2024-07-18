@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { CalendarOptions } from '@fullcalendar/core'
+import { type CalendarOptions } from '@fullcalendar/core'
 import '@fullcalendar/core/index.js'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
@@ -10,12 +10,16 @@ import FullCalendar from '@fullcalendar/vue3'
 
 import { getLocale } from '@/utils/i18n'
 
+const props = defineProps<{ events: any }>()
+
+const emit = defineEmits(['dateClick'])
+
 const options: CalendarOptions = {
     plugins: [rrulePlugin,
-interactionPlugin,
-dayGridPlugin,
-timeGridPlugin,
-listPlugin],
+        interactionPlugin,
+        dayGridPlugin,
+        timeGridPlugin,
+        listPlugin],
     droppable: true,
     locales: [
         {
@@ -34,7 +38,7 @@ listPlugin],
         {
             code: 'fr',
             buttonText: {
-                today: "Aujourd'hui",
+                today: 'Aujourd\'hui',
                 month: 'Mois',
                 week: 'Semaine',
                 day: 'Jour',
@@ -65,51 +69,23 @@ listPlugin],
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
+
     initialDate: new Date(),
     navLinks: true,
     editable: true,
     dayMaxEvents: true,
-    events: [
-        {
-            title: 'Vue Vixens Day',
-
-            rrule: {
-                freq: 'weekly',
-                interval: 5,
-                byweekday: ['mo', 'fr'],
-                dtstart: '2024-07-16T10:30:00', // Will also accept '20120201T103000'
-                until: '2024-07-21' // Will also accept '20120201'
-            }
-        },
-        {
-            title: 'VueConfUS',
-            start: '2024-07-11',
-            end: '2024-07-15'
-        },
-        {
-            title: 'VueJS Amsterdam',
-            start: '2024-07-17',
-            end: '2024-07-21'
-        },
-        {
-            title: 'Vue Fes Japan 2019',
-            start: '2024-07-21',
-            end: '2024-07-24'
-        },
-        {
-            title: 'Laracon 2021',
-            start: '2024-07-24',
-            end: '2024-07-27'
-        }
-    ],
-    drop: function (info) {
+    dateClick(arg) {
+        emit('dateClick', arg)
+    },
+    events: props.events,
+    drop: function(info) {
         if (
             document.querySelectorAll('#checkbox-events').length &&
             (document.querySelectorAll('#checkbox-events')[0] as HTMLInputElement)?.checked
         ) {
             ;
 
-(info.draggedEl.parentNode as HTMLElement).remove()
+            (info.draggedEl.parentNode as HTMLElement).remove()
 
             if (document.querySelectorAll('#calendar-events')[0].children.length == 1) {
                 document.querySelectorAll('#calendar-no-events')[0].classList.remove('hidden')
