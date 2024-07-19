@@ -2,7 +2,9 @@
 import { Head } from '@inertiajs/vue3'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
+
 import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
+
 import BaseCalendar from '@/Components/Base/calendar/BaseCalendar.vue'
 
 defineOptions({

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { type CalendarOptions } from '@fullcalendar/core'
 import '@fullcalendar/core/index.js'
+import arLocale from '@fullcalendar/core/locales/ar'
+import frLocale from '@fullcalendar/core/locales/fr'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list'
@@ -12,56 +14,18 @@ import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{ events: any }>()
 
-const emit = defineEmits(['dateClick'])
+// eslint-disable-next-line array-element-newline
+const emit = defineEmits(['dateClick', 'eventDrop', 'eventClick', 'eventResize'])
 
 const options: CalendarOptions = {
     plugins: [rrulePlugin,
-        interactionPlugin,
-        dayGridPlugin,
-        timeGridPlugin,
-        listPlugin],
+interactionPlugin,
+dayGridPlugin,
+timeGridPlugin,
+listPlugin],
     droppable: true,
-    locales: [
-        {
-            code: 'en',
-            buttonText: {
-                today: 'Today',
-                month: 'Month',
-                week: 'Week',
-                day: 'Day',
-                next: 'Next',
-                prev: 'Prev',
-                nextYear: 'Next Year',
-                prevYear: 'Prev Year'
-            }
-        },
-        {
-            code: 'fr',
-            buttonText: {
-                today: 'Aujourd\'hui',
-                month: 'Mois',
-                week: 'Semaine',
-                day: 'Jour',
-                next: 'Suivant',
-                prev: 'Precedent',
-                nextYear: 'Prochain Annee',
-                prevYear: 'Annee precedente'
-            }
-        },
-        {
-            code: 'ar',
-            buttonText: {
-                today: 'اليوم',
-                month: 'شهر',
-                week: 'اسبوع',
-                day: 'يوم',
-                next: 'التالي',
-                prev: 'السابق',
-                nextYear: 'السنة التالية',
-                prevYear: 'السنة السابقة'
-            }
-        }
-    ],
+    editable: true,
+    locales: [arLocale, frLocale],
     locale: getLocale(),
     direction: getLocale() === 'ar' ? 'rtl' : 'ltr',
     headerToolbar: {
@@ -72,20 +36,28 @@ const options: CalendarOptions = {
 
     initialDate: new Date(),
     navLinks: true,
-    editable: true,
     dayMaxEvents: true,
+    eventDrop({ event }) {
+        emit('eventDrop', event)
+    },
     dateClick(arg) {
         emit('dateClick', arg)
     },
+    eventResize(arg) {
+        emit('eventResize', arg.event)
+    },
+    eventClick: function ({ event }) {
+        emit('eventClick', event)
+    },
     events: props.events,
-    drop: function(info) {
+    drop: function (info) {
         if (
             document.querySelectorAll('#checkbox-events').length &&
             (document.querySelectorAll('#checkbox-events')[0] as HTMLInputElement)?.checked
         ) {
             ;
 
-            (info.draggedEl.parentNode as HTMLElement).remove()
+(info.draggedEl.parentNode as HTMLElement).remove()
 
             if (document.querySelectorAll('#calendar-events')[0].children.length == 1) {
                 document.querySelectorAll('#calendar-no-events')[0].classList.remove('hidden')

@@ -46,6 +46,7 @@
     "breadcrumb.eid-suit": "بدلة العيد",
     "breadcrumb.needs": "الاحتياجات",
     "breadcrumb.edit": "تعديل",
+    "breadcrumb.lessons": "دروس الدعم",
     "furnishings.television": "تلفاز",
     "furnishings.refrigerator": "ثلاجة",
     "furnishings.fireplace": "مِدْفَأَة",
@@ -671,5 +672,7 @@
     "orphans_count": "عدد الأولاد",
     "display information": "عرض المعلومات",
     "save": "حفظ",
-    "need": "احتياج"
+    "need": "احتياج",
+    "private_lessons": "دروس الدعم",
+    "private_schools": "المدارس الخاصة"
 }

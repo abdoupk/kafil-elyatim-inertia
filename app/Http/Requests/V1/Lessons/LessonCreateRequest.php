@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Lessons;
+namespace App\Http\Requests\V1\Lessons;
 
 use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,14 +14,14 @@ class LessonCreateRequest extends FormRequest
             'title' => 'required|string|max:255',
             //            'description' => 'required|string|max:255',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'end_date' => 'required|date',
             'color' => 'required|hex_color',
             'until' => 'nullable|date',
             'orphans.*.id' => 'required|exists:orphans,id',
             'school.id' => 'required|exists:App\Models\PrivateSchool,id',
             'subject.id' => 'required',
-            'frequency' => 'required|in:weekly,monthly,daily',
-            'interval' => 'required|integer|min:1',
+            'frequency' => 'nullable|in:weekly,monthly,daily|required_with:interval',
+            'interval' => 'nullable|integer|min:1|required_with:frequency',
         ];
     }
 

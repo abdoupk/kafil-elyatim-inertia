@@ -81,7 +81,7 @@ provide<ProvideSlideover>('slideover', {
                 }
             "
             :class="computedClass"
-            v-bind="omit(attrs.attrs, ['onClose'])"
+            v-bind="omit(attrs, ['onClose'])"
         >
             <slot></slot>
         </headless-dialog>

@@ -31,6 +31,7 @@ function getLessons(): Collection
                     'color' => $event->color,
                     'start' => $occurrence->start_date,
                     'end' => $occurrence->end_date,
+                    //                    'url' => route('tenant.lessons.details-lesson', $occurrence->id),
                 ];
             });
         })->flatten(1);

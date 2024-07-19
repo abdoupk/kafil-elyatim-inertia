@@ -14,6 +14,7 @@ import {
     registerStepTwoErrorProps,
     themes
 } from '@/utils/constants'
+
 import numbers = _default.defaults.animations.numbers
 
 export interface IPlacement {
@@ -70,6 +71,8 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-shelves'
+    | 'icon-graduation-cap'
+    | 'icon-school-lock'
     | 'icon-chalkboard-user'
     | 'icon-calendar-users'
     | 'icon-angles-up-down'
@@ -275,8 +278,8 @@ export interface CreateLessonForm {
     }[]
     color: string
     until: string
-    frequency: 'weekly' | 'monthly' | 'daily'
-    interval: number
+    frequency: 'weekly' | 'monthly' | 'daily' | ''
+    interval: number | null
 }
 
 export interface CreateNeedForm {
@@ -597,8 +600,7 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {
-}
+export interface FamilyShow {}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 

@@ -163,6 +163,18 @@ export const useMenuStore = defineStore('menu', {
                 routeName: 'tenant.settings.index',
                 title: __('settings'),
                 url: route('tenant.settings.index')
+            },
+            {
+                icon: 'icon-graduation-cap',
+                routeName: 'tenant.lessons.index',
+                title: __('private_lessons'),
+                url: route('tenant.lessons.index')
+            },
+            {
+                icon: 'icon-school-lock',
+                routeName: 'tenant.schools.index',
+                title: __('private_schools'),
+                url: route('tenant.schools.index')
             }
         ]
     })

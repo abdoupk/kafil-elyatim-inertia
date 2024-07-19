@@ -14,5 +14,6 @@ class EventOccurrence extends Model
         'event_id',
         'start_date',
         'end_date',
+        'tenant_id',
     ];
 }

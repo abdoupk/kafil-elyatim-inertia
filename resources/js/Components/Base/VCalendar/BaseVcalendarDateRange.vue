@@ -17,21 +17,32 @@ const masks = ref({
 
 const popover = ref({
     visibility: 'focus',
+    autoHide: 0,
     placement: getLocale() === 'ar' ? 'top-end' : 'top-start'
+})
+
+const range = ref({
+    start: new Date(),
+    end: new Date()
+})
+
+const rules = ref({
+    hours: Array.from({ length: 13 }, (_, i) => i + 8),
+    milliseconds: 0
 })
 </script>
 
 <template>
     <VDatePicker
-        v-model="date"
+        v-model.range="date"
         :is-dark="settingsStore.appearance === 'dark'"
         :locale="getLocale()"
         :masks="masks"
         :popover
-        :update-on-input="false"
+        :rules="rules"
         borderless
         color="primary"
-        mode="date"
+        mode="dateTime"
         title-position="left"
         transparent
     >
@@ -46,7 +57,7 @@ const popover = ref({
 
                 <base-form-input
                     :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the date') })"
-                    :value="inputValue"
+                    :value="inputValue.end"
                     class="ps-12"
                     v-on="inputEvents"
                 ></base-form-input>

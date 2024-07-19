@@ -303,9 +303,18 @@ function jumpToNextItem(results, currentIndex) {
     }
 }
 
+function setDateToCurrentTime(value: string | Date) {
+    const currentTime = dayjs()
+
+    return dayjs(value)
+        .startOf('day')
+        .add(currentTime.valueOf() - currentTime.startOf('day').valueOf(), 'millisecond')
+}
+
 export {
     isEqual,
     formatDate,
+    setDateToCurrentTime,
     formatNumber,
     jumpToNextItem,
     jumpToPreviousItem,

@@ -27,6 +27,10 @@ use App\Http\Controllers\V1\Inventory\ItemDeleteController;
 use App\Http\Controllers\V1\Inventory\ItemShowController;
 use App\Http\Controllers\V1\Inventory\ItemStoreController;
 use App\Http\Controllers\V1\Inventory\ItemUpdateController;
+use App\Http\Controllers\V1\Lessons\LessonDetailsController;
+use App\Http\Controllers\V1\Lessons\LessonsIndexController;
+use App\Http\Controllers\V1\Lessons\LessonStoreController;
+use App\Http\Controllers\V1\Lessons\LessonUpdateDatesController;
 use App\Http\Controllers\V1\Members\MemberCreateController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
@@ -58,8 +62,9 @@ use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
-use App\Http\Controllers\V1\PrivateSchools\LessonsIndexController;
-use App\Http\Controllers\V1\PrivateSchools\LessonStoreController;
+use App\Http\Controllers\V1\PrivateSchools\SchoolsIndexController;
+use App\Http\Controllers\V1\PrivateSchools\SchoolStoreController;
+use App\Http\Controllers\V1\PrivateSchools\SchoolUpdateController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
@@ -369,13 +374,27 @@ Route::middleware([
                 Route::get('', LessonsIndexController::class)
                     ->name('index');
 
-                Route::get('list-events', LessonsIndexController::class)
-                    ->name('list-events');
-
                 Route::post('', LessonStoreController::class)
-                    ->name('store');
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
 
-                Route::get('{lesson}', LessonStoreController::class)
+                Route::put('{lesson}', LessonUpdateDatesController::class)
+                    ->name('update-dates');
+
+                Route::get('{lesson}', LessonDetailsController::class)
+                    ->name('details-lesson');
+            });
+
+            Route::prefix('schools')->name('schools.')->group(function () {
+                Route::get('', SchoolsIndexController::class)
+                    ->name('index');
+
+                Route::post('', SchoolStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('{school}', SchoolUpdateController::class)
+                    ->name('update');
+
+                Route::get('show/{school}', LessonDetailsController::class)
                     ->name('show');
             });
         });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\PrivateSchools;
+namespace App\Http\Controllers\V1\Lessons;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SubjectResource;
