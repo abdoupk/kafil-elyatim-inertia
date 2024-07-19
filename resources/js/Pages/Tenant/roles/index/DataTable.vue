@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatDate } from '../../../../utils/helper'
+import { formatDate } from '@/utils/helper'
 
 import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/types'
 
