@@ -196,6 +196,11 @@ return [
                 'searchableAttributes' => ['description', 'specification', 'date', 'amount', 'creator'],
                 'sortableAttributes' => ['date', 'specification', 'amount', 'creator', 'created_at'],
             ],
+            'schools' => [
+                'filterableAttributes' => ['id', 'tenant_id'],
+                'searchableAttributes' => ['name'],
+                'sortableAttributes' => ['created_at'],
+            ],
         ],
     ],
 

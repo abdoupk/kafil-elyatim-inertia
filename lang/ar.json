@@ -245,5 +245,9 @@
     "save": "حفظ",
     "need": "احتياج",
     "private_lessons": "دروس الدعم",
-    "private_schools": "المدارس الخاصة"
+    "private_schools": "المدارس الخاصة",
+    "added_at": "تاريخ الإضافة",
+    "the_schools": "المدارس الخاصة",
+    "the_school": "المدرسة",
+    "school": "مدرسة"
 }

@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 /** @noinspection NullPointerExceptionInspection
  * @noinspection StaticClosureCanBeUsedInspection
  */
-function getPrivateSchools(): LengthAwarePaginator
+function getSchools(): LengthAwarePaginator
 {
     return search(PrivateSchool::getModel())
         /** @phpstan-ignore-next-line */
