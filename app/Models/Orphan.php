@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -197,5 +198,10 @@ class Orphan extends Model
         static::updated(function ($orphan) {
             $orphan->sponsorships->searchable();
         });
+    }
+
+    public function lessons(): BelongsToMany
+    {
+        return $this->belongsToMany(EventOccurrence::class, 'event_occurrences', 'lesson_id', 'id')->using(LessonOrphan::class);
     }
 }

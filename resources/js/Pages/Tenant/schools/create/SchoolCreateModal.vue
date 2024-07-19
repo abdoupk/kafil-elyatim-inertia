@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 /* eslint-disable vue/no-parsing-error */
-
 import { useSchoolsStore } from '@/stores/schools'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
@@ -11,6 +10,7 @@ import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+
 import { __, n__ } from '@/utils/i18n'
 
 defineProps<{

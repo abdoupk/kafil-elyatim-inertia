@@ -3,7 +3,7 @@ import type { EventType, OrphanType, SchoolType, SubjectType } from '@/types/les
 
 import { useLessonsStore } from '@/stores/lessons'
 import { type EventApi } from '@fullcalendar/core'
-import { Head } from '@inertiajs/vue3'
+import { Head, router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
@@ -20,6 +20,8 @@ defineOptions({
 defineProps<{ orphans: OrphanType[]; schools: SchoolType[]; subjects: SubjectType[]; events: EventType[] }>()
 
 const createModalStatus = ref(false)
+
+const deleteProgress = ref(false)
 
 const date = ref('')
 
@@ -48,8 +50,36 @@ const handleEventChange = (event: EventApi) => {
         })
 }
 
+const selectedEvent = ref<EventApi | null>(null)
+
 const HandleEventClick = (event: EventApi) => {
     actionsModalStatus.value = true
+
+    selectedEvent.value = event
+}
+
+const deleteLesson = () => {
+    deleteProgress.value = true
+
+    router.delete(route('tenant.lessons.destroy', selectedEvent.value?.id), {
+        onSuccess: () => {
+            router.get(
+                route('tenant.lessons.index'),
+                {},
+                {
+                    only: ['events'],
+                    preserveState: false,
+                    onSuccess: () => {
+                        deleteProgress.value = false
+
+                        actionsModalStatus.value = false
+
+                        selectedEvent.value = null
+                    }
+                }
+            )
+        }
+    })
 }
 </script>
 
@@ -82,5 +112,10 @@ const HandleEventClick = (event: EventApi) => {
         @close="createModalStatus = false"
     ></lesson-create-modal>
 
-    <lesson-actions-modal :open="actionsModalStatus" @close="actionsModalStatus = false"></lesson-actions-modal>
+    <lesson-actions-modal
+        :deleteProgress
+        :open="actionsModalStatus"
+        @close="actionsModalStatus = false"
+        @delete="deleteLesson"
+    ></lesson-actions-modal>
 </template>

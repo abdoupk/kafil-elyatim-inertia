@@ -22,12 +22,12 @@ class LessonStoreController extends Controller
     public function __invoke(LessonCreateRequest $request)
     {
         $event = Event::create([
-            'school_id' => $request->school['id'],
-            'subject_id' => $request->subject['id'],
-            ...$request->except(['school', 'subject', 'orphans', 'description']),
+            ...$request->except(['orphans', 'description']),
         ]);
 
         $this->generateOccurrences($event);
+
+        $event->orphans()->sync($request->orphans);
     }
 
     /**

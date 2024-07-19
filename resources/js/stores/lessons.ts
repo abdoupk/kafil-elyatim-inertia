@@ -26,14 +26,8 @@ export const useLessonsStore = defineStore('lessons', {
         lesson: {
             orphans: [],
             id: '',
-            subject: {
-                id: '',
-                name: ''
-            },
-            school: {
-                id: '',
-                name: ''
-            },
+            subject_id: null,
+            school_id: '',
             description: '',
             title: '',
             start_date: '',

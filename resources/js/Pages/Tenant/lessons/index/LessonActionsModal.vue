@@ -7,7 +7,7 @@ import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.v
 
 defineProps<{
     open: boolean
-    deleteProgress?: boolean
+    deleteProgress: boolean
     eventInfo?: {
         id: string
         title: string

@@ -21,6 +21,7 @@ const popover = ref({
     placement: getLocale() === 'ar' ? 'top-end' : 'top-start'
 })
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const range = ref({
     start: new Date(),
     end: new Date()

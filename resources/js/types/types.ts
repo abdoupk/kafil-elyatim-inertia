@@ -14,6 +14,7 @@ import {
     registerStepTwoErrorProps,
     themes
 } from '@/utils/constants'
+
 import numbers = _default.defaults.animations.numbers
 
 export interface IPlacement {
@@ -263,18 +264,9 @@ export interface CreateLessonForm {
     description: string
     start_date: string
     end_date: string
-    school: {
-        id: string
-        name: string
-    }
-    subject: {
-        id: string
-        name: string
-    }
-    orphans: {
-        id: string
-        name: string
-    }[]
+    school_id: string
+    subject_id: number | null
+    orphans: string[]
     color: string
     until: string
     frequency: 'weekly' | 'monthly' | 'daily' | ''
@@ -599,8 +591,7 @@ export interface CreateFamilyStepProps {
     form?: Form<CreateFamilyForm>
 }
 
-export interface FamilyShow {
-}
+export interface FamilyShow {}
 
 export type CreateFamilyStepOneProps = typeof createFamilyStepOneErrorProps
 

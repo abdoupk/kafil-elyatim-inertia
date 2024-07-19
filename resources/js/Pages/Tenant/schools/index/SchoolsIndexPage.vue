@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Branch, IndexParams, SchoolsIndexResource, PaginationData, Role, Zone } from '@/types/types'
+import type { Branch, IndexParams, PaginationData, Role, SchoolsIndexResource, Zone } from '@/types/types'
 
 import { useSchoolsStore } from '@/stores/schools'
 import { Head, router } from '@inertiajs/vue3'
@@ -9,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import SchoolCreateModal from '@/Pages/Tenant/schools/create/SchoolCreateModal.vue'
 import DataTable from '@/Pages/Tenant/schools/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -18,7 +19,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { debounce, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
-import SchoolCreateModal from '@/Pages/Tenant/schools/create/SchoolCreateModal.vue'
 
 defineOptions({
     layout: TheLayout

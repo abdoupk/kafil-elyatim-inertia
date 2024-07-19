@@ -10,6 +10,7 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
 import { formatDate } from '@/utils/helper'
 
 defineProps<{ schools: PaginationData<SchoolsIndexResource>; params: IndexParams }>()
@@ -36,7 +37,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-th-table>
 
                         <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center"
-                        >{{ $t('quota') }}
+                            >{{ $t('quota') }}
                         </base-th-table>
 
                         <base-th-table
@@ -139,7 +140,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showEditModal', school.id)"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </a>
                             <a
                                 class="font-semibold text-danger"

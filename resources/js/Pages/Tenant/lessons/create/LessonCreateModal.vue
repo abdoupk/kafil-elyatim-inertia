@@ -35,6 +35,12 @@ const lessonsStore = useLessonsStore()
 // Initialize a ref for loading state
 const loading = ref(false)
 
+const vueSelectSubjects = ref([])
+
+const vueSelectSchools = ref([])
+
+const vueSelectOrphans = ref([])
+
 const form = computed(() => {
     if (lessonsStore.lesson.id) {
         return useForm('put', route('tenant.members.update', lessonsStore.lesson.id), { ...lessonsStore.lesson })
@@ -233,20 +239,29 @@ watch(
                         {{ $t('the_school') }}
                     </base-form-label>
 
-                    <base-vue-select
-                        id="school"
-                        v-model:value="form.school"
-                        :allow-empty="false"
-                        :options="schools"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
-                        class="h-full w-full"
-                        label="name"
-                        track-by="id"
-                    >
-                    </base-vue-select>
+                    <div>
+                        <base-vue-select
+                            id="school"
+                            v-model:value="vueSelectSchools"
+                            :allow-empty="false"
+                            :options="schools"
+                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
+                            class="h-full w-full"
+                            label="name"
+                            track-by="id"
+                            @update:value="
+                                (value) => {
+                                    form.school_id = value.id
 
-                    <div v-if="form.errors?.school" class="mt-2">
-                        <base-input-error :message="form.errors.school"></base-input-error>
+                                    form?.validate('school_id')
+                                }
+                            "
+                        >
+                        </base-vue-select>
+                    </div>
+
+                    <div v-if="form.errors?.school_id" class="mt-2">
+                        <base-input-error :message="form.errors.school_id"></base-input-error>
                     </div>
                 </div>
                 <!-- End: School-->
@@ -257,20 +272,29 @@ watch(
                         {{ $t('the_subject') }}
                     </base-form-label>
 
-                    <base-vue-select
-                        id="subject"
-                        v-model:value="form.subject"
-                        :allow-empty="false"
-                        :options="subjects"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
-                        class="h-full w-full"
-                        label="name"
-                        track-by="id"
-                    >
-                    </base-vue-select>
+                    <div>
+                        <base-vue-select
+                            id="subject"
+                            v-model:value="vueSelectSubjects"
+                            :allow-empty="false"
+                            :options="subjects"
+                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
+                            class="h-full w-full"
+                            label="name"
+                            track-by="id"
+                            @update:value="
+                                (value) => {
+                                    form.subject_id = value.id
 
-                    <div v-if="form.errors?.subject" class="mt-2">
-                        <base-input-error :message="form.errors.subject"></base-input-error>
+                                    form?.validate('subject_id')
+                                }
+                            "
+                        >
+                        </base-vue-select>
+                    </div>
+
+                    <div v-if="form.errors.subject_id" class="mt-2">
+                        <base-input-error :message="form.errors.subject_id"></base-input-error>
                     </div>
                 </div>
                 <!-- End: Subject-->
@@ -281,18 +305,27 @@ watch(
                         {{ $t('the_children') }}
                     </base-form-label>
 
-                    <base-vue-select
-                        id="orphans"
-                        v-model:value="form.orphans"
-                        :allow-empty="false"
-                        :options="orphans"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_children') })"
-                        class="h-full w-full"
-                        label="name"
-                        multiple
-                        track-by="id"
-                    >
-                    </base-vue-select>
+                    <div>
+                        <base-vue-select
+                            id="orphans"
+                            v-model:value="vueSelectOrphans"
+                            :allow-empty="false"
+                            :options="orphans"
+                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_children') })"
+                            class="h-full w-full"
+                            label="name"
+                            multiple
+                            track-by="id"
+                            @update:value="
+                                (value) => {
+                                    form.orphans = value.map((orphan) => orphan.id)
+
+                                    form?.validate('orphans')
+                                }
+                            "
+                        >
+                        </base-vue-select>
+                    </div>
 
                     <div v-if="form.errors?.orphans" class="mt-2">
                         <base-input-error :message="form.errors.orphans"></base-input-error>
