@@ -143,23 +143,25 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                     {{ $t('validation.attributes.specification') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model:value="form.formatted_specification"
-                    :custom-label="financialTransactionSpecificationsLabels"
-                    :options="financialTransactionSpecifications"
-                    :placeholder="
-                        $t('auth.placeholders.tomselect', { attribute: $t('validation.attributes.the_status') })
-                    "
-                    label="label"
-                    track_by="value"
-                    @update:value="
-                        (specification) => {
-                            form.specification = specification.value
+                <div>
+                    <base-vue-select
+                        v-model:value="form.formatted_specification"
+                        :custom-label="financialTransactionSpecificationsLabels"
+                        :options="financialTransactionSpecifications"
+                        :placeholder="
+                            $t('auth.placeholders.tomselect', { attribute: $t('validation.attributes.the_status') })
+                        "
+                        label="label"
+                        track_by="value"
+                        @update:value="
+                            (specification) => {
+                                form.specification = specification.value
 
-                            form?.validate('specification')
-                        }
-                    "
-                ></base-vue-select>
+                                form?.validate('specification')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.specification" class="mt-2">
                     <base-input-error :message="form.errors.specification"></base-input-error>
@@ -173,21 +175,23 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                     {{ $t('receiving_member') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model="form.formatted_member"
-                    :options="members ?? []"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
-                    label="name"
-                    track-by="name"
-                    @update:value="
-                        (member) => {
-                            // @ts-ignore
-                            form.member_id = member.id
+                <div>
+                    <base-vue-select
+                        v-model="form.formatted_member"
+                        :options="members ?? []"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="
+                            (member) => {
+                                // @ts-ignore
+                                form.member_id = member.id
 
-                            form?.validate('member_id')
-                        }
-                    "
-                ></base-vue-select>
+                                form?.validate('member_id')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.member_id" class="mt-2">
                     <base-input-error :message="form.errors.member_id"></base-input-error>

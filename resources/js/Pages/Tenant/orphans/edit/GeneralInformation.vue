@@ -247,20 +247,22 @@ const submit = () => {
                             {{ $t('pants_size') }}
                         </base-form-label>
 
-                        <base-vue-select
-                            id="pants_size"
-                            :options="clothesSizes"
-                            :placeholder="
-                                $t('auth.placeholders.fill', {
-                                    attribute: $t('pants_size')
-                                })
-                            "
-                            data-test="orphan_pants_size"
-                            label="label"
-                            track-by="id"
-                            v-model="form.pants_size"
-                            @change="form.validate('pants_size')"
-                        ></base-vue-select>
+                        <div>
+                            <base-vue-select
+                                id="pants_size"
+                                v-model="form.pants_size"
+                                :options="clothesSizes"
+                                :placeholder="
+                                    $t('auth.placeholders.fill', {
+                                        attribute: $t('pants_size')
+                                    })
+                                "
+                                data-test="orphan_pants_size"
+                                label="label"
+                                track-by="id"
+                                @change="form.validate('pants_size')"
+                            ></base-vue-select>
+                        </div>
 
                         <base-form-input-error>
                             <div
@@ -280,20 +282,22 @@ const submit = () => {
                             {{ $t('shirt_size') }}
                         </base-form-label>
 
-                        <base-vue-select
-                            id="shirt_size"
-                            :options="clothesSizes"
-                            :placeholder="
-                                $t('auth.placeholders.fill', {
-                                    attribute: $t('shirt_size')
-                                })
-                            "
-                            data-test="orphan_shirt_size"
-                            label="label"
-                            track-by="id"
-                            v-model="form.shirt_size"
-                            @change="form.validate('shirt_size')"
-                        ></base-vue-select>
+                        <div>
+                            <base-vue-select
+                                id="shirt_size"
+                                v-model="form.shirt_size"
+                                :options="clothesSizes"
+                                :placeholder="
+                                    $t('auth.placeholders.fill', {
+                                        attribute: $t('shirt_size')
+                                    })
+                                "
+                                data-test="orphan_shirt_size"
+                                label="label"
+                                track-by="id"
+                                @change="form.validate('shirt_size')"
+                            ></base-vue-select>
+                        </div>
 
                         <base-form-input-error>
                             <div
@@ -313,20 +317,22 @@ const submit = () => {
                             {{ $t('shoes_size') }}
                         </base-form-label>
 
-                        <base-vue-select
-                            id="shoes_size"
-                            :options="shoesSizes"
-                            :placeholder="
-                                $t('auth.placeholders.fill', {
-                                    attribute: $t('shoes_size')
-                                })
-                            "
-                            data-test="orphan_shoes_size"
-                            label="label"
-                            track-by="id"
-                            v-model="form.shoes_size"
-                            @change="form.validate('shoes_size')"
-                        ></base-vue-select>
+                        <div>
+                            <base-vue-select
+                                id="shoes_size"
+                                v-model="form.shoes_size"
+                                :options="shoesSizes"
+                                :placeholder="
+                                    $t('auth.placeholders.fill', {
+                                        attribute: $t('shoes_size')
+                                    })
+                                "
+                                data-test="orphan_shoes_size"
+                                label="label"
+                                track-by="id"
+                                @change="form.validate('shoes_size')"
+                            ></base-vue-select>
+                        </div>
 
                         <base-form-input-error>
                             <div

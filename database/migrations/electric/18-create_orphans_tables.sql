@@ -1,25 +1,25 @@
 create table if not exists orphans
 (
-    "id"             uuid primary key,
-    "first_name"     text                           not null,
-    "last_name"      text                           not null,
-    "birth_date"     date                           not null,
-    "family_status"  text                           not null,
-    "health_status"  text                           not null,
-    "academic_level" text                           not null,
-    "shoes_size"     text                           null,
-    "pants_size"     text                           null,
-    "shirt_size"     text                           null,
-    "gender"         text                           not null,
-    "note"           text                           null,
-    "tenant_id"      text                           not null references tenants (id) on delete cascade,
-    "family_id"      uuid                           not null references families (id),
-    "sponsor_id"     uuid                           not null references sponsors (id),
-    "created_by"     uuid                           not null references users (id),
-    "deleted_by"     uuid                           null references users (id),
-    "created_at"     timestamp(0) without time zone null,
-    "updated_at"     timestamp(0) without time zone null,
-    "deleted_at"     timestamp(0) without time zone null
+    "id"                uuid primary key,
+    "first_name"        text                           not null,
+    "last_name"         text                           not null,
+    "birth_date"        date                           not null,
+    "family_status"     text                           not null,
+    "health_status"     text                           not null,
+    "academic_level_id" integer                        not null,
+    "shoes_size"        text                           null,
+    "pants_size"        text                           null,
+    "shirt_size"        text                           null,
+    "gender"            text                           not null,
+    "note"              text                           null,
+    "tenant_id"         text                           not null references tenants (id) on delete cascade,
+    "family_id"         uuid                           not null references families (id),
+    "sponsor_id"        uuid                           not null references sponsors (id),
+    "created_by"        uuid                           not null references users (id),
+    "deleted_by"        uuid                           null references users (id),
+    "created_at"        timestamp(0) without time zone null,
+    "updated_at"        timestamp(0) without time zone null,
+    "deleted_at"        timestamp(0) without time zone null
 );
 
 -- Create Indexes
@@ -41,7 +41,7 @@ CREATE INDEX idx_orphans_family_status ON orphans ("family_status");
 
 CREATE INDEX idx_orphans_health_status ON orphans ("health_status");
 
-CREATE INDEX idx_orphans_academic_level ON orphans ("academic_level");
+CREATE INDEX idx_orphans_academic_level ON orphans ("academic_level_id");
 
 CREATE INDEX idx_orphans_shoes_size ON orphans ("shoes_size");
 

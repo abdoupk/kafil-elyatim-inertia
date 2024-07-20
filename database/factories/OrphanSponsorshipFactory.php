@@ -4,15 +4,11 @@ namespace Database\Factories;
 
 use App\Models\OrphanSponsorship;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Random\RandomException;
 
 class OrphanSponsorshipFactory extends Factory
 {
     protected $model = OrphanSponsorship::class;
 
-    /**
-     * @throws RandomException
-     */
     public function definition(): array
     {
         return [

@@ -264,7 +264,9 @@ const modalType = computed(() => {
                     {{ $t('validation.attributes.qualification') }}
                 </base-form-label>
 
-                <base-vue-select v-model:value="form.qualification" :options="qualifications"></base-vue-select>
+                <div>
+                    <base-vue-select v-model:value="form.qualification" :options="qualifications"></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.qualification" class="mt-2">
                     <base-input-error :message="form.errors.qualification"></base-input-error>
@@ -278,18 +280,20 @@ const modalType = computed(() => {
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model:value="form.zone"
-                    :options="zones"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            form.zone_id = value.id
-                            form.validate('zone_id')
-                        }
-                    "
-                ></base-vue-select>
+                <div>
+                    <base-vue-select
+                        v-model:value="form.zone"
+                        :options="zones"
+                        label="name"
+                        track-by="id"
+                        @update:value="
+                            (value) => {
+                                form.zone_id = value.id
+                                form.validate('zone_id')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.zone_id" class="mt-2">
                     <base-input-error :message="form.errors.zone_id"></base-input-error>
@@ -303,18 +307,20 @@ const modalType = computed(() => {
                     {{ $t('validation.attributes.branch') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model:value="form.branch"
-                    :options="branches"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            form.branch_id = value.id
-                            form.validate('branch_id')
-                        }
-                    "
-                ></base-vue-select>
+                <div>
+                    <base-vue-select
+                        v-model:value="form.branch"
+                        :options="branches"
+                        label="name"
+                        track-by="id"
+                        @update:value="
+                            (value) => {
+                                form.branch_id = value.id
+                                form.validate('branch_id')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.branch_id" class="mt-2">
                     <base-input-error :message="form.errors.branch_id"></base-input-error>
@@ -328,19 +334,21 @@ const modalType = computed(() => {
                     {{ $t('validation.attributes.roles') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model="form.formatted_roles"
-                    :options="roles"
-                    label="name"
-                    multiple
-                    track-by="uuid"
-                    @update:value="
-                        (value) => {
-                            form.roles = value.map((role: Role) => role.uuid)
-                            form.validate('roles')
-                        }
-                    "
-                ></base-vue-select>
+                <div>
+                    <base-vue-select
+                        v-model="form.formatted_roles"
+                        :options="roles"
+                        label="name"
+                        multiple
+                        track-by="uuid"
+                        @update:value="
+                            (value) => {
+                                form.roles = value.map((role: Role) => role.uuid)
+                                form.validate('roles')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.roles" class="mt-2">
                     <base-input-error :message="form.errors.roles"></base-input-error>

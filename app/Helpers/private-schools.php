@@ -3,6 +3,8 @@
 /** @noinspection UnknownInspectionInspection */
 
 use App\Models\AcademicLevel;
+use App\Models\Event;
+use App\Models\Orphan;
 use App\Models\PrivateSchool;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -19,7 +21,7 @@ function getSchools(): LengthAwarePaginator
 
 function getLessons(): Collection
 {
-    return \App\Models\Event::select(['id', 'title', 'color'])
+    return Event::select(['id', 'title', 'color'])
         ->with(['occurrences' => function ($query) {
             $query->select('id', 'event_id', 'start_date', 'end_date');
         }])
@@ -51,4 +53,17 @@ function formatedAcademicLevels(): array
     }
 
     return array_values($formattedArray);
+}
+
+function getSchoolsForAddLesson(): Collection
+{
+    return search(PrivateSchool::getModel())
+        ->query(fn ($query) => $query
+            ->withCount('lessons')
+            ->with(['lessons:id,private_school_id,quota,academic_level_id', 'subjects']))->get();
+}
+
+function getOrphansForAddLesson(): \Illuminate\Database\Eloquent\Collection
+{
+    return search(Orphan::getModel())->get();
 }

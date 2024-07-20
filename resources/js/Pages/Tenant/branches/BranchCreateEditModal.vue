@@ -137,19 +137,21 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <!-- TODO: fetch the members and map them to the vue-select -->
-                <base-vue-select
-                    :options="members"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
-                    label="name"
-                    track-by="name"
-                    @update:value="
-                        (value) => {
-                            form.president_id = value.id
+                <div>
+                    <base-vue-select
+                        :options="members"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="
+                            (value) => {
+                                form.president_id = value.id
 
-                            form.validate('president_id')
-                        }
-                    "
-                ></base-vue-select>
+                                form.validate('president_id')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <base-form-input-error>
                     <div

@@ -42,7 +42,8 @@ watch(
 
             return acc
         }, {})
-    }, { immediate: true }
+    },
+    { immediate: true }
 )
 </script>
 

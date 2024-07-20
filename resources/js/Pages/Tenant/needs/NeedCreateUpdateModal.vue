@@ -127,23 +127,25 @@ const modalType = computed(() => {
                     {{ $t('validation.attributes.status') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model:value="form.formatted_status"
-                    :custom-label="needStatusesLabels"
-                    :options="needStatuses"
-                    :placeholder="
-                        $t('auth.placeholders.tomselect', { attribute: $t('validation.attributes.the_status') })
-                    "
-                    label="label"
-                    track_by="value"
-                    @update:value="
-                        (status) => {
-                            form.status = status.value
+                <div>
+                    <base-vue-select
+                        v-model:value="form.formatted_status"
+                        :custom-label="needStatusesLabels"
+                        :options="needStatuses"
+                        :placeholder="
+                            $t('auth.placeholders.tomselect', { attribute: $t('validation.attributes.the_status') })
+                        "
+                        label="label"
+                        track_by="value"
+                        @update:value="
+                            (status) => {
+                                form.status = status.value
 
-                            form?.validate('status')
-                        }
-                    "
-                ></base-vue-select>
+                                form?.validate('status')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <div v-if="form.errors?.status" class="mt-2">
                     <base-input-error :message="form.errors.status"></base-input-error>

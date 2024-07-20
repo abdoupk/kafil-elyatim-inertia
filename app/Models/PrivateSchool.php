@@ -51,4 +51,9 @@ class PrivateSchool extends Model
     {
         return $this->hasMany(Lesson::class, 'private_school_id', 'id');
     }
+
+    public function subjects()
+    {
+        return $this->lessons()->with('subject');
+    }
 }

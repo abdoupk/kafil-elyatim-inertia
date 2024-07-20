@@ -91,20 +91,22 @@ const vueSelectZones = ref([])
                     {{ $t('the_branch') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model="vueSelectBranches"
-                    :options="branches ?? []"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
-                    label="name"
-                    track-by="name"
-                    @update:value="
-                        (value) => {
-                            branch = value.id
+                <div>
+                    <base-vue-select
+                        v-model="vueSelectBranches"
+                        :options="branches ?? []"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="
+                            (value) => {
+                                branch = value.id
 
-                            form?.validate('branch_id')
-                        }
-                    "
-                ></base-vue-select>
+                                form?.validate('branch_id')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <base-form-input-error>
                     <div v-if="form?.invalid('branch_id')" class="mt-2 text-danger" data-test="error_branch_message">
@@ -118,20 +120,22 @@ const vueSelectZones = ref([])
                     {{ $t('validation.attributes.zone') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model="vueSelectZones"
-                    :options="zones ?? []"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
-                    label="name"
-                    track-by="name"
-                    @update:value="
-                        (value) => {
-                            zone = value.id
+                <div>
+                    <base-vue-select
+                        v-model="vueSelectZones"
+                        :options="zones ?? []"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
+                        label="name"
+                        track-by="name"
+                        @update:value="
+                            (value) => {
+                                zone = value.id
 
-                            form?.validate('zone_id')
-                        }
-                    "
-                ></base-vue-select>
+                                form?.validate('zone_id')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <base-form-input-error>
                     <div v-if="form?.invalid('zone_id')" class="mt-2 text-danger" data-test="error_zone_message">

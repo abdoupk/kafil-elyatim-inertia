@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 /* eslint-disable vue/no-parsing-error */
-import type { OrphanType, SchoolType, SubjectType } from '@/types/lessons'
+import type { SchoolType } from '@/types/lessons'
 
 import { useLessonsStore } from '@/stores/lessons'
 import { router } from '@inertiajs/vue3'
@@ -23,9 +23,7 @@ import { __, n__ } from '@/utils/i18n'
 
 const props = defineProps<{
     open: boolean
-    subjects: SubjectType[]
     schools: SchoolType[]
-    orphans: OrphanType[]
     date: string | Date
 }>()
 
@@ -40,6 +38,17 @@ const vueSelectSubjects = ref([])
 const vueSelectSchools = ref([])
 
 const vueSelectOrphans = ref([])
+
+const subjects = ref([])
+
+watch(
+    () => vueSelectSchools.value,
+    (newValue) => {
+        subjects.value = newValue.subjects
+
+        vueSelectSubjects.value = newValue.subjects[0]
+    }
+)
 
 const form = computed(() => {
     if (lessonsStore.lesson.id) {
@@ -92,6 +101,8 @@ const modalType = computed(() => {
     return lessonsStore.lesson.id ? 'update' : 'create'
 })
 
+const loadingSearchOrphans = ref(false)
+
 const range = ref<{ start: string | Date; end: string | Date }>({
     start: form.value.start_date,
     end: form.value.end_date
@@ -117,6 +128,19 @@ watch(
         }
     }
 )
+
+const orphans = ref([])
+
+const asyncFind = (search: string) => {
+    loadingSearchOrphans.value = true
+
+    lessonsStore
+        .getOrphans(search)
+        .then((res) => {
+            orphans.value = res.data
+        })
+        .finally(() => (loadingSearchOrphans.value = false))
+}
 </script>
 
 <template>
@@ -304,17 +328,26 @@ watch(
                     <base-form-label htmlFor="orphans">
                         {{ $t('the_children') }}
                     </base-form-label>
-
                     <div>
                         <base-vue-select
                             id="orphans"
                             v-model:value="vueSelectOrphans"
                             :allow-empty="false"
+                            :clear-on-select="false"
+                            :close-on-select="false"
+                            :hide-selected="true"
+                            :internal-search="false"
+                            :loading="loadingSearchOrphans"
+                            :max="vueSelectSubjects.quota"
                             :options="orphans"
                             :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_children') })"
+                            :searchable="true"
+                            :show-no-results="true"
                             class="h-full w-full"
                             label="name"
                             multiple
+                            :disabled="vueSelectSubjects.length === 0 || vueSelectSchools.length === 0"
+                            open-direction="bottom"
                             track-by="id"
                             @update:value="
                                 (value) => {
@@ -323,6 +356,7 @@ watch(
                                     form?.validate('orphans')
                                 }
                             "
+                            @search-change="asyncFind"
                         >
                         </base-vue-select>
                     </div>

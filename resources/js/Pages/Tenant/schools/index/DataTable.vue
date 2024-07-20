@@ -36,11 +36,12 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ $t('the_school') }}
                         </base-th-table>
 
-                        <base-th-table :direction="params.directions?.quota"
-                                       class="whitespace-nowrap border-b-0 font-semibold text-center"
-                                       sortable
-                                       @click="emit('sort', 'quota')"
-                        >{{ $t('quota_total') }}
+                        <base-th-table
+                            :direction="params.directions?.quota"
+                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            sortable
+                            @click="emit('sort', 'quota')"
+                            >{{ $t('quota_total') }}
                         </base-th-table>
 
                         <base-th-table
@@ -143,7 +144,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showEditModal', school.id)"
-                            >{{ $t('edit') }}
+                                >{{ $t('edit') }}
                             </a>
                             <a
                                 class="font-semibold text-danger"

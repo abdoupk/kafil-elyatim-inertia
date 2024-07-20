@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\AcademicAchievement;
+use App\Models\AcademicLevel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Random\RandomException;
 
@@ -71,15 +72,11 @@ class AcademicAchievementFactory extends Factory
      */
     public function definition(): array
     {
-        $academicLevel = fake()->randomElement($this->academicLevels);
-        $academicLevelName = $academicLevel['levels'][fake()->numberBetween(0, count($academicLevel['levels']) - 1)];
-
         return [
             'created_at' => now(),
             'updated_at' => now(),
             'orphan_id' => fake()->uuid,
-            'academic_level' => $academicLevelName,
-            'academic_phase' => $academicLevel['phase'],
+            'academic_level_id' => AcademicLevel::inRandomOrder()->first()->id,
             'academic_year' => now()->subYears(random_int(0, 3))->year,
             'first_trimester' => fake()->randomFloat(min: 3, max: 18),
             'second_trimester' => fake()->randomFloat(min: 3, max: 18),

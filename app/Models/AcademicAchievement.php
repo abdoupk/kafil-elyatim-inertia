@@ -25,8 +25,7 @@ class AcademicAchievement extends Model
 
     protected $fillable = [
         'orphan_id',
-        'academic_level',
-        'academic_phase',
+        'academic_level_id',
         'academic_year',
         'first_trimester',
         'second_trimester',

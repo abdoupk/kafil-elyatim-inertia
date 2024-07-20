@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\AcademicLevel;
 use App\Models\ClothesSize;
 use App\Models\Orphan;
 use App\Models\ShoeSize;
@@ -25,7 +26,7 @@ class OrphanFactory extends Factory
             'birth_date' => now()->subYears(random_int(1, 35))->toDate(),
             'family_status' => fake('ar_SA')->word,
             'health_status' => fake('ar_SA')->word,
-            'academic_level' => fake('ar_SA')->word,
+            'academic_level_id' => AcademicLevel::inRandomOrder()->first()->id,
             'shoes_size' => ShoeSize::inRandomOrder()->first()->id,
             'pants_size' => ClothesSize::inRandomOrder()->first()->id,
             'shirt_size' => ClothesSize::inRandomOrder()->first()->id,

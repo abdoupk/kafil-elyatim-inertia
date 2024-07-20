@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('academic_achievements', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('academic_level')->nullable();
-            $table->text('academic_phase')->nullable();
+            $table->integer('academic_level_id')->nullable();
             $table->integer('academic_year')->nullable();
             $table->float('first_trimester')->nullable();
             $table->float('second_trimester')->nullable();

@@ -53,22 +53,24 @@ const vueSelectInspectorsMembers = ref([])
                     {{ $t('inspectors_members') }}
                 </base-form-label>
 
-                <base-vue-select
-                    v-model="vueSelectInspectorsMembers"
-                    :options="members ?? []"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
-                    label="name"
-                    multiple
-                    track-by="name"
-                    @update:value="
-                        (value) => {
-                            // @ts-ignore
-                            inspectorsMembers = value.map((member) => member.id)
+                <div>
+                    <base-vue-select
+                        v-model="vueSelectInspectorsMembers"
+                        :options="members ?? []"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                        label="name"
+                        multiple
+                        track-by="name"
+                        @update:value="
+                            (value) => {
+                                // @ts-ignore
+                                inspectorsMembers = value.map((member) => member.id)
 
-                            form?.validate('inspectors_members')
-                        }
-                    "
-                ></base-vue-select>
+                                form?.validate('inspectors_members')
+                            }
+                        "
+                    ></base-vue-select>
+                </div>
 
                 <base-form-input-error>
                     <div

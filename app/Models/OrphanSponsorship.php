@@ -108,8 +108,11 @@ class OrphanSponsorship extends Model
             'orphan' => [
                 'id' => $this->orphan->id,
                 'name' => $this->orphan->getName(),
-                'academic_level' => $this->orphan?->lastAcademicYearAchievement?->academic_level,
-                'academic_phase' => $this->orphan?->lastAcademicYearAchievement?->academic_phase,
+                'academic_level' => [
+                    // TODO: Add academic level
+                    //                    $this->orphan?->lastAcademicYearAchievement?->academic_level,
+                    //                    'academic_phase' => $this->orphan?->lastAcademicYearAchievement?->academic_phase,
+                ],
                 'year_average' => (float) $this->orphan?->lastAcademicYearAchievement?->average,
                 'shirt_size' => $this->orphan->shirt_size,
                 'pants_size' => $this->orphan->pants_size,

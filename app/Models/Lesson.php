@@ -12,6 +12,8 @@ class Lesson extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids;
 
+    protected $table = 'lessons';
+
     protected $fillable = [
         'subject_id',
         'academic_level_id',
@@ -29,16 +31,16 @@ class Lesson extends Model
 
     public function school(): BelongsTo
     {
-        return $this->belongsTo(PrivateSchool::class);
+        return $this->belongsTo(PrivateSchool::class, 'private_school_id', 'id');
     }
 
     public function subject(): BelongsTo
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
 
     public function academicLevel(): BelongsTo
     {
-        return $this->belongsTo(AcademicLevel::class);
+        return $this->belongsTo(AcademicLevel::class, 'academic_level_id', 'id');
     }
 }

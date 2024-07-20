@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Sushi\Sushi;
 
 class AcademicLevel extends Model
 {
-    use Sushi;
+    use Searchable, Sushi;
 
     protected array $rows = [
         [
@@ -176,4 +177,9 @@ class AcademicLevel extends Model
             'phase' => 'الطور الجامعي',
         ],
     ];
+
+    public function toSearchableArray(): array
+    {
+        return $this->toArray();
+    }
 }

@@ -14,9 +14,9 @@ import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { __, n__ } from '@/utils/i18n'
-import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     open: boolean
@@ -175,7 +175,6 @@ const removeLesson = (index: number) => {
 
                     {{ $t('add lesson') }}
                 </base-button>
-
             </div>
         </template>
     </create-edit-modal>

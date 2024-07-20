@@ -69,19 +69,21 @@ onMounted(() => {
                 {{ $t('wilaya') }}
             </base-form-label>
 
-            <base-vue-select
-                id="wilayas"
-                v-model:value="wilaya"
-                :options="wilayas"
-                :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('wilaya') })"
-                class="h-full w-full"
-                label="wilaya_name"
-                track-by="wilaya_code"
-            >
-                <option v-for="wilaya in wilayas" :key="wilaya.wilaya_code" :value="wilaya.wilaya_code">
-                    {{ wilaya.wilaya_name }}
-                </option>
-            </base-vue-select>
+            <div>
+                <base-vue-select
+                    id="wilayas"
+                    v-model:value="wilaya"
+                    :options="wilayas"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('wilaya') })"
+                    class="h-full w-full"
+                    label="wilaya_name"
+                    track-by="wilaya_code"
+                >
+                    <option v-for="wilaya in wilayas" :key="wilaya.wilaya_code" :value="wilaya.wilaya_code">
+                        {{ wilaya.wilaya_name }}
+                    </option>
+                </base-vue-select>
+            </div>
 
             <base-form-input-error>
                 <div v-show="errorMessage && cityStore.wilaya.wilaya_code === ''" class="mt-2 text-danger">

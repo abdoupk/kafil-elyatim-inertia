@@ -47,6 +47,10 @@ export const useLessonsStore = defineStore('lessons', {
         },
         async updateLesson(id: string, data: { start_date: string; end_date: string }) {
             await axios.put(route('tenant.lessons.update-dates', id), data)
+        },
+
+        async getOrphans(search: string) {
+            return await axios.get(`lessons/list-orphans?search=${search}`)
         }
     }
 })

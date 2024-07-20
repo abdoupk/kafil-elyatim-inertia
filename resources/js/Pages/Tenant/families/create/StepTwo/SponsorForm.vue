@@ -157,19 +157,21 @@ const sponsorTypes = [
                 {{ $t('the_sponsor') }}
             </base-form-label>
 
-            <base-vue-select
-                :options="sponsorTypes"
-                :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_sponsor') })"
-                label="label"
-                track_by="value"
-                @update:value="
-                    (type) => {
-                        sponsorType = type.value
+            <div>
+                <base-vue-select
+                    :options="sponsorTypes"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_sponsor') })"
+                    label="label"
+                    track_by="value"
+                    @update:value="
+                        (type) => {
+                            sponsorType = type.value
 
-                        form?.validate('sponsor.sponsor_type')
-                    }
-                "
-            ></base-vue-select>
+                            form?.validate('sponsor.sponsor_type')
+                        }
+                    "
+                ></base-vue-select>
+            </div>
 
             <base-form-input-error>
                 <div v-if="form?.invalid('branch_id')" class="mt-2 text-danger" data-test="error_branch_message">

@@ -7,7 +7,6 @@ use App\Http\Resources\SubjectResource;
 use App\Http\Resources\V1\Lessons\OrphansResource;
 use App\Http\Resources\V1\Lessons\SchoolsResource;
 use App\Models\Orphan;
-use App\Models\PrivateSchool;
 use App\Models\Subject;
 use Inertia\Inertia;
 use Recurr\Exception\InvalidArgument;
@@ -30,7 +29,7 @@ class LessonsIndexController extends Controller
         return Inertia::render('Tenant/lessons/index/LessonsIndexPage', [
             'orphans' => OrphansResource::collection($orphans),
             'subjects' => SubjectResource::collection(Subject::all()),
-            'schools' => SchoolsResource::collection(PrivateSchool::all()),
+            'schools' => SchoolsResource::collection(getSchoolsForAddLesson()),
             'events' => getLessons(),
         ]);
     }

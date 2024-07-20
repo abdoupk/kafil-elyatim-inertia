@@ -32,6 +32,7 @@ use App\Http\Controllers\V1\Lessons\LessonDetailsController;
 use App\Http\Controllers\V1\Lessons\LessonsIndexController;
 use App\Http\Controllers\V1\Lessons\LessonStoreController;
 use App\Http\Controllers\V1\Lessons\LessonUpdateDatesController;
+use App\Http\Controllers\V1\Lessons\ListOrphansController;
 use App\Http\Controllers\V1\Members\MemberCreateController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
@@ -376,6 +377,9 @@ Route::middleware([
             Route::prefix('lessons')->name('lessons.')->group(function () {
                 Route::get('', LessonsIndexController::class)
                     ->name('index');
+
+                Route::get('list-orphans', ListOrphansController::class)
+                    ->name('list-orphans');
 
                 Route::post('', LessonStoreController::class)
                     ->name('store')->middleware([HandlePrecognitiveRequests::class]);
