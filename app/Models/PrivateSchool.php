@@ -43,6 +43,7 @@ class PrivateSchool extends Model
             'tenant_id' => $this->tenant_id,
             'name' => $this->name,
             'quota' => $this->lessons->sum('quota'),
+            'created_at' => $this->created_at,
         ];
     }
 

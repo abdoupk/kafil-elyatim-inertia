@@ -197,7 +197,7 @@ return [
                 'sortableAttributes' => ['date', 'specification', 'amount', 'creator', 'created_at'],
             ],
             'schools' => [
-                'filterableAttributes' => ['id', 'tenant_id', 'quota', 'name'],
+                'filterableAttributes' => ['id', 'tenant_id', 'quota'],
                 'searchableAttributes' => ['name', 'quota'],
                 'sortableAttributes' => ['created_at', 'name', 'quota'],
             ],

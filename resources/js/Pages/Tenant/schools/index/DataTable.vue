@@ -36,15 +36,18 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ $t('the_school') }}
                         </base-th-table>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 font-semibold text-center"
-                            >{{ $t('quota') }}
+                        <base-th-table :direction="params.directions?.quota"
+                                       class="whitespace-nowrap border-b-0 font-semibold text-center"
+                                       sortable
+                                       @click="emit('sort', 'quota')"
+                        >{{ $t('quota') }}
                         </base-th-table>
 
                         <base-th-table
-                            sortable
-                            @click="emit('sort', 'created_at')"
                             :direction="params.directions?.created_at"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            sortable
+                            @click="emit('sort', 'created_at')"
                         >
                             {{ $t('added_at') }}
                         </base-th-table>
@@ -140,7 +143,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showEditModal', school.id)"
-                                >{{ $t('edit') }}
+                            >{{ $t('edit') }}
                             </a>
                             <a
                                 class="font-semibold text-danger"

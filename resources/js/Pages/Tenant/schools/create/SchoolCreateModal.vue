@@ -16,6 +16,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 
 import { __, n__ } from '@/utils/i18n'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     open: boolean
@@ -163,7 +164,18 @@ const removeLesson = (index: number) => {
             ></the-subject-and-quota>
 
             <div class="flex items-center justify-center col-span-12">
-                <base-button type="button" variant="soft-primary" @click="addLesson"> add lesson</base-button>
+                <base-button
+                    class="mx-auto mt-3 block w-1/2 border-dashed dark:text-slate-500"
+                    data-test="add_phone_number"
+                    type="button"
+                    variant="outline-primary"
+                    @click.prevent="addLesson"
+                >
+                    <svg-loader class="inline fill-primary dark:fill-slate-500" name="icon-plus"></svg-loader>
+
+                    {{ $t('add lesson') }}
+                </base-button>
+
             </div>
         </template>
     </create-edit-modal>

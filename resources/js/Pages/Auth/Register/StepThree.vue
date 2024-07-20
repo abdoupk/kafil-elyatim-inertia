@@ -207,6 +207,7 @@ const removePhone = (index: number) => {
                         </div>
                     </base-form-input-error>
                 </template>
+
                 <base-button
                     type="button"
                     variant="outline-primary"
