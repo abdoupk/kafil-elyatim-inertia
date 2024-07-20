@@ -40,7 +40,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                        class="whitespace-nowrap border-b-0 font-semibold text-center"
                                        sortable
                                        @click="emit('sort', 'quota')"
-                        >{{ $t('quota') }}
+                        >{{ $t('quota_total') }}
                         </base-th-table>
 
                         <base-th-table

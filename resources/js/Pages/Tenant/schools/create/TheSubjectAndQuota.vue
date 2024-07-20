@@ -70,15 +70,15 @@ watch(
                         (value) => {
                             academicLevel = value.id
 
-                            form?.validate('academic_level_id')
+                            form?.validate(`lessons.${index}.academic_level_id`)
                         }
                     "
                 >
                 </base-vue-select>
             </div>
 
-            <div v-if="form.errors.academic_level_id" class="mt-2">
-                <base-input-error :message="form.errors.academic_level_id"></base-input-error>
+            <div v-if="form.invalid(`lessons.${index}.academic_level_id`)" class="mt-2">
+                <base-input-error :message="form.errors[`lessons.${index}.academic_level_id`]"></base-input-error>
             </div>
         </div>
         <!-- End: Academic Level-->
@@ -103,15 +103,15 @@ watch(
                         (value) => {
                             subject = value.id
 
-                            form?.validate('subject_id')
+                            form?.validate(`lessons.${index}.subject_id`)
                         }
                     "
                 >
                 </base-vue-select>
             </div>
 
-            <div v-if="form.errors.subject_id" class="mt-2">
-                <base-input-error :message="form.errors.subject_id"></base-input-error>
+            <div v-if="form.invalid(`lessons.${index}.subject_id`)" class="mt-2">
+                <base-input-error :message="form.errors[`lessons.${index}.subject_id`]"></base-input-error>
             </div>
         </div>
         <!-- End: Subject-->
@@ -128,11 +128,11 @@ watch(
                 v-model="quota"
                 :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.quota') })"
                 type="text"
-                @change="form.validate('quota')"
+                @change="form.validate(`lessons.${index}.quota`)"
             />
 
-            <div v-if="form.errors?.quota" class="mt-2">
-                <base-input-error :message="form.errors.quota"></base-input-error>
+            <div v-if="form.invalid(`lessons.${index}.quota`)" class="mt-2">
+                <base-input-error :message="form.errors[`lessons.${index}.quota`]"></base-input-error>
             </div>
         </div>
         <!-- End: Quota-->
