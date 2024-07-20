@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -21,5 +22,10 @@ class EventOccurrence extends Model
     public function orphans(): BelongsToMany
     {
         return $this->belongsToMany(Orphan::class, 'lesson_orphan', 'orphan_id', 'id')->using(LessonOrphan::class);
+    }
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
     }
 }

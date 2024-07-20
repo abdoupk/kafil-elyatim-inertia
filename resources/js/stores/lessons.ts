@@ -49,8 +49,8 @@ export const useLessonsStore = defineStore('lessons', {
             await axios.put(route('tenant.lessons.update-dates', id), data)
         },
 
-        async getOrphans(search: string) {
-            return await axios.get(`lessons/list-orphans?search=${search}`)
+        async getOrphans(search: string, academic_level_id: number) {
+            return await axios.get(`lessons/list-orphans?search=${search} &academic_level_id=${academic_level_id}`)
         }
     }
 })

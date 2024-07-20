@@ -53,4 +53,9 @@ class Event extends Model implements RepeatableContract
     {
         return $this->belongsToMany(Orphan::class, 'lesson_orphan', 'lesson_id', 'orphan_id')->using(LessonOrphan::class);
     }
+
+    public function subject(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

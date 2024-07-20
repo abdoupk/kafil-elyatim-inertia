@@ -6,9 +6,6 @@ import { useLessonsStore } from '@/stores/lessons'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref, watch } from 'vue'
-
-import CreateEditSlideOver from '@/Pages/Shared/CreateEditSlideOver.vue'
-import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
 import DateRange from '@/Pages/Tenant/lessons/create/DateRange.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
@@ -20,6 +17,8 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { omit, setDateToCurrentTime } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
+import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
+import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
 const props = defineProps<{
     open: boolean
@@ -46,7 +45,7 @@ watch(
     (newValue) => {
         subjects.value = newValue.subjects
 
-        vueSelectSubjects.value = newValue.subjects[0]
+        vueSelectSubjects.value = null
     }
 )
 
@@ -135,255 +134,269 @@ const asyncFind = (search: string) => {
     loadingSearchOrphans.value = true
 
     lessonsStore
-        .getOrphans(search)
+        .getOrphans(search,vueSelectSubjects.value.academic_level_id)
         .then((res) => {
             orphans.value = res.data
         })
         .finally(() => (loadingSearchOrphans.value = false))
 }
+
+const handleCloseModal = () => {
+    emit('close')
+
+    vueSelectSubjects.value = []
+
+    vueSelectOrphans.value = []
+
+    // TODO: Find a way to reset the vue select schools
+}
 </script>
 
 <template>
-    <create-edit-slide-over
+    <create-edit-modal
         :focusable-input="firstInputRef"
         :loading
+        :modal-type="modalType"
         :open
-        :slideover-type="modalType"
         :title="modalTitle"
         size="xl"
-        @close="emit('close')"
+        @close="handleCloseModal"
         @handle-submit="handleSubmit"
     >
         <template #description>
-            <div class="grid grid-cols-12 gap-4 gap-y-3">
-                <!-- Begin: Title-->
-                <div class="col-span-12 sm:col-span-6">
-                    <base-form-label htmlFor="title">
-                        {{ $t('title') }}
-                    </base-form-label>
+            <!-- Begin: Title-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="title">
+                    {{ $t('title') }}
+                </base-form-label>
 
-                    <base-form-input
-                        id="title"
-                        ref="firstInputRef"
-                        v-model="form.title"
-                        :placeholder="$t('auth.placeholders.fill', { attribute: $t('title') })"
-                        type="text"
-                        @change="form.validate('title')"
-                    />
+                <base-form-input
+                    id="title"
+                    ref="firstInputRef"
+                    v-model="form.title"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('title') })"
+                    type="text"
+                    @change="form.validate('title')"
+                />
 
-                    <div v-if="form.errors?.title" class="mt-2">
-                        <base-input-error :message="form.errors.title"></base-input-error>
-                    </div>
+                <div v-if="form.errors?.title" class="mt-2">
+                    <base-input-error :message="form.errors.title"></base-input-error>
                 </div>
-                <!-- End: Title-->
+            </div>
+            <!-- End: Title-->
 
-                <!-- Begin: Date Range-->
-                <date-range v-model:range="range">
-                    <template #label_start>
-                        <base-form-label htmlFor="start_date">
-                            {{ $t('start_date') }}
-                        </base-form-label>
-                    </template>
-
-                    <template #label_end>
-                        <base-form-label htmlFor="end_date">
-                            {{ $t('end_date') }}
-                        </base-form-label>
-                    </template>
-
-                    <template #error_start>
-                        <div v-if="form.errors?.start_date" class="mt-2">
-                            <base-input-error :message="form.errors.start_date"></base-input-error>
-                        </div>
-                    </template>
-
-                    <template #error_end>
-                        <div v-if="form.errors?.end_date" class="mt-2">
-                            <base-input-error :message="form.errors.end_date"></base-input-error>
-                        </div>
-                    </template>
-                </date-range>
-                <!-- End: Date Range-->
-
-                <!-- Begin: Frequency-->
-                <div class="col-span-12 sm:col-span-6">
-                    <base-form-label htmlFor="frequency">
-                        {{ $t('frequency') }}
+            <!-- Begin: Date Range-->
+            <date-range v-model:range="range">
+                <template #label_start>
+                    <base-form-label htmlFor="start_date">
+                        {{ $t('start_date') }}
                     </base-form-label>
+                </template>
 
-                    <base-form-select id="frequency" v-model="form.frequency" placeholder="ddd">
-                        <option value="">{{ $t('none') }}</option>
-                        <option value="daily">{{ $t('daily') }}</option>
-                        <option value="weekly">{{ $t('weekly') }}</option>
-                        <option value="monthly">{{ $t('monthly') }}</option>
-                    </base-form-select>
+                <template #label_end>
+                    <base-form-label htmlFor="end_date">
+                        {{ $t('end_date') }}
+                    </base-form-label>
+                </template>
 
-                    <div v-if="form.errors?.frequency" class="mt-2">
-                        <base-input-error :message="form.errors.frequency"></base-input-error>
+                <template #error_start>
+                    <div v-if="form.errors?.start_date" class="mt-2">
+                        <base-input-error :message="form.errors.start_date"></base-input-error>
                     </div>
-                </div>
-                <!-- End: Frequency-->
+                </template>
 
-                <!-- Begin: Interval-->
-                <div class="col-span-12 sm:col-span-6">
-                    <base-form-label htmlFor="interval">
-                        {{ $t('interval') }}
-                    </base-form-label>
-
-                    <base-form-input id="interval" v-model="form.interval" type="number"></base-form-input>
-
-                    <div v-if="form.errors?.interval" class="mt-2">
-                        <base-input-error :message="form.errors.interval"></base-input-error>
+                <template #error_end>
+                    <div v-if="form.errors?.end_date" class="mt-2">
+                        <base-input-error :message="form.errors.end_date"></base-input-error>
                     </div>
+                </template>
+            </date-range>
+            <!-- End: Date Range-->
+
+            <!-- Begin: Frequency-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="frequency">
+                    {{ $t('frequency') }}
+                </base-form-label>
+
+                <base-form-select id="frequency" v-model="form.frequency" placeholder="ddd">
+                    <option value="">{{ $t('none') }}</option>
+                    <option value="daily">{{ $t('daily') }}</option>
+                    <option value="weekly">{{ $t('weekly') }}</option>
+                    <option value="monthly">{{ $t('monthly') }}</option>
+                </base-form-select>
+
+                <div v-if="form.errors?.frequency" class="mt-2">
+                    <base-input-error :message="form.errors.frequency"></base-input-error>
                 </div>
-                <!-- End: Interval-->
+            </div>
+            <!-- End: Frequency-->
 
-                <!-- Begin: Until-->
-                <div class="col-span-12 sm:col-span-6">
-                    <base-form-label htmlFor="until">
-                        {{ $t('until') }}
-                    </base-form-label>
+            <!-- Begin: Interval-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="interval">
+                    {{ $t('interval') }}
+                </base-form-label>
 
-                    <base-v-calendar
-                        id="until"
-                        v-model:date="form.until"
-                        :placeholder="$t('auth.placeholders.fill', { attribute: $t('until') })"
-                        type="text"
-                    ></base-v-calendar>
+                <base-form-input id="interval" v-model="form.interval" type="number"></base-form-input>
 
-                    <div v-if="form.errors?.until" class="mt-2">
-                        <base-input-error :message="form.errors.until"></base-input-error>
-                    </div>
+                <div v-if="form.errors?.interval" class="mt-2">
+                    <base-input-error :message="form.errors.interval"></base-input-error>
                 </div>
-                <!-- End: Until-->
+            </div>
+            <!-- End: Interval-->
 
-                <!-- Begin: School-->
-                <div class="col-span-12 sm:col-span-6">
-                    <base-form-label htmlFor="school">
-                        {{ $t('the_school') }}
-                    </base-form-label>
+            <!-- Begin: Until-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="until">
+                    {{ $t('until') }}
+                </base-form-label>
 
-                    <div>
-                        <base-vue-select
-                            id="school"
-                            v-model:value="vueSelectSchools"
-                            :allow-empty="false"
-                            :options="schools"
-                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
-                            class="h-full w-full"
-                            label="name"
-                            track-by="id"
-                            @update:value="
+                <base-v-calendar
+                    id="until"
+                    v-model:date="form.until"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('until') })"
+                    type="text"
+                ></base-v-calendar>
+
+                <div v-if="form.errors?.until" class="mt-2">
+                    <base-input-error :message="form.errors.until"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Until-->
+
+            <!-- Begin: School-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="school">
+                    {{ $t('the_school') }}
+                </base-form-label>
+
+                <div>
+                    <base-vue-select
+                        id="school"
+                        v-model:value="vueSelectSchools"
+                        :allow-empty="false"
+                        :options="schools"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
+                        class="h-full w-full"
+                        label="name"
+                        track-by="id"
+                        @update:value="
                                 (value) => {
                                     form.school_id = value.id
 
                                     form?.validate('school_id')
                                 }
                             "
-                        >
-                        </base-vue-select>
-                    </div>
-
-                    <div v-if="form.errors?.school_id" class="mt-2">
-                        <base-input-error :message="form.errors.school_id"></base-input-error>
-                    </div>
+                    >
+                    </base-vue-select>
                 </div>
-                <!-- End: School-->
 
-                <!-- Begin: Subject-->
-                <div class="col-span-12 sm:col-span-6">
-                    <base-form-label htmlFor="subject">
-                        {{ $t('the_subject') }}
-                    </base-form-label>
+                <div v-if="form.errors?.school_id" class="mt-2">
+                    <base-input-error :message="form.errors.school_id"></base-input-error>
+                </div>
+            </div>
+            <!-- End: School-->
+{{vueSelectSubjects}}
+            <!-- Begin: Subject-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="subject">
+                    {{ $t('the_subject') }}
+                </base-form-label>
 
-                    <div>
-                        <base-vue-select
-                            id="subject"
-                            v-model:value="vueSelectSubjects"
-                            :allow-empty="false"
-                            :options="subjects"
-                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
-                            class="h-full w-full"
-                            label="name"
-                            track-by="id"
-                            @update:value="
+                <div>
+                    <base-vue-select
+                        id="subject"
+                        v-model:value="vueSelectSubjects"
+                        :allow-empty="false"
+                        :options="subjects"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
+                        class="h-full w-full"
+                        label="name"
+                        track-by="id"
+                        @update:value="
                                 (value) => {
                                     form.subject_id = value.id
 
                                     form?.validate('subject_id')
                                 }
                             "
-                        >
-                        </base-vue-select>
-                    </div>
-
-                    <div v-if="form.errors.subject_id" class="mt-2">
-                        <base-input-error :message="form.errors.subject_id"></base-input-error>
-                    </div>
+                    >
+                    </base-vue-select>
                 </div>
-                <!-- End: Subject-->
 
-                <!-- Begin: Orphans-->
-                <div class="col-span-12">
-                    <base-form-label htmlFor="orphans">
-                        {{ $t('the_children') }}
-                    </base-form-label>
-                    <div>
-                        <base-vue-select
-                            id="orphans"
-                            v-model:value="vueSelectOrphans"
-                            :allow-empty="false"
-                            :clear-on-select="false"
-                            :close-on-select="false"
-                            :hide-selected="true"
-                            :internal-search="false"
-                            :loading="loadingSearchOrphans"
-                            :max="vueSelectSubjects.quota"
-                            :options="orphans"
-                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_children') })"
-                            :searchable="true"
-                            :show-no-results="true"
-                            class="h-full w-full"
-                            label="name"
-                            multiple
-                            :disabled="vueSelectSubjects.length === 0 || vueSelectSchools.length === 0"
-                            open-direction="bottom"
-                            track-by="id"
-                            @update:value="
+                <div v-if="form.errors.subject_id" class="mt-2">
+                    <base-input-error :message="form.errors.subject_id"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Subject-->
+
+            <!-- Begin: Orphans-->
+            <div class="col-span-12">
+                <base-form-label htmlFor="orphans">
+                    {{ $t('the_children') }}
+                </base-form-label>
+
+                <div>
+                    <base-vue-select
+                        id="orphans"
+                        v-model:value="vueSelectOrphans"
+                        :allow-empty="false"
+                        :clear-on-select="false"
+                        :close-on-select="false"
+                        :disabled="vueSelectSubjects?.length === 0 || vueSelectSchools?.length === 0"
+                        :hide-selected="true"
+                        :internal-search="false"
+                        :loading="loadingSearchOrphans"
+                        :max="vueSelectSubjects?.quota ?? 0"
+                        :options="orphans"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_children') })"
+                        :searchable="true"
+                        :show-no-results="true"
+                        class="h-full w-full"
+                        label="name"
+                        multiple
+                        open-direction="bottom"
+                        track-by="id"
+                        @update:value="
                                 (value) => {
                                     form.orphans = value.map((orphan) => orphan.id)
 
                                     form?.validate('orphans')
                                 }
                             "
-                            @search-change="asyncFind"
-                        >
-                        </base-vue-select>
-                    </div>
-
-                    <div v-if="form.errors?.orphans" class="mt-2">
-                        <base-input-error :message="form.errors.orphans"></base-input-error>
-                    </div>
+                        @search-change="asyncFind"
+                    >
+                    </base-vue-select>
                 </div>
-                <!-- End: Orphans-->
 
-                <!-- Begin: Color-->
-                <div class="col-span-12">
-                    <base-form-label htmlFor="color">
-                        {{ $t('color') }}
-                    </base-form-label>
-
-                    <color-selector
-                        :model-value="form.color"
-                        class="col-span-12"
-                        @update:model-value="form.color = $event"
-                    ></color-selector>
-
-                    <div v-if="form.errors?.color" class="mt-2">
-                        <base-input-error :message="form.errors.color"></base-input-error>
-                    </div>
+                <div v-if="form.errors?.orphans" class="mt-2">
+                    <base-input-error :message="form.errors.orphans"></base-input-error>
                 </div>
             </div>
+            <!-- End: Orphans-->
+
+            <!-- Begin: Color-->
+            <div class="col-span-12 mt-0">
+                <base-form-label htmlFor="color">
+                    {{ $t('color') }}
+                </base-form-label>
+
+                <color-selector
+                    :model-value="form.color"
+                    class="col-span-12"
+                    @update:model-value="(value) => {
+                            form.color = value
+
+                            form.validate('color')
+                        }"
+                ></color-selector>
+
+                <div v-if="form.errors?.color" class="mt-2">
+                    <base-input-error :message="form.errors.color"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Color-->
         </template>
-    </create-edit-slide-over>
+    </create-edit-modal>
 </template>

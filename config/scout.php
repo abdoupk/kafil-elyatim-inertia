@@ -145,7 +145,7 @@ return [
                 'sortableAttributes' => ['name', 'permissions_count', 'users_count', 'created_at'],
             ],
             'orphans' => [
-                'filterableAttributes' => ['id', 'name', 'tenant_id'],
+                'filterableAttributes' => ['id', 'name', 'tenant_id', 'academic_level.id'],
                 'searchableAttributes' => ['name'],
                 'sortableAttributes' => ['name', 'created_at'],
             ],

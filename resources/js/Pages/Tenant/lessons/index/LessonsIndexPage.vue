@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { EventType, OrphanType, SchoolType, SubjectType } from '@/types/lessons'
+import type { EventType, SchoolType } from '@/types/lessons'
 
 import { useLessonsStore } from '@/stores/lessons'
 import { type EventApi } from '@fullcalendar/core'
@@ -17,7 +17,7 @@ defineOptions({
     layout: TheLayout
 })
 
-defineProps<{ orphans: OrphanType[]; schools: SchoolType[]; subjects: SubjectType[]; events: EventType[] }>()
+defineProps<{ schools: SchoolType[]; events: EventType[] }>()
 
 const createModalStatus = ref(false)
 
@@ -106,14 +106,13 @@ const deleteLesson = () => {
     <lesson-create-modal
         :date
         :open="createModalStatus"
-        :orphans
         :schools
-        :subjects
         @close="createModalStatus = false"
     ></lesson-create-modal>
 
     <lesson-actions-modal
         :deleteProgress
+        :eventInfo="selectedEvent"
         :open="actionsModalStatus"
         @close="actionsModalStatus = false"
         @delete="deleteLesson"

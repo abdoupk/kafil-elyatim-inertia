@@ -387,8 +387,8 @@ Route::middleware([
                 Route::put('{lesson}', LessonUpdateDatesController::class)
                     ->name('update-dates');
 
-                Route::get('{lesson}', LessonDetailsController::class)
-                    ->name('details-lesson');
+                Route::get('edit/{lesson}', LessonDetailsController::class)
+                    ->name('edit');
 
                 Route::delete('{lesson}', LessonDeleteController::class)
                     ->name('destroy');

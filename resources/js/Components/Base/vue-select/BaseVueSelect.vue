@@ -3,6 +3,14 @@
         <template #noResult>
             <span>{{ $t('No results found.') }}</span>
         </template>
+
+        <template #maxElements>
+            <span>{{ $t('Maximum number of elements reached.') }}</span>
+        </template>
+
+        <template #noOptions>
+            <span>{{ $t('List is empty.') }}</span>
+        </template>
     </multiselect>
 </template>
 

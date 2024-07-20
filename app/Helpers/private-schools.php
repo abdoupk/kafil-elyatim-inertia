@@ -65,5 +65,5 @@ function getSchoolsForAddLesson(): Collection
 
 function getOrphansForAddLesson(): \Illuminate\Database\Eloquent\Collection
 {
-    return search(Orphan::getModel())->get();
+    return search(Orphan::getModel(), 'AND academic_level.id = '.request()->input('academic_level_id'))->get();
 }

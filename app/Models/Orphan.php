@@ -144,6 +144,9 @@ class Orphan extends Model
             'shirt_size' => $this->shirt_size,
             'pants_size' => $this->pants_size,
             'note' => $this->note,
+            'academic_level' => [
+                'id' => $this->academic_level_id,
+            ],
             'tenant_id' => $this->tenant_id,
             'family_id' => $this->family_id,
         ];

@@ -11,8 +11,10 @@ class LessonDetailsController extends Controller
 {
     public function __invoke(EventOccurrence $lesson): Response
     {
+        ray($lesson->load('event.orphans', 'event.school', 'event.subject'));
+
         return Inertia::render('Tenant/lessons/details/LessonDetailPage', [
-            'lesson' => $lesson,
+            'lesson' => $lesson->load('event.orphans', 'event.school', 'event.subject'),
         ]);
     }
 }
