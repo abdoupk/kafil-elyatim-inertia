@@ -1,3 +1,5 @@
+import type { AddSchoolLessonType } from '@/types/lessons'
+
 import _default from 'chart.js/dist/plugins/plugin.tooltip'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 
@@ -664,6 +666,7 @@ export type ClothesSizesType = { id: number; label: string }[]
 
 export interface CreateSchoolForm {
     name: string
+    lessons: Array<AddSchoolLessonType>
 }
 
 export interface SchoolsIndexResource {

@@ -11,7 +11,7 @@ class SchoolShowController extends Controller
     public function __invoke(PrivateSchool $school)
     {
         return response()->json([
-            'school' => SchoolResource::make($school),
+            'school' => SchoolResource::make($school->load(['lessons.academicLevel', 'lessons.subject'])),
         ]);
     }
 }

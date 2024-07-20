@@ -9,9 +9,10 @@ class SchoolCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'quota' => ['required', 'integer'],
-            'tenant_id' => ['required', 'exists:tenants'],
+            'name' => 'required|string|max:255',
+            'lessons.*.quota' => 'required|integer',
+            'lessons.*.subject_id' => 'required|integer',
+            'lessons.*.academic_level_id' => 'required|integer',
         ];
     }
 

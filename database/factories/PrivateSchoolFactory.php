@@ -12,9 +12,8 @@ class PrivateSchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
+            'name' => fake('ar_SA')->word,
             'tenant_id' => fake()->uuid,
-            'quota' => fake()->randomNumber(),
             'created_at' => now(),
             'updated_at' => now(),
         ];

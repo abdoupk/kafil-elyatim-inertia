@@ -5,8 +5,6 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
 
-import BaseCalendar from '@/Components/Base/calendar/BaseCalendar.vue'
-
 defineOptions({
     layout: TheLayout
 })
@@ -73,6 +71,4 @@ defineProps<{
             </div>
         </div>
     </div>
-
-    <base-calendar></base-calendar>
 </template>

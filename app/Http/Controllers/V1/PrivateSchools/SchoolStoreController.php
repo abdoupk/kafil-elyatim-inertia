@@ -10,7 +10,9 @@ class SchoolStoreController extends Controller
 {
     public function __invoke(SchoolCreateRequest $request)
     {
-        PrivateSchool::create($request->validated());
+        $school = PrivateSchool::create($request->only('name'));
+
+        $school->lessons()->createMany($request->lessons);
 
         return response('', 201);
     }

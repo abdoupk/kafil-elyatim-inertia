@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import type { Branch, IndexParams, PaginationData, Role, SchoolsIndexResource, Zone } from '@/types/types'
+import type { AcademicLevelType, SubjectType } from '@/types/lessons'
+import type { IndexParams, PaginationData, SchoolsIndexResource } from '@/types/types'
 
 import { useSchoolsStore } from '@/stores/schools'
 import { Head, router } from '@inertiajs/vue3'
@@ -27,11 +28,11 @@ defineOptions({
 const props = defineProps<{
     schools: PaginationData<SchoolsIndexResource>
     params: IndexParams
-    qualifications: string[]
-    branches: Branch[]
-    roles: Role[]
-    zones: Zone[]
+    subjects: SubjectType[]
+    academicLevels: AcademicLevelType[]
 }>()
+
+console.log(props)
 
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
@@ -193,8 +194,8 @@ watch(
 
     <template v-if="schools.data.length > 0">
         <data-table
-            :schools
             :params
+            :schools
             @showDeleteModal="showDeleteModal"
             @sort="sort($event)"
             @show-edit-modal="showEditModal"
@@ -220,11 +221,9 @@ watch(
     ></delete-modal>
 
     <school-create-modal
-        :branches
         :open="createUpdateSlideoverStatus"
-        :qualifications
-        :roles
-        :zones
+        :subjects
+        :academicLevels
         @close="createUpdateSlideoverStatus = false"
     ></school-create-modal>
 </template>

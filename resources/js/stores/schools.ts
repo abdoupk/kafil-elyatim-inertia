@@ -13,7 +13,14 @@ export const useSchoolsStore = defineStore('schools', {
     state: (): State => ({
         school: {
             id: '',
-            name: ''
+            name: '',
+            lessons: [
+                {
+                    quota: null,
+                    academic_level_id: null,
+                    subject_id: null
+                }
+            ]
         }
     }),
     actions: {

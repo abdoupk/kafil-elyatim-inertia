@@ -10,7 +10,11 @@ class SchoolUpdateController extends Controller
 {
     public function __invoke(SchoolUpdateRequest $request, PrivateSchool $school)
     {
-        $school->update($request->validated());
+        $school->update($request->only('name'));
+
+        collect($request->lessons)->each(function ($lesson) use ($school) {
+            $school->lessons()->updateOrCreate(['id' => $lesson['id'] ?? null], $lesson);
+        });
 
         return response('', 201);
     }

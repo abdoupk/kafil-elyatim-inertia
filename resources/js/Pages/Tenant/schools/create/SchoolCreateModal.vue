@@ -1,12 +1,16 @@
 <script lang="ts" setup>
 /* eslint-disable vue/no-parsing-error */
+import type { AcademicLevelType, SubjectType } from '@/types/lessons'
+
 import { useSchoolsStore } from '@/stores/schools'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import TheSubjectAndQuota from '@/Pages/Tenant/schools/create/TheSubjectAndQuota.vue'
 
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
@@ -15,6 +19,8 @@ import { __, n__ } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
+    subjects: SubjectType[]
+    academicLevels: AcademicLevelType[]
 }>()
 
 // Get the schools store
@@ -73,6 +79,20 @@ const firstInputRef = ref<HTMLElement>()
 const modalType = computed(() => {
     return schoolsStore.school.id ? 'update' : 'create'
 })
+
+const addLesson = () => {
+    form.value.lessons.push({
+        academic_level_id: null,
+        quota: null,
+        subject_id: null
+    })
+}
+
+const removeLesson = (index: number) => {
+    if (index === 0) return
+
+    form.value.lessons.splice(index, 1)
+}
 </script>
 
 <template>
@@ -107,6 +127,44 @@ const modalType = computed(() => {
                 </div>
             </div>
             <!-- End: Name-->
+
+            <!-- Begin: Address-->
+            <!--            <div class="col-span-12 sm:col-span-6">-->
+            <!--                <base-form-label htmlFor="address">-->
+            <!--                    {{ $t('validation.attributes.address') }}-->
+            <!--                </base-form-label>-->
+
+            <!--                <base-form-input-->
+            <!--                    id="address"-->
+            <!--                    ref="firstInputRef"-->
+            <!--                    v-model="form.address"-->
+            <!--                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.address') })"-->
+            <!--                    type="text"-->
+            <!--                    @change="form.validate('address')"-->
+            <!--                />-->
+
+            <!--                <div v-if="form.errors?.address" class="mt-2">-->
+            <!--                    <base-input-error :message="form.errors.address"></base-input-error>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!-- End: Address-->
+
+            <the-subject-and-quota
+                v-for="(lesson, index) in form.lessons"
+                :key="index"
+                v-model:academic-level="lesson.academic_level_id"
+                v-model:quota="lesson.quota"
+                v-model:subject="lesson.subject_id"
+                :academicLevels
+                :form
+                :index
+                :subjects
+                @remove-lesson="removeLesson(index)"
+            ></the-subject-and-quota>
+
+            <div class="flex items-center justify-center col-span-12">
+                <base-button type="button" variant="soft-primary" @click="addLesson"> add lesson</base-button>
+            </div>
         </template>
     </create-edit-modal>
 </template>

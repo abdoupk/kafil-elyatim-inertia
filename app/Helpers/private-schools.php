@@ -2,6 +2,7 @@
 
 /** @noinspection UnknownInspectionInspection */
 
+use App\Models\AcademicLevel;
 use App\Models\PrivateSchool;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -35,4 +36,19 @@ function getLessons(): Collection
                 ];
             });
         })->flatten(1);
+}
+
+function formatedAcademicLevels(): array
+{
+    $formattedArray = [];
+
+    $rows = AcademicLevel::where('phase', '!=', 'الطور الجامعي')->get();
+
+    foreach ($rows as $row) {
+        $formattedArray[$row['phase']]['phase'] = $row['phase'];
+
+        $formattedArray[$row['phase']]['levels'][] = ['name' => $row['level'], 'id' => $row['id']];
+    }
+
+    return array_values($formattedArray);
 }

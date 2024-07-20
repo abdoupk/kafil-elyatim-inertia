@@ -136,6 +136,10 @@ export default {
                         'margin-bottom': '-56px'
                     }
                 }
+            },
+            gridTemplateColumns: {
+                // Simple 13 column grid
+                '13': 'repeat(13, minmax(0, 1fr))'
             }
         }
     },
