@@ -297,7 +297,7 @@ const handleCloseModal = () => {
                 </div>
             </div>
             <!-- End: School-->
-{{vueSelectSubjects}}
+
             <!-- Begin: Subject-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="subject">

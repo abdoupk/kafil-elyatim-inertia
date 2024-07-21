@@ -24,8 +24,6 @@ class LessonsIndexController extends Controller
                 ->orWhere('private_lessons', '!=', false);
         })->get();
 
-        ray(SchoolsResource::collection(getSchoolsForAddLesson()));
-
         return Inertia::render('Tenant/lessons/index/LessonsIndexPage', [
             'schools' => SchoolsResource::collection(getSchoolsForAddLesson()),
             'events' => getLessons(),

@@ -22,41 +22,15 @@ export const useMenuStore = defineStore('menu', {
             },
             {
                 icon: 'icon-users-gear',
-                routeName: '',
                 title: __('the_members'),
-                subMenu: [
-                    {
-                        icon: 'icon-users',
-                        title: __('list', { attribute: __('the_members') }),
-                        routeName: 'tenant.members.index',
-                        url: route('tenant.members.index')
-                    },
-                    {
-                        icon: 'icon-user-plus',
-                        title: n__('add new', 1, { attribute: __('member') }),
-                        routeName: 'tenant.families.create',
-                        url: route('tenant.families.create')
-                    }
-                ]
+                routeName: 'tenant.members.index',
+                url: route('tenant.members.index')
             },
             {
                 icon: 'icon-branches',
-                routeName: '',
                 title: __('branches'),
-                subMenu: [
-                    {
-                        icon: 'icon-code-merge',
-                        title: __('list', { attribute: __('branches') }),
-                        routeName: 'tenant.branches.index',
-                        url: route('tenant.branches.index')
-                    },
-                    {
-                        icon: 'icon-grid-round-2-plus',
-                        title: n__('add new', 1, { attribute: __('branch') }),
-                        routeName: 'tenant.families.create',
-                        url: route('tenant.families.create')
-                    }
-                ]
+                routeName: 'tenant.branches.index',
+                url: route('tenant.branches.index')
             },
             'divider',
             {

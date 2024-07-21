@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Lessons\LessonCreateRequest;
 use App\Models\Event;
 use App\Models\EventOccurrence;
+use App\Models\Lesson;
 use Carbon\Carbon;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Exception\InvalidWeekday;
@@ -27,7 +28,10 @@ class LessonStoreController extends Controller
 
         $this->generateOccurrences($event);
 
-        $event->orphans()->sync($request->orphans);
+        Lesson::where('subject_id', $request->subject_id)
+            ->where('private_school_id', $request->school_id)
+            ->where('academic_level_id', '=', 5)
+            ->first()->orphans()->sync($request->orphans);
     }
 
     /**

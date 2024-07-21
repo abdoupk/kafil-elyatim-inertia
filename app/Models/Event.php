@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use MohammedManssour\LaravelRecurringModels\Concerns\Repeatable;
@@ -47,11 +46,6 @@ class Event extends Model implements RepeatableContract
     public function occurrences(): HasMany
     {
         return $this->hasMany(EventOccurrence::class);
-    }
-
-    public function orphans(): BelongsToMany
-    {
-        return $this->belongsToMany(Orphan::class, 'lesson_orphan', 'lesson_id', 'orphan_id')->using(LessonOrphan::class);
     }
 
     public function subject(): BelongsTo
