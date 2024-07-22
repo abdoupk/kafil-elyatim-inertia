@@ -470,7 +470,7 @@ type SponsorType = {
     father_name: string
     mother_name: string
     birth_certificate_number: string
-    academic_level: string
+    academic_level_id: number | null
     function: string
     health_status: string
     diploma: string
@@ -504,7 +504,8 @@ export type OrphanType = {
     birth_date: string
     family_status: string
     health_status: string
-    academic_level: string
+    academic_level_id: number | null
+    vocational_training_id: number | null
     shoes_size: string
     pants_size: string
     shirt_size: string

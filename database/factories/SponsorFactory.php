@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\AcademicLevel;
 use App\Models\Sponsor;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Random\RandomException;
@@ -16,7 +17,7 @@ class SponsorFactory extends Factory
     public function definition(): array
     {
         return [
-            'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
+            //            'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
             'first_name' => fake('ar_SA')->firstName,
             'last_name' => fake('ar_SA')->lastName,
             'phone_number' => fake('ar_SA')->regexify('(06|07|05)[0-9]{8}'),
@@ -25,7 +26,7 @@ class SponsorFactory extends Factory
             'father_name' => fake('ar_SA')->name,
             'mother_name' => fake('ar_SA')->name,
             'birth_certificate_number' => fake('ar_SA')->regexify('[0-9]{8}'),
-            'academic_level' => fake('ar_SA')->word,
+            'academic_level_id' => AcademicLevel::inRandomOrder()->first()->id,
             'function' => fake('ar_SA')->jobTitle,
             'health_status' => fake('ar_SA')->word,
             'diploma' => fake('ar_SA')->word,

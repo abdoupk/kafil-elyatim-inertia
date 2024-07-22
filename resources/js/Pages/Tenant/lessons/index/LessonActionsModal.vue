@@ -1,11 +1,12 @@
 <script lang="ts" setup>
+import type { EventApi } from '@fullcalendar/core'
+import { router } from '@inertiajs/vue3'
+
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseDialog from '@/Components/Base/headless/Dialog/BaseDialog.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
-import { router } from '@inertiajs/vue3'
-import type { EventApi } from '@fullcalendar/core'
 
 defineProps<{
     open: boolean
@@ -20,7 +21,7 @@ const emit = defineEmits(['close', 'delete'])
     <base-dialog :open @close="emit('close')">
         <base-dialog-panel>
             <div class="p-5 leading-8 text-2xl text-center">
-                {{ eventInfo?.title}}
+                {{ eventInfo?.title }}
             </div>
 
             <div class="flex justify-center px-5 pb-8 text-center">

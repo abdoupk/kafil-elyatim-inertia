@@ -12,6 +12,7 @@ use App\Models\Sponsor;
 use App\Models\Spouse;
 use App\Models\Tenant;
 use App\Models\User;
+use App\Models\VocationalTraining;
 use App\Models\Zone;
 use Illuminate\Database\Seeder;
 use Random\RandomException;
@@ -54,6 +55,13 @@ class FamilySeeder extends Seeder
                             ->hasAcademicAchievements(3, function (array $attributes, Orphan $orphan) {
                                 return [
                                     'tenant_id' => $orphan->tenant_id,
+                                    'orphan_id' => $orphan->id,
+                                ];
+                            })
+                            ->hasVocationalTrainingAchievements(2, function (array $attributes, Orphan $orphan) {
+                                return [
+                                    'tenant_id' => $orphan->tenant_id,
+                                    'vocational_training_id' => VocationalTraining::inRandomOrder()->first()?->id,
                                     'orphan_id' => $orphan->id,
                                 ];
                             })

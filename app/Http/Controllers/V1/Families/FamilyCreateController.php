@@ -20,6 +20,9 @@ class FamilyCreateController extends Controller
             'zones' => ZoneResource::collection(Zone::select(['id', 'name'])->get()),
             'members' => MemberResource::collection(User::select(['id', 'first_name', 'last_name'])->get()),
             'branches' => BranchesResource::collection(Branch::select(['id', 'name'])->get()),
+            'academicLevelsForSponsor' => formatedAcademicLevelsForSponsor(),
+            'academicLevelsForOrphan' => formatedAcademicLevelsForOrphan(),
+            'vocationalTrainingSpecialities' => formatedVocationalTrainingSpecialities(),
         ]);
     }
 }

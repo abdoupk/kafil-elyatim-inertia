@@ -49,14 +49,22 @@ import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/StepFive/Spon
 import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/StepFive/OrphansSponsorShipForm.vue'
 import { router } from '@inertiajs/vue3'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+import type { AcademicLevelType } from '@/types/lessons'
 
 defineOptions({
     layout: TheLayout
 })
 
-defineProps<{ zones: Zone[], branches: Branch[]; members: InspectorsMembersType }>()
+defineProps<{
+    academicLevelsForSponsor: AcademicLevelType[]
+    academicLevelsForOrphan: AcademicLevelType[]
+    zones: Zone[]
+    branches: Branch[]
+    members: InspectorsMembersType
+    vocationalTrainingSpecialities: AcademicLevelType[]
+}>()
 
-const currentStep = ref(1)
+const currentStep = ref(3)
 
 const totalSteps = 6
 
@@ -81,7 +89,8 @@ const addOrphan = () => {
         diapers_quantity: 0,
         diapers_type: '',
         gender: 'male',
-        academic_level: '',
+        academic_level_id: null,
+        vocational_training_id: null,
         birth_date: '',
         family_status: '',
         health_status: '',
@@ -269,7 +278,7 @@ const submit = () => {
                 <step-two :currentStep :form :totalSteps>
                     <template #sponsorForm>
                         <sponsor-form
-                            v-model:academic_level="form.sponsor.academic_level"
+                            v-model:academic_level="form.sponsor.academic_level_id"
                             v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
                             v-model:birth_date="form.sponsor.birth_date"
                             v-model:card_number="form.sponsor.card_number"
@@ -283,6 +292,7 @@ const submit = () => {
                             v-model:mother_name="form.sponsor.mother_name"
                             v-model:phone="form.sponsor.phone_number"
                             v-model:sponsor-type="form.sponsor.sponsor_type"
+                            :academicLevels="academicLevelsForSponsor"
                             :form
                         ></sponsor-form>
                     </template>
@@ -330,7 +340,10 @@ const submit = () => {
                         <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
                             <the-orphans :index @remove-orphan="removeOrphan">
                                 <orphan-form
-                                    v-model:academic_level="orphan.academic_level"
+                                    :vocationalTrainingSpecialities
+                                    :academic-levels="academicLevelsForOrphan"
+                                    v-model:academic_level="orphan.academic_level_id"
+                                    v-model:vocational_training="orphan.vocational_training_id"
                                     v-model:baby-milk-quantity="orphan.baby_milk_quantity"
                                     v-model:baby-milk-type="orphan.baby_milk_type"
                                     v-model:birth_date="orphan.birth_date"

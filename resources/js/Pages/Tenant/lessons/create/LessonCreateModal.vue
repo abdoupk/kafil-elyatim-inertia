@@ -6,6 +6,9 @@ import { useLessonsStore } from '@/stores/lessons'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref, watch } from 'vue'
+
+import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
 import DateRange from '@/Pages/Tenant/lessons/create/DateRange.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
@@ -17,8 +20,6 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { omit, setDateToCurrentTime } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
-import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
-import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
 const props = defineProps<{
     open: boolean
@@ -134,7 +135,7 @@ const asyncFind = (search: string) => {
     loadingSearchOrphans.value = true
 
     lessonsStore
-        .getOrphans(search,vueSelectSubjects.value.academic_level_id)
+        .getOrphans(search, vueSelectSubjects.value.academic_level_id)
         .then((res) => {
             orphans.value = res.data
         })
@@ -282,12 +283,12 @@ const handleCloseModal = () => {
                         label="name"
                         track-by="id"
                         @update:value="
-                                (value) => {
-                                    form.school_id = value.id
+                            (value) => {
+                                form.school_id = value.id
 
-                                    form?.validate('school_id')
-                                }
-                            "
+                                form?.validate('school_id')
+                            }
+                        "
                     >
                     </base-vue-select>
                 </div>
@@ -315,12 +316,12 @@ const handleCloseModal = () => {
                         label="name"
                         track-by="id"
                         @update:value="
-                                (value) => {
-                                    form.subject_id = value.id
+                            (value) => {
+                                form.subject_id = value.id
 
-                                    form?.validate('subject_id')
-                                }
-                            "
+                                form?.validate('subject_id')
+                            }
+                        "
                     >
                     </base-vue-select>
                 </div>
@@ -359,12 +360,12 @@ const handleCloseModal = () => {
                         open-direction="bottom"
                         track-by="id"
                         @update:value="
-                                (value) => {
-                                    form.orphans = value.map((orphan) => orphan.id)
+                            (value) => {
+                                form.orphans = value.map((orphan) => orphan.id)
 
-                                    form?.validate('orphans')
-                                }
-                            "
+                                form?.validate('orphans')
+                            }
+                        "
                         @search-change="asyncFind"
                     >
                     </base-vue-select>
@@ -385,11 +386,13 @@ const handleCloseModal = () => {
                 <color-selector
                     :model-value="form.color"
                     class="col-span-12"
-                    @update:model-value="(value) => {
+                    @update:model-value="
+                        (value) => {
                             form.color = value
 
                             form.validate('color')
-                        }"
+                        }
+                    "
                 ></color-selector>
 
                 <div v-if="form.errors?.color" class="mt-2">

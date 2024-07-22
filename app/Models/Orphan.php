@@ -207,4 +207,9 @@ class Orphan extends Model
     {
         return $this->belongsToMany(EventOccurrence::class, 'event_occurrences', 'lesson_id', 'id')->using(LessonOrphan::class);
     }
+
+    public function vocationalTrainingAchievements(): HasMany
+    {
+        return $this->hasMany(VocationalTrainingAchievement::class);
+    }
 }

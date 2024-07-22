@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\V1\Families;
 
+use App\Rules\VocationalTrainingRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateFamilyRequest extends FormRequest
@@ -14,7 +15,7 @@ class CreateFamilyRequest extends FormRequest
             'orphans.*.birth_date.required' => __('validation.required', ['attribute' => __('validation.attributes.date_of_birth')]),
             'orphans.*.family_status.required' => __('validation.required', ['attribute' => __('family_status')]),
             'orphans.*.health_status.required' => __('validation.required', ['attribute' => __('health_status')]),
-            'orphans.*.academic_level.required' => __('validation.required', ['attribute' => __('academic_level')]),
+            'orphans.*.academic_level_id.required' => __('validation.required', ['attribute' => __('academic_level_id')]),
             'orphans.*.pants_size.required_without' => __('validation.required', ['attribute' => __('pants_size')]),
             'orphans.*.shoes_size.required_without' => __('validation.required', ['attribute' => __('shoes_size')]),
             'orphans.*.shirt_size.required_without' => __('validation.required', ['attribute' => __('shirt_size')]),
@@ -38,7 +39,8 @@ class CreateFamilyRequest extends FormRequest
             'orphans.*.birth_date' => 'required|date',
             'orphans.*.family_status' => 'required|string',
             'orphans.*.health_status' => 'required|string',
-            'orphans.*.academic_level' => 'required|string',
+            'orphans.*.academic_level_id' => 'required|integer',
+            'orphans.*.vocational_training_id' => [new VocationalTrainingRule],
             'orphans.*.gender' => 'required|in:male,female',
             'sponsor.first_name' => 'required|string',
             'sponsor.last_name' => 'required|string',
@@ -49,11 +51,11 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.father_name' => 'required|string',
             'sponsor.mother_name' => 'required|string',
             'sponsor.birth_certificate_number' => 'required|string',
-            'sponsor.academic_level' => 'required|string',
+            'sponsor.academic_level_id' => 'required|integer',
             'sponsor.function' => 'required|string',
             'sponsor.health_status' => 'required|string',
             'sponsor.diploma' => 'required|string',
-            'sponsor.card_number' => 'required|string|unique:App\Models\Sponsor,card_number',
+            //            'sponsor.card_number' => 'required|string|unique:App\Models\Sponsor,card_number', // TODO: maybe not needed
             'sponsor.ccp' => 'required|string|unique:App\Models\Sponsor,ccp',
             'second_sponsor.first_name' => 'nullable|string',
             'second_sponsor.last_name' => 'nullable|string',

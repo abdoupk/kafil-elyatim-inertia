@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
 import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -11,16 +12,41 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
+import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-defineProps<{ form: Form<CreateFamilyForm>; index: number }>()
+const props = defineProps<{
+    academicLevels: AcademicLevelType[]
+    vocationalTrainingSpecialities: AcademicLevelType[]
+    form: Form<CreateFamilyForm>
+    index: number
+}>()
 
 // TODO: fix this when add new orphan change focus
+
+const vueSelectAcademicLevel = ref({})
+
+const vueSelectVocationalTraining = ref({})
+
+const phase = ref()
+
+watch(
+    () => vueSelectAcademicLevel.value,
+    (value) => {
+        if (value) {
+            phase.value = props.academicLevels.find((academicLevel) =>
+                academicLevel.levels.find((level) => level.id === value.id)
+            )?.phase
+        }
+    }
+)
 
 const firstName = defineModel('first_name', { default: '' })
 
 const lastName = defineModel('last_name')
 
 const academicLevel = defineModel('academic_level')
+
+const vocationalTraining = defineModel('vocational_training')
 
 const healthStatus = defineModel('health_status')
 
@@ -307,29 +333,44 @@ const isStillBaby = computed(() => {
                 {{ $t('validation.attributes.sponsor.academic_level') }}
             </base-form-label>
 
-            <base-form-input
-                :id="`academic_level_${index}`"
-                v-model="academicLevel"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('validation.attributes.sponsor.academic_level')
-                    })
-                "
-                type="text"
-                @change="
-                    form?.validate(
-                        //@ts-ignore
-                        `orphans.${index}.academic_level`
-                    )
-                "
-            ></base-form-input>
+            <div>
+                <base-vue-select
+                    :id="`academic_level_${index}`"
+                    v-model:value="vueSelectAcademicLevel"
+                    :allow-empty="false"
+                    :options="academicLevels"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.sponsor.academic_level')
+                        })
+                    "
+                    class="h-full w-full"
+                    group-label="phase"
+                    group-values="levels"
+                    label="name"
+                    track-by="id"
+                    @update:value="
+                        (value) => {
+                            academicLevel = value.id
+
+                            vocationalTraining = null
+
+                            vueSelectVocationalTraining = {}
+
+                            //@ts-ignore
+                            form?.validate(`orphans.${index}.academic_level_id`)
+                        }
+                    "
+                >
+                </base-vue-select>
+            </div>
 
             <base-form-input-error>
                 <div
                     v-if="
                         form?.invalid(
                             //@ts-ignore
-                            `orphans.${index}.academic_level`
+                            `orphans.${index}.academic_level_id`
                         )
                     "
                     class="mt-2 text-danger"
@@ -337,12 +378,66 @@ const isStillBaby = computed(() => {
                 >
                     {{
                         //@ts-ignore
-                        form.errors[`orphans.${index}.academic_level`]
+                        form.errors[`orphans.${index}.academic_level_id`]
                     }}
                 </div>
             </base-form-input-error>
         </div>
         <!-- End: Academic Level-->
+
+        <!-- Begin: Vocational Training-->
+        <div v-if="phase === 'التكوين المهني'" class="col-span-12 sm:col-span-6">
+            <base-form-label :for="`vocational_training_id_${index}`">
+                {{ $t('speciality') }}
+            </base-form-label>
+
+            <div>
+                <base-vue-select
+                    :id="`vocational_training_id_${index}`"
+                    v-model:value="vueSelectVocationalTraining"
+                    :allow-empty="false"
+                    :options="vocationalTrainingSpecialities"
+                    :placeholder="
+                        $t('auth.placeholders.fill', {
+                            attribute: $t('validation.attributes.sponsor.vocational_training')
+                        })
+                    "
+                    class="h-full w-full"
+                    group-label="division"
+                    group-values="specialities"
+                    label="name"
+                    track-by="id"
+                    @update:value="
+                        (value) => {
+                            vocationalTraining = value.id
+
+                            //@ts-ignore
+                            form?.validate(`orphans.${index}.vocational_training_id`)
+                        }
+                    "
+                >
+                </base-vue-select>
+            </div>
+
+            <base-form-input-error>
+                <div
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            `orphans.${index}.vocational_training_id`
+                        )
+                    "
+                    class="mt-2 text-danger"
+                    data-test="error_vocational_training_id_message"
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors[`orphans.${index}.vocational_training_id`]
+                    }}
+                </div>
+            </base-form-input-error>
+        </div>
+        <!-- End: Vocational Training-->
 
         <!-- Begin: if orphan is still baby-->
         <div v-if="isStillBaby" class="col-span-12 grid grid-cols-12 gap-4 gap-y-5">

@@ -4,6 +4,7 @@
 
 /** @noinspection NullPointerExceptionInspection */
 
+use App\Models\VocationalTraining;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
 use Spatie\Browsershot\Browsershot;
@@ -57,7 +58,7 @@ function generateFormatedConditions(): array
         /** @phpstan-ignore-next-line */
         return array_map(static function (array $condition) {
 
-            return [$condition['field'], $condition['operator'],  (str_contains($condition['value'], ' ')) ? '"'.$condition['value'].'"' : $condition['value']];
+            return [$condition['field'], $condition['operator'], (str_contains($condition['value'], ' ')) ? '"'.$condition['value'].'"' : $condition['value']];
         }, $filters);
     }
 
@@ -102,4 +103,19 @@ function search(Model $model, ?string $additional_filters = ''): Builder
     return $model::search($query, static function ($meilisearch, string $query, array $options) use ($meilisearchOptions) {
         return $meilisearch->search($query, $options + $meilisearchOptions);
     });
+}
+
+function formatedVocationalTrainingSpecialities(): array
+{
+    $formattedArray = [];
+
+    $rows = VocationalTraining::get();
+
+    foreach ($rows as $row) {
+        $formattedArray[$row['division']]['division'] = $row['division'];
+
+        $formattedArray[$row['division']]['specialities'][] = ['name' => $row['speciality'], 'id' => $row['id']];
+    }
+
+    return array_values($formattedArray);
 }

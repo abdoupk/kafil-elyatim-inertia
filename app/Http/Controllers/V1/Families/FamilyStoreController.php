@@ -40,7 +40,7 @@ class FamilyStoreController extends Controller
             $orphan['created_by'] = auth()->id();
 
             return array_filter($orphan, function ($key) {
-                return ! in_array($key, ['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type']);
+                return ! in_array($key, ['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type', 'vocational_training_id']);
             }, ARRAY_FILTER_USE_KEY);
         }, $validatedOrphans));
 
@@ -60,6 +60,13 @@ class FamilyStoreController extends Controller
             $orphans[$key]->sponsorships()->create([
                 ...$request->validated('orphans_sponsorship')[$key],
             ]);
+
+            if (isset($orphan['vocational_training_id'])) {
+                $orphans[$key]->vocationalTrainingAchievements()->create([
+                    'year' => now()->year,
+                    'vocational_training_id' => $request->validated('orphans')[$key]['vocational_training_id'],
+                ]);
+            }
         }
 
         if (! empty($babiesToCreate)) {

@@ -55,6 +55,36 @@ function formatedAcademicLevels(): array
     return array_values($formattedArray);
 }
 
+function formatedAcademicLevelsForSponsor(): array
+{
+    $formattedArray = [];
+
+    $rows = AcademicLevel::where('level', '!=', 'تحضيري')->get();
+
+    foreach ($rows as $row) {
+        $formattedArray[$row['phase']]['phase'] = $row['phase'];
+
+        $formattedArray[$row['phase']]['levels'][] = ['name' => $row['level'], 'id' => $row['id']];
+    }
+
+    return array_values($formattedArray);
+}
+
+function formatedAcademicLevelsForOrphan(): array
+{
+    $formattedArray = [];
+
+    $rows = AcademicLevel::where('level', '!=', 'امي')->get();
+
+    foreach ($rows as $row) {
+        $formattedArray[$row['phase']]['phase'] = $row['phase'];
+
+        $formattedArray[$row['phase']]['levels'][] = ['name' => $row['level'], 'id' => $row['id']];
+    }
+
+    return array_values($formattedArray);
+}
+
 function getSchoolsForAddLesson(): Collection
 {
     return search(PrivateSchool::getModel())
