@@ -88,8 +88,7 @@ class Orphan extends Model
         'birth_date',
         'family_status',
         'health_status',
-        'academic_level',
-        'academic_phase',
+        'academic_level_id',
         'academic_year',
         'shoes_size',
         'pants_size',
@@ -211,5 +210,10 @@ class Orphan extends Model
     public function vocationalTrainingAchievements(): HasMany
     {
         return $this->hasMany(VocationalTrainingAchievement::class);
+    }
+
+    public function academicLevel(): BelongsTo
+    {
+        return $this->belongsTo(AcademicLevel::class, 'academic_level_id');
     }
 }

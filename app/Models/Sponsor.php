@@ -119,7 +119,7 @@ class Sponsor extends Model
         'father_name',
         'mother_name',
         'birth_certificate_number',
-        'academic_level',
+        'academic_level_id',
         'function',
         'health_status',
         'diploma',
@@ -206,5 +206,10 @@ class Sponsor extends Model
         //        static::updated(function (Sponsor $sponsor) {
         //            $sponsor->sponsorships()->searchable();
         //        });
+    }
+
+    public function academicLevel(): BelongsTo
+    {
+        return $this->belongsTo(AcademicLevel::class, 'academic_level_id');
     }
 }
