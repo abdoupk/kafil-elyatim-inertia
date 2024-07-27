@@ -39,3 +39,21 @@ export interface AcademicLevelType {
     }[]
     phase: string
 }
+
+export interface LessonShowType {
+    start_date: string
+    end_date: string
+    id: string
+    subject: {
+        id: number
+        name: string
+    }
+    school: {
+        id: string
+        name: string
+    }
+    orphans: {
+        id: string
+        name: string
+    }[]
+}

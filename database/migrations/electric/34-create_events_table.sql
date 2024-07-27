@@ -2,8 +2,7 @@ create table "events"
 (
     "id"         uuid                           not null,
     "title"      text                           not null,
-    "subject_id" integer                        not null,
-    "school_id"  uuid                           not null,
+    "lesson_id"  uuid                           not null references lessons (id) on delete cascade,
     "start_date" timestamp(0) without time zone not null,
     "end_date"   timestamp(0) without time zone not null,
     frequency    text                           null,

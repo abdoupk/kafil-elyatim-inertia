@@ -49,4 +49,9 @@ class Lesson extends Model
     {
         return $this->belongsToMany(Orphan::class, 'lesson_orphan', 'lesson_id', 'orphan_id')->using(LessonOrphan::class);
     }
+
+    public function getName(): string
+    {
+        return $this->subject->getName().' - '.$this->academicLevel->level;
+    }
 }

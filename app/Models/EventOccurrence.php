@@ -10,10 +10,12 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class EventOccurrence extends Model
 {
-    use BelongsToTenant, HasUuids;
+    use BelongsToTenant, BelongsToTenant, HasUuids;
 
     protected $fillable = [
         'event_id',
+        'id',
+        'lesson_id',
         'start_date',
         'end_date',
         'tenant_id',
@@ -21,7 +23,12 @@ class EventOccurrence extends Model
 
     public function orphans(): BelongsToMany
     {
-        return $this->belongsToMany(Orphan::class, 'lesson_orphan', 'orphan_id', 'id')->using(LessonOrphan::class);
+        return $this->belongsToMany(Orphan::class, 'event_occurrence_orphan', 'event_occurrence_id', 'orphan_id')->using(EventOccurrenceOrphan::class);
+    }
+
+    public function lesson(): BelongsTo
+    {
+        return $this->belongsTo(Lesson::class);
     }
 
     public function event(): BelongsTo

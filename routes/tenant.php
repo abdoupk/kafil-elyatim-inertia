@@ -9,6 +9,7 @@ use App\Http\Controllers\V1\Branches\BranchShowController;
 use App\Http\Controllers\V1\Branches\BranchStoreController;
 use App\Http\Controllers\V1\Branches\BranchUpdateController;
 use App\Http\Controllers\V1\Dashboard\DashboardController;
+use App\Http\Controllers\V1\Events\LessonShowController;
 use App\Http\Controllers\V1\Families\ExportFamiliesPDFController;
 use App\Http\Controllers\V1\Families\ExportFamiliesXlsxController;
 use App\Http\Controllers\V1\Families\FamiliesIndexController;
@@ -387,8 +388,11 @@ Route::middleware([
                 Route::put('{lesson}', LessonUpdateDatesController::class)
                     ->name('update-dates');
 
-                Route::get('edit/{lesson}', LessonDetailsController::class)
+                Route::get('edit/{eventOccurrence}', LessonDetailsController::class)
                     ->name('edit');
+
+                Route::get('show/{eventOccurrence}', LessonShowController::class)
+                    ->name('show');
 
                 Route::delete('{lesson}', LessonDeleteController::class)
                     ->name('destroy');

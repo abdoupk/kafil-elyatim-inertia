@@ -42,11 +42,13 @@ const vueSelectOrphans = ref([])
 const subjects = ref([])
 
 watch(
-    () => vueSelectSchools.value,
+    () => lessonsStore.lesson.formatted_school,
     (newValue) => {
-        subjects.value = newValue.subjects
+        if (newValue) {
+            subjects.value = newValue.subjects
 
-        vueSelectSubjects.value = null
+            vueSelectSubjects.value = null
+        }
     }
 )
 
@@ -275,7 +277,7 @@ const handleCloseModal = () => {
                 <div>
                     <base-vue-select
                         id="school"
-                        v-model:value="vueSelectSchools"
+                        v-model:value="lessonsStore.lesson.formatted_school"
                         :allow-empty="false"
                         :options="schools"
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
@@ -319,6 +321,8 @@ const handleCloseModal = () => {
                             (value) => {
                                 form.subject_id = value.id
 
+                                form.academic_level_id = value.academic_level_id
+
                                 form?.validate('subject_id')
                             }
                         "
@@ -345,7 +349,6 @@ const handleCloseModal = () => {
                         :allow-empty="false"
                         :clear-on-select="false"
                         :close-on-select="false"
-                        :disabled="vueSelectSubjects?.length === 0 || vueSelectSchools?.length === 0"
                         :hide-selected="true"
                         :internal-search="false"
                         :loading="loadingSearchOrphans"

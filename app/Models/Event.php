@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use MohammedManssour\LaravelRecurringModels\Concerns\Repeatable;
 use MohammedManssour\LaravelRecurringModels\Contracts\Repeatable as RepeatableContract;
+use Recurr\Exception\InvalidArgument;
+use Recurr\Rule;
+use Recurr\Transformer\TextTransformer;
+use Recurr\Transformer\Translator;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
+use Str;
 
 class Event extends Model implements RepeatableContract
 {
@@ -18,12 +24,10 @@ class Event extends Model implements RepeatableContract
 
     protected $fillable = [
         'title',
-        'description',
         'until',
         'frequency',
         'interval',
-        'subject_id',
-        'school_id',
+        'lesson_id',
         'start_date',
         'end_date',
         'color',
@@ -51,5 +55,25 @@ class Event extends Model implements RepeatableContract
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    /**
+     * @throws InvalidArgument
+     */
+    public function humanReadable()
+    {
+        $rule = new Rule;
+        $rule->setStartDate($this->start_date);
+        $rule->setEndDate($this->end_date);
+        $rule->setFreq(Str::upper($this->frequency));
+        $rule->setInterval($this->interval);
+        $rule->setUntil(Carbon::parse($this->until));
+        $rule->setWeekStart('SU');
+
+        $textTransformer = new TextTransformer(
+            new Translator('fr')
+        );
+
+        return $textTransformer->transform($rule);
     }
 }

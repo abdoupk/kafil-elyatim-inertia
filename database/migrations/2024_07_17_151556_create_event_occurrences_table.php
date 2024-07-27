@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('event_occurrences', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('event_id')->constrained()->onDelete('cascade');
+            $table->foreignUuid('lesson_id')->constrained()->onDelete('cascade');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->uuid('tenant_id');

@@ -6,6 +6,7 @@ use App\Models\AcademicLevel;
 use App\Models\Event;
 use App\Models\Orphan;
 use App\Models\PrivateSchool;
+use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -96,4 +97,10 @@ function getSchoolsForAddLesson(): Collection
 function getOrphansForAddLesson(): \Illuminate\Database\Eloquent\Collection
 {
     return search(Orphan::getModel(), 'AND academic_level.id = '.request()->input('academic_level_id'))->get();
+}
+
+function formatDateFromTo($dateFrom, $dateTo): string
+{
+
+    return Carbon::parse($dateFrom)->format('d M, g:i A').' - '.Carbon::parse($dateTo)->format('g:i A');
 }

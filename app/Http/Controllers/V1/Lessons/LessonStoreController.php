@@ -22,23 +22,26 @@ class LessonStoreController extends Controller
      */
     public function __invoke(LessonCreateRequest $request)
     {
+        $lesson = Lesson::where('subject_id', $request->subject_id)
+            ->where('private_school_id', $request->school_id)
+            ->where('academic_level_id', $request->academic_level_id)
+            ->first();
+
+        //        $lesson->orphans()->syncWithoutDetaching($request->orphans);
+
         $event = Event::create([
-            ...$request->except(['orphans', 'description']),
+            ...$request->except(['orphans', 'subject_id', 'academic_level_id', 'school_id']),
+            'lesson_id' => $lesson->id,
         ]);
 
-        $this->generateOccurrences($event);
-
-        Lesson::where('subject_id', $request->subject_id)
-            ->where('private_school_id', $request->school_id)
-            ->where('academic_level_id', '=', 5)
-            ->first()->orphans()->sync($request->orphans);
+        $this->generateOccurrences($event, $lesson->id, $request->orphans);
     }
 
     /**
      * @throws InvalidWeekday
      * @throws InvalidArgument
      */
-    private function generateOccurrences(Event $event)
+    private function generateOccurrences(Event $event, string $lesson_id, array $orphans)
     {
         if (! $event->interval || ! $event->frequency) {
             $event->occurrences()->create([
@@ -68,18 +71,25 @@ class LessonStoreController extends Controller
 
         $transformer = new ArrayTransformer;
         $occurrences = $transformer->transform($rule);
-        $occurrence_data = [];
 
         foreach ($occurrences as $occurrence) {
-            $occurrence_data[] = [
+            $event_occurrence = EventOccurrence::create([
                 'id' => Str::uuid()->toString(),
                 'event_id' => $event->id,
+                'lesson_id' => $lesson_id,
                 'start_date' => $occurrence->getStart(),
                 'end_date' => $occurrence->getEnd(),
                 'tenant_id' => $event->tenant_id,
-            ];
-        }
+            ]);
 
-        EventOccurrence::insert($occurrence_data);
+            $formatted = array_map(function ($orphan) use ($lesson_id) {
+                return [
+                    'orphan_id' => $orphan,
+                    'lesson_id' => $lesson_id,
+                ];
+            }, $orphans);
+
+            $event_occurrence->orphans()->syncWithoutDetaching($formatted);
+        }
     }
 }

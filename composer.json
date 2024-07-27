@@ -35,7 +35,8 @@
         "spatie/laravel-translatable": "^6.6",
         "stancl/tenancy": "^3.8",
         "tightenco/ziggy": "^2.1",
-        "timacdonald/pulse-validation-errors": "^1.2"
+        "timacdonald/pulse-validation-errors": "^1.2",
+        "ext-intl": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

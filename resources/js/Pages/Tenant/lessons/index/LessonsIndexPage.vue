@@ -56,6 +56,8 @@ const HandleEventClick = (event: EventApi) => {
     actionsModalStatus.value = true
 
     selectedEvent.value = event
+
+    lessonsStore.getLesson(event.id)
 }
 
 const deleteLesson = () => {
@@ -80,6 +82,14 @@ const deleteLesson = () => {
             )
         }
     })
+}
+
+const handleEditLesson = () => {
+    actionsModalStatus.value = false
+
+    setTimeout(() => {
+        createModalStatus.value = true
+    }, 200)
 }
 </script>
 
@@ -116,5 +126,6 @@ const deleteLesson = () => {
         :open="actionsModalStatus"
         @close="actionsModalStatus = false"
         @delete="deleteLesson"
+        @edit="handleEditLesson"
     ></lesson-actions-modal>
 </template>
