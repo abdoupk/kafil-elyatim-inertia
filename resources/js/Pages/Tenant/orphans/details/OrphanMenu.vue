@@ -46,8 +46,10 @@ const showNeedCreateModal = () => {
                 <menu-link class="!mt-0" icon="icon-memo-circle-info" view-name="general_information"></menu-link>
 
                 <menu-link icon="icon-hands-holding-child" view-name="sponsorships_information"></menu-link>
+            </div>
 
-                <menu-link icon="icon-books" view-name="academic_achievement"></menu-link>
+            <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
+                <menu-link icon="icon-books" class="!mt-0" view-name="academic_achievement"></menu-link>
 
                 <menu-link icon="icon-diploma" view-name="college_achievement"></menu-link>
 

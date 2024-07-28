@@ -63,11 +63,6 @@ defineProps<{ sponsor: SponsorType }>()
             </div>
 
             <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('validation.attributes.sponsor.card_number') }}</h2>
-                <h3 class="font-medium text-base">{{ sponsor.card_number }}</h3>
-            </div>
-
-            <div class="@xl:col-span-6 col-span-12">
                 <h2 class="text-lg font-semibold">{{ $t('ccp') }}</h2>
                 <h3 class="font-medium text-base">{{ sponsor.ccp }}</h3>
             </div>
