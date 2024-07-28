@@ -56,7 +56,7 @@ export const useLessonsStore = defineStore('lessons', {
             this.lesson.formatted_school = lesson.school
             this.lesson.formatted_orphans = lesson.orphans
 
-            console.log(this.lesson)
+            console.log(this.lesson,'87878787878')
         },
         async updateLesson(id: string, data: { start_date: string; end_date: string }) {
             await axios.put(route('tenant.lessons.update-dates', id), data)

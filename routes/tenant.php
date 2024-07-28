@@ -32,6 +32,7 @@ use App\Http\Controllers\V1\Lessons\LessonDeleteController;
 use App\Http\Controllers\V1\Lessons\LessonDetailsController;
 use App\Http\Controllers\V1\Lessons\LessonsIndexController;
 use App\Http\Controllers\V1\Lessons\LessonStoreController;
+use App\Http\Controllers\V1\Lessons\LessonUpdateController;
 use App\Http\Controllers\V1\Lessons\LessonUpdateDatesController;
 use App\Http\Controllers\V1\Lessons\ListOrphansController;
 use App\Http\Controllers\V1\Members\MemberCreateController;
@@ -384,6 +385,9 @@ Route::middleware([
 
                 Route::post('', LessonStoreController::class)
                     ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('{eventOccurrence}', LessonUpdateController::class)
+                    ->name('update')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::put('{lesson}', LessonUpdateDatesController::class)
                     ->name('update-dates');

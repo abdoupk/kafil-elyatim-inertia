@@ -41,20 +41,42 @@ const vueSelectOrphans = ref([])
 
 const subjects = ref([])
 
+watch(() => lessonsStore.lesson.formatted_school, (newValue) => {
+    if (newValue) {
+        vueSelectSchools.value = newValue
+    }
+})
+
 watch(
-    () => lessonsStore.lesson.formatted_school,
+    () => vueSelectSchools.value,
     (newValue) => {
         if (newValue) {
             subjects.value = newValue.subjects
 
-            vueSelectSubjects.value = null
+            // TODO: instead get the first subject from the list of subjects get by the id of subject
+            vueSelectSubjects.value = subjects.value[0]
+
+            form.value.subject_id = subjects.value[0].id
         }
     }
 )
 
+watch(() => lessonsStore.lesson.orphans, (value) => {
+    orphans.value = value.map((orphan) => {
+        return {
+            id: orphan.id,
+            name: orphan.name
+        }
+    })
+
+    vueSelectOrphans.value = orphans.value
+
+    form.value.orphans = value.map((orphan) => orphan.id)
+})
+
 const form = computed(() => {
     if (lessonsStore.lesson.id) {
-        return useForm('put', route('tenant.members.update', lessonsStore.lesson.id), { ...lessonsStore.lesson })
+        return useForm('put', route('tenant.lessons.update', lessonsStore.lesson.id), { ...lessonsStore.lesson })
     }
 
     return useForm('post', route('tenant.lessons.store'), omit(lessonsStore.lesson, ['id']))
@@ -277,7 +299,7 @@ const handleCloseModal = () => {
                 <div>
                     <base-vue-select
                         id="school"
-                        v-model:value="lessonsStore.lesson.formatted_school"
+                        v-model:value="vueSelectSchools"
                         :allow-empty="false"
                         :options="schools"
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"

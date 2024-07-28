@@ -26,7 +26,7 @@ class LessonStoreController extends Controller
             ->where('private_school_id', $request->school_id)
             ->where('academic_level_id', $request->academic_level_id)
             ->first();
-
+        ray($lesson->id);
         //        $lesson->orphans()->syncWithoutDetaching($request->orphans);
 
         $event = Event::create([
@@ -43,12 +43,22 @@ class LessonStoreController extends Controller
      */
     private function generateOccurrences(Event $event, string $lesson_id, array $orphans)
     {
+        $formatted = array_map(function ($orphan) use ($lesson_id) {
+            return [
+                'orphan_id' => $orphan,
+                'lesson_id' => $lesson_id,
+            ];
+        }, $orphans);
+
         if (! $event->interval || ! $event->frequency) {
-            $event->occurrences()->create([
+            $event_occurrence = $event->occurrences()->create([
                 'start_date' => $event->start_date,
                 'end_date' => $event->end_date,
                 'tenant_id' => $event->tenant_id,
+                'lesson_id' => $lesson_id,
             ]);
+
+            $event_occurrence->orphans()->syncWithoutDetaching($formatted);
 
             return;
         }
@@ -81,13 +91,6 @@ class LessonStoreController extends Controller
                 'end_date' => $occurrence->getEnd(),
                 'tenant_id' => $event->tenant_id,
             ]);
-
-            $formatted = array_map(function ($orphan) use ($lesson_id) {
-                return [
-                    'orphan_id' => $orphan,
-                    'lesson_id' => $lesson_id,
-                ];
-            }, $orphans);
 
             $event_occurrence->orphans()->syncWithoutDetaching($formatted);
         }

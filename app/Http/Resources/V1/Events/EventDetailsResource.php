@@ -16,7 +16,10 @@ class EventDetailsResource extends JsonResource
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'title' => $this->whenLoaded('event', fn () => $this->event->title),
-            'human_readable' => $this->whenLoaded('event', fn () => $this->event->humanReadable()),
+            'frequency' => $this->whenLoaded('event', fn () => $this->event->frequency),
+            'interval' => $this->whenLoaded('event', fn () => $this->event->interval),
+            'until' => $this->whenLoaded('event', fn () => $this->event->until),
+            //            'human_readable' => $this->whenLoaded('event', fn () => $this->event->humanReadable()),
             'lesson' => new LessonResource($this->whenLoaded('lesson')),
             'school' => new SchoolResource($this->whenLoaded('lesson', fn () => $this->lesson->school)),
             'subject' => new SubjectResource($this->whenLoaded('lesson', fn () => $this->lesson->subject)),
@@ -27,6 +30,9 @@ class EventDetailsResource extends JsonResource
             'orphans' => OrphansResource::collection($this->whenLoaded('orphans')),
             'formated_date' => formatDateFromTo($this->start_date, $this->end_date),
             'color' => $this->whenLoaded('event', fn () => $this->event->color),
+            'subject_id' => $this->whenLoaded('lesson', fn () => $this->lesson->subject_id),
+            'academic_level_id' => $this->whenLoaded('lesson', fn () => $this->lesson->academic_level_id),
+            'school_id' => $this->whenLoaded('lesson', fn () => $this->lesson->private_school_id),
         ];
     }
 }
