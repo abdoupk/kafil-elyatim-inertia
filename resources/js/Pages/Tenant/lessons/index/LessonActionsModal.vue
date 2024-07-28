@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useLessonsStore } from '@/stores/lessons'
 import type { EventApi } from '@fullcalendar/core'
 
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
@@ -6,13 +7,12 @@ import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseDialog from '@/Components/Base/headless/Dialog/BaseDialog.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
-import { useLessonsStore } from '@/stores/lessons'
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
-import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
-import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
-import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
+import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
+import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
+import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 
 defineProps<{
     open: boolean
@@ -20,10 +20,11 @@ defineProps<{
     eventInfo: EventApi | null
 }>()
 
-const emit = defineEmits(['close', 'delete', 'edit'])
+const emit = defineEmits(['close',
+'delete',
+'edit'])
 
 const lessonsStore = useLessonsStore()
-
 </script>
 
 <template>
@@ -76,8 +77,11 @@ const lessonsStore = useLessonsStore()
                     </base-thead-table>
 
                     <base-tbody-table>
-                        <base-tr-table v-for="(orphan,index) in lessonsStore.lesson.formatted_orphans"
-                                       :key="orphan.id" class="text-center">
+                        <base-tr-table
+                            v-for="(orphan, index) in lessonsStore.lesson.formatted_orphans"
+                            :key="orphan.id"
+                            class="text-center"
+                        >
                             <base-td-table>{{ index + 1 }}</base-td-table>
                             <base-td-table>{{ orphan.first_name }}</base-td-table>
                             <base-td-table>{{ orphan.last_name }}</base-td-table>

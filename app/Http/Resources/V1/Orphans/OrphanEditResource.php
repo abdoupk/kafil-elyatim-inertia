@@ -25,7 +25,8 @@ class OrphanEditResource extends JsonResource
             'birth_date' => $this->birth_date,
             'family_status' => $this->family_status,
             'health_status' => $this->health_status,
-            'academic_level' => $this->academic_level,
+            'academic_level' => $this->academicLevel?->level,
+            'last_academic_year_achievement' => $this->formatedLastAcademicYear(),
             ...$babyNeeds,
             'shoes_size' => $this->whenLoaded('shoesSize'),
             'pants_size' => $this->whenLoaded('pantsSize'),
@@ -33,7 +34,7 @@ class OrphanEditResource extends JsonResource
             'gender' => $this->gender,
             'note' => $this->note,
 
-            'academicAchievements' => AcademicAchievementResource::collection($this->whenLoaded('academicAchievements')),
+            'academic_achievements' => AcademicAchievementResource::collection($this->whenLoaded('academicAchievements')),
             'sponsorships' => new OrphanSponsorshipResource($this->whenLoaded('sponsorships')),
         ];
     }

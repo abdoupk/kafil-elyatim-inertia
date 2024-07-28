@@ -221,4 +221,19 @@ class Orphan extends Model
     {
         return $this->belongsToMany(EventOccurrence::class, 'event_occurrence_orphan', 'orphan_id', 'event_occurrence_id');
     }
+
+    public function collegeAchievements(): HasMany
+    {
+        return $this->hasMany(CollegeAchievement::class);
+    }
+
+    public function formatedLastAcademicYear(): string
+    {
+        //handle academic level is emp
+        if (is_null($this->lastAcademicYearAchievement)) {
+            return '';
+        }
+
+        return $this->lastAcademicYearAchievement?->academicLevel->level.' ('.$this->lastAcademicYearAchievement?->academic_year.')';
+    }
 }

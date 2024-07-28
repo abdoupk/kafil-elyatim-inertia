@@ -9,8 +9,8 @@
 }
 
 .multiselect__input:focus {
-    padding: theme('spacing.1') !important;
-    margin-top: theme('spacing.1') !important;
+    /*padding: theme('spacing.1') !important;*/
+    /*margin-top: theme('spacing.1') !important;*/
     box-shadow: 0 0 0 1px theme('colors.primary') !important;
 }
 
@@ -38,7 +38,7 @@
 
 .multiselect__input:focus {
     background-color: theme('colors.white') !important;
-    padding: theme('spacing.2') !important;
+    /*padding: theme('spacing.2') !important;*/
     box-shadow: 0 0 0 1px theme('colors.primary') !important;
 }
 
@@ -108,8 +108,8 @@
     }
 
     & .multiselect__input:focus {
-        padding: theme('spacing.1') !important;
-        margin-top: theme('spacing.1') !important;
+        /*padding: theme('spacing.1') !important;*/
+        /*margin-top: theme('spacing.1') !important;*/
         box-shadow: 0 0 0 1px theme('colors.primary') !important;
     }
 
@@ -137,7 +137,7 @@
 
     & .multiselect__input:focus {
         background-color: theme('colors.darkmode.800') !important;
-        padding: theme('spacing.2') !important;
+        /*padding: theme('spacing.2') !important;*/
         box-shadow: 0 0 0 1px theme('colors.primary') !important;
     }
 

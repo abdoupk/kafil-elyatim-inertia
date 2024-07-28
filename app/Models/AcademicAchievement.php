@@ -48,4 +48,9 @@ class AcademicAchievement extends Model
     {
         return $this->belongsTo(Orphan::class);
     }
+
+    public function academicLevel(): BelongsTo
+    {
+        return $this->belongsTo(AcademicLevel::class);
+    }
 }

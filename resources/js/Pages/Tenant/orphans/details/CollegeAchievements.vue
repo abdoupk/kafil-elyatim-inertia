@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { OrphanUpdateFormType } from '@/types/orphans'
+import type { OrphanShowType } from '@/types/orphans'
 
 import { formatDate } from '@/utils/helper'
 
 defineProps<{
-    orphan: OrphanUpdateFormType
+    orphan: OrphanShowType
 }>()
 </script>
 

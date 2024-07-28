@@ -41,11 +41,14 @@ const vueSelectOrphans = ref([])
 
 const subjects = ref([])
 
-watch(() => lessonsStore.lesson.formatted_school, (newValue) => {
-    if (newValue) {
-        vueSelectSchools.value = newValue
+watch(
+    () => lessonsStore.lesson.formatted_school,
+    (newValue) => {
+        if (newValue) {
+            vueSelectSchools.value = newValue
+        }
     }
-})
+)
 
 watch(
     () => vueSelectSchools.value,
@@ -61,18 +64,21 @@ watch(
     }
 )
 
-watch(() => lessonsStore.lesson.orphans, (value) => {
-    orphans.value = value.map((orphan) => {
-        return {
-            id: orphan.id,
-            name: orphan.name
-        }
-    })
+watch(
+    () => lessonsStore.lesson.orphans,
+    (value) => {
+        orphans.value = value.map((orphan) => {
+            return {
+                id: orphan.id,
+                name: orphan.name
+            }
+        })
 
-    vueSelectOrphans.value = orphans.value
+        vueSelectOrphans.value = orphans.value
 
-    form.value.orphans = value.map((orphan) => orphan.id)
-})
+        form.value.orphans = value.map((orphan) => orphan.id)
+    }
+)
 
 const form = computed(() => {
     if (lessonsStore.lesson.id) {

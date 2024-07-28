@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 import type { ClothesSizesType, ShoesSizesType } from '@/types/types'
 
@@ -6,10 +7,10 @@ import { provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import AcademicAchievement from '@/Pages/Tenant/orphans/edit/AcademicAchievement.vue'
 import GeneralInformation from '@/Pages/Tenant/orphans/edit/GeneralInformation.vue'
 import OrphanMenu from '@/Pages/Tenant/orphans/edit/OrphanMenu.vue'
 import SponsorshipsInformation from '@/Pages/Tenant/orphans/edit/SponsorshipsInformation.vue'
+import AcademicAchievement from '@/Pages/Tenant/orphans/edit/academic-achievement/AcademicAchievement.vue'
 
 defineOptions({
     layout: TheLayout
@@ -19,11 +20,12 @@ const props = defineProps<{
     orphan: OrphanUpdateFormType
     shoesSizes: ShoesSizesType
     clothesSizes: ClothesSizesType
+    academicLevels: AcademicLevelType[]
 }>()
 
 const orphan = ref(props.orphan)
 
-const view = ref('general_information')
+const view = ref('academic_achievement')
 
 function updateView(newValue: string) {
     view.value = newValue
@@ -32,6 +34,8 @@ function updateView(newValue: string) {
 // eslint-disable-next-line capitalized-comments
 // noinspection JSUnusedGlobalSymbols
 provide('orphanDetailView', { view, updateView })
+
+console.log(props.orphan)
 </script>
 
 <template>
@@ -55,7 +59,11 @@ provide('orphanDetailView', { view, updateView })
 
                 <sponsorships-information v-if="view === 'sponsorships_information'" :orphan></sponsorships-information>
 
-                <academic-achievement v-if="view === 'academic_achievement'" :orphan></academic-achievement>
+                <academic-achievement
+                    v-if="view === 'academic_achievement'"
+                    :academicLevels
+                    :orphan
+                ></academic-achievement>
             </div>
         </div>
     </div>

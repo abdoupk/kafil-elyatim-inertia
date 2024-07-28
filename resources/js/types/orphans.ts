@@ -23,6 +23,18 @@ export interface OrphanShowType {
         diapers_type: string
         diapers_quantity: number
     }
+    academic_achievements: AcademicAchievementsType[]
+}
+
+export interface AcademicAchievementsType {
+    id: string
+    academic_level: string
+    first_trimester: number
+    second_trimester: number
+    third_trimester: number
+    average: number
+    academic_year: number
+    note?: string
 }
 
 export interface OrphanUpdateFormType {
@@ -47,4 +59,6 @@ export interface OrphanUpdateFormType {
         id: string
         name: string
     }
+    academic_achievements: AcademicAchievementsType[]
+    last_academic_year_achievement?: string
 }

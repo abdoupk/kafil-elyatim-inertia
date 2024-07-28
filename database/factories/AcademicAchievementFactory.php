@@ -26,9 +26,8 @@ class AcademicAchievementFactory extends Factory
             'second_trimester' => fake()->randomFloat(min: 3, max: 18),
             'third_trimester' => fake()->randomFloat(min: 3, max: 18),
             'average' => fake()->randomFloat(min: 3, max: 18),
-            'first_semester' => fake()->randomFloat(min: 3, max: 18),
-            'second_semester' => fake()->randomFloat(min: 3, max: 18),
             'tenant_id' => fake()->uuid,
+            'note' => fake('ar_SA')->realText(5000),
         ];
     }
 }

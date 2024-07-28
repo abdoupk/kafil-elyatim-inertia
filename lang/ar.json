@@ -250,5 +250,10 @@
     "the_schools": "المدارس الخاصة",
     "the_school": "المدرسة",
     "school": "مدرسة",
-    "quota_total": "عدد المقاعد الإجمالي"
+    "quota_total": "عدد المقاعد الإجمالي",
+    "first_trimester": "الفصل الأول",
+    "second_trimester": "الفصل الثاني",
+    "third_trimester": "الفصل الثالث",
+    "general_average": "المعدل العام",
+    "academic_year": "العام الدراسي"
 }
