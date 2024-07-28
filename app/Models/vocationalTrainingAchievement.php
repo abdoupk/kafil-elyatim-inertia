@@ -25,4 +25,9 @@ class vocationalTrainingAchievement extends Model
     {
         return $this->belongsTo(Orphan::class);
     }
+
+    public function vocationalTraining(): BelongsTo
+    {
+        return $this->belongsTo(VocationalTraining::class);
+    }
 }

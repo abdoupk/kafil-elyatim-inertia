@@ -76,7 +76,10 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         >
                             {{ family.address }}
                             <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
-                            <Link href="#" class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
+                            <Link
+                                :href="route('tenant.zones.index')"
+                                class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
+                            >
                                 {{ family.zone?.name }}
                             </Link>
                         </base-td-table>

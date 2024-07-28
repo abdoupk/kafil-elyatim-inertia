@@ -4,8 +4,9 @@ create table if not exists "vocational_training_achievements"
     "tenant_id"              text                           not null references "tenants" ("id") on delete cascade,
     "orphan_id"              uuid                           not null references "orphans" ("id") on delete cascade,
     "note"                   text                           null,
-    "year"                   integer                        null,
-    "vocational_training_id" integer                        null,
+    "year"                   integer                        not null,
+    "vocational_training_id" integer                        not null,
+    "institute"              text                           not null ,
     "deleted_at"             timestamp(0) without time zone null,
     "created_at"             timestamp(0) without time zone null,
     "updated_at"             timestamp(0) without time zone null

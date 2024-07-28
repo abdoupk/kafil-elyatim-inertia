@@ -5,10 +5,12 @@ import { provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import AcademicAchievement from '@/Pages/Tenant/orphans/details/AcademicAchievement.vue'
 import GeneralInformation from '@/Pages/Tenant/orphans/details/GeneralInformation.vue'
 import OrphanMenu from '@/Pages/Tenant/orphans/details/OrphanMenu.vue'
 import SponsorshipsInformation from '@/Pages/Tenant/orphans/details/SponsorshipsInformation.vue'
+import AcademicAchievement from '@/Pages/Tenant/orphans/details/academic-achievement/AcademicAchievement.vue'
+import CollegeAchievement from '@/Pages/Tenant/orphans/details/college-achievement/CollegeAchievement.vue'
+import VocationalTrainingAchievement from '@/Pages/Tenant/orphans/details/vocational-training-achievement/VocationalTrainingAchievement.vue'
 
 defineOptions({
     layout: TheLayout
@@ -47,6 +49,13 @@ provide('orphanDetailView', { view, updateView })
                 <sponsorships-information v-if="view === 'sponsorships_information'" :orphan></sponsorships-information>
 
                 <academic-achievement v-if="view === 'academic_achievement'" :orphan></academic-achievement>
+
+                <college-achievement v-if="view === 'college_achievement'" :orphan></college-achievement>
+
+                <vocational-training-achievement
+                    v-if="view === 'vocational_training_achievement'"
+                    :orphan
+                ></vocational-training-achievement>
             </div>
         </div>
     </div>

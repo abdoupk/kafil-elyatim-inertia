@@ -48,6 +48,10 @@ const showNeedCreateModal = () => {
                 <menu-link icon="icon-couple" view-name="sponsorships_information"></menu-link>
 
                 <menu-link icon="icon-couple" view-name="academic_achievement"></menu-link>
+
+                <menu-link icon="icon-couple" view-name="college_achievement"></menu-link>
+
+                <menu-link icon="icon-couple" view-name="vocational_training_achievement"></menu-link>
             </div>
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">

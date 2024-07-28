@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AcademicLevel;
 use App\Models\Baby;
 use App\Models\Branch;
 use App\Models\Family;
@@ -62,6 +63,13 @@ class FamilySeeder extends Seeder
                                 return [
                                     'tenant_id' => $orphan->tenant_id,
                                     'vocational_training_id' => VocationalTraining::inRandomOrder()->first()?->id,
+                                    'orphan_id' => $orphan->id,
+                                ];
+                            })
+                            ->hasCollegeAchievements(3, function (array $attributes, Orphan $orphan) {
+                                return [
+                                    'tenant_id' => $orphan->tenant_id,
+                                    'academic_level_id' => AcademicLevel::inRandomOrder()->first()?->id,
                                     'orphan_id' => $orphan->id,
                                 ];
                             })

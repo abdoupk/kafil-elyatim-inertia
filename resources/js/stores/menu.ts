@@ -42,7 +42,7 @@ export const useMenuStore = defineStore('menu', {
                         icon: 'icon-users',
                         title: __('list', { attribute: __('the_families') }),
                         routeName: 'tenant.families.index',
-                        url:'/dashboard/families'
+                        url: '/dashboard/families'
                     },
                     {
                         icon: 'icon-users-plus',
@@ -73,7 +73,7 @@ export const useMenuStore = defineStore('menu', {
                         icon: 'icon-ram',
                         title: __('eid_el_adha'),
                         routeName: 'tenant.occasions.eid-al-adha.index',
-                        url:'/dashboard/occasions/eid-al-adha'
+                        url: '/dashboard/occasions/eid-al-adha'
                     },
                     {
                         icon: 'icon-backpack',
@@ -142,7 +142,7 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-graduation-cap',
                 routeName: 'tenant.lessons.index',
                 title: __('private_lessons'),
-                url:'/dashboard/lessons'
+                url: '/dashboard/lessons'
             },
             {
                 icon: 'icon-school-lock',

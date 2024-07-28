@@ -18,6 +18,7 @@ class vocationalTrainingAchievementFactory extends Factory
             'orphan_id' => fake()->uuid,
             'note' => fake('ar_SA')->realText(500),
             'year' => now()->year,
+            'institute' => fake('ar_SA')->name,
             'vocational_training_id' => 1,
         ];
     }
