@@ -12,7 +12,7 @@ class SponsorEditController extends Controller
     public function __invoke(Sponsor $sponsor)
     {
         return Inertia::render('Tenant/sponsors/edit/SponsorEditPage', [
-            'sponsor' => new SponsorEditResource($sponsor->load('creator', 'sponsorships', 'incomes')),
+            'sponsor' => new SponsorEditResource($sponsor->load('creator', 'sponsorships', 'incomes', 'academicLevel')),
         ]);
     }
 }

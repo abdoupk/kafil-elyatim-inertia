@@ -26,7 +26,7 @@ class SponsorShowResource extends JsonResource
             'birth_date' => $this->birth_date,
             'father_name' => $this->father_name,
             'mother_name' => $this->mother_name,
-            'academic_level' => $this->academic_level,
+            'academic_level' => $this->academicLevel?->level,
             'function' => $this->function,
             'health_status' => $this->health_status,
             'diploma' => $this->diploma,
@@ -34,7 +34,6 @@ class SponsorShowResource extends JsonResource
             'gender' => $this->gender,
             'orphans_count' => $this->orphans_count,
             'birth_certificate_number' => $this->birth_certificate_number,
-            'card_number' => $this->card_number,
             'sponsor_type' => $this->sponsor_type,
 
             'incomes' => new IncomeResource($this->whenLoaded('incomes')),

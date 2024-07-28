@@ -230,37 +230,6 @@ const submit = () => {
                 </div>
                 <!-- END: Birth Certificate number -->
 
-                <!-- BEGIN: Card number -->
-                <div class="@xl:col-span-6 col-span-12">
-                    <base-form-label for="card_number">
-                        {{ $t('validation.attributes.sponsor.card_number') }}
-                    </base-form-label>
-
-                    <base-form-input
-                        id="card_number"
-                        v-model="form.card_number"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.sponsor.card_number')
-                            })
-                        "
-                        data-test="sponsor_card_number"
-                        type="text"
-                        @change="form?.validate('card_number')"
-                    ></base-form-input>
-
-                    <base-form-input-error>
-                        <div
-                            v-if="form?.invalid('card_number')"
-                            class="mt-2 text-danger"
-                            data-test="error_card_number_message"
-                        >
-                            {{ form.errors.card_number }}
-                        </div>
-                    </base-form-input-error>
-                </div>
-                <!-- END: Card number -->
-
                 <!-- BEGIN: CCP -->
                 <div class="@xl:col-span-6 col-span-12">
                     <base-form-label for="ccp">
@@ -319,6 +288,7 @@ const submit = () => {
                 </div>
                 <!-- END: Function (job) -->
 
+                <!-- TODO: base vue select Academic Level -->
                 <!-- BEGIN: Academic Level -->
                 <div class="@xl:col-span-6 col-span-12">
                     <base-form-label for="academic_level">
@@ -408,7 +378,7 @@ const submit = () => {
                 </div>
                 <!-- END: Sponsor Type -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="w-20 !mt-0 col-span-12" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
