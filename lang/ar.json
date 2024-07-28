@@ -256,5 +256,9 @@
     "third_trimester": "الفصل الثالث",
     "general_average": "المعدل العام",
     "academic_year": "العام الدراسي",
-    "No academic achievement added yet.": "لم يتم إضافة أي تحصيل أكاديمي حتى الآن."
+    "No academic achievement added yet.": "لم يتم إضافة أي تحصيل أكاديمي حتى الآن.",
+    "sponsorships_information": "معلومات عن الكفالات",
+    "academic_achievement": "متابعة التحصيل الدراسي",
+    "college_achievement": "متابعة التحصيل الجامعي",
+    "vocational_training_achievement": "متابعة التكوين المهني"
 }
