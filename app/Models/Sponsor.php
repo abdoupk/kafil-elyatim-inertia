@@ -211,4 +211,19 @@ class Sponsor extends Model
     {
         return $this->belongsTo(AcademicLevel::class, 'academic_level_id');
     }
+
+    public function formatPhoneNumber(): string
+    {
+        // Remove all non-digit characters
+        $phoneNumber = preg_replace('/\D/', '', $this->phone_number);
+
+        // Format with hyphens
+        $formattedPhoneNumber = substr($phoneNumber, 0, 4); // First four digits
+
+        for ($i = 4; $i < strlen($phoneNumber); $i += 2) {
+            $formattedPhoneNumber .= '-'.substr($phoneNumber, $i, 2);
+        }
+
+        return $formattedPhoneNumber;
+    }
 }
