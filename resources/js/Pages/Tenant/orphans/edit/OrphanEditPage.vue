@@ -2,6 +2,7 @@
 import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 import type { ClothesSizesType, ShoesSizesType } from '@/types/types'
+import type { VocationalTrainingSpecialitiesType } from '@/types/vocational-training-achievement'
 
 import { provide, ref } from 'vue'
 
@@ -23,12 +24,12 @@ const props = defineProps<{
     shoesSizes: ShoesSizesType
     clothesSizes: ClothesSizesType
     academicLevels: AcademicLevelType[]
-    vocationalTrainingSpecialities: any
+    vocationalTrainingSpecialities: VocationalTrainingSpecialitiesType[]
 }>()
 
 const orphan = ref(props.orphan)
 
-const view = ref('college_achievement')
+const view = ref('general_information')
 
 function updateView(newValue: string) {
     view.value = newValue
@@ -37,8 +38,6 @@ function updateView(newValue: string) {
 // eslint-disable-next-line capitalized-comments
 // noinspection JSUnusedGlobalSymbols
 provide('orphanDetailView', { view, updateView })
-
-console.log(props.orphan)
 </script>
 
 <template>
@@ -76,8 +75,8 @@ console.log(props.orphan)
 
                 <vocational-training-achievement
                     v-if="view === 'vocational_training_achievement'"
-                    :vocationalTrainingSpecialities
                     :orphan
+                    :vocationalTrainingSpecialities
                 ></vocational-training-achievement>
             </div>
         </div>

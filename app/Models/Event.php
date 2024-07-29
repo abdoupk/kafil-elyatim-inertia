@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use MohammedManssour\LaravelRecurringModels\Concerns\Repeatable;
-use MohammedManssour\LaravelRecurringModels\Contracts\Repeatable as RepeatableContract;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Rule;
 use Recurr\Transformer\TextTransformer;
@@ -18,9 +16,9 @@ use Recurr\Transformer\Translator;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 use Str;
 
-class Event extends Model implements RepeatableContract
+class Event extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, Repeatable, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 
     protected $fillable = [
         'title',

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
+import type { VocationalTrainingSpecialitiesType } from '@/types/vocational-training-achievement'
 
 import { useVocationalTrainingAchievementsStore } from '@/stores/vocational-training-achievement'
 import { router } from '@inertiajs/vue3'
@@ -15,7 +16,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
-    vocationalTrainingSpecialities: any
+    vocationalTrainingSpecialities: VocationalTrainingSpecialitiesType[]
 }>()
 
 const createEditModalStatus = ref(false)
@@ -83,7 +84,7 @@ const showEditModal = (id: string) => {
     <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
         <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
             <base-button class="w-20 ms-auto border-dashed" variant="outline-primary" @click="showCreateModal">
-                <svg-loader class="w-4 h-4 fill-slate-300/40" name="icon-plus"></svg-loader>
+                <svg-loader class="w-4 h-4 dark:fill-slate-300/40" name="icon-plus"></svg-loader>
             </base-button>
         </div>
 

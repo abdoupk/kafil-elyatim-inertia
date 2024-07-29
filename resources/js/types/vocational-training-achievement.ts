@@ -5,3 +5,11 @@ export type CreateVocationalTrainingAchievementForm = {
     institute: string
     note?: string
 }
+
+export type VocationalTrainingSpecialitiesType = {
+    division: string
+    speciality: {
+        id: number
+        name: string
+    }[]
+}

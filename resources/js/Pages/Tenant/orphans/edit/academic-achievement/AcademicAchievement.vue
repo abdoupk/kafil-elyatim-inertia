@@ -83,7 +83,7 @@ const showEditModal = (id: string) => {
             <h2 class="text-base font-bold">{{ orphan?.last_academic_year_achievement }}</h2>
 
             <base-button class="w-20 ms-auto border-dashed" variant="outline-primary" @click="showCreateModal">
-                <svg-loader name="icon-plus" class="w-4 h-4 fill-slate-300/40"></svg-loader>
+                <svg-loader name="icon-plus" class="w-4 h-4 dark:fill-slate-300/40"></svg-loader>
             </base-button>
         </div>
 

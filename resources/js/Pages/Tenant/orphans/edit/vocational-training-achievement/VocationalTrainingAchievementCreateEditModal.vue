@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 /* eslint-disable vue/no-parsing-error */
+import type { VocationalTrainingSpecialitiesType } from '@/types/vocational-training-achievement'
+
 import { useVocationalTrainingAchievementsStore } from '@/stores/vocational-training-achievement'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
@@ -20,7 +22,7 @@ import { __, n__ } from '@/utils/i18n'
 
 const props = defineProps<{
     open: boolean
-    vocationalTrainingSpecialities: any
+    vocationalTrainingSpecialities: VocationalTrainingSpecialitiesType[]
 }>()
 
 // Get the vocationalTrainingAchievement store
@@ -28,8 +30,6 @@ const vocationalTrainingAchievementStore = useVocationalTrainingAchievementsStor
 
 // Initialize a ref for loading state
 const loading = ref(false)
-
-console.log(props.vocationalTrainingSpecialities)
 
 const form = computed(() => {
     if (vocationalTrainingAchievementStore.vocationalTrainingAchievement.id) {
