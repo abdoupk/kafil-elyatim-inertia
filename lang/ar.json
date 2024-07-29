@@ -260,5 +260,10 @@
     "sponsorships_information": "معلومات عن الكفالات",
     "academic_achievement": "متابعة التحصيل الدراسي",
     "college_achievement": "متابعة التحصيل الجامعي",
-    "vocational_training_achievement": "متابعة التكوين المهني"
+    "vocational_training_achievement": "متابعة التكوين المهني",
+    "institute": "المعهد",
+    "speciality": "التخصص",
+    "first_semester": "السداسي الأول",
+    "second_semester": "السداسي الثاني",
+    "university": "الجامعة"
 }

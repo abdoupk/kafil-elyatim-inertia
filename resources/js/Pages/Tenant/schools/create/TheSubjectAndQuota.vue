@@ -9,6 +9,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
 import { getAcademicLevelFromId } from '@/utils/helper'
 
 const props = defineProps<{
@@ -36,7 +37,10 @@ watch(
         vueSelectSubject.value =
             props.subjects.find((subject) => subject.id == props.form.lessons[props.index].subject_id) ?? {}
 
-        vueSelectAcademicLevel.value = getAcademicLevelFromId(props.form.lessons[props.index].academic_level_id, props.academicLevels)
+        vueSelectAcademicLevel.value = getAcademicLevelFromId(
+            props.form.lessons[props.index].academic_level_id,
+            props.academicLevels
+        )
     },
     { immediate: true }
 )

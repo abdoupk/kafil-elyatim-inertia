@@ -98,4 +98,6 @@ export interface OrphanUpdateFormType {
     }
     academic_achievements: AcademicAchievementsType[]
     last_academic_year_achievement?: string
+    college_achievements: CollegeAchievementsType[]
+    vocational_training_achievements: VocationalTrainingAchievementsType[]
 }

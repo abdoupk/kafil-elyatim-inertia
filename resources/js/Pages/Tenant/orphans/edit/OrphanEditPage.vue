@@ -11,6 +11,8 @@ import GeneralInformation from '@/Pages/Tenant/orphans/edit/GeneralInformation.v
 import OrphanMenu from '@/Pages/Tenant/orphans/edit/OrphanMenu.vue'
 import SponsorshipsInformation from '@/Pages/Tenant/orphans/edit/SponsorshipsInformation.vue'
 import AcademicAchievement from '@/Pages/Tenant/orphans/edit/academic-achievement/AcademicAchievement.vue'
+import CollegeAchievement from '@/Pages/Tenant/orphans/edit/college-achievement/CollegeAchievement.vue'
+import VocationalTrainingAchievement from '@/Pages/Tenant/orphans/edit/vocational-training-achievement/VocationalTrainingAchievement.vue'
 
 defineOptions({
     layout: TheLayout
@@ -25,7 +27,7 @@ const props = defineProps<{
 
 const orphan = ref(props.orphan)
 
-const view = ref('academic_achievement')
+const view = ref('college_achievement')
 
 function updateView(newValue: string) {
     view.value = newValue
@@ -64,6 +66,18 @@ console.log(props.orphan)
                     :academicLevels
                     :orphan
                 ></academic-achievement>
+
+                <college-achievement
+                    v-if="view === 'college_achievement'"
+                    :academicLevels
+                    :orphan
+                ></college-achievement>
+
+                <vocational-training-achievement
+                    v-if="view === 'vocational_training_achievement'"
+                    :academicLevels
+                    :orphan
+                ></vocational-training-achievement>
             </div>
         </div>
     </div>

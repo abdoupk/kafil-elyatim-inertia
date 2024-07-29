@@ -15,7 +15,7 @@ class OrphanEditController extends Controller
     public function __invoke(Orphan $orphan): Response
     {
         return Inertia::render('Tenant/orphans/edit/OrphanEditPage', [
-            'orphan' => new OrphanEditResource($orphan->load('babyNeeds', 'academicAchievements.academicLevel', 'sponsorships', 'creator', 'shoesSize', 'pantsSize', 'shirtSize', 'lastAcademicYearAchievement')),
+            'orphan' => new OrphanEditResource($orphan->load('babyNeeds', 'academicAchievements.academicLevel', 'sponsorships', 'creator', 'shoesSize', 'pantsSize', 'shirtSize', 'collegeAchievements', 'vocationalTrainingAchievements', 'lastAcademicYearAchievement')),
             'shoesSizes' => ShoeSize::all(),
             'clothesSizes' => ClothesSize::all(),
             'academicLevels' => formatedAcademicLevelsForOrphan(),

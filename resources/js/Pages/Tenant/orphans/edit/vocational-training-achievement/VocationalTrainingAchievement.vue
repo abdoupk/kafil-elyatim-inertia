@@ -7,8 +7,8 @@ import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import AcademicAchievementCreateEditModal from '@/Pages/Tenant/orphans/edit/academic-achievement/AcademicAchievementCreateEditModal.vue'
-import DataTable from '@/Pages/Tenant/orphans/edit/academic-achievement/DataTable.vue'
+import DataTable from '@/Pages/Tenant/orphans/edit/vocational-training-achievement/DataTable.vue'
+import VocationalTrainingAchievementCreateEditModal from '@/Pages/Tenant/orphans/edit/vocational-training-achievement/VocationalTrainingAchievementCreateEditModal.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
@@ -86,10 +86,10 @@ const showEditModal = (id: string) => {
 
         <div class="p-5">
             <data-table
-                @show-delete-modal="showDeleteModal"
-                @show-edit-modal="showEditModal"
                 v-if="orphan.academic_achievements.length > 0"
                 :orphan
+                @show-delete-modal="showDeleteModal"
+                @show-edit-modal="showEditModal"
             ></data-table>
 
             <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
@@ -99,11 +99,11 @@ const showEditModal = (id: string) => {
     </div>
     <!-- END: Academic Achievement -->
 
-    <academic-achievement-create-edit-modal
+    <vocational-training-achievement-create-edit-modal
         :academicLevels
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
-    ></academic-achievement-create-edit-modal>
+    ></vocational-training-achievement-create-edit-modal>
 
     <delete-modal
         :deleteProgress
