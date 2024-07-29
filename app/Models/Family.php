@@ -91,7 +91,6 @@ class Family extends Model
 
     protected $fillable = [
         'name',
-        'tenant_id',
         'zone_id',
         'address',
         'file_number',

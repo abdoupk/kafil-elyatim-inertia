@@ -10,12 +10,14 @@ class CollegeAchievementsUpdateRequest extends FormRequest
     {
         return [
             'academic_level_id' => 'required|integer',
-            'academic_year' => 'required|integer',
-            'first_trimester' => 'nullable|numeric',
-            'second_trimester' => 'nullable|numeric',
-            'third_trimester' => 'nullable|numeric',
+            'year' => 'required|integer',
+            'first_semester' => 'nullable|numeric',
+            'second_semester' => 'nullable|numeric',
             'average' => 'nullable|numeric',
             'orphan_id' => 'required|exists:orphans,id',
+            'speciality' => 'required|string',
+            'university' => 'required|string',
+            'note' => 'nullable|string',
         ];
     }
 

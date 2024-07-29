@@ -114,7 +114,6 @@ class User extends Authenticatable
         'email_verified_at',
         'password',
         'remember_token',
-        'tenant_id',
         'zone_id',
         'branch_id',
         'gender',

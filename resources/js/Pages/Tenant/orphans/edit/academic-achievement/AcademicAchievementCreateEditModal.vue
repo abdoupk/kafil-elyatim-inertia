@@ -57,7 +57,7 @@ const emit = defineEmits(['close'])
 const handleSuccess = () => {
     setTimeout(() => {
         router.get(
-            route('tenant.academicAchievement.index'),
+            route('tenant.academic-achievements.index'),
             {},
             {
                 only: ['academicAchievement'],

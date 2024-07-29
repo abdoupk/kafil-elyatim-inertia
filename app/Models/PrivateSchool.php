@@ -17,7 +17,6 @@ class PrivateSchool extends Model
 
     protected $fillable = [
         'name',
-        'tenant_id',
     ];
 
     protected function casts(): array

@@ -67,7 +67,6 @@ class Income extends Model
         'account',
         'other_income',
         'sponsor_id',
-        'tenant_id',
     ];
 
     public function sponsor(): BelongsTo

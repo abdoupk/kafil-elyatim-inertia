@@ -19,6 +19,7 @@ class OrphanEditController extends Controller
             'shoesSizes' => ShoeSize::all(),
             'clothesSizes' => ClothesSize::all(),
             'academicLevels' => formatedAcademicLevelsForOrphan(),
+            'vocationalTrainingSpecialities' => formatedVocationalTrainingSpecialities(),
         ]);
     }
 }

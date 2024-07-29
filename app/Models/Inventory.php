@@ -52,7 +52,6 @@ class Inventory extends Model
         'name',
         'qty',
         'unit',
-        'tenant_id',
         'note',
     ];
 

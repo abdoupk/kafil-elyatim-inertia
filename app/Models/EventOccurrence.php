@@ -18,7 +18,6 @@ class EventOccurrence extends Model
         'lesson_id',
         'start_date',
         'end_date',
-        'tenant_id',
     ];
 
     public function orphans(): BelongsToMany

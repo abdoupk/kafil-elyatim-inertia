@@ -57,7 +57,6 @@ class Spouse extends Model
         'function',
         'income',
         'family_id',
-        'tenant_id',
     ];
 
     public function getName(): string

@@ -58,7 +58,6 @@ class Preview extends Model
         'report',
         'preview_date',
         'family_id',
-        'tenant_id',
     ];
 
     public function family(): BelongsTo

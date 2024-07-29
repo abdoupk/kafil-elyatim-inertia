@@ -49,13 +49,16 @@ const showNeedCreateModal = () => {
                 <menu-link class="!mt-0" icon="icon-memo-circle-info" view-name="general_information"></menu-link>
 
                 <menu-link icon="icon-couple" view-name="sponsorships_information"></menu-link>
-
-                <menu-link icon="icon-couple" view-name="academic_achievement"></menu-link>
-
-                <menu-link icon="icon-couple" view-name="college_achievement"></menu-link>
-
-                <menu-link icon="icon-couple" view-name="vocational_training_achievement"></menu-link>
             </div>
+
+            <div class="p-5 border-t border-slate-200/60 dark:border-darkmode-400">
+                <menu-link icon="icon-books" class="!mt-0" view-name="academic_achievement"></menu-link>
+
+                <menu-link icon="icon-diploma" view-name="college_achievement"></menu-link>
+
+                <menu-link icon="icon-file-certificate" view-name="vocational_training_achievement"></menu-link>
+            </div>
+
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
                 <base-button class="px-2 py-1" type="button" variant="primary" @click.prevent="showNeedCreateModal">
                     {{ $t('new need') }}

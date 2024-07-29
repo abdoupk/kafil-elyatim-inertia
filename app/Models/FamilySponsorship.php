@@ -62,7 +62,6 @@ class FamilySponsorship extends Model
 
     protected $fillable = [
         'family_id',
-        'tenant_id',
         'monthly_allowance',
         'ramadan_basket',
         'zakat',

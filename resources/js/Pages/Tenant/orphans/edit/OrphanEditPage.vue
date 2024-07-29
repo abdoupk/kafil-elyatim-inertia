@@ -23,6 +23,7 @@ const props = defineProps<{
     shoesSizes: ShoesSizesType
     clothesSizes: ClothesSizesType
     academicLevels: AcademicLevelType[]
+    vocationalTrainingSpecialities: any
 }>()
 
 const orphan = ref(props.orphan)
@@ -75,7 +76,7 @@ console.log(props.orphan)
 
                 <vocational-training-achievement
                     v-if="view === 'vocational_training_achievement'"
-                    :academicLevels
+                    :vocationalTrainingSpecialities
                     :orphan
                 ></vocational-training-achievement>
             </div>

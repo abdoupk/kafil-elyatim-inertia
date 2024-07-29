@@ -15,10 +15,10 @@ class vocationalTrainingAchievement extends Model
 
     protected $fillable = [
         'orphan_id',
-        'tenant_id',
         'note',
         'year',
         'vocational_training_id',
+        'institute',
     ];
 
     public function orphan(): BelongsTo

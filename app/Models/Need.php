@@ -19,7 +19,6 @@ class Need extends Model
         'status',
         'subject',
         'note',
-        'tenant_id',
         'needable_id',
         'needable_type',
     ];

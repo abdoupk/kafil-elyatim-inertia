@@ -324,10 +324,24 @@ function getAcademicLevelFromId(id, academicLevels) {
     }
 }
 
+function getVocationalTrainingSpecialityFromId(id, specialities) {
+    if (!id) return ''
+    else {
+        return specialities.reduce((acc, curr) => {
+            const speciality = curr.specialities.find((speciality) => Number(speciality.id) === id)
+
+            if (speciality) acc = speciality
+
+            return acc
+        }, {})
+    }
+}
+
 export {
     isEqual,
     formatDate,
     getAcademicLevelFromId,
+    getVocationalTrainingSpecialityFromId,
     setDateToCurrentTime,
     formatNumber,
     jumpToNextItem,

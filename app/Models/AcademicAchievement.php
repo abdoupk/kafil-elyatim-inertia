@@ -33,7 +33,7 @@ class AcademicAchievement extends Model
         'average',
         'first_semester',
         'second_semester',
-        'tenant_id',
+        'note',
     ];
 
     protected function casts(): array

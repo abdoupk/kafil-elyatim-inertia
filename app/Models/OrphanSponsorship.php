@@ -71,7 +71,6 @@ class OrphanSponsorship extends Model
         'eid_suit',
         'private_lessons',
         'school_bag',
-        'tenant_id',
     ];
 
     protected $table = 'orphan_sponsorship';

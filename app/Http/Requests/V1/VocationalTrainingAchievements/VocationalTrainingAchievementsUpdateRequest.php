@@ -9,13 +9,11 @@ class VocationalTrainingAchievementsUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'academic_level_id' => 'required|integer',
-            'academic_year' => 'required|integer',
-            'first_trimester' => 'nullable|numeric',
-            'second_trimester' => 'nullable|numeric',
-            'third_trimester' => 'nullable|numeric',
-            'average' => 'nullable|numeric',
+            'vocational_training_id' => 'required|integer',
+            'year' => 'required|integer',
             'orphan_id' => 'required|exists:orphans,id',
+            'note' => 'nullable|string',
+            'institute' => 'required|string',
         ];
     }
 

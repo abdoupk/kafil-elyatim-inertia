@@ -57,7 +57,6 @@ class Baby extends Model
         'baby_milk_type',
         'diapers_quantity',
         'diapers_type',
-        'tenant_id',
         'orphan_id',
         'family_id',
     ];

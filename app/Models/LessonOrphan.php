@@ -19,7 +19,6 @@ class LessonOrphan extends Pivot
     protected $fillable = [
         'lesson_id',
         'orphan_id',
-        'tenant_id',
     ];
 
     protected function casts(): array

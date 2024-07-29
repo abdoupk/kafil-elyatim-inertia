@@ -20,7 +20,6 @@ class Lesson extends Model
         'academic_level_id',
         'quota',
         'id',
-        'tenant_id',
     ];
 
     protected function casts(): array

@@ -53,7 +53,6 @@ class Housing extends Model
         'name',
         'value',
         'family_id',
-        'tenant_id',
         'housing_receipt_number',
         'number_of_rooms',
         'other_properties',

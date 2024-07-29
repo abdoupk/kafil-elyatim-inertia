@@ -21,6 +21,7 @@ class CollegeAchievementResource extends JsonResource
             'academic_level_id' => $this->academicLevel?->id,
             'university' => $this->university,
             'note' => $this->note,
+            'orphan_id' => $this->orphan_id,
         ];
     }
 }

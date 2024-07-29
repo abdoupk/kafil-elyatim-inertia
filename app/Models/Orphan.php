@@ -94,7 +94,6 @@ class Orphan extends Model
         'pants_size',
         'shirt_size',
         'note',
-        'tenant_id',
         'family_id',
         'sponsor_id',
         'created_by',

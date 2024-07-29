@@ -60,7 +60,6 @@ class SponsorSponsorship extends Model
         'literacy_lessons',
         'direct_sponsorship',
         'project_support',
-        'tenant_id',
     ];
 
     protected $table = 'sponsor_sponsorship';

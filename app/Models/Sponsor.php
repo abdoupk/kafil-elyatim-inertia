@@ -124,7 +124,6 @@ class Sponsor extends Model
         'health_status',
         'diploma',
         'card_number',
-        'tenant_id',
         'ccp',
         'gender',
         'created_by',

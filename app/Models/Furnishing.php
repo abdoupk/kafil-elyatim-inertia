@@ -82,7 +82,6 @@ class Furnishing extends Model
         'mattresses',
         'other_furnishings',
         'family_id',
-        'tenant_id',
     ];
 
     public function family(): BelongsTo

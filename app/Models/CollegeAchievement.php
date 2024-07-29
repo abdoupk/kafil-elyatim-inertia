@@ -20,7 +20,9 @@ class CollegeAchievement extends Model
         'speciality',
         'note',
         'university',
-        'tenant_id',
+        'academic_level_id',
+        'year',
+        'average',
     ];
 
     protected function casts(): array

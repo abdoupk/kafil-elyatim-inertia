@@ -174,7 +174,7 @@ watch(
                 {{ n__('add new', 1, { attribute: $t('income') }) }}
             </base-button>
 
-            <base-button class="me-2 shadow-md" variant="soft-danger" @click.prevent="showCreateExpenseModal">
+            <base-button class="me-2 shadow-md" variant="outline-danger" @click.prevent="showCreateExpenseModal">
                 {{ n__('add new', 1, { attribute: $t('expense') }) }}
             </base-button>
 

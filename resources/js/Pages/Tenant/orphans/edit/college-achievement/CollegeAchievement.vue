@@ -12,6 +12,7 @@ import DataTable from '@/Pages/Tenant/orphans/edit/college-achievement/DataTable
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
@@ -79,14 +80,18 @@ const showEditModal = (id: string) => {
     <!-- BEGIN: College Achievement -->
     <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
         <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
-            <h2 class="text-base font-bold">{{ orphan?.last_academic_year_achievement }}</h2>
-
-            <base-button class="w-20 ms-auto" @click="showCreateModal">add</base-button>
+            <base-button
+                class="w-20 ms-auto border-dashed dark:text-slate-500"
+                variant="outline-primary"
+                @click="showCreateModal"
+            >
+                <svg-loader class="w-4 h-4" name="icon-plus"></svg-loader>
+            </base-button>
         </div>
 
         <div class="p-5">
             <data-table
-                v-if="orphan.academic_achievements.length > 0"
+                v-if="orphan.college_achievements.length > 0"
                 :orphan
                 @show-delete-modal="showDeleteModal"
                 @show-edit-modal="showEditModal"

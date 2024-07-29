@@ -20,7 +20,6 @@ class Finance extends Model
         'date',
         'specification',
         'created_by',
-        'tenant_id',
     ];
 
     protected function casts(): array

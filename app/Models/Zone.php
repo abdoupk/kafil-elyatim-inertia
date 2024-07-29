@@ -51,7 +51,7 @@ class Zone extends Model
 
     protected $table = 'zones';
 
-    protected $fillable = ['name', 'description', 'tenant_id'];
+    protected $fillable = ['name', 'description'];
 
     public function searchableAs(): string
     {

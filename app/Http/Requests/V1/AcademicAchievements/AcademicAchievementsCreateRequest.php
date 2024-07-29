@@ -16,6 +16,7 @@ class AcademicAchievementsCreateRequest extends FormRequest
             'third_trimester' => 'nullable|numeric',
             'average' => 'nullable|numeric',
             'orphan_id' => 'required|exists:orphans,id',
+            'note' => 'nullable|string',
         ];
     }
 
