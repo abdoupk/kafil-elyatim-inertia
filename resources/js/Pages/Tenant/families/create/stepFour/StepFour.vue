@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
 import BaseTab from '@/Components/Base/headless/Tab/BaseTab.vue'
@@ -28,47 +28,47 @@ const furnishingsErrors = computed(() => {
 
 <template>
     <div
-        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
         v-if="currentStep === 4"
+        class="mt-10 border-t border-slate-200/60 px-5 pt-10 dark:border-darkmode-400 sm:px-20"
     >
         <div class="text-lg font-medium hidden lg:block mb-6">
             {{ $t('families.create_family.stepFour') }}
         </div>
 
         <base-tab-group class="mt-5">
-            <base-tab-list variant="link-tabs">
+            <base-tab-list class="md:flex" variant="link-tabs">
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('housing information') }}
 
                         <svg-loader
                             v-if="housingErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>
 
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('furnishing information') }}
 
                         <svg-loader
                             v-if="furnishingsErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>
 
                 <base-tab>
-                    <base-tab-button class="w-full py-2" as="button" type="button">
+                    <base-tab-button as="button" class="w-full py-2" type="button">
                         {{ $t('other_properties') }}
 
                         <svg-loader
                             v-if="otherPropertiesErrors"
-                            name="icon-circle-exclamation"
                             class="fill-red-500 inline ms-4"
+                            name="icon-circle-exclamation"
                         ></svg-loader>
                     </base-tab-button>
                 </base-tab>

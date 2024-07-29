@@ -27,14 +27,7 @@ const props = defineProps<Props>()
 
 const emit = defineEmits(['update:modelValue'])
 
-const colors = ['#FF69B4',
-'#33CC33',
-'#6666CC',
-'#CC0000',
-'#87ceeb',
-'#0099CC',
-'#9900CC',
-'#CCCCCC']
+const colors = ['#FF69B4', '#33CC33', '#6666CC', '#CC0000', '#87ceeb', '#0099CC', '#9900CC', '#CCCCCC']
 
 const selectedColor = ref(props.modelValue)
 

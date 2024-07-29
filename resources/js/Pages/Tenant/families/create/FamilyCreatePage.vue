@@ -9,25 +9,22 @@ import type {
 } from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
-import { type Ref, ref } from 'vue'
+import { defineAsyncComponent, type Ref, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import StepOne from '@/Pages/Tenant/families/create/StepOne/StepOne.vue'
-import OrphanForm from '@/Pages/Tenant/families/create/StepThree/OrphanForm.vue'
-import StepThree from '@/Pages/Tenant/families/create/StepThree/StepThree.vue'
-import TheOrphans from '@/Pages/Tenant/families/create/StepThree/TheOrphans.vue'
+import StepOne from '@/Pages/Tenant/families/create/stepOne/StepOne.vue'
+import OrphanForm from '@/Pages/Tenant/families/create/stepThree/OrphanForm.vue'
+import TheOrphans from '@/Pages/Tenant/families/create/stepThree/TheOrphans.vue'
 import StepTitle from '@/Pages/Tenant/families/create/StepTitle.vue'
-import IncomeForm from '@/Pages/Tenant/families/create/StepTwo/IncomeForm.vue'
-import SecondSponsorForm from '@/Pages/Tenant/families/create/StepTwo/SecondSponsorForm.vue'
-import SponsorForm from '@/Pages/Tenant/families/create/StepTwo/SponsorForm.vue'
-import SpouseForm from '@/Pages/Tenant/families/create/StepTwo/SpouseForm.vue'
-import StepTwo from '@/Pages/Tenant/families/create/StepTwo/StepTwo.vue'
+import IncomeForm from '@/Pages/Tenant/families/create/stepTwo/IncomeForm.vue'
+import SecondSponsorForm from '@/Pages/Tenant/families/create/stepTwo/SecondSponsorForm.vue'
+import SponsorForm from '@/Pages/Tenant/families/create/stepTwo/SponsorForm.vue'
+import SpouseForm from '@/Pages/Tenant/families/create/stepTwo/SpouseForm.vue'
 import TheActions from '@/Pages/Tenant/families/create/TheActions.vue'
 import FurnishingForm from '@/Pages/Tenant/families/create/stepFour/FurnishingForm.vue'
 import HousingForm from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
 import OtherPropertiesForm from '@/Pages/Tenant/families/create/stepFour/OtherPropertiesForm.vue'
-import StepFour from '@/Pages/Tenant/families/create/stepFour/StepFour.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
@@ -42,14 +39,13 @@ import {
     createFamilyStepThreeErrorProps,
     createFamilyStepTwoErrorProps
 } from '@/utils/constants'
-import StepFive from '@/Pages/Tenant/families/create/StepFive/StepFive.vue'
-import StepSix from '@/Pages/Tenant/families/create/stepSix/StepSix.vue'
-import FamilySponsorShipForm from '@/Pages/Tenant/families/create/StepFive/FamilySponsorShipForm.vue'
-import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/StepFive/SponsorSponsorShipForm.vue'
-import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/StepFive/OrphansSponsorShipForm.vue'
+import FamilySponsorShipForm from '@/Pages/Tenant/families/create/stepFive/FamilySponsorShipForm.vue'
+import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/stepFive/SponsorSponsorShipForm.vue'
+import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/stepFive/OrphansSponsorShipForm.vue'
 import { router } from '@inertiajs/vue3'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import type { AcademicLevelType } from '@/types/lessons'
+import StepLoader from '@/Pages/Tenant/families/create/StepLoader.vue'
 
 defineOptions({
     layout: TheLayout
@@ -63,6 +59,16 @@ defineProps<{
     members: InspectorsMembersType
     vocationalTrainingSpecialities: AcademicLevelType[]
 }>()
+
+const StepTwo = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepTwo/StepTwo.vue'))
+
+const StepThree = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepThree/StepThree.vue'))
+
+const StepFour = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepFour/StepFour.vue'))
+
+const StepFive = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepFive/StepFive.vue'))
+
+const StepSix = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue'))
 
 const currentStep = ref(1)
 
@@ -275,172 +281,216 @@ const submit = () => {
                     <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-one>
 
-                <step-two :currentStep :form :totalSteps>
-                    <template #sponsorForm>
-                        <sponsor-form
-                            v-model:academic_level="form.sponsor.academic_level_id"
-                            v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
-                            v-model:birth_date="form.sponsor.birth_date"
-                            v-model:card_number="form.sponsor.card_number"
-                            v-model:ccp="form.sponsor.ccp"
-                            v-model:diploma="form.sponsor.diploma"
-                            v-model:father_name="form.sponsor.father_name"
-                            v-model:first_name="form.sponsor.first_name"
-                            v-model:function="form.sponsor.function"
-                            v-model:health_status="form.sponsor.health_status"
-                            v-model:last_name="form.sponsor.last_name"
-                            v-model:mother_name="form.sponsor.mother_name"
-                            v-model:phone="form.sponsor.phone_number"
-                            v-model:sponsor-type="form.sponsor.sponsor_type"
-                            :academicLevels="academicLevelsForSponsor"
-                            :form
-                        ></sponsor-form>
-                    </template>
-
-                    <template #incomeForm>
-                        <income-form
-                            v-model:account="form.incomes.account"
-                            v-model:casnos="form.incomes.casnos"
-                            v-model:cnas="form.incomes.cnas"
-                            v-model:cnr="form.incomes.cnr"
-                            v-model:other_income="form.incomes.other_income"
-                            v-model:pension="form.incomes.pension"
-                            :form
-                        ></income-form>
-                    </template>
-
-                    <template #secondSponsorForm>
-                        <second-sponsor-form
-                            v-model:address="form.second_sponsor.address"
-                            v-model:degree_of_kinship="form.second_sponsor.degree_of_kinship"
-                            v-model:first_name="form.second_sponsor.first_name"
-                            v-model:income="form.second_sponsor.income"
-                            v-model:last_name="form.second_sponsor.last_name"
-                            v-model:phone="form.second_sponsor.phone_number"
-                            :form
-                        ></second-sponsor-form>
-                    </template>
-
-                    <template #spouseForm>
-                        <spouse-form
-                            v-model:birth-date="form.spouse.birth_date"
-                            v-model:death-date="form.spouse.death_date"
-                            v-model:first_name="form.spouse.first_name"
-                            v-model:income="form.spouse.income"
-                            v-model:job="form.spouse.function"
-                            v-model:last_name="form.spouse.last_name"
-                            :form
-                        ></spouse-form>
-                    </template>
-                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
-                </step-two>
-
-                <step-three :currentStep :totalSteps>
-                    <template #orphansForm>
-                        <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
-                            <the-orphans :index @remove-orphan="removeOrphan">
-                                <orphan-form
-                                    :vocationalTrainingSpecialities
-                                    :academic-levels="academicLevelsForOrphan"
-                                    v-model:academic_level="orphan.academic_level_id"
-                                    v-model:vocational_training="orphan.vocational_training_id"
-                                    v-model:baby-milk-quantity="orphan.baby_milk_quantity"
-                                    v-model:baby-milk-type="orphan.baby_milk_type"
-                                    v-model:birth_date="orphan.birth_date"
-                                    v-model:diapers-quantity="orphan.diapers_quantity"
-                                    v-model:diapers-type="orphan.diapers_type"
-                                    v-model:family_status="orphan.family_status"
-                                    v-model:first_name="orphan.first_name"
-                                    v-model:gender="orphan.gender"
-                                    v-model:health_status="orphan.health_status"
-                                    v-model:last_name="orphan.last_name"
-                                    v-model:note="orphan.note"
-                                    v-model:pants-size="orphan.pants_size"
-                                    v-model:shirt-size="orphan.shirt_size"
-                                    v-model:shoes-size="orphan.shoes_size"
+                <Suspense v-if="currentStep === 2">
+                    <template #default>
+                        <step-two :currentStep :form :totalSteps>
+                            <template #sponsorForm>
+                                <sponsor-form
+                                    v-model:academic_level="form.sponsor.academic_level_id"
+                                    v-model:birth_certificate_number="form.sponsor.birth_certificate_number"
+                                    v-model:birth_date="form.sponsor.birth_date"
+                                    v-model:card_number="form.sponsor.card_number"
+                                    v-model:ccp="form.sponsor.ccp"
+                                    v-model:diploma="form.sponsor.diploma"
+                                    v-model:father_name="form.sponsor.father_name"
+                                    v-model:first_name="form.sponsor.first_name"
+                                    v-model:function="form.sponsor.function"
+                                    v-model:health_status="form.sponsor.health_status"
+                                    v-model:last_name="form.sponsor.last_name"
+                                    v-model:mother_name="form.sponsor.mother_name"
+                                    v-model:phone="form.sponsor.phone_number"
+                                    v-model:sponsor-type="form.sponsor.sponsor_type"
+                                    :academicLevels="academicLevelsForSponsor"
                                     :form
-                                    :index
-                                ></orphan-form>
-                            </the-orphans>
-                        </template>
+                                ></sponsor-form>
+                            </template>
 
-                        <base-button
-                            class="mx-auto mt-4 block w-1/2 border-dashed dark:text-slate-500"
-                            data-test="add_orphan"
-                            type="button"
-                            variant="outline-primary"
-                            @click="addOrphan"
-                        >
-                            <svg-loader class="inline fill-primary dark:fill-slate-500" name="icon-plus"></svg-loader>
+                            <template #incomeForm>
+                                <income-form
+                                    v-model:account="form.incomes.account"
+                                    v-model:casnos="form.incomes.casnos"
+                                    v-model:cnas="form.incomes.cnas"
+                                    v-model:cnr="form.incomes.cnr"
+                                    v-model:other_income="form.incomes.other_income"
+                                    v-model:pension="form.incomes.pension"
+                                    :form
+                                ></income-form>
+                            </template>
 
-                            {{ $t('add_new_orphan') }}
-                        </base-button>
+                            <template #secondSponsorForm>
+                                <second-sponsor-form
+                                    v-model:address="form.second_sponsor.address"
+                                    v-model:degree_of_kinship="form.second_sponsor.degree_of_kinship"
+                                    v-model:first_name="form.second_sponsor.first_name"
+                                    v-model:income="form.second_sponsor.income"
+                                    v-model:last_name="form.second_sponsor.last_name"
+                                    v-model:phone="form.second_sponsor.phone_number"
+                                    :form
+                                ></second-sponsor-form>
+                            </template>
+
+                            <template #spouseForm>
+                                <spouse-form
+                                    v-model:birth-date="form.spouse.birth_date"
+                                    v-model:death-date="form.spouse.death_date"
+                                    v-model:first_name="form.spouse.first_name"
+                                    v-model:income="form.spouse.income"
+                                    v-model:job="form.spouse.function"
+                                    v-model:last_name="form.spouse.last_name"
+                                    :form
+                                ></spouse-form>
+                            </template>
+                            <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
+                        </step-two>
                     </template>
 
-                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
-                </step-three>
+                    <template #fallback>
+                        <step-loader></step-loader>
+                    </template>
+                </Suspense>
 
-                <step-four :currentStep :form :totalSteps>
-                    <template #housingForm>
-                        <housing-form
-                            v-model:housing-receipt-number="form.housing.housing_receipt_number"
-                            v-model:housing-type="form.housing.housing_type"
-                            v-model:number-of-rooms="form.housing.number_of_rooms"
-                            :form
-                        ></housing-form>
+                <Suspense v-if="currentStep === 3">
+                    <template #default>
+                        <step-three :currentStep :totalSteps>
+                            <template #orphansForm>
+                                <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
+                                    <the-orphans :index @remove-orphan="removeOrphan">
+                                        <orphan-form
+                                            v-model:academic_level="orphan.academic_level_id"
+                                            v-model:baby-milk-quantity="orphan.baby_milk_quantity"
+                                            v-model:baby-milk-type="orphan.baby_milk_type"
+                                            v-model:birth_date="orphan.birth_date"
+                                            v-model:diapers-quantity="orphan.diapers_quantity"
+                                            v-model:diapers-type="orphan.diapers_type"
+                                            v-model:family_status="orphan.family_status"
+                                            v-model:first_name="orphan.first_name"
+                                            v-model:gender="orphan.gender"
+                                            v-model:health_status="orphan.health_status"
+                                            v-model:last_name="orphan.last_name"
+                                            v-model:note="orphan.note"
+                                            v-model:pants-size="orphan.pants_size"
+                                            v-model:shirt-size="orphan.shirt_size"
+                                            v-model:shoes-size="orphan.shoes_size"
+                                            v-model:vocational_training="orphan.vocational_training_id"
+                                            :academic-levels="academicLevelsForOrphan"
+                                            :form
+                                            :index
+                                            :vocationalTrainingSpecialities
+                                        ></orphan-form>
+                                    </the-orphans>
+                                </template>
+
+                                <base-button
+                                    class="mx-auto mt-4 block w-1/2 border-dashed dark:text-slate-500"
+                                    data-test="add_orphan"
+                                    type="button"
+                                    variant="outline-primary"
+                                    @click="addOrphan"
+                                >
+                                    <svg-loader class="inline fill-primary dark:fill-slate-500"
+                                                name="icon-plus"></svg-loader>
+
+                                    {{ $t('add_new_orphan') }}
+                                </base-button>
+                            </template>
+
+                            <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
+                        </step-three>
                     </template>
 
-                    <template #furnishingForm>
-                        <furnishing-form :form @update:furnishings="form.furnishings = {...$event}"></furnishing-form>
+                    <template #fallback>
+                        <step-loader></step-loader>
+                    </template>
+                </Suspense>
+
+                <Suspense v-if="currentStep === 4">
+                    <template #default>
+                        <step-four :currentStep :form :totalSteps>
+                            <template #housingForm>
+                                <housing-form
+                                    v-model:housing-receipt-number="form.housing.housing_receipt_number"
+                                    v-model:housing-type="form.housing.housing_type"
+                                    v-model:number-of-rooms="form.housing.number_of_rooms"
+                                    :form
+                                ></housing-form>
+                            </template>
+
+                            <template #furnishingForm>
+                                <furnishing-form :form
+                                                 @update:furnishings="form.furnishings = {...$event}"></furnishing-form>
+                            </template>
+
+                            <template #otherPropertiesForm>
+                                <other-properties-form v-model:other-properties="form.other_properties"
+                                                       :form></other-properties-form>
+                            </template>
+
+                            <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
+                        </step-four>
                     </template>
 
-                    <template #otherPropertiesForm>
-                        <other-properties-form v-model:other-properties="form.other_properties"
-                                               :form></other-properties-form>
+                    <template #fallback>
+                        <step-loader></step-loader>
+                    </template>
+                </Suspense>
+
+                <Suspense v-if="currentStep === 5">
+                    <template #default>
+                        <step-five :currentStep :form :totalSteps>
+                            <template #FamilySponsorShipForm>
+                                <family-sponsor-ship-form
+                                    v-model:eid-al-adha="form.family_sponsorship.eid_al_adha"
+                                    v-model:housing-assistance="form.family_sponsorship.housing_assistance"
+                                    v-model:monthly-allowance="form.family_sponsorship.monthly_allowance"
+                                    v-model:ramadan-basket="form.family_sponsorship.ramadan_basket"
+                                    v-model:zakat="form.family_sponsorship.zakat"
+                                ></family-sponsor-ship-form>
+                            </template>
+
+                            <template #SponsorSponsorShipForm>
+                                <sponsor-sponsor-ship-form
+                                    v-model:direct-sponsorship="form.sponsor_sponsorship.direct_sponsorship"
+                                    v-model:literacy-lessons="form.sponsor_sponsorship.literacy_lessons"
+                                    v-model:medical-sponsorship="form.sponsor_sponsorship.medical_sponsorship"
+                                    v-model:project-support="form.sponsor_sponsorship.project_support"
+                                ></sponsor-sponsor-ship-form>
+                            </template>
+
+                            <template #OrphansSponsorShipForm>
+                                <template v-for="(orphanSponsorship,index) in form.orphans_sponsorship"
+                                          :key="`orphan-${index}`">
+                                    <orphans-sponsor-ship-form
+                                        :form :index
+                                        @update:orphans-sponsorship="form.orphans_sponsorship[index] = {...$event}"></orphans-sponsor-ship-form>
+                                </template>
+                            </template>
+
+                            <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
+                        </step-five>
                     </template>
 
-                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
-                </step-four>
+                    <template #fallback>
+                        <step-loader></step-loader>
+                    </template>
+                </Suspense>
 
-                <step-five :currentStep :form :totalSteps>
-                    <template #FamilySponsorShipForm>
-                        <family-sponsor-ship-form
-                            v-model:eid-al-adha="form.family_sponsorship.eid_al_adha"
-                            v-model:housing-assistance="form.family_sponsorship.housing_assistance"
-                            v-model:monthly-allowance="form.family_sponsorship.monthly_allowance"
-                            v-model:ramadan-basket="form.family_sponsorship.ramadan_basket"
-                            v-model:zakat="form.family_sponsorship.zakat"
-                        ></family-sponsor-ship-form>
+                <Suspense v-if="currentStep === 6">
+                    <template #default>
+                        <step-six v-model:inspectors-members="form.inspectors_members"
+                                  v-model:preview-date="form.preview_date"
+                                  v-model:report="form.report" :currentStep
+                                  :form
+                                  :members
+                                  :totalSteps>
+                            <the-actions :currentStep :nextStep="submit" :prevStep :totalSteps
+                                         :validating></the-actions>
+                        </step-six>
                     </template>
 
-                    <template #SponsorSponsorShipForm>
-                        <sponsor-sponsor-ship-form
-                            v-model:direct-sponsorship="form.sponsor_sponsorship.direct_sponsorship"
-                            v-model:literacy-lessons="form.sponsor_sponsorship.literacy_lessons"
-                            v-model:medical-sponsorship="form.sponsor_sponsorship.medical_sponsorship"
-                            v-model:project-support="form.sponsor_sponsorship.project_support"
-                        ></sponsor-sponsor-ship-form>
+                    <template #fallback>
+                        <step-loader></step-loader>
                     </template>
-
-                    <template #OrphansSponsorShipForm>
-                        <template v-for="(orphanSponsorship,index) in form.orphans_sponsorship"
-                                  :key="`orphan-${index}`">
-                            <orphans-sponsor-ship-form
-                                :form :index
-                                @update:orphans-sponsorship="form.orphans_sponsorship[index] = {...$event}"></orphans-sponsor-ship-form>
-                        </template>
-                    </template>
-
-                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
-                </step-five>
-
-                <step-six v-model:inspectors-members="form.inspectors_members" v-model:preview-date="form.preview_date"
-                          v-model:report="form.report" :currentStep
-                          :form
-                          :members
-                          :totalSteps>
-                    <the-actions :currentStep :nextStep="submit" :prevStep :totalSteps :validating></the-actions>
-                </step-six>
+                </Suspense>
             </form>
         </div>
     </div>

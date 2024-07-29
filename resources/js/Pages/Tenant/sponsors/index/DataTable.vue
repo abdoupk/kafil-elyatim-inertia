@@ -36,9 +36,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ $t('the_sponsor') }}
                         </base-th-table>
 
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
-                        >
+                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
                             {{ $t('validation.attributes.phone') }}
                         </base-th-table>
 
