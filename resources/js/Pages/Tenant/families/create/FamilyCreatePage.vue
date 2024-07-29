@@ -60,15 +60,25 @@ defineProps<{
     vocationalTrainingSpecialities: AcademicLevelType[]
 }>()
 
-const StepTwo = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepTwo/StepTwo.vue'))
+const StepTwo = defineAsyncComponent({
+    loader: () => import('@/Pages/Tenant/families/create/stepTwo/StepTwo.vue'),
+})
 
-const StepThree = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepThree/StepThree.vue'))
+const StepThree = defineAsyncComponent({
+    loader: () => import('@/Pages/Tenant/families/create/stepThree/StepThree.vue'),
+})
 
-const StepFour = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepFour/StepFour.vue'))
+const StepFour = defineAsyncComponent({
+    loader: () => import('@/Pages/Tenant/families/create/stepFour/StepFour.vue'),
+})
 
-const StepFive = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepFive/StepFive.vue'))
+const StepFive = defineAsyncComponent({
+    loader: () => import('@/Pages/Tenant/families/create/stepFive/StepFive.vue'),
+})
 
-const StepSix = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue'))
+const StepSix = defineAsyncComponent({
+    loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue'),
+})
 
 const currentStep = ref(1)
 

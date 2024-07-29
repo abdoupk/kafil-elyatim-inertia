@@ -13,7 +13,7 @@ class VocationalTrainingRule implements ValidationRule
     {
         $academicLevelId = request()->input('orphans')[explode('.', $attribute)[1]]['academic_level_id'];
 
-        if (AcademicLevel::whereId($academicLevelId)->firstOrFail()->phase === 'التكوين المهني') {
+        if (AcademicLevel::whereId($academicLevelId)->first()?->phase === 'التكوين المهني') {
             if (isset($value)) {
                 VocationalTraining::whereId($value)->exists() ?: $fail('validation.required')->translate(
                     ['attribute' => 'validation.attributes.vocational_training'], app()->getLocale());
@@ -21,11 +21,5 @@ class VocationalTrainingRule implements ValidationRule
                 $fail('validation.required')->translate(['attribute' => 'validation.attributes.vocational_training'], app()->getLocale());
             }
         }
-
-    }
-
-    protected function getIndexFromAttribute($attribute)
-    {
-        return str_replace('vocational_training_id.', '', $attribute);
     }
 }

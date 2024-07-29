@@ -144,7 +144,7 @@ Route::middleware([
                 Route::get('/create', FamilyCreateController::class)
                     ->name('create');
 
-                Route::post('/store', FamilyStoreController::class)
+                Route::post('', FamilyStoreController::class)
                     ->name('store')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::get('edit/{family}', FamilyEditController::class)
@@ -167,7 +167,7 @@ Route::middleware([
                 Route::get('', InventoryIndexController::class)
                     ->name('inventory.index');
 
-                Route::post('/store', ItemStoreController::class)
+                Route::post('', ItemStoreController::class)
                     ->name('items.store')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::get('show/{item}', ItemShowController::class)

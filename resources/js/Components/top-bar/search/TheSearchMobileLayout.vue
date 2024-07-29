@@ -87,7 +87,9 @@ const onTermKeydown = (event: KeyboardEvent) => {
             break
     }
 
-    ;(
+    ;
+
+(
         resultsRefs.value[
             results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
         ] as HTMLElement
