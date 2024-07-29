@@ -6,7 +6,6 @@ import frLocale from '@fullcalendar/core/locales/fr'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list'
-import rrulePlugin from '@fullcalendar/rrule'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import FullCalendar from '@fullcalendar/vue3'
 
@@ -18,11 +17,11 @@ const props = defineProps<{ events: any }>()
 const emit = defineEmits(['dateClick', 'eventDrop', 'eventClick', 'eventResize'])
 
 const options: CalendarOptions = {
-    plugins: [rrulePlugin,
-interactionPlugin,
-dayGridPlugin,
-timeGridPlugin,
-listPlugin],
+    plugins: [
+        interactionPlugin,
+        dayGridPlugin,
+        timeGridPlugin,
+        listPlugin],
     droppable: true,
     editable: true,
     locales: [arLocale, frLocale],
@@ -46,18 +45,18 @@ listPlugin],
     eventResize(arg) {
         emit('eventResize', arg.event)
     },
-    eventClick: function ({ event }) {
+    eventClick: function({ event }) {
         emit('eventClick', event)
     },
     events: props.events,
-    drop: function (info) {
+    drop: function(info) {
         if (
             document.querySelectorAll('#checkbox-events').length &&
             (document.querySelectorAll('#checkbox-events')[0] as HTMLInputElement)?.checked
         ) {
             ;
 
-(info.draggedEl.parentNode as HTMLElement).remove()
+            (info.draggedEl.parentNode as HTMLElement).remove()
 
             if (document.querySelectorAll('#calendar-events')[0].children.length == 1) {
                 document.querySelectorAll('#calendar-no-events')[0].classList.remove('hidden')
