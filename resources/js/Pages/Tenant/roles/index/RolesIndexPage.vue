@@ -150,7 +150,7 @@ watch(
                             from: roles.meta.from?.toString(),
                             to: roles.meta.to?.toString(),
                             total: roles.meta.total?.toString(),
-                            entries: n__('roles', roles.meta.total)
+                            entries: n__('entries.roles', roles.meta.total)
                         })
                     }}
                 </span>

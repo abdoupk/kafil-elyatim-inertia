@@ -26,7 +26,10 @@ export function __(key: string, replacements: Record<string, string> = {}) {
     let translation = langData.value[key] || key
 
     Object.keys(replacements).forEach((replacement) => {
-        translation = translation.replace(`:${replacement}`, replacements[replacement])
+        if (replacement === 'total' && replacements[replacement] == 2)
+            translation = translation.replace(`:${replacement}`, '')
+        else
+            translation = translation.replace(`:${replacement}`, replacements[replacement])
     })
 
     return translation

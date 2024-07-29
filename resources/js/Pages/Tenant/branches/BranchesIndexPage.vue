@@ -166,7 +166,7 @@ watch(
                             from: branches.meta.from?.toString(),
                             to: branches.meta.to?.toString(),
                             total: branches.meta.total?.toString(),
-                            entries: n__('branches', branches.meta.total)
+                            entries: n__('entries.branches', branches.meta.total)
                         })
                     }}
                 </span>

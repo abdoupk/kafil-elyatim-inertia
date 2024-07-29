@@ -166,7 +166,7 @@ watch(
                             from: items.meta.from?.toString(),
                             to: items.meta.to?.toString(),
                             total: items.meta.total?.toString(),
-                            entries: n__('items', items.meta.total)
+                            entries: n__('entries.items', items.meta.total)
                         })
                     }}
                 </span>

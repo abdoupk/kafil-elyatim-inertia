@@ -171,7 +171,7 @@ watch(
                             from: schools.meta.from?.toString(),
                             to: schools.meta.to?.toString(),
                             total: schools.meta.total?.toString(),
-                            entries: n__('schools', schools.meta.total)
+                            entries: n__('entries.schools', schools.meta.total)
                         })
                     }}
                 </span>

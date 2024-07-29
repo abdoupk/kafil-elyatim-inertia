@@ -170,7 +170,7 @@ watch(
                             from: members.meta.from?.toString(),
                             to: members.meta.to?.toString(),
                             total: members.meta.total?.toString(),
-                            entries: n__('members', members.meta.total)
+                            entries: n__('entries.members', members.meta.total)
                         })
                     }}
                 </span>

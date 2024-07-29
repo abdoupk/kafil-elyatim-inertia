@@ -165,7 +165,7 @@ watch(
                             from: zones.meta.from?.toString(),
                             to: zones.meta.to?.toString(),
                             total: zones.meta.total?.toString(),
-                            entries: n__('zones', zones.meta.total)
+                            entries: n__('entries.zones', zones.meta.total)
                         })
                     }}
                 </span>

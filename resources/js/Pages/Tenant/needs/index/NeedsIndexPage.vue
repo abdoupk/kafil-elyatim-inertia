@@ -182,7 +182,7 @@ watch(
                             from: needs.meta.from?.toString(),
                             to: needs.meta.to?.toString(),
                             total: needs.meta.total?.toString(),
-                            entries: n__('needs', needs.meta.total)
+                            entries: n__('entries.needs', needs.meta.total)
                         })
                     }}
                 </span>

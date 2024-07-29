@@ -226,7 +226,7 @@ const handleFilter = (filters: IndexParams['filters']) => {
                             from: families.meta.from?.toString(),
                             to: families.meta.to?.toString(),
                             total: families.meta.total?.toString(),
-                            entries: n__('families', families.meta.total)
+                            entries: n__('entries.families', families.meta.total)
                         })
                     }}
                 </span>

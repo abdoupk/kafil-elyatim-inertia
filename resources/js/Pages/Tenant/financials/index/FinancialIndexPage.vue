@@ -185,7 +185,7 @@ watch(
                             from: finances.meta.from?.toString(),
                             to: finances.meta.to?.toString(),
                             total: finances.meta.total?.toString(),
-                            entries: n__('finances', finances.meta.total)
+                            entries: n__('entries.finances', finances.meta.total)
                         })
                     }}
                 </span>

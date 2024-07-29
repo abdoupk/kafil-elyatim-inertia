@@ -139,7 +139,7 @@ watch(
                             from: orphans.meta.from?.toString(),
                             to: orphans.meta.to?.toString(),
                             total: orphans.meta.total?.toString(),
-                            entries: n__('orphans', orphans.meta.total)
+                            entries: n__('entries.orphans', orphans.meta.total)
                         })
                     }}
                 </span>

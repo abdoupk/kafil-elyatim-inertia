@@ -144,7 +144,7 @@ watch(
                             from: sponsors.meta.from?.toString(),
                             to: sponsors.meta.to?.toString(),
                             total: sponsors.meta.total?.toString(),
-                            entries: n__('sponsors', sponsors.meta.total)
+                            entries: n__('entries.sponsors', sponsors.meta.total)
                         })
                     }}
                 </span>
