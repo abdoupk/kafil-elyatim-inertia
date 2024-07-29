@@ -2,7 +2,7 @@
 import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
-import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
+import { useCollegeAchievementsStore } from '@/stores/college-achievement'
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
@@ -22,10 +22,10 @@ const createEditModalStatus = ref(false)
 
 const deleteModalStatus = ref(false)
 
-const deleteAcademicAchievement = () => {
+const deleteCollegeAchievement = () => {
     deleteProgress.value = true
 
-    router.delete(route('tenant.academic-achievements.destroy', selectedAcademicAchievementId.value), {
+    router.delete(route('tenant.college-achievements.destroy', selectedCollegeAchievementId.value), {
         // TODO get only academic achievements and not reload entire page
         onSuccess: () => {
             router.get(
@@ -46,37 +46,37 @@ const deleteAcademicAchievement = () => {
     })
 }
 
-const selectedAcademicAchievementId = ref('')
+const selectedCollegeAchievementId = ref('')
 
-const academicAchievementsStore = useAcademicAchievementsStore()
+const collegeAchievementsStore = useCollegeAchievementsStore()
 
 const deleteProgress = ref(false)
 
 const showDeleteModal = (id: string) => {
-    selectedAcademicAchievementId.value = id
+    selectedCollegeAchievementId.value = id
 
     deleteModalStatus.value = true
 }
 
 const showCreateModal = () => {
-    academicAchievementsStore.$reset()
+    collegeAchievementsStore.$reset()
 
-    academicAchievementsStore.academicAchievement.orphan_id = props.orphan.id
+    collegeAchievementsStore.collegeAchievement.orphan_id = props.orphan.id
 
     createEditModalStatus.value = true
 }
 
 const showEditModal = (id: string) => {
-    selectedAcademicAchievementId.value = id
+    selectedCollegeAchievementId.value = id
 
-    academicAchievementsStore.getAcademicAchievement(selectedAcademicAchievementId.value)
+    collegeAchievementsStore.getCollegeAchievement(selectedCollegeAchievementId.value)
 
     createEditModalStatus.value = true
 }
 </script>
 
 <template>
-    <!-- BEGIN: Academic Achievement -->
+    <!-- BEGIN: College Achievement -->
     <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
         <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
             <h2 class="text-base font-bold">{{ orphan?.last_academic_year_achievement }}</h2>
@@ -97,7 +97,7 @@ const showEditModal = (id: string) => {
             </div>
         </div>
     </div>
-    <!-- END: Academic Achievement -->
+    <!-- END: College Achievement -->
 
     <college-achievement-create-edit-modal
         :academicLevels
@@ -109,6 +109,6 @@ const showEditModal = (id: string) => {
         :deleteProgress
         :open="deleteModalStatus"
         @close="deleteModalStatus = false"
-        @delete="deleteAcademicAchievement"
+        @delete="deleteCollegeAchievement"
     ></delete-modal>
 </template>

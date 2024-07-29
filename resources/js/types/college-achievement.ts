@@ -1,5 +1,5 @@
 export type CreateCollegeAchievementForm = {
-    academic_year: string | null
+    year: string | null
     first_semester: number | null
     second_semester: number | null
     average: number | null

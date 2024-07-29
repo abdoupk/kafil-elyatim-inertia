@@ -11,7 +11,7 @@ defineProps<{
 </script>
 
 <template>
-    <!-- BEGIN: Academic Achievement -->
+    <!-- BEGIN: College Achievement -->
     <div class="intro-y col-span-12 overflow-x-auto">
         <data-table v-if="orphan.college_achievements.length > 0" :orphan></data-table>
 
@@ -23,5 +23,5 @@ defineProps<{
             </no-results-found>
         </div>
     </div>
-    <!-- END: Academic Achievement -->
+    <!-- END: College Achievement -->
 </template>

@@ -2,7 +2,7 @@
 import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
-import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
+import { useVocationalTrainingAchievementsStore } from '@/stores/vocational-training-achievement'
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
@@ -22,54 +22,57 @@ const createEditModalStatus = ref(false)
 
 const deleteModalStatus = ref(false)
 
-const deleteAcademicAchievement = () => {
+const deleteVocationalTrainingAchievement = () => {
     deleteProgress.value = true
 
-    router.delete(route('tenant.academic-achievements.destroy', selectedAcademicAchievementId.value), {
-        // TODO get only academic achievements and not reload entire page
-        onSuccess: () => {
-            router.get(
-                route('tenant.orphans.edit', props.orphan.id),
-                {},
-                {
-                    only: ['orphan'],
-                    preserveScroll: true,
-                    preserveState: false,
-                    onSuccess: () => {
-                        deleteProgress.value = false
+    router.delete(
+        route('tenant.vocational-training-achievements.destroy', selectedVocationalTrainingAchievementId.value),
+        {
+            // TODO get only academic achievements and not reload entire page
+            onSuccess: () => {
+                router.get(
+                    route('tenant.orphans.edit', props.orphan.id),
+                    {},
+                    {
+                        only: ['orphan'],
+                        preserveScroll: true,
+                        preserveState: false,
+                        onSuccess: () => {
+                            deleteProgress.value = false
 
-                        deleteModalStatus.value = false
+                            deleteModalStatus.value = false
+                        }
                     }
-                }
-            )
+                )
+            }
         }
-    })
+    )
 }
 
-const selectedAcademicAchievementId = ref('')
+const selectedVocationalTrainingAchievementId = ref('')
 
-const academicAchievementsStore = useAcademicAchievementsStore()
+const vocationalTrainingAchievementsStore = useVocationalTrainingAchievementsStore()
 
 const deleteProgress = ref(false)
 
 const showDeleteModal = (id: string) => {
-    selectedAcademicAchievementId.value = id
+    selectedVocationalTrainingAchievementId.value = id
 
     deleteModalStatus.value = true
 }
 
 const showCreateModal = () => {
-    academicAchievementsStore.$reset()
+    vocationalTrainingAchievementsStore.$reset()
 
-    academicAchievementsStore.academicAchievement.orphan_id = props.orphan.id
+    vocationalTrainingAchievementsStore.vocationalTrainingAchievement.orphan_id = props.orphan.id
 
     createEditModalStatus.value = true
 }
 
 const showEditModal = (id: string) => {
-    selectedAcademicAchievementId.value = id
+    selectedVocationalTrainingAchievementId.value = id
 
-    academicAchievementsStore.getAcademicAchievement(selectedAcademicAchievementId.value)
+    vocationalTrainingAchievementsStore.getVocationalTrainingAchievement(selectedVocationalTrainingAchievementId.value)
 
     createEditModalStatus.value = true
 }
@@ -109,6 +112,6 @@ const showEditModal = (id: string) => {
         :deleteProgress
         :open="deleteModalStatus"
         @close="deleteModalStatus = false"
-        @delete="deleteAcademicAchievement"
+        @delete="deleteVocationalTrainingAchievement"
     ></delete-modal>
 </template>

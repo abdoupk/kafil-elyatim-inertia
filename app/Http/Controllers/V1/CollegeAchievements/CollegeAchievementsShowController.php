@@ -8,10 +8,10 @@ use App\Models\CollegeAchievement;
 
 class CollegeAchievementsShowController extends Controller
 {
-    public function __invoke(CollegeAchievement $academicAchievement)
+    public function __invoke(CollegeAchievement $collegeAchievement)
     {
         return response()->json([
-            'college_achievement' => new CollegeAchievementResource($academicAchievement),
+            'college_achievement' => new CollegeAchievementResource($collegeAchievement->load('academicLevel')),
         ]);
     }
 }

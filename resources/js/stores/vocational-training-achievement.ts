@@ -1,36 +1,34 @@
-import type { CreateCollegeAchievementForm } from '@/types/college-achievement'
+import type { CreateVocationalTrainingAchievementForm } from '@/types/vocational-training-achievement'
 
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
 interface State {
-    collegeAchievement: CreateCollegeAchievementForm & {
+    vocationalTrainingAchievement: CreateVocationalTrainingAchievementForm & {
         id: string
     }
 }
 
-export const useCollegeAchievementsStore = defineStore('college-achievements', {
+export const useVocationalTrainingAchievementsStore = defineStore('vocational-training-achievements', {
     state: (): State => ({
-        collegeAchievement: {
+        vocationalTrainingAchievement: {
             id: '',
-            average: null,
             orphan_id: '',
             note: '',
-            academic_level_id: null,
-            academic_year: null,
-            first_semester: null,
-            second_semester: null,
-            speciality: null,
-            university: null
+            institute: null,
+            year: null,
+            vocational_training_id: null
         }
     }),
     actions: {
-        async getCollegeAchievement(CollegeAchievementID: string) {
-            await axios.get(route('tenant.vocational-training-achievements.show', CollegeAchievementID)).then((res) => {
-                this.collegeAchievement = { ...res.data.college_achievement }
+        async getVocationalTrainingAchievement(VocationalTrainingAchievementID: string) {
+            await axios
+                .get(route('tenant.vocational-training-achievements.show', VocationalTrainingAchievementID))
+                .then((res) => {
+                    this.vocationalTrainingAchievement = { ...res.data.vocational_training_achievements }
 
-                console.log(this.collegeAchievement)
-            })
+                    console.log(this.vocationalTrainingAchievement)
+                })
         }
     }
 })

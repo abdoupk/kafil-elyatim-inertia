@@ -18,7 +18,7 @@ class CollegeAchievementResource extends JsonResource
             'average' => number_format($this->average, 2),
             'year' => $this->year,
             'speciality' => $this->speciality,
-            'academic_level' => $this->academicLevel->level,
+            'academic_level_id' => $this->academicLevel?->id,
             'university' => $this->university,
             'note' => $this->note,
         ];

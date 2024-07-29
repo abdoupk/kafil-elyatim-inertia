@@ -2,7 +2,7 @@
 /* eslint-disable vue/no-parsing-error */
 import type { AcademicLevelType } from '@/types/lessons'
 
-import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
+import { useCollegeAchievementsStore } from '@/stores/college-achievement'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref, watch } from 'vue'
@@ -25,23 +25,23 @@ const props = defineProps<{
     academicLevels: AcademicLevelType[]
 }>()
 
-// Get the academicAchievement store
-const academicAchievementStore = useAcademicAchievementsStore()
+// Get the collegeAchievement store
+const collegeAchievementStore = useCollegeAchievementsStore()
 
 // Initialize a ref for loading state
 const loading = ref(false)
 
 const form = computed(() => {
-    if (academicAchievementStore.academicAchievement.id) {
+    if (collegeAchievementStore.collegeAchievement.id) {
         return useForm(
             'put',
-            route('tenant.academic-achievements.update', academicAchievementStore.academicAchievement.id),
-            { ...academicAchievementStore.academicAchievement }
+            route('tenant.college-achievements.update', collegeAchievementStore.collegeAchievement.id),
+            { ...collegeAchievementStore.collegeAchievement }
         )
     }
 
-    return useForm('post', route('tenant.academic-achievements.store'), {
-        ...academicAchievementStore.academicAchievement
+    return useForm('post', route('tenant.college-achievements.store'), {
+        ...collegeAchievementStore.collegeAchievement
     })
 })
 
@@ -57,10 +57,10 @@ const emit = defineEmits(['close'])
 const handleSuccess = () => {
     setTimeout(() => {
         router.get(
-            route('tenant.academicAchievement.index'),
+            route('tenant.collegeAchievement.index'),
             {},
             {
-                only: ['academicAchievement'],
+                only: ['collegeAchievement'],
                 preserveState: true
             }
         )
@@ -82,7 +82,7 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the school id
 const modalTitle = computed(() => {
-    return academicAchievementStore.academicAchievement.id
+    return collegeAchievementStore.collegeAchievement.id
         ? __('update school')
         : n__('add new', 0, { attribute: __('school') })
 })
@@ -94,12 +94,12 @@ const vueSelectAcademicLevel = ref('')
 
 // Compute the slideover type based on the school id
 const modalType = computed(() => {
-    return academicAchievementStore.academicAchievement.id ? 'update' : 'create'
+    return collegeAchievementStore.collegeAchievement.id ? 'update' : 'create'
 })
 
-// Watch for changes in the academic level
+// Watch for changes in the college level
 watch(
-    () => academicAchievementStore.academicAchievement.academic_level_id,
+    () => collegeAchievementStore.collegeAchievement.academic_level_id,
     (value) => {
         vueSelectAcademicLevel.value = getAcademicLevelFromId(value, props.academicLevels)
     }
@@ -120,19 +120,19 @@ watch(
         <template #description>
             <!-- Begin: Academic Level-->
             <div class="col-span-12 sm:col-span-6">
-                <base-form-label htmlFor="academic_level_id">
-                    {{ $t('validation.attributes.academic_level_id') }}
+                <base-form-label htmlFor="college_level_id">
+                    {{ $t('validation.attributes.college_level_id') }}
                 </base-form-label>
 
                 <div>
                     <base-vue-select
-                        id="academic_level"
+                        id="college_level"
                         v-model:value="vueSelectAcademicLevel"
                         :allow-empty="false"
                         :options="academicLevels"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.sponsor.academic_level')
+                                attribute: $t('validation.attributes.sponsor.college_level')
                             })
                         "
                         class="h-full w-full"
@@ -157,90 +157,105 @@ watch(
             </div>
             <!-- End: Academic Level-->
 
-            <!-- Begin: Academic Year-->
+            <!-- Begin: Speciality-->
             <div class="col-span-12 sm:col-span-6">
-                <base-form-label htmlFor="academic_year">
-                    {{ $t('academic_year') }}
+                <base-form-label htmlFor="speciality">
+                    {{ $t('speciality') }}
                 </base-form-label>
 
-                <base-form-select
-                    id="academic_year"
-                    v-model="form.academic_year"
-                    @change="form.validate('academic_year')"
-                >
+                <base-form-input
+                    id="speciality"
+                    v-model="form.speciality"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('speciality') })"
+                    type="text"
+                    @change="form.validate('speciality')"
+                ></base-form-input>
+
+                <div v-if="form.errors?.speciality" class="mt-2">
+                    <base-input-error :message="form.errors.speciality"></base-input-error>
+                </div>
+            </div>
+            <!-- End: Speciality-->
+
+            <!-- Begin: University-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="university">
+                    {{ $t('university') }}
+                </base-form-label>
+
+                <base-form-input
+                    id="university"
+                    v-model="form.university"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('university') })"
+                    type="text"
+                    @change="form.validate('university')"
+                ></base-form-input>
+
+                <div v-if="form.errors?.university" class="mt-2">
+                    <base-input-error :message="form.errors.university"></base-input-error>
+                </div>
+            </div>
+            <!-- End: University-->
+
+            <!-- Begin: Academic Year-->
+            <div class="col-span-12 sm:col-span-6">
+                <base-form-label htmlFor="college_year">
+                    {{ $t('college_year') }}
+                </base-form-label>
+
+                <base-form-select id="college_year" v-model="form.year" @change="form.validate('year')">
                     <option v-for="year in years" :key="year" :value="year">
                         {{ year }}
                     </option>
                 </base-form-select>
 
-                <div v-if="form.errors?.academic_year" class="mt-2">
-                    <base-input-error :message="form.errors.academic_year"></base-input-error>
+                <div v-if="form.errors?.year" class="mt-2">
+                    <base-input-error :message="form.errors.year"></base-input-error>
                 </div>
             </div>
             <!-- End: Academic Year-->
 
-            <!-- Begin: First Trimester-->
+            <!-- Begin: First Semester-->
             <div class="col-span-12 sm:col-span-6">
-                <base-form-label htmlFor="first_trimester">
-                    {{ $t('first_trimester') }}
+                <base-form-label htmlFor="first_semester">
+                    {{ $t('first_semester') }}
                 </base-form-label>
 
                 <base-form-input
-                    id="first_trimester"
-                    v-model="form.first_trimester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('first_trimester') })"
+                    id="first_semester"
+                    v-model="form.first_semester"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('first_semester') })"
                     step="0.01"
                     type="number"
-                    @change="form.validate('first_trimester')"
+                    @change="form.validate('first_semester')"
                 ></base-form-input>
 
-                <div v-if="form.errors?.first_trimester" class="mt-2">
-                    <base-input-error :message="form.errors.first_trimester"></base-input-error>
+                <div v-if="form.errors?.first_semester" class="mt-2">
+                    <base-input-error :message="form.errors.first_semester"></base-input-error>
                 </div>
             </div>
-            <!-- End: First Trimester-->
+            <!-- End: First Semester-->
 
-            <!-- Begin: Second Trimester-->
+            <!-- Begin: Second Semester-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="second_trimester">
-                    {{ $t('second_trimester') }}
+                    {{ $t('second_semester') }}
                 </base-form-label>
 
                 <base-form-input
-                    id="second_trimester"
-                    v-model="form.second_trimester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('second_trimester') })"
+                    id="second_semester"
+                    v-model="form.second_semester"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('second_semester') })"
                     step="0.01"
                     type="number"
-                    @change="form.validate('second_trimester')"
+                    @change="form.validate('second_semester')"
                 ></base-form-input>
 
-                <div v-if="form.errors?.second_trimester" class="mt-2">
-                    <base-input-error :message="form.errors.second_trimester"></base-input-error>
+                <div v-if="form.errors?.second_semester" class="mt-2">
+                    <base-input-error :message="form.errors.second_semester"></base-input-error>
                 </div>
             </div>
-            <!-- End: Second Trimester-->
-
-            <!-- Begin: Third Trimester-->
-            <div class="col-span-12 sm:col-span-6">
-                <base-form-label htmlFor="third_trimester">
-                    {{ $t('third_trimester') }}
-                </base-form-label>
-
-                <base-form-input
-                    id="third_trimester"
-                    v-model="form.third_trimester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('third_trimester') })"
-                    step="0.01"
-                    type="number"
-                    @change="form.validate('third_trimester')"
-                ></base-form-input>
-
-                <div v-if="form.errors?.third_trimester" class="mt-2">
-                    <base-input-error :message="form.errors.third_trimester"></base-input-error>
-                </div>
-            </div>
-            <!-- End: Third Trimester-->
+            <!-- End: Second Semester-->
 
             <!-- Begin: General Average-->
             <div class="col-span-12 sm:col-span-6">
