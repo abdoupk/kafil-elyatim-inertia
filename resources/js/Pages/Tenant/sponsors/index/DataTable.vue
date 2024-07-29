@@ -37,12 +37,9 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-th-table>
 
                         <base-th-table
-                            :direction="params.directions?.family_status"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
-                            sortable
-                            @click="emit('sort', 'email')"
                         >
-                            {{ $t('family_status') }}
+                            {{ $t('validation.attributes.phone') }}
                         </base-th-table>
 
                         <base-th-table
@@ -118,7 +115,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ sponsor.family_status }}
+                            {{ sponsor.phone_number }}
                         </base-td-table>
 
                         <base-td-table

@@ -13,7 +13,7 @@ class OrphanShowController extends Controller
     public function __invoke(Orphan $orphan): Response
     {
         return Inertia::render('Tenant/orphans/details/OrphanDetailPage', [
-            'orphan' => new OrphanShowResource($orphan->load('sponsorships', 'academicAchievements.academicLevel', 'babyNeeds', 'collegeAchievements', 'vocationalTrainingAchievements')),
+            'orphan' => new OrphanShowResource($orphan->load('sponsorships', 'academicAchievements.academicLevel', 'babyNeeds', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements')),
         ]);
     }
 }
