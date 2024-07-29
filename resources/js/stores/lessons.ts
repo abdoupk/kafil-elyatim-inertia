@@ -50,10 +50,15 @@ export const useLessonsStore = defineStore('lessons', {
             const {
                 data: { lesson }
             } = await axios.get(`lessons/show/${lessonId}`)
+
             this.lesson = { ...lesson }
+
             this.lesson.formatted_academic_level = lesson.academic_level
+
             this.lesson.formatted_subject = lesson.subject
+
             this.lesson.formatted_school = lesson.school
+
             this.lesson.formatted_orphans = lesson.orphans
 
             console.log(this.lesson, '87878787878')

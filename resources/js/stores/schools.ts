@@ -28,6 +28,7 @@ export const useSchoolsStore = defineStore('schools', {
             const {
                 data: { school }
             } = await axios.get(`schools/show/${schoolId}`)
+
             this.school = { ...school }
         }
     }

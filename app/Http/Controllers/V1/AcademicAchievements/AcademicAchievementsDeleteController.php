@@ -9,8 +9,6 @@ class AcademicAchievementsDeleteController extends Controller
 {
     public function __invoke(AcademicAchievement $academicAchievement)
     {
-        ray($academicAchievement);
-
         $academicAchievement->delete();
 
         return redirect()->back();

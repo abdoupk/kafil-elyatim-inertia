@@ -12,6 +12,10 @@ use App\Http\Controllers\V1\Branches\BranchesIndexController;
 use App\Http\Controllers\V1\Branches\BranchShowController;
 use App\Http\Controllers\V1\Branches\BranchStoreController;
 use App\Http\Controllers\V1\Branches\BranchUpdateController;
+use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsDeleteController;
+use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsShowController;
+use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsStoreController;
+use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsUpdateController;
 use App\Http\Controllers\V1\Dashboard\DashboardController;
 use App\Http\Controllers\V1\Events\LessonShowController;
 use App\Http\Controllers\V1\Families\ExportFamiliesPDFController;
@@ -88,6 +92,10 @@ use App\Http\Controllers\V1\Sponsors\SponsorUpdateIncomesController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateInfosController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
+use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsDeleteController;
+use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsShowController;
+use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsStoreController;
+use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsUpdateController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
 use App\Http\Controllers\V1\Zones\ZoneShowController;
 use App\Http\Controllers\V1\Zones\ZonesIndexController;
@@ -438,6 +446,35 @@ Route::middleware([
                     ->name('destroy');
             });
 
+            Route::prefix('college-achievements')->name('college-achievements.')->group(function () {
+                Route::get('show/{collegeAchievement}', CollegeAchievementsShowController::class)
+                    ->name('show');
+
+                Route::post('', CollegeAchievementsStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('{collegeAchievement}', CollegeAchievementsUpdateController::class)
+                    ->name('update')
+                    ->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::delete('{collegeAchievement}', CollegeAchievementsDeleteController::class)
+                    ->name('destroy');
+            });
+
+            Route::prefix('vocational-training-achievements')->name('vocational-training-achievements.')->group(function () {
+                Route::get('show/{vocationalTrainingAchievement}', VocationalTrainingAchievementsShowController::class)
+                    ->name('show');
+
+                Route::post('', VocationalTrainingAchievementsStoreController::class)
+                    ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('{vocationalTrainingAchievement}', VocationalTrainingAchievementsUpdateController::class)
+                    ->name('update')
+                    ->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::delete('{vocationalTrainingAchievement}', VocationalTrainingAchievementsDeleteController::class)
+                    ->name('destroy');
+            });
         });
 
         Route::middleware('guest')->group(function () {

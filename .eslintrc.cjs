@@ -9,7 +9,6 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended',
         'plugin:cypress/recommended',
         '@vue/eslint-config-typescript',
         'prettier'
@@ -30,6 +29,7 @@ module.exports = {
     overrides: [],
     plugins: ['vue', 'prettier', 'cypress'],
     rules: {
+        'no-console': 'warn',
         'capitalized-comments': ['error', 'always'],
         'vue/multi-word-component-names': [
             'error',

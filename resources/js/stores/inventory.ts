@@ -24,6 +24,7 @@ export const useInventoryStore = defineStore('inventory', {
             const {
                 data: { item }
             } = await axios.get(`inventory/show/${itemId}`)
+
             this.item = { ...item }
         }
     }

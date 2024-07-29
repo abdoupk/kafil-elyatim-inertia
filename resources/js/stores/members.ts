@@ -43,12 +43,19 @@ export const useMembersStore = defineStore('members', {
             const {
                 data: { member }
             } = await axios.get(`members/show/${memberId}`)
+
             this.member = { ...member }
+
             this.member.formatted_roles = member.roles
+
             this.member.roles = member.roles.map((role: Role) => role.uuid)
+
             this.member.branch_id = member.branch.id
+
             this.member.branch = { ...member.branch }
+
             this.member.zone_id = member.zone.id
+
             this.member.zone = { ...member.zone }
         }
     }
