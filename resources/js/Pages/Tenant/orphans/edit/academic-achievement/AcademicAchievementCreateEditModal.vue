@@ -18,6 +18,7 @@ import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { __, n__ } from '@/utils/i18n'
+import { getAcademicLevelFromId } from '@/utils/helper'
 
 const props = defineProps<{
     open: boolean
@@ -100,14 +101,7 @@ const modalType = computed(() => {
 watch(
     () => academicAchievementStore.academicAchievement.academic_level_id,
     (value) => {
-        vueSelectAcademicLevel.value = props.academicLevels.reduce((acc, curr) => {
-            const level = curr.levels.find((level) => Number(level.id) === value)
-
-            if (level) acc = level
-            else acc = ''
-
-            return acc
-        }, {})
+        vueSelectAcademicLevel.value = getAcademicLevelFromId(value, props.academicLevels)
     }
 )
 </script>
