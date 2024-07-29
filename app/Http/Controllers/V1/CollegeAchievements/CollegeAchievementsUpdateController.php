@@ -12,6 +12,8 @@ class CollegeAchievementsUpdateController extends Controller
     {
         $collegeAchievement->update($request->validated());
 
+        $collegeAchievement->orphan->searchable();
+
         return response('', 201);
     }
 }

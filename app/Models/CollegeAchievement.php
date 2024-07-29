@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class CollegeAchievement extends Model
@@ -33,9 +32,9 @@ class CollegeAchievement extends Model
         ];
     }
 
-    public function orphans(): HasMany
+    public function orphan(): BelongsTo
     {
-        return $this->hasMany(Orphan::class);
+        return $this->belongsTo(Orphan::class);
     }
 
     public function academicLevel(): BelongsTo

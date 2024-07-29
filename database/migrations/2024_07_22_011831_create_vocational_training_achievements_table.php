@@ -13,6 +13,7 @@ return new class extends Migration
             $table->text('note');
             $table->uuid('orphan_id');
             $table->uuid('tenant_id');
+            $table->string('institute');
             $table->foreign('orphan_id')->references('id')->on('orphans');
             $table->foreign('tenant_id')->references('id')->on('tenants');
             $table->integer('year');

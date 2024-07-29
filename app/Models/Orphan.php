@@ -144,10 +144,53 @@ class Orphan extends Model
             'note' => $this->note,
             'academic_level' => [
                 'id' => $this->academic_level_id,
+                'level' => $this->academicLevel->level,
+                'phase' => $this->academicLevel->phase,
             ],
+            'academic_achievements' => $this->academicAchievements->map(function (AcademicAchievement $academicAchievement) {
+                return [
+                    'id' => $academicAchievement->id,
+                    'academic_level' => $academicAchievement->academicLevel->level,
+                    'academic_year' => $academicAchievement->academic_year,
+                    'first_trimester' => (float) number_format($academicAchievement->first_trimester, 2),
+                    'second_trimester' => (float) number_format($academicAchievement->second_trimester, 2),
+                    'third_trimester' => (float) number_format($academicAchievement->third_trimester, 2),
+                    'average' => (float) number_format($academicAchievement->average, 2),
+                ];
+            })->toArray(),
+            'college_achievements' => $this->collegeAchievements->map(function (CollegeAchievement $collegeAchievement) {
+                return [
+                    'id' => $collegeAchievement->id,
+                    'academic_level' => $collegeAchievement->academicLevel->level,
+                    'academic_year' => $collegeAchievement->year,
+                    'first_semester' => (float) number_format($collegeAchievement->first_semester, 2),
+                    'second_semester' => (float) number_format($collegeAchievement->second_semester, 2),
+                    'average' => (float) number_format($collegeAchievement->average, 2),
+                    'speciality' => $collegeAchievement->speciality,
+                    'university' => $collegeAchievement->university,
+                ];
+            })->toArray(),
+            'vocational_training_achievements' => $this->vocationalTrainingAchievements->map(function (VocationalTrainingAchievement $vocationalTrainingAchievement) {
+                return [
+                    'id' => $vocationalTrainingAchievement->id,
+                    'vocational_training_speciality' => $vocationalTrainingAchievement->vocationalTraining->speciality,
+                    'vocational_training_division' => $vocationalTrainingAchievement->vocationalTraining->division,
+                    'institute' => $vocationalTrainingAchievement->institute,
+                ];
+            })->toArray(),
             'tenant_id' => $this->tenant_id,
             'family_id' => $this->family_id,
         ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'orphans';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining']);
     }
 
     public function getName(): string
@@ -190,15 +233,6 @@ class Orphan extends Model
     public function babyNeeds(): HasOne
     {
         return $this->hasOne(Baby::class);
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::updated(function ($orphan) {
-            $orphan->sponsorships->searchable();
-        });
     }
 
     public function lessons(): BelongsToMany
