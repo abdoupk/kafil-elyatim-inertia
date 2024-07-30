@@ -15,6 +15,8 @@ class BranchUpdateController extends Controller
     {
         $branch->update($request->validated());
 
+        $branch->families->searchable();
+
         return response('', 201);
     }
 }

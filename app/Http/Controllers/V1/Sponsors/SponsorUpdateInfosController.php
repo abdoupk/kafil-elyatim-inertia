@@ -12,6 +12,8 @@ class SponsorUpdateInfosController extends Controller
     {
         $sponsor->update($request->validated());
 
+        $sponsor->orphans->searchable();
+
         return response('', 201);
     }
 }

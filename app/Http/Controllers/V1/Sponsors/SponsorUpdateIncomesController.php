@@ -10,8 +10,6 @@ class SponsorUpdateIncomesController extends Controller
 {
     public function __invoke(SponsorIncomesUpdateRequest $request, Sponsor $sponsor)
     {
-        ray($request->validated());
-
         $sponsor->incomes()->update($request->validated());
 
         return response('', 201);

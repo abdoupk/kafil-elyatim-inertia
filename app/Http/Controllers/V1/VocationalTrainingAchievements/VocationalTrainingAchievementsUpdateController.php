@@ -12,6 +12,8 @@ class VocationalTrainingAchievementsUpdateController extends Controller
     {
         $vocationalTrainingAchievement->update($request->validated());
 
+        $vocationalTrainingAchievement->orphan->searchable();
+
         return response('', 201);
     }
 }
