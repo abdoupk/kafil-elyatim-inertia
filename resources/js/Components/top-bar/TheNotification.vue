@@ -9,6 +9,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNotificationMenu from '@/Components/top-bar/TheNotificationMenu.vue'
 
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
+import { usePage } from '@inertiajs/vue3'
 
 const attrs = useComputedAttrs()
 
@@ -17,6 +18,11 @@ defineOptions({
 })
 
 const settingsStore = useSettingsStore()
+
+window.Echo.private('App.Models.User.' + usePage().props.auth.user.id)
+    .notification((notification) => {
+        console.log(notification)
+    })
 </script>
 
 <template>
@@ -31,13 +37,13 @@ const settingsStore = useSettingsStore()
             v-bind="attrs.attrs"
         >
             <svg-loader
-                name="icon-bell"
-                class="dark:fill-slate-500"
                 :class="{ '!fill-slate-400': settingsStore.theme === 'enigma' || settingsStore.theme === 'icewall' }"
+                class="dark:fill-slate-500"
+                name="icon-bell"
             ></svg-loader>
         </base-popover-button>
 
-        <base-popover-panel placement="bottom-end" class="mt-2 w-[280px] p-5 sm:w-[350px]">
+        <base-popover-panel class="mt-2 w-[280px] p-5 sm:w-[350px]" placement="bottom-end">
             <the-notification-menu></the-notification-menu>
         </base-popover-panel>
     </base-popover>

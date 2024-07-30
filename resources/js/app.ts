@@ -1,5 +1,6 @@
 import '../css/app.css'
 import './bootstrap'
+import './echo'
 import i18n from './utils/i18n'
 
 import { createInertiaApp } from '@inertiajs/vue3'
