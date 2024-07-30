@@ -28,8 +28,7 @@ export function __(key: string, replacements: Record<string, string> = {}) {
     Object.keys(replacements).forEach((replacement) => {
         if (replacement === 'total' && replacements[replacement] == 2)
             translation = translation.replace(`:${replacement}`, '')
-        else
-            translation = translation.replace(`:${replacement}`, replacements[replacement])
+        else translation = translation.replace(`:${replacement}`, replacements[replacement])
     })
 
     return translation

@@ -9,16 +9,16 @@ import { computed, ref, watch } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
-import DateRange from '@/Pages/Tenant/lessons/create/DateRange.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-import { omit, setDateToCurrentTime } from '@/utils/helper'
+import { combineDateAndTime, omit, setDateToCurrentTime } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -67,7 +67,7 @@ watch(
 watch(
     () => lessonsStore.lesson.orphans,
     (value) => {
-        orphans.value = value.map((orphan) => {
+        orphans.value = value.map((orphan: any) => {
             return {
                 id: orphan.id,
                 name: orphan.name
@@ -131,35 +131,33 @@ const modalType = computed(() => {
     return lessonsStore.lesson.id ? 'update' : 'create'
 })
 
+const date = ref(props.date)
+
 const loadingSearchOrphans = ref(false)
 
-const range = ref<{ start: string | Date; end: string | Date }>({
-    start: form.value.start_date,
-    end: form.value.end_date
-})
-
 watch(
-    () => range.value,
+    () => date.value,
     (value) => {
-        form.value.start_date = value.start
+        form.value.start_date = combineDateAndTime(form.value.start_date, value)
 
-        form.value.end_date = value.end
+        form.value.end_date = combineDateAndTime(form.value.end_date, value)
     }
 )
 
 watch(
     () => props.date,
     (value) => {
-        const date = setDateToCurrentTime(value)
+        const formattedDate = setDateToCurrentTime(value)
 
-        range.value = {
-            start: date.toDate(),
-            end: date.add(1, 'hour').toDate()
-        }
+        form.value.start_date = formattedDate.toDate()
+
+        form.value.end_date = formattedDate.add(1, 'hour').toDate()
+
+        date.value = formattedDate.toDate()
     }
 )
 
-const orphans = ref([])
+const orphans = ref<{ id: string; name: string }[]>([])
 
 const asyncFind = (search: string) => {
     loadingSearchOrphans.value = true
@@ -217,31 +215,48 @@ const handleCloseModal = () => {
             <!-- End: Title-->
 
             <!-- Begin: Date Range-->
-            <date-range v-model:range="range">
-                <template #label_start>
-                    <base-form-label htmlFor="start_date">
-                        {{ $t('start_date') }}
+            <div class="col-span-12 grid grid-cols-12 gap-4">
+                <div class="col-span-12 sm:col-span-4">
+                    <base-form-label for="date">
+                        {{ $t('validation.attributes.date') }}
                     </base-form-label>
-                </template>
 
-                <template #label_end>
-                    <base-form-label htmlFor="end_date">
-                        {{ $t('end_date') }}
-                    </base-form-label>
-                </template>
+                    <base-v-calendar v-model:date="date" mode="date"></base-v-calendar>
+                </div>
 
-                <template #error_start>
-                    <div v-if="form.errors?.start_date" class="mt-2">
-                        <base-input-error :message="form.errors.start_date"></base-input-error>
-                    </div>
-                </template>
+                <div class="col-span-12 sm:col-span-3 -mt-2 sm:mt-7">
+                    <base-v-calendar
+                        v-model:date="form.start_date"
+                        hide-time-header
+                        is24hr
+                        mode="time"
+                    ></base-v-calendar>
 
-                <template #error_end>
-                    <div v-if="form.errors?.end_date" class="mt-2">
-                        <base-input-error :message="form.errors.end_date"></base-input-error>
-                    </div>
-                </template>
-            </date-range>
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('start_date')"
+                            class="mt-2 text-danger"
+                            data-test="error_start_date_message"
+                        >
+                            {{ form.errors.start_date }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+
+                <div class="col-span-12 sm:col-span-3 -mt-2 sm:mt-7">
+                    <base-v-calendar v-model:date="form.end_date" hide-time-header is24hr mode="time"></base-v-calendar>
+
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('end_date')"
+                            class="mt-2 text-danger"
+                            data-test="error_end_date_message"
+                        >
+                            {{ form.errors.end_date }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+            </div>
             <!-- End: Date Range-->
 
             <!-- Begin: Frequency-->

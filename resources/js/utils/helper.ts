@@ -311,6 +311,14 @@ function setDateToCurrentTime(value: string | Date) {
         .add(currentTime.valueOf() - currentTime.startOf('day').valueOf(), 'millisecond')
 }
 
+const combineDateAndTime = (startDate: string | Date, theDate: string | Date) => {
+    const time = dayjs(startDate).format('HH:mm:ss')
+
+    const date = dayjs(theDate).format('YYYY-MM-DD')
+
+    return dayjs(`${date} ${time}`).toDate()
+}
+
 function getAcademicLevelFromId(id, academicLevels) {
     if (!id) return ''
     else {
@@ -340,6 +348,7 @@ function getVocationalTrainingSpecialityFromId(id, specialities) {
 export {
     isEqual,
     formatDate,
+    combineDateAndTime,
     getAcademicLevelFromId,
     getVocationalTrainingSpecialityFromId,
     setDateToCurrentTime,
