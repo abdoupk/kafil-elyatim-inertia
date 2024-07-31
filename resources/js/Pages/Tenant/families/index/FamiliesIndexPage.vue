@@ -143,48 +143,100 @@ watch(
 const filters = ref<ListBoxFilter[]>([
     {
         icon: 'icon-users',
-        field: 'name',
+        field: 'family_id',
         label: 'Name',
         type: 'object',
         operators: [
             {
-                label: 'is',
+                label: 'filters.is',
                 value: '='
             },
             {
-                label: 'is not',
+                label: 'filters.is_not',
                 value: '!='
             }
         ]
     },
     {
-        icon: 'icon-calendar',
-        field: 'age',
-        label: 'Age',
-        type: 'string',
+        icon: 'icon-hands-holding-child',
+        field: 'sponsor.id',
+        label: 'sponsor',
+        type: 'object',
         operators: [
             {
-                label: 'equals',
+                label: 'filters.is',
                 value: '='
             },
             {
-                label: 'is greater than',
-                value: '>'
-            },
-            {
-                label: 'is less than',
-                value: '<'
-            },
-            {
-                label: 'is greater than or equal to',
-                value: '>='
-            },
-            {
-                label: 'is less than or equal to',
-                value: '<='
+                label: 'filters.is_not',
+                value: '!='
             }
         ]
-    }
+    },
+    {
+        icon: 'icon-branches',
+        field: 'branch.id',
+        label: 'branch',
+        type: 'object',
+        operators: [
+            {
+                label: 'filters.is',
+                value: '='
+            },
+            {
+                label: 'filters.is_not',
+                value: '!='
+            }
+        ]
+    },
+    {
+        icon: 'icon-map-location-dot',
+        field: 'zone.id',
+        label: 'zone',
+        type: 'object',
+        operators: [
+            {
+                label: 'filters.is',
+                value: '='
+            },
+            {
+                label: 'filters.is_not',
+                value: '!='
+            }
+        ]
+    },
+    // {
+    //     icon: 'icon-calendar',
+    //     field: 'age',
+    //     label: 'Age',
+    //     type: 'string',
+    //     operators: [
+    //         {
+    //             label: 'filters.equal_to',
+    //             value: '='
+    //         },
+    //         {
+    //             label: 'filters.not_equal_to',
+    //             value: '!='
+    //         },
+    //         {
+    //             label: 'filters.is_greater_than',
+    //             value: '>'
+    //         },
+    //         {
+    //             label: 'filters.is_less_than',
+    //             value: '<'
+    //         },
+    //         {
+    //             label: 'filters.is_greater_than_or_equal_to',
+    //             value: '>='
+    //         },
+    //         {
+    //             label: 'filters.is_less_than_or_equal_to',
+    //             value: '<='
+    //         }
+    //     ]
+    // }
 ])
 
 const handleFilter = (filters: IndexParams['filters']) => {
@@ -192,7 +244,7 @@ const handleFilter = (filters: IndexParams['filters']) => {
         ...filters
             ?.map((filter) => {
                 return {
-                    field: filter.field.field === 'name' ? 'id' : filter.field.field,
+                    field: filter.field.field === 'family_id' ? 'id' : filter.field.field,
                     operator: filter.operator.value,
                     value: filter.value
                 }

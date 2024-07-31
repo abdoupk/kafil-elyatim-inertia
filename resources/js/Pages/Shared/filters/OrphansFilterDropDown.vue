@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
-import { useSponsorsStore } from '@/stores/sponsors'
+import { useOrphansStore } from '@/stores/orphans'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
@@ -9,13 +9,13 @@ const value = defineModel<{ id: string; name: string }>('value', {
         name: ''
     }
 })
-const sponsorsStore = useSponsorsStore()
+const orphansStore = useOrphansStore()
 
 onMounted(() => {
-    sponsorsStore.getSponsors()
+    orphansStore.getOrphans()
 })
 </script>
 
 <template>
-    <filter-value-drop-down :data="sponsorsStore.sponsors" v-model:value="value"></filter-value-drop-down>
+    <filter-value-drop-down :data="orphansStore.orphans" v-model:value="value"></filter-value-drop-down>
 </template>

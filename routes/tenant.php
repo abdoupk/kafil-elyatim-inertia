@@ -27,6 +27,7 @@ use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
+use App\Http\Controllers\V1\Families\ListFamiliesController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
 use App\Http\Controllers\V1\Financial\FinancialShowController;
@@ -164,7 +165,7 @@ Route::middleware([
                 Route::get('export-xlsx', ExportFamiliesXlsxController::class)
                     ->name('export.xlsx');
 
-                Route::get('list-families', ListSponsorsController::class)->name('list-families');
+                Route::get('list-families', ListFamiliesController::class)->name('list-families');
             });
 
             Route::prefix('inventory')->group(function () {

@@ -5,6 +5,7 @@ import { defineStore } from 'pinia'
 
 interface State {
     zone: Zone
+    zones: Zone[]
 }
 
 export const useZonesStore = defineStore('zones', {
@@ -20,6 +21,11 @@ export const useZonesStore = defineStore('zones', {
             await axios.get(`zones/show/${zoneId}`).then((res) => {
                 this.zone = res.data.zone
             })
+        },
+        async getZones() {
+            const { data: zones } = await axios.get(route('tenant.zones.list-zones'))
+
+            this.zones = zones
         }
     }
 })

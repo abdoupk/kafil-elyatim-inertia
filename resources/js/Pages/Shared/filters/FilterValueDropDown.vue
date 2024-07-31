@@ -1,35 +1,40 @@
 <script lang="ts" setup>
-import type { ListBoxFilter } from '@/types/types'
 
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { onMounted } from 'vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
+import { onMounted } from 'vue'
+import { __ } from '@/utils/i18n'
 
-const props = defineProps<{ filters: ListBoxFilter[] }>()
+const props = defineProps<{ data: { id: string; name: string }[] }>()
 
-const selected = defineModel<ListBoxFilter>('selected')
+const value = defineModel<{ id: string; name: string }>('value', {
+    default: {
+        id: '',
+        name: ''
+    }
+})
 
 onMounted(() => {
-    selected.value = props.filters[0]
+    if (!props.data.some(obj => obj.id !== '')) {
+        props.data.push({
+            id: '',
+            name: __('filters.select_an_option')
+        })
+    }
+
+    if (props.data.length > 0)
+        value.value = props.data[0]
 })
 </script>
 
 <template>
-    <listbox v-model="selected" as="div">
+    <listbox v-model="value" as="div">
         <div class="relative mt-2">
             <listbox-button
                 class="relative w-full cursor-default rounded-md bg-white dark:bg-darkmode-800 py-1.5 ps-3 pe-10 text-start text-gray-900 dark:text-slate-300 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 border dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
             >
-                <span class="flex items-center">
-                    <svg-loader
-                        v-if="selected?.icon"
-                        :name="selected?.icon"
-                        class="h-5 w-5 flex-shrink-0 rounded-full"
-                    />
-
-                    <span class="ms-3 block truncate">{{ $t(`filters.${selected?.label}`) }}</span>
-                </span>
+                <span class="ms-3 block truncate">{{ value.name }}</span>
 
                 <span class="pointer-events-none absolute inset-y-0 end-0 ms-3 flex items-center pe-2">
                     <svg-loader aria-hidden="true" class="h-5 w-5 text-gray-400" name="icon-angles-up-down" />
@@ -44,11 +49,12 @@ onMounted(() => {
                 <listbox-options
                     class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-darkmode-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
+
                     <listbox-option
-                        v-for="filter in filters"
-                        :key="filter.field"
+                        v-for="datum in data "
+                        :key="datum.id"
                         v-slot="{ active, selected }"
-                        :value="filter"
+                        :value="datum"
                         as="template"
                     >
                         <li
@@ -58,10 +64,9 @@ onMounted(() => {
                             ]"
                         >
                             <div class="flex items-center">
-                                <svg-loader :name="filter.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                    $t(`filters.${filter.label}`)
-                                }}</span>
+                                        datum.name
+                                    }}</span>
                             </div>
 
                             <span

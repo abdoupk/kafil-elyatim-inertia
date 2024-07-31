@@ -21,7 +21,7 @@ const selected = defineModel<ListBoxOperator>('selected', {
             <listbox-button
                 class="relative w-full cursor-default rounded-md bg-white dark:bg-darkmode-800 py-1.5 ps-3 pe-10 text-start text-gray-900 dark:text-slate-300 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 border dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
             >
-                <span class="ms-3 block truncate">{{ selected.label }}</span>
+                <span class="ms-3 block truncate">{{ $t(selected.label)}}</span>
 
                 <span class="pointer-events-none absolute inset-y-0 end-0 ms-3 flex items-center pe-2">
                     <svg-loader aria-hidden="true" class="h-5 w-5 text-gray-400" name="icon-angles-up-down" />
@@ -51,7 +51,7 @@ const selected = defineModel<ListBoxOperator>('selected', {
                         >
                             <div class="flex items-center">
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                    operator.label
+                                   $t( operator.label)
                                 }}</span>
                             </div>
 
