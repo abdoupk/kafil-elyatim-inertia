@@ -93,6 +93,7 @@ class Orphan extends Model
         'shoes_size',
         'pants_size',
         'shirt_size',
+        'income',
         'note',
         'family_id',
         'sponsor_id',
@@ -141,6 +142,7 @@ class Orphan extends Model
             'shoes_size' => $this->shoes_size,
             'shirt_size' => $this->shirt_size,
             'pants_size' => $this->pants_size,
+            'income' => $this->income,
             'note' => $this->note,
             'academic_level' => [
                 'id' => $this->academic_level_id,

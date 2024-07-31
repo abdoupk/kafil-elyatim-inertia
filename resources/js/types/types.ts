@@ -427,6 +427,7 @@ export interface OrphansIndexResource {
     shoes_size: string
     pants_size: string
     shirt_size: string
+    income: number
 }
 
 export interface SponsorsIndexResource {
@@ -513,6 +514,7 @@ export type OrphanType = {
     shoes_size: string
     pants_size: string
     shirt_size: string
+    income: number
     note: string
     gender: 'male' | 'female'
     baby_milk_quantity: number

@@ -61,26 +61,26 @@ defineProps<{
 }>()
 
 const StepTwo = defineAsyncComponent({
-    loader: () => import('@/Pages/Tenant/families/create/stepTwo/StepTwo.vue'),
+    loader: () => import('@/Pages/Tenant/families/create/stepTwo/StepTwo.vue')
 })
 
 const StepThree = defineAsyncComponent({
-    loader: () => import('@/Pages/Tenant/families/create/stepThree/StepThree.vue'),
+    loader: () => import('@/Pages/Tenant/families/create/stepThree/StepThree.vue')
 })
 
 const StepFour = defineAsyncComponent({
-    loader: () => import('@/Pages/Tenant/families/create/stepFour/StepFour.vue'),
+    loader: () => import('@/Pages/Tenant/families/create/stepFour/StepFour.vue')
 })
 
 const StepFive = defineAsyncComponent({
-    loader: () => import('@/Pages/Tenant/families/create/stepFive/StepFive.vue'),
+    loader: () => import('@/Pages/Tenant/families/create/stepFive/StepFive.vue')
 })
 
 const StepSix = defineAsyncComponent({
-    loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue'),
+    loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue')
 })
 
-const currentStep = ref(1)
+const currentStep = ref(3)
 
 const totalSteps = 6
 
@@ -105,6 +105,7 @@ const addOrphan = () => {
         diapers_quantity: 0,
         diapers_type: '',
         gender: 'male',
+        income: null,
         academic_level_id: null,
         vocational_training_id: null,
         birth_date: '',
@@ -381,6 +382,7 @@ const submit = () => {
                                             v-model:pants-size="orphan.pants_size"
                                             v-model:shirt-size="orphan.shirt_size"
                                             v-model:shoes-size="orphan.shoes_size"
+                                            v-model:income="orphan.income"
                                             v-model:vocational_training="orphan.vocational_training_id"
                                             :academic-levels="academicLevelsForOrphan"
                                             :form

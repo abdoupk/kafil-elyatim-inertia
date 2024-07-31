@@ -30,6 +30,7 @@ class OrphanFactory extends Factory
             'pants_size' => ClothesSize::inRandomOrder()->first()->id,
             'shirt_size' => ClothesSize::inRandomOrder()->first()->id,
             'gender' => fake()->randomElement(['male', 'female']),
+            'income' => fake()->numberBetween(0, 100000),
             'note' => fake('ar_SA')->realText(500),
             'tenant_id' => fake()->uuid,
             'family_id' => fake()->uuid,

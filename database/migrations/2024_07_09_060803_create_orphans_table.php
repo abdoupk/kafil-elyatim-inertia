@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->text('first_name');
             $table->text('last_name');
+            $table->double('income');
             $table->date('birth_date')->index('idx_orphans_birth_date');
             $table->text('family_status')->index('idx_orphans_family_status');
             $table->text('health_status')->index('idx_orphans_health_status');

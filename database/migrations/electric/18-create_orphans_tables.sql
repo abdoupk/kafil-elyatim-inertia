@@ -11,6 +11,7 @@ create table if not exists orphans
     "pants_size"        text                           null,
     "shirt_size"        text                           null,
     "gender"            text                           not null,
+    "income"            double precision               not null,
     "note"              text                           null,
     "tenant_id"         text                           not null references tenants (id) on delete cascade,
     "family_id"         uuid                           not null references families (id),

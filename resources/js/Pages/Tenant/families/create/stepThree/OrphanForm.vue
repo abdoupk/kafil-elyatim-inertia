@@ -23,7 +23,7 @@ const props = defineProps<{
 
 // TODO: fix this when add new orphan change focus
 
-const vueSelectAcademicLevel = ref({})
+const vueSelectAcademicLevel = ref('')
 
 const vueSelectVocationalTraining = ref({})
 
@@ -45,6 +45,8 @@ const firstName = defineModel('first_name', { default: '' })
 const lastName = defineModel('last_name')
 
 const academicLevel = defineModel('academic_level')
+
+const income = defineModel('income')
 
 const vocationalTraining = defineModel('vocational_training')
 
@@ -747,6 +749,50 @@ const isStillBaby = computed(() => {
             <!-- End: Pants Size-->
         </template>
         <!-- End: if orphan is adult-->
+
+        <!-- Begin: Income-->
+        <div class="col-span-12 sm:col-span-6">
+            <base-form-label for="income">
+                {{ $t('validation.attributes.income') }}
+            </base-form-label>
+
+            <base-form-input
+                :id="`income_${index}`"
+                v-model="income"
+                :placeholder="
+                    $t('auth.placeholders.fill', {
+                        attribute: $t('validation.attributes.income')
+                    })
+                "
+                data-test="orphan_income"
+                type="text"
+                @change="
+                    form?.validate(
+                        //@ts-ignore
+                        `orphans.${index}.income`
+                    )
+                "
+            ></base-form-input>
+
+            <base-form-input-error>
+                <div
+                    v-if="
+                        form?.invalid(
+                            //@ts-ignore
+                            `orphans.${index}.income`
+                        )
+                    "
+                    class="mt-2 text-danger"
+                    data-test="error_income_message"
+                >
+                    {{
+                        //@ts-ignore
+                        form.errors[`orphans.${index}.income`]
+                    }}
+                </div>
+            </base-form-input-error>
+        </div>
+        <!-- End: Income-->
 
         <!-- Begin: Note -->
         <div class="col-span-8">
