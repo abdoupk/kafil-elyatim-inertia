@@ -47,7 +47,9 @@ const popover = ref({
                 </div>
 
                 <base-form-input
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the date') })"
+                    :placeholder="
+                        $attrs?.placeholder || $t('auth.placeholders.tomselect', { attribute: $t('the date') })
+                    "
                     :value="inputValue"
                     class="ps-12"
                     v-on="inputEvents"

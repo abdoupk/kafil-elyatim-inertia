@@ -11,48 +11,50 @@
 </head>
 
 <body>
-    <table class="w-full table table-bordered">
-        <thead>
-            <tr>
-                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
-                    <span> #</span>
-                </th>
-                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
-                    العائلة
-                </th>
-                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
-                    العنوان
-                </th>
-                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
-                    رقم الملف
-                </th>
-                <th class="whitespace-nowrap font-medium px-5 py-3 border-b-2 border-l border-r border-t">
-                    تاريخ بدء التكفل
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($families as $family)
+    <div class="m-2">
+        <table class="w-full table table-bordered border-black">
+            <thead>
                 <tr>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $loop->iteration }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->name }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->address }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->file_number }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->start_date->format('Y-m-d') }}
-                    </td>
+                    <th class="whitespace-nowrap font-medium px-5 py-3 border border-black">
+                        <span> #</span>
+                    </th>
+                    <th class="whitespace-nowrap font-medium px-5 py-3 border border-black">
+                        العائلة
+                    </th>
+                    <th class="whitespace-nowrap font-medium px-5 py-3 border border-black">
+                        العنوان
+                    </th>
+                    <th class="whitespace-nowrap font-medium px-5 py-3 border border-black">
+                        رقم الملف
+                    </th>
+                    <th class="whitespace-nowrap font-medium px-5 py-3 border border-black">
+                        تاريخ بدء التكفل
+                    </th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($families as $family)
+                    <tr>
+                        <td class="px-5 py-3 border border-black">
+                            {{ $loop->iteration }}
+                        </td>
+                        <td class="px-5 py-3 border border-black">
+                            {{ $family->name }}
+                        </td>
+                        <td class="px-5 py-3 border border-black">
+                            {{ $family->address }}
+                        </td>
+                        <td class="px-5 py-3 border border-black">
+                            {{ $family->file_number }}
+                        </td>
+                        <td class="px-5 py-3 border border-black">
+                            {{ $family->start_date->format('Y-m-d') }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

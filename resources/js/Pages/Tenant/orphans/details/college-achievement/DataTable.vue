@@ -34,11 +34,11 @@ defineProps<{
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
-                    {{ $t('first_semester') }}
+                    {{ $t('validation.attributes.first_semester') }}
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
-                    {{ $t('second_semester') }}
+                    {{ $t('validation.attributes.second_semester') }}
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">

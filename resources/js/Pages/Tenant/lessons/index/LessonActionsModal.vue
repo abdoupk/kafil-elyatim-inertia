@@ -20,9 +20,7 @@ defineProps<{
     eventInfo: EventApi | null
 }>()
 
-const emit = defineEmits(['close',
-'delete',
-'edit'])
+const emit = defineEmits(['close', 'delete', 'edit'])
 
 const lessonsStore = useLessonsStore()
 </script>

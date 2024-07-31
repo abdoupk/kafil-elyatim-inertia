@@ -5,13 +5,14 @@
 /** @noinspection StaticClosureCanBeUsedInspection */
 
 use App\Http\Controllers\V1\RegisteredTenantController;
+use App\Models\Family;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 
 foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->middleware('guest')->group(function () {
         Route::get('/', function () {
-            echo 'hello';
+            return view('pdf.families', ['families' => Family::all()]);
         })->name('dashboard');
     });
 }

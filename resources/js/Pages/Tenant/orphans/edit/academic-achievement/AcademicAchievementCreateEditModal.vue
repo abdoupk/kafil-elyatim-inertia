@@ -182,13 +182,15 @@ watch(
             <!-- Begin: First Trimester-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="first_trimester">
-                    {{ $t('first_trimester') }}
+                    {{ $t('validation.attributes.first_trimester') }}
                 </base-form-label>
 
                 <base-form-input
                     id="first_trimester"
                     v-model="form.first_trimester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('first_trimester') })"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.first_trimester') })
+                    "
                     step="0.01"
                     type="number"
                     @change="form.validate('first_trimester')"
@@ -203,13 +205,15 @@ watch(
             <!-- Begin: Second Trimester-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="second_trimester">
-                    {{ $t('second_trimester') }}
+                    {{ $t('validation.attributes.second_trimester') }}
                 </base-form-label>
 
                 <base-form-input
                     id="second_trimester"
                     v-model="form.second_trimester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('second_trimester') })"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.second_trimester') })
+                    "
                     step="0.01"
                     type="number"
                     @change="form.validate('second_trimester')"
@@ -224,13 +228,15 @@ watch(
             <!-- Begin: Third Trimester-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="third_trimester">
-                    {{ $t('third_trimester') }}
+                    {{ $t('validation.attributes.third_trimester') }}
                 </base-form-label>
 
                 <base-form-input
                     id="third_trimester"
                     v-model="form.third_trimester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('third_trimester') })"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.third_trimester') })
+                    "
                     step="0.01"
                     type="number"
                     @change="form.validate('third_trimester')"

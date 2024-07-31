@@ -38,11 +38,11 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
                     </base-th-table>
 
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
-                        {{ $t('first_semester') }}
+                        {{ $t('validation.attributes.first_semester') }}
                     </base-th-table>
 
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
-                        {{ $t('second_semester') }}
+                        {{ $t('validation.attributes.second_semester') }}
                     </base-th-table>
 
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">

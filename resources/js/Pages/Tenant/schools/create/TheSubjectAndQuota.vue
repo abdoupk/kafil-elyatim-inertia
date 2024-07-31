@@ -35,7 +35,7 @@ watch(
     () => props.form,
     () => {
         vueSelectSubject.value =
-            props.subjects.find((subject) => subject.id == props.form.lessons[props.index].subject_id) ?? {}
+            props.subjects.find((subject) => subject.id == props.form.lessons[props.index].subject_id) ?? ''
 
         vueSelectAcademicLevel.value = getAcademicLevelFromId(
             props.form.lessons[props.index].academic_level_id,
@@ -51,7 +51,7 @@ watch(
         <!-- Begin: Academic Level-->
         <div class="col-span-12 sm:col-span-4">
             <base-form-label htmlFor="academic_level">
-                {{ $t('the_academic_level') }}
+                {{ $t('academic_level') }}
             </base-form-label>
 
             <div>
@@ -60,7 +60,7 @@ watch(
                     v-model:value="vueSelectAcademicLevel"
                     :allow-empty="false"
                     :options="academicLevels"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('academic_level') })"
                     class="h-full w-full"
                     group-label="phase"
                     group-values="levels"
@@ -95,7 +95,7 @@ watch(
                     v-model:value="vueSelectSubject"
                     :allow-empty="false"
                     :options="subjects"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_subject') })"
                     class="h-full w-full"
                     label="name"
                     track-by="id"

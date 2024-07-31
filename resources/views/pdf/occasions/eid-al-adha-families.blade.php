@@ -31,24 +31,29 @@
                 </th>
             </tr>
         </thead>
+
         <tbody>
             @foreach ($families as $family)
                 <tr>
                     <td class="px-5 py-3 border-b border-l border-r border-t">
                         {{ $loop->iteration }}
                     </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->name }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->address }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->file_number }}
-                    </td>
-                    <td class="px-5 py-3 border-b border-l border-r border-t">
-                        {{ $family->start_date->format('Y-m-d') }}
-                    </td>
+
+                    {{--                    <td class="px-5 py-3 border-b border-l border-r border-t"> --}}
+                    {{--                        {{ $family?->name }} --}}
+                    {{--                    </td> --}}
+
+                    {{--                    <td class="px-5 py-3 border-b border-l border-r border-t"> --}}
+                    {{--                        {{ $family->address }} --}}
+                    {{--                    </td> --}}
+
+                    {{--                    <td class="px-5 py-3 border-b border-l border-r border-t"> --}}
+                    {{--                        {{ $family?->file_number }} --}}
+                    {{--                    </td> --}}
+
+                    {{--                    <td class="px-5 py-3 border-b border-l border-r border-t"> --}}
+                    {{--                        {{ $family->start_date->format('Y-m-d') }} --}}
+                    {{--                    </td> --}}
                 </tr>
             @endforeach
         </tbody>

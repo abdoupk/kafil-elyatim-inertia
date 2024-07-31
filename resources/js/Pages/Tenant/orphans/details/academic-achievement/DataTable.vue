@@ -30,15 +30,15 @@ defineProps<{
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
-                    {{ $t('first_trimester') }}
+                    {{ $t('validation.attributes.first_trimester') }}
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
-                    {{ $t('second_trimester') }}
+                    {{ $t('validation.attributes.second_trimester') }}
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
-                    {{ $t('third_trimester') }}
+                    {{ $t('validation.attributes.third_trimester') }}
                 </base-th-table>
 
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">

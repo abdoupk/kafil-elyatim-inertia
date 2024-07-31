@@ -304,7 +304,7 @@ const modalType = computed(() => {
             <!-- Begin: branch-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="branch">
-                    {{ $t('validation.attributes.branch') }}
+                    {{ $t('branch') }}
                 </base-form-label>
 
                 <div>
@@ -331,7 +331,7 @@ const modalType = computed(() => {
             <!-- Begin: roles-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="roles">
-                    {{ $t('validation.attributes.roles') }}
+                    {{ $t('roles') }}
                 </base-form-label>
 
                 <div>

@@ -27,7 +27,6 @@ class LessonStoreController extends Controller
             ->where('academic_level_id', $request->academic_level_id)
             ->first();
         ray($lesson->id);
-        //        $lesson->orphans()->syncWithoutDetaching($request->orphans);
 
         $event = Event::create([
             ...$request->except(['orphans', 'subject_id', 'academic_level_id', 'school_id']),

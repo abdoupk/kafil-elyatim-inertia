@@ -142,7 +142,12 @@ const job = defineModel('job')
                 {{ $t('validation.attributes.spouse.death_date') }}
             </base-form-label>
 
-            <base-v-calendar v-model:date="deathDate" placeholder="ddddddd"></base-v-calendar>
+            <base-v-calendar
+                v-model:date="deathDate"
+                :placeholder="
+                    $t('auth.placeholders.fill', { attribute: $t('validation.attributes.spouse.death_date') })
+                "
+            ></base-v-calendar>
 
             <base-form-input-error>
                 <div

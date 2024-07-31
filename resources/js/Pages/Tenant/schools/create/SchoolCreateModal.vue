@@ -111,14 +111,14 @@ const removeLesson = (index: number) => {
             <!-- Begin: Name-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="name">
-                    {{ $t('validation.attributes.name') }}
+                    {{ $t('school_name') }}
                 </base-form-label>
 
                 <base-form-input
                     id="name"
                     ref="firstInputRef"
                     v-model="form.name"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.name') })"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('school_name') })"
                     type="text"
                     @change="form.validate('name')"
                 />
@@ -128,27 +128,6 @@ const removeLesson = (index: number) => {
                 </div>
             </div>
             <!-- End: Name-->
-
-            <!-- Begin: Address-->
-            <!--            <div class="col-span-12 sm:col-span-6">-->
-            <!--                <base-form-label htmlFor="address">-->
-            <!--                    {{ $t('validation.attributes.address') }}-->
-            <!--                </base-form-label>-->
-
-            <!--                <base-form-input-->
-            <!--                    id="address"-->
-            <!--                    ref="firstInputRef"-->
-            <!--                    v-model="form.address"-->
-            <!--                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.address') })"-->
-            <!--                    type="text"-->
-            <!--                    @change="form.validate('address')"-->
-            <!--                />-->
-
-            <!--                <div v-if="form.errors?.address" class="mt-2">-->
-            <!--                    <base-input-error :message="form.errors.address"></base-input-error>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!-- End: Address-->
 
             <the-subject-and-quota
                 v-for="(lesson, index) in form.lessons"

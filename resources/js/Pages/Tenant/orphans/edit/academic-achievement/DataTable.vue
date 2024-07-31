@@ -30,15 +30,15 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
                     </base-th-table>
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap">
                         <div class="flex items-center">
-                            {{ $t('first_trimester') }}
+                            {{ $t('validation.attributes.first_trimester') }}
                         </div>
                     </base-th-table>
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !px-2">
-                        {{ $t('second_trimester') }}
+                        {{ $t('validation.attributes.second_trimester') }}
                     </base-th-table>
 
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
-                        {{ $t('third_trimester') }}
+                        {{ $t('validation.attributes.third_trimester') }}
                     </base-th-table>
 
                     <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">

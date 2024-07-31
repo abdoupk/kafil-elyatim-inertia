@@ -120,7 +120,7 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the lesson id
 const modalTitle = computed(() => {
-    return lessonsStore.lesson.id ? __('update lesson') : n__('add new', 0, { attribute: __('lesson') })
+    return lessonsStore.lesson.id ? __('update lesson') : n__('add new', 1, { attribute: __('lesson') })
 })
 
 // Initialize a ref for the first input element
@@ -177,6 +177,7 @@ const handleCloseModal = () => {
 
     vueSelectOrphans.value = []
 
+    form.value.reset()
     // TODO: Find a way to reset the vue select schools
 }
 </script>
@@ -196,14 +197,14 @@ const handleCloseModal = () => {
             <!-- Begin: Title-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="title">
-                    {{ $t('title') }}
+                    {{ $t('validation.attributes.title') }}
                 </base-form-label>
 
                 <base-form-input
                     id="title"
                     ref="firstInputRef"
                     v-model="form.title"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('title') })"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.title') })"
                     type="text"
                     @change="form.validate('title')"
                 />
@@ -224,11 +225,18 @@ const handleCloseModal = () => {
                     <base-v-calendar v-model:date="date" mode="date"></base-v-calendar>
                 </div>
 
-                <div class="col-span-12 sm:col-span-3 -mt-2 sm:mt-7">
+                <div class="col-span-12 sm:col-span-4">
+                    <base-form-label for="start_date">
+                        {{ $t('validation.attributes.start_date') }}
+                    </base-form-label>
+
                     <base-v-calendar
                         v-model:date="form.start_date"
                         hide-time-header
                         is24hr
+                        :placeholder="
+                            $t('auth.placeholders.fill', { attribute: $t('validation.attributes.start_date') })
+                        "
                         mode="time"
                     ></base-v-calendar>
 
@@ -243,8 +251,18 @@ const handleCloseModal = () => {
                     </base-form-input-error>
                 </div>
 
-                <div class="col-span-12 sm:col-span-3 -mt-2 sm:mt-7">
-                    <base-v-calendar v-model:date="form.end_date" hide-time-header is24hr mode="time"></base-v-calendar>
+                <div class="col-span-12 sm:col-span-4">
+                    <base-form-label for="end_date">
+                        {{ $t('validation.attributes.end_date') }}
+                    </base-form-label>
+
+                    <base-v-calendar
+                        :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.end_date') })"
+                        v-model:date="form.end_date"
+                        hide-time-header
+                        is24hr
+                        mode="time"
+                    ></base-v-calendar>
 
                     <base-form-input-error>
                         <div
@@ -262,7 +280,7 @@ const handleCloseModal = () => {
             <!-- Begin: Frequency-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="frequency">
-                    {{ $t('frequency') }}
+                    {{ $t('validation.attributes.frequency') }}
                 </base-form-label>
 
                 <base-form-select id="frequency" v-model="form.frequency" placeholder="ddd">
@@ -281,10 +299,15 @@ const handleCloseModal = () => {
             <!-- Begin: Interval-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="interval">
-                    {{ $t('interval') }}
+                    {{ $t('validation.attributes.interval') }}
                 </base-form-label>
 
-                <base-form-input id="interval" v-model="form.interval" type="number"></base-form-input>
+                <base-form-input
+                    id="interval"
+                    v-model="form.interval"
+                    type="number"
+                    :placeholder="$t('placeholders.fill_interval')"
+                ></base-form-input>
 
                 <div v-if="form.errors?.interval" class="mt-2">
                     <base-input-error :message="form.errors.interval"></base-input-error>
@@ -295,13 +318,13 @@ const handleCloseModal = () => {
             <!-- Begin: Until-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="until">
-                    {{ $t('until') }}
+                    {{ $t('validation.attributes.until') }}
                 </base-form-label>
 
                 <base-v-calendar
                     id="until"
                     v-model:date="form.until"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('until') })"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.until') })"
                     type="text"
                 ></base-v-calendar>
 
@@ -382,7 +405,7 @@ const handleCloseModal = () => {
             <!-- Begin: Orphans-->
             <div class="col-span-12">
                 <base-form-label htmlFor="orphans">
-                    {{ $t('the_children') }}
+                    {{ $t('the_orphans') }}
                 </base-form-label>
 
                 <div>
@@ -397,7 +420,7 @@ const handleCloseModal = () => {
                         :loading="loadingSearchOrphans"
                         :max="vueSelectSubjects?.quota ?? 0"
                         :options="orphans"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_children') })"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_orphans') })"
                         :searchable="true"
                         :show-no-results="true"
                         class="h-full w-full"
@@ -426,7 +449,7 @@ const handleCloseModal = () => {
             <!-- Begin: Color-->
             <div class="col-span-12 mt-0">
                 <base-form-label htmlFor="color">
-                    {{ $t('color') }}
+                    {{ $t('validation.attributes.color') }}
                 </base-form-label>
 
                 <color-selector

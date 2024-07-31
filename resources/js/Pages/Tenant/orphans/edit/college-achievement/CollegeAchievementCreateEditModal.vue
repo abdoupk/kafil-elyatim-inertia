@@ -218,13 +218,15 @@ watch(
             <!-- Begin: First Semester-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="first_semester">
-                    {{ $t('first_semester') }}
+                    {{ $t('validation.attributes.first_semester') }}
                 </base-form-label>
 
                 <base-form-input
                     id="first_semester"
                     v-model="form.first_semester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('first_semester') })"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.first_semester') })
+                    "
                     step="0.01"
                     type="number"
                     @change="form.validate('first_semester')"
@@ -239,13 +241,15 @@ watch(
             <!-- Begin: Second Semester-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="second_trimester">
-                    {{ $t('second_semester') }}
+                    {{ $t('validation.attributes.second_semester') }}
                 </base-form-label>
 
                 <base-form-input
                     id="second_semester"
                     v-model="form.second_semester"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('second_semester') })"
+                    :placeholder="
+                        $t('auth.placeholders.fill', { attribute: $t('validation.attributes.second_semester') })
+                    "
                     step="0.01"
                     type="number"
                     @change="form.validate('second_semester')"

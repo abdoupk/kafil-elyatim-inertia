@@ -38,31 +38,46 @@
                     </th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach ($orphans as $orphan)
                     <tr>
+                        {{-- Begin: ID --}}
                         <td
                             class="px-5 py-3 dark:border-darkmode-300 w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
                             {{ $loop->iteration }}
                         </td>
+                        {{-- End: ID --}}
+
+                        {{-- Begin: Name --}}
                         <td
                             class="px-5 py-3 dark:border-darkmode-300 !min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
                             <a class="font-medium">{{ $orphan->getName() }}</a>
                         </td>
+                        {{-- End: Name --}}
+
+                        {{-- Begin: Address --}}
                         <td
                             class="px-5 py-3 dark:border-darkmode-300 max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
                             {{ $orphan->address }}
                             <a class="mt-0.5 block whitespace-nowrap text-xs text-slate-500" href="">
                                 {{ $orphan->zone?->name }}</a>
                         </td>
+                        {{-- End: Address --}}
+
+                        {{-- Begin: Date --}}
                         <td
                             class="px-5 py-3 dark:border-darkmode-300 border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
                             {{ $orphan->file_number }}
                         </td>
+                        {{-- End: Date --}}
+
+                        {{-- Begin: Date --}}
                         <td
                             class="px-5 py-3 dark:border-darkmode-300 w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
                             <div class="whitespace-nowrap">{{ $orphan->start_date->format('Y-m-d') }}</div>
                         </td>
+                        {{-- End: Date --}}
                     </tr>
                 @endforeach
             </tbody>

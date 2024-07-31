@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
+import { usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
 
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'
@@ -9,7 +10,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNotificationMenu from '@/Components/top-bar/TheNotificationMenu.vue'
 
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
-import { usePage } from '@inertiajs/vue3'
 
 const attrs = useComputedAttrs()
 
@@ -19,10 +19,9 @@ defineOptions({
 
 const settingsStore = useSettingsStore()
 
-window.Echo.private('App.Models.User.' + usePage().props.auth.user.id)
-    .notification((notification) => {
-        console.log(notification)
-    })
+window.Echo.private('App.Models.User.' + usePage().props.auth.user.id).notification((notification) => {
+    console.log(notification)
+})
 </script>
 
 <template>
