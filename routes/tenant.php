@@ -12,6 +12,7 @@ use App\Http\Controllers\V1\Branches\BranchesIndexController;
 use App\Http\Controllers\V1\Branches\BranchShowController;
 use App\Http\Controllers\V1\Branches\BranchStoreController;
 use App\Http\Controllers\V1\Branches\BranchUpdateController;
+use App\Http\Controllers\V1\Branches\ListBranchesController;
 use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsDeleteController;
 use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsShowController;
 use App\Http\Controllers\V1\CollegeAchievements\CollegeAchievementsStoreController;
@@ -50,7 +51,6 @@ use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Needs\GetOrphansController;
-use App\Http\Controllers\V1\Needs\GetSponsorsController;
 use App\Http\Controllers\V1\Needs\NeedDeleteController;
 use App\Http\Controllers\V1\Needs\NeedShowController;
 use App\Http\Controllers\V1\Needs\NeedsIndexController;
@@ -84,6 +84,7 @@ use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsPDFController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsXlsxController;
+use App\Http\Controllers\V1\Sponsors\ListSponsorsController;
 use App\Http\Controllers\V1\Sponsors\SponsorDeleteController;
 use App\Http\Controllers\V1\Sponsors\SponsorEditController;
 use App\Http\Controllers\V1\Sponsors\SponsorShowController;
@@ -96,6 +97,7 @@ use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAch
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsShowController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsStoreController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsUpdateController;
+use App\Http\Controllers\V1\Zones\ListZonesController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
 use App\Http\Controllers\V1\Zones\ZoneShowController;
 use App\Http\Controllers\V1\Zones\ZonesIndexController;
@@ -161,6 +163,8 @@ Route::middleware([
 
                 Route::get('export-xlsx', ExportFamiliesXlsxController::class)
                     ->name('export.xlsx');
+
+                Route::get('list-families', ListSponsorsController::class)->name('list-families');
             });
 
             Route::prefix('inventory')->group(function () {
@@ -195,6 +199,8 @@ Route::middleware([
 
                 Route::delete('{branch}', BranchDeleteController::class)
                     ->name('destroy');
+
+                Route::get('list-branches', ListBranchesController::class)->name('list-branches');
             });
 
             Route::prefix('orphans')->name('orphans.')->group(function () {
@@ -275,6 +281,8 @@ Route::middleware([
 
                 Route::get('export-xlsx', ExportSponsorsXlsxController::class)
                     ->name('export.xlsx');
+
+                Route::get('list-sponsors', ListSponsorsController::class)->name('list-sponsors');
             });
 
             Route::prefix('settings')->name('settings.')->group(function () {
@@ -319,6 +327,8 @@ Route::middleware([
 
                 Route::delete('{zone}', ZoneDeleteController::class)
                     ->name('destroy');
+
+                Route::get('list-zones', ListZonesController::class)->name('list-zones');
             });
 
             Route::prefix('occasions')->name('occasions.')->group(function () {
@@ -384,8 +394,6 @@ Route::middleware([
                     ->name('destroy');
 
                 Route::get('get-orphans', GetOrphansController::class)->name('get-orphans');
-
-                Route::get('get-sponsors', GetSponsorsController::class)->name('get-sponsors');
             });
 
             Route::prefix('lessons')->name('lessons.')->group(function () {

@@ -8,6 +8,7 @@ import { omit } from '@/utils/helper'
 
 interface State {
     branch: CreateBranchForm & { id: string }
+    branches: { id: string, name: string }[]
 }
 
 export const useBranchesStore = defineStore('branches', {
@@ -18,7 +19,8 @@ export const useBranchesStore = defineStore('branches', {
             city_id: '',
             president_id: '',
             created_at: new Date()
-        }
+        },
+        branches: []
     }),
     actions: {
         async getBranch(branchId: string) {
@@ -35,6 +37,12 @@ export const useBranchesStore = defineStore('branches', {
 
                 this.branch = omit(res.data.branch, ['city'])
             })
+        },
+
+        async getBranches() {
+            const { data: branches } = await axios.get(route('tenant.branches.list-branches'))
+
+            this.branches = branches
         }
     }
 })

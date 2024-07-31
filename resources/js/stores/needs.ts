@@ -41,7 +41,7 @@ export const useNeedsStore = defineStore('needs', {
         },
 
         async getSponsors() {
-            return await axios.get(route('tenant.needs.get-sponsors'))
+            return await axios.get(route('tenant.sponsors.list-sponsors'))
         }
     }
 })

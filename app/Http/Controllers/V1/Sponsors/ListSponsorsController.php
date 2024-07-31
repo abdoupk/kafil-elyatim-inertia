@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\V1\Needs;
+namespace App\Http\Controllers\V1\Sponsors;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Needs\PersonResource;
 use App\Models\Sponsor;
 
-class GetSponsorsController extends Controller
+class ListSponsorsController extends Controller
 {
     public function __invoke()
     {

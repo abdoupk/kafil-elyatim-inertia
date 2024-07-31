@@ -3,7 +3,8 @@ import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
 import { ref } from 'vue'
 
-import FilterRule from '@/Pages/Shared/FilterRule.vue'
+import FilterRule from '@/Pages/Shared/filters/FilterRule.vue'
+import FilterValue from '@/Pages/Shared/filters/FilterValue.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'
@@ -64,10 +65,25 @@ const handleChange = (value: string, index: number) => {
                             v-for="(rule, index) in filterRules"
                             :key="index"
                             v-model:field="rule.field"
-                            v-model:operator="rule.operator"
+                            @update:operator="
+                                (event) => {
+                                    rule.operator = event
+
+                                    // rule.value = ''
+
+                                    emit('update:value', filterRules)
+                                }
+                            "
                             :filters
-                            @update:value="handleChange($event, index)"
-                        ></filter-rule>
+                        >
+                            <template #default>
+                                <filter-value
+                                    v-model:value="rule.value"
+                                    @update:value="handleChange($event, index)"
+                                    :field="rule.field?.field"
+                                ></filter-value>
+                            </template>
+                        </filter-rule>
                     </div>
 
                     <a

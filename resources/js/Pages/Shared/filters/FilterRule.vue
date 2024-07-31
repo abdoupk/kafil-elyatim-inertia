@@ -3,8 +3,9 @@ import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
 import { ref, watch } from 'vue'
 
-import FieldsFilterDropDown from '@/Pages/Shared/FieldsFilterDropDown.vue'
-import OperatorsFilterDropDown from '@/Pages/Shared/OperatorsFilterDropDown.vue'
+import FieldsFilterDropDown from '@/Pages/Shared/filters/FieldsFilterDropDown.vue'
+import OperatorsFilterDropDown from '@/Pages/Shared/filters/OperatorsFilterDropDown.vue'
+import SponsorsFilterDropDown from '@/Pages/Shared/filters/SponsorsFilterDropDown.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 
@@ -42,5 +43,5 @@ watch(
 
     <operators-filter-drop-down v-model:selected="operator" :operators class="col-span-4"></operators-filter-drop-down>
 
-    <base-form-input v-model="value" class="col-span-4 mt-2 text-sm"></base-form-input>
+    <slot></slot>
 </template>

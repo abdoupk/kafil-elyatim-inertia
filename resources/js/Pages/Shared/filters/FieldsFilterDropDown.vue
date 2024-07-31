@@ -28,7 +28,7 @@ onMounted(() => {
                         class="h-5 w-5 flex-shrink-0 rounded-full"
                     />
 
-                    <span class="ms-3 block truncate">{{ selected?.field }}</span>
+                    <span class="ms-3 block truncate">{{ $t(`filters.${selected?.label}`) }}</span>
                 </span>
 
                 <span class="pointer-events-none absolute inset-y-0 end-0 ms-3 flex items-center pe-2">

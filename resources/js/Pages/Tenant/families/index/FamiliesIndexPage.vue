@@ -7,8 +7,8 @@ import { reactive, ref, watch } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import FilterModal from '@/Pages/Shared/FilterModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import FilterModal from '@/Pages/Shared/filters/FilterModal.vue'
 import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
@@ -144,6 +144,8 @@ const filters = ref<ListBoxFilter[]>([
     {
         icon: 'icon-users',
         field: 'name',
+        label: 'Name',
+        type: 'object',
         operators: [
             {
                 label: 'is',
@@ -158,6 +160,8 @@ const filters = ref<ListBoxFilter[]>([
     {
         icon: 'icon-calendar',
         field: 'age',
+        label: 'Age',
+        type: 'string',
         operators: [
             {
                 label: 'equals',
@@ -188,7 +192,7 @@ const handleFilter = (filters: IndexParams['filters']) => {
         ...filters
             ?.map((filter) => {
                 return {
-                    field: filter.field.field,
+                    field: filter.field.field === 'name' ? 'id' : filter.field.field,
                     operator: filter.operator.value,
                     value: filter.value
                 }
