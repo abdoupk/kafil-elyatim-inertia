@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FamiliesIndexResource, IndexParams, ListBoxFilter, PaginationData } from '@/types/types'
+import type { FamiliesIndexResource, IndexParams, ListBoxFilter, ListBoxOperator, PaginationData } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
@@ -158,7 +158,8 @@ watch(
 
 const filters = ref<ListBoxFilter[]>(familiesFilters)
 
-const handleFilter = (filters: IndexParams['filters']) => {
+const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
+    // @ts-ignore
     params.filters = {
         ...filters
             ?.map((filter) => {
@@ -210,7 +211,7 @@ const handleFilter = (filters: IndexParams['filters']) => {
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <export-menu :params class="hidden sm:block sm:me-2"></export-menu>
 
-                <advanced-filter :filters class="me-2 sm:hidden"></advanced-filter>
+                <advanced-filter :filters class="me-2 sm:hidden" @update:value="handleFilter"></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input
