@@ -14,10 +14,12 @@ const value = defineModel<{ id: string; name: string }>('value', {
 const zonesStore = useZonesStore()
 
 onMounted(() => {
-    zonesStore.getZones()
+    if (zonesStore.zones.length === 0) {
+        zonesStore.getZones()
+    }
 })
 </script>
 
 <template>
-    <filter-value-drop-down :data="zonesStore.zones" v-model:value="value"></filter-value-drop-down>
+    <filter-value-drop-down v-model:value="value" :data="zonesStore.zones"></filter-value-drop-down>
 </template>

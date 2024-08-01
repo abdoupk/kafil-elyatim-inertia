@@ -14,9 +14,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatCurrency, formatDate } from '@/utils/helper'
 
-const props = defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
-
-console.log(props.finances)
+defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
 
 const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>

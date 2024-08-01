@@ -1,11 +1,14 @@
 <script lang="ts" setup>
+import type { FilterValueType } from '@/types/types'
+
 import { useFamiliesStore } from '@/stores/families'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+
 import { __ } from '@/utils/i18n'
 
-const value = defineModel<{ id: string; name: string }>('value', {
+const value = defineModel<FilterValueType>('value', {
     default: {
         id: '',
         name: __('filters.select_an_option')

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { FilterValueType } from '@/types/types'
+
 import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
 import FamiliesFilterDropDown from '@/Pages/Shared/filters/FamiliesFilterDropDown.vue'
 import SponsorsFilterDropDown from '@/Pages/Shared/filters/SponsorsFilterDropDown.vue'
@@ -6,7 +8,7 @@ import ZonesFilterDropDown from '@/Pages/Shared/filters/ZonesFilterDropDown.vue'
 
 defineProps<{ field?: string }>()
 
-const value = defineModel<{ id: string; name: string }>('value')
+const value = defineModel<FilterValueType>('value')
 </script>
 
 <template>
@@ -24,8 +26,8 @@ const value = defineModel<{ id: string; name: string }>('value')
 
     <branches-filter-drop-down
         v-if="field === 'branch.id'"
-        class="col-span-4 text-sm"
         v-model:value="value"
+        class="col-span-4 text-sm"
     ></branches-filter-drop-down>
 
     <zones-filter-drop-down

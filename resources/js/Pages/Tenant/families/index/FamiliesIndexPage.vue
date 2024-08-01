@@ -240,15 +240,13 @@ const filters = ref<ListBoxFilter[]>([
 ])
 
 const handleFilter = (filters: IndexParams['filters']) => {
-    console.log(filters,'filters')
     params.filters = {
         ...filters
             ?.map((filter) => {
                 return {
                     field: filter.field.field === 'family_id' ? 'id' : filter.field.field,
                     operator: filter?.operator?.value,
-                    // value: filter.field.type === 'object' ? filter.value.id : filter.value
-                    value: filter.value?.id ?? ''
+                    value: filter.value
                 }
             })
             .filter((filter) => filter.value !== '')

@@ -32,8 +32,6 @@ const props = defineProps<{
     academicLevels: AcademicLevelType[]
 }>()
 
-console.log(props)
-
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,

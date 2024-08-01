@@ -46,8 +46,6 @@ let routerOptions = {
 
 const processing = ref(false)
 
-console.log(props.families)
-
 const getData = () => {
     let data = { ...params }
 

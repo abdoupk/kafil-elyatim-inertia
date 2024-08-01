@@ -4,23 +4,10 @@ import type { ListBoxOperator } from '@/types/types'
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { onMounted } from 'vue'
 
-const props = defineProps<{ operators: ListBoxOperator[] }>()
+defineProps<{ operators: ListBoxOperator[] }>()
 
 const selected = defineModel<ListBoxOperator>('selected')
-
-onMounted(() => {
-    console.log(selected.value, 'selected.value')
-
-    console.log(props.operators, 'props.operators')
-    if (selected.value) return
-
-    else {
-        console.log('0ssssssss')
-        selected.value = props.operators[0]
-    }
-})
 </script>
 
 <template>
@@ -59,8 +46,8 @@ onMounted(() => {
                         >
                             <div class="flex items-center">
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                        $t(operator.label)
-                                    }}</span>
+                                    $t(operator.label)
+                                }}</span>
                             </div>
 
                             <span

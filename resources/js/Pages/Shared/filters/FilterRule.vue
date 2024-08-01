@@ -1,20 +1,20 @@
 <script lang="ts" setup>
 import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import FieldsFilterDropDown from '@/Pages/Shared/filters/FieldsFilterDropDown.vue'
 import OperatorsFilterDropDown from '@/Pages/Shared/filters/OperatorsFilterDropDown.vue'
 
-const props = defineProps<{ filters: ListBoxFilter[] }>()
+defineProps<{ filters: ListBoxFilter[] }>()
+
+const emit = defineEmits(['update:fieldValue', 'update:operatorValue'])
 
 const operators = ref<ListBoxOperator[]>([])
 
 const field = defineModel<ListBoxFilter>('field')
 
 const operator = defineModel<ListBoxOperator>('operator')
-
-const value = defineModel('value')
 
 watch(
     () => field.value,
@@ -23,18 +23,18 @@ watch(
 
         operator.value = operators.value[0]
 
-        value.value = ''
+        emit('update:fieldValue')
     }
 )
 
 watch(
     () => operator.value,
-    () => {
-        field.value?.type === 'string' && (value.value = '')
-
-        field.value?.type === 'object' && (value.value = { id: null, name: '' })
-    }
+    () => emit('update:operatorValue')
 )
+
+onMounted(() => {
+    if (field.value?.operators) operators.value = field.value.operators
+})
 </script>
 
 <template>

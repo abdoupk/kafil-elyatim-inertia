@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { onMounted, watch } from 'vue'
+import { watch } from 'vue'
 
 import FilterValueDropDownListOption from '@/Pages/Shared/filters/FilterValueDropDownListOption.vue'
 
@@ -12,14 +12,17 @@ defineProps<{ data: { id: string; name: string }[] }>()
 
 const value = defineModel<{ id: string; name: string } | string>('value')
 
-watch(() => value.value, (newValue) => {
-    console.log('000s',newValue)
-    if (newValue === '')
-        value.value = {
-            id: '',
-            name: __('filters.select_an_option')
-        }
-},{immediate: true})
+watch(
+    () => value.value,
+    (newValue) => {
+        if (newValue === '')
+            value.value = {
+                id: '',
+                name: __('filters.select_an_option')
+            }
+    },
+    { immediate: true }
+)
 </script>
 
 <template>

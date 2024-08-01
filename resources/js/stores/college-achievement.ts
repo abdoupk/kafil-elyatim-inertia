@@ -28,8 +28,6 @@ export const useCollegeAchievementsStore = defineStore('college-achievements', {
         async getCollegeAchievement(CollegeAchievementID: string) {
             await axios.get(route('tenant.college-achievements.show', CollegeAchievementID)).then((res) => {
                 this.collegeAchievement = { ...res.data.college_achievement }
-
-                console.log(this.collegeAchievement)
             })
         }
     }

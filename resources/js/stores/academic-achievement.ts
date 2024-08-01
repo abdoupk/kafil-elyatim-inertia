@@ -27,8 +27,6 @@ export const useAcademicAchievementsStore = defineStore('academic-achievements',
         async getAcademicAchievement(AcademicAchievementID: string) {
             await axios.get(route('tenant.academic-achievements.show', AcademicAchievementID)).then((res) => {
                 this.academicAchievement = { ...res.data.academic_achievement }
-
-                console.log(this.academicAchievement)
             })
         }
     }

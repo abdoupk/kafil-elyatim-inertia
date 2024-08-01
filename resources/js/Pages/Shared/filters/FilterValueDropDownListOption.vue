@@ -14,8 +14,7 @@ defineProps<{
         ]"
     >
         <div class="flex items-center">
-            <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{ label }}</span
-            >
+            <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{ label }}</span>
         </div>
 
         <span

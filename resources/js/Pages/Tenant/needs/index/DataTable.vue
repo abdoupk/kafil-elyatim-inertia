@@ -12,9 +12,7 @@ import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-const props = defineProps<{ needs: PaginationData<NeedsIndexResource>; params: IndexParams }>()
-
-console.log(props.needs)
+defineProps<{ needs: PaginationData<NeedsIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
 const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])

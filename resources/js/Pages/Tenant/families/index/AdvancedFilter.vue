@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
+import type { FilterValueType, ListBoxFilter, ListBoxOperator } from '@/types/types'
 
 import { ref } from 'vue'
 
@@ -20,7 +20,7 @@ const field = ref<ListBoxFilter>()
 
 const operator = ref<ListBoxOperator>()
 
-const value = ref('')
+const value = ref<FilterValueType>('')
 
 const filterRules = ref([
     {
@@ -52,12 +52,26 @@ const handleChange = (value: string, index: number) => {
     emit('update:value', filterRules.value)
 }
 
-const handleOperatorChange = (operator: ListBoxOperator, index: number) => {
-    if (operator) {
-        filterRules.value[index].operator = operator
+const handleOperatorChange = (index: number) => {
+    filterRules.value[index].value = ''
+}
 
-        emit('update:value', filterRules.value)
+const handleFieldChange = (index: number) => {
+    if (filterRules.value[index].field?.operators[0])
+        filterRules.value[index].operator = filterRules.value[index]?.field?.operators[0]
+
+    if (filterRules.value[index].field?.type === 'string') {
+        filterRules.value[index].value = ''
     }
+
+    if (filterRules.value[index].field?.type === 'object') {
+        filterRules.value[index].value = {
+            id: '',
+            name: ''
+        }
+    }
+
+    emit('update:value', filterRules.value)
 }
 </script>
 
@@ -74,15 +88,17 @@ const handleOperatorChange = (operator: ListBoxOperator, index: number) => {
                         <filter-rule
                             v-for="(rule, index) in filterRules"
                             :key="index"
-                            v-model:field="rule.field"
-                            v-model:operator="rule.operator"
+                            v-model:field="filterRules[index].field"
+                            v-model:operator="filterRules[index].operator"
                             :filters
+                            @update:field-value="handleFieldChange(index)"
+                            @update:operator-value="handleOperatorChange(index)"
                         >
                             <template #default>
                                 <filter-value
                                     v-model:value="rule.value"
-                                    @update:value="handleChange($event, index)"
                                     :field="rule.field?.field"
+                                    @update:value="handleChange($event, index)"
                                 ></filter-value>
                             </template>
                         </filter-rule>

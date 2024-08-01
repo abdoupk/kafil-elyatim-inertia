@@ -2,8 +2,8 @@ import { PageProps as AppPageProps } from './'
 
 import { PageProps as InertiaPageProps } from '@inertiajs/core'
 import { AxiosInstance } from 'axios'
-import { route as ziggyRoute } from 'ziggy-js'
 import type Echo from 'laravel-echo'
+import { route as ziggyRoute } from 'ziggy-js'
 
 declare global {
     interface Window {

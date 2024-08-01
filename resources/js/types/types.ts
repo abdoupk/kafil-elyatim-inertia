@@ -13,8 +13,7 @@ import {
     createFamilyStepTwoErrorProps,
     registerStepOneErrorProps,
     registerStepThreeErrorProps,
-    registerStepTwoErrorProps,
-    themes
+    registerStepTwoErrorProps
 } from '@/utils/constants'
 
 import numbers = _default.defaults.animations.numbers
@@ -59,7 +58,7 @@ export type AppearanceType = 'light' | 'dark'
 
 export type ColorSchemesType = typeof colorSchemes
 
-export type ThemesType = typeof themes
+export type ThemesType = 'icewall' | 'rubick' | 'enigma' | 'tinker'
 
 export type LayoutsType = 'side_menu' | 'simple_menu' | 'top_menu'
 
@@ -668,6 +667,8 @@ export interface ListBoxOperator {
     label: string
     value: string
 }
+
+export type FilterValueType = string | { id: string; name: string }
 
 export type ShoesSizesType = { id: number; label: string }[]
 

@@ -56,7 +56,10 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
             </base-thead-table>
 
             <base-tbody-table>
-                <base-tr-table :key="academic_achievement.id" v-for="(academic_achievement, index) in orphan.academic_achievements">
+                <base-tr-table
+                    :key="academic_achievement.id"
+                    v-for="(academic_achievement, index) in orphan.academic_achievements"
+                >
                     <base-td-table>
                         {{ index + 1 }}
                     </base-td-table>

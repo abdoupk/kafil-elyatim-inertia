@@ -36,7 +36,7 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
             v-bind="attrs.attrs"
         >
             <svg-loader
-                :class="{ '!fill-slate-400': settingsStore.theme === 'enigma' || settingsStore.theme === 'icewall' }"
+                :class="{ '!fill-slate-400': settingsStore.theme === 'enigma' || settingsStore.theme === 'rubick' }"
                 class="dark:fill-slate-500"
                 name="icon-bell"
             ></svg-loader>

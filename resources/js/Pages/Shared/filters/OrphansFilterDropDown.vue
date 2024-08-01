@@ -14,7 +14,9 @@ const value = defineModel<{ id: string; name: string }>('value', {
 const orphansStore = useOrphansStore()
 
 onMounted(() => {
-    orphansStore.getOrphans()
+    if (orphansStore.orphans.length === 0) {
+        orphansStore.getOrphans()
+    }
 })
 </script>
 

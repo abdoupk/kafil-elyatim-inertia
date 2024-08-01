@@ -32,8 +32,6 @@ const props = defineProps<{
     members: MembersType
 }>()
 
-console.log(props.finances)
-
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,

@@ -14,7 +14,9 @@ const value = defineModel<{ id: string; name: string }>('value', {
 const sponsorsStore = useSponsorsStore()
 
 onMounted(() => {
-    sponsorsStore.getSponsors()
+    if (sponsorsStore.sponsors.length === 0) {
+        sponsorsStore.getSponsors()
+    }
 })
 </script>
 

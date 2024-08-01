@@ -26,8 +26,6 @@ export const useVocationalTrainingAchievementsStore = defineStore('vocational-tr
                 .get(route('tenant.vocational-training-achievements.show', VocationalTrainingAchievementID))
                 .then((res) => {
                     this.vocationalTrainingAchievement = { ...res.data.vocational_training_achievement }
-
-                    console.log(this.vocationalTrainingAchievement, '656565')
                 })
         }
     }

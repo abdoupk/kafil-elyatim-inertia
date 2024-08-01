@@ -16,11 +16,9 @@ defineOptions({
     layout: TheLayout
 })
 
-const props = defineProps<{
+defineProps<{
     orphan: OrphanShowType
 }>()
-
-console.log(props.orphan)
 
 const view = ref('general_information')
 

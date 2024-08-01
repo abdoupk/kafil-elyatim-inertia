@@ -1,11 +1,14 @@
 <script lang="ts" setup>
+import type { FilterValueType } from '@/types/types'
+
 import { useBranchesStore } from '@/stores/branches'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+
 import { __ } from '@/utils/i18n'
 
-const value = defineModel<{ id: string; name: string }>('value', {
+const value = defineModel<FilterValueType>('value', {
     default: {
         id: '',
         name: __('filters.select_an_option')
@@ -15,7 +18,9 @@ const value = defineModel<{ id: string; name: string }>('value', {
 const branchesStore = useBranchesStore()
 
 onMounted(() => {
-    branchesStore.getBranches()
+    if (branchesStore.branches.length === 0) {
+        branchesStore.getBranches()
+    }
 })
 </script>
 

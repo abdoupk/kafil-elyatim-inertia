@@ -11,8 +11,6 @@ const myFiles = ref([])
 const pond = ref(null)
 
 function handleFilePondInit() {
-    console.log('FilePond has initialized')
-
     pond.value?.getFiles()
 }
 </script>
