@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { usePage } from '@inertiajs/vue3'
+
+import TheAvatar from '@/Pages/Shared/TheAvatar.vue'
+
 import BaseMenu from '@/Components/Base/headless/Menu/BaseMenu.vue'
 import BaseMenuButton from '@/Components/Base/headless/Menu/BaseMenuButton.vue'
 import BaseMenuDivider from '@/Components/Base/headless/Menu/BaseMenuDivider.vue'
@@ -6,17 +10,14 @@ import BaseMenuHeader from '@/Components/Base/headless/Menu/BaseMenuHeader.vue'
 import BaseMenuItem from '@/Components/Base/headless/Menu/BaseMenuItem.vue'
 import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+const authName = usePage().props.auth.user?.first_name + ' ' + usePage().props.auth.user?.last_name
 </script>
 
 <template>
     <base-menu>
         <base-menu-button class="image-fit zoom-in intro-x block h-8 w-8 overflow-hidden rounded-full shadow-lg">
-            <img
-                v-if="$page.props.auth.user?.gender === 'female'"
-                :alt="$page.props.auth.user.first_name"
-                src="/images/female-avatar.png"
-            />
-            <img :alt="$page.props.auth.user.first_name" src="/images/male-avatar.svg" />
+            <the-avatar :gender="$page.props.auth.user?.gender" :name="authName"></the-avatar>
         </base-menu-button>
 
         <base-menu-items class="mt-px w-56 bg-primary text-white">

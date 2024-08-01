@@ -685,3 +685,20 @@ export interface SchoolsIndexResource {
     quota?: number
     created_at: Date | string
 }
+
+export interface DatabaseNotification {
+    data: {
+        user: {
+            id: string
+            gender: 'male' | 'female'
+            name: string
+        }
+        metadata: {
+            created_at: string
+            url: string
+        }
+        data: object
+    }
+    type: string
+    id: string
+}

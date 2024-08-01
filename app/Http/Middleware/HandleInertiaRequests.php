@@ -25,7 +25,8 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $this->getAuthData(),
                 'settings' => auth()->user()?->settings,
-                'notifications' => NotificationResource::collection(auth()->user()?->unreadNotifications),
+                'notifications' => auth()->user()
+                    ? NotificationResource::collection(auth()->user()?->unreadNotifications) : [],
             ],
             'association' => tenant('association'),
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()

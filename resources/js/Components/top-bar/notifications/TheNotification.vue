@@ -44,7 +44,10 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
             ></svg-loader>
         </base-popover-button>
 
-        <base-popover-panel class="mt-2 w-[280px] p-5 sm:w-[350px]" placement="bottom-end">
+        <base-popover-panel
+            class="mt-2 w-[280px] p-5 sm:w-[350px] max-h-[500px] overflow-y-auto scroll-smooth scrollbar-hidden"
+            placement="bottom-end"
+        >
             <the-notification-menu></the-notification-menu>
         </base-popover-panel>
     </base-popover>
