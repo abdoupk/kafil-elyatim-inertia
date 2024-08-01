@@ -3,6 +3,15 @@
     color: theme('colors.black') !important;
 }
 
+.multiselect__spinner {
+    background: theme('colors.white') !important;
+
+    &:before,
+    &:after {
+        border-top-color: theme('colors.primary') !important;
+    }
+}
+
 .multiselect__option--highlight {
     background-color: theme('colors.primary') !important;
     color: theme('colors.white') !important;
@@ -20,7 +29,7 @@
 }
 
 .multiselect__input {
-    color: theme('colors.slate.300') !important;
+    color: theme('colors.slate.600') !important;
 
     &::placeholder {
         color: theme('colors.slate.500/80') !important;
@@ -111,6 +120,15 @@
         /*padding: theme('spacing.1') !important;*/
         /*margin-top: theme('spacing.1') !important;*/
         box-shadow: 0 0 0 1px theme('colors.primary') !important;
+    }
+
+    .multiselect__spinner {
+        background: theme('colors.darkmode.800') !important;
+
+        &:before,
+        &:after {
+            border-top-color: theme('colors.primary') !important;
+        }
     }
 
     & .multiselect__placeholder,
