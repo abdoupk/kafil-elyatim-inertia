@@ -98,8 +98,7 @@ const updateValue = (
     clonedEl.setAttribute(
         'class',
         [
-            ...Array.from(originalEl.classList),
-            ...Array.from(clonedEl.classList).filter((className) => initialClassNames?.indexOf(className) == -1)
+            ...Array.from(originalEl.classList), ...Array.from(clonedEl.classList).filter((className) => initialClassNames?.indexOf(className) == -1)
         ].join(' ')
     )
 

@@ -1,12 +1,14 @@
 <script lang="ts" setup>
-
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
+import { onMounted } from 'vue'
+
+import FilterValueDropDownListOption from '@/Pages/Shared/filters/FilterValueDropDownListOption.vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
-import { onMounted } from 'vue'
+
 import { __ } from '@/utils/i18n'
 
-const props = defineProps<{ data: { id: string; name: string }[] }>()
+defineProps<{ data: { id: string; name: string }[] }>()
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
@@ -16,15 +18,10 @@ const value = defineModel<{ id: string; name: string }>('value', {
 })
 
 onMounted(() => {
-    if (!props.data.some(obj => obj.id !== '')) {
-        props.data.push({
-            id: '',
-            name: __('filters.select_an_option')
-        })
+    value.value = {
+        id: '',
+        name: __('filters.select_an_option')
     }
-
-    if (props.data.length > 0)
-        value.value = props.data[0]
 })
 </script>
 
@@ -49,35 +46,31 @@ onMounted(() => {
                 <listbox-options
                     class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-darkmode-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                 >
+                    <listbox-option
+                        key="none"
+                        v-slot="{ active, selected }"
+                        :value="{ id: '', name: __('empty') }"
+                        as="template"
+                    >
+                        <filter-value-drop-down-list-option
+                            :active
+                            :label="__('empty')"
+                            :selected
+                        ></filter-value-drop-down-list-option>
+                    </listbox-option>
 
                     <listbox-option
-                        v-for="datum in data "
+                        v-for="datum in data"
                         :key="datum.id"
                         v-slot="{ active, selected }"
                         :value="datum"
                         as="template"
                     >
-                        <li
-                            :class="[
-                                active ? 'bg-primary text-white' : 'text-gray-900 dark:text-slate-300',
-                                'relative cursor-default select-none py-2 ps-3 pe-9'
-                            ]"
-                        >
-                            <div class="flex items-center">
-                                <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                        datum.name
-                                    }}</span>
-                            </div>
-
-                            <span
-                                v-if="selected"
-                                :class="[
-                                    active ? 'text-white' : 'text-primary',
-                                    'absolute inset-y-0 end-0 flex items-center pe-4'
-                                ]"
-                            >
-                            </span>
-                        </li>
+                        <filter-value-drop-down-list-option
+                            :active
+                            :label="datum.name"
+                            :selected
+                        ></filter-value-drop-down-list-option>
                     </listbox-option>
                 </listbox-options>
             </transition>

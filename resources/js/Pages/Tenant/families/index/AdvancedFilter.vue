@@ -34,13 +34,15 @@ const removeFilterRule = () => {
     if (filterRules.value.length > 1) {
         filterRules.value.pop()
     }
+
+    emit('update:value', filterRules.value)
 }
 
 const addFilterRule = () => {
     filterRules.value.push({
         field: field.value,
         operator: operator.value,
-        value: value.value
+        value: ''
     })
 }
 
@@ -48,6 +50,14 @@ const handleChange = (value: string, index: number) => {
     filterRules.value[index].value = value
 
     emit('update:value', filterRules.value)
+}
+
+const handleOperatorChange = (operator: ListBoxOperator, index: number) => {
+    if (operator) {
+        filterRules.value[index].operator = operator
+
+        emit('update:value', filterRules.value)
+    }
 }
 </script>
 
@@ -65,20 +75,11 @@ const handleChange = (value: string, index: number) => {
                             v-for="(rule, index) in filterRules"
                             :key="index"
                             v-model:field="rule.field"
-                            @update:operator="
-                                (event) => {
-                                    rule.operator = event
-
-                                    // rule.value = ''
-
-                                    emit('update:value', filterRules)
-                                }
-                            "
+                            @update:operator="handleOperatorChange($event, index)"
                             :filters
                         >
                             <template #default>
                                 <filter-value
-                                    v-model:value="rule.value"
                                     @update:value="handleChange($event, index)"
                                     :field="rule.field?.field"
                                 ></filter-value>

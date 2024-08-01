@@ -8,7 +8,7 @@ import { omit } from '@/utils/helper'
 
 interface State {
     branch: CreateBranchForm & { id: string }
-    branches: { id: string, name: string }[]
+    branches: { id: string; name: string }[]
 }
 
 export const useBranchesStore = defineStore('branches', {

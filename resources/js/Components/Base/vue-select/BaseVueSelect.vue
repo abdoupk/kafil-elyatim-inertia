@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import Multiselect from 'vue-multiselect'
 
-defineProps<{ options: Record<string, string | any> }>()
+defineProps<{ options: Record<string, string | unknown> }>()
 
 const value = defineModel('value')
 </script>

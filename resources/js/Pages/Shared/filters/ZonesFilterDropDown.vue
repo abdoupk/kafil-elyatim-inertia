@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 import { useZonesStore } from '@/stores/zones'
+import { onMounted } from 'vue'
+
+import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
@@ -9,6 +10,7 @@ const value = defineModel<{ id: string; name: string }>('value', {
         name: ''
     }
 })
+
 const zonesStore = useZonesStore()
 
 onMounted(() => {

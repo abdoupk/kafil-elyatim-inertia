@@ -204,49 +204,51 @@ const filters = ref<ListBoxFilter[]>([
                 value: '!='
             }
         ]
-    },
+    }
     // {
-    //     icon: 'icon-calendar',
-    //     field: 'age',
-    //     label: 'Age',
-    //     type: 'string',
-    //     operators: [
+    //     Icon: 'icon-calendar',
+    //     Field: 'age',
+    //     Label: 'Age',
+    //     Type: 'string',
+    //     Operators: [
     //         {
-    //             label: 'filters.equal_to',
-    //             value: '='
+    //             Label: 'filters.equal_to',
+    //             Value: '='
     //         },
     //         {
-    //             label: 'filters.not_equal_to',
-    //             value: '!='
+    //             Label: 'filters.not_equal_to',
+    //             Value: '!='
     //         },
     //         {
-    //             label: 'filters.is_greater_than',
-    //             value: '>'
+    //             Label: 'filters.is_greater_than',
+    //             Value: '>'
     //         },
     //         {
-    //             label: 'filters.is_less_than',
-    //             value: '<'
+    //             Label: 'filters.is_less_than',
+    //             Value: '<'
     //         },
     //         {
-    //             label: 'filters.is_greater_than_or_equal_to',
-    //             value: '>='
+    //             Label: 'filters.is_greater_than_or_equal_to',
+    //             Value: '>='
     //         },
     //         {
-    //             label: 'filters.is_less_than_or_equal_to',
-    //             value: '<='
+    //             Label: 'filters.is_less_than_or_equal_to',
+    //             Value: '<='
     //         }
     //     ]
     // }
 ])
 
 const handleFilter = (filters: IndexParams['filters']) => {
+    console.log(filters, '454545')
+
     params.filters = {
         ...filters
             ?.map((filter) => {
                 return {
                     field: filter.field.field === 'family_id' ? 'id' : filter.field.field,
-                    operator: filter.operator.value,
-                    value: filter.value
+                    operator: filter?.operator?.value,
+                    value: filter?.value
                 }
             })
             .filter((filter) => filter.value !== '')

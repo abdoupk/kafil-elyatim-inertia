@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 import { useFamiliesStore } from '@/stores/families'
+import { onMounted } from 'vue'
+
+import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
@@ -9,10 +10,13 @@ const value = defineModel<{ id: string; name: string }>('value', {
         name: ''
     }
 })
+
 const familiesStore = useFamiliesStore()
 
 onMounted(() => {
-    familiesStore.getFamilies()
+    if (familiesStore.families.length === 0) {
+        familiesStore.getFamilies()
+    }
 })
 </script>
 

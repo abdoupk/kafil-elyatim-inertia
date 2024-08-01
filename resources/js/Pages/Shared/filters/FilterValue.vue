@@ -1,13 +1,12 @@
 <script setup lang="ts">
+import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
 import FamiliesFilterDropDown from '@/Pages/Shared/filters/FamiliesFilterDropDown.vue'
 import SponsorsFilterDropDown from '@/Pages/Shared/filters/SponsorsFilterDropDown.vue'
 import ZonesFilterDropDown from '@/Pages/Shared/filters/ZonesFilterDropDown.vue'
-import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
 
 defineProps<{ field?: string }>()
 
 const value = defineModel<string>('value')
-
 </script>
 
 <template>
@@ -16,7 +15,6 @@ const value = defineModel<string>('value')
         @update:value="value = $event?.id"
         class="col-span-4 text-sm"
     ></families-filter-drop-down>
-
 
     <sponsors-filter-drop-down
         v-if="field === 'sponsor.id'"

@@ -5,9 +5,6 @@ import { ref, watch } from 'vue'
 
 import FieldsFilterDropDown from '@/Pages/Shared/filters/FieldsFilterDropDown.vue'
 import OperatorsFilterDropDown from '@/Pages/Shared/filters/OperatorsFilterDropDown.vue'
-import SponsorsFilterDropDown from '@/Pages/Shared/filters/SponsorsFilterDropDown.vue'
-
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 
 defineProps<{ filters: ListBoxFilter[] }>()
 
@@ -27,14 +24,18 @@ watch(
         operator.value = operators.value[0]
 
         value.value = ''
-    }
+    },
+    { immediate: true }
 )
 
 watch(
     () => operator.value,
     () => {
-        value.value = ''
-    }
+        field.value?.type === 'string' && (value.value = '')
+
+        field.value?.type === 'object' && (value.value = { id: null, name: '' })
+    },
+    { immediate: true }
 )
 </script>
 
