@@ -116,7 +116,7 @@
         "meilisearch": "^0.35.1",
         "pinia": "^2.1.7",
         "print-js": "^1.6.0",
-        "puppeteer": "^22.14.0",
+        "puppeteer": "^22.15.0",
         "simplebar": "^6.2.5",
         "tippy.js": "^6.3.7",
         "toastify-js": "^1.12.0",

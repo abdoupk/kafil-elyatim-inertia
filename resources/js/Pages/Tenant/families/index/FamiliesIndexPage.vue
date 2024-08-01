@@ -7,11 +7,11 @@ import { reactive, ref, watch } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
+import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import FilterModal from '@/Pages/Shared/filters/FilterModal.vue'
 import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
-import ExportMenu from '@/Pages/Tenant/families/index/ExportMenu.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -191,7 +191,12 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
                 {{ n__('add new', 0, { attribute: $t('family') }) }}
             </base-button>
 
-            <export-menu :params class="block sm:hidden"></export-menu>
+            <export-menu
+                :params
+                class="block sm:hidden"
+                export-pdf-url="tenant.families.export.pdf"
+                export-xlsx-url="tenant.families.export.xlsx"
+            ></export-menu>
 
             <advanced-filter :filters class="hidden sm:block" @update:value="handleFilter"></advanced-filter>
 
@@ -209,7 +214,12 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
             </div>
 
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <export-menu :params class="hidden sm:block sm:me-2"></export-menu>
+                <export-menu
+                    :params
+                    class="hidden sm:block sm:me-2"
+                    export-pdf-url="tenant.families.export.pdf"
+                    export-xlsx-url="tenant.families.export.xlsx"
+                ></export-menu>
 
                 <advanced-filter :filters class="me-2 sm:hidden" @update:value="handleFilter"></advanced-filter>
 

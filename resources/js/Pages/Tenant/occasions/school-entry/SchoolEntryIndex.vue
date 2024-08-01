@@ -8,7 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import DataTable from '@/Pages/Tenant/occasions/school-entry/DataTable.vue'
-import ExportMenu from '@/Pages/Tenant/occasions/school-entry/ExportMenu.vue'
+import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 
 import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -128,7 +128,8 @@ watch(
                 {{ $t('save') }}
             </base-button>
 
-            <export-menu :params></export-menu>
+            <export-menu :params
+                         export-pdf-url="tenant.occasions.school-entry.export.pdf" export-xlsx-url="tenant.occasions.school-entry.export.xlsx"></export-menu>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="orphans.meta.total > 0">
