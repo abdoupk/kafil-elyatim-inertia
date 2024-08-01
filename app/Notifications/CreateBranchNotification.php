@@ -34,8 +34,6 @@ class CreateBranchNotification extends Notification implements ShouldQueue
 
     private function makeNotificationMessage(User $notifiable): string
     {
-        ray($notifiable);
-
         // TODO: add locale of user from settings in ths moment set default ar in function
         return trans_choice('notifications.branch.created', $this->user->gender === 'male' ? 1 : 0, [
             'name' => $this->branch->name,

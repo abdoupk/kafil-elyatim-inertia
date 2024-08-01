@@ -144,7 +144,7 @@ class User extends Authenticatable
                 'layout' => 'side_menu',
                 'appearance' => 'light',
                 'tenant_id' => $user->tenant_id,
-                'notifications' => json_encode(DEFAULT_NOTIFICATIONS),
+                'notifications' => DEFAULT_NOTIFICATIONS,
             ]);
         });
     }
