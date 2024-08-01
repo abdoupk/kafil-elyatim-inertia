@@ -3,11 +3,12 @@ import { useBranchesStore } from '@/stores/branches'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import { __ } from '@/utils/i18n'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
         id: '',
-        name: ''
+        name: __('filters.select_an_option')
     }
 })
 

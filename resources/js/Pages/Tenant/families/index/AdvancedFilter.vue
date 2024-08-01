@@ -75,11 +75,12 @@ const handleOperatorChange = (operator: ListBoxOperator, index: number) => {
                             v-for="(rule, index) in filterRules"
                             :key="index"
                             v-model:field="rule.field"
-                            @update:operator="handleOperatorChange($event, index)"
+                            v-model:operator="rule.operator"
                             :filters
                         >
                             <template #default>
                                 <filter-value
+                                    v-model:value="rule.value"
                                     @update:value="handleChange($event, index)"
                                     :field="rule.field?.field"
                                 ></filter-value>

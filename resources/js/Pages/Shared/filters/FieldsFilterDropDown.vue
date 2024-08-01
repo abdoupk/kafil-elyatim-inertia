@@ -2,7 +2,7 @@
 import type { ListBoxFilter } from '@/types/types'
 
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
 
@@ -11,6 +11,8 @@ const props = defineProps<{ filters: ListBoxFilter[] }>()
 const selected = defineModel<ListBoxFilter>('selected')
 
 onMounted(() => {
+   if (selected.value) return
+
     selected.value = props.filters[0]
 })
 </script>
@@ -60,8 +62,8 @@ onMounted(() => {
                             <div class="flex items-center">
                                 <svg-loader :name="filter.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
-                                    $t(`filters.${filter.label}`)
-                                }}</span>
+                                        $t(`filters.${filter.label}`)
+                                    }}</span>
                             </div>
 
                             <span

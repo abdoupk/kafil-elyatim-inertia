@@ -6,7 +6,7 @@ import { ref, watch } from 'vue'
 import FieldsFilterDropDown from '@/Pages/Shared/filters/FieldsFilterDropDown.vue'
 import OperatorsFilterDropDown from '@/Pages/Shared/filters/OperatorsFilterDropDown.vue'
 
-defineProps<{ filters: ListBoxFilter[] }>()
+const props = defineProps<{ filters: ListBoxFilter[] }>()
 
 const operators = ref<ListBoxOperator[]>([])
 
@@ -24,8 +24,7 @@ watch(
         operator.value = operators.value[0]
 
         value.value = ''
-    },
-    { immediate: true }
+    }
 )
 
 watch(
@@ -34,8 +33,7 @@ watch(
         field.value?.type === 'string' && (value.value = '')
 
         field.value?.type === 'object' && (value.value = { id: null, name: '' })
-    },
-    { immediate: true }
+    }
 )
 </script>
 

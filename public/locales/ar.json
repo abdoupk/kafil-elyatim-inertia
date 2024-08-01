@@ -58,8 +58,10 @@
     "entries.needs": "[11,*]احتياج|[3,10]احتياجات|{2}احتياجين",
     "entries.schools": "[11,*]مدرسة خاصة|[3,10]مدارس خاصة|{2}مدرستين",
     "entries.finances": "[11,*]إيراد|[3,10]إيرادات|{2}إيرادين",
-    "filters.family_name": "اسم العائلة",
+    "filters.family": "العائلة",
     "filters.sponsor": "المتكفل",
+    "filters.branch": "الفرع",
+    "filters.zone": "المنطقة",
     "filters.is": "هو",
     "filters.is_not": "ليس هو",
     "filters.or": "أو",
@@ -746,5 +748,6 @@
     "daily": "يومي",
     "monthly": "شهري",
     "weekly": "أسبوعي",
-    "none": "لا يوجد"
+    "none": "لا يوجد",
+    "empty": "فارغ"
 }

@@ -19,7 +19,7 @@ defineOptions({
 
 const settingsStore = useSettingsStore()
 
-window.Echo.private('App.Models.User.' + usePage().props.auth.user.id).notification((notification) => {
+window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification((notification) => {
     console.log(notification)
 })
 </script>

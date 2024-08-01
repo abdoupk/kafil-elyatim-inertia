@@ -3,11 +3,12 @@ import { useFamiliesStore } from '@/stores/families'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import { __ } from '@/utils/i18n'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
         id: '',
-        name: ''
+        name: __('filters.select_an_option')
     }
 })
 
@@ -21,5 +22,5 @@ onMounted(() => {
 </script>
 
 <template>
-    <filter-value-drop-down :data="familiesStore.families" v-model:value="value"></filter-value-drop-down>
+    <filter-value-drop-down v-model:value="value" :data="familiesStore.families"></filter-value-drop-down>
 </template>

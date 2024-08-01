@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
-import { onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 
 import FilterValueDropDownListOption from '@/Pages/Shared/filters/FilterValueDropDownListOption.vue'
 
@@ -10,19 +10,16 @@ import { __ } from '@/utils/i18n'
 
 defineProps<{ data: { id: string; name: string }[] }>()
 
-const value = defineModel<{ id: string; name: string }>('value', {
-    default: {
-        id: '',
-        name: ''
-    }
-})
+const value = defineModel<{ id: string; name: string } | string>('value')
 
-onMounted(() => {
-    value.value = {
-        id: '',
-        name: __('filters.select_an_option')
-    }
-})
+watch(() => value.value, (newValue) => {
+    console.log('000s',newValue)
+    if (newValue === '')
+        value.value = {
+            id: '',
+            name: __('filters.select_an_option')
+        }
+},{immediate: true})
 </script>
 
 <template>
@@ -31,7 +28,7 @@ onMounted(() => {
             <listbox-button
                 class="relative w-full cursor-default rounded-md bg-white dark:bg-darkmode-800 py-1.5 ps-3 pe-10 text-start text-gray-900 dark:text-slate-300 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 border dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
             >
-                <span class="ms-3 block truncate">{{ value.name }}</span>
+                <span class="ms-3 block truncate">{{ value?.name }}</span>
 
                 <span class="pointer-events-none absolute inset-y-0 end-0 ms-3 flex items-center pe-2">
                     <svg-loader aria-hidden="true" class="h-5 w-5 text-gray-400" name="icon-angles-up-down" />
