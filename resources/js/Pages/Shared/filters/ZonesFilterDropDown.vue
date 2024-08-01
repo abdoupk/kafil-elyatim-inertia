@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import type { FilterValueType } from '@/types/types'
+
 import { useZonesStore } from '@/stores/zones'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 
-const value = defineModel<{ id: string; name: string }>('value', {
+const value = defineModel<FilterValueType>('value', {
     default: {
         id: '',
         name: ''

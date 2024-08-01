@@ -20,8 +20,7 @@ watch(
                 id: '',
                 name: __('filters.select_an_option')
             }
-    },
-    { immediate: true }
+    }
 )
 </script>
 

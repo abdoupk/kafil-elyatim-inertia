@@ -18,7 +18,8 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, handleSort } from '@/utils/helper'
+import { familiesFilters } from '@/utils/constants'
+import { debounce, handleFilterValue, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -122,11 +123,26 @@ watch(
 )
 
 // eslint-disable-next-line array-element-newline
-watch(() => [params.fields, params.directions, params.filters], getData)
+watch(() => [params.fields, params.directions], getData)
+
+watch(
+    () => [params.filters],
+    (value, oldValue) => {
+        if (value?.length === oldValue?.length && value?.length === 0) return
+
+        if (JSON.stringify(value) === JSON.stringify(oldValue)) return
+
+        getData()
+    }
+)
 
 watch(
     () => [params.perPage],
-    () => (params.page = 1)
+    () => {
+        params.page = 1
+
+        getData()
+    }
 )
 
 watch(
@@ -140,104 +156,7 @@ watch(
     }
 )
 
-const filters = ref<ListBoxFilter[]>([
-    {
-        icon: 'icon-users',
-        field: 'family_id',
-        label: 'family',
-        type: 'object',
-        operators: [
-            {
-                label: 'filters.is',
-                value: '='
-            },
-            {
-                label: 'filters.is_not',
-                value: '!='
-            }
-        ]
-    },
-    {
-        icon: 'icon-hands-holding-child',
-        field: 'sponsor.id',
-        label: 'sponsor',
-        type: 'object',
-        operators: [
-            {
-                label: 'filters.is',
-                value: '='
-            },
-            {
-                label: 'filters.is_not',
-                value: '!='
-            }
-        ]
-    },
-    {
-        icon: 'icon-branches',
-        field: 'branch.id',
-        label: 'branch',
-        type: 'object',
-        operators: [
-            {
-                label: 'filters.is',
-                value: '='
-            },
-            {
-                label: 'filters.is_not',
-                value: '!='
-            }
-        ]
-    },
-    {
-        icon: 'icon-map-location-dot',
-        field: 'zone.id',
-        label: 'zone',
-        type: 'object',
-        operators: [
-            {
-                label: 'filters.is',
-                value: '='
-            },
-            {
-                label: 'filters.is_not',
-                value: '!='
-            }
-        ]
-    }
-    // {
-    //     Icon: 'icon-calendar',
-    //     Field: 'age',
-    //     Label: 'Age',
-    //     Type: 'string',
-    //     Operators: [
-    //         {
-    //             Label: 'filters.equal_to',
-    //             Value: '='
-    //         },
-    //         {
-    //             Label: 'filters.not_equal_to',
-    //             Value: '!='
-    //         },
-    //         {
-    //             Label: 'filters.is_greater_than',
-    //             Value: '>'
-    //         },
-    //         {
-    //             Label: 'filters.is_less_than',
-    //             Value: '<'
-    //         },
-    //         {
-    //             Label: 'filters.is_greater_than_or_equal_to',
-    //             Value: '>='
-    //         },
-    //         {
-    //             Label: 'filters.is_less_than_or_equal_to',
-    //             Value: '<='
-    //         }
-    //     ]
-    // }
-])
+const filters = ref<ListBoxFilter[]>(familiesFilters)
 
 const handleFilter = (filters: IndexParams['filters']) => {
     params.filters = {
@@ -246,7 +165,7 @@ const handleFilter = (filters: IndexParams['filters']) => {
                 return {
                     field: filter.field.field === 'family_id' ? 'id' : filter.field.field,
                     operator: filter?.operator?.value,
-                    value: filter.value
+                    value: handleFilterValue(filter.field.type, filter.value)
                 }
             })
             .filter((filter) => filter.value !== '')

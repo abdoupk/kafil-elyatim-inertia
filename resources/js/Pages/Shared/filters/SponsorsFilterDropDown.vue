@@ -1,10 +1,12 @@
 <script lang="ts" setup>
+import type { FilterValueType } from '@/types/types'
+
 import { useSponsorsStore } from '@/stores/sponsors'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 
-const value = defineModel<{ id: string; name: string }>('value', {
+const value = defineModel<FilterValueType>('value', {
     default: {
         id: '',
         name: ''
@@ -21,5 +23,5 @@ onMounted(() => {
 </script>
 
 <template>
-    <filter-value-drop-down :data="sponsorsStore.sponsors" v-model:value="value"></filter-value-drop-down>
+    <filter-value-drop-down v-model:value="value" :data="sponsorsStore.sponsors"></filter-value-drop-down>
 </template>

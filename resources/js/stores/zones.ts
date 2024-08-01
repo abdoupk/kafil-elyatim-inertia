@@ -14,7 +14,8 @@ export const useZonesStore = defineStore('zones', {
             name: '',
             id: '',
             description: ''
-        }
+        },
+        zones: []
     }),
     actions: {
         async getZone(zoneId: string) {

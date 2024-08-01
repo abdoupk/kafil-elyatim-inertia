@@ -345,8 +345,20 @@ function getVocationalTrainingSpecialityFromId(id, specialities) {
     }
 }
 
+function handleFilterValue(filterType: 'object' | 'string' | 'date' = 'string', value): string {
+    if (filterType === 'date') {
+        if (typeof value !== 'string') return ''
+
+        return Date.parse(value) / 1000
+    } else if (filterType === 'object') {
+        return value?.id
+    }
+    return value
+}
+
 export {
     isEqual,
+    handleFilterValue,
     formatDate,
     combineDateAndTime,
     getAcademicLevelFromId,

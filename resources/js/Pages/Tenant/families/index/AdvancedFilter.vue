@@ -12,6 +12,8 @@ import BasePopoverButton from '@/Components/Base/headless/Popover/BasePopoverBut
 import BasePopoverPanel from '@/Components/Base/headless/Popover/BasePopoverPanel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { __ } from '@/utils/i18n'
+
 defineProps<{ filters: ListBoxFilter[] }>()
 
 const emit = defineEmits(['update:value'])
@@ -67,7 +69,7 @@ const handleFieldChange = (index: number) => {
     if (filterRules.value[index].field?.type === 'object') {
         filterRules.value[index].value = {
             id: '',
-            name: ''
+            name: __('filters.select_an_option')
         }
     }
 
@@ -97,7 +99,7 @@ const handleFieldChange = (index: number) => {
                             <template #default>
                                 <filter-value
                                     v-model:value="rule.value"
-                                    :field="rule.field?.field"
+                                    :field="rule.field"
                                     @update:value="handleChange($event, index)"
                                 ></filter-value>
                             </template>
