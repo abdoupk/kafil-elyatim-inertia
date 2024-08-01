@@ -24,6 +24,18 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User
         settings: UserSettings
+        notifications: {
+            data: T
+            user: {
+                id: string
+                gender: 'male' | 'female'
+                name: string
+            }
+            metadata: {
+                created_at: string
+                url: string
+            }
+        }[]
     }
     association: string
     ziggy: Config & { location: string }

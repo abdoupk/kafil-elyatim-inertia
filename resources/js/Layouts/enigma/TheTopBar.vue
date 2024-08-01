@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge'
 
 import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
-import TheNotification from '@/Components/top-bar/TheNotification.vue'
+import TheNotification from '@/Components/top-bar/notifications/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 
 import { isAssociationNameLatin } from '@/utils/helper'
@@ -45,7 +45,6 @@ const settingsStore = useSettingsStore()
             </Link>
 
             <the-breadcrumb
-                light
                 :class="
                     twMerge([
                         '-intro-x me-auto h-[45px] border-white/[0.08] dark:border-white/[0.08] md:ms-10 md:border-s',
@@ -53,6 +52,7 @@ const settingsStore = useSettingsStore()
                         settingsStore.layout == 'top-menu' && 'md:ps-10'
                     ])
                 "
+                light
             ></the-breadcrumb>
 
             <the-search></the-search>

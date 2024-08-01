@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Enums\Lang;
 use App\Http\Resources\V1\LanguageResource;
+use App\Http\Resources\V1\NotificationResource;
 use Arr;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -24,6 +25,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $this->getAuthData(),
                 'settings' => auth()->user()?->settings,
+                'notifications' => NotificationResource::collection(auth()->user()?->unreadNotifications),
             ],
             'association' => tenant('association'),
             'language' => 'ar', // TODO: change to get automatically app()->getLocale()

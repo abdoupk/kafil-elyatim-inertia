@@ -11,7 +11,7 @@ import TopMenuLink from '@/Layouts/tinker/top-menu/TopMenuLink.vue'
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
 import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
-import TheNotification from '@/Components/top-bar/TheNotification.vue'
+import TheNotification from '@/Components/top-bar/notifications/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 
 import { isAssociationNameLatin, toRaw } from '@/utils/helper'
@@ -51,8 +51,8 @@ onMounted(() => {
                 <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
                     <span
-                        class="ms-3 font-semibold max-w-40 capitalize truncate text-white"
                         :class="isAssociationNameLatin ? 'text-sm' : 'text-base'"
+                        class="ms-3 font-semibold max-w-40 capitalize truncate text-white"
                     >
                         {{ $page.props.association }}
                     </span>
@@ -77,13 +77,13 @@ onMounted(() => {
             <ul class="flex h-[58px] flex-wrap px-6 xl:px-[50px]">
                 <template v-for="(menu, menuKey) in formattedMenu">
                     <li
-                        :key="`tinker_top__menu__${menu.title}__${menuKey}`"
                         v-if="menu !== 'divider'"
-                        class="relative [&:hover>a>div:nth-child(2)>svg]:rotate-180 [&:hover>ul]:block"
+                        :key="`tinker_top__menu__${menu.title}__${menuKey}`"
                         :class="
                             !menu.active &&
                             '[&:hover>a]:bg-primary/60 [&:hover>a]:before:absolute [&:hover>a]:before:inset-0 [&:hover>a]:before:z-[-1] [&:hover>a]:before:block [&:hover>a]:before:rounded-full [&:hover>a]:before:bg-white/[0.04] [&:hover>a]:before:content-[\'\'] [&:hover>a]:dark:bg-transparent [&:hover>a]:before:dark:bg-darkmode-700 [&:hover>a]:xl:before:rounded-xl'
                         "
+                        class="relative [&:hover>a>div:nth-child(2)>svg]:rotate-180 [&:hover>ul]:block"
                     >
                         <top-menu-link
                             :class="!menu.active ? `animate-delay-${(menuKey + 1) * 10}` : ''"

@@ -24,7 +24,10 @@ import SvgLoader from '@/Components/SvgLoader.vue'
                 <div class="font-medium">
                     {{ $page.props.auth.user?.first_name + ' ' + $page.props.auth.user?.last_name }}
                 </div>
-                <div class="mt-0.5 text-xs text-white/70 dark:text-slate-500">{{ $page.props.auth.user.roles[0] }}</div>
+
+                <div class="mt-0.5 text-xs text-white/70 dark:text-slate-500">
+                    {{ $t($page.props.auth.user.roles[0]) }}
+                </div>
             </base-menu-header>
 
             <base-menu-divider class="bg-white/[0.08]" />
@@ -51,7 +54,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
             <base-menu-divider class="bg-white/[0.08]" />
 
-            <base-menu-item :href="route('tenant.logout')" method="post" class="hover:bg-white/5">
+            <base-menu-item :href="route('tenant.logout')" class="hover:bg-white/5" method="post">
                 <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-left-from-bracket"></svg-loader>
                 {{ $t('auth.Logout') }}
             </base-menu-item>

@@ -15,36 +15,51 @@ class CreateBranchNotification extends Notification implements ShouldQueue
 
     public function __construct(public Branch $branch, public User $user) {}
 
-    public function via($notifiable): array
+    public function via(): array
     {
         return ['database', 'broadcast'];
     }
 
-    public function toArray($notifiable): array
+    public function toArray(): array
     {
         return [
-            'notification' => $this->makeNotificationMessage($notifiable),
+            'data' => [
+                'name' => $this->branch->name,
+                'city' => $this->branch->city->getFullName(),
+            ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
             ],
+            'metadata' => [
+                'created_at' => $this->branch->created_at,
+                'url' => route('tenant.branches.show', $this->branch->id),
+            ],
         ];
     }
 
-    private function makeNotificationMessage(User $notifiable): string
+    public function toBroadcast(): BroadcastMessage
     {
-        // TODO: add locale of user from settings in ths moment set default ar in function
-        return trans_choice('notifications.branch.created', $this->user->gender === 'male' ? 1 : 0, [
-            'name' => $this->branch->name,
-            'city' => $this->branch->city->getFullName(),
+        return new BroadcastMessage([
+            'data' => [
+                'name' => $this->branch->name,
+                'city' => $this->branch->city->getFullName(),
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+            'metadata' => [
+                'created_at' => $this->branch->created_at,
+                'url' => route('tenant.branches.show', $this->branch->id),
+            ],
         ]);
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function databaseType(): string
     {
-        return new BroadcastMessage([
-            'notification' => $this->makeNotificationMessage($notifiable),
-        ]);
+        return 'branch.created';
     }
 }

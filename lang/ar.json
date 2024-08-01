@@ -275,5 +275,7 @@
     "empty": "فارغ",
     "branch_name": "اسم الفرع",
     "List is empty.": "القائمة فارغة.",
-    "Maximum number of elements reached.": "تم الانتهاء من عدد العناصر المسموحة."
+    "Maximum number of elements reached.": "تم الانتهاء من عدد العناصر المسموحة.",
+    "notifications": "الإشعارات",
+    "super_admin": "رئيس الجمعية"
 }
