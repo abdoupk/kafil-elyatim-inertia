@@ -96,14 +96,14 @@ const modalType = computed(() => {
         <template #description>
             <div class="col-span-12">
                 <base-form-label htmlFor="name">
-                    {{ $t('branch name') }}
+                    {{ $t('branch_name') }}
                 </base-form-label>
 
                 <base-form-input
                     id="name"
                     ref="firstInputRef"
                     v-model="form.name"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('branch name') })"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('branch_name') })"
                     type="text"
                     @change="form.validate('name')"
                 />

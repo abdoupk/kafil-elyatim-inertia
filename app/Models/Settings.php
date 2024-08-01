@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
  * @property-read User|null $user
@@ -41,12 +42,16 @@ use Illuminate\Support\Carbon;
  *
  * @method static Builder|Settings whereAppearance($value)
  *
+ * @property string $tenant_id
+ * @property-read Tenant $tenant
+ *
+ * @method static Builder|Settings whereTenantId($value)
+ *
  * @mixin Eloquent
  */
 class Settings extends Model
 {
-    use HasFactory;
-    use HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids;
 
     protected $fillable = [
         'theme',
@@ -60,5 +65,12 @@ class Settings extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'notifications' => 'json',
+        ];
     }
 }

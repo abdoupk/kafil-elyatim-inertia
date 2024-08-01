@@ -24,6 +24,51 @@ class SettingsFactory extends Factory
             'color_scheme' => ColorScheme::cases()[random_int(0, count(ColorScheme::cases()) - 1)]->value,
             'layout' => Layout::cases()[random_int(0, count(Layout::cases()) - 1)]->value,
             'appearance' => Appearance::cases()[random_int(0, count(Appearance::cases()) - 1)]->value,
+            'notifications' => [
+                'branch' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'zone' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'orphan' => [
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'sponsor' => [
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'family' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'school' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'lesson' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'member' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+                'need' => [
+                    'created' => fake()->boolean(),
+                    'deleted' => fake()->boolean(),
+                    'updated' => fake()->boolean(),
+                ],
+            ],
         ];
     }
 }

@@ -53,8 +53,12 @@ class City extends Model
         'post_code',
     ];
 
-    public function getFullName()
+    public function getFullName(?string $locale = 'ar'): string
     {
-        return $this->wilaya_name.'، '.$this->daira_name.'، '.$this->commune_name;
+        if ($locale === 'ar') {
+            return $this->wilaya_name.'، '.$this->daira_name.'، '.$this->commune_name;
+        }
+
+        return $this->wilaya_name_ascii.', '.$this->daira_name_ascii.', '.$this->commune_name_ascii;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\ZoneFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,6 +43,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Zone withoutTrashed()
  *
  * @property-read Tenant $tenant
+ * @property-read Collection<int, Family> $families
+ * @property-read int|null $families_count
  *
  * @mixin Eloquent
  */

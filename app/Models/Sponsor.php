@@ -103,6 +103,15 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Sponsor withoutTrashed()
  *
  * @property-read User $creator
+ * @property int $academic_level_id
+ * @property-read AcademicLevel|null $academicLevel
+ * @property-read Family $family
+ * @property-read Collection<int, Need> $needs
+ * @property-read int|null $needs_count
+ * @property-read Collection<int, Orphan> $orphans
+ * @property-read int|null $orphans_count
+ *
+ * @method static Builder|Sponsor whereAcademicLevelId($value)
  *
  * @mixin Eloquent
  */
@@ -129,6 +138,15 @@ class Sponsor extends Model
         'created_by',
         'deleted_by',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        // TODO: should be searchable error
+        //        static::updated(function (Sponsor $sponsor) {
+        //            $sponsor->sponsorships()->searchable();
+        //        });
+    }
 
     public function searchableAs(): string
     {
@@ -181,13 +199,6 @@ class Sponsor extends Model
         return $this->belongsTo(Family::class);
     }
 
-    protected function casts(): array
-    {
-        return [
-            'birth_date' => 'date',
-        ];
-    }
-
     public function needs(): MorphMany
     {
         return $this->morphMany(Need::class, 'needable');
@@ -196,15 +207,6 @@ class Sponsor extends Model
     public function orphans(): HasMany
     {
         return $this->hasMany(Orphan::class);
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-        // TODO: should be searchable error
-        //        static::updated(function (Sponsor $sponsor) {
-        //            $sponsor->sponsorships()->searchable();
-        //        });
     }
 
     public function academicLevel(): BelongsTo
@@ -225,5 +227,12 @@ class Sponsor extends Model
         }
 
         return $formattedPhoneNumber;
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
     }
 }

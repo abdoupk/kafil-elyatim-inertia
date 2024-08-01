@@ -46,6 +46,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Baby withTrashed()
  * @method static Builder|Baby withoutTrashed()
  *
+ * @property-read Orphan $orphan
+ *
  * @mixin Eloquent
  */
 class Baby extends Model
@@ -61,16 +63,16 @@ class Baby extends Model
         'family_id',
     ];
 
+    public function orphan(): BelongsTo
+    {
+        return $this->belongsTo(Orphan::class);
+    }
+
     protected function casts(): array
     {
         return [
             'tenant_id' => 'string',
             'orphan_id' => 'string',
         ];
-    }
-
-    public function orphan(): BelongsTo
-    {
-        return $this->belongsTo(Orphan::class);
     }
 }

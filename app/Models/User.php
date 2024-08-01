@@ -95,6 +95,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|User whereAddress($value)
  * @method static Builder|User whereBranchId($value)
  *
+ * @property-read MemberPreview $pivot
+ *
  * @mixin Eloquent
  */
 class User extends Authenticatable
@@ -141,6 +143,8 @@ class User extends Authenticatable
                 'color_scheme' => 'default',
                 'layout' => 'side_menu',
                 'appearance' => 'light',
+                'tenant_id' => $user->tenant_id,
+                'notifications' => json_encode(DEFAULT_NOTIFICATIONS),
             ]);
         });
     }

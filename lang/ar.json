@@ -272,5 +272,8 @@
     "monthly": "شهري",
     "weekly": "أسبوعي",
     "none": "لا يوجد",
-    "empty": "فارغ"
+    "empty": "فارغ",
+    "branch_name": "اسم الفرع",
+    "List is empty.": "القائمة فارغة.",
+    "Maximum number of elements reached.": "تم الانتهاء من عدد العناصر المسموحة."
 }

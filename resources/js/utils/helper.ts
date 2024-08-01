@@ -18,8 +18,7 @@ const toRGB = (value: string) => {
 }
 
 // noinspection JSUnusedLocalSymbols
-const slideUp = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {
-}) => {
+const slideUp = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {}) => {
     el.style.transitionProperty = 'height, margin, padding'
 
     el.style.transitionDuration = duration + 'ms'
@@ -68,8 +67,7 @@ const setSlideProperties = (el: HTMLElement) => {
 }
 
 // noinspection JSUnusedLocalSymbols
-const slideDown = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {
-}) => {
+const slideDown = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {}) => {
     el.style.removeProperty('display')
 
     let display = window.getComputedStyle(el).display
@@ -354,7 +352,6 @@ function handleFilterValue(filterType: 'object' | 'string' | 'date' = 'string', 
         if (isNaN(convertedDate)) return ''
 
         return convertedDate.toString()
-
     } else if (filterType === 'object') {
         return value?.id
     }

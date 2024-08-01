@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import type { IndexParams } from '@/types/types'
-
 import print from 'print-js'
 import { ref } from 'vue'
 
@@ -14,7 +12,6 @@ import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
-    params: IndexParams
     exportPdfUrl: string
     exportXlsxUrl: string
 }>()
@@ -23,7 +20,7 @@ const printStarting = ref<boolean>(false)
 
 const printPdf = () => {
     print({
-        printable: route(props.exportPdfUrl, props.params),
+        printable: props.exportPdfUrl,
         type: 'pdf',
         onLoadingStart: () => {
             printStarting.value = true
@@ -50,19 +47,22 @@ const printPdf = () => {
                 as="button"
                 @click.prevent="printPdf"
             >
-                <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-print" />
+                <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-print"></svg-loader>
+
                 {{ $t('print') }}
 
-                <spinner-button-loader class="ms-auto fill-current" :show="printStarting"></spinner-button-loader>
+                <spinner-button-loader :show="printStarting" class="ms-auto fill-current"></spinner-button-loader>
             </base-menu-item>
 
-            <base-menu-item :href="route(exportXlsxUrl, params)" as="a">
-                <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-excel" />
+            <base-menu-item :href="exportXlsxUrl" as="a">
+                <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-excel"></svg-loader>
+
                 {{ $t('export', { type: 'excel' }) }}
             </base-menu-item>
 
-            <base-menu-item :href="route(exportPdfUrl, params)" as="a">
-                <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-pdf" />
+            <base-menu-item :href="exportPdfUrl" as="a">
+                <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-pdf"></svg-loader>
+
                 {{ $t('export', { type: 'pdf' }) }}
             </base-menu-item>
         </base-menu-items>

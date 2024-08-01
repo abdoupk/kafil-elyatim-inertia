@@ -189,6 +189,7 @@
     "incomes.label.other_income": "مصدر اخر",
     "incomes.label.account": "كشف الحساب",
     "incomes.label.total_income": "الدخل الاجمالي",
+    "notifications.branch.created": "{0} قد أضاف فرع جديد <b>:name<\/b> في <b>:city<\/b>.|{1} قد أضافت فرع جديد <b>:name<\/b> في <b>:city<\/b>.",
     "pagination.next": "التالي",
     "pagination.previous": "السابق",
     "passwords.reset": "تمت إعادة تعيين كلمة المرور!",
@@ -196,6 +197,12 @@
     "passwords.throttled": "الرجاء الانتظار قبل إعادة المحاولة.",
     "passwords.token": "رمز استعادة كلمة المرور الذي أدخلته غير صحيح.",
     "passwords.user": "لم يتم العثور على أيّ حسابٍ بهذا العنوان الإلكتروني.",
+    "permissions.name": "الصلاحيات",
+    "permissions.permissions": "الصلاحيات",
+    "permissions.create": "اضافة صلاحية",
+    "permissions.edit": "تعديل صلاحية",
+    "permissions.delete": "حذف صلاحية",
+    "permissions.view": "عرض صلاحية",
     "placeholders.fill_interval": " عدد الوحدات الزمنية (على سبيل المثال، الأيام والأسابيع والشهور) بين كل تكرار",
     "sponsorships.monthly_allowance": "المصروف الشهري",
     "sponsorships.ramadan_basket": "قفة رمضان",
@@ -749,5 +756,8 @@
     "monthly": "شهري",
     "weekly": "أسبوعي",
     "none": "لا يوجد",
-    "empty": "فارغ"
+    "empty": "فارغ",
+    "branch_name": "اسم الفرع",
+    "List is empty.": "القائمة فارغة.",
+    "Maximum number of elements reached.": "تم الانتهاء من عدد العناصر المسموحة."
 }

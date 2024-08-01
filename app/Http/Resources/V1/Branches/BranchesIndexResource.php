@@ -16,7 +16,7 @@ class BranchesIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'city' => $this->whenLoaded('city', fn () => $this->city->getFullName()),
+            'city' => $this->whenLoaded('city', fn () => $this->city->getFullName(app()->getLocale())),
             'president' => $this->whenLoaded('president', fn () => [
                 'id' => $this->president->id,
                 'name' => $this->president->getName(),

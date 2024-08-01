@@ -6,10 +6,9 @@ import { reactive, ref, watch } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
+import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import DataTable from '@/Pages/Tenant/occasions/ramadan-basket/DataTable.vue'
-import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
-
 
 import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -129,8 +128,10 @@ watch(
                 {{ $t('save') }}
             </base-button>
 
-            <export-menu :params
-                         export-pdf-url="tenant.occasions.ramadan-basket.export.pdf" export-xlsx-url="tenant.occasions.ramadan-basket.export.xlsx"></export-menu>
+            <export-menu
+                :export-pdf-url="route('tenant.occasions.ramadan-basket.export.pdf', params)"
+                :export-xlsx-url="route('tenant.occasions.ramadan-basket.export.xlsx', params)"
+            ></export-menu>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">

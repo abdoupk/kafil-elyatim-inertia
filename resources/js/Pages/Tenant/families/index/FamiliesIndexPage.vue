@@ -20,7 +20,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { familiesFilters } from '@/utils/constants'
 import { debounce, handleFilterValue, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
 
 defineOptions({
     layout: TheLayout
@@ -192,10 +191,9 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
             </base-button>
 
             <export-menu
-                :params
+                :export-pdf-url="route('tenant.families.export.pdf', params)"
+                :export-xlsx-url="route('tenant.families.export.xlsx', params)"
                 class="block sm:hidden"
-                export-pdf-url="tenant.families.export.pdf"
-                export-xlsx-url="tenant.families.export.xlsx"
             ></export-menu>
 
             <advanced-filter :filters class="hidden sm:block" @update:value="handleFilter"></advanced-filter>
@@ -215,10 +213,9 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
 
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <export-menu
-                    :params
+                    :export-pdf-url="route('tenant.families.export.pdf', params)"
+                    :export-xlsx-url="route('tenant.families.export.xlsx', params)"
                     class="hidden sm:block sm:me-2"
-                    export-pdf-url="tenant.families.export.pdf"
-                    export-xlsx-url="tenant.families.export.xlsx"
                 ></export-menu>
 
                 <advanced-filter :filters class="me-2 sm:hidden" @update:value="handleFilter"></advanced-filter>

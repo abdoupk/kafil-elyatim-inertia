@@ -70,6 +70,12 @@ use Stancl\Tenancy\Database\TenantCollection;
  * @method static TenantCollection<int, static> all($columns = ['*'])
  * @method static TenantCollection<int, static> get($columns = ['*'])
  *
+ * @property-read Collection<int, PrivateSchool> $schools
+ * @property-read int|null $schools_count
+ *
+ * @method static TenantCollection<int, static> all($columns = ['*'])
+ * @method static TenantCollection<int, static> get($columns = ['*'])
+ *
  * @mixin Eloquent
  */
 class Tenant extends BaseTenant implements TenantWithDatabase

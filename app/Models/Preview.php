@@ -46,6 +46,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Preview withTrashed()
  * @method static Builder|Preview withoutTrashed()
  *
+ * @property-read MemberPreview $pivot
+ *
  * @mixin Eloquent
  */
 class Preview extends Model

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -16,6 +17,35 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|AcademicAchievement newModelQuery()
  * @method static Builder|AcademicAchievement newQuery()
  * @method static Builder|AcademicAchievement query()
+ *
+ * @property string $id
+ * @property int|null $academic_level_id
+ * @property int|null $academic_year
+ * @property float|null $first_trimester
+ * @property float|null $second_trimester
+ * @property float|null $third_trimester
+ * @property float|null $average
+ * @property string|null $note
+ * @property string $orphan_id
+ * @property string $tenant_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read AcademicLevel|null $academicLevel
+ * @property-read Orphan $orphan
+ * @property-read Tenant $tenant
+ *
+ * @method static Builder|AcademicAchievement whereAcademicLevelId($value)
+ * @method static Builder|AcademicAchievement whereAcademicYear($value)
+ * @method static Builder|AcademicAchievement whereAverage($value)
+ * @method static Builder|AcademicAchievement whereCreatedAt($value)
+ * @method static Builder|AcademicAchievement whereFirstTrimester($value)
+ * @method static Builder|AcademicAchievement whereId($value)
+ * @method static Builder|AcademicAchievement whereNote($value)
+ * @method static Builder|AcademicAchievement whereOrphanId($value)
+ * @method static Builder|AcademicAchievement whereSecondTrimester($value)
+ * @method static Builder|AcademicAchievement whereTenantId($value)
+ * @method static Builder|AcademicAchievement whereThirdTrimester($value)
+ * @method static Builder|AcademicAchievement whereUpdatedAt($value)
  *
  * @mixin Eloquent
  */
@@ -36,14 +66,6 @@ class AcademicAchievement extends Model
         'note',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'orphan_id' => 'string',
-            'tenant_id' => 'string',
-        ];
-    }
-
     public function orphan(): BelongsTo
     {
         return $this->belongsTo(Orphan::class);
@@ -52,5 +74,13 @@ class AcademicAchievement extends Model
     public function academicLevel(): BelongsTo
     {
         return $this->belongsTo(AcademicLevel::class);
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'orphan_id' => 'string',
+            'tenant_id' => 'string',
+        ];
     }
 }

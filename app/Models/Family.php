@@ -82,6 +82,10 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read Collection<int, SponsorSponsorship> $sponsorSponsorships
  * @property-read int|null $sponsor_sponsorships_count
  * @property-read Branch|null $branch
+ * @property string|null $created_by
+ * @property-read User|null $creator
+ *
+ * @method static Builder|Family whereCreatedBy($value)
  *
  * @mixin Eloquent
  */
@@ -97,6 +101,15 @@ class Family extends Model
         'start_date',
         'branch_id',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::updated(function (Family $family) {
+            $family->sponsorships->searchable();
+        });
+    }
 
     public function orphans(): HasMany
     {
@@ -212,25 +225,16 @@ class Family extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function totalIncomes(): float
+    {
+        return (float) $this->sponsor->incomes->total_income;
+    }
+
     protected function casts(): array
     {
         return [
             'start_date' => 'date',
             'preview_date' => 'date',
         ];
-    }
-
-    public function totalIncomes(): float
-    {
-        return (float) $this->sponsor->incomes->total_income;
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::updated(function (Family $family) {
-            $family->sponsorships->searchable();
-        });
     }
 }

@@ -75,6 +75,35 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  *
  * @method static Builder|Orphan whereGender($value)
  *
+ * @property int $academic_level_id
+ * @property float $income
+ * @property string $sponsor_id
+ * @property-read Collection<int, AcademicAchievement> $academicAchievements
+ * @property-read int|null $academic_achievements_count
+ * @property-read AcademicLevel|null $academicLevel
+ * @property-read Baby|null $babyNeeds
+ * @property-read Collection<int, CollegeAchievement> $collegeAchievements
+ * @property-read int|null $college_achievements_count
+ * @property-read User $creator
+ * @property-read Collection<int, EventOccurrence> $events
+ * @property-read int|null $events_count
+ * @property-read AcademicAchievement|null $lastAcademicYearAchievement
+ * @property-read LessonOrphan $pivot
+ * @property-read Collection<int, EventOccurrence> $lessons
+ * @property-read int|null $lessons_count
+ * @property-read Collection<int, Need> $needs
+ * @property-read int|null $needs_count
+ * @property-read ClothesSize|null $pantsSize
+ * @property-read ClothesSize|null $shirtSize
+ * @property-read ShoeSize|null $shoesSize
+ * @property-read Sponsor $sponsor
+ * @property-read Collection<int, vocationalTrainingAchievement> $vocationalTrainingAchievements
+ * @property-read int|null $vocational_training_achievements_count
+ *
+ * @method static Builder|Orphan whereAcademicLevelId($value)
+ * @method static Builder|Orphan whereIncome($value)
+ * @method static Builder|Orphan whereSponsorId($value)
+ *
  * @mixin Eloquent
  */
 class Orphan extends Model
@@ -185,6 +214,11 @@ class Orphan extends Model
         ];
     }
 
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
     public function searchableAs(): string
     {
         return 'orphans';
@@ -193,18 +227,6 @@ class Orphan extends Model
     public function makeSearchableUsing(Collection $models): Collection
     {
         return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining']);
-    }
-
-    public function getName(): string
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'birth_date' => 'date',
-        ];
     }
 
     public function academicAchievements(): HasMany
@@ -270,5 +292,12 @@ class Orphan extends Model
         }
 
         return $this->lastAcademicYearAchievement?->academicLevel->level.' ('.$this->lastAcademicYearAchievement?->academic_year.')';
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
     }
 }

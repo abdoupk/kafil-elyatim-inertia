@@ -7,9 +7,9 @@ import { reactive, ref, watch } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
+import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import DataTable from '@/Pages/Tenant/sponsors/index/DataTable.vue'
-import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
@@ -135,8 +135,10 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <export-menu :params export-pdf-url="tenant.sponsors.export.pdf"
-                         export-xlsx-url="tenant.sponsors.export.xlsx"></export-menu>
+            <export-menu
+                :export-pdf-url="route('tenant.sponsors.export.pdf', params)"
+                :export-xlsx-url="route('tenant.sponsors.export.xlsx', params)"
+            ></export-menu>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="sponsors.meta.total > 0">

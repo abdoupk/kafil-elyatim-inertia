@@ -119,3 +119,49 @@ function formatedVocationalTrainingSpecialities(): array
 
     return array_values($formattedArray);
 }
+
+const DEFAULT_NOTIFICATIONS = [
+    'branch' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'zone' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'orphan' => [
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'sponsor' => [
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'family' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'school' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'lesson' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'member' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+    'need' => [
+        'created' => true,
+        'deleted' => true,
+        'updated' => true,
+    ],
+];
