@@ -155,8 +155,6 @@ watch(
     }
 )
 
-const filters = ref<ListBoxFilter[]>(familiesFilters)
-
 const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
     // @ts-ignore
     params.filters = {
@@ -196,7 +194,11 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
                 class="block sm:hidden"
             ></export-menu>
 
-            <advanced-filter :filters class="hidden sm:block" @update:value="handleFilter"></advanced-filter>
+            <advanced-filter
+                :filters="familiesFilters"
+                class="hidden sm:block"
+                @update:value="handleFilter"
+            ></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="families.meta.total > 0">
@@ -218,7 +220,11 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
                     class="hidden sm:block sm:me-2"
                 ></export-menu>
 
-                <advanced-filter :filters class="me-2 sm:hidden" @update:value="handleFilter"></advanced-filter>
+                <advanced-filter
+                    :filters="familiesFilters"
+                    class="me-2 sm:hidden"
+                    @update:value="handleFilter"
+                ></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input

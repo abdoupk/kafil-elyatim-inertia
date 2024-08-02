@@ -204,6 +204,7 @@
     "permissions.delete": "حذف صلاحية",
     "permissions.view": "عرض صلاحية",
     "placeholders.fill_interval": " عدد الوحدات الزمنية (على سبيل المثال، الأيام والأسابيع والشهور) بين كل تكرار",
+    "placeholders.eid_al_adha": "تم فلتره النتائج لعرض فقط الأسر...",
     "sponsorships.monthly_allowance": "المصروف الشهري",
     "sponsorships.ramadan_basket": "قفة رمضان",
     "sponsorships.zakat": "الاستفادة من الزكاة",
@@ -761,5 +762,6 @@
     "List is empty.": "القائمة فارغة.",
     "Maximum number of elements reached.": "تم الانتهاء من عدد العناصر المسموحة.",
     "notifications": "الإشعارات",
-    "super_admin": "رئيس الجمعية"
+    "super_admin": "رئيس الجمعية",
+    "pdf.families": "قائمة العائلات"
 }

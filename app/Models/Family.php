@@ -188,7 +188,7 @@ class Family extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load(['zone', 'secondSponsor', 'spouse', 'branch']);
+        return $models->load(['zone', 'secondSponsor', 'spouse', 'branch', 'sponsor.incomes', 'orphans']);
     }
 
     public function toSearchableArray(): array
@@ -217,6 +217,8 @@ class Family extends Model
                 'address' => $this->secondSponsor?->address,
             ],
             'branch' => $this->branch?->only(['id', 'name']),
+            'total_income' => $this->totalIncomes(),
+            'orphans_count' => $this->orphans->count(),
         ];
     }
 
@@ -227,7 +229,7 @@ class Family extends Model
 
     public function totalIncomes(): float
     {
-        return (float) $this->sponsor->incomes->total_income;
+        return (float)$this->sponsor->incomes->total_income + (float)$this->orphans->sum('income') + $this->secondSponsor->income;
     }
 
     protected function casts(): array

@@ -118,7 +118,8 @@ watch(
             <span>
                 <svg-loader class="w-6 h-6 me-3" name="icon-triangle-exclamation" />
             </span>
-            <span class="text-slate-800 dark:text-slate-500"> تم فلترة النتائج لعرض فقط الاسر .... </span>
+            
+            <span class="text-slate-800 dark:text-slate-500"> {{ $t('placeholders.eid_al_adha') }} </span>
         </div>
     </base-alert>
 

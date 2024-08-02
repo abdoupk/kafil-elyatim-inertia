@@ -23,9 +23,12 @@ function saveToPDF(string $directory, string $variableName, callable $function):
         $disk->makeDirectory($directory);
     }
 
-    $pdfFile = "$directory/$directory-".now()->format('y-m-d').'.pdf';
-    $pdfPath = $disk->path($pdfFile);
+    $pdfName = __('pdf.'.Str::replace('-', '_', explode('/', "$directory/$variableName")[1]));
 
+    $pdfFile = "$directory/$pdfName".'_'.now()->format('y-m-d').'.pdf';
+
+    $pdfPath = $disk->path($pdfFile);
+    ray($function());
     Browsershot::html(view("pdf.$directory", [$variableName => $function()])
         ->render())
         ->ignoreHttpsErrors()

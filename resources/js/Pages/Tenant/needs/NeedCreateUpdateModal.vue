@@ -178,7 +178,7 @@ const modalType = computed(() => {
                     id="demand"
                     v-model="form.demand"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.demand') })"
-                    rows="7"
+                    rows="4"
                     @change="form.validate('demand')"
                 />
 
@@ -198,7 +198,7 @@ const modalType = computed(() => {
                     id="note"
                     v-model="form.note"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.note') })"
-                    rows="7"
+                    rows="4"
                     @change="form.validate('note')"
                 />
 
