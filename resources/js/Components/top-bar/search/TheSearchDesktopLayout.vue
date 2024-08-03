@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import { TransitionRoot } from '@headlessui/vue'
 import { router } from '@inertiajs/vue3'
 import type { Hit } from 'meilisearch'

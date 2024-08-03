@@ -1,11 +1,10 @@
 <script lang="ts">
-/* eslint-disable vue/no-parsing-error */
 import type { ILPConfiguration } from 'litepicker/dist/types/interfaces'
 
 type LitepickerConfig = Partial<ILPConfiguration>
 </script>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 // eslint-disable-next-line sort-imports
 import { type InputHTMLAttributes, inject, onMounted, ref } from 'vue'
 import { init, reInit, setValue } from './index'
@@ -76,20 +75,20 @@ onMounted(() => {
         <div
             class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
         >
-            <svg-loader name="icon-calendar" class="w-4 h-4 fill-current" />
+            <svg-loader class="w-4 h-4 fill-current" name="icon-calendar" />
         </div>
 
         <base-form-input
-            class="ps-12"
             ref="litepickerRef"
-            type="text"
+            v-litepicker-directive
             :value="props.modelValue"
+            class="ps-12"
+            type="text"
             @change="
                 (event: Event) => {
                     emit('update:modelValue', (event.target as HTMLInputElement).value)
                 }
             "
-            v-litepicker-directive
         />
     </div>
 </template>

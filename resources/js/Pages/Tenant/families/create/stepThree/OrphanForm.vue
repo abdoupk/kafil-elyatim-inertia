@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import type { AcademicLevelType } from '@/types/lessons'
+import type { AcademicLevelType, LevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
+import { useAcademicLevelsStore } from '@/stores/academic-level'
 import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
+
+import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
+import VocationalTrainingInput from '@/Pages/Shared/filters/VocationalTrainingInput.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -12,39 +16,21 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 const props = defineProps<{
-    academicLevels: AcademicLevelType[]
-    vocationalTrainingSpecialities: AcademicLevelType[]
     form: Form<CreateFamilyForm>
     index: number
 }>()
 
 // TODO: fix this when add new orphan change focus
 
-const vueSelectAcademicLevel = ref('')
-
-const vueSelectVocationalTraining = ref({})
-
 const phase = ref()
-
-watch(
-    () => vueSelectAcademicLevel.value,
-    (value) => {
-        if (value) {
-            phase.value = props.academicLevels.find((academicLevel) =>
-                academicLevel.levels.find((level) => level.id === value.id)
-            )?.phase
-        }
-    }
-)
 
 const firstName = defineModel('first_name', { default: '' })
 
 const lastName = defineModel('last_name')
 
-const academicLevel = defineModel('academic_level')
+const academicLevel = defineModel('academicLevel')
 
 const income = defineModel('income')
 
@@ -77,6 +63,38 @@ const birthDate = defineModel('birth_date', { default: '' })
 const isStillBaby = computed(() => {
     return birthDate.value && dayjs().diff(dayjs(birthDate.value), 'year') < 2
 })
+
+const academicLevelsStore = useAcademicLevelsStore()
+
+const academicLevels = ref<AcademicLevelType[]>([])
+
+onMounted(async () => {
+    await academicLevelsStore.getAcademicLevels()
+
+    academicLevels.value = academicLevelsStore.academicLevels
+})
+
+watch(
+    () => academicLevel.value,
+    (value) => {
+        if (value) {
+            phase.value = academicLevels.value.find((academicLevel) =>
+                academicLevel.levels.find((level: LevelType) => level.id === value?.id)
+            )?.phase
+        }
+
+        // @ts-ignore
+        props.form?.validate(`orphans.${props.index}.academic_level_id`)
+    }
+)
+
+watch(
+    () => vocationalTraining.value,
+    () => {
+        // @ts-ignore
+        props.form?.validate(`orphans.${props.index}.vocational_training_id`)
+    }
+)
 </script>
 
 <template>
@@ -336,35 +354,11 @@ const isStillBaby = computed(() => {
             </base-form-label>
 
             <div>
-                <base-vue-select
+                <academic-level-input
                     :id="`academic_level_${index}`"
-                    v-model:value="vueSelectAcademicLevel"
-                    :allow-empty="false"
-                    :options="academicLevels"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.sponsor.academic_level')
-                        })
-                    "
-                    class="h-full w-full"
-                    group-label="phase"
-                    group-values="levels"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            academicLevel = value.id
-
-                            vocationalTraining = null
-
-                            vueSelectVocationalTraining = {}
-
-                            //@ts-ignore
-                            form?.validate(`orphans.${index}.academic_level_id`)
-                        }
-                    "
-                >
-                </base-vue-select>
+                    v-model:academic-level="academicLevel"
+                    :academic-levels="academicLevels"
+                ></academic-level-input>
             </div>
 
             <base-form-input-error>
@@ -394,31 +388,10 @@ const isStillBaby = computed(() => {
             </base-form-label>
 
             <div>
-                <base-vue-select
+                <vocational-training-input
                     :id="`vocational_training_id_${index}`"
-                    v-model:value="vueSelectVocationalTraining"
-                    :allow-empty="false"
-                    :options="vocationalTrainingSpecialities"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('validation.attributes.sponsor.vocational_training')
-                        })
-                    "
-                    class="h-full w-full"
-                    group-label="division"
-                    group-values="specialities"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            vocationalTraining = value.id
-
-                            //@ts-ignore
-                            form?.validate(`orphans.${index}.vocational_training_id`)
-                        }
-                    "
-                >
-                </base-vue-select>
+                    v-model:vocational-training="vocationalTraining"
+                ></vocational-training-input>
             </div>
 
             <base-form-input-error>

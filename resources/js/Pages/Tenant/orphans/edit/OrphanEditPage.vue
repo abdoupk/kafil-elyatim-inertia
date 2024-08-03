@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 import type { ClothesSizesType, ShoesSizesType } from '@/types/types'
-import type { VocationalTrainingSpecialitiesType } from '@/types/vocational-training-achievement'
 
 import { provide, ref } from 'vue'
 
@@ -23,8 +21,6 @@ const props = defineProps<{
     orphan: OrphanUpdateFormType
     shoesSizes: ShoesSizesType
     clothesSizes: ClothesSizesType
-    academicLevels: AcademicLevelType[]
-    vocationalTrainingSpecialities: VocationalTrainingSpecialitiesType[]
 }>()
 
 const orphan = ref(props.orphan)
@@ -61,17 +57,9 @@ provide('orphanDetailView', { view, updateView })
 
                 <sponsorships-information v-if="view === 'sponsorships_information'" :orphan></sponsorships-information>
 
-                <academic-achievement
-                    v-if="view === 'academic_achievement'"
-                    :academicLevels
-                    :orphan
-                ></academic-achievement>
+                <academic-achievement v-if="view === 'academic_achievement'" :orphan></academic-achievement>
 
-                <college-achievement
-                    v-if="view === 'college_achievement'"
-                    :academicLevels
-                    :orphan
-                ></college-achievement>
+                <college-achievement v-if="view === 'college_achievement'" :orphan></college-achievement>
 
                 <vocational-training-achievement
                     v-if="view === 'vocational_training_achievement'"

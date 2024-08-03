@@ -16,7 +16,7 @@ class CreateFamilyRequest extends FormRequest
             'orphans.*.income.required' => __('validation.required', ['attribute' => __('validation.attributes.income')]),
             'orphans.*.family_status.required' => __('validation.required', ['attribute' => __('family_status')]),
             'orphans.*.health_status.required' => __('validation.required', ['attribute' => __('health_status')]),
-            'orphans.*.academic_level_id.required' => __('validation.required', ['attribute' => __('academic_level_id')]),
+            'orphans.*.academic_level_id.required' => __('validation.required', ['attribute' => __('academic_level')]),
             'orphans.*.pants_size.required_without' => __('validation.required', ['attribute' => __('pants_size')]),
             'orphans.*.shoes_size.required_without' => __('validation.required', ['attribute' => __('shoes_size')]),
             'orphans.*.shirt_size.required_without' => __('validation.required', ['attribute' => __('shirt_size')]),

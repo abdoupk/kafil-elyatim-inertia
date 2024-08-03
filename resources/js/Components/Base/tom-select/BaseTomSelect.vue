@@ -1,5 +1,4 @@
-<script setup lang="ts">
-/* eslint-disable vue/no-parsing-error */
+<script lang="ts" setup>
 import { init, setValue, updateValue } from './index'
 
 import TomSelectPlugin from 'tom-select'
@@ -120,14 +119,14 @@ onMounted(() => {
 <template>
     <select
         ref="tomSelectRef"
+        v-select-directive
         :value="props.modelValue"
+        class="tom-select"
         @change="
             (event: Event) => {
                 emit('update:modelValue', (event.target as HTMLSelectElement).value)
             }
         "
-        v-select-directive
-        class="tom-select"
     >
         <slot></slot>
     </select>

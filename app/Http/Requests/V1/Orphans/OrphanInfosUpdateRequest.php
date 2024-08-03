@@ -27,7 +27,7 @@ class OrphanInfosUpdateRequest extends FormRequest
             'birth_date' => 'required|date',
             'family_status' => 'required',
             'health_status' => 'required',
-            'academic_level' => 'required',
+            'academic_level_id' => 'required|integer',
             'shoes_size' => 'required_without:baby_milk_quantity,baby_milk_type,diapers_quantity,diapers_type',
             'pants_size' => 'required_without:baby_milk_quantity,baby_milk_type,diapers_quantity,diapers_type',
             'shirt_size' => 'required_without:baby_milk_quantity,baby_milk_type,diapers_quantity,diapers_type',

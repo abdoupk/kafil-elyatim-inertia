@@ -1,7 +1,5 @@
 import type { OrphanSponsorshipType } from '@/types/families'
 
-import CollegeAchievement from '@/Pages/Tenant/orphans/details/college-achievement/CollegeAchievement.vue'
-
 export interface OrphanShowType {
     id: string
     name: string
@@ -81,7 +79,7 @@ export interface OrphanUpdateFormType {
     birth_date: string
     family_status: string
     health_status: string
-    academic_level: string
+    academic_level_id: string
     shoes_size: string
     pants_size: string
     shirt_size: string

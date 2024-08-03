@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import { useNeedsStore } from '@/stores/needs'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'

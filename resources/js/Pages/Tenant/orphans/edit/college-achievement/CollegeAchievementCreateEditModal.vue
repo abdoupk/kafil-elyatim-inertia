@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
-import type { AcademicLevelType } from '@/types/lessons'
-
+import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { useCollegeAchievementsStore } from '@/stores/college-achievement'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
+import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -15,14 +14,11 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-import { getAcademicLevelFromId } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
-const props = defineProps<{
+defineProps<{
     open: boolean
-    academicLevels: AcademicLevelType[]
 }>()
 
 // Get the collegeAchievement store
@@ -56,6 +52,7 @@ const emit = defineEmits(['close'])
 // Function to handle success and close the slideover after a delay
 const handleSuccess = () => {
     setTimeout(() => {
+        // TODO change Route
         router.get(
             route('tenant.collegeAchievement.index'),
             {},
@@ -90,20 +87,21 @@ const modalTitle = computed(() => {
 // Initialize a ref for the first input element
 const firstInputRef = ref<HTMLElement>()
 
-const vueSelectAcademicLevel = ref('')
-
 // Compute the slideover type based on the school id
 const modalType = computed(() => {
     return collegeAchievementStore.collegeAchievement.id ? 'update' : 'create'
 })
 
-// Watch for changes in the college level
-watch(
-    () => collegeAchievementStore.collegeAchievement.academic_level_id,
-    (value) => {
-        vueSelectAcademicLevel.value = getAcademicLevelFromId(value, props.academicLevels)
-    }
-)
+const academicLevels = ref([])
+
+const academicLevelsStore = useAcademicLevelsStore()
+
+onMounted(async () => {
+    await academicLevelsStore.getAcademicLevels()
+
+    // TODO: get academic levels for university
+    academicLevels.value = academicLevelsStore.academicLevels
+})
 </script>
 
 <template>
@@ -120,35 +118,16 @@ watch(
         <template #description>
             <!-- Begin: Academic Level-->
             <div class="col-span-12 sm:col-span-6">
-                <base-form-label htmlFor="college_level_id">
-                    {{ $t('validation.attributes.college_level_id') }}
+                <base-form-label htmlFor="academic_level_id">
+                    {{ $t('validation.attributes.academic_level_id') }}
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        id="college_level"
-                        v-model:value="vueSelectAcademicLevel"
-                        :allow-empty="false"
-                        :options="academicLevels"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.sponsor.college_level')
-                            })
-                        "
-                        class="h-full w-full"
-                        group-label="phase"
-                        group-values="levels"
-                        label="name"
-                        track-by="id"
-                        @update:value="
-                            (value) => {
-                                form.academic_level_id = value.id
-
-                                form?.validate('academic_level_id')
-                            }
-                        "
-                    >
-                    </base-vue-select>
+                    <academic-level-input
+                        id="academic_level_id"
+                        v-model:academic-level="form.academic_level_id"
+                        :academicLevels
+                    ></academic-level-input>
                 </div>
 
                 <div v-if="form.errors?.academic_level_id" class="mt-2">
@@ -200,7 +179,7 @@ watch(
             <!-- Begin: Academic Year-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="college_year">
-                    {{ $t('college_year') }}
+                    {{ $t('academic_year') }}
                 </base-form-label>
 
                 <base-form-select id="college_year" v-model="form.year" @change="form.validate('year')">

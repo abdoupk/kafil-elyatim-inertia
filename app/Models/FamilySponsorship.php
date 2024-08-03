@@ -104,7 +104,6 @@ class FamilySponsorship extends Model
             ],
             'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,
-            //TODO: add orphans income and second sponsor
             'total_income' => $this->family->totalIncomes(),
         ];
     }

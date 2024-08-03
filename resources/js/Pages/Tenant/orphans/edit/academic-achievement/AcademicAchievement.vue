@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
@@ -16,7 +15,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
-    academicLevels: AcademicLevelType[]
 }>()
 
 const createEditModalStatus = ref(false)
@@ -83,7 +81,7 @@ const showEditModal = (id: string) => {
             <h2 class="text-base font-bold">{{ orphan?.last_academic_year_achievement }}</h2>
 
             <base-button class="w-20 ms-auto border-dashed" variant="outline-primary" @click="showCreateModal">
-                <svg-loader name="icon-plus" class="w-4 h-4 dark:fill-slate-300/40"></svg-loader>
+                <svg-loader class="w-4 h-4 dark:fill-slate-300/40" name="icon-plus"></svg-loader>
             </base-button>
         </div>
 
@@ -103,7 +101,6 @@ const showEditModal = (id: string) => {
     <!-- END: Academic Achievement -->
 
     <academic-achievement-create-edit-modal
-        :academicLevels
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></academic-achievement-create-edit-modal>

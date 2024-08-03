@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import { useCollegeAchievementsStore } from '@/stores/college-achievement'
@@ -16,7 +15,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
-    academicLevels: AcademicLevelType[]
 }>()
 
 const createEditModalStatus = ref(false)
@@ -101,7 +99,6 @@ const showEditModal = (id: string) => {
     <!-- END: College Achievement -->
 
     <college-achievement-create-edit-modal
-        :academicLevels
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></college-achievement-create-edit-modal>

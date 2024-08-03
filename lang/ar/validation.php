@@ -285,5 +285,7 @@ return [
         'until' => 'تاريخ الانتهاء',
         'start_date' => 'وقت البدء',
         'end_date' => 'وقت الانتهاء',
+        'speciality' => 'التخصص',
+        'university' => 'الجامعة',
     ],
 ];

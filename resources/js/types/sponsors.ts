@@ -44,7 +44,7 @@ export interface SponsorUpdateFormType {
     father_name: string
     mother_name: string
     birth_certificate_number: string
-    academic_level: string
+    academic_level_id: string
     function: string
     health_status: string
     diploma: string

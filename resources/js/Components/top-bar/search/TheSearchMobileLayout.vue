@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import { useSettingsStore } from '@/stores/settings'
 import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
 import { router } from '@inertiajs/vue3'

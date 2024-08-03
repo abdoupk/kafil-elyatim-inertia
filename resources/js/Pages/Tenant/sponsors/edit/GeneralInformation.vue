@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import type { SponsorUpdateFormType } from '@/types/sponsors'
 
+import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { useForm } from 'laravel-precognition-vue'
-import { reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
+import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 
@@ -45,6 +47,17 @@ const submit = () => {
         }
     })
 }
+
+const academicLevels = ref([])
+
+const academicLevelsStore = useAcademicLevelsStore()
+
+onMounted(async () => {
+    await academicLevelsStore.getAcademicLevels()
+
+    // TODO: get academic levels for sponsor
+    academicLevels.value = academicLevelsStore.academicLevels
+})
 </script>
 
 <template>
@@ -288,33 +301,27 @@ const submit = () => {
                 </div>
                 <!-- END: Function (job) -->
 
-                <!-- TODO: base vue select Academic Level -->
                 <!-- BEGIN: Academic Level -->
                 <div class="@xl:col-span-6 col-span-12">
-                    <base-form-label for="academic_level">
-                        {{ $t('validation.attributes.sponsor.academic_level') }}
+                    <base-form-label for="academic_level_id">
+                        {{ $t('academic_level') }}
                     </base-form-label>
 
-                    <base-form-input
-                        id="academic_level"
-                        v-model="form.academic_level"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.sponsor.academic_level')
-                            })
-                        "
-                        data-test="sponsor_academic_level"
-                        type="text"
-                        @change="form?.validate('academic_level')"
-                    ></base-form-input>
+                    <div>
+                        <academic-level-input
+                            id="academic_level_id"
+                            v-model:academic-level="form.academic_level_id"
+                            :academicLevels
+                        ></academic-level-input>
+                    </div>
 
                     <base-form-input-error>
                         <div
-                            v-if="form?.invalid('academic_level')"
+                            v-if="form?.invalid('academic_level_id')"
                             class="mt-2 text-danger"
                             data-test="error_academic_level_message"
                         >
-                            {{ form.errors.academic_level }}
+                            {{ form.errors.academic_level_id }}
                         </div>
                     </base-form-input-error>
                 </div>

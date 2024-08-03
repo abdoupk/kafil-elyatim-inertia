@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
+import { useAcademicLevelsStore } from '@/stores/academic-level'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+
+import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -14,12 +16,19 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 import { __ } from '@/utils/i18n'
 
-defineProps<{
+const props = defineProps<{
     form?: Form<CreateFamilyForm>
-    academicLevels: AcademicLevelType[]
 }>()
 
-const vueSelectAcademicLevel = ref({})
+const academicLevelsStore = useAcademicLevelsStore()
+
+const academicLevels = ref([])
+
+onMounted(async () => {
+    await academicLevelsStore.getAcademicLevels()
+
+    academicLevels.value = academicLevelsStore.academicLevels
+})
 
 const firstName = defineModel('first_name')
 
@@ -34,6 +43,14 @@ const motherName = defineModel('mother_name')
 const birthCertificateNumber = defineModel('birth_certificate_number')
 
 const academicLevel = defineModel('academic_level')
+
+watch(
+    () => academicLevel.value,
+    () => {
+        // @ts-ignore
+        props.form?.validate(`sponsor.academic_level_id`)
+    }
+)
 
 const job = defineModel('function')
 
@@ -75,50 +92,6 @@ const sponsorTypes = [
 
 <template>
     <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
-        <!-- Begin: Card Number-->
-        <!--        <div class="col-span-12 sm:col-span-6">-->
-        <!--            <base-form-label for="card_number">-->
-        <!--                {{ $t('validation.attributes.sponsor.card_number') }}-->
-        <!--            </base-form-label>-->
-
-        <!--            <base-form-input-->
-        <!--                id="card_number"-->
-        <!--                v-model="cardNumber"-->
-        <!--                :placeholder="-->
-        <!--                    $t('auth.placeholders.fill', {-->
-        <!--                        attribute: $t('validation.attributes.sponsor.card_number')-->
-        <!--                    })-->
-        <!--                "-->
-        <!--                type="text"-->
-        <!--                @change="-->
-        <!--                    form?.validate(-->
-        <!--                        //@ts-ignore-->
-        <!--                        'sponsor.card_number'-->
-        <!--                    )-->
-        <!--                "-->
-        <!--                @keydown="allowOnlyNumbersOnKeyDown"-->
-        <!--            ></base-form-input>-->
-
-        <!--            <base-form-input-error>-->
-        <!--                <div-->
-        <!--                    v-if="-->
-        <!--                        form?.invalid(-->
-        <!--                            //@ts-ignore-->
-        <!--                            'sponsor.card_number'-->
-        <!--                        )-->
-        <!--                    "-->
-        <!--                    class="mt-2 text-danger"-->
-        <!--                    data-test="error_card_number_message"-->
-        <!--                >-->
-        <!--                    {{-->
-        <!--                        //@ts-ignore-->
-        <!--                        form.errors['sponsor.card_number']-->
-        <!--                    }}-->
-        <!--                </div>-->
-        <!--            </base-form-input-error>-->
-        <!--        </div>-->
-        <!-- End: Card Number-->
-
         <!-- Begin: First Name -->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
@@ -257,6 +230,7 @@ const sponsorTypes = [
             </base-form-label>
 
             <div>
+                <!-- @vue-ignore -->
                 <base-vue-select
                     :options="sponsorTypes"
                     :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_sponsor') })"
@@ -489,27 +463,11 @@ const sponsorTypes = [
             </base-form-label>
 
             <div>
-                <base-vue-select
+                <academic-level-input
                     id="academic_level"
-                    v-model:value="vueSelectAcademicLevel"
-                    :allow-empty="false"
-                    :options="academicLevels"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
-                    class="h-full w-full"
-                    group-label="phase"
-                    group-values="levels"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            academicLevel = value.id
-
-                            // @ts-ignore
-                            form?.validate(`sponsor.academic_level_id`)
-                        }
-                    "
-                >
-                </base-vue-select>
+                    v-model:academic-level="academicLevel"
+                    :academicLevels
+                ></academic-level-input>
             </div>
 
             <base-form-input-error>

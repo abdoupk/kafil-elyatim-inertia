@@ -1,11 +1,19 @@
-import type { AddSchoolLessonType } from '@/types/lessons'
+import type { AddSchoolLessonType } from '@/types/lessons';
 
-import _default from 'chart.js/dist/plugins/plugin.tooltip'
-import type { Form } from 'laravel-precognition-vue/dist/types'
 
-import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
 
-import type { LitepickerElement } from '@/Components/Base/lite-picker'
+import _default from 'chart.js/dist/plugins/plugin.tooltip';
+import type { Form } from 'laravel-precognition-vue/dist/types';
+
+
+
+import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue';
+
+
+
+import type { LitepickerElement } from '@/Components/Base/lite-picker';
+
+
 
 import {
     colorSchemes,
@@ -513,7 +521,7 @@ export type OrphanType = {
     shoes_size: string
     pants_size: string
     shirt_size: string
-    income: number
+    income: number | null
     note: string
     gender: 'male' | 'female'
     baby_milk_quantity: number

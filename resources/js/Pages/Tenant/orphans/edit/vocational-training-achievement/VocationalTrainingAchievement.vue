@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
-import type { VocationalTrainingSpecialitiesType } from '@/types/vocational-training-achievement'
 
 import { useVocationalTrainingAchievementsStore } from '@/stores/vocational-training-achievement'
 import { router } from '@inertiajs/vue3'
@@ -16,7 +15,6 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
-    vocationalTrainingSpecialities: VocationalTrainingSpecialitiesType[]
 }>()
 
 const createEditModalStatus = ref(false)
@@ -105,7 +103,6 @@ const showEditModal = (id: string) => {
 
     <vocational-training-achievement-create-edit-modal
         :open="createEditModalStatus"
-        :vocationalTrainingSpecialities
         @close="createEditModalStatus = false"
     ></vocational-training-achievement-create-edit-modal>
 

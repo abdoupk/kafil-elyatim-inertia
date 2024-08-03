@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import type { AcademicLevelType, SubjectType } from '@/types/lessons'
 
 import { useSchoolsStore } from '@/stores/schools'

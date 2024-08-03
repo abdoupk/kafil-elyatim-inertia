@@ -18,8 +18,6 @@ class OrphanEditController extends Controller
             'orphan' => new OrphanEditResource($orphan->load('babyNeeds', 'academicAchievements.academicLevel', 'sponsorships', 'creator', 'shoesSize', 'pantsSize', 'shirtSize', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining', 'lastAcademicYearAchievement.academicLevel')),
             'shoesSizes' => ShoeSize::all(),
             'clothesSizes' => ClothesSize::all(),
-            'academicLevels' => formatedAcademicLevelsForOrphan(),
-            'vocationalTrainingSpecialities' => formatedVocationalTrainingSpecialities(),
         ]);
     }
 }

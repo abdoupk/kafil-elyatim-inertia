@@ -44,7 +44,6 @@ import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/stepFive/Spon
 import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/stepFive/OrphansSponsorShipForm.vue'
 import { router } from '@inertiajs/vue3'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-import type { AcademicLevelType } from '@/types/lessons'
 import StepLoader from '@/Pages/Tenant/families/create/StepLoader.vue'
 
 defineOptions({
@@ -52,12 +51,9 @@ defineOptions({
 })
 
 defineProps<{
-    academicLevelsForSponsor: AcademicLevelType[]
-    academicLevelsForOrphan: AcademicLevelType[]
     zones: Zone[]
     branches: Branch[]
     members: InspectorsMembersType
-    vocationalTrainingSpecialities: AcademicLevelType[]
 }>()
 
 const StepTwo = defineAsyncComponent({
@@ -311,7 +307,6 @@ const submit = () => {
                                     v-model:mother_name="form.sponsor.mother_name"
                                     v-model:phone="form.sponsor.phone_number"
                                     v-model:sponsor-type="form.sponsor.sponsor_type"
-                                    :academicLevels="academicLevelsForSponsor"
                                     :form
                                 ></sponsor-form>
                             </template>
@@ -367,7 +362,7 @@ const submit = () => {
                                 <template v-for="(orphan, index) in form.orphans" :key="`orphan-${index}`">
                                     <the-orphans :index @remove-orphan="removeOrphan">
                                         <orphan-form
-                                            v-model:academic_level="orphan.academic_level_id"
+                                            v-model:academic-level="orphan.academic_level_id"
                                             v-model:baby-milk-quantity="orphan.baby_milk_quantity"
                                             v-model:baby-milk-type="orphan.baby_milk_type"
                                             v-model:birth_date="orphan.birth_date"
@@ -377,17 +372,16 @@ const submit = () => {
                                             v-model:first_name="orphan.first_name"
                                             v-model:gender="orphan.gender"
                                             v-model:health_status="orphan.health_status"
+                                            v-model:income="orphan.income"
                                             v-model:last_name="orphan.last_name"
                                             v-model:note="orphan.note"
                                             v-model:pants-size="orphan.pants_size"
                                             v-model:shirt-size="orphan.shirt_size"
                                             v-model:shoes-size="orphan.shoes_size"
-                                            v-model:income="orphan.income"
                                             v-model:vocational_training="orphan.vocational_training_id"
-                                            :academic-levels="academicLevelsForOrphan"
+
                                             :form
                                             :index
-                                            :vocationalTrainingSpecialities
                                         ></orphan-form>
                                     </the-orphans>
                                 </template>

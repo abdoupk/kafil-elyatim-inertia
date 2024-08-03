@@ -25,7 +25,7 @@ class OrphanEditResource extends JsonResource
             'birth_date' => $this->birth_date,
             'family_status' => $this->family_status,
             'health_status' => $this->health_status,
-            'academic_level' => $this->academicLevel?->level,
+            'academic_level_id' => $this->academicLevel?->id,
             'last_academic_year_achievement' => $this->formatedLastAcademicYear(),
             ...$babyNeeds,
             'shoes_size' => $this->whenLoaded('shoesSize'),

@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
-import type { VocationalTrainingSpecialitiesType } from '@/types/vocational-training-achievement'
-
 import { useVocationalTrainingAchievementsStore } from '@/stores/vocational-training-achievement'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import VocationalTrainingInput from '@/Pages/Shared/filters/VocationalTrainingInput.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
@@ -15,14 +13,11 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-import { getVocationalTrainingSpecialityFromId } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
-const props = defineProps<{
+defineProps<{
     open: boolean
-    vocationalTrainingSpecialities: VocationalTrainingSpecialitiesType[]
 }>()
 
 // Get the vocationalTrainingAchievement store
@@ -93,23 +88,10 @@ const modalTitle = computed(() => {
 // Initialize a ref for the first input element
 const firstInputRef = ref<HTMLElement>()
 
-const vueSelectVocationalTrainingSpeciality = ref('')
-
 // Compute the slideover type based on the school id
 const modalType = computed(() => {
     return vocationalTrainingAchievementStore.vocationalTrainingAchievement.id ? 'update' : 'create'
 })
-
-// Watch for changes in the academic level
-watch(
-    () => vocationalTrainingAchievementStore.vocationalTrainingAchievement.vocational_training_id,
-    (value) => {
-        vueSelectVocationalTrainingSpeciality.value = getVocationalTrainingSpecialityFromId(
-            value,
-            props.vocationalTrainingSpecialities
-        )
-    }
-)
 </script>
 
 <template>
@@ -127,34 +109,14 @@ watch(
             <!-- Begin: Academic Level-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="vocational_training_id">
-                    {{ $t('validation.attributes.vocational_training_id') }}
+                    {{ $t('speciality') }}
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        id="academic_level"
-                        v-model:value="vueSelectVocationalTrainingSpeciality"
-                        :allow-empty="false"
-                        :options="vocationalTrainingSpecialities"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.sponsor.academic_level')
-                            })
-                        "
-                        class="h-full w-full"
-                        group-label="division"
-                        group-values="specialities"
-                        label="name"
-                        track-by="id"
-                        @update:value="
-                            (value) => {
-                                form.vocational_training_id = value.id
-
-                                form?.validate('vocational_training_id')
-                            }
-                        "
-                    >
-                    </base-vue-select>
+                    <vocational-training-input
+                        id="vocational_training_id"
+                        v-model:vocational-training="form.vocational_training_id"
+                    ></vocational-training-input>
                 </div>
 
                 <div v-if="form.errors?.vocational_training_id" class="mt-2">

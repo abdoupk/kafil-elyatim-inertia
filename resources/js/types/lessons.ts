@@ -3,16 +3,6 @@ export type SchoolType = {
     name: string
 }
 
-export type LessonType = {
-    id: string
-    name: string
-}
-
-export type OrphanType = {
-    id: string
-    name: string
-}
-
 export type SubjectType = {
     id: number
     name: string
@@ -32,11 +22,13 @@ export type EventType = {
     end: string | Date
 }
 
+export type LevelType = {
+    id: number
+    name: string
+}
+
 export interface AcademicLevelType {
-    levels: {
-        id: string
-        name: string
-    }[]
+    levels: LevelType[]
     phase: string
 }
 

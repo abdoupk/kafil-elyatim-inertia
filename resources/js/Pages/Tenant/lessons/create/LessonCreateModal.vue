@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import type { SchoolType } from '@/types/lessons'
 
 import { useLessonsStore } from '@/stores/lessons'
@@ -232,11 +231,11 @@ const handleCloseModal = () => {
 
                     <base-v-calendar
                         v-model:date="form.start_date"
-                        hide-time-header
-                        is24hr
                         :placeholder="
                             $t('auth.placeholders.fill', { attribute: $t('validation.attributes.start_date') })
                         "
+                        hide-time-header
+                        is24hr
                         mode="time"
                     ></base-v-calendar>
 
@@ -257,8 +256,8 @@ const handleCloseModal = () => {
                     </base-form-label>
 
                     <base-v-calendar
-                        :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.end_date') })"
                         v-model:date="form.end_date"
+                        :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.end_date') })"
                         hide-time-header
                         is24hr
                         mode="time"
@@ -305,8 +304,8 @@ const handleCloseModal = () => {
                 <base-form-input
                     id="interval"
                     v-model="form.interval"
-                    type="number"
                     :placeholder="$t('placeholders.fill_interval')"
+                    type="number"
                 ></base-form-input>
 
                 <div v-if="form.errors?.interval" class="mt-2">

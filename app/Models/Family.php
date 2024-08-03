@@ -222,14 +222,14 @@ class Family extends Model
         ];
     }
 
+    public function totalIncomes(): float
+    {
+        return (float) $this->sponsor?->incomes->total_income + (float) $this->orphans?->sum('income') + $this->secondSponsor?->income;
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function totalIncomes(): float
-    {
-        return (float)$this->sponsor->incomes->total_income + (float)$this->orphans->sum('income') + $this->secondSponsor->income;
     }
 
     protected function casts(): array

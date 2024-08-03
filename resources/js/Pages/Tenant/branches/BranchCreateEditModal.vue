@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import type { MembersType } from '@/types/types'
 
 import { useBranchesStore } from '@/stores/branches'

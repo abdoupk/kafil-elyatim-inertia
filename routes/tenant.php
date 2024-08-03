@@ -6,6 +6,7 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsDeleteContr
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsShowController;
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsStoreController;
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateController;
+use App\Http\Controllers\V1\AcademicLevel\AcademicLevelIndexController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
 use App\Http\Controllers\V1\Branches\BranchesIndexController;
@@ -94,6 +95,7 @@ use App\Http\Controllers\V1\Sponsors\SponsorUpdateIncomesController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateInfosController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
+use App\Http\Controllers\V1\VocationalTraining\VocationalTrainingIndexController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsDeleteController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsShowController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsStoreController;
@@ -130,6 +132,20 @@ Route::middleware([
         ->middleware('guest');
 
     Route::name('tenant.')->prefix('/dashboard/')->group(function () {
+        Route::middleware('guest')->group(function () {
+            Route::post(
+                'login',
+                [AuthenticatedSessionController::class, 'store']
+            );
+        });
+
+        Route::middleware('guest')->group(function () {
+            Route::post(
+                'login',
+                [AuthenticatedSessionController::class, 'store']
+            )->name('login');
+        });
+
         Route::middleware('auth')->group(function () {
             // Logout route
             Route::post(
@@ -484,20 +500,10 @@ Route::middleware([
                 Route::delete('{vocationalTrainingAchievement}', VocationalTrainingAchievementsDeleteController::class)
                     ->name('destroy');
             });
-        });
 
-        Route::middleware('guest')->group(function () {
-            Route::post(
-                'login',
-                [AuthenticatedSessionController::class, 'store']
-            );
-        });
+            Route::get('academic-levels', AcademicLevelIndexController::class)->name('list-academic-levels');
 
-        Route::middleware('guest')->group(function () {
-            Route::post(
-                'login',
-                [AuthenticatedSessionController::class, 'store']
-            )->name('login');
+            Route::get('vocational-training', VocationalTrainingIndexController::class)->name('list-vocational-trainings-specialities');
         });
     });
 

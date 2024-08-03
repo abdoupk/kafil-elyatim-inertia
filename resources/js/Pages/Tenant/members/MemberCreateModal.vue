@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable vue/no-parsing-error */
 import type { Branch, Role, Zone } from '@/types/types'
 
 import { useMembersStore } from '@/stores/members'
