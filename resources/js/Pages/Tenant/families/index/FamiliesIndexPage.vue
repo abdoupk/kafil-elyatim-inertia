@@ -155,15 +155,23 @@ watch(
     }
 )
 
+const handleFilterName = (field: ListBoxFilter, value: object | string): string => {
+    if (field.label === 'family_sponsorships' || field.label === 'sponsor_sponsorships') {
+        return `${field.label}.${value.value}`
+    }
+
+    return field.field
+}
+
 const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
     // @ts-ignore
     params.filters = {
         ...filters
             ?.map((filter) => {
                 return {
-                    field: filter.field.field === 'family_id' ? 'id' : filter.field.field,
+                    field: handleFilterName(filter.field, filter.value),
                     operator: filter?.operator?.value,
-                    value: handleFilterValue(filter.field.type, filter.value)
+                    value: handleFilterValue(filter.field, filter.value)
                 }
             })
             .filter((filter) => filter.value !== '')

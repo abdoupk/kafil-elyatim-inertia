@@ -19,4 +19,12 @@ return [
     'equal_to' => 'يساوي',
     'not_equal_to' => 'لا يساوي',
     'select_an_option' => 'حدد خيار',
+    'orphans_count' => 'عدد الأيتام',
+    'family_sponsorships' => 'التكفل بالعائلة',
+    'sponsor_sponsorships' => 'التكفل بالمتكفل',
+    'orphans_sponsorships' => 'التكفل بالأيتام',
+    'spouse.function' => 'وظيفة المتوفي',
+    'total_income' => 'الدخل الكلي',
+    'sponsor_academic_level' => 'المستوى الدراسي للمتكفل',
+    'starting_sponsorship_date' => 'تاريخ بدء التكفل',
 ];

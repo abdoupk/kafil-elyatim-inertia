@@ -188,7 +188,7 @@ class Family extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load(['zone', 'secondSponsor', 'spouse', 'branch', 'sponsor.incomes', 'orphans']);
+        return $models->load(['zone', 'secondSponsor', 'spouse', 'branch', 'sponsor.incomes', 'orphans', 'sponsorships']);
     }
 
     public function toSearchableArray(): array
@@ -198,7 +198,7 @@ class Family extends Model
             'name' => $this->name,
             'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,
-            'start_date' => $this->start_date,
+            'start_date' => (int) strtotime($this->start_date),
             'file_number' => $this->file_number,
             'address' => [
                 'address' => $this->address,
@@ -219,6 +219,13 @@ class Family extends Model
             'branch' => $this->branch?->only(['id', 'name']),
             'total_income' => $this->totalIncomes(),
             'orphans_count' => $this->orphans->count(),
+            'family_sponsorships' => [
+                'monthly_allowance' => boolval($this->sponsorships->monthly_allowance),
+                'ramadan_basket' => boolval($this->sponsorships->ramadan_basket),
+                'zakat' => boolval($this->sponsorships->zakat),
+                'housing_assistance' => boolval($this->sponsorships->housing_assistance),
+                'eid_el_adha' => boolval($this->sponsorships->eid_al_adha),
+            ],
         ];
     }
 

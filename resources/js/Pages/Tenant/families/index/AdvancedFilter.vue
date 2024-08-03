@@ -67,10 +67,19 @@ const handleFieldChange = (index: number) => {
     }
 
     if (filterRules.value[index].field?.type === 'object') {
-        filterRules.value[index].value = {
-            id: '',
-            name: __('filters.select_an_option')
-        }
+        if (
+            filterRules.value[index].field?.label === 'family_sponsorships' ||
+            filterRules.value[index].field?.label === 'sponsor_sponsorships'
+        ) {
+            filterRules.value[index].value = {
+                value: '',
+                label: __('filters.select_an_option')
+            }
+        } else
+            filterRules.value[index].value = {
+                id: '',
+                name: __('filters.select_an_option')
+            }
     }
 
     emit('update:value', filterRules.value)

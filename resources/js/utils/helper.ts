@@ -1,4 +1,4 @@
-import type { AppearanceType, ColorSchemesType, IndexParams } from '@/types/types'
+import type { AppearanceType, ColorSchemesType, IndexParams, ListBoxFilter } from '@/types/types'
 
 import { usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
@@ -8,6 +8,7 @@ import { parseColor } from 'tailwindcss/lib/util/color'
 import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
+
 
 dayjs.extend(duration)
 const toRaw = (obj: object) => {
@@ -345,15 +346,21 @@ function getVocationalTrainingSpecialityFromId(id, specialities) {
     }
 }
 
-function handleFilterValue(filterType: 'object' | 'string' | 'date' = 'string', value): string {
-    if (filterType === 'date') {
+function handleFilterValue(filter: ListBoxFilter, value): string {
+    if (filter.type === 'date') {
         const convertedDate = Date.parse(value) / 1000
 
         if (isNaN(convertedDate)) return ''
 
         return convertedDate.toString()
-    } else if (filterType === 'object') {
+    } else if (filter.field === 'family_sponsorships') {
+        if (value.value !== '') return true
+
+        return ''
+    } else if (filter.type === 'object') {
         return value?.id
+    } else if (filter.type === 'number') {
+        if (typeof value === 'object') return ''
     }
     return value
 }

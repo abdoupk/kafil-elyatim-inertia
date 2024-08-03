@@ -666,7 +666,7 @@ export interface ZonesIndexResource extends Zone {
 export interface ListBoxFilter {
     field: string
     label: string
-    type: 'object' | 'string' | 'date'
+    type: 'object' | 'string' | 'date' | 'number'
     icon: SVGType
     operators: Array<ListBoxOperator>
 }

@@ -38,7 +38,7 @@ const filterDateOperators: Array<ListBoxOperator> = [
     }
 ]
 
-const filterStringNumberOperators: Array<ListBoxOperator> = [
+const filterNumberOperators: Array<ListBoxOperator> = [
     {
         label: 'filters.equal_to',
         value: '='
@@ -65,10 +65,21 @@ const filterStringNumberOperators: Array<ListBoxOperator> = [
     }
 ]
 
+const filterStringOperators: Array<ListBoxOperator> = [
+    {
+        label: 'filters.equal_to',
+        value: '='
+    },
+    {
+        label: 'filters.not_equal_to',
+        value: '!='
+    }
+]
+
 export const familiesFilters: ListBoxFilter[] = [
     {
         icon: 'icon-users',
-        field: 'family_id',
+        field: 'id',
         label: 'family',
         type: 'object',
         operators: filterObjectOperators
@@ -98,14 +109,42 @@ export const familiesFilters: ListBoxFilter[] = [
         icon: 'icon-children',
         field: 'orphans_count',
         label: 'orphans_count',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'spouse.function',
+        label: 'spouse.function',
         type: 'string',
-        operators: filterStringNumberOperators
+        operators: filterStringOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'total_income',
+        label: 'total_income',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'sponsor.academic_level_id',
+        label: 'sponsor_academic_level',
+        type: 'object',
+        operators: filterObjectOperators
     },
     {
         icon: 'icon-calendar',
         field: 'start_date',
-        label: 'start_date',
+        label: 'starting_sponsorship_date',
         type: 'date',
         operators: filterDateOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'family_sponsorships',
+        label: 'family_sponsorships',
+        type: 'object',
+        operators: filterObjectOperators
     }
 ]
