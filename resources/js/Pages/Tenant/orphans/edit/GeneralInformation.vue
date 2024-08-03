@@ -7,9 +7,10 @@ import dayjs from 'dayjs'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 
-import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
+import TheClothesSizeSelector from '@/Pages/Shared/TheClothesSizeSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -18,7 +19,6 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { omit } from '@/utils/helper'
 
@@ -208,11 +208,11 @@ onMounted(async () => {
                     </base-form-label>
 
                     <div>
-                        <academic-level-input
+                        <the-academic-level-selector
                             id="academic_level_id"
                             v-model:academic-level="form.academic_level_id"
                             :academicLevels
-                        ></academic-level-input>
+                        ></the-academic-level-selector>
                     </div>
 
                     <base-form-input-error>
@@ -264,20 +264,21 @@ onMounted(async () => {
                         </base-form-label>
 
                         <div>
-                            <base-vue-select
-                                id="pants_size"
-                                v-model="form.pants_size"
-                                :options="clothesSizes"
-                                :placeholder="
-                                    $t('auth.placeholders.fill', {
-                                        attribute: $t('pants_size')
-                                    })
-                                "
-                                data-test="orphan_pants_size"
-                                label="label"
-                                track-by="id"
-                                @change="form.validate('pants_size')"
-                            ></base-vue-select>
+                            <the-clothes-size-selector></the-clothes-size-selector>
+                            <!--                            <base-vue-select-->
+                            <!--                                id="pants_size"-->
+                            <!--                                v-model="form.pants_size"-->
+                            <!--                                :options="clothesSizes"-->
+                            <!--                                :placeholder="-->
+                            <!--                                    $t('auth.placeholders.fill', {-->
+                            <!--                                        attribute: $t('pants_size')-->
+                            <!--                                    })-->
+                            <!--                                "-->
+                            <!--                                data-test="orphan_pants_size"-->
+                            <!--                                label="label"-->
+                            <!--                                track-by="id"-->
+                            <!--                                @change="form.validate('pants_size')"-->
+                            <!--                            ></base-vue-select>-->
                         </div>
 
                         <base-form-input-error>
@@ -299,20 +300,21 @@ onMounted(async () => {
                         </base-form-label>
 
                         <div>
-                            <base-vue-select
-                                id="shirt_size"
-                                v-model="form.shirt_size"
-                                :options="clothesSizes"
-                                :placeholder="
-                                    $t('auth.placeholders.fill', {
-                                        attribute: $t('shirt_size')
-                                    })
-                                "
-                                data-test="orphan_shirt_size"
-                                label="label"
-                                track-by="id"
-                                @change="form.validate('shirt_size')"
-                            ></base-vue-select>
+                            <the-clothes-size-selector></the-clothes-size-selector>
+                            <!--                            <base-vue-select-->
+                            <!--                                id="shirt_size"-->
+                            <!--                                v-model="form.shirt_size"-->
+                            <!--                                :options="clothesSizes"-->
+                            <!--                                :placeholder="-->
+                            <!--                                    $t('auth.placeholders.fill', {-->
+                            <!--                                        attribute: $t('shirt_size')-->
+                            <!--                                    })-->
+                            <!--                                "-->
+                            <!--                                data-test="orphan_shirt_size"-->
+                            <!--                                label="label"-->
+                            <!--                                track-by="id"-->
+                            <!--                                @change="form.validate('shirt_size')"-->
+                            <!--                            ></base-vue-select>-->
                         </div>
 
                         <base-form-input-error>
@@ -334,20 +336,21 @@ onMounted(async () => {
                         </base-form-label>
 
                         <div>
-                            <base-vue-select
-                                id="shoes_size"
-                                v-model="form.shoes_size"
-                                :options="shoesSizes"
-                                :placeholder="
-                                    $t('auth.placeholders.fill', {
-                                        attribute: $t('shoes_size')
-                                    })
-                                "
-                                data-test="orphan_shoes_size"
-                                label="label"
-                                track-by="id"
-                                @change="form.validate('shoes_size')"
-                            ></base-vue-select>
+                            <the-clothes-size-selector></the-clothes-size-selector>
+                            <!--                            <base-vue-select-->
+                            <!--                                id="shoes_size"-->
+                            <!--                                v-model="form.shoes_size"-->
+                            <!--                                :options="shoesSizes"-->
+                            <!--                                :placeholder="-->
+                            <!--                                    $t('auth.placeholders.fill', {-->
+                            <!--                                        attribute: $t('shoes_size')-->
+                            <!--                                    })-->
+                            <!--                                "-->
+                            <!--                                data-test="orphan_shoes_size"-->
+                            <!--                                label="label"-->
+                            <!--                                track-by="id"-->
+                            <!--                                @change="form.validate('shoes_size')"-->
+                            <!--                            ></base-vue-select>-->
                         </div>
 
                         <base-form-input-error>

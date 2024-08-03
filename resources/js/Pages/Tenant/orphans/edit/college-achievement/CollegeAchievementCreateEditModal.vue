@@ -5,8 +5,8 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, onMounted, ref } from 'vue'
 
-import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
@@ -123,11 +123,11 @@ onMounted(async () => {
                 </base-form-label>
 
                 <div>
-                    <academic-level-input
+                    <the-academic-level-selector
                         id="academic_level_id"
                         v-model:academic-level="form.academic_level_id"
                         :academicLevels
-                    ></academic-level-input>
+                    ></the-academic-level-selector>
                 </div>
 
                 <div v-if="form.errors?.academic_level_id" class="mt-2">

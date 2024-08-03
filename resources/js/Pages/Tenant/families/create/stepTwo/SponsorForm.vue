@@ -5,7 +5,7 @@ import { useAcademicLevelsStore } from '@/stores/academic-level'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { onMounted, ref, watch } from 'vue'
 
-import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
+import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -463,11 +463,11 @@ const sponsorTypes = [
             </base-form-label>
 
             <div>
-                <academic-level-input
+                <the-academic-level-selector
                     id="academic_level"
                     v-model:academic-level="academicLevel"
                     :academicLevels
-                ></academic-level-input>
+                ></the-academic-level-selector>
             </div>
 
             <base-form-input-error>

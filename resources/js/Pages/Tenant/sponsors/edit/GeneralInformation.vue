@@ -5,9 +5,9 @@ import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { useForm } from 'laravel-precognition-vue'
 import { onMounted, reactive, ref } from 'vue'
 
-import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -308,11 +308,11 @@ onMounted(async () => {
                     </base-form-label>
 
                     <div>
-                        <academic-level-input
+                        <the-academic-level-selector
                             id="academic_level_id"
                             v-model:academic-level="form.academic_level_id"
                             :academicLevels
-                        ></academic-level-input>
+                        ></the-academic-level-selector>
                     </div>
 
                     <base-form-input-error>

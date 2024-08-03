@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { FamiliesIndexResource, IndexParams, ListBoxFilter, ListBoxOperator, PaginationData } from '@/types/types'
 
+import { familiesFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -18,7 +19,6 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { familiesFilters } from '@/utils/constants'
 import { debounce, handleFilterValue, handleSort } from '@/utils/helper'
 
 defineOptions({

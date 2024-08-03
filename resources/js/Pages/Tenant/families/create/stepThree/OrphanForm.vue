@@ -7,8 +7,8 @@ import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { computed, onMounted, ref, watch } from 'vue'
 
-import AcademicLevelInput from '@/Pages/Shared/AcademicLevelInput.vue'
-import VocationalTrainingInput from '@/Pages/Shared/filters/VocationalTrainingInput.vue'
+import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
+import TheVocationalTrainingSelector from '@/Pages/Shared/TheVocationalTrainingSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -354,11 +354,11 @@ watch(
             </base-form-label>
 
             <div>
-                <academic-level-input
+                <the-academic-level-selector
                     :id="`academic_level_${index}`"
                     v-model:academic-level="academicLevel"
                     :academic-levels="academicLevels"
-                ></academic-level-input>
+                ></the-academic-level-selector>
             </div>
 
             <base-form-input-error>
@@ -388,10 +388,10 @@ watch(
             </base-form-label>
 
             <div>
-                <vocational-training-input
+                <the-vocational-training-selector
                     :id="`vocational_training_id_${index}`"
                     v-model:vocational-training="vocationalTraining"
-                ></vocational-training-input>
+                ></the-vocational-training-selector>
             </div>
 
             <base-form-input-error>

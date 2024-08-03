@@ -5,7 +5,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
-import VocationalTrainingInput from '@/Pages/Shared/filters/VocationalTrainingInput.vue'
+import TheVocationalTrainingSelector from '@/Pages/Shared/TheVocationalTrainingSelector.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
@@ -113,10 +113,10 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <div>
-                    <vocational-training-input
+                    <the-vocational-training-selector
                         id="vocational_training_id"
                         v-model:vocational-training="form.vocational_training_id"
-                    ></vocational-training-input>
+                    ></the-vocational-training-selector>
                 </div>
 
                 <div v-if="form.errors?.vocational_training_id" class="mt-2">
