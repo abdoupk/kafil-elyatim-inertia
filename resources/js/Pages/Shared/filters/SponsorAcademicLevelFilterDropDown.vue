@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { FilterValueType } from '@/types/types'
 
-import { useBranchesStore } from '@/stores/branches'
-import { onMounted } from 'vue'
+import { useAcademicLevelsStore } from '@/stores/academic-level'
+import { onMounted, ref } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
 
@@ -15,15 +15,17 @@ const value = defineModel<FilterValueType>('value', {
     }
 })
 
-const branchesStore = useBranchesStore()
+const academicLevelsStore = useAcademicLevelsStore()
 
-onMounted(() => {
-    if (branchesStore.branches.length === 0) {
-        branchesStore.getBranches()
-    }
+const data = ref([])
+
+onMounted(async () => {
+    await academicLevelsStore.getAcademicLevelsForOrphansForSelectFilterValue().then((res) => {
+        data.value = res
+    })
 })
 </script>
 
 <template>
-    <filter-value-drop-down :data="branchesStore.branches" v-model:value="value"></filter-value-drop-down>
+    <filter-value-drop-down v-model:value="value" :data></filter-value-drop-down>
 </template>

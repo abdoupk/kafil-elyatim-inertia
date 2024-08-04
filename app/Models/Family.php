@@ -207,6 +207,11 @@ class Family extends Model
                     'id' => $this->zone?->id,
                 ],
             ],
+            'sponsor' => [
+                'id' => $this->sponsor?->id,
+                'name' => $this->sponsor?->getName(),
+                'academic_level_id' => $this->sponsor?->academic_level_id,
+            ],
             'spouse' => [
                 'name' => $this->spouse?->getName(),
                 'function' => $this->spouse?->function,
@@ -220,11 +225,11 @@ class Family extends Model
             'total_income' => $this->totalIncomes(),
             'orphans_count' => $this->orphans->count(),
             'family_sponsorships' => [
-                'monthly_allowance' => boolval($this->sponsorships->monthly_allowance),
-                'ramadan_basket' => boolval($this->sponsorships->ramadan_basket),
-                'zakat' => boolval($this->sponsorships->zakat),
-                'housing_assistance' => boolval($this->sponsorships->housing_assistance),
-                'eid_el_adha' => boolval($this->sponsorships->eid_al_adha),
+                'monthly_allowance' => boolval($this->sponsorships?->monthly_allowance),
+                'ramadan_basket' => boolval($this->sponsorships?->ramadan_basket),
+                'zakat' => boolval($this->sponsorships?->zakat),
+                'housing_assistance' => boolval($this->sponsorships?->housing_assistance),
+                'eid_el_adha' => boolval($this->sponsorships?->eid_al_adha),
             ],
         ];
     }

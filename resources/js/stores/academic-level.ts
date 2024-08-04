@@ -24,6 +24,33 @@ export const useAcademicLevelsStore = defineStore('academic-levels', {
             }
 
             return this.academicLevels
+        },
+
+        async getAcademicLevelsForSponsors() {
+            await this.getAcademicLevels()
+
+            return this.academicLevels.filter((academicLevel) => academicLevel.phase !== 'Sponsor')
+        },
+
+        async getAcademicLevelsForOrphansForSelectCollege() {},
+
+        async getAcademicLevelsForSponsorsForSelectFilterValue() {},
+
+        async getAcademicLevelsForOrphansForSelectFilterValue() {
+            await this.getAcademicLevels()
+
+            return this.academicLevels
+                .filter((academicLevel) => academicLevel.phase != 'التكوين المهني')
+                .filter((academicLevel) => academicLevel.phase != 'الشبه الطبي')
+                .flatMap(({ levels, phase }) =>
+                    levels
+                        .filter((level) => level.name !== 'تحضيري')
+                        .filter((level) => level.name !== 'مفصول')
+                        .map(({ id, name }) => ({
+                            id,
+                            name
+                        }))
+                )
         }
     }
 })

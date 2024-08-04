@@ -46,9 +46,7 @@ function formatedAcademicLevels(): array
 {
     $formattedArray = [];
 
-    $rows = AcademicLevel::where('phase', '!=', 'الطور الجامعي')->get();
-
-    foreach ($rows as $row) {
+    foreach (AcademicLevel::all() as $row) {
         $formattedArray[$row['phase']]['phase'] = $row['phase'];
 
         $formattedArray[$row['phase']]['levels'][] = ['name' => $row['level'], 'id' => $row['id']];

@@ -82,6 +82,8 @@ const handleFieldChange = (index: number) => {
             }
     }
 
+    console.log('000sssssssssss')
+
     emit('update:value', filterRules.value)
 }
 </script>

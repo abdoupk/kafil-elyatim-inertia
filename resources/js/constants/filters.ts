@@ -100,7 +100,7 @@ export const familiesFilters: ListBoxFilter[] = [
     },
     {
         icon: 'icon-map-location-dot',
-        field: 'zone.id',
+        field: 'address.zone.id',
         label: 'zone',
         type: 'object',
         operators: filterObjectOperators

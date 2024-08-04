@@ -127,6 +127,8 @@ watch(() => [params.fields, params.directions], getData)
 watch(
     () => [params.filters],
     (value, oldValue) => {
+        if (oldValue[0] === undefined) return
+
         if (value?.length === oldValue?.length && value?.length === 0) return
 
         if (JSON.stringify(value) === JSON.stringify(oldValue)) return
