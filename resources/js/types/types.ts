@@ -296,7 +296,7 @@ export interface CreateNeedForm {
 }
 
 export interface CreateFinancialTransactionForm {
-    amount: number
+    amount: number | null
     description: string
     date: Date | string
     member_id: string
@@ -712,3 +712,17 @@ export interface DatabaseNotification {
     type: string
     id: string
 }
+
+export type PopOverPlacementType =
+    | 'top-start'
+    | 'top'
+    | 'top-end'
+    | 'right-start'
+    | 'right'
+    | 'right-end'
+    | 'bottom-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'left-start'
+    | 'left'
+    | 'left-end'

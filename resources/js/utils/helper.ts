@@ -353,22 +353,32 @@ function handleFilterValue(filter: ListBoxFilter, value): string {
         if (isNaN(convertedDate)) return ''
 
         return convertedDate.toString()
-    } else if (filter.field === 'family_sponsorships') {
+    } else if (filter.field === 'family_sponsorships' || filter.field === 'sponsorships') {
         if (value.value !== '') return true
 
         return ''
     } else if (filter.type === 'object') {
-        return value?.id
+        if (value?.id !== undefined) return value.id
+        else return value.value
     } else if (filter.type === 'number') {
         if (typeof value === 'object') return ''
     }
     return value
 }
 
+const shouldFetchFilterData = (value, oldValue) => {
+    if (oldValue[0] === undefined) return false
+    else if (value?.length === oldValue?.length && value?.length === 0) return false
+    else if (JSON.stringify(value) === JSON.stringify(oldValue)) return false
+
+    return true
+}
+
 export {
     isEqual,
     handleFilterValue,
     formatDate,
+    shouldFetchFilterData,
     combineDateAndTime,
     getAcademicLevelFromId,
     getVocationalTrainingSpecialityFromId,

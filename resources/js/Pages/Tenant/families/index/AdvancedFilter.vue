@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FilterValueType, ListBoxFilter, ListBoxOperator } from '@/types/types'
+import type { FilterValueType, ListBoxFilter, ListBoxOperator, PopOverPlacementType } from '@/types/types'
 
 import { ref } from 'vue'
 
@@ -14,7 +14,10 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { __ } from '@/utils/i18n'
 
-defineProps<{ filters: ListBoxFilter[] }>()
+const { placement = 'bottom-start' } = defineProps<{
+    filters: ListBoxFilter[]
+    placement?: PopOverPlacementType
+}>()
 
 const emit = defineEmits(['update:value'])
 
@@ -69,7 +72,9 @@ const handleFieldChange = (index: number) => {
     if (filterRules.value[index].field?.type === 'object') {
         if (
             filterRules.value[index].field?.label === 'family_sponsorships' ||
-            filterRules.value[index].field?.label === 'sponsor_sponsorships'
+            filterRules.value[index].field?.label === 'sponsor_sponsorships' ||
+            filterRules.value[index].field?.label === 'gender' ||
+            filterRules.value[index].field?.label === 'sponsor_type'
         ) {
             filterRules.value[index].value = {
                 value: '',
@@ -93,7 +98,7 @@ const handleFieldChange = (index: number) => {
                 <svg-loader class="fill-primary" name="icon-filters"></svg-loader>
             </base-popover-button>
 
-            <base-popover-panel placement="bottom-start">
+            <base-popover-panel :placement>
                 <div class="w-[400px] md:w-[505px] lg:w-[580px] px-2 pt-2">
                     <div class="grid grid-cols-12 gap-4">
                         <filter-rule

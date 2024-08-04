@@ -163,6 +163,11 @@ class Sponsor extends Model
         return $this->hasOne(SponsorSponsorship::class);
     }
 
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load(['incomes', 'academicLevel', 'sponsorships', 'orphans']);
+    }
+
     public function toSearchableArray(): array
     {
         return [
@@ -173,6 +178,9 @@ class Sponsor extends Model
             'father_name' => $this->father_name,
             'mother_name' => $this->mother_name,
             'birth_certificate_number' => $this->birth_certificate_number,
+            'academic_level_id' => $this->academic_level_id,
+            'income' => (float) $this->incomes->total_income,
+            'orphans_count' => $this->orphans->count(),
             'academic_level' => [
                 'id' => $this->academic_level_id,
                 'level' => $this->academicLevel->level,
@@ -184,6 +192,12 @@ class Sponsor extends Model
             'ccp' => $this->ccp,
             'gender' => $this->gender,
             'tenant_id' => $this->tenant_id,
+            'sponsorships' => [
+                'medical_sponsorship' => boolval($this->sponsorships?->medical_sponsorship),
+                'literacy_lessons' => boolval($this->sponsorships?->literacy_lessons),
+                'direct_sponsorship' => boolval($this->sponsorships?->direct_sponsorship),
+                'project_support' => boolval($this->sponsorships?->project_support),
+            ],
         ];
     }
 

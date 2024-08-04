@@ -22,7 +22,7 @@ export const useFinancialTransactionsStore = defineStore('financialTransactions'
         financialTransaction: {
             id: '',
             specification: 'monthly_sponsorship',
-            amount: 0,
+            amount: null,
             date: new Date(),
             description: '',
             type: 'income',

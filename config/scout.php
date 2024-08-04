@@ -155,7 +155,7 @@ return [
                 'sortableAttributes' => ['name', 'created_at', 'qty', 'unit'],
             ],
             'sponsors' => [
-                'filterableAttributes' => ['id', 'name', 'tenant_id'],
+                'filterableAttributes' => ['id', 'name', 'tenant_id', 'academic_level_id', 'sponsor_type', 'gender', 'income', 'sponsorships', 'orphans_count', 'function'],
                 'searchableAttributes' => ['name'],
                 'sortableAttributes' => ['name', 'created_at'],
             ],

@@ -27,4 +27,12 @@ return [
     'total_income' => 'الدخل الكلي',
     'sponsor_academic_level' => 'المستوى الدراسي للمتكفل',
     'starting_sponsorship_date' => 'تاريخ بدء التكفل',
+    'sponsor.academic_level' => 'المستوى الدراسي',
+    'income' => 'الدخل',
+    'birth_date' => 'تاريخ الميلاد',
+    'children_count' => 'عدد الأطفال',
+    'gender' => 'الجنس',
+    'function' => 'الوظيفة',
+    'sponsor_type' => 'نوع المتكفل',
+    'health_status' => 'الحالة الصحية',
 ];

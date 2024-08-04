@@ -19,7 +19,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, handleFilterValue, handleSort } from '@/utils/helper'
+import { debounce, handleFilterValue, handleSort, shouldFetchFilterData } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -127,13 +127,7 @@ watch(() => [params.fields, params.directions], getData)
 watch(
     () => [params.filters],
     (value, oldValue) => {
-        if (oldValue[0] === undefined) return
-
-        if (value?.length === oldValue?.length && value?.length === 0) return
-
-        if (JSON.stringify(value) === JSON.stringify(oldValue)) return
-
-        getData()
+        if (shouldFetchFilterData(value, oldValue)) getData()
     }
 )
 

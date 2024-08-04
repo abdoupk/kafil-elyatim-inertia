@@ -4,10 +4,12 @@ import type { FilterValueType, ListBoxFilter } from '@/types/types'
 import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
 import FamiliesFilterDropDown from '@/Pages/Shared/filters/FamiliesFilterDropDown.vue'
 import FamilySponsorShipFilterDropDown from '@/Pages/Shared/filters/FamilySponsorShipFilterDropDown.vue'
+import GenderTypeFilterDropDown from '@/Pages/Shared/filters/GenderTypeFilterDropDown.vue'
 import OrphanAcademicLevelFilterDropDown from '@/Pages/Shared/filters/OrphanAcademicLevelFilterDropDown.vue'
 import OrphanSponsorShipFilterDropDown from '@/Pages/Shared/filters/OrphanSponsorShipFilterDropDown.vue'
 import SponsorAcademicLevelFilterDropDown from '@/Pages/Shared/filters/SponsorAcademicLevelFilterDropDown.vue'
 import SponsorSponsorShipFilterDropDown from '@/Pages/Shared/filters/SponsorSponsorShipFilterDropDown.vue'
+import SponsorTypeFilterDropDown from '@/Pages/Shared/filters/SponsorTypeFilterDropDown.vue'
 import SponsorsFilterDropDown from '@/Pages/Shared/filters/SponsorsFilterDropDown.vue'
 import ZonesFilterDropDown from '@/Pages/Shared/filters/ZonesFilterDropDown.vue'
 
@@ -25,60 +27,72 @@ const value = defineModel<FilterValueType>('value')
             <families-filter-drop-down
                 v-if="field?.label === 'family'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></families-filter-drop-down>
 
             <sponsors-filter-drop-down
                 v-else-if="field?.label === 'sponsor'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></sponsors-filter-drop-down>
 
             <branches-filter-drop-down
                 v-else-if="field?.label === 'branch'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></branches-filter-drop-down>
 
             <zones-filter-drop-down
                 v-else-if="field?.label === 'zone'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></zones-filter-drop-down>
 
             <sponsor-academic-level-filter-drop-down
-                v-else-if="field?.label === 'sponsor_academic_level'"
+                v-else-if="field?.label === 'sponsor_academic_level' || field?.label === 'sponsor.academic_level'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></sponsor-academic-level-filter-drop-down>
 
             <orphan-academic-level-filter-drop-down
-                v-else-if="field?.label === 'orphan_academic_level'"
+                v-else-if="field?.label === 'orphan_academic_level' || field?.label === 'orphan.academic_level'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></orphan-academic-level-filter-drop-down>
 
             <family-sponsor-ship-filter-drop-down
                 v-if="field?.label === 'family_sponsorships'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></family-sponsor-ship-filter-drop-down>
 
             <sponsor-sponsor-ship-filter-drop-down
                 v-if="field?.label === 'sponsor_sponsorships'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></sponsor-sponsor-ship-filter-drop-down>
 
             <orphan-sponsor-ship-filter-drop-down
                 v-if="field?.label === 'orphan_sponsorships'"
                 v-model:value="value"
-                class="col-span-4 text-sm"
+                class="text-sm"
             ></orphan-sponsor-ship-filter-drop-down>
+
+            <sponsor-type-filter-drop-down
+                v-if="field?.label === 'sponsor_type'"
+                v-model:value="value"
+                class="text-sm"
+            ></sponsor-type-filter-drop-down>
+
+            <gender-type-filter-drop-down
+                v-if="field?.label === 'gender'"
+                v-model:value="value"
+                class="text-sm"
+            ></gender-type-filter-drop-down>
         </template>
 
         <template v-else-if="field?.type === 'date'">
-            <div class="col-span-4 mt-2">
+            <div class="mt-2">
                 <base-v-calendar v-model="value"></base-v-calendar>
             </div>
         </template>
@@ -91,7 +105,7 @@ const value = defineModel<FilterValueType>('value')
                     attribute: $t('the_value')
                 })
             "
-            class="col-span-4 mt-2 text-sm"
+            class="mt-2 text-sm"
             type="text"
         ></base-form-input>
 
@@ -103,7 +117,7 @@ const value = defineModel<FilterValueType>('value')
                     attribute: $t('the_value')
                 })
             "
-            class="col-span-4 mt-2 text-sm"
+            class="mt-2 text-sm"
             type="number"
         ></base-form-input>
     </div>

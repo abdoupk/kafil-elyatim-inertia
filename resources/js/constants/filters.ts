@@ -76,6 +76,7 @@ const filterStringOperators: Array<ListBoxOperator> = [
     }
 ]
 
+// TODO:add dzd icon add death date spouse
 export const familiesFilters: ListBoxFilter[] = [
     {
         icon: 'icon-users',
@@ -127,7 +128,7 @@ export const familiesFilters: ListBoxFilter[] = [
         operators: filterNumberOperators
     },
     {
-        icon: 'icon-children',
+        icon: 'icon-graduation-cap',
         field: 'sponsor.academic_level_id',
         label: 'sponsor_academic_level',
         type: 'object',
@@ -146,5 +147,78 @@ export const familiesFilters: ListBoxFilter[] = [
         label: 'family_sponsorships',
         type: 'object',
         operators: filterObjectOperators
+    }
+]
+
+export const sponsorsFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'id',
+        label: 'sponsor',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'orphans_count',
+        label: 'children_count',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'income',
+        label: 'income',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-graduation-cap',
+        field: 'academic_level_id',
+        label: 'sponsor.academic_level',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'birth_date',
+        label: 'birth_date',
+        type: 'date',
+        operators: filterDateOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'sponsorships',
+        label: 'sponsor_sponsorships',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'health_status',
+        label: 'health_status',
+        type: 'string',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'sponsor_type',
+        label: 'sponsor_type',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'gender',
+        label: 'gender',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'function',
+        label: 'function',
+        type: 'string',
+        operators: filterStringOperators
     }
 ]
