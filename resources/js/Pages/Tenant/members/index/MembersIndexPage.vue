@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Branch, IndexParams, MembersIndexResource, PaginationData, Role, Zone } from '@/types/types'
+import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
 import { useMembersStore } from '@/stores/members'
 import { Head, router } from '@inertiajs/vue3'
@@ -27,10 +27,6 @@ defineOptions({
 const props = defineProps<{
     members: PaginationData<MembersIndexResource>
     params: IndexParams
-    qualifications: string[]
-    branches: Branch[]
-    roles: Role[]
-    zones: Zone[]
 }>()
 
 const params = reactive<IndexParams>({
@@ -220,11 +216,7 @@ watch(
     ></delete-modal>
 
     <member-create-modal
-        :branches
         :open="createUpdateSlideoverStatus"
-        :qualifications
-        :roles
-        :zones
         @close="createUpdateSlideoverStatus = false"
     ></member-create-modal>
 </template>

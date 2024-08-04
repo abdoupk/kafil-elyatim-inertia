@@ -1,11 +1,9 @@
 <script lang="ts" setup>
 import type {
-    Branch,
     CreateFamilyForm,
     CreateFamilyStepOneProps,
     CreateFamilyStepTwoProps,
-    InspectorsMembersType,
-    Zone
+    InspectorsMembersType
 } from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
@@ -51,8 +49,6 @@ defineOptions({
 })
 
 defineProps<{
-    zones: Zone[]
-    branches: Branch[]
     members: InspectorsMembersType
 }>()
 
@@ -76,7 +72,7 @@ const StepSix = defineAsyncComponent({
     loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue')
 })
 
-const currentStep = ref(3)
+const currentStep = ref(1)
 
 const totalSteps = 6
 
@@ -279,11 +275,9 @@ const submit = () => {
                     v-model:file-number="form.file_number"
                     v-model:start-date="form.start_date"
                     v-model:zone="form.zone_id"
-                    :branches
                     :currentStep
                     :form
                     :totalSteps
-                    :zones
                 >
                     <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-one>

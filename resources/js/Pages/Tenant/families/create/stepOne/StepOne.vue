@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
-import { ref } from 'vue'
+import TheBranchSelector from '@/Pages/Shared/TheBranchSelector.vue'
+import TheZoneSelector from '@/Pages/Shared/TheZoneSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
@@ -22,10 +22,6 @@ const startDate = defineModel('startDate', { default: '' })
 const address = defineModel('address')
 
 const fileNumber = defineModel('fileNumber')
-
-const vueSelectBranches = ref([])
-
-const vueSelectZones = ref([])
 </script>
 
 <template>
@@ -92,20 +88,11 @@ const vueSelectZones = ref([])
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        v-model="vueSelectBranches"
-                        :options="branches ?? []"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (value) => {
-                                branch = value.id
-
-                                form?.validate('branch_id')
-                            }
-                        "
-                    ></base-vue-select>
+                    <the-branch-selector
+                        id="branch"
+                        v-model:branch="branch"
+                        @update:branch="form?.validate('branch_id')"
+                    ></the-branch-selector>
                 </div>
 
                 <base-form-input-error>
@@ -121,20 +108,11 @@ const vueSelectZones = ref([])
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        v-model="vueSelectZones"
-                        :options="zones ?? []"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (value) => {
-                                zone = value.id
-
-                                form?.validate('zone_id')
-                            }
-                        "
-                    ></base-vue-select>
+                    <the-zone-selector
+                        id="zone"
+                        v-model:zone="zone"
+                        @update:zone="form?.validate('zone_id')"
+                    ></the-zone-selector>
                 </div>
 
                 <base-form-input-error>
