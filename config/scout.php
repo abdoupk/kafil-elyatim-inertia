@@ -162,7 +162,7 @@ return [
             'families' => [
                 'rankingRules' => ['words', 'sort', 'typo', 'proximity', 'attribute', 'exactness'],
                 'searchableAttributes' => ['name', 'phone', 'file_number', 'address.zone.name', 'address.address', 'start_date', 'second_sponsor.name', 'second_sponsor.degree_of_kinship', 'second_sponsor.address', 'spouse.name', 'spouse.function', 'branch.name'],
-                'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'address.zone.id', 'tenant_id', 'branch.id', 'spouse.function', 'sponsor.academic_level_id', 'sponsor.id', 'family_sponsorships.monthly_allowance', 'family_sponsorships.ramadan_basket', 'family_sponsorships.zakat', 'family_sponsorships.housing_assistance', 'family_sponsorships.eid_el_adha', 'orphans_count'],
+                'filterableAttributes' => ['id', 'name', 'file_number', 'start_date', 'address.zone.id', 'tenant_id', 'branch.id', 'spouse.function', 'sponsor.academic_level_id', 'sponsor.id', 'family_sponsorships.monthly_allowance', 'family_sponsorships.ramadan_basket', 'family_sponsorships.zakat', 'family_sponsorships.housing_assistance', 'family_sponsorships.eid_el_adha', 'orphans_count', 'total_income'],
                 'sortableAttributes' => ['name', 'file_number', 'created_at', 'start_date'],
             ],
             'zones' => [

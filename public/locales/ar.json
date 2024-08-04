@@ -774,5 +774,6 @@
     "Maximum number of elements reached.": "تم الانتهاء من عدد العناصر المسموحة.",
     "notifications": "الإشعارات",
     "super_admin": "رئيس الجمعية",
-    "pdf.families": "قائمة العائلات"
+    "pdf.families": "قائمة العائلات",
+    "the_value": "القيمة"
 }

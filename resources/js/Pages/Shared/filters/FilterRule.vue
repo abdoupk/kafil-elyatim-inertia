@@ -38,9 +38,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <fields-filter-drop-down v-model:selected="field" :filters class="col-span-4"></fields-filter-drop-down>
+    <fields-filter-drop-down
+        v-model:selected="field"
+        :filters
+        class="col-span-12 md:col-span-4"
+    ></fields-filter-drop-down>
 
-    <operators-filter-drop-down v-model:selected="operator" :operators class="col-span-4"></operators-filter-drop-down>
+    <operators-filter-drop-down
+        v-model:selected="operator"
+        :operators
+        class="col-span-6 md:col-span-4"
+    ></operators-filter-drop-down>
 
     <slot></slot>
 </template>
