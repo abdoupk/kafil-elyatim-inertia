@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { BranchType } from '@/types/types'
+import type { Branch } from '@/types/types'
 
 import { useBranchesStore } from '@/stores/branches'
 import { onMounted, ref, watch } from 'vue'
@@ -8,11 +8,11 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 const branch = defineModel<string>('branch', { default: '' })
 
-const selectedBranch = ref<BranchType | string | undefined>('')
+const selectedBranch = ref<Branch | string | undefined>('')
 
 const branchesStore = useBranchesStore()
 
-const handleUpdate = (value: BranchType) => {
+const handleUpdate = (value: Branch) => {
     branch.value = value?.id
 }
 

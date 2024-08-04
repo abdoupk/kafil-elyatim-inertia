@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ZoneType } from '@/types/types'
+import type { Zone } from '@/types/types'
 
 import { useZonesStore } from '@/stores/zones'
 import { onMounted, ref, watch } from 'vue'
@@ -8,11 +8,11 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 const zone = defineModel<string>('zone', { default: '' })
 
-const selectedZone = ref<ZoneType | string | undefined>('')
+const selectedZone = ref<Zone | string | undefined>('')
 
 const zonesStore = useZonesStore()
 
-const handleUpdate = (value: ZoneType) => {
+const handleUpdate = (value: Zone) => {
     zone.value = value?.id
 }
 

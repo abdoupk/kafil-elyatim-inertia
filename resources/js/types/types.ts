@@ -241,17 +241,12 @@ export interface Zone {
     description?: string
 }
 
-export interface BranchType {
+export interface Branch {
     id: string
     name: string
 }
 
-export interface ZoneType {
-    id: string
-    name: string
-}
-
-export interface RoleType {
+export interface Role {
     uuid: string
     name: string
 }
