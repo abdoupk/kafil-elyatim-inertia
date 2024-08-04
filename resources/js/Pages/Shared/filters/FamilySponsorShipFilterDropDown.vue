@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FilterValueType } from '@/types/types'
+import type { FilterValueSponsorshipType } from '@/types/types'
 
 import { ref } from 'vue'
 
@@ -7,7 +7,7 @@ import FilterSponsorShipDropDown from '@/Pages/Shared/filters/FilterSponsorShipD
 
 import { __ } from '@/utils/i18n'
 
-const value = defineModel<FilterValueType>('value', {
+const value = defineModel<FilterValueSponsorshipType>('value', {
     default: {
         value: '',
         label: __('filters.select_an_option')

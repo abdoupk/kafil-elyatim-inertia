@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FilterValueType } from '@/types/types'
+import type { FilterValueSponsorshipType } from '@/types/types'
 
 import { ref } from 'vue'
 
@@ -7,7 +7,7 @@ import FilterSponsorShipDropDown from '@/Pages/Shared/filters/FilterSponsorShipD
 
 import { __ } from '@/utils/i18n'
 
-const value = defineModel<FilterValueType>('value', {
+const value = defineModel<FilterValueSponsorshipType>('value', {
     default: {
         value: '',
         label: __('filters.select_an_option')
@@ -16,24 +16,20 @@ const value = defineModel<FilterValueType>('value', {
 
 const data = ref([
     {
-        label: __('monthly_allowance'),
-        value: 'monthly_allowance'
+        label: __('medical_sponsorship'),
+        value: 'medical_sponsorship'
     },
     {
-        label: __('ramadan_basket'),
-        value: 'ramadan_basket'
+        label: __('literacy_lessons'),
+        value: 'literacy_lessons'
     },
     {
-        label: __('zakat'),
-        value: 'zakat'
+        label: __('direct_sponsorship'),
+        value: 'direct_sponsorship'
     },
     {
-        label: __('housing_assistance'),
-        value: 'housing_assistance'
-    },
-    {
-        label: __('eid_el_adha'),
-        value: 'eid_el_adha'
+        label: __('project_support'),
+        value: 'project_support'
     }
 ])
 </script>

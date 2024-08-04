@@ -1,29 +1,51 @@
 <script lang="ts" setup>
-import type { FilterValueType } from '@/types/types'
+import type { FilterValueSponsorshipType } from '@/types/types'
 
-import { useBranchesStore } from '@/stores/branches'
-import { onMounted } from 'vue'
+import { ref } from 'vue'
 
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import FilterSponsorShipDropDown from '@/Pages/Shared/filters/FilterSponsorShipDropDown.vue'
 
 import { __ } from '@/utils/i18n'
 
-const value = defineModel<FilterValueType>('value', {
+const value = defineModel<FilterValueSponsorshipType>('value', {
     default: {
-        id: '',
-        name: __('filters.select_an_option')
+        value: '',
+        label: __('filters.select_an_option')
     }
 })
 
-const branchesStore = useBranchesStore()
-
-onMounted(() => {
-    if (branchesStore.branches.length === 0) {
-        branchesStore.getBranches()
+const data = ref([
+    {
+        label: __('medical_sponsorship'),
+        value: 'medical_sponsorship'
+    },
+    {
+        label: __('university_scholarship'),
+        value: 'university_scholarship'
+    },
+    {
+        label: __('association_trips'),
+        value: 'association_trips'
+    },
+    {
+        label: __('summer_camp'),
+        value: 'summer_camp'
+    },
+    {
+        label: __('eid_suit'),
+        value: 'eid_suit'
+    },
+    {
+        label: __('private_lessons'),
+        value: 'private_lessons'
+    },
+    {
+        label: __('school_bag'),
+        value: 'school_bag'
     }
-})
+])
 </script>
 
 <template>
-    <filter-value-drop-down :data="branchesStore.branches" v-model:value="value"></filter-value-drop-down>
+    <filter-sponsor-ship-drop-down v-model:value="value" :data></filter-sponsor-ship-drop-down>
 </template>

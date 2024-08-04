@@ -678,6 +678,8 @@ export interface ListBoxOperator {
 
 export type FilterValueType = string | { id: string; name: string }
 
+export type FilterValueSponsorshipType = string | { label: string; value: string }
+
 export type ShoesSizesType = { id: number; label: string }[]
 
 export type ClothesSizesType = { id: number; label: string }[]
