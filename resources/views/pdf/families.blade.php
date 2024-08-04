@@ -11,7 +11,7 @@
 </head>
 
 <body>
-@php(ray($families->first()))
+
 <div class="m-2">
     <table class="w-full table table-bordered border-black text-black">
         <thead>
