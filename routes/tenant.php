@@ -81,6 +81,7 @@ use App\Http\Controllers\V1\PrivateSchools\SchoolShowController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolsIndexController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolStoreController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolUpdateController;
+use App\Http\Controllers\V1\ProfileController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
@@ -152,6 +153,12 @@ Route::middleware([
                 'logout',
                 [AuthenticatedSessionController::class, 'destroy']
             )->name('logout');
+
+            Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
             Route::get('', DashboardController::class)
                 ->name('dashboard');
