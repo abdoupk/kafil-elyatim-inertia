@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { FilterValueType } from '@/types/types'
 
-import { useZonesStore } from '@/stores/zones'
+import { useSizesStore } from '@/stores/sizes'
 import { onMounted } from 'vue'
 
 import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
@@ -13,15 +13,13 @@ const value = defineModel<FilterValueType>('value', {
     }
 })
 
-const zonesStore = useZonesStore()
+const sizesStore = useSizesStore()
 
-onMounted(() => {
-    if (zonesStore.zones.length === 0) {
-        zonesStore.getZones()
-    }
+onMounted(async () => {
+    await sizesStore.getShoesSizes()
 })
 </script>
 
 <template>
-    <filter-value-drop-down v-model:value="value" :data="zonesStore.zones"></filter-value-drop-down>
+    <filter-value-drop-down v-model:value="value" :data="sizesStore.shoesSizes"></filter-value-drop-down>
 </template>

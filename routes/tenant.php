@@ -46,6 +46,8 @@ use App\Http\Controllers\V1\Lessons\LessonStoreController;
 use App\Http\Controllers\V1\Lessons\LessonUpdateController;
 use App\Http\Controllers\V1\Lessons\LessonUpdateDatesController;
 use App\Http\Controllers\V1\Lessons\ListOrphansController;
+use App\Http\Controllers\V1\List\ListClothesSizesController;
+use App\Http\Controllers\V1\List\ListShoesSizesController;
 use App\Http\Controllers\V1\Members\MemberCreateController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
@@ -154,11 +156,19 @@ Route::middleware([
                 [AuthenticatedSessionController::class, 'destroy']
             )->name('logout');
 
-            Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+            Route::prefix('profile')->name('profile.')->group(function () {
+                Route::get('/', [ProfileController::class, 'edit'])->name('edit');
 
-            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+                Route::patch('/', [ProfileController::class, 'update'])->name('update');
 
-            Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+                Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+            });
+
+            Route::prefix('list')->name('list.')->group(function () {
+                Route::get('shoes-sizes', ListShoesSizesController::class)->name('shoes-sizes');
+
+                Route::get('clothes-sizes', ListClothesSizesController::class)->name('clothes-sizes');
+            });
 
             Route::get('', DashboardController::class)
                 ->name('dashboard');

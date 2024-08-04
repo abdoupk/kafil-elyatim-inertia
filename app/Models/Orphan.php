@@ -171,7 +171,7 @@ class Orphan extends Model
             'shoes_size' => $this->shoes_size,
             'shirt_size' => $this->shirt_size,
             'pants_size' => $this->pants_size,
-            'income' => $this->income,
+            'income' => (float) $this->income,
             'gender' => $this->gender,
             'note' => $this->note,
             'academic_level' => [

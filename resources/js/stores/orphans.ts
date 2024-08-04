@@ -7,7 +7,7 @@ export const useOrphansStore = defineStore('orphan', {
     }),
     actions: {
         async getOrphans() {
-            const { data: orphans } = await axios.get(route('tenant.orphans.list-orphans'))
+            const { data: orphans } = await axios.get(route('tenant.lessons.list-orphans'))
 
             this.orphans = orphans
         }
