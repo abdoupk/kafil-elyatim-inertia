@@ -34,15 +34,13 @@ export const useAcademicLevelsStore = defineStore('academic-levels', {
 
         async getAcademicLevelsForOrphansForSelectCollege() {},
 
-        async getAcademicLevelsForSponsorsForSelectFilterValue() {},
-
-        async getAcademicLevelsForOrphansForSelectFilterValue() {
+        async getAcademicLevelsForSponsorsForSelectFilterValue() {
             await this.getAcademicLevels()
 
             return this.academicLevels
                 .filter((academicLevel) => academicLevel.phase != 'التكوين المهني')
                 .filter((academicLevel) => academicLevel.phase != 'الشبه الطبي')
-                .flatMap(({ levels, phase }) =>
+                .flatMap(({ levels }) =>
                     levels
                         .filter((level) => level.name !== 'تحضيري')
                         .filter((level) => level.name !== 'مفصول')
@@ -51,6 +49,19 @@ export const useAcademicLevelsStore = defineStore('academic-levels', {
                             name
                         }))
                 )
+        },
+
+        async getAcademicLevelsForOrphansForSelectFilterValue() {
+            await this.getAcademicLevels()
+
+            return this.academicLevels.flatMap(({ levels, phase }) =>
+                levels
+                    .filter((level) => level.name !== 'امي')
+                    .map(({ id, name }) => ({
+                        id,
+                        name: phase === 'التكوين المهني' || phase === 'الشبه طبي' ? `${name} (${phase})` : name
+                    }))
+            )
         }
     }
 })

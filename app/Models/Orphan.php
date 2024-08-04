@@ -165,13 +165,14 @@ class Orphan extends Model
     {
         return [
             'name' => $this->getName(),
-            'birth_date' => $this->birth_date,
+            'birth_date' => strtotime($this->birth_date),
             'health_status' => $this->health_status,
             'family_status' => $this->family_status,
             'shoes_size' => $this->shoes_size,
             'shirt_size' => $this->shirt_size,
             'pants_size' => $this->pants_size,
             'income' => $this->income,
+            'gender' => $this->gender,
             'note' => $this->note,
             'academic_level' => [
                 'id' => $this->academic_level_id,
@@ -209,6 +210,15 @@ class Orphan extends Model
                     'institute' => $vocationalTrainingAchievement->institute,
                 ];
             })->toArray(),
+            'sponsorships' => [
+                'medical_sponsorship' => boolval($this->sponsorships->medical_sponsorship),
+                'university_scholarship' => boolval($this->sponsorships->university_scholarship),
+                'association_trips' => boolval($this->sponsorships->association_trips),
+                'summer_camp' => boolval($this->sponsorships->summer_camp),
+                'eid_suit' => boolval($this->sponsorships->eid_suit),
+                'private_lessons' => boolval($this->sponsorships->private_lessons),
+                'school_bag' => boolval($this->sponsorships->school_bag),
+            ],
             'tenant_id' => $this->tenant_id,
             'family_id' => $this->family_id,
         ];
@@ -226,7 +236,7 @@ class Orphan extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining']);
+        return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'sponsorships', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining']);
     }
 
     public function academicAchievements(): HasMany

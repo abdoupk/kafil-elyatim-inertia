@@ -20,7 +20,7 @@ const academicLevelsStore = useAcademicLevelsStore()
 const data = ref([])
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevelsForOrphansForSelectFilterValue().then((res) => {
+    await academicLevelsStore.getAcademicLevelsForSponsorsForSelectFilterValue().then((res) => {
         data.value = res
     })
 })

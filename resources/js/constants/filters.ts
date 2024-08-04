@@ -222,3 +222,83 @@ export const sponsorsFilters: ListBoxFilter[] = [
         operators: filterStringOperators
     }
 ]
+
+export const orphansFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'id',
+        label: 'orphan',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'income',
+        label: 'income',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-graduation-cap',
+        field: 'academic_level.id',
+        label: 'orphan.academic_level',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'birth_date',
+        label: 'birth_date',
+        type: 'date',
+        operators: filterDateOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'sponsorships',
+        label: 'orphan_sponsorships',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'health_status',
+        label: 'health_status',
+        type: 'string',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'family_status',
+        label: 'family_status',
+        type: 'string',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'gender',
+        label: 'gender',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'shoes_size',
+        label: 'shoes_size',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'pants_size',
+        label: 'pants_size',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'shirt_size',
+        label: 'shirt_size',
+        type: 'object',
+        operators: filterObjectOperators
+    }
+]

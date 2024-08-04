@@ -30,7 +30,7 @@ function listOfOrphansBenefitingFromTheSchoolEntrySponsorship(): LengthAwarePagi
 {
     return search(OrphanSponsorship::getModel(), 'AND school_bag = true AND school_bag IS NOT NULL')
         ->query(fn ($query) => $query
-            ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.lastAcademicYearAchievement:id,orphan_id,academic_year,academic_phase,academic_level,average', 'orphan.family.zone:id,name'])
+            ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.lastAcademicYearAchievement:id,orphan_id,academic_year,academic_level_id,average', 'orphan.family.zone:id,name'])
         )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));

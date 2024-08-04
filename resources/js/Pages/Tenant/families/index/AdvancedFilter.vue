@@ -73,6 +73,7 @@ const handleFieldChange = (index: number) => {
         if (
             filterRules.value[index].field?.label === 'family_sponsorships' ||
             filterRules.value[index].field?.label === 'sponsor_sponsorships' ||
+            filterRules.value[index].field?.label === 'orphan_sponsorships' ||
             filterRules.value[index].field?.label === 'gender' ||
             filterRules.value[index].field?.label === 'sponsor_type'
         ) {

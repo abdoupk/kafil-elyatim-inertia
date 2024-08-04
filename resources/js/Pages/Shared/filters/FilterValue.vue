@@ -1,12 +1,16 @@
 <script lang="ts" setup>
 import type { FilterValueType, ListBoxFilter } from '@/types/types'
 
+import TheBranchSelector from '@/Pages/Shared/TheBranchSelector.vue'
 import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
+import ClothesSizeFilterDropDown from '@/Pages/Shared/filters/ClothesSizeFilterDropDown.vue'
 import FamiliesFilterDropDown from '@/Pages/Shared/filters/FamiliesFilterDropDown.vue'
 import FamilySponsorShipFilterDropDown from '@/Pages/Shared/filters/FamilySponsorShipFilterDropDown.vue'
 import GenderTypeFilterDropDown from '@/Pages/Shared/filters/GenderTypeFilterDropDown.vue'
 import OrphanAcademicLevelFilterDropDown from '@/Pages/Shared/filters/OrphanAcademicLevelFilterDropDown.vue'
 import OrphanSponsorShipFilterDropDown from '@/Pages/Shared/filters/OrphanSponsorShipFilterDropDown.vue'
+import OrphansFilterDropDown from '@/Pages/Shared/filters/OrphansFilterDropDown.vue'
+import ShoesSizeFilterDropDown from '@/Pages/Shared/filters/ShoesSizeFilterDropDown.vue'
 import SponsorAcademicLevelFilterDropDown from '@/Pages/Shared/filters/SponsorAcademicLevelFilterDropDown.vue'
 import SponsorSponsorShipFilterDropDown from '@/Pages/Shared/filters/SponsorSponsorShipFilterDropDown.vue'
 import SponsorTypeFilterDropDown from '@/Pages/Shared/filters/SponsorTypeFilterDropDown.vue'
@@ -36,6 +40,12 @@ const value = defineModel<FilterValueType>('value')
                 class="text-sm"
             ></sponsors-filter-drop-down>
 
+            <orphans-filter-drop-down
+                v-else-if="field?.label === 'orphan'"
+                v-model:value="value"
+                class="text-sm"
+            ></orphans-filter-drop-down>
+
             <branches-filter-drop-down
                 v-else-if="field?.label === 'branch'"
                 v-model:value="value"
@@ -47,6 +57,18 @@ const value = defineModel<FilterValueType>('value')
                 v-model:value="value"
                 class="text-sm"
             ></zones-filter-drop-down>
+
+            <shoes-size-filter-drop-down
+                v-else-if="field?.label === 'shoes_size'"
+                v-model:value="value"
+                class="text-sm"
+            ></shoes-size-filter-drop-down>
+
+            <clothes-size-filter-drop-down
+                v-else-if="field?.label === 'pants_size' || field?.label === 'shirt_size'"
+                v-model:value="value"
+                class="text-sm"
+            ></clothes-size-filter-drop-down>
 
             <sponsor-academic-level-filter-drop-down
                 v-else-if="field?.label === 'sponsor_academic_level' || field?.label === 'sponsor.academic_level'"
@@ -121,4 +143,5 @@ const value = defineModel<FilterValueType>('value')
             type="number"
         ></base-form-input>
     </div>
+    <the-branch-selector></the-branch-selector>
 </template>

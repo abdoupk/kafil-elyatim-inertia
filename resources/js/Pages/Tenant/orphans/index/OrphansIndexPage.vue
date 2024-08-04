@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type { IndexParams, OrphansIndexResource, PaginationData } from '@/types/types'
+import type { IndexParams, ListBoxFilter, ListBoxOperator, OrphansIndexResource, PaginationData } from '@/types/types'
 
+import { orphansFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -9,13 +10,14 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 import DataTable from '@/Pages/Tenant/orphans/index/DataTable.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, handleSort } from '@/utils/helper'
+import { debounce, handleFilterValue, handleSort, shouldFetchFilterData } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -98,6 +100,36 @@ const showDeleteModal = (orphanId: string) => {
     deleteModalStatus.value = true
 }
 
+const handleFilterName = (field: ListBoxFilter, value: object | string): string => {
+    if (field.field === 'sponsorships') {
+        return `${field.field}.${value.value}`
+    }
+
+    return field.field
+}
+
+const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
+    // @ts-ignore
+    params.filters = {
+        ...filters
+            ?.map((filter) => {
+                return {
+                    field: handleFilterName(filter.field, filter.value),
+                    operator: filter?.operator?.value,
+                    value: handleFilterValue(filter.field, filter.value)
+                }
+            })
+            .filter((filter) => filter.value !== '')
+    }
+}
+
+watch(
+    () => [params.filters],
+    (value, oldValue) => {
+        if (shouldFetchFilterData(value, oldValue)) getData()
+    }
+)
+
 watch(
     search,
     debounce(() => {
@@ -140,6 +172,13 @@ watch(
                 :export-xlsx-url="route('tenant.orphans.export.xlsx', params)"
             ></export-menu>
 
+            <advanced-filter
+                :filters="orphansFilters"
+                class="ms-2 hidden sm:block"
+                placement="bottom-start"
+                @update:value="handleFilter"
+            ></advanced-filter>
+
             <div class="mx-auto hidden text-slate-500 md:block">
                 <span v-if="orphans.meta.total > 0">
                     {{
@@ -153,15 +192,23 @@ watch(
                 </span>
             </div>
 
-            <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <div class="relative w-56 text-slate-500">
+            <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
+                <advanced-filter
+                    :filters="orphansFilters"
+                    class="me-2 sm:hidden"
+                    placement="bottom-start"
+                    @update:value="handleFilter"
+                ></advanced-filter>
+
+                <div class="relative w-full md:w-56 text-slate-500">
                     <base-form-input
                         v-model="search"
                         :placeholder="$t('Search...')"
                         autofocus
-                        class="!box w-56 pe-10"
+                        class="!box w-full md:w-56 pe-10"
                         type="text"
                     />
+
                     <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
                 </div>
             </div>
