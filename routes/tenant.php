@@ -47,8 +47,8 @@ use App\Http\Controllers\V1\Lessons\LessonUpdateController;
 use App\Http\Controllers\V1\Lessons\LessonUpdateDatesController;
 use App\Http\Controllers\V1\Lessons\ListOrphansController;
 use App\Http\Controllers\V1\List\ListClothesSizesController;
+use App\Http\Controllers\V1\List\ListRolesController;
 use App\Http\Controllers\V1\List\ListShoesSizesController;
-use App\Http\Controllers\V1\Members\MemberCreateController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
@@ -168,6 +168,8 @@ Route::middleware([
                 Route::get('shoes-sizes', ListShoesSizesController::class)->name('shoes-sizes');
 
                 Route::get('clothes-sizes', ListClothesSizesController::class)->name('clothes-sizes');
+
+                Route::get('roles', ListRolesController::class)->name('roles');
             });
 
             Route::get('', DashboardController::class)
@@ -269,9 +271,6 @@ Route::middleware([
 
                 Route::get('show/{member}', MemberShowController::class)
                     ->name('show');
-
-                Route::get('create', MemberCreateController::class)
-                    ->name('create');
 
                 Route::put('{member}', MemberUpdateController::class)
                     ->name('update')->middleware([HandlePrecognitiveRequests::class]);

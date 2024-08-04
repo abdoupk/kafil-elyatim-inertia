@@ -27,6 +27,9 @@ export const useZonesStore = defineStore('zones', {
             const { data: zones } = await axios.get(route('tenant.zones.list-zones'))
 
             this.zones = zones
+        },
+        findZoneById(id: string) {
+            return this.zones.find((zone) => zone.id === id)
         }
     }
 })

@@ -1,28 +1,24 @@
 <script lang="ts" setup>
-import type { Branch, Role, Zone } from '@/types/types'
-
 import { useMembersStore } from '@/stores/members'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import TheBranchSelector from '@/Pages/Shared/TheBranchSelector.vue'
+import TheRoleSelector from '@/Pages/Shared/TheRoleSelector.vue'
+import TheZoneSelector from '@/Pages/Shared/TheZoneSelector.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
-    qualifications: string[]
-    branches: Branch[]
-    roles: Role[]
-    zones: Zone[]
 }>()
 
 // Get the members store
@@ -264,7 +260,15 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select v-model:value="form.qualification" :options="qualifications"></base-vue-select>
+                    <base-form-input
+                        id="qualification"
+                        v-model="form.qualification"
+                        :placeholder="
+                            $t('auth.placeholders.fill', { attribute: $t('validation.attributes.qualification') })
+                        "
+                        type="text"
+                        @change="form.validate('qualification')"
+                    />
                 </div>
 
                 <div v-if="form.errors?.qualification" class="mt-2">
@@ -280,18 +284,11 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        v-model:value="form.zone"
-                        :options="zones"
-                        label="name"
-                        track-by="id"
-                        @update:value="
-                            (value) => {
-                                form.zone_id = value.id
-                                form.validate('zone_id')
-                            }
-                        "
-                    ></base-vue-select>
+                    <the-zone-selector
+                        id="zone"
+                        v-model:zone="form.zone_id"
+                        @update:zone="form.validate('zone_id')"
+                    ></the-zone-selector>
                 </div>
 
                 <div v-if="form.errors?.zone_id" class="mt-2">
@@ -307,18 +304,11 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        v-model:value="form.branch"
-                        :options="branches"
-                        label="name"
-                        track-by="id"
-                        @update:value="
-                            (value) => {
-                                form.branch_id = value.id
-                                form.validate('branch_id')
-                            }
-                        "
-                    ></base-vue-select>
+                    <the-branch-selector
+                        id="branch"
+                        v-model:branch="form.branch_id"
+                        @update:branch="form.validate('branch_id')"
+                    ></the-branch-selector>
                 </div>
 
                 <div v-if="form.errors?.branch_id" class="mt-2">
@@ -334,19 +324,12 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        v-model="form.formatted_roles"
-                        :options="roles"
-                        label="name"
-                        multiple
-                        track-by="uuid"
-                        @update:value="
-                            (value) => {
-                                form.roles = value.map((role: Role) => role.uuid)
-                                form.validate('roles')
-                            }
-                        "
-                    ></base-vue-select>
+                    <the-role-selector
+                        id="roles"
+                        v-model:formatted-roles="form.formatted_roles"
+                        v-model:roles="form.roles"
+                        @update:roles="form.validate('roles')"
+                    ></the-role-selector>
                 </div>
 
                 <div v-if="form.errors?.roles" class="mt-2">
