@@ -3,7 +3,7 @@ import type { BranchesIndexResource, IndexParams, MembersType, PaginationData } 
 
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -144,6 +144,12 @@ watch(
         getData()
     }
 )
+
+watchEffect(() => {
+    if (new URLSearchParams(window.location.search).has('show')) {
+        // TODO: show Details Modal
+    }
+})
 </script>
 
 <template>
