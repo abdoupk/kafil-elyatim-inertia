@@ -1,0 +1,142 @@
+<script setup>
+import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/vue'
+import { twMerge } from 'tailwind-merge'
+import { computed, ref, watch } from 'vue'
+
+import FilterValueDropDownListOption from '@/Pages/Shared/filters/FilterValueDropDownListOption.vue'
+
+import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
+
+const emit = defineEmits(['update:modelValue'])
+
+const props = defineProps({
+    modelValue: Object,
+    options: {
+        type: Array,
+        default: () => []
+    },
+    loadOptions: Function,
+    createOption: Function
+})
+
+const options = ref(props.options)
+
+const isLoading = ref(false)
+
+const queryOption = computed(() => {
+    return query.value === ''
+        ? null
+        : {
+              missing: true,
+              label: query.value
+          }
+})
+
+let query = ref('')
+
+watch(
+    query,
+    (q) => {
+        if (props.loadOptions) {
+            isLoading.value = true
+
+            props.loadOptions(q, (results) => {
+                options.value = results
+
+                if (
+                    props.modelValue &&
+                    !options.value.some((o) => {
+                        return o.value === props.modelValue?.value
+                    })
+                ) {
+                    options.value.unshift(props.modelValue)
+                }
+
+                isLoading.value = false
+            })
+        }
+    },
+    { immediate: true }
+)
+
+let filteredOptions = computed(() =>
+    query.value === ''
+        ? options.value
+        : options.value.filter((option) =>
+              option.name.toLowerCase().replace(/\s+/g, '').includes(query.value.toLowerCase().replace(/\s+/g, ''))
+          )
+)
+
+function handleUpdateModelValue(selected) {
+    emit('update:modelValue', selected)
+}
+</script>
+
+<template>
+    <combobox :model-value="props.modelValue" by="name" @update:model-value="handleUpdateModelValue">
+        <div class="relative mt-2">
+            <div>
+                <combobox-input
+                    :class="
+                        twMerge([
+                            'transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80'
+                        ])
+                    "
+                    :displayValue="(option) => option.name"
+                    :placeholder="$t('Search...')"
+                    @change="query = $event.target.value"
+                />
+
+                <combobox-button class="absolute inset-y-0 end-0 flex items-center pe-2">
+                    <svg-loader
+                        aria-hidden="true"
+                        class="h-5 w-5 text-gray-400"
+                        name="icon-angles-up-down"
+                    ></svg-loader>
+                </combobox-button>
+            </div>
+
+            <transition
+                leave-active-class="transition ease-in duration-100"
+                leave-from-class="opacity-100"
+                leave-to-class="opacity-0"
+            >
+                <combobox-options
+                    :class="{ 'py-1': filteredOptions.length > 0 }"
+                    class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-darkmode-800 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                >
+                    <div
+                        v-if="filteredOptions.length === 0 && !isLoading && !queryOption && !props.createOption"
+                        class="relative cursor-default select-none py-2 px-4 text-gray-700"
+                    >
+                        Nothing found.
+                    </div>
+
+                    <div
+                        v-if="isLoading"
+                        class="flex items-center justify-center cursor-default select-none py-2 px-4 text-gray-700"
+                    >
+                        <spinner-loader class="w-4 h-4"></spinner-loader>
+                    </div>
+
+                    <template v-if="!isLoading">
+                        <combobox-option
+                            v-for="option in filteredOptions"
+                            :key="option.id"
+                            v-slot="{ selected, active }"
+                            :value="option"
+                            as="template"
+                        >
+                            <filter-value-drop-down-list-option
+                                :active
+                                :label="option.name"
+                                :selected
+                            ></filter-value-drop-down-list-option>
+                        </combobox-option>
+                    </template>
+                </combobox-options>
+            </transition>
+        </div>
+    </combobox>
+</template>

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { FilterValueType, ListBoxFilter } from '@/types/types'
 
-import TheBranchSelector from '@/Pages/Shared/TheBranchSelector.vue'
 import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
 import ClothesSizeFilterDropDown from '@/Pages/Shared/filters/ClothesSizeFilterDropDown.vue'
 import FamiliesFilterDropDown from '@/Pages/Shared/filters/FamiliesFilterDropDown.vue'
@@ -143,5 +142,4 @@ const value = defineModel<FilterValueType>('value')
             type="number"
         ></base-form-input>
     </div>
-    <the-branch-selector></the-branch-selector>
 </template>

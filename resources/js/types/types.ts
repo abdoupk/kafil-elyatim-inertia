@@ -81,6 +81,7 @@ export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-file-certificate'
     | 'icon-clock'
+    | 'icon-check'
     | 'icon-diploma'
     | 'icon-books'
     | 'icon-shelves'

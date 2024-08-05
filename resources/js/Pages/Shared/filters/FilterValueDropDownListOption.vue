@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import SvgLoader from '@/Components/SvgLoader.vue'
+
 defineProps<{
     active?: boolean
     selected?: boolean
@@ -21,6 +23,12 @@ defineProps<{
             v-if="selected"
             :class="[active ? 'text-white' : 'text-primary', 'absolute inset-y-0 end-0 flex items-center pe-4']"
         >
+            <svg-loader
+                :class="[active ? 'fill-white' : 'fill-primary']"
+                aria-hidden="true"
+                class="h-5 w-5"
+                name="icon-check"
+            ></svg-loader>
         </span>
     </li>
 </template>

@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { useOrphansStore } from '@/stores/orphans'
-import { onMounted } from 'vue'
 
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import FilterPersonDropDown from '@/Pages/Shared/filters/FilterPersonDropDown.vue'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {
@@ -13,13 +12,13 @@ const value = defineModel<{ id: string; name: string }>('value', {
 
 const orphansStore = useOrphansStore()
 
-onMounted(() => {
-    if (orphansStore.orphans.length === 0) {
-        orphansStore.getOrphans()
-    }
-})
+function loadOrphans(query: string, setOptions: (results: { id: string; name: string }[]) => void) {
+    orphansStore.searchOrphans(query).then((results) => {
+        setOptions(results)
+    })
+}
 </script>
 
 <template>
-    <filter-value-drop-down :data="orphansStore.orphans" v-model:value="value"></filter-value-drop-down>
+    <filter-person-drop-down v-model="value" :load-options="loadOrphans"></filter-person-drop-down>
 </template>

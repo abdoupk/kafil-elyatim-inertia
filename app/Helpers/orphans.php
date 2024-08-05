@@ -4,6 +4,7 @@
 
 use App\Models\Orphan;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 function getOrphans(): LengthAwarePaginator
 {
@@ -11,4 +12,9 @@ function getOrphans(): LengthAwarePaginator
         ->query(fn ($query) => $query->with('academicLevel'))
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
+}
+
+function searchOrphans(): Collection
+{
+    return search(Orphan::getModel())->get();
 }

@@ -251,4 +251,9 @@ class Family extends Model
             'preview_date' => 'date',
         ];
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

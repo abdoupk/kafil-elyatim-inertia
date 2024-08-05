@@ -19,3 +19,8 @@ function getFamiliesForExport(): Collection
     return search(Family::getModel())
         ->query(fn ($query) => $query->with(['zone:id,name', 'branch:id,name', 'sponsor.incomes', 'secondSponsor:id,income,family_id', 'orphans:id,income,family_id'])->withCount('orphans'))->get();
 }
+
+function searchFamilies(): \Illuminate\Database\Eloquent\Collection
+{
+    return search(Family::getModel())->get();
+}

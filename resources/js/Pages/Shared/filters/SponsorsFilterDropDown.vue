@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-import type { FilterValueType } from '@/types/types'
-
 import { useSponsorsStore } from '@/stores/sponsors'
-import { onMounted } from 'vue'
 
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import FilterPersonDropDown from '@/Pages/Shared/filters/FilterPersonDropDown.vue'
 
-const value = defineModel<FilterValueType>('value', {
+const value = defineModel<{ id: string; name: string }>('value', {
     default: {
         id: '',
         name: ''
@@ -15,13 +12,13 @@ const value = defineModel<FilterValueType>('value', {
 
 const sponsorsStore = useSponsorsStore()
 
-onMounted(() => {
-    if (sponsorsStore.sponsors.length === 0) {
-        sponsorsStore.getSponsors()
-    }
-})
+function loadSponsors(query: string, setOptions: (results: { id: string; name: string }[]) => void) {
+    sponsorsStore.searchSponsors(query).then((results) => {
+        setOptions(results)
+    })
+}
 </script>
 
 <template>
-    <filter-value-drop-down v-model:value="value" :data="sponsorsStore.sponsors"></filter-value-drop-down>
+    <filter-person-drop-down v-model="value" :load-options="loadSponsors"></filter-person-drop-down>
 </template>

@@ -28,7 +28,7 @@ use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
-use App\Http\Controllers\V1\Families\ListFamiliesController;
+use App\Http\Controllers\V1\Families\SearchFamiliesController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
 use App\Http\Controllers\V1\Financial\FinancialShowController;
@@ -78,6 +78,7 @@ use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
+use App\Http\Controllers\V1\Orphans\SearchOrphansController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolDeleteController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolShowController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolsIndexController;
@@ -89,7 +90,7 @@ use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsPDFController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsXlsxController;
-use App\Http\Controllers\V1\Sponsors\ListSponsorsController;
+use App\Http\Controllers\V1\Sponsors\SearchSponsorsController;
 use App\Http\Controllers\V1\Sponsors\SponsorDeleteController;
 use App\Http\Controllers\V1\Sponsors\SponsorEditController;
 use App\Http\Controllers\V1\Sponsors\SponsorShowController;
@@ -200,7 +201,8 @@ Route::middleware([
                 Route::get('export-xlsx', ExportFamiliesXlsxController::class)
                     ->name('export.xlsx');
 
-                Route::get('list-families', ListFamiliesController::class)->name('list-families');
+                Route::get('search', SearchFamiliesController::class)
+                    ->name('search');
             });
 
             Route::prefix('inventory')->group(function () {
@@ -263,6 +265,9 @@ Route::middleware([
 
                 Route::get('export-xlsx', ExportOrphansXlsxController::class)
                     ->name('export.xlsx');
+
+                Route::get('search', SearchOrphansController::class)
+                    ->name('search');
             });
 
             Route::prefix('members')->name('members.')->group(function () {
@@ -315,7 +320,8 @@ Route::middleware([
                 Route::get('export-xlsx', ExportSponsorsXlsxController::class)
                     ->name('export.xlsx');
 
-                Route::get('list-sponsors', ListSponsorsController::class)->name('list-sponsors');
+                Route::get('search', SearchSponsorsController::class)
+                    ->name('search');
             });
 
             Route::prefix('settings')->name('settings.')->group(function () {

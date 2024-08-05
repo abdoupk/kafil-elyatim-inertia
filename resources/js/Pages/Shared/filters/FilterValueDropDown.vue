@@ -33,7 +33,11 @@ watch(
                 <span class="ms-3 block truncate">{{ value?.name }}</span>
 
                 <span class="pointer-events-none absolute inset-y-0 end-0 ms-3 flex items-center pe-2">
-                    <svg-loader aria-hidden="true" class="h-5 w-5 text-gray-400" name="icon-angles-up-down" />
+                    <svg-loader
+                        aria-hidden="true"
+                        class="h-5 w-5 text-gray-400"
+                        name="icon-angles-up-down"
+                    ></svg-loader>
                 </span>
             </listbox-button>
 

@@ -33,9 +33,9 @@ const authName = usePage().props.auth.user?.first_name + ' ' + usePage().props.a
 
             <base-menu-divider class="bg-white/[0.08]" />
 
-            <base-menu-item class="hover:bg-white/5">
+            <base-menu-item :href="route('tenant.profile.edit')" class="hover:bg-white/5" method="get">
                 <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-bell"></svg-loader>
-                Profile
+                {{ $t('Profile') }}
             </base-menu-item>
 
             <base-menu-item class="hover:bg-white/5">
