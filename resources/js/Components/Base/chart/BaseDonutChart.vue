@@ -50,5 +50,5 @@ const options = computed<ChartOptions>(() => {
 </script>
 
 <template>
-    <base-chart :data="data" :height="props.height" :options="options" :width="props.width" type="doughnut" />
+    <base-chart :data :height :options :width type="doughnut" />
 </template>

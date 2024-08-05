@@ -85,10 +85,10 @@ const options = computed<ChartOptions>(() => {
 
 <template>
     <base-chart
-        :data="data"
-        :height="props.height"
-        :options="options"
-        :width="props.width"
+        :data
+        :height
+        :options
+        :width
         type="line"
     />
 </template>

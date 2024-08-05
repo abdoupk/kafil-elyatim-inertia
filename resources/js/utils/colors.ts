@@ -5,7 +5,6 @@ import { flatten } from 'flat'
 import tailwindColors from 'tailwindcss/colors'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
-
 const twConfig = resolveConfig(tailwindConfig)
 const colors = twConfig.theme?.colors
 
