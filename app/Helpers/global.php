@@ -177,3 +177,10 @@ const DEFAULT_NOTIFICATIONS = [
         'updated' => true,
     ],
 ];
+
+function formatCurrency(float $amount): false|string
+{
+    $formatter = new NumberFormatter(app()->getLocale().'_DZ', NumberFormatter::CURRENCY);
+
+    return $formatter->formatCurrency($amount, 'DZD');
+}

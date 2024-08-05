@@ -28,6 +28,12 @@ use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
+use App\Http\Controllers\V1\Families\FamilyUpdateFurnishingsController;
+use App\Http\Controllers\V1\Families\FamilyUpdateHousingController;
+use App\Http\Controllers\V1\Families\FamilyUpdateInfoController;
+use App\Http\Controllers\V1\Families\FamilyUpdateReportController;
+use App\Http\Controllers\V1\Families\FamilyUpdateSecondSponsorController;
+use App\Http\Controllers\V1\Families\FamilyUpdateSpouseController;
 use App\Http\Controllers\V1\Families\SearchFamiliesController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
@@ -207,6 +213,18 @@ Route::middleware([
 
                 Route::get('search', SearchFamiliesController::class)
                     ->name('search');
+
+                Route::put('infos/{family}', FamilyUpdateInfoController::class)->name('infos-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('spouse/{family}', FamilyUpdateSpouseController::class)->name('spouse-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('report/{family}', FamilyUpdateReportController::class)->name('report-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('second-sponsor/{family}', FamilyUpdateSecondSponsorController::class)->name('second-sponsor-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('housing/{family}', FamilyUpdateHousingController::class)->name('housing-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('furnishings/{family}', FamilyUpdateFurnishingsController::class)->name('furnishings-update')->middleware([HandlePrecognitiveRequests::class]);
             });
 
             Route::prefix('inventory')->group(function () {
