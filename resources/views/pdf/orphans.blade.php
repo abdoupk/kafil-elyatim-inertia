@@ -4,85 +4,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     @vite('resources/css/app.css')
 </head>
 
 <body>
-    <div class="col-span-12 overflow-auto md:block ">
-        <table class="w-full text-start mt-2 border-separate border-spacing-y-[10px]">
-            <thead class="">
-                <tr class="">
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-start font-semibold flex-col">
-                        <span> #</span>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-start font-semibold flex-col">
-                        <div class="flex cursor-pointer"><span class="flex-grow">العائلة</span></div>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-start font-semibold flex-col">
-                        <span>العنوان</span>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center font-semibold flex-col">
-                        <div class="flex cursor-pointer"><span class="flex-grow">رقم الملف</span></div>
-                    </th>
-                    <th
-                        class="px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center font-semibold flex-col">
-                        <div class="flex cursor-pointer"><span class="flex-grow">تاريخ بدء التكفل</span>
-                        </div>
-                    </th>
-                </tr>
-            </thead>
 
-            <tbody>
-                @foreach ($orphans as $orphan)
-                    <tr>
-                        {{-- Begin: ID --}}
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            {{ $loop->iteration }}
-                        </td>
-                        {{-- End: ID --}}
+<div class="m-2">
+    <table class="w-full table table-bordered border-black text-black">
+        <thead>
+        <tr>
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                <span> #</span>
+            </th>
 
-                        {{-- Begin: Name --}}
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 !min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            <a class="font-medium">{{ $orphan->getName() }}</a>
-                        </td>
-                        {{-- End: Name --}}
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('the_sponsor')}}
+            </th>
 
-                        {{-- Begin: Address --}}
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            {{ $orphan->address }}
-                            <a class="mt-0.5 block whitespace-nowrap text-xs text-slate-500" href="">
-                                {{ $orphan->zone?->name }}</a>
-                        </td>
-                        {{-- End: Address --}}
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('validation.attributes.address')}}
+            </th>
 
-                        {{-- Begin: Date --}}
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            {{ $orphan->file_number }}
-                        </td>
-                        {{-- End: Date --}}
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('file_number')}}
+            </th>
 
-                        {{-- Begin: Date --}}
-                        <td
-                            class="px-5 py-3 dark:border-darkmode-300 w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]">
-                            <div class="whitespace-nowrap">{{ $orphan->start_date->format('Y-m-d') }}</div>
-                        </td>
-                        {{-- End: Date --}}
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('validation.attributes.starting_sponsorship_date')}}
+            </th>
+
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('the_branch')}}
+            </th>
+
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('the_zone')}}
+            </th>
+
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('orphans_count')}}
+            </th>
+
+            <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+                {{__('incomes.label.total_income')}}
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        @foreach ($orphans as $orphan)
+            <tr>
+                <td class="px-2 py-1 border border-black">
+                    {{ $loop->iteration }}
+                </td>
+
+                <td class="px-2 py-1 border border-black">
+                    {{ $orphan->getName() }}
+                </td>
+
+                <td class="px-2 py-1 border border-black">
+
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
 </body>
 
 </html>
