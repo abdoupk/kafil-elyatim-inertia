@@ -127,7 +127,7 @@ watch(
     }
 )
 
-const createEditSlideOverStatus = ref<boolean>(true)
+const createEditSlideOverStatus = ref<boolean>(false)
 
 const rolesStore = useRolesStore()
 

@@ -224,11 +224,10 @@
     "passwords.user": "لم يتم العثور على أيّ حسابٍ بهذا العنوان الإلكتروني.",
     "permissions.name": "الصلاحيات",
     "permissions.permissions": "الصلاحيات",
-    "permissions.create_members": "اضافة عضو",
-    "permissions.update_members": "تعديل عضو",
-    "permissions.delete_members": "حذف عضو",
-    "permissions.read_members": "عرض الأعضاء",
-    "permissions.members": "الأعضاء",
+    "permissions.create": "اضافة",
+    "permissions.read": "عرض",
+    "permissions.update": "تعديل",
+    "permissions.delete": "حذف",
     "placeholders.fill_interval": " عدد الوحدات الزمنية (على سبيل المثال، الأيام والأسابيع والشهور) بين كل تكرار",
     "placeholders.eid_al_adha": "تم فلتره النتائج لعرض فقط الأسر...",
     "sponsorships.monthly_allowance": "المصروف الشهري",
@@ -794,5 +793,9 @@
     "notifications": "الإشعارات",
     "super_admin": "رئيس الجمعية",
     "pdf.families": "قائمة العائلات",
-    "the_value": "القيمة"
+    "the_value": "القيمة",
+    "the_lessons": "دروس الدعم",
+    "the_settings": "الإعدادات",
+    "the_branches": "الفروع",
+    "the_financial_transactions": "المعاملات المالية"
 }

@@ -280,5 +280,9 @@
     "notifications": "الإشعارات",
     "super_admin": "رئيس الجمعية",
     "pdf.families": "قائمة العائلات",
-    "the_value": "القيمة"
+    "the_value": "القيمة",
+    "the_lessons": "دروس الدعم",
+    "the_settings": "الإعدادات",
+    "the_branches": "الفروع",
+    "the_financial_transactions": "المعاملات المالية"
 }
