@@ -287,5 +287,6 @@ return [
         'end_date' => 'وقت الانتهاء',
         'speciality' => 'التخصص',
         'university' => 'الجامعة',
+        'role_name' => 'اسم الدور',
     ],
 ];

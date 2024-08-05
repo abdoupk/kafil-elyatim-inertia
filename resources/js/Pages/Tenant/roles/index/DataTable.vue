@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -28,37 +28,37 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
 
                         <base-th-table
-                            sortable
-                            @click="emit('sort', 'name')"
                             :direction="params.directions?.name"
                             class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'name')"
                         >
                             {{ $t('the_role') }}
                         </base-th-table>
 
                         <base-th-table
-                            sortable
-                            @click="emit('sort', 'permissions_count')"
                             :direction="params.directions?.permissions_count"
                             class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            sortable
+                            @click="emit('sort', 'permissions_count')"
                         >
                             {{ $t('permissions_count') }}
                         </base-th-table>
 
                         <base-th-table
-                            sortable
-                            @click="emit('sort', 'users_count')"
                             :direction="params.directions?.users_count"
                             class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            sortable
+                            @click="emit('sort', 'users_count')"
                         >
                             {{ $t('users_count') }}
                         </base-th-table>
 
                         <base-th-table
-                            sortable
-                            @click="emit('sort', 'created_at')"
                             :direction="params.directions?.created_at"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            sortable
+                            @click="emit('sort', 'created_at')"
                         >
                             {{ $t('validation.attributes.created_at') }}
                         </base-th-table>
@@ -70,7 +70,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                 </base-thead-table>
 
                 <base-tbody-table>
-                    <base-tr-table class="intro-x" v-for="(role, index) in roles.data" :key="role.id">
+                    <base-tr-table v-for="(role, index) in roles.data" :key="role.id" class="intro-x">
                         <base-td-table
                             class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
@@ -80,7 +80,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            <Link href="#" class="font-medium">
+                            <Link class="font-medium" href="#">
                                 {{ role.name }}
                             </Link>
                         </base-td-table>
@@ -110,17 +110,17 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 <a
                                     class="me-3 flex items-center"
                                     href="javascript:void(0)"
-                                    @click="emit('showEditModal', role.id)"
+                                    @click="emit('showEditModal', role.uuid)"
                                 >
-                                    <svg-loader name="icon-pen" class="me-1 h-4 w-4 fill-current" />
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
                                 </a>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
-                                    @click="emit('showDeleteModal', role.id)"
+                                    @click="emit('showDeleteModal', role.uuid)"
                                 >
-                                    <svg-loader name="icon-trash-can" class="me-1 h-4 w-4 fill-current" />
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
                                     {{ $t('delete') }}
                                 </a>
                             </div>
@@ -131,7 +131,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
         </div>
 
         <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @3xl:hidden">
-            <div class="intro-y col-span-12 @xl:col-span-6" v-for="role in roles.data" :key="role.id">
+            <div v-for="role in roles.data" :key="role.id" class="intro-y col-span-12 @xl:col-span-6">
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
@@ -156,12 +156,12 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <Link href="#" class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                            <Link class="me-2 font-semibold text-slate-500 dark:text-slate-400" href="#"
                                 >{{ $t('edit') }}
                             </Link>
                             <a
-                                href="javascript:void(0)"
                                 class="font-semibold text-danger"
+                                href="javascript:void(0)"
                                 @click="emit('showDeleteModal', role.uuid)"
                             >
                                 {{ $t('delete') }}

@@ -17,6 +17,10 @@ class MemberStoreController extends Controller
 
         $user->syncRoles($request->roles);
 
+        $user->searchable();
+
+        $user->roles()->searchable();
+
         return response('', 201);
     }
 }

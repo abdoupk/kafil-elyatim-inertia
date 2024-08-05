@@ -305,3 +305,17 @@ export const financialTransactionSpecifications = [
         value: 'other'
     }
 ]
+
+export const permissions = {
+    members: ['create', 'read', 'update', 'delete'],
+    families: ['create', 'read', 'update', 'delete'],
+    orphans: ['create', 'read', 'update', 'delete'],
+    zones: ['create', 'read', 'update', 'delete'],
+    financial_transactions: ['create', 'read', 'update', 'delete'],
+    branches: ['create', 'read', 'update', 'delete'],
+    settings: ['read', 'update', 'create', 'delete'],
+    needs: ['create', 'read', 'update', 'delete'],
+    inventory: ['create', 'read', 'update', 'delete'],
+    schools: ['create', 'read', 'update', 'delete'],
+    lessons: ['create', 'read', 'update', 'delete']
+}

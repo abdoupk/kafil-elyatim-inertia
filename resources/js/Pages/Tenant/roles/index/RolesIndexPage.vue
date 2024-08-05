@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/types'
 
+import { useRolesStore } from '@/stores/roles'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watch } from 'vue'
 
@@ -8,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import RoleCreateEditSlideOver from '@/Pages/Tenant/roles/create/RoleCreateEditSlideOver.vue'
 import DataTable from '@/Pages/Tenant/roles/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -124,6 +126,24 @@ watch(
         getData()
     }
 )
+
+const createEditSlideOverStatus = ref<boolean>(true)
+
+const rolesStore = useRolesStore()
+
+const showCreateModal = () => {
+    rolesStore.$reset()
+
+    createEditSlideOverStatus.value = true
+}
+
+const showEditModal = async (roleId: string) => {
+    selectedRoleId.value = roleId
+
+    await rolesStore.getRole(roleId)
+
+    createEditSlideOverStatus.value = true
+}
 </script>
 
 <template>
@@ -135,11 +155,7 @@ watch(
 
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button
-                @click.prevent="router.get(route('tenant.roles.create'))"
-                class="me-2 shadow-md"
-                variant="primary"
-            >
+            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
                 {{ n__('add new', 1, { attribute: $t('role') }) }}
             </base-button>
 
@@ -172,7 +188,13 @@ watch(
     </div>
 
     <template v-if="roles.data.length > 0">
-        <data-table :roles :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+        <data-table
+            :params
+            :roles
+            @showDeleteModal="showDeleteModal"
+            @sort="sort($event)"
+            @show-edit-modal="showEditModal"
+        ></data-table>
 
         <pagination-data-table
             v-if="roles.meta.last_page > 1"
@@ -192,4 +214,9 @@ watch(
         @close="closeDeleteModal"
         @delete="deleteRole"
     ></delete-modal>
+
+    <role-create-edit-slide-over
+        :open="createEditSlideOverStatus"
+        @close="createEditSlideOverStatus = false"
+    ></role-create-edit-slide-over>
 </template>

@@ -259,6 +259,13 @@ export interface CreateBranchForm {
     created_at: string
 }
 
+export interface CreateRoleForm {
+    name: string
+    permissions: {
+        [key: string]: boolean
+    }
+}
+
 export interface CreateMemberForm {
     first_name: string
     last_name: string

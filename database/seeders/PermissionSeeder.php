@@ -12,10 +12,14 @@ class PermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'edit families']);
+        $classes = ['members', 'families', 'sponsors', 'orphans', 'needs', 'zones', 'financial_transactions', 'branches', 'inventory', 'schools', 'lessons'];
 
-        Permission::create(['name' => 'delete families']);
+        $permissionsMap = ['create', 'read', 'update', 'delete'];
 
-        Permission::create(['name' => 'add families']);
+        array_map(function ($class) use ($permissionsMap) {
+            foreach ($permissionsMap as $permission) {
+                Permission::create(['name' => $permission.'_'.$class]);
+            }
+        }, $classes);
     }
 }

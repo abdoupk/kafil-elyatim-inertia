@@ -1,12 +1,21 @@
-import type { RoleType } from '@/types/types'
+import type { CreateRoleForm, RoleType } from '@/types/types'
 
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
+interface State {
+    role: CreateRoleForm & { uuid: string }
+    roles: { uuid: string; name: string }[]
+}
 
 export const useRolesStore = defineStore('roles', {
-    state: () => ({
-        roles: []
+    state: (): State => ({
+        roles: [],
+        role: {
+            id: '',
+            permissions: {},
+            name: ''
+        }
     }),
     actions: {
         async getRoles() {
@@ -18,8 +27,17 @@ export const useRolesStore = defineStore('roles', {
 
             this.roles = response.data
         },
+
         getFormattedRoles(ids: string[] | undefined): RoleType[] | undefined {
             return this.roles.filter((role: RoleType) => ids?.includes(role.uuid))
+        },
+
+        async getRole(roleId: string) {
+            const {
+                data: { role }
+            } = await axios.get(`roles/show/${roleId}`)
+
+            this.role = role
         }
     }
 })

@@ -85,7 +85,11 @@ use App\Http\Controllers\V1\PrivateSchools\SchoolsIndexController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolStoreController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolUpdateController;
 use App\Http\Controllers\V1\ProfileController;
+use App\Http\Controllers\V1\Roles\RoleDeleteController;
+use App\Http\Controllers\V1\Roles\RoleShowController;
 use App\Http\Controllers\V1\Roles\RolesIndexController;
+use App\Http\Controllers\V1\Roles\RoleStoreController;
+use App\Http\Controllers\V1\Roles\RoleUpdateController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsPDFController;
@@ -290,6 +294,18 @@ Route::middleware([
             Route::prefix('roles')->name('roles.')->group(function () {
                 Route::get('', RolesIndexController::class)
                     ->name('index');
+
+                Route::post('', RoleStoreController::class)
+                    ->name('store');
+
+                Route::put('{role}', RoleUpdateController::class)
+                    ->name('update');
+
+                Route::get('show/{role}', RoleShowController::class)
+                    ->name('show');
+
+                Route::delete('{role}', RoleDeleteController::class)
+                    ->name('destroy');
             });
 
             Route::prefix('sponsors')->name('sponsors.')->group(function () {

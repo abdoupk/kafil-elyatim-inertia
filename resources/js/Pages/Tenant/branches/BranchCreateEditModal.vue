@@ -18,6 +18,7 @@ import CitySelector from '@/Components/Global/CitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
 
+// TODO remove members and replace by selector in the future search members: MembersType
 defineProps<{
     open: boolean
     members: MembersType
