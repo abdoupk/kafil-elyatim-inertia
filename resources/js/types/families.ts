@@ -144,3 +144,19 @@ export interface FamilyShowType {
     sponsor_sponsorships: SponsorSponsorshipType
     preview: PreviewType
 }
+
+export interface FamilyEditType {
+    id: string
+    name: string
+    address: string
+    file_number: string
+    start_date: Date
+    branch_id: string
+    zone_id: string
+    spouse: SpouseType
+    second_sponsor: SecondSponsorType
+    furnishings: FurnishingType
+    housing: HousingType
+    family_sponsorships: FamilySponsorshipType
+    preview: PreviewType
+}

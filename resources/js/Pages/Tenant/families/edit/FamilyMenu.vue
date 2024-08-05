@@ -1,16 +1,15 @@
 <script lang="ts" setup>
-import type { FamilyShowType } from '@/types/families'
+import type { FamilyEditType } from '@/types/families'
 
 import { useNeedsStore } from '@/stores/needs'
-import { Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
-import MenuLink from '@/Pages/Tenant/families/details/MenuLink.vue'
+import MenuLink from '@/Pages/Tenant/families/edit/MenuLink.vue'
 import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 
-defineProps<{ family: FamilyShowType }>()
+defineProps<{ family: FamilyEditType }>()
 
 const needsStore = useNeedsStore()
 
@@ -30,12 +29,12 @@ const showNeedCreateModal = () => {
             <div class="relative flex items-center p-5">
                 <div class="ms-4 me-auto">
                     <div class="text-base font-bold">{{ family.name }}</div>
-                    <Link
-                        :href="route('tenant.members.show', family.sponsor.creator?.id)"
-                        class="text-slate-500 font-semibold"
-                    >
-                        {{ family.sponsor.creator?.name }}
-                    </Link>
+                    <!--                    <Link-->
+                    <!--                        :href="route('tenant.members.show', family.sponsor.creator?.id)"-->
+                    <!--                        class="text-slate-500 font-semibold"-->
+                    <!--                    >-->
+                    <!--                        {{ family.sponsor.creator?.name }}-->
+                    <!--                    </Link>-->
                 </div>
             </div>
 
@@ -44,11 +43,7 @@ const showNeedCreateModal = () => {
 
                 <menu-link icon="icon-couple" view-name="spouse_information"></menu-link>
 
-                <menu-link icon="icon-hands-holding-child" view-name="sponsor_information"></menu-link>
-
                 <menu-link icon="icon-hands-holding-heart" view-name="second_sponsor_information"></menu-link>
-
-                <menu-link icon="icon-children" view-name="orphans_information"></menu-link>
 
                 <menu-link icon="icon-house" view-name="housing_information"></menu-link>
             </div>
@@ -57,10 +52,6 @@ const showNeedCreateModal = () => {
                 <menu-link class="!mt-0" icon="icon-file-lines" view-name="the_report"></menu-link>
 
                 <menu-link icon="icon-handshake-angle" view-name="family_sponsorship"></menu-link>
-
-                <menu-link icon="icon-person-dress" view-name="sponsor_sponsorship"></menu-link>
-
-                <menu-link icon="icon-child-reaching" view-name="orphans_sponsorship"></menu-link>
             </div>
 
             <div class="flex p-5 border-t border-slate-200/60 dark:border-darkmode-400">
