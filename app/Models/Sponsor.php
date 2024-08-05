@@ -231,7 +231,7 @@ class Sponsor extends Model
         return $this->belongsTo(AcademicLevel::class, 'academic_level_id');
     }
 
-    public function formatPhoneNumber(): string
+    public function formattedPhoneNumber(): string
     {
         // Remove all non-digit characters
         $phoneNumber = preg_replace('/\D/', '', $this->phone_number);

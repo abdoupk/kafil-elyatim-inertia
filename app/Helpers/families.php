@@ -16,7 +16,7 @@ function getFamilies(): LengthAwarePaginator
 
 function getFamiliesForExport(): Collection
 {
-    return search(Family::getModel())
+    return search(Family::getModel(), limit: 10000)
         ->query(fn ($query) => $query->with(['zone:id,name', 'branch:id,name', 'sponsor.incomes', 'secondSponsor:id,income,family_id', 'orphans:id,income,family_id'])->withCount('orphans'))->get();
 }
 

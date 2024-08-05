@@ -28,15 +28,17 @@ function saveToPDF(string $directory, string $variableName, callable $function):
     $pdfFile = "$directory/$pdfName".'_'.now()->format('y-m-d').'.pdf';
 
     $pdfPath = $disk->path($pdfFile);
-    ray($function());
+
     Browsershot::html(view("pdf.$directory", [$variableName => $function()])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()
         ->format('A4')
+        ->margins(2, 4, 2, 4)
         ->landscape()
         ->save($pdfPath);
 
+    // TODO add Footer name of auth and date
     return $disk->download($pdfFile);
 }
 
@@ -96,12 +98,18 @@ function generateFormattedSort(): array
     return ['created_at:desc'];
 }
 
-function search(Model $model, ?string $additional_filters = ''): Builder
+function search(Model $model, ?string $additional_filters = '', ?int $limit = null): Builder
 {
+    if (! $limit) {
+        $limit = (int) request()->input('perPage', 10);
+    }
+
     $query = trim(request()->input('search', '')) ?? '';
+
     $meilisearchOptions = [
         'filter' => generateFilterConditions($additional_filters),
         'sort' => generateFormattedSort(),
+        'limit' => $limit,
     ];
 
     return $model::search($query, static function ($meilisearch, string $query, array $options) use ($meilisearchOptions) {

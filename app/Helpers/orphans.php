@@ -18,3 +18,8 @@ function searchOrphans(): Collection
 {
     return search(Orphan::getModel())->get();
 }
+
+function getOrphansForExport(): Collection
+{
+    return search(Orphan::getModel(), limit: 10000)->get();
+}
