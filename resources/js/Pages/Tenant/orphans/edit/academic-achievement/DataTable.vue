@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
@@ -57,8 +57,8 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
 
             <base-tbody-table>
                 <base-tr-table
-                    :key="academic_achievement.id"
                     v-for="(academic_achievement, index) in orphan.academic_achievements"
+                    :key="academic_achievement.id"
                 >
                     <base-td-table>
                         {{ index + 1 }}
@@ -115,5 +115,3 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
         </base-table>
     </div>
 </template>
-
-<style scoped lang="postcss"></style>

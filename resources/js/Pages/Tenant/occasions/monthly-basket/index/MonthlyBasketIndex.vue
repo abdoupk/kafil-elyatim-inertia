@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup></script>
 
 <template>basket index</template>
-
-<style scoped lang="postcss"></style>

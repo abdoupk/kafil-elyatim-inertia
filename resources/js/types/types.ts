@@ -1,19 +1,11 @@
-import type { AddSchoolLessonType } from '@/types/lessons';
+import type { AddSchoolLessonType } from '@/types/lessons'
 
+import _default from 'chart.js/dist/plugins/plugin.tooltip'
+import type { Form } from 'laravel-precognition-vue/dist/types'
 
+import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
 
-import _default from 'chart.js/dist/plugins/plugin.tooltip';
-import type { Form } from 'laravel-precognition-vue/dist/types';
-
-
-
-import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue';
-
-
-
-import type { LitepickerElement } from '@/Components/Base/lite-picker';
-
-
+import type { LitepickerElement } from '@/Components/Base/lite-picker'
 
 import {
     colorSchemes,
