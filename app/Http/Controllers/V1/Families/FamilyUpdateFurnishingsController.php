@@ -8,5 +8,10 @@ use App\Models\Family;
 
 class FamilyUpdateFurnishingsController extends Controller
 {
-    public function __invoke(FamilyFurnishingsUpdateRequest $request, Family $family) {}
+    public function __invoke(FamilyFurnishingsUpdateRequest $request, Family $family)
+    {
+        $family->furnishings()->update($request->validated());
+
+        return response('', 201);
+    }
 }

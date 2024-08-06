@@ -18,8 +18,6 @@ import { formatDate, omit } from '@/utils/helper'
 
 const props = defineProps<{ family: FamilyEditType }>()
 
-const emit = defineEmits(['family-updated'])
-
 const inputs = reactive<FamilyUpdateFormType>(
     omit(props.family, [
         'id',
@@ -45,8 +43,6 @@ const submit = () => {
             Object.keys(form.errors).forEach((error) => {
                 form.forgetError(error as keyof FamilyUpdateFormType)
             })
-
-            emit('family-updated', { ...props.family, ...form.data() })
         },
         onFinish() {
             updateSuccess.value = false

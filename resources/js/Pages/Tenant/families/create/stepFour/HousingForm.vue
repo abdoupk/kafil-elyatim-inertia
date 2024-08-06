@@ -70,6 +70,10 @@ onMounted(() => {
                 form.invalid(
                     // @ts-ignore
                     'housing.housing_type.value'
+                ) ||
+                form.invalid(
+                    // @ts-ignore
+                    'housing_type.value'
                 )
             "
             class="flex items-center mb-2 w-full sm:w-1/2"
@@ -78,7 +82,9 @@ onMounted(() => {
             <svg-loader class="w-6 h-6 me-2 fill-current" name="icon-circle-exclamation"></svg-loader>
             {{
                 // @ts-ignore
-                form.errors['housing.housing_type.value']
+                form.errors['housing.housing_type.value'] ||
+                // @ts-ignore
+                form.errors['housing_type.value']
             }}
         </base-alert>
     </base-form-input-error>

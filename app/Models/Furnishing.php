@@ -69,7 +69,6 @@ class Furnishing extends Model
     use BelongsToTenant, HasFactory, HasUuids;
 
     protected $fillable = [
-        'name',
         'television',
         'refrigerator',
         'fireplace',

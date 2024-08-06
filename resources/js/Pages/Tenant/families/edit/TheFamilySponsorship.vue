@@ -14,7 +14,7 @@ import { omit } from '@/utils/helper'
 
 const props = defineProps<{ sponsorships: FamilySponsorshipType }>()
 
-const inputs = reactive<FamilyUpdateSponsorShipsFormType>(omit(props.sponsorships, ['family_id']))
+const inputs = reactive<FamilyUpdateSponsorShipsFormType>(omit(props.sponsorships, ['family_id', 'id']))
 
 const form = useForm('put', route('tenant.families.sponsorships-update', props.sponsorships.family_id), inputs)
 

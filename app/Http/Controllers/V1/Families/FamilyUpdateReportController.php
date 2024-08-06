@@ -8,5 +8,12 @@ use App\Models\Family;
 
 class FamilyUpdateReportController extends Controller
 {
-    public function __invoke(FamilyReportUpdateRequest $request, Family $family) {}
+    public function __invoke(FamilyReportUpdateRequest $request, Family $family)
+    {
+        $family->preview()->update($request->except('inspectors'));
+
+        $family->preview->inspectors()->sync($request->input('inspectors'));
+
+        return response('', 201);
+    }
 }

@@ -20,7 +20,7 @@ const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSpon
 'family_id',
 'name']))
 
-const form = useForm('put', route('tenant.families.spouse-update', props.secondSponsor.family_id), inputs)
+const form = useForm('put', route('tenant.families.second-sponsor-update', props.secondSponsor.family_id), inputs)
 
 const updateSuccess = ref(false)
 

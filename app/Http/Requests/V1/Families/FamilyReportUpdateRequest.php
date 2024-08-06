@@ -9,7 +9,9 @@ class FamilyReportUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'inspectors' => 'required|array',
+            'preview_date' => 'required|date',
+            'report' => 'required|string|max:100000',
         ];
     }
 

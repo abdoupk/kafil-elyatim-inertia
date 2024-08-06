@@ -27,11 +27,7 @@ const housingInputs = reactive<FamilyUpdateHousingFormType>(omit(props.housing, 
 
 const furnishingsInputs = reactive<FamilyUpdateFurnishingFormType>(omit(props.furnishings, ['family_id', 'id']))
 
-const housing_form = useForm(
-    'put',
-    route('tenant.families.sponsorships-update', props.housing.family_id),
-    housingInputs
-)
+const housing_form = useForm('put', route('tenant.families.housing-update', props.housing.family_id), housingInputs)
 
 const furnishings_form = useForm(
     'put',

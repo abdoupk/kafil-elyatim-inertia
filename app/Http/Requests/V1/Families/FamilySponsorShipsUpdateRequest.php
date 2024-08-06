@@ -9,7 +9,11 @@ class FamilySponsorShipsUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'monthly_allowance' => 'nullable',
+            'ramadan_basket' => 'nullable',
+            'zakat' => 'nullable',
+            'housing_assistance' => 'nullable',
+            'eid_al_adha' => 'nullable',
         ];
     }
 

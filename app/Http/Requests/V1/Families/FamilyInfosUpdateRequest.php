@@ -9,7 +9,10 @@ class FamilyInfosUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'address' => 'required|string|min:3',
+            'file_number' => 'required|string',
+            'branch_id' => 'required|exists:App\Models\Branch,id',
+            'zone_id' => 'required|exists:App\Models\Zone,id',
         ];
     }
 

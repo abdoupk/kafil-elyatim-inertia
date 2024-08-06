@@ -143,6 +143,7 @@ return [
     'uuid' => 'حقل :attribute يجب أن يكون بصيغة UUID سليمة.',
     'attributes' => [
         'address' => 'العنوان',
+        'housing_type.value' => 'نوع السكن',
         'qty' => 'الكمية',
         'note' => 'الملاحظة',
         'notes' => 'الملاحظات',

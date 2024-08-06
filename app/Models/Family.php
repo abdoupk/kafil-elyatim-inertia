@@ -102,15 +102,6 @@ class Family extends Model
         'branch_id',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::updated(function (Family $family) {
-            $family->sponsorships->searchable();
-        });
-    }
-
     public function orphans(): HasMany
     {
         return $this->hasMany(Orphan::class);

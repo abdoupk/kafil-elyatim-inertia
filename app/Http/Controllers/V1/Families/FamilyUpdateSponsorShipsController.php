@@ -8,5 +8,10 @@ use App\Models\Family;
 
 class FamilyUpdateSponsorShipsController extends Controller
 {
-    public function __invoke(FamilySponsorShipsUpdateRequest $request, Family $family) {}
+    public function __invoke(FamilySponsorShipsUpdateRequest $request, Family $family)
+    {
+        $family->sponsorships()->update($request->validated());
+
+        return response('', 201);
+    }
 }

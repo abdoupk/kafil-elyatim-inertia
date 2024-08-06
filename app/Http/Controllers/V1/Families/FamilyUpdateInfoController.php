@@ -8,5 +8,10 @@ use App\Models\Family;
 
 class FamilyUpdateInfoController extends Controller
 {
-    public function __invoke(FamilyInfosUpdateRequest $request, Family $family) {}
+    public function __invoke(FamilyInfosUpdateRequest $request, Family $family)
+    {
+        $family->update($request->validated());
+
+        return response('', 201);
+    }
 }

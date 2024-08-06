@@ -8,5 +8,14 @@ use App\Models\Family;
 
 class FamilyUpdateHousingController extends Controller
 {
-    public function __invoke(FamilyHousingUpdateRequest $request, Family $family) {}
+    public function __invoke(FamilyHousingUpdateRequest $request, Family $family)
+    {
+        $family->housing()->update([
+            ...$request->except('housing_type'),
+            'name' => $request->input('housing_type.name'),
+            'value' => $request->input('housing_type.value'),
+        ]);
+
+        return response('', 201);
+    }
 }
