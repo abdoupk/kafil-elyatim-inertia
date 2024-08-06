@@ -17,15 +17,15 @@ const handleUpdate = (value: Zone) => {
 }
 
 onMounted(async () => {
-    await sizesStore.getClothesSizes()
+    await sizesStore.getShoesSizes()
 
-    selectedSize.value = sizesStore.findClothesSizeById(size.value)
+    selectedSize.value = sizesStore.findShoesSizeById(size.value)
 })
 
 watch(
     () => size.value,
     () => {
-        selectedSize.value = sizesStore.findClothesSizeById(size.value)
+        selectedSize.value = sizesStore.findShoesSizeById(size.value)
     }
 )
 </script>
@@ -34,7 +34,8 @@ watch(
     <!--  @vue-ignore  -->
     <base-vue-select
         v-model:value="selectedSize"
-        :options="sizesStore.clothesSizes"
+        :options="sizesStore.shoesSizes"
+        :placeholder="$t('auth.placeholders.fill', { attribute: $t('shoes_size') })"
         label="name"
         track-by="id"
         @update:value="handleUpdate"

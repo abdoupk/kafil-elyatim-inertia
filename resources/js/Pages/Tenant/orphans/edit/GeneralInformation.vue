@@ -11,6 +11,7 @@ import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
 import TheClothesSizeSelector from '@/Pages/Shared/TheClothesSizeSelector.vue'
+import TheShoesSizeSelector from '@/Pages/Shared/TheShoesSizeSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -265,21 +266,12 @@ onMounted(async () => {
                         </base-form-label>
 
                         <div>
-                            <the-clothes-size-selector></the-clothes-size-selector>
-                            <!--                            <base-vue-select-->
-                            <!--                                id="pants_size"-->
-                            <!--                                v-model="form.pants_size"-->
-                            <!--                                :options="clothesSizes"-->
-                            <!--                                :placeholder="-->
-                            <!--                                    $t('auth.placeholders.fill', {-->
-                            <!--                                        attribute: $t('pants_size')-->
-                            <!--                                    })-->
-                            <!--                                "-->
-                            <!--                                data-test="orphan_pants_size"-->
-                            <!--                                label="label"-->
-                            <!--                                track-by="id"-->
-                            <!--                                @change="form.validate('pants_size')"-->
-                            <!--                            ></base-vue-select>-->
+                            <the-clothes-size-selector
+                                id="pants_size"
+                                v-model:size="form.pants_size"
+                                :placeholder="$t('auth.placeholders.fill', { attribute: $t('pants_size') })"
+                                @update:size="form?.validate('pants_size')"
+                            ></the-clothes-size-selector>
                         </div>
 
                         <base-form-input-error>
@@ -301,21 +293,12 @@ onMounted(async () => {
                         </base-form-label>
 
                         <div>
-                            <the-clothes-size-selector></the-clothes-size-selector>
-                            <!--                            <base-vue-select-->
-                            <!--                                id="shirt_size"-->
-                            <!--                                v-model="form.shirt_size"-->
-                            <!--                                :options="clothesSizes"-->
-                            <!--                                :placeholder="-->
-                            <!--                                    $t('auth.placeholders.fill', {-->
-                            <!--                                        attribute: $t('shirt_size')-->
-                            <!--                                    })-->
-                            <!--                                "-->
-                            <!--                                data-test="orphan_shirt_size"-->
-                            <!--                                label="label"-->
-                            <!--                                track-by="id"-->
-                            <!--                                @change="form.validate('shirt_size')"-->
-                            <!--                            ></base-vue-select>-->
+                            <the-clothes-size-selector
+                                id="shirt_size"
+                                v-model:size="form.shirt_size"
+                                :placeholder="$t('auth.placeholders.fill', { attribute: $t('shirt_size') })"
+                                @update:size="form?.validate('shirt_size')"
+                            ></the-clothes-size-selector>
                         </div>
 
                         <base-form-input-error>
@@ -337,21 +320,11 @@ onMounted(async () => {
                         </base-form-label>
 
                         <div>
-                            <the-clothes-size-selector></the-clothes-size-selector>
-                            <!--                            <base-vue-select-->
-                            <!--                                id="shoes_size"-->
-                            <!--                                v-model="form.shoes_size"-->
-                            <!--                                :options="shoesSizes"-->
-                            <!--                                :placeholder="-->
-                            <!--                                    $t('auth.placeholders.fill', {-->
-                            <!--                                        attribute: $t('shoes_size')-->
-                            <!--                                    })-->
-                            <!--                                "-->
-                            <!--                                data-test="orphan_shoes_size"-->
-                            <!--                                label="label"-->
-                            <!--                                track-by="id"-->
-                            <!--                                @change="form.validate('shoes_size')"-->
-                            <!--                            ></base-vue-select>-->
+                            <the-shoes-size-selector
+                                id="shoes_size"
+                                v-model:size="form.shoes_size"
+                                @update:size="form?.validate('shoes_size')"
+                            ></the-shoes-size-selector>
                         </div>
 
                         <base-form-input-error>

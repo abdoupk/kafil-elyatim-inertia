@@ -25,6 +25,14 @@ export const useSizesStore = defineStore('sizes', {
             const response = await axios.get(route('tenant.list.shoes-sizes'))
 
             this.shoesSizes = response.data
+        },
+
+        findClothesSizeById(id: string) {
+            return this.clothesSizes.find((size) => size.id == id)
+        },
+
+        findShoesSizeById(id: string) {
+            return this.shoesSizes.find((size) => size.id == id)
         }
     }
 })
