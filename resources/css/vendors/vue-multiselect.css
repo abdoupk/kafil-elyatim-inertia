@@ -1,7 +1,7 @@
 .multiselect,
 .multiselect__input,
 .multiselect__single {
-    font-size: 14px;
+    font-size: theme('fontSize.sm') !important;
 }
 
 /*.multiselect__option--selected {*/

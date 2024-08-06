@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import NotificationAvatar from '@/Components/top-bar/notifications/NotificationAvatar.vue'
 import NotificationContent from '@/Components/top-bar/notifications/NotificationContent.vue'
+import NotificationLoader from '@/Components/top-bar/notifications/NotificationLoader.vue'
 </script>
 
 <template>
@@ -18,6 +19,9 @@ import NotificationContent from '@/Components/top-bar/notifications/Notification
 
         <notification-content :notification="notification"></notification-content>
     </div>
+
+    <notification-loader></notification-loader>
+
     <div
         v-for="notification in $page.props.auth.notifications"
         :key="notification.id"
