@@ -471,13 +471,11 @@ export interface IndexParams {
     directions?: {
         [key: string]: 'asc' | 'desc'
     }
-    filters?: [
-        {
-            field: string
-            value: string
-            operator: string
-        }
-    ]
+    filters?: {
+        field: string
+        value: string
+        operator: string
+    }[]
 }
 
 type SponsorType = {

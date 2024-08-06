@@ -1,6 +1,6 @@
 import type { AppearanceType, ColorSchemesType, IndexParams, ListBoxFilter } from '@/types/types'
 
-import { usePage } from '@inertiajs/vue3'
+import { router, usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import type { Hit } from 'meilisearch'
@@ -8,6 +8,7 @@ import { parseColor } from 'tailwindcss/lib/util/color'
 import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
+
 
 dayjs.extend(duration)
 const toRaw = (obj: object) => {
@@ -373,8 +374,23 @@ const shouldFetchFilterData = (value, oldValue) => {
     return true
 }
 
+const getDataForIndexPages = (url: string, search: string | undefined, params: IndexParams, options: object) => {
+    let data = { ...params }
+
+    if (search !== '') {
+        data.search = search
+    }
+
+    Object.keys(data).forEach((key) => {
+        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
+    })
+
+    router.get(url, data, options)
+}
+
 export {
     isEqual,
+    getDataForIndexPages,
     handleFilterValue,
     formatDate,
     shouldFetchFilterData,

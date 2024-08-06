@@ -17,7 +17,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, handleFilterValue, handleSort, shouldFetchFilterData } from '@/utils/helper'
+import { debounce, getDataForIndexPages, handleFilterValue, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -58,19 +58,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.orphans.index'), data, routerOptions)
-}
+const getData = () => getDataForIndexPages(route('tenant.orphans.index'), search.value, params, routerOptions)
 
 const sort = (field: string) => {
     handleSort(field, params)
@@ -100,17 +88,14 @@ const showDeleteModal = (orphanId: string) => {
     deleteModalStatus.value = true
 }
 
-const handleFilterName = (field: ListBoxFilter, value: object | string): string => {
-    if (field.field === 'sponsorships') {
-        return `${field.field}.${value.value}`
-    }
+const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
+    if (field.field === 'sponsorships' && typeof value !== 'string') return `${field.field}.${value.value}`
 
     return field.field
 }
 
 const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
-    // @ts-ignore
-    params.filters = {
+    let filtersData = {
         ...filters
             ?.map((filter) => {
                 return {
@@ -121,14 +106,13 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
             })
             .filter((filter) => filter.value !== '')
     }
-}
 
-watch(
-    () => [params.filters],
-    (value, oldValue) => {
-        if (shouldFetchFilterData(value, oldValue)) getData()
+    if (Object.keys(filtersData).length > 0) {
+        params.filters = filtersData
+
+        getData()
     }
-)
+}
 
 watch(
     search,

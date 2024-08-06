@@ -10,7 +10,6 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import FilterModal from '@/Pages/Shared/filters/FilterModal.vue'
 import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 
@@ -24,8 +23,6 @@ import { debounce, handleFilterValue, handleSort, shouldFetchFilterData } from '
 defineOptions({
     layout: TheLayout
 })
-
-const filterModalStatus = ref<boolean>(false)
 
 const props = defineProps<{
     families: PaginationData<FamiliesIndexResource>
@@ -151,10 +148,10 @@ watch(
     }
 )
 
-const handleFilterName = (field: ListBoxFilter, value: object | string): string => {
-    if (field.label === 'family_sponsorships' || field.label === 'sponsor_sponsorships') {
-        return `${field.label}.${value.value}`
-    }
+const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
+    const isFamilySponsorship = ['family_sponsorships', 'sponsor_sponsorships'].includes(field.label)
+
+    if (isFamilySponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
 
     return field.field
 }
@@ -265,11 +262,4 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
         @close="closeDeleteModal"
         @delete="deleteFamily"
     ></delete-modal>
-
-    <filter-modal
-        :open="filterModalStatus"
-        :processing
-        @close="filterModalStatus = false"
-        @filter="(args) => (params.filters = { ...args })"
-    ></filter-modal>
 </template>
