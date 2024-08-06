@@ -44,7 +44,7 @@ provide('profileView', { view, updateView })
                         class="w-full flex items-center content-around justify-center py-2"
                         type="button"
                     >
-                        <svg-loader name="icon-user-lock"></svg-loader>
+                        <svg-loader name="icon-user"></svg-loader>
 
                         <span class="ms-2"> {{ $t('account') }}</span>
                     </base-tab-button>
