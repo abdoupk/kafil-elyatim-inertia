@@ -141,21 +141,13 @@ watch(
 
 watch(() => [params.fields, params.directions], getData)
 
-watch(
-    () => [params.perPage],
-    () => (params.page = 1)
-)
+const handleChangePerPage = (value: number) => {
+    params.perPage = value
 
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
+    params.page = 1
 
-        routerOptions.preserveScroll = false
-
-        getData()
-    }
-)
+    getData()
+}
 </script>
 
 <template>
@@ -223,6 +215,7 @@ watch(
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="orphans.meta.last_page"
+            @update:per-page="handleChangePerPage"
         ></pagination-data-table>
     </template>
 
