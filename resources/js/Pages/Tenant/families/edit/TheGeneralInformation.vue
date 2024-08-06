@@ -20,7 +20,18 @@ const props = defineProps<{ family: FamilyEditType }>()
 
 const emit = defineEmits(['family-updated'])
 
-const inputs = reactive<FamilyUpdateFormType>(omit(props.family, ['id']))
+const inputs = reactive<FamilyUpdateFormType>(
+    omit(props.family, [
+        'id',
+        'family_sponsorships',
+        'housing',
+        'furnishings',
+        'second_sponsor',
+        'preview',
+        'name',
+        'spouse'
+    ])
+)
 
 const form = useForm('put', route('tenant.families.infos-update', props.family.id), inputs)
 

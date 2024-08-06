@@ -5,6 +5,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import FamilySponsorShipForm from '@/Pages/Tenant/families/create/stepFive/FamilySponsorShipForm.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -62,4 +63,6 @@ const submit = () => {
         </form>
     </div>
     <!-- END: Family SponsorShip -->
+
+    <success-notification :open="updateSuccess" :title="$t('successfully_updated')"></success-notification>
 </template>

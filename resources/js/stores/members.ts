@@ -68,10 +68,10 @@ export const useMembersStore = defineStore('members', {
         },
         findMembersByIds(ids: string[] | string) {
             if (typeof ids === 'string') {
-                return this.members.filter((member) => member.id === ids)[0]
+                return this.members.filter((member) => member.id === ids)
             }
 
-            return this.members.filter((member) => ids.includes(member.id))[0]
+            return this.members.filter((member) => ids.includes(member.id))
         }
     }
 })

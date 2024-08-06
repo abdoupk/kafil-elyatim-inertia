@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import type { FamilyUpdateReportFormType, PreviewType } from '@/types/families'
+import type { FamilyEditPreviewType, FamilyUpdateReportFormType } from '@/types/families'
 
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import TheMemberSelector from '@/Pages/Shared/TheMemberSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
@@ -15,9 +16,9 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 
 import { formatDate, omit } from '@/utils/helper'
 
-const props = defineProps<{ preview: PreviewType }>()
+const props = defineProps<{ preview: FamilyEditPreviewType }>()
 
-const inputs = reactive<FamilyUpdateReportFormType>(omit(props.preview, ['family_id']))
+const inputs = reactive<FamilyUpdateReportFormType>(omit(props.preview, ['family_id', 'id']))
 
 const form = useForm('put', route('tenant.families.report-update', props.preview.family_id), inputs)
 
@@ -79,20 +80,20 @@ const submit = () => {
 
                     <div>
                         <the-member-selector
-                            v-model="form.inspectors_members"
+                            v-model:member="form.inspectors"
                             :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
                             multiple
-                            @update:members="form?.validate('inspectors_members')"
+                            @update:members="form?.validate('inspectors')"
                         ></the-member-selector>
                     </div>
 
                     <base-form-input-error>
                         <div
-                            v-if="form?.invalid('inspectors_members')"
+                            v-if="form?.invalid('inspectors')"
                             class="mt-2 text-danger"
                             data-test="error_inspectors_members_message"
                         >
-                            {{ form.errors.inspectors_members }}
+                            {{ form.errors.inspectors }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -135,6 +136,5 @@ const submit = () => {
     </div>
     <!-- END: The Report -->
 
-    <!-- BEGIN: Inspectors members -->
-    <!-- END: Inspectors members -->
+    <success-notification :open="updateSuccess" :title="$t('successfully_updated')"></success-notification>
 </template>

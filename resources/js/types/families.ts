@@ -216,22 +216,18 @@ export interface FamilyUpdateSpouseFormType {
 
 export interface FamilyUpdateSecondSponsorFormType {
     id: string
-    name: string
-    birth_date: string
-    death_date: string
-    function: string
+    family_id?: string
+    first_name: string
+    last_name: string
+    degree_of_kinship: string
+    phone_number: string
+    address: string
     income: string
-    first_name?: string
-    last_name?: string
 }
 
-export interface FamilyUpdateReportFormType extends PreviewType {
-    inspectors_members: string[]
-}
+export interface FamilyUpdateReportFormType extends FamilyEditPreviewType {}
 
-export interface FamilyUpdateSponsorShipsFormType extends FamilySponsorshipType {
-    inspectors_members: string[]
-}
+export interface FamilyUpdateSponsorShipsFormType extends FamilySponsorshipType {}
 
 export interface FamilyUpdateHousingFormType extends HousingType {
     housing_type: {
@@ -241,3 +237,10 @@ export interface FamilyUpdateHousingFormType extends HousingType {
 }
 
 export interface FamilyUpdateFurnishingFormType extends FurnishingType {}
+
+export interface FamilyEditPreviewType {
+    family_id: string
+    report: string
+    preview_date: string
+    inspectors: string | string[]
+}

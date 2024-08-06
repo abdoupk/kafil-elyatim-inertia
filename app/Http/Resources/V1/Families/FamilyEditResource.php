@@ -31,7 +31,7 @@ class FamilyEditResource extends JsonResource
 
             'family_sponsorships' => new FamilySponsorshipResource($this->whenLoaded('sponsorships')),
 
-            'preview' => new PreviewResource($this->whenLoaded('preview')),
+            'preview' => new FamilyEditPreviewResource($this->whenLoaded('preview')),
         ];
     }
 }

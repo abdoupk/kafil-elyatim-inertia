@@ -6,18 +6,19 @@ import { reactive, ref } from 'vue'
 
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-import FurnishingForm from '@/Pages/Tenant/families/create/stepFour/FurnishingForm.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 
-import { omit } from '@/utils/helper'
+import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
 
 const props = defineProps<{ secondSponsor: SecondSponsorType }>()
 
-const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSponsor, ['id', 'family_id']))
+const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSponsor, ['id',
+'family_id',
+'name']))
 
 const form = useForm('put', route('tenant.families.spouse-update', props.secondSponsor.family_id), inputs)
 
@@ -43,7 +44,9 @@ const submit = () => {
     <!-- BEGIN: Second Sponsor Information -->
     <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
         <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
-            <h2 class="me-auto text-xl font-bold">{{ secondSponsor.name }}</h2>
+            <h2 class="me-auto text-xl font-bold">
+                {{ secondSponsor.name }}
+            </h2>
 
             <div
                 class="mt-2 flex w-fit items-center truncate rounded-full bg-success/30 px-2 py-1 text-sm font-semibold text-success dark:bg-darkmode-400"
@@ -118,30 +121,30 @@ const submit = () => {
 
                 <!-- BEGIN: Degree of Kinship -->
                 <div class="@xl:col-span-6 col-span-12">
-                    <base-form-label for="function">
-                        {{ $t('filters.spouse.function') }}
+                    <base-form-label for="degree_of_kinship">
+                        {{ $t('filters.spouse.degree_of_kinship') }}
                     </base-form-label>
 
                     <base-form-input
-                        id="function"
-                        v-model="form.function"
+                        id="degree_of_kinship"
+                        v-model="form.degree_of_kinship"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('filters.spouse.function')
+                                attribute: $t('filters.spouse.degree_of_kinship')
                             })
                         "
-                        data-test="spouse_function"
+                        data-test="spouse_degree_of_kinship"
                         type="text"
-                        @change="form?.validate('function')"
+                        @change="form?.validate('degree_of_kinship')"
                     ></base-form-input>
 
                     <base-form-input-error>
                         <div
-                            v-if="form?.invalid('function')"
+                            v-if="form?.invalid('degree_of_kinship')"
                             class="mt-2 text-danger"
-                            data-test="error_function_message"
+                            data-test="error_degree_of_kinship_message"
                         >
-                            {{ form.errors.function }}
+                            {{ form.errors.degree_of_kinship }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -177,27 +180,26 @@ const submit = () => {
 
                 <!-- BEGIN: Address -->
                 <div class="@xl:col-span-6 col-span-12">
-                    <base-form-label for="income">
-                        {{ $t('validation.attributes.income') }}
+                    <base-form-label for="address">
+                        {{ $t('validation.attributes.address') }}
                     </base-form-label>
 
                     <base-form-input
-                        id="income"
-                        v-model="form.income"
+                        id="address"
+                        v-model="form.address"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.income')
+                                attribute: $t('validation.attributes.address')
                             })
                         "
-                        data-test="spouse_income"
-                        step="0.01"
-                        type="number"
-                        @change="form?.validate('income')"
+                        data-test="second_sponsor_address"
+                        type="text"
+                        @change="form?.validate('address')"
                     ></base-form-input>
 
                     <base-form-input-error>
-                        <div v-if="form?.invalid('income')" class="mt-2 text-danger" data-test="error_income_message">
-                            {{ form.errors.income }}
+                        <div v-if="form?.invalid('address')" class="mt-2 text-danger" data-test="error_address_message">
+                            {{ form.errors.address }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -205,27 +207,31 @@ const submit = () => {
 
                 <!-- BEGIN: Phone Number -->
                 <div class="@xl:col-span-6 col-span-12">
-                    <base-form-label for="income">
-                        {{ $t('validation.attributes.income') }}
+                    <base-form-label for="phone_number">
+                        {{ $t('validation.attributes.phone_number') }}
                     </base-form-label>
 
                     <base-form-input
-                        id="income"
-                        v-model="form.income"
+                        id="phone_number"
+                        v-model="form.phone_number"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.income')
+                                attribute: $t('validation.attributes.phone_number')
                             })
                         "
-                        data-test="spouse_income"
-                        step="0.01"
-                        type="number"
-                        @change="form?.validate('income')"
+                        data-test="spouse_phone_number"
+                        type="text"
+                        @change="form?.validate('phone_number')"
+                        @keydown.prevent="allowOnlyNumbersOnKeyDown"
                     ></base-form-input>
 
                     <base-form-input-error>
-                        <div v-if="form?.invalid('income')" class="mt-2 text-danger" data-test="error_income_message">
-                            {{ form.errors.income }}
+                        <div
+                            v-if="form?.invalid('phone_number')"
+                            class="mt-2 text-danger"
+                            data-test="error_phone_number_message"
+                        >
+                            {{ form.errors.phone_number }}
                         </div>
                     </base-form-input-error>
                 </div>
@@ -240,8 +246,6 @@ const submit = () => {
         </form>
     </div>
     <!-- END: Second Sponsor Information -->
-    <div class="w-full col-span-12">
-        <furnishing-form class="w-full"></furnishing-form>
-    </div>
+
     <success-notification :open="updateSuccess" :title="$t('successfully_updated')"></success-notification>
 </template>

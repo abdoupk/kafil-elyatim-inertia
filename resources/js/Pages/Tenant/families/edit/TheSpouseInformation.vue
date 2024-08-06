@@ -17,7 +17,8 @@ import { omit } from '@/utils/helper'
 
 const props = defineProps<{ spouse: SpouseType }>()
 
-const inputs = reactive<FamilyUpdateSpouseFormType>(omit(props.spouse, ['id', 'family_id']))
+// eslint-disable-next-line array-element-newline
+const inputs = reactive<FamilyUpdateSpouseFormType>(omit(props.spouse, ['id', 'family_id', 'name']))
 
 const form = useForm('put', route('tenant.families.spouse-update', props.spouse.family_id), inputs)
 

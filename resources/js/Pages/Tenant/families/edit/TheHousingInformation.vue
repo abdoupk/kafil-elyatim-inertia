@@ -10,6 +10,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
 import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import FurnishingForm from '@/Pages/Tenant/families/create/stepFour/FurnishingForm.vue'
 import HousingForm from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
 
@@ -130,4 +131,6 @@ const FurnishingsSubmit = () => {
         </form>
     </div>
     <!-- END: Furnishings Information -->
+
+    <success-notification :open="updateSuccess" :title="$t('successfully_updated')"></success-notification>
 </template>
