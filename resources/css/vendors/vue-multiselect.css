@@ -1,3 +1,13 @@
+.multiselect,
+.multiselect__input,
+.multiselect__single {
+    font-size: 14px;
+}
+
+/*.multiselect__option--selected {*/
+/*    font-weight: bolder !important;*/
+/*}*/
+
 .multiselect__option {
     background-color: theme('colors.white') !important;
     color: theme('colors.black') !important;
@@ -15,12 +25,6 @@
 .multiselect__option--highlight {
     background-color: theme('colors.primary') !important;
     color: theme('colors.white') !important;
-}
-
-.multiselect__input:focus {
-    /*padding: theme('spacing.1') !important;*/
-    /*margin-top: theme('spacing.1') !important;*/
-    box-shadow: 0 0 0 1px theme('colors.primary') !important;
 }
 
 .multiselect__placeholder,
@@ -47,8 +51,7 @@
 
 .multiselect__input:focus {
     background-color: theme('colors.white') !important;
-    /*padding: theme('spacing.2') !important;*/
-    box-shadow: 0 0 0 1px theme('colors.primary') !important;
+    box-shadow: 0 0 0 1px transparent !important;
 }
 
 .multiselect__content-wrapper {
@@ -79,7 +82,7 @@
 
 .multiselect__single {
     background-color: theme('colors.white') !important;
-    color: theme('colors.black') !important;
+    /*color: theme('colors.black') !important;*/
 }
 
 .multiselect__tags-wrapper {
@@ -116,12 +119,6 @@
         color: theme('colors.white') !important;
     }
 
-    & .multiselect__input:focus {
-        /*padding: theme('spacing.1') !important;*/
-        /*margin-top: theme('spacing.1') !important;*/
-        box-shadow: 0 0 0 1px theme('colors.primary') !important;
-    }
-
     .multiselect__spinner {
         background: theme('colors.darkmode.800') !important;
 
@@ -155,8 +152,7 @@
 
     & .multiselect__input:focus {
         background-color: theme('colors.darkmode.800') !important;
-        /*padding: theme('spacing.2') !important;*/
-        box-shadow: 0 0 0 1px theme('colors.primary') !important;
+        box-shadow: 0 0 0 1px transparent !important;
     }
 
     & .multiselect__content-wrapper {
@@ -175,9 +171,6 @@
         }
     }
 
-    & .multiselect__tag-icon:hover {
-    }
-
     & .multiselect__content {
         background-color: theme('colors.darkmode.800') !important;
         color: theme('colors.white') !important;
@@ -190,12 +183,7 @@
 
     & .multiselect__single {
         background-color: theme('colors.darkmode.800') !important;
-        color: theme('colors.white') !important;
-    }
-
-    & .multiselect__select {
-        /*background-color: theme('colors.darkmode.800') !important;*/
-        /*color: theme('colors.white') !important;*/
+        color: theme('colors.slate.300') !important;
     }
 
     & .multiselect__tags-wrapper {
