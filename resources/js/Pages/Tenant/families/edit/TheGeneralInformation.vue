@@ -1,13 +1,51 @@
 <script lang="ts" setup>
-import type { FamilyEditType } from '@/types/families'
+import type { FamilyEditType, FamilyUpdateFormType } from '@/types/families'
 
-import { formatDate } from '@/utils/helper'
+import { useForm } from 'laravel-precognition-vue'
+import { reactive, ref } from 'vue'
 
-defineProps<{ family: FamilyEditType }>()
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+import TheBranchSelector from '@/Pages/Shared/TheBranchSelector.vue'
+import TheZoneSelector from '@/Pages/Shared/TheZoneSelector.vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+
+import { formatDate, omit } from '@/utils/helper'
+
+const props = defineProps<{ family: FamilyEditType }>()
+
+const emit = defineEmits(['family-updated'])
+
+const inputs = reactive<FamilyUpdateFormType>(omit(props.family, ['id']))
+
+const form = useForm('put', route('tenant.families.infos-update', props.family.id), inputs)
+
+const updateSuccess = ref(false)
+
+const submit = () => {
+    form.submit({
+        onSuccess() {
+            updateSuccess.value = true
+
+            Object.keys(form.errors).forEach((error) => {
+                form.forgetError(error as keyof FamilyUpdateFormType)
+            })
+
+            emit('family-updated', { ...props.family, ...form.data() })
+        },
+        onFinish() {
+            updateSuccess.value = false
+        }
+    })
+}
 </script>
 
 <template>
-    <!-- BEGIN: General Information -->
+    <!-- BEGIN: Family Information -->
     <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
         <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
             <h2 class="me-auto text-xl font-bold">{{ family.name }}</h2>
@@ -19,27 +57,119 @@ defineProps<{ family: FamilyEditType }>()
             </div>
         </div>
 
-        <div class="p-5 grid grid-cols-12 gap-4">
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('validation.attributes.file_number') }}</h2>
-                <h3 class="font-medium text-base">{{ family.file_number }}</h3>
-            </div>
+        <form @submit.prevent="submit">
+            <div class="p-5 grid grid-cols-12 gap-4">
+                <!-- BEGIN: File Number -->
+                <div class="@xl:col-span-6 col-span-12">
+                    <base-form-label for="file_number">
+                        {{ $t('validation.attributes.file_number') }}
+                    </base-form-label>
 
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('validation.attributes.branch_id') }}</h2>
-                <h3 class="font-medium text-base">{{ family.branch }}</h3>
-            </div>
+                    <base-form-input
+                        id="file_number"
+                        v-model="form.file_number"
+                        :placeholder="
+                            $t('auth.placeholders.fill', {
+                                attribute: $t('validation.attributes.file_number')
+                            })
+                        "
+                        data-test="orphan_file_number"
+                        type="text"
+                        @change="form?.validate('file_number')"
+                    ></base-form-input>
 
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('validation.attributes.zone') }}</h2>
-                <h3 class="font-medium text-base">{{ family.zone }}</h3>
-            </div>
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('file_number')"
+                            class="mt-2 text-danger"
+                            data-test="error_file_number_message"
+                        >
+                            {{ form.errors.file_number }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+                <!-- END: File Number -->
 
-            <div class="@xl:col-span-6 col-span-12">
-                <h2 class="text-lg font-semibold">{{ $t('validation.attributes.address') }}</h2>
-                <h3 class="font-medium text-base">{{ family.address }}</h3>
+                <!-- BEGIN: Branch -->
+                <div class="@xl:col-span-6 col-span-12">
+                    <base-form-label for="zone_id">
+                        {{ $t('validation.attributes.zone_id') }}
+                    </base-form-label>
+
+                    <the-zone-selector
+                        id="zone_id"
+                        v-model:zone="form.zone_id"
+                        @update:zone="form?.validate('zone_id')"
+                    ></the-zone-selector>
+
+                    <base-form-input-error>
+                        <div v-if="form?.invalid('zone_id')" class="mt-2 text-danger" data-test="error_zone_id_message">
+                            {{ form.errors.zone_id }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+                <!-- END: Branch -->
+
+                <!-- BEGIN: Zone -->
+                <div class="@xl:col-span-6 col-span-12">
+                    <base-form-label for="branch_id">
+                        {{ $t('validation.attributes.branch_id') }}
+                    </base-form-label>
+
+                    <the-branch-selector
+                        id="branch_id"
+                        v-model:branch="form.branch_id"
+                        @update:branch="form?.validate('branch_id')"
+                    ></the-branch-selector>
+
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('branch_id')"
+                            class="mt-2 text-danger"
+                            data-test="error_branch_id_message"
+                        >
+                            {{ form.errors.branch_id }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+                <!-- END: Zone -->
+
+                <!-- BEGIN: Address -->
+                <div class="@xl:col-span-6 col-span-12">
+                    <base-form-label for="address">
+                        {{ $t('validation.attributes.address') }}
+                    </base-form-label>
+
+                    <base-form-input
+                        id="address"
+                        v-model="form.address"
+                        :placeholder="
+                            $t('auth.placeholders.fill', {
+                                attribute: $t('validation.attributes.address')
+                            })
+                        "
+                        data-test="orphan_address"
+                        type="text"
+                        @change="form?.validate('address')"
+                    ></base-form-input>
+
+                    <base-form-input-error>
+                        <div v-if="form?.invalid('address')" class="mt-2 text-danger" data-test="error_address_message">
+                            {{ form.errors.address }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+                <!-- END: Address -->
+
+                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                    {{ $t('save') }}
+
+                    <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
+                </base-button>
             </div>
-        </div>
+        </form>
     </div>
-    <!-- END: General Information -->
+    <!-- END: Family Information -->
+
+    <success-notification :open="updateSuccess" :title="$t('successfully_updated')"></success-notification>
 </template>

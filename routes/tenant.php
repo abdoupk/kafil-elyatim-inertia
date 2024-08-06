@@ -33,6 +33,7 @@ use App\Http\Controllers\V1\Families\FamilyUpdateHousingController;
 use App\Http\Controllers\V1\Families\FamilyUpdateInfoController;
 use App\Http\Controllers\V1\Families\FamilyUpdateReportController;
 use App\Http\Controllers\V1\Families\FamilyUpdateSecondSponsorController;
+use App\Http\Controllers\V1\Families\FamilyUpdateSponsorShipsController;
 use App\Http\Controllers\V1\Families\FamilyUpdateSpouseController;
 use App\Http\Controllers\V1\Families\SearchFamiliesController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
@@ -55,6 +56,7 @@ use App\Http\Controllers\V1\Lessons\ListOrphansController;
 use App\Http\Controllers\V1\List\ListClothesSizesController;
 use App\Http\Controllers\V1\List\ListRolesController;
 use App\Http\Controllers\V1\List\ListShoesSizesController;
+use App\Http\Controllers\V1\Members\ListMembersController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
@@ -181,6 +183,8 @@ Route::middleware([
                 Route::get('clothes-sizes', ListClothesSizesController::class)->name('clothes-sizes');
 
                 Route::get('roles', ListRolesController::class)->name('roles');
+
+                Route::get('members', ListMembersController::class)->name('members');
             });
 
             Route::get('', DashboardController::class)
@@ -225,6 +229,8 @@ Route::middleware([
                 Route::put('housing/{family}', FamilyUpdateHousingController::class)->name('housing-update')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::put('furnishings/{family}', FamilyUpdateFurnishingsController::class)->name('furnishings-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::put('sponsorships/{family}', FamilyUpdateSponsorShipsController::class)->name('sponsorships-update')->middleware([HandlePrecognitiveRequests::class]);
             });
 
             Route::prefix('inventory')->group(function () {

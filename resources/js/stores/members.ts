@@ -1,4 +1,4 @@
-import type { CreateMemberForm, Role } from '@/types/types'
+import type { CreateMemberForm, MembersType, Role } from '@/types/types'
 
 import axios from 'axios'
 import { defineStore } from 'pinia'
@@ -19,6 +19,7 @@ interface State {
             name: string
         }
     }
+    members: MembersType[]
 }
 
 export const useMembersStore = defineStore('members', {
@@ -36,7 +37,8 @@ export const useMembersStore = defineStore('members', {
             branch_id: '',
             password: '',
             password_confirmation: ''
-        }
+        },
+        members: []
     }),
     actions: {
         async getMember(memberId: string) {
@@ -57,6 +59,19 @@ export const useMembersStore = defineStore('members', {
             this.member.zone_id = member.zone.id
 
             this.member.zone = { ...member.zone }
+        },
+
+        async getMembers() {
+            const { data: members } = await axios.get(route('tenant.list.members'))
+
+            this.members = members
+        },
+        findMembersByIds(ids: string[] | string) {
+            if (typeof ids === 'string') {
+                return this.members.filter((member) => member.id === ids)[0]
+            }
+
+            return this.members.filter((member) => ids.includes(member.id))[0]
         }
     }
 })

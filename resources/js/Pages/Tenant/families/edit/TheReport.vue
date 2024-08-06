@@ -1,11 +1,42 @@
 <script lang="ts" setup>
-import type { PreviewType } from '@/types/families'
+import type { FamilyUpdateReportFormType, PreviewType } from '@/types/families'
 
-import { Link } from '@inertiajs/vue3'
+import { useForm } from 'laravel-precognition-vue'
+import { reactive, ref } from 'vue'
 
-import { formatDate } from '@/utils/helper'
+import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
+import TheMemberSelector from '@/Pages/Shared/TheMemberSelector.vue'
 
-defineProps<{ preview: PreviewType }>()
+import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import BaseClassicEditor from '@/Components/Base/editor/BaseClassicEditor.vue'
+import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+
+import { formatDate, omit } from '@/utils/helper'
+
+const props = defineProps<{ preview: PreviewType }>()
+
+const inputs = reactive<FamilyUpdateReportFormType>(omit(props.preview, ['family_id']))
+
+const form = useForm('put', route('tenant.families.report-update', props.preview.family_id), inputs)
+
+const updateSuccess = ref(false)
+
+const submit = () => {
+    form.submit({
+        onSuccess() {
+            updateSuccess.value = true
+
+            Object.keys(form.errors).forEach((error) => {
+                form.forgetError(error as keyof FamilyUpdateReportFormType)
+            })
+        },
+        onFinish() {
+            updateSuccess.value = false
+        }
+    })
+}
 </script>
 
 <template>
@@ -21,36 +52,89 @@ defineProps<{ preview: PreviewType }>()
             </div>
         </div>
 
-        <div class="p-5 grid grid-cols-12 gap-4">
-            <div class="col-span-12 prose prose-th:text-start dark:prose-invert" v-html="preview?.report"></div>
+        <form @submit.prevent="submit">
+            <div class="p-5 grid grid-cols-12 gap-4">
+                <div class="col-span-12">
+                    <base-form-label for="report">
+                        {{ $t('the_report') }}
+                    </base-form-label>
 
-            <div class="col-span-12"></div>
+                    <base-classic-editor
+                        id="report"
+                        v-model="form.report"
+                        @blur="form?.validate('report')"
+                    ></base-classic-editor>
+
+                    <base-form-input-error>
+                        <div v-if="form?.invalid('report')" class="mt-2 text-danger" data-test="error_report_message">
+                            {{ form.errors.report }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+
+                <div class="col-span-12 sm:col-span-8">
+                    <base-form-label for="inspectors_members">
+                        {{ $t('inspectors_members') }}
+                    </base-form-label>
+
+                    <div>
+                        <the-member-selector
+                            v-model="form.inspectors_members"
+                            :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
+                            multiple
+                            @update:members="form?.validate('inspectors_members')"
+                        ></the-member-selector>
+                    </div>
+
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('inspectors_members')"
+                            class="mt-2 text-danger"
+                            data-test="error_inspectors_members_message"
+                        >
+                            {{ form.errors.inspectors_members }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+
+                <div class="col-span-12 sm:col-span-4">
+                    <base-form-label for="preview_date">
+                        {{ $t('preview_date') }}
+                    </base-form-label>
+
+                    <base-v-calendar id="preview_date" v-model:date="form.preview_date"></base-v-calendar>
+
+                    <base-form-input-error>
+                        <div
+                            v-if="form?.invalid('preview_date')"
+                            class="mt-2 text-danger"
+                            data-test="error_preview_date_message"
+                        >
+                            {{ form.errors.preview_date }}
+                        </div>
+                    </base-form-input-error>
+                </div>
+
+                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                    {{ $t('save') }}
+
+                    <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
+                </base-button>
+            </div>
+        </form>
+        <div class="">
+            <!-- BEGIN: The Report -->
+            <!-- END: The Report -->
+
+            <!-- BEGIN: Inspectors members -->
+            <!-- END: Inspectors members -->
+
+            <!-- BEGIN: Preview Date -->
+            <!-- END: Preview date -->
         </div>
     </div>
     <!-- END: The Report -->
 
     <!-- BEGIN: Inspectors members -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
-            <h2 class="me-auto text-xl font-bold">
-                {{ $t('inspectors_members') }}
-            </h2>
-        </div>
-
-        <div class="p-5 grid grid-cols-12 gap-4">
-            <div class="col-span-12">
-                <Link
-                    v-for="member in preview.inspectors"
-                    :key="member.id"
-                    :href="route('tenant.members.show', member.id)"
-                    class="flex items-center px-5 mt-2 first:mt-0 rounded-md last:mb-3"
-                >
-                    <div class="w-2 h-2 bg-current rounded-full me-3"></div>
-
-                    <span class="font-semibold text-base">{{ member.name }}</span>
-                </Link>
-            </div>
-        </div>
-    </div>
     <!-- END: Inspectors members -->
 </template>

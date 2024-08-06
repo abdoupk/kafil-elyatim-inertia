@@ -87,6 +87,7 @@ onMounted(async () => {
         <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
             <h2 class="me-auto text-xl font-bold">{{ $t('display information') }}</h2>
         </div>
+
         <form @submit.prevent="submit">
             <div class="p-5 grid grid-cols-12 gap-4">
                 <!-- BEGIN: First Name -->

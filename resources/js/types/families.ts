@@ -14,6 +14,7 @@ export interface OrphanType {
 
 export interface SpouseType {
     id: string
+    family_id?: string
     name: string
     birth_date: string
     death_date: string
@@ -56,6 +57,7 @@ export interface SponsorType {
 
 export interface SecondSponsorType {
     id: string
+    family_id?: string
     name: string
     degree_of_kinship: string
     phone_number: string
@@ -88,7 +90,7 @@ export interface HousingType {
 }
 
 export interface FamilySponsorshipType {
-    id: string
+    family_id: string
     monthly_allowance: string
     ramadan_basket: string
     zakat: string
@@ -116,7 +118,7 @@ export interface SponsorSponsorshipType {
 }
 
 export interface PreviewType {
-    id: string
+    family_id: string
     report: string
     preview_date: string
     inspectors: {
@@ -159,4 +161,68 @@ export interface FamilyEditType {
     housing: HousingType
     family_sponsorships: FamilySponsorshipType
     preview: PreviewType
+}
+
+export interface FamilyUpdateFormType {
+    id: string
+    name: string
+    address: string
+    file_number: string
+    start_date: Date
+    branch_id: string
+    zone_id: string
+    spouse: SpouseType
+    second_sponsor: SecondSponsorType
+    furnishings: FurnishingType
+    housing: HousingType
+    family_sponsorships: FamilySponsorshipType
+    preview: PreviewType
+}
+
+export interface FamilyUpdateSpouseFormType {
+    id: string
+    name: string
+    birth_date: string
+    death_date: string
+    function: string
+    income: string
+    first_name?: string
+    last_name?: string
+}
+
+export interface FamilyUpdateSecondSponsorFormType {
+    id: string
+    name: string
+    birth_date: string
+    death_date: string
+    function: string
+    income: string
+    first_name?: string
+    last_name?: string
+}
+
+export interface FamilyUpdateReportFormType extends PreviewType {
+    inspectors_members: string[]
+}
+
+export interface FamilyUpdateSponsorShipsFormType extends FamilySponsorshipType {
+    inspectors_members: string[]
+}
+
+export interface FamilyUpdateFurnishingFormType {
+    id: string
+    name: string
+    value: string
+    housing_receipt_number: string
+    number_of_rooms: number
+    other_properties: string
+}
+
+export interface FamilyUpdateHousingFormType {
+    id: string
+    name: string
+    value: string
+    housing_receipt_number: string
+    number_of_rooms: number
+    other_properties: string
 }

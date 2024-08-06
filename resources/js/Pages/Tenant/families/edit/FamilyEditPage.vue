@@ -49,19 +49,22 @@ provide('familyEditView', { view, updateView })
 
                 <the-second-sponsor-information
                     v-if="view === 'second_sponsor_information'"
-                    :second-sponsor="family.second_sponsor"
+                    :second-sponsor="{ ...family.second_sponsor, family_id: family.id }"
                 ></the-second-sponsor-information>
 
-                <the-report v-if="view === 'the_report'" :preview="family.preview"></the-report>
+                <the-report
+                    v-if="view === 'the_report'"
+                    :preview="{ ...family.preview, family_id: family.id }"
+                ></the-report>
 
                 <the-family-sponsorship
                     v-if="view === 'family_sponsorship'"
-                    :sponsorships="family.family_sponsorships"
+                    :sponsorships="{ ...family.family_sponsorships, family_id: family.id }"
                 ></the-family-sponsorship>
 
                 <the-spouse-information
                     v-if="view === 'spouse_information'"
-                    :spouse="family.spouse"
+                    :spouse="{ ...family.spouse, family_id: family.id }"
                 ></the-spouse-information>
             </div>
         </div>

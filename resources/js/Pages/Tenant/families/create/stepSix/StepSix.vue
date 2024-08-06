@@ -88,7 +88,7 @@ const vueSelectInspectorsMembers = ref([])
                     {{ $t('preview_date') }}
                 </base-form-label>
 
-                <base-v-calendar v-model:date="previewDate"></base-v-calendar>
+                <base-v-calendar id="preview_date" v-model:date="previewDate"></base-v-calendar>
 
                 <base-form-input-error>
                     <div
