@@ -24,11 +24,7 @@ onMounted(() => {
                 class="relative w-full cursor-default rounded-md bg-white dark:bg-darkmode-800 py-1.5 ps-3 pe-10 text-start text-gray-900 dark:text-slate-300 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 border dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
             >
                 <span class="flex items-center">
-                    <svg-loader
-                        v-if="selected?.icon"
-                        :name="selected?.icon"
-                        class="h-5 w-5 flex-shrink-0 rounded-full"
-                    />
+                    <svg-loader v-if="selected?.icon" :name="selected?.icon" class="h-5 w-5 flex-shrink-0" />
 
                     <span class="ms-3 block truncate">{{ $t(`filters.${selected?.label}`) }}</span>
                 </span>
@@ -60,7 +56,7 @@ onMounted(() => {
                             ]"
                         >
                             <div class="flex items-center">
-                                <svg-loader :name="filter.icon" class="h-5 w-5 flex-shrink-0 rounded-full" />
+                                <svg-loader :name="filter.icon" class="h-5 w-5 flex-shrink-0" />
                                 <span :class="[selected ? 'font-semibold' : 'font-normal', 'ms-3 block truncate']">{{
                                     $t(`filters.${filter.label}`)
                                 }}</span>

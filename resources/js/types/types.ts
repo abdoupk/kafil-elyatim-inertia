@@ -79,6 +79,7 @@ export type SVGType =
     | 'icon-clock'
     | 'icon-brush'
     | 'icon-user'
+    | 'icon-baby'
     | 'icon-check'
     | 'icon-diploma'
     | 'icon-books'
