@@ -3,7 +3,9 @@ import { provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import ProfileMenu from '@/Pages/Profile/ProfileMenu.vue'
+import TheAccountForm from '@/Pages/Profile/TheAccountForm.vue'
+import TheAppearanceForm from '@/Pages/Profile/TheAppearanceForm.vue'
+import TheNotificationsForm from '@/Pages/Profile/TheNotificationsForm.vue'
 
 import BaseTab from '@/Components/Base/headless/Tab/BaseTab.vue'
 import BaseTabButton from '@/Components/Base/headless/Tab/BaseTabButton.vue'
@@ -11,6 +13,7 @@ import BaseTabGroup from '@/Components/Base/headless/Tab/BaseTabGroup.vue'
 import BaseTabList from '@/Components/Base/headless/Tab/BaseTabList.vue'
 import BaseTabPanel from '@/Components/Base/headless/Tab/BaseTabPanel.vue'
 import BaseTabPanels from '@/Components/Base/headless/Tab/BaseTabPanels.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineOptions({
     layout: TheLayout
@@ -32,51 +35,61 @@ provide('profileView', { view, updateView })
         <h2 class="me-auto text-lg font-medium ltr:capitalize">{{ $t('breadcrumb.profile') }}</h2>
     </div>
 
-    <div class="grid grid-cols-12 gap-6 mt-5">
-        <profile-menu></profile-menu>
+    <base-tab-group class="grid grid-cols-12 w-5/6 gap-6 mt-5 box p-5" vertical>
+        <div class="col-span-3 text-base/relaxed">
+            <base-tab-list variant="pills">
+                <base-tab>
+                    <base-tab-button
+                        as="button"
+                        class="w-full flex items-center content-around justify-center py-2"
+                        type="button"
+                    >
+                        <svg-loader name="icon-user-lock"></svg-loader>
 
-        <div class="col-span-12 lg:col-span-9 2xl:col-span-9">
-            <div class="">
-                <base-tab-group class="grid grid-cols-12 gap-6" vertical>
-                    <div class="col-span-3">
-                        <base-tab-list variant="pills">
-                            <base-tab>
-                                <base-tab-button as="button" class="w-full py-2" type="button">
-                                    {{ $t('sponsorship for the family') }}
-                                </base-tab-button>
-                            </base-tab>
+                        <span class="ms-2"> {{ $t('account') }}</span>
+                    </base-tab-button>
+                </base-tab>
 
-                            <base-tab>
-                                <base-tab-button as="button" class="w-full py-2" type="button">
-                                    {{ $t('sponsorship for the sponsor') }}
-                                </base-tab-button>
-                            </base-tab>
+                <base-tab>
+                    <base-tab-button
+                        as="button"
+                        class="flex items-center content-around justify-center w-full py-2"
+                        type="button"
+                    >
+                        <svg-loader name="icon-brush"></svg-loader>
 
-                            <base-tab>
-                                <base-tab-button as="button" class="w-full py-2" type="button">
-                                    {{ $t('sponsorship for the orphans') }}
-                                </base-tab-button>
-                            </base-tab>
-                        </base-tab-list>
-                    </div>
+                        <span class="ms-2"> {{ $t('appearance') }}</span>
+                    </base-tab-button>
+                </base-tab>
 
-                    <div class="col-span-6">
-                        <base-tab-panels>
-                            <base-tab-panel class="p-5"> 555</base-tab-panel>
+                <base-tab>
+                    <base-tab-button
+                        as="button"
+                        class="flex items-center content-around justify-center w-full py-2"
+                        type="button"
+                    >
+                        <svg-loader class="ms-3.5" name="icon-bell"></svg-loader>
 
-                            <base-tab-panel class="p-5"> 666</base-tab-panel>
-
-                            <base-tab-panel class="p-5"> 777</base-tab-panel>
-                        </base-tab-panels>
-                    </div>
-                </base-tab-group>
-
-                <!--                <the-account-form v-if="view === 'account'"></the-account-form>-->
-
-                <!--                <the-notifications-form v-if="view === 'notifications'"></the-notifications-form>-->
-
-                <!--                <the-appearance-form v-if="view === 'appearance'"></the-appearance-form>-->
-            </div>
+                        <span class="ms-2"> {{ $t('notifications') }}</span>
+                    </base-tab-button>
+                </base-tab>
+            </base-tab-list>
         </div>
-    </div>
+
+        <div class="col-span-8">
+            <base-tab-panels>
+                <base-tab-panel>
+                    <the-account-form></the-account-form>
+                </base-tab-panel>
+
+                <base-tab-panel>
+                    <the-appearance-form></the-appearance-form>
+                </base-tab-panel>
+
+                <base-tab-panel>
+                    <the-notifications-form></the-notifications-form>
+                </base-tab-panel>
+            </base-tab-panels>
+        </div>
+    </base-tab-group>
 </template>
