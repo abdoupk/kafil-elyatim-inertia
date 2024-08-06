@@ -44,7 +44,7 @@ provide('familyEditView', { view, updateView })
                 <the-housing-information
                     v-if="view === 'housing_information'"
                     :furnishings="family.furnishings"
-                    :housing="family.housing"
+                    :housing="{ ...family.housing, family_id: family.id }"
                 ></the-housing-information>
 
                 <the-second-sponsor-information

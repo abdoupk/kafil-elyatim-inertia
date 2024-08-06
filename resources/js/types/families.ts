@@ -67,6 +67,7 @@ export interface SecondSponsorType {
 
 export interface FurnishingType {
     id: string
+    family_id?: string
     television: string
     refrigerator: string
     fireplace: string
@@ -82,8 +83,21 @@ export interface FurnishingType {
 
 export interface HousingType {
     id: string
+    family_id?: string
     name: string
     value: string
+    housing_receipt_number: string
+    number_of_rooms: number
+    other_properties: string
+}
+
+export interface FamilyEditHousingType {
+    id: string
+    family_id: string
+    housing_type: {
+        name: 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
+        value: string | number | boolean | null
+    }
     housing_receipt_number: string
     number_of_rooms: number
     other_properties: string
@@ -158,7 +172,17 @@ export interface FamilyEditType {
     spouse: SpouseType
     second_sponsor: SecondSponsorType
     furnishings: FurnishingType
-    housing: HousingType
+    housing: {
+        id: string
+        family_id: string
+        housing_type: {
+            name: string
+            value: string
+        }
+        housing_receipt_number: string
+        number_of_rooms: number
+        other_properties: string
+    }
     family_sponsorships: FamilySponsorshipType
     preview: PreviewType
 }
@@ -174,7 +198,7 @@ export interface FamilyUpdateFormType {
     spouse: SpouseType
     second_sponsor: SecondSponsorType
     furnishings: FurnishingType
-    housing: HousingType
+    housing: FamilyEditHousingType
     family_sponsorships: FamilySponsorshipType
     preview: PreviewType
 }
@@ -209,20 +233,11 @@ export interface FamilyUpdateSponsorShipsFormType extends FamilySponsorshipType 
     inspectors_members: string[]
 }
 
-export interface FamilyUpdateFurnishingFormType {
-    id: string
-    name: string
-    value: string
-    housing_receipt_number: string
-    number_of_rooms: number
-    other_properties: string
+export interface FamilyUpdateHousingFormType extends HousingType {
+    housing_type: {
+        name: 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
+        value: string | number | boolean | null
+    }
 }
 
-export interface FamilyUpdateHousingFormType {
-    id: string
-    name: string
-    value: string
-    housing_receipt_number: string
-    number_of_rooms: number
-    other_properties: string
-}
+export interface FamilyUpdateFurnishingFormType extends FurnishingType {}
