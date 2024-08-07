@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { CityType } from '@/types/types'
+import type { CityType, Daira } from '@/types/types'
 
 import { useCityStore } from '@/stores/city'
 import { onMounted, ref, watch } from 'vue'
@@ -13,9 +13,9 @@ const props = defineProps<{
 
 const cityStore = useCityStore()
 
-const selectedDaira = ref<string>('selectedDaira')
+const selectedDaira = ref<Daira>()
 
-const daira = defineModel('daira')
+const daira = defineModel<Daira>('daira')
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -23,14 +23,16 @@ onMounted(async () => {
     if (props.city) {
         await cityStore.fetchDairas(props.city.wilaya_code)
 
-        selectedDaira.value = cityStore.getDaira(props.city.daira_name)
+        cityStore.getDaira(props.city.daira_name)
+
+        selectedDaira.value = cityStore.daira
     }
 })
 
 const handleChange = async () => {
-    cityStore.daira = cityStore.getDaira(selectedDaira.value.daira_name)
+    cityStore.getDaira(selectedDaira.value?.daira_name)
 
-    selectedDaira.value = cityStore.getDaira(selectedDaira.value.daira_name)
+    selectedDaira.value = cityStore.daira
 
     await cityStore.fetchCommunes(cityStore.daira?.daira_name, cityStore.wilaya?.wilaya_code)
 

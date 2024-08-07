@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { CityType } from '@/types/types'
+import type { CityType, Commune } from '@/types/types'
 
 import { useCityStore } from '@/stores/city'
-import { onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
@@ -13,9 +13,9 @@ const props = defineProps<{
     city: CityType
 }>()
 
-const commune = defineModel('commune', { default: '' })
+const commune = defineModel<Commune>('commune')
 
-const selectedCommune = defineModel('selectedCommune', { default: '' })
+const selectedCommune = ref<Commune>()
 
 const cityStore = useCityStore()
 
@@ -23,7 +23,9 @@ onMounted(async () => {
     if (props.city) {
         await cityStore.fetchCommunes(props.city.daira_name, props.city.wilaya_code)
 
-        selectedCommune.value = cityStore.getCommune(props.city.id)
+        cityStore.getCommune(props.city.id)
+
+        selectedCommune.value = cityStore.commune
     }
 })
 

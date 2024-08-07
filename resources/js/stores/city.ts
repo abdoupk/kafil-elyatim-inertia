@@ -1,15 +1,11 @@
-import type { Commune, Wilaya } from '@/types/types'
+import type { Commune, Daira, Wilaya } from '@/types/types'
 
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
-interface Daira {
-    daira_name: string
-}
-
 interface CityState {
-    wilaya: Wilaya | undefined
-    daira: Daira | undefined
+    wilaya: Wilaya
+    daira: Daira
     commune: Commune
     wilayas: Wilaya[]
     dairas: Daira[]
@@ -44,7 +40,9 @@ export const useCityStore = defineStore('city', {
             }
         },
 
-        async fetchDairas(wilaya_code: string) {
+        async fetchDairas(wilaya_code: string | undefined) {
+            if (typeof wilaya_code === 'undefined' || wilaya_code == '') return
+
             await axios
                 .post(
                     route('api.dairas', {
@@ -73,16 +71,20 @@ export const useCityStore = defineStore('city', {
                 })
         },
 
-        getWilaya(wilaya_code: string) {
-            return this.wilayas.find((wilaya) => wilaya.wilaya_code == wilaya_code)
+        getWilaya(wilaya_code: string | undefined) {
+            if (typeof wilaya_code === 'undefined' || wilaya_code == '') this.wilaya = { wilaya_code: '' }
+
+            this.wilaya = this.wilayas.find((wilaya) => wilaya.wilaya_code == wilaya_code)
         },
 
-        getDaira(daira_name: string) {
-            return this.dairas.find((daira) => daira.daira_name == daira_name)
+        getDaira(daira_name: string | undefined) {
+            if (typeof daira_name === 'undefined' || daira_name == '') this.daira = { daira_name: '' }
+
+            this.daira = this.dairas.find((daira) => daira.daira_name == daira_name)
         },
 
         getCommune(id: number) {
-            return this.communes.find((commune) => commune.id == id)
+            this.commune = this.communes.find((commune) => commune.id == id)
         }
     }
 })

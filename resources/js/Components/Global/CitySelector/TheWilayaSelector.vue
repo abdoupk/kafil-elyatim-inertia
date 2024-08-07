@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { CityType } from '@/types/types'
+import type { CityType, Wilaya } from '@/types/types'
 
 import { useCityStore } from '@/stores/city'
 import { onMounted, ref } from 'vue'
@@ -15,7 +15,7 @@ const props = defineProps<{
 
 const cityStore = useCityStore()
 
-const selectedWilaya = ref('')
+const selectedWilaya = ref<Wilaya>()
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -28,9 +28,9 @@ onMounted(async () => {
 const handleChange = async () => {
     cityStore.communes = []
 
-    await cityStore.fetchDairas(selectedWilaya.value.wilaya_code)
+    await cityStore.fetchDairas(selectedWilaya.value?.wilaya_code)
 
-    cityStore.wilaya = cityStore.getWilaya(selectedWilaya.value.wilaya_code)
+    cityStore.getWilaya(selectedWilaya.value?.wilaya_code)
 
     emit('update:modelValue')
 }
