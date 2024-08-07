@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FamiliesIndexResource, IndexParams, ListBoxFilter, ListBoxOperator, PaginationData } from '@/types/types'
+import type { FamiliesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { familiesFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
@@ -18,7 +18,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, handleFilterValue, handleSort, shouldFetchFilterData } from '@/utils/helper'
+import { debounce, formatFilters, getDataForIndexPages, handleSort, isEmpty } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -57,29 +57,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const processing = ref(false)
-
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.families.index'), data, {
-        ...routerOptions,
-        onBefore: () => {
-            processing.value = true
-        },
-        onFinish: () => {
-            processing.value = false
-        }
-    })
-}
+const getData = () => getDataForIndexPages(route('tenant.families.index'), search.value, params, routerOptions)
 
 const sort = (field: string) => {
     handleSort(field, params)
@@ -109,6 +87,12 @@ const showDeleteModal = (familyId: string) => {
     deleteModalStatus.value = true
 }
 
+const handleFilterReset = () => {
+    params.filters = []
+
+    getData()
+}
+
 watch(
     search,
     debounce(() => {
@@ -121,53 +105,21 @@ watch(
 // eslint-disable-next-line array-element-newline
 watch(() => [params.fields, params.directions], getData)
 
-watch(
-    () => [params.filters],
-    (value, oldValue) => {
-        if (shouldFetchFilterData(value, oldValue)) getData()
-    }
-)
+const handleFilter = (filters: IndexParams['filters']) => {
+    if (!isEmpty(formatFilters(filters))) {
+        params.filters = filters
 
-watch(
-    () => [params.perPage],
-    () => {
+        getData()
+    }
+}
+
+const handleChangePerPage = (value: number) => {
+    if (value < props.families.meta.total) {
+        params.perPage = value
+
         params.page = 1
 
         getData()
-    }
-)
-
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
-
-        routerOptions.preserveScroll = false
-
-        getData()
-    }
-)
-
-const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
-    const isFamilySponsorship = ['family_sponsorships', 'sponsor_sponsorships'].includes(field.label)
-
-    if (isFamilySponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
-
-    return field.field
-}
-
-const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
-    // @ts-ignore
-    params.filters = {
-        ...filters
-            ?.map((filter) => {
-                return {
-                    field: handleFilterName(filter.field, filter.value),
-                    operator: filter?.operator?.value,
-                    value: handleFilterValue(filter.field, filter.value)
-                }
-            })
-            .filter((filter) => filter.value !== '')
     }
 }
 </script>
@@ -199,6 +151,7 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
                 :filters="familiesFilters"
                 class="hidden sm:block"
                 @update:value="handleFilter"
+                @reset-filter="handleFilterReset"
             ></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
@@ -225,6 +178,7 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
                     :filters="familiesFilters"
                     class="me-2 sm:hidden"
                     @update:value="handleFilter"
+                    @reset-filter="handleFilterReset"
                 ></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
@@ -248,6 +202,7 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="families.meta.last_page"
+            @update:per-page="handleChangePerPage"
         ></pagination-data-table>
     </template>
 

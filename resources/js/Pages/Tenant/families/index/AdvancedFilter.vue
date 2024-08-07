@@ -35,10 +35,12 @@ const filterRules = ref([
     }
 ])
 
-const removeFilterRule = () => {
+const removeFilterRule = (close: Function) => {
     if (filterRules.value.length > 1) {
         filterRules.value.pop()
     } else {
+        close()
+
         filterRules.value = []
 
         emit('reset-filter')
@@ -92,15 +94,13 @@ const handleFieldChange = (index: number) => {
             }
     }
 
-    console.log(filterRules.value)
-
     emit('update:value', filterRules.value)
 }
 </script>
 
 <template>
     <div>
-        <base-popover class="inline-block">
+        <base-popover v-slot="{ close }" class="inline-block">
             <base-popover-button :as="BaseButton" variant="outline-secondary">
                 <svg-loader class="fill-primary dark:fill-slate-400" name="icon-filters"></svg-loader>
             </base-popover-button>
@@ -144,7 +144,7 @@ const handleFieldChange = (index: number) => {
                     <a
                         class="mt-2 mx-2 p-1 group rounded-md flex dark:hover:bg-darkmode-400 hover:bg-slate-200/60"
                         href="#"
-                        @click.prevent="removeFilterRule"
+                        @click.prevent="removeFilterRule(close)"
                     >
                         <svg-loader
                             class="w-4 h-4 fill-slate-500 dark:fill-slate-300 group-hover:fill-red-500 ms-1"
