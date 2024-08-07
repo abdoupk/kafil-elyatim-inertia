@@ -374,6 +374,30 @@ const shouldFetchFilterData = (value, oldValue) => {
     return true
 }
 
+const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
+    const isSponsorship = ['family_sponsorships', 'sponsor_sponsorships'].includes(field.label)
+
+    if (isSponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
+    else if (field.label === 'orphan_sponsorships' && typeof value !== 'string') return `${field.field}.${value.value}`
+    else return field.field
+}
+
+const formatFilters = (filters) => {
+    return {
+        ...filters
+            ?.map((filter) => {
+                return {
+                    field: handleFilterName(filter.field, filter.value),
+                    operator: filter?.operator?.value,
+                    value: handleFilterValue(filter.field, filter.value)
+                }
+            })
+            .filter((filter) => filter?.operator && filter.operator !== '')
+            .filter((filter) => filter?.value !== undefined && filter.value !== '')
+            .filter((filter) => filter?.field)
+    }
+}
+
 const getDataForIndexPages = (url: string, search: string | undefined, params: IndexParams, options: object) => {
     let data = { ...params }
 
@@ -385,11 +409,14 @@ const getDataForIndexPages = (url: string, search: string | undefined, params: I
         if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
     })
 
+    data.filters = formatFilters(data.filters)
+
     router.get(url, data, options)
 }
 
 export {
     isEqual,
+    formatFilters,
     getDataForIndexPages,
     handleFilterValue,
     formatDate,

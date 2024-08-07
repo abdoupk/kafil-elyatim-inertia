@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
-import type { ClothesSizesType, ShoesSizesType } from '@/types/types'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import dayjs from 'dayjs'
@@ -25,8 +24,6 @@ import { omit } from '@/utils/helper'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
-    shoesSizes: ShoesSizesType
-    clothesSizes: ClothesSizesType
 }>()
 
 const emit = defineEmits(['orphan-updated'])

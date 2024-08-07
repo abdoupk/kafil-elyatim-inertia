@@ -19,7 +19,7 @@ const { placement = 'bottom-start' } = defineProps<{
     placement?: PopOverPlacementType
 }>()
 
-const emit = defineEmits(['update:value'])
+const emit = defineEmits(['update:value', 'reset-filter'])
 
 const field = ref<ListBoxFilter>()
 
@@ -38,6 +38,10 @@ const filterRules = ref([
 const removeFilterRule = () => {
     if (filterRules.value.length > 1) {
         filterRules.value.pop()
+    } else {
+        filterRules.value = []
+
+        emit('reset-filter')
     }
 
     emit('update:value', filterRules.value)
@@ -88,6 +92,8 @@ const handleFieldChange = (index: number) => {
             }
     }
 
+    console.log(filterRules.value)
+
     emit('update:value', filterRules.value)
 }
 </script>
@@ -96,7 +102,7 @@ const handleFieldChange = (index: number) => {
     <div>
         <base-popover class="inline-block">
             <base-popover-button :as="BaseButton" variant="outline-secondary">
-                <svg-loader class="fill-primary" name="icon-filters"></svg-loader>
+                <svg-loader class="fill-primary dark:fill-slate-400" name="icon-filters"></svg-loader>
             </base-popover-button>
 
             <base-popover-panel :placement>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, ListBoxFilter, ListBoxOperator, OrphansIndexResource, PaginationData } from '@/types/types'
+import type { IndexParams, OrphansIndexResource, PaginationData } from '@/types/types'
 
 import { orphansFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
@@ -17,7 +17,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, getDataForIndexPages, handleFilterValue, handleSort } from '@/utils/helper'
+import { debounce, formatFilters, getDataForIndexPages, handleSort, isEmpty } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -88,27 +88,15 @@ const showDeleteModal = (orphanId: string) => {
     deleteModalStatus.value = true
 }
 
-const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
-    if (field.field === 'sponsorships' && typeof value !== 'string') return `${field.field}.${value.value}`
+const handleFilterReset = () => {
+    params.filters = []
 
-    return field.field
+    getData()
 }
 
-const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
-    let filtersData = {
-        ...filters
-            ?.map((filter) => {
-                return {
-                    field: handleFilterName(filter.field, filter.value),
-                    operator: filter?.operator?.value,
-                    value: handleFilterValue(filter.field, filter.value)
-                }
-            })
-            .filter((filter) => filter.value !== '')
-    }
-
-    if (Object.keys(filtersData).length > 0) {
-        params.filters = filtersData
+const handleFilter = (filters: IndexParams['filters']) => {
+    if (!isEmpty(formatFilters(filters))) {
+        params.filters = filters
 
         getData()
     }
@@ -149,10 +137,12 @@ const handleChangePerPage = (value: number) => {
             ></export-menu>
 
             <advanced-filter
+                :all="params.filters"
                 :filters="orphansFilters"
                 class="ms-2 hidden sm:block"
                 placement="bottom-start"
                 @update:value="handleFilter"
+                @reset-filter="handleFilterReset"
             ></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
@@ -174,6 +164,7 @@ const handleChangePerPage = (value: number) => {
                     class="me-2 sm:hidden"
                     placement="bottom-start"
                     @update:value="handleFilter"
+                    @reset-filter="handleFilterReset"
                 ></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
@@ -194,6 +185,7 @@ const handleChangePerPage = (value: number) => {
     <template v-if="orphans.data.length > 0">
         <data-table :orphans :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
+        <!--TODO: Remove this condition and in all other pages-->
         <pagination-data-table
             v-if="orphans.meta.last_page > 1"
             v-model:page="params.page"

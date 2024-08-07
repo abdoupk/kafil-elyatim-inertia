@@ -54,11 +54,12 @@ const handleSuccess = () => {
     setTimeout(() => {
         // TODO change Route
         router.get(
-            route('tenant.collegeAchievement.index'),
+            route('tenant.orphans.edit', collegeAchievementStore.collegeAchievement.orphan_id),
             {},
             {
-                only: ['collegeAchievement'],
-                preserveState: true
+                only: ['orphan'],
+                preserveState: false,
+                preserveScroll: false
             }
         )
     }, 200)
