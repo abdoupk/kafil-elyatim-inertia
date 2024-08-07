@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\PersonalAccessToken;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -19,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         JsonResource::withoutWrapping();
+
+        Carbon::setLocale(config('app.locale'));
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 

@@ -35,6 +35,7 @@ const filterRules = ref([
     }
 ])
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const removeFilterRule = (close: Function) => {
     if (filterRules.value.length > 1) {
         filterRules.value.pop()
