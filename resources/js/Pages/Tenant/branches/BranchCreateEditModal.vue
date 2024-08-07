@@ -14,6 +14,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import TheCitySelector from '@/Components/Global/CitySelector/TheCitySelector.vue'
 
+import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
 // TODO remove members and replace by selector in the future search members: MembersType
@@ -29,7 +30,11 @@ const loading = ref(false)
 
 const form = computed(() => {
     if (branchesStore.branch.id) {
-        return useForm('put', route('tenant.branches.update', branchesStore.branch.id), { ...branchesStore.branch })
+        return useForm(
+            'put',
+            route('tenant.branches.update', branchesStore.branch.id),
+            omit(branchesStore.branch, ['city'])
+        )
     }
 
     return useForm('post', route('tenant.branches.store'), { ...branchesStore.branch })
@@ -46,7 +51,8 @@ const handleSuccess = () => {
             {},
             {
                 only: ['branches'],
-                preserveState: true
+                preserveState: true,
+                preserveScroll: true
             }
         )
     }, 200)
@@ -154,7 +160,7 @@ const modalType = computed(() => {
 
             <div class="col-span-12">
                 <the-city-selector
-                    v-model:city="form.city"
+                    v-model:city="branchesStore.branch.city"
                     v-model:city-id="form.city_id"
                     :error-message="form.errors.city_id"
                     @update:city-id="

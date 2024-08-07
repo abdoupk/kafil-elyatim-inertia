@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { AcademicLevelType, SubjectType } from '@/types/lessons'
+import type { SubjectType } from '@/types/lessons'
 
 import { useSchoolsStore } from '@/stores/schools'
 import { router } from '@inertiajs/vue3'
@@ -20,7 +20,6 @@ import { __, n__ } from '@/utils/i18n'
 defineProps<{
     open: boolean
     subjects: SubjectType[]
-    academicLevels: AcademicLevelType[]
 }>()
 
 // Get the schools store
@@ -128,16 +127,22 @@ const removeLesson = (index: number) => {
             </div>
             <!-- End: Name-->
 
+            <!-- @vue-ignore -->
             <the-subject-and-quota
                 v-for="(lesson, index) in form.lessons"
                 :key="index"
                 v-model:academic-level="lesson.academic_level_id"
                 v-model:quota="lesson.quota"
                 v-model:subject="lesson.subject_id"
-                :academicLevels
                 :form
                 :index
                 :subjects
+                @update:academic-level="
+                    () => {
+                        // @ts-ignore
+                        form.validate(`lessons.${index}.academic_level_id`)
+                    }
+                "
                 @remove-lesson="removeLesson(index)"
             ></the-subject-and-quota>
 

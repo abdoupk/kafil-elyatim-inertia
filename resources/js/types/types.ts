@@ -254,7 +254,6 @@ export interface Role {
 export interface CreateBranchForm {
     name: string
     city_id: string
-    city: CityType
     president_id: string
     created_at: string
 }

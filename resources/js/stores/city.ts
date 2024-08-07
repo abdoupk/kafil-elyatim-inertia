@@ -81,6 +81,8 @@ export const useCityStore = defineStore('city', {
             if (typeof daira_name === 'undefined' || daira_name == '') this.daira = { daira_name: '' }
 
             this.daira = this.dairas.find((daira) => daira.daira_name == daira_name)
+
+            this.wilaya.wilaya_code = this.daira.wilaya_code
         },
 
         getCommune(id: number) {

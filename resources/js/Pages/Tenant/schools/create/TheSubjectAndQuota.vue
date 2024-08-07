@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import type { AcademicLevelType, SubjectType } from '@/types/lessons'
+import type { SubjectType } from '@/types/lessons'
 
+import { useAcademicLevelsStore } from '@/stores/academic-level'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+
+import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
@@ -10,20 +13,16 @@ import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { getAcademicLevelFromId } from '@/utils/helper'
-
 const props = defineProps<{
     subjects: SubjectType[]
-    academicLevels: AcademicLevelType[]
-    form: Form<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    form: Form<Record<string, any>>
     index: number
 }>()
 
 const emit = defineEmits(['removeLesson'])
 
 const vueSelectSubject = ref({})
-
-const vueSelectAcademicLevel = ref({})
 
 const subject = defineModel('subject')
 
@@ -36,14 +35,19 @@ watch(
     () => {
         vueSelectSubject.value =
             props.subjects.find((subject) => subject.id == props.form.lessons[props.index].subject_id) ?? ''
-
-        vueSelectAcademicLevel.value = getAcademicLevelFromId(
-            props.form.lessons[props.index].academic_level_id,
-            props.academicLevels
-        )
     },
     { immediate: true }
 )
+
+const academicLevels = ref([])
+
+const academicLevelsStore = useAcademicLevelsStore()
+
+onMounted(async () => {
+    await academicLevelsStore.getAcademicLevels()
+
+    academicLevels.value = academicLevelsStore.academicLevels
+})
 </script>
 
 <template>
@@ -55,26 +59,10 @@ watch(
             </base-form-label>
 
             <div>
-                <base-vue-select
-                    id="academic_level"
-                    v-model:value="vueSelectAcademicLevel"
-                    :allow-empty="false"
-                    :options="academicLevels"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('academic_level') })"
-                    class="h-full w-full"
-                    group-label="phase"
-                    group-values="levels"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            academicLevel = value.id
-
-                            form?.validate(`lessons.${index}.academic_level_id`)
-                        }
-                    "
-                >
-                </base-vue-select>
+                <the-academic-level-selector
+                    v-model:academic-level="academicLevel"
+                    :academicLevels
+                ></the-academic-level-selector>
             </div>
 
             <div v-if="form.invalid(`lessons.${index}.academic_level_id`)" class="mt-2">

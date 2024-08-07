@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import type { MembersType } from '@/types/types'
-
 import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import TheMemberSelector from '@/Pages/Shared/TheMemberSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -20,7 +19,6 @@ import { __, n__ } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
-    members: MembersType
 }>()
 
 // Get the financialTransactions store
@@ -143,6 +141,7 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                 </base-form-label>
 
                 <div>
+                    <!--TODO Fix This-->
                     <base-vue-select
                         v-model:value="form.formatted_specification"
                         :custom-label="financialTransactionSpecificationsLabels"
@@ -175,21 +174,12 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        v-model="form.formatted_member"
-                        :options="members ?? []"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('inspectors_members') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (member) => {
-                                // @ts-ignore
-                                form.member_id = member.id
-
-                                form?.validate('member_id')
-                            }
-                        "
-                    ></base-vue-select>
+                    <the-member-selector
+                        v-model:member="form.member_id"
+                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_member') })"
+                        multiple
+                        @update:members="form?.validate('member_id')"
+                    ></the-member-selector>
                 </div>
 
                 <div v-if="form.errors?.member_id" class="mt-2">

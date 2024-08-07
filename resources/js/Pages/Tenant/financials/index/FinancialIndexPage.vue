@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FinancialTransactionsIndexResource, IndexParams, MembersType, PaginationData } from '@/types/types'
+import type { FinancialTransactionsIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { Head, router } from '@inertiajs/vue3'
@@ -29,7 +29,6 @@ const filterModalStatus = ref<boolean>(false)
 const props = defineProps<{
     finances: PaginationData<FinancialTransactionsIndexResource>
     params: IndexParams
-    members: MembersType
 }>()
 
 const params = reactive<IndexParams>({
@@ -236,7 +235,6 @@ watch(
     ></delete-modal>
 
     <financial-transaction-create-modal
-        :members
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></financial-transaction-create-modal>

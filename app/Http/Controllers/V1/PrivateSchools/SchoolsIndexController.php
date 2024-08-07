@@ -15,7 +15,6 @@ class SchoolsIndexController extends Controller
         return Inertia::render('Tenant/schools/index/SchoolsIndexPage', [
             'schools' => SchoolsIndexResource::collection(getSchools()),
             'subjects' => SubjectResource::collection(Subject::all()),
-            'academicLevels' => formatedAcademicLevels(),
             'params' => getParams(),
         ]);
     }

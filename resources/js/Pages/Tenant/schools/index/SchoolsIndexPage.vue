@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { AcademicLevelType, SubjectType } from '@/types/lessons'
+import type { SubjectType } from '@/types/lessons'
 import type { IndexParams, PaginationData, SchoolsIndexResource } from '@/types/types'
 
 import { useSchoolsStore } from '@/stores/schools'
@@ -25,11 +25,11 @@ defineOptions({
     layout: TheLayout
 })
 
+// TODO add subjects store !
 const props = defineProps<{
     schools: PaginationData<SchoolsIndexResource>
     params: IndexParams
     subjects: SubjectType[]
-    academicLevels: AcademicLevelType[]
 }>()
 
 const params = reactive<IndexParams>({
@@ -221,7 +221,6 @@ watch(
     <school-create-modal
         :open="createUpdateSlideoverStatus"
         :subjects
-        :academicLevels
         @close="createUpdateSlideoverStatus = false"
     ></school-create-modal>
 </template>
