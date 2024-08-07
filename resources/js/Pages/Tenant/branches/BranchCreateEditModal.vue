@@ -14,7 +14,7 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
-import CitySelector from '@/Components/Global/CitySelector.vue'
+import TheCitySelector from '@/Components/Global/CitySelector/TheCitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
 
@@ -165,7 +165,10 @@ const modalType = computed(() => {
             </div>
 
             <div class="col-span-12">
-                <city-selector
+                <the-city-selector
+                    v-model:commune="form.city"
+                    v-model:daira="form.city"
+                    v-model:wilaya="form.city"
                     :error-message="form.errors.city_id"
                     @update:city-id="
                         (ev) => {
@@ -174,7 +177,7 @@ const modalType = computed(() => {
                             form.validate('city_id')
                         }
                     "
-                ></city-selector>
+                ></the-city-selector>
             </div>
         </template>
     </create-edit-modal>

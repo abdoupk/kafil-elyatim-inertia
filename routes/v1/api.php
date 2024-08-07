@@ -24,11 +24,11 @@ Route::name('api.')->group(function () {
 
     Route::post('/register', RegisterTenantController::class)->name('register');
 
-    Route::get('/wilayas', WilayaController::class);
+    Route::get('/wilayas', WilayaController::class)->name('list-wilayas');
 
-    Route::post('/dairas', DairaController::class);
+    Route::post('/dairas', DairaController::class)->name('dairas');
 
-    Route::post('/communes', CommuneController::class);
+    Route::post('/communes', CommuneController::class)->name('communes');
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {

@@ -19,7 +19,7 @@ class BranchUpdateResource extends JsonResource
 
             'city_id' => $this->city_id,
             'president_id' => $this->president_id,
-            'city' => CityResource::make($this->whenLoaded('city')),
+            'city' => new CityResource($this->city),
         ];
     }
 }
