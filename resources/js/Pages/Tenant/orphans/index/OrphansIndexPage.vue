@@ -114,11 +114,13 @@ watch(
 watch(() => [params.fields, params.directions], getData)
 
 const handleChangePerPage = (value: number) => {
-    params.perPage = value
+    if (value < props.orphans.meta.total) {
+        params.perPage = value
 
-    params.page = 1
+        params.page = 1
 
-    getData()
+        getData()
+    }
 }
 </script>
 
@@ -185,9 +187,7 @@ const handleChangePerPage = (value: number) => {
     <template v-if="orphans.data.length > 0">
         <data-table :orphans :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
-        <!--TODO: Remove this condition and in all other pages-->
         <pagination-data-table
-            v-if="orphans.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="orphans.meta.last_page"

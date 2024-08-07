@@ -200,7 +200,6 @@ watch(
         ></data-table>
 
         <pagination-data-table
-            v-if="schools.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="schools.meta.last_page"

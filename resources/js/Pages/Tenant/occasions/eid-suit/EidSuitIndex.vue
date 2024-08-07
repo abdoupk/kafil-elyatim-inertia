@@ -174,7 +174,6 @@ watch(
         <data-table :orphans :params @sort="sort($event)"></data-table>
 
         <pagination-data-table
-            v-if="orphans.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="orphans.meta.last_page"

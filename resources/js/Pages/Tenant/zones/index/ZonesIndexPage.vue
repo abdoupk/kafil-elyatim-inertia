@@ -201,7 +201,6 @@ watchEffect(() => {
         ></data-table>
 
         <pagination-data-table
-            v-if="zones.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="zones.meta.last_page"

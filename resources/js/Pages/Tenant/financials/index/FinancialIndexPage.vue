@@ -216,7 +216,6 @@ watch(
         <data-table :finances :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
         <pagination-data-table
-            v-if="finances.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="finances.meta.last_page"

@@ -197,7 +197,6 @@ const showEditModal = async (roleId: string) => {
         ></data-table>
 
         <pagination-data-table
-            v-if="roles.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="roles.meta.last_page"

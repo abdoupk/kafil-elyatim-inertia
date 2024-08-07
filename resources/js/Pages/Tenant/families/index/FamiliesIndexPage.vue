@@ -245,7 +245,6 @@ const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator
         <data-table :families :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
         <pagination-data-table
-            v-if="families.meta.last_page > 1"
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="families.meta.last_page"
