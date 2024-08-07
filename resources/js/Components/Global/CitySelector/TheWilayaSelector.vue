@@ -26,6 +26,8 @@ onMounted(async () => {
 })
 
 const handleChange = async () => {
+    cityStore.communes = []
+    
     await cityStore.fetchDairas(selectedWilaya.value.wilaya_code)
 
     cityStore.wilaya = cityStore.getWilaya(selectedWilaya.value.wilaya_code)

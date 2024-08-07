@@ -25,15 +25,23 @@ defineProps<{
                     commune = ''
 
                     daira = ''
+
+                    cityId = ''
                 }
             "
         ></the-wilaya-selector>
-        {{ daira }}
+
         <the-daira-selector
             v-model:daira="daira"
             :city
             :errorMessage
-            @update:model-value="commune = ''"
+            @update:model-value="
+                () => {
+                    commune = ''
+
+                    cityId = ''
+                }
+            "
         ></the-daira-selector>
 
         <the-commune-selector
