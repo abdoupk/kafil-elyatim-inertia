@@ -166,14 +166,11 @@ const modalType = computed(() => {
 
             <div class="col-span-12">
                 <the-city-selector
-                    v-model:commune="form.city"
-                    v-model:daira="form.city"
-                    v-model:wilaya="form.city"
+                    v-model:city="form.city"
+                    v-model:city-id="form.city_id"
                     :error-message="form.errors.city_id"
                     @update:city-id="
-                        (ev) => {
-                            form.city_id = ev.id
-
+                        () => {
                             form.validate('city_id')
                         }
                     "

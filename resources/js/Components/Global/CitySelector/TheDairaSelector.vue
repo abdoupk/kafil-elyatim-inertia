@@ -6,43 +6,45 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-defineProps<{
+const props = defineProps<{
     errorMessage?: string | string[]
+    city: any
 }>()
 
 const cityStore = useCityStore()
 
-const selectedDaira = ref('')
+const selectedDaira = ref('selectedDaira')
 
-const daira = defineModel('daira', { default: '' })
+const daira = defineModel('daira')
 
-const wilaya = defineModel('wilaya', { default: '' })
+const emit = defineEmits(['update:modelValue'])
 
 onMounted(async () => {
-    if (wilaya.value.daira_name) {
-        await cityStore.fetchDairas(wilaya.value.wilaya_code)
+    if (props.city) {
+        await cityStore.fetchDairas(props.city.wilaya_code)
 
-        selectedDaira.value = cityStore.getDaira(wilaya.value.daira_name)
+        selectedDaira.value = cityStore.getDaira(props.city.daira_name)
     }
 })
 
-const handleChange = (value: string) => {
-    daira.value = value
+const handleChange = async () => {
+    cityStore.daira = cityStore.getDaira(selectedDaira.value.daira_name)
+
+    selectedDaira.value = cityStore.getDaira(selectedDaira.value.daira_name)
+
+    await cityStore.fetchCommunes(cityStore.daira.daira_name, cityStore.wilaya.wilaya_code)
+
+    daira.value = selectedDaira.value
+
+    emit('update:modelValue', selectedDaira.value)
 }
 
 watch(
-    () => selectedDaira.value,
+    () => daira.value,
     (value) => {
         selectedDaira.value = value
     }
 )
-
-// Watch(
-//     () => wilaya.value,
-//     () => {
-//         SelectedDaira.value = ''
-//     }
-// )
 </script>
 
 <template>

@@ -1,43 +1,37 @@
 <script lang="ts" setup>
 import { useCityStore } from '@/stores/city'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-defineProps<{
+import { isEmpty } from '@/utils/helper'
+
+const props = defineProps<{
     errorMessage?: string | string[]
+    city: any
 }>()
 
 const cityStore = useCityStore()
 
 const selectedWilaya = ref('')
 
-const wilaya = defineModel('wilaya', { default: '' })
-
-const handleChange = (value: string) => {
-    wilaya.value = value
-}
+const emit = defineEmits(['update:modelValue'])
 
 onMounted(async () => {
     await cityStore.fetchWilayas()
 
-    if (wilaya.value.wilaya_code) {
-        selectedWilaya.value = cityStore.getWilaya(wilaya.value.wilaya_code)
-    }
+    if (!isEmpty(props.city)) selectedWilaya.value = props.city
 })
 
-watch(
-    () => wilaya.value,
-    (value) => {
-        if (value?.wilaya_code) {
-            selectedWilaya.value = cityStore.getWilaya(value)
+const handleChange = async () => {
+    await cityStore.fetchDairas(selectedWilaya.value.wilaya_code)
 
-            cityStore.fetchDairas(value)
-        }
-    }
-)
+    cityStore.wilaya = cityStore.getWilaya(selectedWilaya.value.wilaya_code)
+
+    emit('update:modelValue')
+}
 </script>
 
 <template>

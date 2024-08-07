@@ -3,50 +3,44 @@ import TheCommuneSelector from '@/Components/Global/CitySelector/TheCommuneSelec
 import TheDairaSelector from '@/Components/Global/CitySelector/TheDairaSelector.vue'
 import TheWilayaSelector from '@/Components/Global/CitySelector/TheWilayaSelector.vue'
 
-const wilaya = defineModel('wilaya')
-
 const daira = defineModel('daira')
 
 const commune = defineModel('commune')
 
 const cityId = defineModel('cityId')
 
-defineProps<{ errorMessage?: string | string[] }>()
+defineProps<{
+    errorMessage?: string | string[]
+    city: any
+}>()
 </script>
 
 <template>
     <div class="grid w-full flex-1 grid-cols-1 gap-4 gap-y-5 lg:grid-cols-3">
         <the-wilaya-selector
-            v-model:wilaya="wilaya"
+            :city
             :errorMessage
-            @update:wilaya="
-                (event) => {
-                    wilaya = event.wilaya_code
+            @update:model-value="
+                () => {
+                    commune = ''
+
+                    daira = ''
                 }
             "
         ></the-wilaya-selector>
-
+        {{ daira }}
         <the-daira-selector
             v-model:daira="daira"
-            v-model:wilaya="wilaya"
+            :city
             :errorMessage
-            @update:daira="
-                (event) => {
-                    daira = event.daira_name
-                }
-            "
+            @update:model-value="commune = ''"
         ></the-daira-selector>
 
         <the-commune-selector
             v-model:commune="commune"
-            v-model:daira="daira"
-            v-model:wilaya="wilaya"
+            :city
             :errorMessage
-            @update:commune="
-                (value) => {
-                    cityId = value
-                }
-            "
+            @update:commune="cityId = $event?.id"
         ></the-commune-selector>
     </div>
 </template>

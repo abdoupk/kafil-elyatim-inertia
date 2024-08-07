@@ -1,37 +1,40 @@
 <script lang="ts" setup>
 import { useCityStore } from '@/stores/city'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, watch } from 'vue'
 
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-defineProps<{
+const props = defineProps<{
     errorMessage?: string | string[]
+    city: any
 }>()
 
 const commune = defineModel('commune', { default: '' })
 
-const wilaya = defineModel('wilaya', { default: '' })
-
-const daira = defineModel('daira', { default: '' })
-
-const selectedCommune = ref('')
+const selectedCommune = defineModel('selectedCommune', { default: '' })
 
 const cityStore = useCityStore()
 
 onMounted(async () => {
-    if (wilaya.value.wilaya_code && daira.value.daira_name && commune.value.id) {
-        await cityStore.fetchCommunes(daira.value.daira_name, wilaya.value.wilaya_code)
+    if (props.city) {
+        await cityStore.fetchCommunes(props.city.daira_name, props.city.wilaya_code)
 
-        selectedCommune.value = cityStore.getCommune(commune.value.id)
+        selectedCommune.value = cityStore.getCommune(props.city.id)
     }
 })
 
+const emit = defineEmits(['update:modelValue'])
+
+const handleChange = () => {
+    commune.value = selectedCommune.value
+}
+
 watch(
-    () => [wilaya.value, daira.value],
-    () => {
-        selectedCommune.value = ''
+    () => commune.value,
+    (value) => {
+        selectedCommune.value = value
     }
 )
 </script>
@@ -52,7 +55,7 @@ watch(
                 class="tom-select w-full"
                 label="commune_name"
                 track-by="id"
-                @update:value="(value) => (commune = value)"
+                @update:value="handleChange"
             ></base-vue-select>
         </div>
 
