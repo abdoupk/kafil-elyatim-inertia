@@ -1,16 +1,16 @@
 <script lang="ts" setup>
+import type { CityType } from '@/types/types'
+
 import { useCityStore } from '@/stores/city'
 import { onMounted, ref } from 'vue'
 
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 import { isEmpty } from '@/utils/helper'
 
 const props = defineProps<{
-    errorMessage?: string | string[]
-    city: any
+    city: CityType
 }>()
 
 const cityStore = useCityStore()
@@ -27,7 +27,7 @@ onMounted(async () => {
 
 const handleChange = async () => {
     cityStore.communes = []
-    
+
     await cityStore.fetchDairas(selectedWilaya.value.wilaya_code)
 
     cityStore.wilaya = cityStore.getWilaya(selectedWilaya.value.wilaya_code)
@@ -56,11 +56,5 @@ const handleChange = async () => {
             >
             </base-vue-select>
         </div>
-
-        <base-form-input-error>
-            <div v-show="errorMessage && cityStore.wilaya.wilaya_code === ''" class="mt-2 text-danger">
-                {{ $t('validation.required', { attribute: $t('wilaya') }) }}
-            </div>
-        </base-form-input-error>
     </div>
 </template>

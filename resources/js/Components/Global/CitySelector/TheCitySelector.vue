@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { CityType } from '@/types/types'
+
 import TheCommuneSelector from '@/Components/Global/CitySelector/TheCommuneSelector.vue'
 import TheDairaSelector from '@/Components/Global/CitySelector/TheDairaSelector.vue'
 import TheWilayaSelector from '@/Components/Global/CitySelector/TheWilayaSelector.vue'
@@ -11,7 +13,7 @@ const cityId = defineModel('cityId')
 
 defineProps<{
     errorMessage?: string | string[]
-    city: any
+    city: CityType
 }>()
 </script>
 
@@ -19,7 +21,6 @@ defineProps<{
     <div class="grid w-full flex-1 grid-cols-1 gap-4 gap-y-5 lg:grid-cols-3">
         <the-wilaya-selector
             :city
-            :errorMessage
             @update:model-value="
                 () => {
                     commune = ''
@@ -34,7 +35,6 @@ defineProps<{
         <the-daira-selector
             v-model:daira="daira"
             :city
-            :errorMessage
             @update:model-value="
                 () => {
                     commune = ''

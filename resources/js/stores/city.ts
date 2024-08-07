@@ -8,8 +8,8 @@ interface Daira {
 }
 
 interface CityState {
-    wilaya: Wilaya
-    daira: Daira
+    wilaya: Wilaya | undefined
+    daira: Daira | undefined
     commune: Commune
     wilayas: Wilaya[]
     dairas: Daira[]
@@ -56,7 +56,11 @@ export const useCityStore = defineStore('city', {
                 })
         },
 
-        async fetchCommunes(daira_name: string, wilaya_code: string) {
+        async fetchCommunes(daira_name: string | undefined, wilaya_code: string | undefined) {
+            if (typeof daira_name === 'undefined' || typeof wilaya_code === 'undefined') {
+                return
+            }
+
             await axios
                 .post(
                     route('api.communes', {

@@ -729,3 +729,10 @@ export type PopOverPlacementType =
     | 'left-start'
     | 'left'
     | 'left-end'
+
+export type CityType = {
+    wilaya_code: string
+    wilaya_name: string
+    daira_name: string
+    id: number
+}

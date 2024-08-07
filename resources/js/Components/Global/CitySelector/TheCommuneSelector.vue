@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { CityType } from '@/types/types'
+
 import { useCityStore } from '@/stores/city'
 import { onMounted, watch } from 'vue'
 
@@ -8,7 +10,7 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 const props = defineProps<{
     errorMessage?: string | string[]
-    city: any
+    city: CityType
 }>()
 
 const commune = defineModel('commune', { default: '' })
@@ -24,8 +26,6 @@ onMounted(async () => {
         selectedCommune.value = cityStore.getCommune(props.city.id)
     }
 })
-
-const emit = defineEmits(['update:modelValue'])
 
 const handleChange = () => {
     commune.value = selectedCommune.value
