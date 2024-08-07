@@ -18,7 +18,6 @@ export const useBranchesStore = defineStore('branches', {
             name: '',
             city_id: '',
             president_id: '',
-            city: {},
             created_at: new Date()
         },
         branches: []

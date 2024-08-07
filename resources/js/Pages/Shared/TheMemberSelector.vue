@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { MembersType } from '@/types/types'
+import type { MemberType, MembersType } from '@/types/types'
 
 import { useMembersStore } from '@/stores/members'
 import { onMounted, ref, watch } from 'vue'
@@ -12,8 +12,10 @@ const selectedMember = ref<MembersType | string | undefined>('')
 
 const membersStore = useMembersStore()
 
-const handleUpdate = (value: MembersType) => {
-    member.value = value?.map((member) => member.id)
+const handleUpdate = (value: MembersType | MemberType) => {
+    if (Array.isArray(value)) {
+        member.value = value.map((member) => member.id)
+    } else member.value = value.id
 }
 
 onMounted(async () => {

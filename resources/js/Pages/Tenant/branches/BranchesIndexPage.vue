@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { BranchesIndexResource, IndexParams, MembersType, PaginationData } from '@/types/types'
+import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
@@ -26,7 +26,6 @@ defineOptions({
 const props = defineProps<{
     branches: PaginationData<BranchesIndexResource>
     params: IndexParams
-    members: MembersType
 }>()
 
 const params = reactive<IndexParams>({
@@ -215,7 +214,6 @@ watchEffect(() => {
     ></delete-modal>
 
     <branch-create-edit-modal
-        :members
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></branch-create-edit-modal>

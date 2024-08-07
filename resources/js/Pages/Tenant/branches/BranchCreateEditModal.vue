@@ -1,19 +1,17 @@
 <script lang="ts" setup>
-import type { MembersType } from '@/types/types'
-
 import { useBranchesStore } from '@/stores/branches'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
 import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
+import TheMemberSelector from '@/Pages/Shared/TheMemberSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import TheCitySelector from '@/Components/Global/CitySelector/TheCitySelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
@@ -21,7 +19,6 @@ import { __, n__ } from '@/utils/i18n'
 // TODO remove members and replace by selector in the future search members: MembersType
 defineProps<{
     open: boolean
-    members: MembersType
 }>()
 
 // Get the branches store
@@ -136,21 +133,12 @@ const modalType = computed(() => {
                     {{ $t('branch_president') }}
                 </base-form-label>
 
-                <!-- TODO: fetch the members and map them to the vue-select -->
                 <div>
-                    <base-vue-select
-                        :options="members"
+                    <the-member-selector
+                        v-model:member="form.president_id"
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('branch_president') })"
-                        label="name"
-                        track-by="name"
-                        @update:value="
-                            (value) => {
-                                form.president_id = value.id
-
-                                form.validate('president_id')
-                            }
-                        "
-                    ></base-vue-select>
+                        @update:members="form?.validate('president_id')"
+                    ></the-member-selector>
                 </div>
 
                 <base-form-input-error>
