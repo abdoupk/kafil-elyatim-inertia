@@ -93,18 +93,6 @@ const handleFilterReset = () => {
     getData()
 }
 
-watch(
-    search,
-    debounce(() => {
-        params.page = 1
-
-        getData()
-    }, 400)
-)
-
-// eslint-disable-next-line array-element-newline
-watch(() => [params.fields, params.directions], getData)
-
 const handleFilter = (filters: IndexParams['filters']) => {
     if (!isEmpty(formatFilters(filters))) {
         params.filters = filters
@@ -122,6 +110,28 @@ const handleChangePerPage = (value: number) => {
         getData()
     }
 }
+
+const handleChangePage = (value: number) => {
+    params.page = value
+
+    routerOptions.preserveScroll = false
+
+    routerOptions.preserveState = false
+
+    getData()
+}
+
+watch(
+    search,
+    debounce(() => {
+        params.page = 1
+
+        getData()
+    }, 400)
+)
+
+// eslint-disable-next-line array-element-newline
+watch(() => [params.fields, params.directions], getData)
 </script>
 
 <template>
@@ -203,6 +213,7 @@ const handleChangePerPage = (value: number) => {
             v-model:per-page="params.perPage"
             :pages="families.meta.last_page"
             @update:per-page="handleChangePerPage"
+            @change-page="handleChangePage"
         ></pagination-data-table>
     </template>
 

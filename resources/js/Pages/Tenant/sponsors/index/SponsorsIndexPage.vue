@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, ListBoxFilter, ListBoxOperator, PaginationData, SponsorsIndexResource } from '@/types/types'
+import type { IndexParams, PaginationData, SponsorsIndexResource } from '@/types/types'
 
 import { sponsorsFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
@@ -17,7 +17,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, handleFilterValue, handleSort, shouldFetchFilterData } from '@/utils/helper'
+import { debounce, formatFilters, getDataForIndexPages, handleSort, isEmpty } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -58,19 +58,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.sponsors.index'), data, routerOptions)
-}
+const getData = () => getDataForIndexPages(route('tenant.sponsors.index'), search.value, params, routerOptions)
 
 const sort = (field: string) => {
     handleSort(field, params)
@@ -100,35 +88,39 @@ const showDeleteModal = (sponsorId: string) => {
     deleteModalStatus.value = true
 }
 
-const handleFilterName = (field: ListBoxFilter, value: object | string): string => {
-    if (field.field === 'sponsorships') {
-        return `${field.field}.${value.value}`
-    }
+const handleFilterReset = () => {
+    params.filters = []
 
-    return field.field
+    getData()
 }
 
-const handleFilter = (filters: { field: ListBoxFilter; operator: ListBoxOperator; value: string }[]) => {
-    // @ts-ignore
-    params.filters = {
-        ...filters
-            ?.map((filter) => {
-                return {
-                    field: handleFilterName(filter.field, filter.value),
-                    operator: filter?.operator?.value,
-                    value: handleFilterValue(filter.field, filter.value)
-                }
-            })
-            .filter((filter) => filter.value !== '')
+const handleFilter = (filters: IndexParams['filters']) => {
+    if (!isEmpty(formatFilters(filters))) {
+        params.filters = filters
+
+        getData()
     }
 }
 
-watch(
-    () => [params.filters],
-    (value, oldValue) => {
-        if (shouldFetchFilterData(value, oldValue)) getData()
+const handleChangePerPage = (value: number) => {
+    if (value < props.sponsors.meta.total) {
+        params.perPage = value
+
+        params.page = 1
+
+        getData()
     }
-)
+}
+
+const handleChangePage = (value: number) => {
+    params.page = value
+
+    routerOptions.preserveScroll = false
+
+    routerOptions.preserveState = false
+
+    getData()
+}
 
 watch(
     search,
@@ -140,22 +132,6 @@ watch(
 )
 
 watch(() => [params.fields, params.directions], getData)
-
-watch(
-    () => [params.perPage],
-    () => (params.page = 1)
-)
-
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
-
-        routerOptions.preserveScroll = false
-
-        getData()
-    }
-)
 </script>
 
 <template>
@@ -177,6 +153,7 @@ watch(
                 class="ms-2 hidden sm:block"
                 placement="bottom-start"
                 @update:value="handleFilter"
+                @reset-filter="handleFilterReset"
             ></advanced-filter>
 
             <div class="mx-auto hidden text-slate-500 md:block">
@@ -198,6 +175,7 @@ watch(
                     class="me-2 sm:hidden"
                     placement="bottom-start"
                     @update:value="handleFilter"
+                    @reset-filter="handleFilterReset"
                 ></advanced-filter>
 
                 <div class="relative w-full md:w-56 text-slate-500">
@@ -222,6 +200,8 @@ watch(
             v-model:page="params.page"
             v-model:per-page="params.perPage"
             :pages="sponsors.meta.last_page"
+            @change-page="handleChangePage"
+            @update:per-page="handleChangePerPage"
         ></pagination-data-table>
     </template>
 

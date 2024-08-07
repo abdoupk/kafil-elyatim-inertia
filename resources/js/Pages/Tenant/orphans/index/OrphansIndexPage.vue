@@ -102,6 +102,26 @@ const handleFilter = (filters: IndexParams['filters']) => {
     }
 }
 
+const handleChangePerPage = (value: number) => {
+    if (value < props.orphans.meta.total) {
+        params.perPage = value
+
+        params.page = 1
+
+        getData()
+    }
+}
+
+const handleChangePage = (value: number) => {
+    params.page = value
+
+    routerOptions.preserveScroll = false
+
+    routerOptions.preserveState = false
+
+    getData()
+}
+
 watch(
     search,
     debounce(() => {
@@ -112,16 +132,6 @@ watch(
 )
 
 watch(() => [params.fields, params.directions], getData)
-
-const handleChangePerPage = (value: number) => {
-    if (value < props.orphans.meta.total) {
-        params.perPage = value
-
-        params.page = 1
-
-        getData()
-    }
-}
 </script>
 
 <template>
@@ -192,6 +202,7 @@ const handleChangePerPage = (value: number) => {
             v-model:per-page="params.perPage"
             :pages="orphans.meta.last_page"
             @update:per-page="handleChangePerPage"
+            @change-page="handleChangePage"
         ></pagination-data-table>
     </template>
 
