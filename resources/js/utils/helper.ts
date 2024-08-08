@@ -379,6 +379,7 @@ const handleFilterName = (field: ListBoxFilter, value: { value: string } | strin
 
     if (isSponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
     else if (field.label === 'orphan_sponsorships' && typeof value !== 'string') return `${field.field}.${value.value}`
+    else if (field.label === 'sponsorship' && typeof value !== 'string') return `${value.value}`
     else return field.field
 }
 
@@ -398,11 +399,11 @@ const formatFilters = (filters) => {
     }
 }
 
-const getDataForIndexPages = (url: string, search: string | undefined, params: IndexParams, options: object) => {
+const getDataForIndexPages = (url: string, params: IndexParams, options: object) => {
     let data = { ...params }
 
-    if (search !== '') {
-        data.search = search
+    if (params.search === '' || params.search === undefined) {
+        delete data.search
     }
 
     Object.keys(data).forEach((key) => {

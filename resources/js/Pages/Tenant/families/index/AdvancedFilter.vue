@@ -42,9 +42,11 @@ const removeFilterRule = (close: Function) => {
     } else {
         close()
 
-        filterRules.value = []
+        setTimeout(() => {
+            filterRules.value = []
 
-        emit('reset-filter')
+            emit('reset-filter')
+        }, 200)
     }
 
     emit('update:value', filterRules.value)
