@@ -304,3 +304,5 @@ export const orphansFilters: ListBoxFilter[] = [
 ]
 
 export const eidAlAdhaFilters: ListBoxFilter[] = []
+
+export const schoolEntryFilters: ListBoxFilter[] = []

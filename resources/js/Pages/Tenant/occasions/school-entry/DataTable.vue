@@ -88,10 +88,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-td-table
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ orphan.orphan.academic_level }}
-                            <p class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
-                                {{ orphan.orphan?.academic_phase }}
-                            </p>
+                            <template v-if="orphan.orphan.academic_level">
+                                {{ orphan.orphan.academic_level }}
+                                <p class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
+                                    {{ orphan.orphan?.academic_phase }}
+                                </p>
+                            </template>
+
+                            <p v-else class="ms-8">-</p>
                         </base-td-table>
 
                         <base-td-table
