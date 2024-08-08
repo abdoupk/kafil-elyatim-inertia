@@ -213,7 +213,7 @@ watch(
     </div>
 
     <template v-if="finances.data.length > 0">
-        <data-table :finances :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+        <data-table :finances :params @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
 
         <pagination-data-table
             v-model:page="params.page"

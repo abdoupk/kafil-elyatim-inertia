@@ -196,7 +196,7 @@ watchEffect(() => {
             :params
             :zones
             @showDeleteModal="showDeleteModal"
-            @sort="sort($event)"
+            @sort="sort"
             @show-edit-modal="showEditModal"
         ></data-table>
 

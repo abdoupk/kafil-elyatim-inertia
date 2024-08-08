@@ -308,3 +308,5 @@ export const eidAlAdhaFilters: ListBoxFilter[] = []
 export const schoolEntryFilters: ListBoxFilter[] = []
 
 export const eidSuitsFilters: ListBoxFilter[] = []
+
+export const ramadanBasketFilters: ListBoxFilter[] = []

@@ -68,7 +68,7 @@ const sort = (field: string) => handleSort(field, params)
     </the-table-header>
 
     <template v-if="orphans.data.length > 0">
-        <data-table :orphans :params @sort="sort($event)"></data-table>
+        <data-table :orphans :params @sort="sort"></data-table>
 
         <the-table-footer
             :pagination-data="orphans"

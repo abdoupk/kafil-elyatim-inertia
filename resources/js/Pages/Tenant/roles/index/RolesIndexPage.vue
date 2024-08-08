@@ -192,7 +192,7 @@ const showEditModal = async (roleId: string) => {
             :params
             :roles
             @showDeleteModal="showDeleteModal"
-            @sort="sort($event)"
+            @sort="sort"
             @show-edit-modal="showEditModal"
         ></data-table>
 

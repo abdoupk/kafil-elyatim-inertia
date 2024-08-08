@@ -88,7 +88,7 @@ const showDeleteModal = (sponsorId: string) => {
     ></the-table-header>
 
     <template v-if="sponsors.data.length > 0">
-        <data-table :params :sponsors @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+        <data-table :params :sponsors @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
 
         <the-table-footer :pagination-data="sponsors" :params :url="route('tenant.sponsors.index')"></the-table-footer>
     </template>

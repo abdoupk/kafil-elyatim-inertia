@@ -192,7 +192,7 @@ watch(
             :items
             :params
             @showDeleteModal="showDeleteModal"
-            @sort="sort($event)"
+            @sort="sort"
             @show-edit-modal="showEditModal"
         ></data-table>
 

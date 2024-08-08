@@ -98,7 +98,7 @@ const showDeleteModal = (familyId: string) => {
     </the-table-header>
 
     <template v-if="families.data.length > 0">
-        <data-table :families :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
+        <data-table :families :params @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
 
         <the-table-footer :pagination-data="families" :params :url="route('tenant.families.index')"></the-table-footer>
     </template>
