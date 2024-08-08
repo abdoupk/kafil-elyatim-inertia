@@ -50,6 +50,8 @@ const sort = (field: string) => handleSort(field, params)
         :title="$t('list', { attribute: $t('the_orphans_eid_suit') })"
         :url="route('tenant.occasions.eid-suit.index')"
         entries="orphans"
+        exportable
+        filterable
     >
         <template #Hints>
             <base-alert

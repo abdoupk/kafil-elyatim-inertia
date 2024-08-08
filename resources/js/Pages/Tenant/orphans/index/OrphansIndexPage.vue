@@ -85,6 +85,8 @@ const sort = (field: string) => handleSort(field, params)
         :title="$t('list', { attribute: $t('the_orphans') })"
         :url="route('tenant.orphans.index')"
         entries="orphans"
+        exportable
+        filterable
     ></the-table-header>
 
     <template v-if="orphans.data.length > 0">

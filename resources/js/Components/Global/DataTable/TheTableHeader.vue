@@ -21,6 +21,8 @@ const props = defineProps<{
     filters: ListBoxFilter[]
     paginationData: PaginationData<unknown>
     params: IndexParams
+    exportable?: boolean
+    filterable?: boolean
 }>()
 
 const params = ref(props.params)
@@ -73,9 +75,10 @@ watch(() => [params.value.fields, params.value.directions], getData)
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
             <slot name="ExtraButtons"></slot>
 
-            <export-menu :exportPdfUrl :exportXlsxUrl></export-menu>
+            <export-menu v-if="exportable" :exportPdfUrl :exportXlsxUrl></export-menu>
 
             <advanced-filter
+                v-if="filterable"
                 :filters
                 class="ms-2 hidden sm:block"
                 placement="bottom-start"
@@ -98,6 +101,7 @@ watch(() => [params.value.fields, params.value.directions], getData)
 
             <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
                 <advanced-filter
+                    v-if="filterable"
                     :filters
                     class="me-2 sm:hidden"
                     placement="bottom-start"

@@ -85,6 +85,8 @@ const showDeleteModal = (familyId: string) => {
         :title="$t('list', { attribute: $t('the_families') })"
         :url="route('tenant.families.index')"
         entries="families"
+        exportable
+        filterable
     >
         <template #ExtraButtons>
             <base-button

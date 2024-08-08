@@ -310,3 +310,8 @@ export const schoolEntryFilters: ListBoxFilter[] = []
 export const eidSuitsFilters: ListBoxFilter[] = []
 
 export const ramadanBasketFilters: ListBoxFilter[] = []
+
+export const needsFilters: ListBoxFilter[] = []
+
+export const monthlyBasketFilters: ListBoxFilter[] = []
+export const babiesMilkAndDiapersFilters: ListBoxFilter[] = []

@@ -85,6 +85,8 @@ const showDeleteModal = (sponsorId: string) => {
         :title="$t('list', { attribute: $t('the_sponsors') })"
         :url="route('tenant.sponsors.index')"
         entries="sponsors"
+        exportable
+        filterable
     ></the-table-header>
 
     <template v-if="sponsors.data.length > 0">
