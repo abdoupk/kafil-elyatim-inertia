@@ -3,22 +3,19 @@ import type { FamiliesIndexResource, IndexParams, PaginationData } from '@/types
 
 import { familiesFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
+import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
+import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 
-import { debounce, formatFilters, getDataForIndexPages, handleSort, isEmpty } from '@/utils/helper'
+import { handleSort } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -33,21 +30,15 @@ const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
-    fields: props.params.fields
+    fields: props.params.fields,
+    search: props.params?.search
 })
-
-const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
 const selectedFamilyId = ref<string>('')
-
-let routerOptions = {
-    preserveState: true,
-    preserveScroll: true
-}
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -57,13 +48,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => getDataForIndexPages(route('tenant.families.index'), search.value, params, routerOptions)
-
-const sort = (field: string) => {
-    handleSort(field, params)
-
-    getData()
-}
+const sort = (field: string) => handleSort(field, params)
 
 const deleteFamily = () => {
     router.delete(route('tenant.families.destroy', selectedFamilyId.value), {
@@ -86,63 +71,22 @@ const showDeleteModal = (familyId: string) => {
 
     deleteModalStatus.value = true
 }
-
-const handleFilterReset = () => {
-    params.filters = []
-
-    getData()
-}
-
-const handleFilter = (filters: IndexParams['filters']) => {
-    if (!isEmpty(formatFilters(filters))) {
-        params.filters = filters
-
-        getData()
-    }
-}
-
-const handleChangePerPage = (value: number) => {
-    if (value < props.families.meta.total) {
-        params.perPage = value
-
-        params.page = 1
-
-        getData()
-    }
-}
-
-const handleChangePage = (value: number) => {
-    params.page = value
-
-    routerOptions.preserveScroll = false
-
-    routerOptions.preserveState = false
-
-    getData()
-}
-
-watch(
-    search,
-    debounce(() => {
-        params.page = 1
-
-        getData()
-    }, 400)
-)
-
-// eslint-disable-next-line array-element-newline
-watch(() => [params.fields, params.directions], getData)
 </script>
 
 <template>
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_families') }) }}
-    </h2>
-
-    <div class="mt-5 grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
+    <the-table-header
+        :export-pdf-url="route('tenant.families.export.pdf', params)"
+        :export-xlsx-url="route('tenant.families.export.xlsx', params)"
+        :filters="familiesFilters"
+        :pagination-data="families"
+        :params="params"
+        :title="$t('list', { attribute: $t('the_families') })"
+        :url="route('tenant.families.index')"
+        entries="families"
+    >
+        <template #ExtraButtons>
             <base-button
                 class="me-2 shadow-md"
                 variant="primary"
@@ -150,76 +94,16 @@ watch(() => [params.fields, params.directions], getData)
             >
                 {{ n__('add new', 0, { attribute: $t('family') }) }}
             </base-button>
-
-            <export-menu
-                :export-pdf-url="route('tenant.families.export.pdf', params)"
-                :export-xlsx-url="route('tenant.families.export.xlsx', params)"
-                class="block sm:hidden"
-            ></export-menu>
-
-            <advanced-filter
-                :filters="familiesFilters"
-                class="hidden sm:block"
-                @update:value="handleFilter"
-                @reset-filter="handleFilterReset"
-            ></advanced-filter>
-
-            <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="families.meta.total > 0">
-                    {{
-                        $t('showing_results', {
-                            from: families.meta.from?.toString(),
-                            to: families.meta.to?.toString(),
-                            total: families.meta.total?.toString(),
-                            entries: n__('entries.families', families.meta.total)
-                        })
-                    }}
-                </span>
-            </div>
-
-            <div class="mt-3 flex w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <export-menu
-                    :export-pdf-url="route('tenant.families.export.pdf', params)"
-                    :export-xlsx-url="route('tenant.families.export.xlsx', params)"
-                    class="hidden sm:block sm:me-2"
-                ></export-menu>
-
-                <advanced-filter
-                    :filters="familiesFilters"
-                    class="me-2 sm:hidden"
-                    @update:value="handleFilter"
-                    @reset-filter="handleFilterReset"
-                ></advanced-filter>
-
-                <div class="relative w-full md:w-56 text-slate-500">
-                    <base-form-input
-                        v-model="search"
-                        :placeholder="$t('Search...')"
-                        autofocus
-                        class="!box w-full md:w-56 pe-10"
-                        type="text"
-                    />
-                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
-                </div>
-            </div>
-        </div>
-    </div>
+        </template>
+    </the-table-header>
 
     <template v-if="families.data.length > 0">
         <data-table :families :params @showDeleteModal="showDeleteModal" @sort="sort($event)"></data-table>
 
-        <pagination-data-table
-            v-model:page="params.page"
-            v-model:per-page="params.perPage"
-            :pages="families.meta.last_page"
-            @update:per-page="handleChangePerPage"
-            @change-page="handleChangePage"
-        ></pagination-data-table>
+        <the-table-footer :pagination-data="families" :params :url="route('tenant.families.index')"></the-table-footer>
     </template>
 
-    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
-        <no-results-found></no-results-found>
-    </div>
+    <the-no-results-table v-else></the-no-results-table>
 
     <delete-modal
         :deleteProgress

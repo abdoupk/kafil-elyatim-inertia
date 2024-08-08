@@ -72,7 +72,7 @@ const StepSix = defineAsyncComponent({
     loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue')
 })
 
-const currentStep = ref(4)
+const currentStep = ref(1)
 
 const totalSteps = 6
 
