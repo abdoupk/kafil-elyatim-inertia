@@ -39,6 +39,7 @@ const sort = (field: string) => handleSort(field, params)
 </script>
 
 <template>
+    <!--    TODO change title in all heads-->
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
