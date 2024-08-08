@@ -11,16 +11,22 @@ import BaseMenuItem from '@/Components/Base/headless/Menu/BaseMenuItem.vue'
 import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { formatUrl } from '@/utils/helper'
+
 const props = defineProps<{
     exportPdfUrl: string
     exportXlsxUrl: string
 }>()
 
+const exportPdfUrl = ref<string>(formatUrl(props.exportPdfUrl))
+
+const exportXlsxUrl = ref<string>(formatUrl(props.exportXlsxUrl))
+
 const printStarting = ref<boolean>(false)
 
 const printPdf = () => {
     print({
-        printable: props.exportPdfUrl,
+        printable: exportPdfUrl.value,
         type: 'pdf',
         onLoadingStart: () => {
             printStarting.value = true

@@ -383,6 +383,22 @@ const handleFilterName = (field: ListBoxFilter, value: { value: string } | strin
     else return field.field
 }
 
+const formatUrl = (url: string) => {
+    const parsedUrl = new URL(url)
+
+    const searchParams = parsedUrl.searchParams
+
+    for (const [key, value] of searchParams.entries()) {
+        if (value === '') {
+            searchParams.delete(key)
+        }
+    }
+
+    parsedUrl.search = searchParams.toString()
+
+    return parsedUrl.toString()
+}
+
 const formatFilters = (filters) => {
     return {
         ...filters
@@ -421,6 +437,7 @@ export {
     getDataForIndexPages,
     handleFilterValue,
     formatDate,
+    formatUrl,
     shouldFetchFilterData,
     combineDateAndTime,
     getAcademicLevelFromId,
