@@ -4,6 +4,7 @@ import { defineStore } from 'pinia'
 
 import { __, n__ } from '@/utils/i18n'
 
+
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({
         menu: [
@@ -148,6 +149,18 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-school-lock',
                 routeName: 'tenant.schools.index',
                 title: __('private_schools'),
+                url: '/dashboard/schools'
+            },
+            {
+                icon: 'icon-trash-list',
+                routeName: 'tenant.schools.index',
+                title: __('the_trash'),
+                url: '/dashboard/schools'
+            },
+            {
+                icon: 'icon-box-archive',
+                routeName: 'tenant.schools.index',
+                title: __('the_archive'),
                 url: '/dashboard/schools'
             }
         ]

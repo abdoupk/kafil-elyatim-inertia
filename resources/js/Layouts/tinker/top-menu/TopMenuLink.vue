@@ -15,6 +15,7 @@ defineProps<{
 
 <template>
     <a
+        v-if="!menu.ignore"
         :class="
             twMerge([
                 'relative me-1 flex h-[55px] items-center rounded-full px-5 text-white xl:rounded-xl',

@@ -15,7 +15,7 @@ defineProps<{
 
 <template>
     <a
-        class="top-menu"
+        v-if="!menu.ignore"
         :class="
             twMerge([
                 'relative flex h-[55px] items-center rounded-full text-white xl:rounded-b-none xl:rounded-t-[1rem]',
@@ -35,6 +35,7 @@ defineProps<{
             ])
         "
         :href="menu.subMenu ? '#' : menu.url"
+        class="top-menu"
         @click="linkTo(menu, $event)"
     >
         <div

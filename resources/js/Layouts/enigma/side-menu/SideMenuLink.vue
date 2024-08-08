@@ -16,7 +16,7 @@ defineProps<{
 
 <template>
     <side-menu-tooltip
-        class="side-menu"
+        v-if="!menu.ignore"
         :class="
             twMerge([
                 'relative mb-1 flex h-[50px] items-center rounded-xl ps-5 text-slate-600 dark:text-slate-300',
@@ -50,6 +50,7 @@ defineProps<{
         "
         :content="menu.title"
         :href="menu.subMenu ? 'javascript:' : menu.url"
+        class="side-menu"
         tag="a"
         @click="linkTo(menu, $event)"
     >
