@@ -68,12 +68,18 @@ use App\Http\Controllers\V1\Needs\NeedShowController;
 use App\Http\Controllers\V1\Needs\NeedsIndexController;
 use App\Http\Controllers\V1\Needs\NeedStoreController;
 use App\Http\Controllers\V1\Needs\NeedUpdateController;
+use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\BabyMilkAndDiapersIndexController;
+use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesPDFController;
+use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesXlsxController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDF;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
 use App\Http\Controllers\V1\Occasions\EidSuit\EidSuitIndexController;
 use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitPDF;
 use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitXlsxController;
+use App\Http\Controllers\V1\Occasions\MonthlyBasket\ExportFamiliesMonthlyBasketPDFController;
+use App\Http\Controllers\V1\Occasions\MonthlyBasket\ExportFamiliesMonthlyBasketXlsxController;
+use App\Http\Controllers\V1\Occasions\MonthlyBasket\FamiliesMonthlyBasketIndexController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDF;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
@@ -456,24 +462,24 @@ Route::middleware([
                 });
 
                 Route::prefix('monthly-basket')->name('monthly-basket.')->group(function () {
-                    Route::get('', SchoolEntryIndexController::class)
+                    Route::get('', FamiliesMonthlyBasketIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                    Route::get('export-pdf', ExportFamiliesMonthlyBasketPDFController::class)
                         ->name('export.pdf');
 
-                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                    Route::get('export-xlsx', ExportFamiliesMonthlyBasketXlsxController::class)
                         ->name('export.xlsx');
                 });
 
                 Route::prefix('babies-milk-and-diapers')->name('babies-milk-and-diapers.')->group(function () {
-                    Route::get('', SchoolEntryIndexController::class)
+                    Route::get('', BabyMilkAndDiapersIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                    Route::get('export-pdf', ExportBabiesPDFController::class)
                         ->name('export.pdf');
 
-                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                    Route::get('export-xlsx', ExportBabiesXlsxController::class)
                         ->name('export.xlsx');
                 });
             });

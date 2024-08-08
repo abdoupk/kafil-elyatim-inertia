@@ -74,7 +74,7 @@ onMounted(() => {
         </div>
 
         <nav class="top-nav relative z-50 -mt-[3px] hidden translate-y-[50px] opacity-0 md:block">
-            <ul class="flex h-[58px] flex-wrap px-6 xl:px-[50px]">
+            <ul class="flex flex-wrap px-6 xl:px-[50px]">
                 <template v-for="(menu, menuKey) in formattedMenu">
                     <li
                         v-if="menu !== 'divider'"

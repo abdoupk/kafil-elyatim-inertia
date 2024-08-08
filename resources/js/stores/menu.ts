@@ -93,19 +93,19 @@ export const useMenuStore = defineStore('menu', {
                         title: __('ramadan basket'),
                         routeName: 'tenant.occasions.ramadan-basket.index',
                         url: '/dashboard/occasions/ramadan-basket'
-                    },
-                    {
-                        icon: 'icon-basket-shopping',
-                        title: __('monthly basket'),
-                        routeName: 'tenant.occasions.monthly-basket.index',
-                        url: route('tenant.occasions.monthly-basket.index')
-                    },
-                    {
-                        icon: 'icon-baby-carriage',
-                        title: __('milk and diapers'),
-                        routeName: 'tenant.occasions.baby-milk-and-diapers.index',
-                        url: route('tenant.families.create')
                     }
+                    // {
+                    //     Icon: 'icon-basket-shopping',
+                    //     Title: __('monthly basket'),
+                    //     RouteName: 'tenant.occasions.monthly-basket.index',
+                    //     Url: route('tenant.occasions.monthly-basket.index')
+                    // },
+                    // {
+                    //     Icon: 'icon-baby-carriage',
+                    //     Title: __('milk and diapers'),
+                    //     RouteName: 'tenant.occasions.baby-milk-and-diapers.index',
+                    //     Url: route('tenant.families.create')
+                    // }
                 ]
             },
             'divider',
