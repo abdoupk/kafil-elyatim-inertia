@@ -80,7 +80,7 @@ export const useMenuStore = defineStore('menu', {
                         icon: 'icon-backpack',
                         title: __('school_entry'),
                         routeName: 'tenant.occasions.school-entry.index',
-                        url: route('tenant.occasions.school-entry.index')
+                        url: '/dashboard/occasions/school-entry'
                     },
                     {
                         icon: 'icon-moon-stars',
@@ -97,7 +97,13 @@ export const useMenuStore = defineStore('menu', {
                     {
                         icon: 'icon-basket-shopping',
                         title: __('monthly basket'),
-                        routeName: 'tenant.families.create',
+                        routeName: 'tenant.occasions.monthly-basket.index',
+                        url: route('tenant.occasions.monthly-basket.index')
+                    },
+                    {
+                        icon: 'icon-baby-carriage',
+                        title: __('milk and diapers'),
+                        routeName: 'tenant.occasions.baby-milk-and-diapers.index',
                         url: route('tenant.families.create')
                     }
                 ]

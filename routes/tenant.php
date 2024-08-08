@@ -454,6 +454,28 @@ Route::middleware([
                     Route::get('export-xlsx', ExportOrphansEidSuitXlsxController::class)
                         ->name('export.xlsx');
                 });
+
+                Route::prefix('monthly-basket')->name('monthly-basket.')->group(function () {
+                    Route::get('', SchoolEntryIndexController::class)
+                        ->name('index');
+
+                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                        ->name('export.pdf');
+
+                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                        ->name('export.xlsx');
+                });
+
+                Route::prefix('babies-milk-and-diapers')->name('babies-milk-and-diapers.')->group(function () {
+                    Route::get('', SchoolEntryIndexController::class)
+                        ->name('index');
+
+                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                        ->name('export.pdf');
+
+                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                        ->name('export.xlsx');
+                });
             });
 
             Route::prefix('needs')->name('needs.')->group(function () {
