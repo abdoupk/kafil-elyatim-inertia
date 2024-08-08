@@ -233,17 +233,10 @@ class Sponsor extends Model
 
     public function formattedPhoneNumber(): string
     {
-        // Remove all non-digit characters
         $phoneNumber = preg_replace('/\D/', '', $this->phone_number);
 
         // Format with hyphens
-        $formattedPhoneNumber = substr($phoneNumber, 0, 4); // First four digits
-
-        for ($i = 4; $i < strlen($phoneNumber); $i += 2) {
-            $formattedPhoneNumber .= '-'.substr($phoneNumber, $i, 2);
-        }
-
-        return $formattedPhoneNumber;
+        return substr($phoneNumber, 0, 2).'-'.substr($phoneNumber, 2, 2).'-'.substr($phoneNumber, 4, 2).'-'.substr($phoneNumber, 6);
     }
 
     protected function casts(): array
