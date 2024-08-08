@@ -13,9 +13,9 @@ import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vu
 import DataTable from '@/Pages/Tenant/needs/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 
 import { handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
@@ -138,9 +138,7 @@ watchEffect(() => {
         <the-table-footer :pagination-data="needs" :params :url="route('tenant.needs.index')"></the-table-footer>
     </template>
 
-    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
-        <no-results-found></no-results-found>
-    </div>
+    <the-no-results-table v-else></the-no-results-table>
 
     <delete-modal
         :deleteProgress

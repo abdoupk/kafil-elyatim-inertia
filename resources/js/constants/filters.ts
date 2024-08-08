@@ -315,3 +315,6 @@ export const needsFilters: ListBoxFilter[] = []
 
 export const monthlyBasketFilters: ListBoxFilter[] = []
 export const babiesMilkAndDiapersFilters: ListBoxFilter[] = []
+
+export const financialFilters: ListBoxFilter[] = []
+export const schoolsFilters: ListBoxFilter[] = []

@@ -3,20 +3,20 @@ import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types
 
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch, watchEffect } from 'vue'
+import { reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import BranchCreateEditModal from '@/Pages/Tenant/branches/BranchCreateEditModal.vue'
 import DataTable from '@/Pages/Tenant/branches/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
+import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
+import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 
-import { debounce, handleSort } from '@/utils/helper'
+import { handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -33,10 +33,9 @@ const params = reactive<IndexParams>({
     page: props.params.page,
     directions: props.params.directions,
     fields: props.params.fields,
-    filters: props.params.filters
+    filters: props.params.filters,
+    search: props.params.search
 })
-
-const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
@@ -48,11 +47,6 @@ const selectedBranchId = ref<string>('')
 
 const branchesStore = useBranchesStore()
 
-let routerOptions = {
-    preserveState: true,
-    preserveScroll: true
-}
-
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
 
@@ -61,25 +55,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.branches.index'), data, routerOptions)
-}
-
-const sort = (field: string) => {
-    handleSort(field, params)
-
-    getData()
-}
+const sort = (field: string) => handleSort(field, params)
 
 const deleteBranch = () => {
     router.delete(route('tenant.branches.destroy', selectedBranchId.value), {
@@ -117,33 +93,6 @@ const showEditModal = async (branchId: string) => {
     createEditModalStatus.value = true
 }
 
-watch(
-    search,
-    debounce(() => {
-        params.page = 1
-
-        getData()
-    }, 400)
-)
-
-watch(() => [params.fields, params.directions], getData)
-
-watch(
-    () => [params.perPage],
-    () => (params.page = 1)
-)
-
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
-
-        routerOptions.preserveScroll = false
-
-        getData()
-    }
-)
-
 watchEffect(() => {
     if (new URLSearchParams(window.location.search).has('show')) {
         // TODO: show Details Modal
@@ -154,56 +103,36 @@ watchEffect(() => {
 <template>
     <Head :title="$t('list', { attribute: $t('branches') })"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('branches') }) }}
-    </h2>
-
-    <div class="mt-5 grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
+    <the-table-header
+        :filters="[]"
+        :pagination-data="branches"
+        :params="params"
+        :title="$t('list', { attribute: $t('branches') })"
+        :url="route('tenant.branches.index')"
+        entries="branches"
+        export-pdf-url=""
+        export-xlsx-url=""
+    >
+        <template #ExtraButtons>
             <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
                 {{ n__('add new', 1, { attribute: $t('branch') }) }}
             </base-button>
+        </template>
+    </the-table-header>
+    
+    <template v-if="branches.data.length > 0">
+        <data-table
+            :branches
+            :params
+            @showDeleteModal="showDeleteModal"
+            @sort="sort"
+            @show-edit-modal="showEditModal"
+        ></data-table>
 
-            <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="branches.meta.total > 0">
-                    {{
-                        $t('showing_results', {
-                            from: branches.meta.from?.toString(),
-                            to: branches.meta.to?.toString(),
-                            total: branches.meta.total?.toString(),
-                            entries: n__('entries.branches', branches.meta.total)
-                        })
-                    }}
-                </span>
-            </div>
-            <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <div class="relative w-56 text-slate-500">
-                    <base-form-input
-                        v-model="search"
-                        :placeholder="$t('Search...')"
-                        autofocus
-                        class="!box w-56 pe-10"
-                        type="text"
-                    />
-                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
-                </div>
-            </div>
-        </div>
-    </div>
+        <the-table-footer :pagination-data="branches" :params :url="route('tenant.branches.index')"></the-table-footer>
+    </template>
 
-    <data-table
-        :branches
-        :params
-        @showDeleteModal="showDeleteModal"
-        @sort="sort"
-        @show-edit-modal="showEditModal"
-    ></data-table>
-
-    <pagination-data-table
-        v-model:page="params.page"
-        v-model:per-page="params.perPage"
-        :pages="branches.meta.last_page"
-    ></pagination-data-table>
+    <the-no-results-table v-else></the-no-results-table>
 
     <delete-modal
         :deleteProgress

@@ -3,21 +3,20 @@ import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/ty
 
 import { useRolesStore } from '@/stores/roles'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
 import RoleCreateEditSlideOver from '@/Pages/Tenant/roles/create/RoleCreateEditSlideOver.vue'
 import DataTable from '@/Pages/Tenant/roles/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
+import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
+import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 
-import { debounce, handleSort } from '@/utils/helper'
+import { handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -34,21 +33,19 @@ const params = reactive<IndexParams>({
     page: props.params.page,
     directions: props.params.directions,
     fields: props.params.fields,
-    filters: props.params.filters
+    filters: props.params.filters,
+    search: props.params.search
 })
 
-const search = ref(props.params.search)
+const createEditSlideOverStatus = ref<boolean>(false)
+
+const rolesStore = useRolesStore()
 
 const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
 const selectedRoleId = ref<string>('')
-
-let routerOptions = {
-    preserveState: true,
-    preserveScroll: true
-}
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -58,25 +55,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.roles.index'), data, routerOptions)
-}
-
-const sort = (field: string) => {
-    handleSort(field, params)
-
-    getData()
-}
+const sort = (field: string) => handleSort(field, params)
 
 const deleteRole = () => {
     router.delete(route('tenant.roles.destroy', selectedRoleId.value), {
@@ -100,37 +79,6 @@ const showDeleteModal = (roleId: string) => {
     deleteModalStatus.value = true
 }
 
-watch(
-    search,
-    debounce(() => {
-        params.page = 1
-
-        getData()
-    }, 400)
-)
-
-watch(() => [params.fields, params.directions], getData)
-
-watch(
-    () => [params.perPage],
-    () => (params.page = 1)
-)
-
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
-
-        routerOptions.preserveScroll = false
-
-        getData()
-    }
-)
-
-const createEditSlideOverStatus = ref<boolean>(false)
-
-const rolesStore = useRolesStore()
-
 const showCreateModal = () => {
     rolesStore.$reset()
 
@@ -149,43 +97,23 @@ const showEditModal = async (roleId: string) => {
 <template>
     <Head :title="$t('list', { attribute: $t('the_roles') })"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_roles') }) }}
-    </h2>
-
-    <div class="mt-5 grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
+    <the-table-header
+        :filters="[]"
+        :pagination-data="roles"
+        :params="params"
+        :title="$t('list', { attribute: $t('the_roles') })"
+        :url="route('tenant.roles.index')"
+        entries="roles"
+        export-pdf-url=""
+        export-xlsx-url=""
+        filterable
+    >
+        <template #ExtraButtons>
             <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
                 {{ n__('add new', 1, { attribute: $t('role') }) }}
             </base-button>
-
-            <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="roles.meta.total > 0">
-                    {{
-                        $t('showing_results', {
-                            from: roles.meta.from?.toString(),
-                            to: roles.meta.to?.toString(),
-                            total: roles.meta.total?.toString(),
-                            entries: n__('entries.roles', roles.meta.total)
-                        })
-                    }}
-                </span>
-            </div>
-
-            <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <div class="relative w-56 text-slate-500">
-                    <base-form-input
-                        v-model="search"
-                        :placeholder="$t('Search...')"
-                        autofocus
-                        class="!box w-56 pe-10"
-                        type="text"
-                    />
-                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
-                </div>
-            </div>
-        </div>
-    </div>
+        </template>
+    </the-table-header>
 
     <template v-if="roles.data.length > 0">
         <data-table
@@ -196,16 +124,10 @@ const showEditModal = async (roleId: string) => {
             @show-edit-modal="showEditModal"
         ></data-table>
 
-        <pagination-data-table
-            v-model:page="params.page"
-            v-model:per-page="params.perPage"
-            :pages="roles.meta.last_page"
-        ></pagination-data-table>
+        <the-table-footer :pagination-data="roles" :params :url="route('tenant.roles.index')"></the-table-footer>
     </template>
 
-    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
-        <no-results-found></no-results-found>
-    </div>
+    <the-no-results-table v-else></the-no-results-table>
 
     <delete-modal
         :deleteProgress
