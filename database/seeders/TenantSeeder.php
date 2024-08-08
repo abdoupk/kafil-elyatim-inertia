@@ -52,7 +52,7 @@ class TenantSeeder extends Seeder
 
             $zones = Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
 
-            $branches = Branch::factory(random_int(1, 6))->create([
+            $branches = Branch::factory(fake()->numberBetween(1, 6))->create([
                 'tenant_id' => $tenant?->id,
                 'president_id' => User::inRandomOrder()->whereTenantId(
                     $tenant?->id

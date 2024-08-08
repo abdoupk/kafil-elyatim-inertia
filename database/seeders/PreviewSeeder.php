@@ -23,7 +23,7 @@ class PreviewSeeder extends Seeder
                 ]
             );
 
-            for ($i = 0; $i < random_int(1, 5); $i++) {
+            for ($i = 0; $i < fake()->numberBetween(1, 5); $i++) {
                 MemberPreview::factory()->create([
                     'preview_id' => $preview->id,
                     'user_id' => User::inRandomOrder()->whereTenantId($family->tenant_id)->first()?->id,

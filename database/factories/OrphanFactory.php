@@ -6,7 +6,6 @@ use App\Models\ClothesSize;
 use App\Models\Orphan;
 use App\Models\ShoeSize;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Random\RandomException;
 
 class OrphanFactory extends Factory
 {
@@ -14,15 +13,12 @@ class OrphanFactory extends Factory
 
     protected array $sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 
-    /**
-     * @throws RandomException
-     */
     public function definition(): array
     {
         return [
             'first_name' => fake('ar_SA')->firstName,
             'last_name' => fake('ar_SA')->lastName,
-            'birth_date' => now()->subYears(random_int(0, 4))->subDays(random_int(1, 365))->subMonths(random_int(1, 12))->toDate(),
+            'birth_date' => now()->subYears(fake()->numberBetween(0, 4))->subDays(fake()->numberBetween(1, 365))->subMonths(fake()->numberBetween(1, 12))->toDate(),
             'family_status' => fake('ar_SA')->word,
             'health_status' => fake('ar_SA')->word,
             'academic_level_id' => 5,
@@ -34,8 +30,8 @@ class OrphanFactory extends Factory
             'note' => fake('ar_SA')->realText(500),
             'tenant_id' => fake()->uuid,
             'family_id' => fake()->uuid,
-            'created_at' => now()->subDays(random_int(0, 35)),
-            'updated_at' => now()->subDays(random_int(0, 35)),
+            'created_at' => now()->subDays(fake()->numberBetween(0, 35)),
+            'updated_at' => now()->subDays(fake()->numberBetween(0, 35)),
         ];
     }
 }
