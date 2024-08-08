@@ -5,6 +5,7 @@
 /** @noinspection NullPointerExceptionInspection */
 
 use App\Models\VocationalTraining;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
 use Spatie\Browsershot\Browsershot;
@@ -183,4 +184,44 @@ function formatCurrency(float $amount): false|string
     $formatter = new NumberFormatter(app()->getLocale().'_DZ', NumberFormatter::CURRENCY);
 
     return $formatter->formatCurrency($amount, 'DZD');
+}
+
+function calculateAge($birthDate): string
+{
+    $locale = app()->getLocale();
+    $today = now();
+    $birthDate = Carbon::parse($birthDate);
+    $interval = $today->diffInYears($birthDate);
+
+    $ageText = [];
+
+    if ($interval > 0) {
+        $ageText[] = trans_choice('age_years', $interval, ['count' => $interval], $locale);
+    }
+
+    $monthsInterval = $today->diffInMonths($birthDate) % 12;
+
+    if ($monthsInterval > 0) {
+        $ageText[] = trans_choice('age_months', $monthsInterval, ['count' => $monthsInterval], $locale);
+    }
+
+    $daysInterval = $today->diffInDays($birthDate) % 30;
+
+    if ($daysInterval > 0) {
+        $ageText[] = trans_choice('age_days', $daysInterval, ['count' => $daysInterval], $locale);
+    }
+
+    if (count($ageText) > 1) {
+        if ($locale == 'ar') {
+            $ageText[count($ageText) - 2] .= ' ،';
+        } else {
+            $ageText[count($ageText) - 2] .= ' and';
+        }
+    }
+
+    if ($locale == 'ar') {
+        $ageText = array_reverse($ageText);
+    }
+
+    return implode(' - ', $ageText);
 }

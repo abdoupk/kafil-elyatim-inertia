@@ -804,5 +804,8 @@
     "appearance": "المظهر",
     "sponsor_phone_number": "رقم هاتف المتكفل",
     "the_archive": "الأرشيف",
-    "the_trash": "المحذوفات"
+    "the_trash": "المحذوفات",
+    "age_years": "{1} year|{2} years|[3,*] years",
+    "age_months": "{1} month|{2} months|[3,*] months",
+    "age_days": "{1} day|{2} days|[3,*] days"
 }
