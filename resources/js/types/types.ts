@@ -1,15 +1,8 @@
-import type { AddSchoolLessonType } from '@/types/lessons';
+import type { AddSchoolLessonType } from '@/types/lessons'
 
+import type { Form } from 'laravel-precognition-vue/dist/types'
 
-
-import _default from 'chart.js/dist/plugins/plugin.tooltip';
-import type { Form } from 'laravel-precognition-vue/dist/types';
-
-
-
-import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue';
-
-
+import type { HousingType } from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
 
 import {
     colorSchemes,
@@ -19,8 +12,6 @@ import {
     registerStepThreeErrorProps,
     registerStepTwoErrorProps
 } from '@/utils/constants'
-
-import numbers = _default.defaults.animations.numbers
 
 export interface IPlacement {
     placement:
@@ -76,6 +67,7 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-file-certificate'
+    | 'icon-box-archive'
     | 'icon-clock'
     | 'icon-brush'
     | 'icon-user'
@@ -642,7 +634,7 @@ export interface NeedsIndexResource {
 export interface FinancialTransactionsIndexResource {
     id: string
     description: string
-    amount: numbers
+    amount: number
     date: Date
     specification: string
     creator: {
