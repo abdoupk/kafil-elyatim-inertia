@@ -67,6 +67,8 @@ watch(() => [params.value.fields, params.value.directions], getData)
         {{ title }}
     </h2>
 
+    <slot name="Hints"></slot>
+
     <div class="mt-5 grid grid-cols-12 gap-6">
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
             <slot name="ExtraButtons"></slot>

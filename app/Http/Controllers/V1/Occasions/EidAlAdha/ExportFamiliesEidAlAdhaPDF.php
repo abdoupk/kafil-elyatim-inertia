@@ -15,8 +15,8 @@ class ExportFamiliesEidAlAdhaPDF extends Controller
      */
     public function __invoke(): StreamedResponse
     {
-        return saveToPDF('occasions/eid-al-adha-families', 'families', function () {
-            return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship();
+        return saveToPDF('occasions/eid-al-adha-families', 'sponsorships', function () {
+            return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport();
         });
     }
 }

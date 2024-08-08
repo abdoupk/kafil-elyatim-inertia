@@ -31,7 +31,7 @@ const params = reactive<IndexParams>({
     directions: props.params.directions,
     fields: props.params.fields,
     filters: props.params.filters,
-    search: props.params?.search
+    search: props.params.search
 })
 
 const deleteModalStatus = ref<boolean>(false)

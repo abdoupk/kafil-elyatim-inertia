@@ -302,3 +302,5 @@ export const orphansFilters: ListBoxFilter[] = [
         operators: filterObjectOperators
     }
 ]
+
+export const eidAlAdhaFilters: ListBoxFilter[] = []
