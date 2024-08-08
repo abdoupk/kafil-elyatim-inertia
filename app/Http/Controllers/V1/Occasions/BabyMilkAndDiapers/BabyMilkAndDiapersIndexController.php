@@ -11,7 +11,7 @@ class BabyMilkAndDiapersIndexController extends Controller
     public function __invoke()
     {
         return Inertia::render('Tenant/occasions/babies/BabyMilkAndDiapersIndex', [
-            'orphans' => BabyMilkAndDiapersResource::collection(listOfOrphansBenefitingFromTheEidSuitSponsorship()),
+            'orphans' => BabyMilkAndDiapersResource::collection(listOfBabies()),
             'params' => getParams(),
         ]);
     }

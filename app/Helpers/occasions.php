@@ -2,6 +2,7 @@
 
 /** @noinspection UnknownInspectionInspection */
 
+use App\Models\Baby;
 use App\Models\Family;
 use App\Models\FamilySponsorship;
 use App\Models\OrphanSponsorship;
@@ -59,6 +60,16 @@ function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginato
     return search(OrphanSponsorship::getModel(), 'AND eid_suit = true AND eid_suit IS NOT NULL')
         ->query(fn ($query) => $query
             ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
+        )
+        /** @phpstan-ignore-next-line */
+        ->paginate(perPage: request()?->input('perPage', 10));
+}
+
+function listOfBabies(): LengthAwarePaginator
+{
+    return search(Baby::getModel(), 'AND orphan.birth_date >'.strtotime('now - 2 years'))
+        ->query(fn ($query) => $query
+            ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
         )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));

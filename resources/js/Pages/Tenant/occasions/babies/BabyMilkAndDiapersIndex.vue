@@ -43,13 +43,13 @@ const sort = (field: string) => handleSort(field, params)
     <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.school-entry.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.school-entry.export.xlsx', params)"
+        :export-pdf-url="route('tenant.occasions.babies-milk-and-diapers.export.pdf', params)"
+        :export-xlsx-url="route('tenant.occasions.babies-milk-and-diapers.export.xlsx', params)"
         :filters="schoolEntryFilters"
         :pagination-data="orphans"
         :params="params"
-        :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
-        :url="route('tenant.occasions.school-entry.index')"
+        :title="$t('list', { attribute: $t('the_babies_milk_and_diapers') })"
+        :url="route('tenant.occasions.babies-milk-and-diapers.index')"
         entries="orphans"
         exportable
         filterable
@@ -64,7 +64,9 @@ const sort = (field: string) => handleSort(field, params)
                         <svg-loader class="w-6 h-6 me-3" name="icon-triangle-exclamation" />
                     </span>
 
-                    <span class="text-slate-800 dark:text-slate-500"> {{ $t('placeholders.school_entry') }} </span>
+                    <span class="text-slate-800 dark:text-slate-500">
+                        {{ $t('hints.babies_milk_and_diapers') }}
+                    </span>
                 </div>
             </base-alert>
         </template>
@@ -82,7 +84,7 @@ const sort = (field: string) => handleSort(field, params)
         <the-table-footer
             :pagination-data="orphans"
             :params
-            :url="route('tenant.occasions.school-entry.index')"
+            :url="route('tenant.occasions.babies-milk-and-diapers.index')"
         ></the-table-footer>
     </template>
 

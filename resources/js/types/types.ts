@@ -393,6 +393,24 @@ export interface SchoolEntryOrphansResource {
     }
 }
 
+export interface BabiesMilkAndDiapersResource {
+    id: string
+    sponsor: {
+        id: string
+        name: string
+        phone_number: string
+    }
+    orphan: {
+        id: string
+        name: string
+        baby_milk_quantity: number
+        baby_milk_type: string
+        diapers_quantity: number
+        diapers_type: string
+        age: string
+    }
+}
+
 export interface EidSuitOrphansResource {
     id: string
     sponsor: {

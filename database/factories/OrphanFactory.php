@@ -22,7 +22,7 @@ class OrphanFactory extends Factory
         return [
             'first_name' => fake('ar_SA')->firstName,
             'last_name' => fake('ar_SA')->lastName,
-            'birth_date' => now()->subYears(random_int(1, 35))->toDate(),
+            'birth_date' => now()->subYears(random_int(0, 4))->subDays(random_int(1, 365))->subMonths(random_int(1, 12))->toDate(),
             'family_status' => fake('ar_SA')->word,
             'health_status' => fake('ar_SA')->word,
             'academic_level_id' => 5,

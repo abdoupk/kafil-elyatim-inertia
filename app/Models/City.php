@@ -56,7 +56,7 @@ class City extends Model
     public function getFullName(?string $locale = 'ar'): string
     {
         if ($locale === 'ar') {
-            return $this->wilaya_name.'، '.$this->daira_name.'، '.$this->commune_name;
+            return $this->wilaya_name.trans('glue').$this->daira_name.'، '.$this->commune_name;
         }
 
         return $this->wilaya_name_ascii.', '.$this->daira_name_ascii.', '.$this->commune_name_ascii;

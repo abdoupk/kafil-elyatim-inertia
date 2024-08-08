@@ -64,7 +64,7 @@ const sort = (field: string) => handleSort(field, params)
                         <svg-loader class="w-6 h-6 me-3" name="icon-triangle-exclamation" />
                     </span>
 
-                    <span class="text-slate-800 dark:text-slate-500"> {{ $t('placeholders.school_entry') }} </span>
+                    <span class="text-slate-800 dark:text-slate-500"> {{ $t('hints.school_entry') }} </span>
                 </div>
             </base-alert>
         </template>

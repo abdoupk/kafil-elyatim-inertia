@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources\V1\Occasions;
 
-use App\Models\OrphanSponsorship;
+use App\Models\Baby;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin OrphanSponsorship
+ * @mixin Baby
  */
 class BabyMilkAndDiapersResource extends JsonResource
 {
@@ -20,19 +20,14 @@ class BabyMilkAndDiapersResource extends JsonResource
                 'name' => $this->orphan->sponsor->getName(),
                 'phone_number' => $this->orphan->sponsor->formattedPhoneNumber(),
             ],
-            'family' => [
-                'zone' => [
-                    'id' => $this->orphan->family->zone->id,
-                    'name' => $this->orphan->family->zone->name,
-                ],
-                'address' => $this->orphan->family->address,
-            ],
             'orphan' => [
                 'id' => $this->orphan->id,
                 'name' => $this->orphan->getName(),
-                'academic_phase' => $this->orphan->lastAcademicYearAchievement?->academicLevel->phase,
-                'academic_level' => $this->orphan->lastAcademicYearAchievement?->academicLevel->level,
-                'last_year_average' => $this->orphan->lastAcademicYearAchievement?->average,
+                'baby_milk_quantity' => $this->baby_milk_quantity,
+                'baby_milk_type' => $this->baby_milk_type,
+                'diapers_quantity' => $this->diapers_quantity,
+                'diapers_type' => $this->diapers_type,
+                'age' => calculateAge($this->orphan->birth_date),
             ],
         ];
     }

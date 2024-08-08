@@ -112,6 +112,7 @@
     "furnishings.covers": "الأغطية",
     "furnishings.mattresses": "الافرشة",
     "furnishings.other_furnishings": "اثاث اخرى",
+    "hints.eid_al_adha": "تم فلتره النتائج لعرض فقط الأسر...",
     "housing.label.independent": "خاص (مستقل)",
     "housing.label.with_family": "مع العائلة",
     "housing.label.inheritance": "ميراث",
@@ -229,7 +230,6 @@
     "permissions.update": "تعديل",
     "permissions.delete": "حذف",
     "placeholders.fill_interval": " عدد الوحدات الزمنية (على سبيل المثال، الأيام والأسابيع والشهور) بين كل تكرار",
-    "placeholders.eid_al_adha": "تم فلتره النتائج لعرض فقط الأسر...",
     "sponsorships.monthly_allowance": "المصروف الشهري",
     "sponsorships.ramadan_basket": "قفة رمضان",
     "sponsorships.zakat": "الاستفادة من الزكاة",
@@ -805,7 +805,10 @@
     "sponsor_phone_number": "رقم هاتف المتكفل",
     "the_archive": "الأرشيف",
     "the_trash": "المحذوفات",
-    "age_years": "{1} year|{2} years|[3,*] years",
-    "age_months": "{1} month|{2} months|[3,*] months",
-    "age_days": "{1} day|{2} days|[3,*] days"
+    "age_years": "{1} سنة|{2} two سنتين",
+    "age_months": "{1} شهر|{2} شهرين|[3,10] :value اشهر|[11,*] :value شهر",
+    "age_days": "{1} يوم|{2} يومين|[3,10] :value أيام|[11,*] :value يوم",
+    "and": "و",
+    "glue": "، ",
+    "finale_glue": " و"
 }

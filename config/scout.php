@@ -152,7 +152,7 @@ return [
             'babies' => [
                 'filterableAttributes' => ['id', 'tenant_id', 'orphan.health_status', 'orphan.gender', 'family.id', 'orphan.birth_date', 'sponsor.id', 'orphan.id', 'address.zone.id'],
                 'searchableAttributes' => ['orphan.name', 'sponsor.name', 'family.name'],
-                'sortableAttributes' => ['name', 'created_at'],
+                'sortableAttributes' => ['name', 'created_at', 'baby_milk_quantity', 'diapers_quantity', 'orphan.birth_date'],
             ],
             'inventory' => [
                 'filterableAttributes' => ['id', 'name', 'qty', 'unit', 'tenant_id'],

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { ProvideTable } from './BaseTable.vue'
 import type { ProvideThead } from './BaseTheadTable.vue'
 
@@ -47,13 +47,14 @@ const computedClass = computed(() =>
 </script>
 
 <template>
-    <th :class="computedClass" v-bind="attrs.attrs" class="flex-col">
-        <div class="flex cursor-pointer" v-if="sortable">
+    <th :class="computedClass" class="flex-col" v-bind="attrs.attrs">
+        <div v-if="sortable" class="flex cursor-pointer">
             <span class="flex-grow">
                 <slot></slot>
             </span>
-            <svg-loader v-if="direction === 'asc'" name="icon-sort-up" class="fill-current"></svg-loader>
-            <svg-loader class="fill-current" v-else-if="direction === 'desc'" name="icon-sort-down"></svg-loader>
+            <svg-loader v-if="direction === 'asc'" class="fill-current" name="icon-sort-up"></svg-loader>
+
+            <svg-loader v-else-if="direction === 'desc'" class="fill-current" name="icon-sort-down"></svg-loader>
         </div>
         <span v-else><slot></slot></span>
     </th>

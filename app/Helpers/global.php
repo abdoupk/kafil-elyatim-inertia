@@ -5,7 +5,6 @@
 /** @noinspection NullPointerExceptionInspection */
 
 use App\Models\VocationalTraining;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
 use Spatie\Browsershot\Browsershot;
@@ -92,6 +91,10 @@ function generateFormattedSort(): array
     if ($directions) {
         /** @phpstan-ignore-next-line */
         return array_map(static function (string $value, string $key) {
+            if ($key === 'orphan.birth_date') {
+                return $value === 'desc' ? "$key:asc" : "$key:desc";
+            }
+
             return "$key:$value";
         }, array_values($directions), array_keys($directions));
     }
@@ -188,40 +191,20 @@ function formatCurrency(float $amount): false|string
 
 function calculateAge($birthDate): string
 {
-    $locale = app()->getLocale();
-    $today = now();
-    $birthDate = Carbon::parse($birthDate);
-    $interval = $today->diffInYears($birthDate);
+    $diff = date_diff($birthDate, now());
+    $dates = [];
 
-    $ageText = [];
-
-    if ($interval > 0) {
-        $ageText[] = trans_choice('age_years', $interval, ['count' => $interval], $locale);
+    if ($diff->y > 0) {
+        $dates[] = trans_choice('age_years', $diff->y, ['value' => $diff->y]);
     }
 
-    $monthsInterval = $today->diffInMonths($birthDate) % 12;
-
-    if ($monthsInterval > 0) {
-        $ageText[] = trans_choice('age_months', $monthsInterval, ['count' => $monthsInterval], $locale);
+    if ($diff->m > 0) {
+        $dates[] = trans_choice('age_months', $diff->m, ['value' => $diff->m]);
     }
 
-    $daysInterval = $today->diffInDays($birthDate) % 30;
-
-    if ($daysInterval > 0) {
-        $ageText[] = trans_choice('age_days', $daysInterval, ['count' => $daysInterval], $locale);
+    if ($diff->d > 0) {
+        $dates[] = trans_choice('age_days', $diff->d, ['value' => $diff->d]);
     }
 
-    if (count($ageText) > 1) {
-        if ($locale == 'ar') {
-            $ageText[count($ageText) - 2] .= ' ،';
-        } else {
-            $ageText[count($ageText) - 2] .= ' and';
-        }
-    }
-
-    if ($locale == 'ar') {
-        $ageText = array_reverse($ageText);
-    }
-
-    return implode(' - ', $ageText);
+    return implode(trans('finale_glue'), $dates);
 }

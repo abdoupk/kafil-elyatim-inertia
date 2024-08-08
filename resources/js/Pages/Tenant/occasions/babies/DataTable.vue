@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
+import type { BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -10,7 +10,7 @@ import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 
-defineProps<{ orphans: PaginationData<SchoolEntryOrphansResource>; params: IndexParams }>()
+defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: IndexParams }>()
 
 const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
@@ -32,22 +32,39 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('the_child') }}
                         </base-th-table>
 
-                        <base-th-table
-                            :direction="params.directions && params.directions['orphan.academic_level']"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
-                            sortable
-                            @click="emit('sort', 'orphan.academic_level')"
-                        >
-                            {{ $t('academic_level') }}
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
+                            {{ $t('baby_milk_type') }}
                         </base-th-table>
 
                         <base-th-table
-                            :direction="params.directions && params.directions['orphan.year_average']"
+                            :direction="params.directions && params.directions['baby_milk_quantity']"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'baby_milk_quantity')"
+                        >
+                            {{ $t('baby_milk_quantity') }}
+                        </base-th-table>
+
+                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold">
+                            {{ $t('diapers_type') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['diapers_quantity']"
+                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            sortable
+                            @click="emit('sort', 'diapers_quantity')"
+                        >
+                            {{ $t('diapers_quantity') }}
+                        </base-th-table>
+
+                        <base-th-table
+                            :direction="params.directions && params.directions['orphan.birth_date']"
                             class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
-                            @click="emit('sort', 'orphan.year_average')"
+                            @click="emit('sort', 'orphan.birth_date')"
                         >
-                            {{ $t('year_average') }}
+                            {{ $t('validation.attributes.age') }}
                         </base-th-table>
 
                         <base-th-table
@@ -61,10 +78,6 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
                             {{ $t('validation.attributes.sponsor.phone_number') }}
-                        </base-th-table>
-
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
-                            >{{ $t('validation.attributes.address') }}
                         </base-th-table>
                     </base-tr-table>
                 </base-thead-table>
@@ -88,24 +101,31 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <base-td-table
                             class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            <template v-if="orphan.orphan.academic_level">
-                                {{ orphan.orphan.academic_level }}
-                                <p class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
-                                    {{ orphan.orphan?.academic_phase }}
-                                </p>
-                            </template>
-
-                            <p v-else class="ms-8">-</p>
+                            {{ orphan.orphan.baby_milk_type }}
                         </base-td-table>
 
                         <base-td-table
                             class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{
-                                orphan.orphan.last_year_average
-                                    ? parseFloat(orphan.orphan.last_year_average).toFixed(2)
-                                    : '-'
-                            }}
+                            {{ orphan.orphan.baby_milk_quantity }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.orphan.diapers_type }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.orphan.diapers_quantity }}
+                        </base-td-table>
+
+                        <base-td-table
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                        >
+                            {{ orphan.orphan.age }}
                         </base-td-table>
 
                         <base-td-table
@@ -120,19 +140,6 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.sponsor.phone_number }}
-                        </base-td-table>
-
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
-                            {{ orphan.family.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
-                            <Link
-                                :href="route('tenant.zones.index')"
-                                class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
-                            >
-                                {{ orphan.family.zone?.name }}
-                            </Link>
                         </base-td-table>
                     </base-tr-table>
                 </base-tbody-table>

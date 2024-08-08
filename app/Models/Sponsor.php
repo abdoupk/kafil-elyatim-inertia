@@ -233,10 +233,12 @@ class Sponsor extends Model
 
     public function formattedPhoneNumber(): string
     {
-        $phoneNumber = preg_replace('/\D/', '', $this->phone_number);
+        $phone = $this->phone_number;
 
-        // Format with hyphens
-        return substr($phoneNumber, 0, 2).'-'.substr($phoneNumber, 2, 2).'-'.substr($phoneNumber, 4, 2).'-'.substr($phoneNumber, 6);
+        return substr($phone, 0, 4).'-'.
+            substr($phone, 4, 2).'-'.
+            substr($phone, 6, 2).'-'.
+            substr($phone, 8, 2);
     }
 
     protected function casts(): array
