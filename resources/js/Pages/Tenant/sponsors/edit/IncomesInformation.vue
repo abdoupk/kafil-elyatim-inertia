@@ -5,9 +5,6 @@ import type { IncomeType } from '@/types/types'
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
@@ -16,6 +13,8 @@ import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroup
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
 

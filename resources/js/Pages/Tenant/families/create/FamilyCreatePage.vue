@@ -41,7 +41,7 @@ import FamilySponsorShipForm from '@/Pages/Tenant/families/create/stepFive/Famil
 import SponsorSponsorShipForm from '@/Pages/Tenant/families/create/stepFive/SponsorSponsorShipForm.vue'
 import OrphansSponsorShipForm from '@/Pages/Tenant/families/create/stepFive/OrphansSponsorShipForm.vue'
 import { router } from '@inertiajs/vue3'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import StepLoader from '@/Pages/Tenant/families/create/StepLoader.vue'
 
 defineOptions({

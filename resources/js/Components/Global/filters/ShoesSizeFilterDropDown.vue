@@ -4,7 +4,7 @@ import type { FilterValueType } from '@/types/types'
 import { useSizesStore } from '@/stores/sizes'
 import { onMounted } from 'vue'
 
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import FilterValueDropDown from '@/Components/Global/filters/FilterValueDropDown.vue'
 
 const value = defineModel<FilterValueType>('value', {
     default: {

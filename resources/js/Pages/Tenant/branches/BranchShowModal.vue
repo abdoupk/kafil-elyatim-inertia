@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import ShowModal from '@/Pages/Shared/ShowModal.vue'
-
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import ShowModal from '@/Components/Global/ShowModal.vue'
 
 defineProps<{
     open: boolean

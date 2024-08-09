@@ -2,8 +2,6 @@
 import { useLessonsStore } from '@/stores/lessons'
 import type { EventApi } from '@fullcalendar/core'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseDialog from '@/Components/Base/headless/Dialog/BaseDialog.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
@@ -13,6 +11,7 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
 defineProps<{
     open: boolean
@@ -20,7 +19,9 @@ defineProps<{
     eventInfo: EventApi | null
 }>()
 
-const emit = defineEmits(['close', 'delete', 'edit'])
+const emit = defineEmits(['close',
+'delete',
+'edit'])
 
 const lessonsStore = useLessonsStore()
 </script>

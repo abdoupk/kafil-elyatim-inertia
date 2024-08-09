@@ -5,11 +5,11 @@ import { useVocationalTrainingAchievementsStore } from '@/stores/vocational-trai
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import DataTable from '@/Pages/Tenant/orphans/edit/vocational-training-achievement/DataTable.vue'
 import VocationalTrainingAchievementCreateEditModal from '@/Pages/Tenant/orphans/edit/vocational-training-achievement/VocationalTrainingAchievementCreateEditModal.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 

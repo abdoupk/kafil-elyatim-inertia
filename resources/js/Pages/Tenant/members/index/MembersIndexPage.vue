@@ -7,7 +7,6 @@ import { reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import MemberCreateModal from '@/Pages/Tenant/members/MemberCreateModal.vue'
 import MemberShowModal from '@/Pages/Tenant/members/MemberShowModal.vue'
 import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
@@ -16,6 +15,7 @@ import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
+import DeleteModal from '@/Components/Global/DeleteModal.vue'
 
 import { handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'

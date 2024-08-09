@@ -3,7 +3,7 @@ import type { FilterValueSponsorshipType } from '@/types/types'
 
 import { ref } from 'vue'
 
-import FilterSponsorShipDropDown from '@/Pages/Shared/filters/FilterSponsorShipDropDown.vue'
+import FilterSponsorShipDropDown from '@/Components/Global/filters/FilterSponsorShipDropDown.vue'
 
 import { __ } from '@/utils/i18n'
 

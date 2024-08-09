@@ -3,7 +3,7 @@ import type { IndexParams, PaginationData } from '@/types/types'
 
 import { ref } from 'vue'
 
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
+import PaginationDataTable from '@/Components/Global/PaginationDataTable.vue'
 
 import { getDataForIndexPages } from '@/utils/helper'
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import TheAvatar from '@/Pages/Shared/TheAvatar.vue'
+import TheAvatar from '@/Components/Global/TheAvatar.vue'
 
 defineProps<{
     gender: 'male' | 'female' | null

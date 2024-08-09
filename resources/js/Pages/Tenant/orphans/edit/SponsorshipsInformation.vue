@@ -4,13 +4,12 @@ import type { OrphanUpdateFormType } from '@/types/orphans'
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { omit } from '@/utils/helper'
 

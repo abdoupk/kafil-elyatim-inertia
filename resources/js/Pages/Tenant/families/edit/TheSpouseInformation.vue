@@ -4,14 +4,13 @@ import type { FamilyUpdateSpouseFormType, SpouseType } from '@/types/families'
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { omit } from '@/utils/helper'
 

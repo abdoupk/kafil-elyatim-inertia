@@ -3,8 +3,8 @@ import type { ListBoxFilter, ListBoxOperator } from '@/types/types'
 
 import { onMounted, ref, watch } from 'vue'
 
-import FieldsFilterDropDown from '@/Pages/Shared/filters/FieldsFilterDropDown.vue'
-import OperatorsFilterDropDown from '@/Pages/Shared/filters/OperatorsFilterDropDown.vue'
+import FieldsFilterDropDown from '@/Components/Global/filters/FieldsFilterDropDown.vue'
+import OperatorsFilterDropDown from '@/Components/Global/filters/OperatorsFilterDropDown.vue'
 
 defineProps<{ filters: ListBoxFilter[] }>()
 

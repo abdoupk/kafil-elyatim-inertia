@@ -4,15 +4,14 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
-import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
-import TheMemberSelector from '@/Pages/Shared/TheMemberSelector.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
+import TheMemberSelector from '@/Components/Global/TheMemberSelector.vue'
 
 import { financialTransactionSpecifications } from '@/utils/constants'
 import { __, n__ } from '@/utils/i18n'

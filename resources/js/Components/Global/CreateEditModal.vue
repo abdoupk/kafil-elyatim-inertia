@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseDialog from '@/Components/Base/headless/Dialog/BaseDialog.vue'
 import BaseDialogDescription from '@/Components/Base/headless/Dialog/BaseDialogDescription.vue'
 import BaseDialogFooter from '@/Components/Base/headless/Dialog/BaseDialogFooter.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
 import BaseDialogTitle from '@/Components/Base/headless/Dialog/BaseDialogTitle.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{

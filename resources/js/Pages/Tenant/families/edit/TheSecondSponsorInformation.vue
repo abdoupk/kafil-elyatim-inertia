@@ -4,19 +4,20 @@ import type { FamilyUpdateSecondSponsorFormType, SecondSponsorType } from '@/typ
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
 
 const props = defineProps<{ secondSponsor: SecondSponsorType }>()
 
-const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSponsor, ['id', 'family_id', 'name']))
+const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSponsor, ['id',
+'family_id',
+'name']))
 
 const form = useForm('put', route('tenant.families.second-sponsor-update', props.secondSponsor.family_id), inputs)
 

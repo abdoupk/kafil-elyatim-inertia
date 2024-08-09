@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useFamiliesStore } from '@/stores/families'
 
-import FilterPersonDropDown from '@/Pages/Shared/filters/FilterPersonDropDown.vue'
+import FilterPersonDropDown from '@/Components/Global/filters/FilterPersonDropDown.vue'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {

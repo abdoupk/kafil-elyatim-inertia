@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import { usePage } from '@inertiajs/vue3'
 
-import TheAvatar from '@/Pages/Shared/TheAvatar.vue'
-
 import BaseMenu from '@/Components/Base/headless/Menu/BaseMenu.vue'
 import BaseMenuButton from '@/Components/Base/headless/Menu/BaseMenuButton.vue'
 import BaseMenuDivider from '@/Components/Base/headless/Menu/BaseMenuDivider.vue'
 import BaseMenuHeader from '@/Components/Base/headless/Menu/BaseMenuHeader.vue'
 import BaseMenuItem from '@/Components/Base/headless/Menu/BaseMenuItem.vue'
 import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
+import TheAvatar from '@/Components/Global/TheAvatar.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 const authName = usePage().props.auth.user?.first_name + ' ' + usePage().props.auth.user?.last_name

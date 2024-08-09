@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { RegisterStepOneProps, RegisterStepTwoProps } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
@@ -10,7 +10,8 @@ import StepThree from '@/Pages/Auth/Register/StepThree.vue'
 import StepTitle from '@/Pages/Auth/Register/StepTitle.vue'
 import StepTwo from '@/Pages/Auth/Register/StepTwo.vue'
 import TheActions from '@/Pages/Auth/Register/TheActions.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
+
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import {
     registerFormAttributes,
@@ -111,61 +112,61 @@ const submit = () => {
                 class="relative flex flex-col justify-center px-5 before:absolute before:bottom-0 before:top-0 before:mt-4 before:hidden before:h-[3px] before:w-[59%] before:bg-slate-100 before:dark:bg-darkmode-400 sm:px-20 lg:flex-row before:lg:block"
             >
                 <step-title
-                    @go-to="goTo"
                     v-for="(title, index) in registerStepsTitles"
                     :key="`step-${index}`"
                     :current-step="currentStep"
                     :index="index + 1"
                     :title="title"
+                    @go-to="goTo"
                 ></step-title>
             </div>
 
             <form @submit.prevent="submit">
                 <step-one
                     v-model:address="form.address"
-                    v-model:domain="form.domain"
-                    v-model:city="form.city"
                     v-model:association="form.association"
-                    :form
+                    v-model:city="form.city"
+                    v-model:domain="form.domain"
                     :currentStep
+                    :form
                     :totalSteps
                 >
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-one>
 
                 <step-two
                     v-model:email="form.email"
                     v-model:first_name="form.first_name"
                     v-model:last_name="form.last_name"
-                    v-model:phone="form.phone"
-                    v-model:password_confirmation="form.password_confirmation"
                     v-model:password="form.password"
-                    :form
+                    v-model:password_confirmation="form.password_confirmation"
+                    v-model:phone="form.phone"
                     :currentStep
+                    :form
                     :totalSteps
                 >
-                    <the-actions :validating :currentStep :prevStep :totalSteps :nextStep></the-actions>
+                    <the-actions :currentStep :nextStep :prevStep :totalSteps :validating></the-actions>
                 </step-two>
 
                 <step-three
                     v-model:association_email="form.association_email"
+                    v-model:ccp="form.ccp"
+                    v-model:cpa="form.cpa"
                     v-model:landline="form.landline"
                     v-model:links="form.links"
                     v-model:phones="form.phones"
-                    v-model:cpa="form.cpa"
-                    v-model:ccp="form.ccp"
-                    :form
                     :currentStep
+                    :form
                     :totalSteps
                 >
-                    <the-actions :validating :currentStep :prevStep :totalSteps :next-step="submit"></the-actions>
+                    <the-actions :currentStep :next-step="submit" :prevStep :totalSteps :validating></the-actions>
                 </step-three>
             </form>
         </div>
     </div>
 
     <success-notification
-        :title="$t('auth.register.success.title')"
         :open="registeringCompleted"
+        :title="$t('auth.register.success.title')"
     ></success-notification>
 </template>

@@ -6,7 +6,6 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref, watch } from 'vue'
 
-import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
 import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
@@ -16,6 +15,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
 
 import { combineDateAndTime, omit, setDateToCurrentTime } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'

@@ -4,15 +4,14 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
-import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
-import TheVocationalTrainingSelector from '@/Pages/Shared/TheVocationalTrainingSelector.vue'
-
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
+import TheVocationalTrainingSelector from '@/Components/Global/TheVocationalTrainingSelector.vue'
 
 import { __, n__ } from '@/utils/i18n'
 

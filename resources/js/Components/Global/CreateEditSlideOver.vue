@@ -1,12 +1,11 @@
 <script lang="ts" setup>
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseSlideover from '@/Components/Base/headless/Slideover/BaseSlideover.vue'
 import BaseSlideoverDescription from '@/Components/Base/headless/Slideover/BaseSlideoverDescription.vue'
 import BaseSlideoverFooter from '@/Components/Base/headless/Slideover/BaseSlideoverFooter.vue'
 import BaseSlideoverPanel from '@/Components/Base/headless/Slideover/BaseSlideoverPanel.vue'
 import BaseSlideoverTitle from '@/Components/Base/headless/Slideover/BaseSlideoverTitle.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{

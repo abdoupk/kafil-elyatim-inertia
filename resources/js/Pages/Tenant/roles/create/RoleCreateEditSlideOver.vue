@@ -4,14 +4,13 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
-import CreateEditSlideOver from '@/Pages/Shared/CreateEditSlideOver.vue'
-
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
+import CreateEditSlideOver from '@/Components/Global/CreateEditSlideOver.vue'
 
 import { permissions } from '@/utils/constants'
 import { __, n__ } from '@/utils/i18n'

@@ -7,13 +7,13 @@ import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import DataTable from '@/Pages/Tenant/families/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
+import DeleteModal from '@/Components/Global/DeleteModal.vue'
 
 import { handleSort } from '@/utils/helper'
 

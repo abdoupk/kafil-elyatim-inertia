@@ -5,15 +5,14 @@ import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { useForm } from 'laravel-precognition-vue'
 import { onMounted, reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
-import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
 
 import { omit } from '@/utils/helper'
 

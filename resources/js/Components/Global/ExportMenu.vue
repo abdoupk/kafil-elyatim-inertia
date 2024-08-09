@@ -2,13 +2,12 @@
 import print from 'print-js'
 import { ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseMenu from '@/Components/Base/headless/Menu/BaseMenu.vue'
 import BaseMenuButton from '@/Components/Base/headless/Menu/BaseMenuButton.vue'
 import BaseMenuItem from '@/Components/Base/headless/Menu/BaseMenuItem.vue'
 import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatUrl } from '@/utils/helper'

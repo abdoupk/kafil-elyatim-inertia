@@ -3,10 +3,10 @@ import type { IndexParams, ListBoxFilter, PaginationData } from '@/types/types'
 
 import { ref, watch } from 'vue'
 
-import ExportMenu from '@/Pages/Shared/ExportMenu.vue'
 import AdvancedFilter from '@/Pages/Tenant/families/index/AdvancedFilter.vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import ExportMenu from '@/Components/Global/ExportMenu.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { debounce, formatFilters, getDataForIndexPages, isEmpty } from '@/utils/helper'

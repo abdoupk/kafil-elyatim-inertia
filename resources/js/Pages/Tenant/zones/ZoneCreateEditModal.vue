@@ -4,12 +4,11 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, ref } from 'vue'
 
-import CreateEditModal from '@/Pages/Shared/CreateEditModal.vue'
-
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
 
 import { __, n__ } from '@/utils/i18n'
 

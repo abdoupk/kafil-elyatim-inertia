@@ -1,23 +1,22 @@
 <script lang="ts" setup>
 import type { FilterValueType, ListBoxFilter } from '@/types/types'
 
-import BranchesFilterDropDown from '@/Pages/Shared/filters/BranchesFilterDropDown.vue'
-import ClothesSizeFilterDropDown from '@/Pages/Shared/filters/ClothesSizeFilterDropDown.vue'
-import FamiliesFilterDropDown from '@/Pages/Shared/filters/FamiliesFilterDropDown.vue'
-import FamilySponsorShipFilterDropDown from '@/Pages/Shared/filters/FamilySponsorShipFilterDropDown.vue'
-import GenderTypeFilterDropDown from '@/Pages/Shared/filters/GenderTypeFilterDropDown.vue'
-import OrphanAcademicLevelFilterDropDown from '@/Pages/Shared/filters/OrphanAcademicLevelFilterDropDown.vue'
-import OrphanSponsorShipFilterDropDown from '@/Pages/Shared/filters/OrphanSponsorShipFilterDropDown.vue'
-import OrphansFilterDropDown from '@/Pages/Shared/filters/OrphansFilterDropDown.vue'
-import ShoesSizeFilterDropDown from '@/Pages/Shared/filters/ShoesSizeFilterDropDown.vue'
-import SponsorAcademicLevelFilterDropDown from '@/Pages/Shared/filters/SponsorAcademicLevelFilterDropDown.vue'
-import SponsorSponsorShipFilterDropDown from '@/Pages/Shared/filters/SponsorSponsorShipFilterDropDown.vue'
-import SponsorTypeFilterDropDown from '@/Pages/Shared/filters/SponsorTypeFilterDropDown.vue'
-import SponsorsFilterDropDown from '@/Pages/Shared/filters/SponsorsFilterDropDown.vue'
-import ZonesFilterDropDown from '@/Pages/Shared/filters/ZonesFilterDropDown.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BranchesFilterDropDown from '@/Components/Global/filters/BranchesFilterDropDown.vue'
+import ClothesSizeFilterDropDown from '@/Components/Global/filters/ClothesSizeFilterDropDown.vue'
+import FamiliesFilterDropDown from '@/Components/Global/filters/FamiliesFilterDropDown.vue'
+import FamilySponsorShipFilterDropDown from '@/Components/Global/filters/FamilySponsorShipFilterDropDown.vue'
+import GenderTypeFilterDropDown from '@/Components/Global/filters/GenderTypeFilterDropDown.vue'
+import OrphanAcademicLevelFilterDropDown from '@/Components/Global/filters/OrphanAcademicLevelFilterDropDown.vue'
+import OrphanSponsorShipFilterDropDown from '@/Components/Global/filters/OrphanSponsorShipFilterDropDown.vue'
+import OrphansFilterDropDown from '@/Components/Global/filters/OrphansFilterDropDown.vue'
+import ShoesSizeFilterDropDown from '@/Components/Global/filters/ShoesSizeFilterDropDown.vue'
+import SponsorAcademicLevelFilterDropDown from '@/Components/Global/filters/SponsorAcademicLevelFilterDropDown.vue'
+import SponsorSponsorShipFilterDropDown from '@/Components/Global/filters/SponsorSponsorShipFilterDropDown.vue'
+import SponsorTypeFilterDropDown from '@/Components/Global/filters/SponsorTypeFilterDropDown.vue'
+import SponsorsFilterDropDown from '@/Components/Global/filters/SponsorsFilterDropDown.vue'
+import ZonesFilterDropDown from '@/Components/Global/filters/ZonesFilterDropDown.vue'
 
 defineProps<{ field?: ListBoxFilter }>()
 

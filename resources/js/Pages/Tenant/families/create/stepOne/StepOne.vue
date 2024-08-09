@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import type { CreateFamilyStepProps } from '@/types/types'
 
-import TheBranchSelector from '@/Pages/Shared/TheBranchSelector.vue'
-import TheZoneSelector from '@/Pages/Shared/TheZoneSelector.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import TheBranchSelector from '@/Components/Global/TheBranchSelector.vue'
+import TheZoneSelector from '@/Components/Global/TheZoneSelector.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 

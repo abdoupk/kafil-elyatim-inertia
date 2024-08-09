@@ -5,12 +5,11 @@ import { useAcademicLevelsStore } from '@/stores/academic-level'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { onMounted, ref, watch } from 'vue'
 
-import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
-
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 const props = defineProps<{

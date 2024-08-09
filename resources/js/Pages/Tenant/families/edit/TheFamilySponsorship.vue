@@ -4,11 +4,11 @@ import type { FamilySponsorshipType, FamilyUpdateSponsorShipsFormType } from '@/
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import FamilySponsorShipForm from '@/Pages/Tenant/families/create/stepFive/FamilySponsorShipForm.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { omit } from '@/utils/helper'
 

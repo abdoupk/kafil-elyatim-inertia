@@ -3,9 +3,8 @@ import { Combobox, ComboboxButton, ComboboxInput, ComboboxOption, ComboboxOption
 import { twMerge } from 'tailwind-merge'
 import { computed, ref, watch } from 'vue'
 
-import FilterValueDropDownListOption from '@/Pages/Shared/filters/FilterValueDropDownListOption.vue'
-
 import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
+import FilterValueDropDownListOption from '@/Components/Global/filters/FilterValueDropDownListOption.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 const emit = defineEmits(['update:modelValue'])

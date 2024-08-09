@@ -5,11 +5,11 @@ import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import AcademicAchievementCreateEditModal from '@/Pages/Tenant/orphans/edit/academic-achievement/AcademicAchievementCreateEditModal.vue'
 import DataTable from '@/Pages/Tenant/orphans/edit/academic-achievement/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 

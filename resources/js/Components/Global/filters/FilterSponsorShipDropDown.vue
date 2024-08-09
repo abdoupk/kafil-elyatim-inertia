@@ -2,8 +2,7 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/vue'
 import { watch } from 'vue'
 
-import FilterValueDropDownListOption from '@/Pages/Shared/filters/FilterValueDropDownListOption.vue'
-
+import FilterValueDropDownListOption from '@/Components/Global/filters/FilterValueDropDownListOption.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { __ } from '@/utils/i18n'

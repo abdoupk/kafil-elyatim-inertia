@@ -4,7 +4,7 @@ import type { FilterValueType } from '@/types/types'
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { onMounted, ref } from 'vue'
 
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import FilterValueDropDown from '@/Components/Global/filters/FilterValueDropDown.vue'
 
 import { __ } from '@/utils/i18n'
 

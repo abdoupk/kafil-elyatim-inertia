@@ -9,12 +9,12 @@ import type {
 import { useForm } from 'laravel-precognition-vue'
 import { reactive, ref } from 'vue'
 
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-import SuccessNotification from '@/Pages/Shared/SuccessNotification.vue'
 import FurnishingForm from '@/Pages/Tenant/families/create/stepFour/FurnishingForm.vue'
 import HousingForm from '@/Pages/Tenant/families/create/stepFour/HousingForm.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { omit } from '@/utils/helper'
 

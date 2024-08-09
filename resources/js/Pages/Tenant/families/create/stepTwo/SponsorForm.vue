@@ -5,13 +5,12 @@ import { useAcademicLevelsStore } from '@/stores/academic-level'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { onMounted, ref, watch } from 'vue'
 
-import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
+import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 import { __ } from '@/utils/i18n'

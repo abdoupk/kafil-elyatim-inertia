@@ -4,7 +4,7 @@ import type { FilterValueType } from '@/types/types'
 import { useBranchesStore } from '@/stores/branches'
 import { onMounted } from 'vue'
 
-import FilterValueDropDown from '@/Pages/Shared/filters/FilterValueDropDown.vue'
+import FilterValueDropDown from '@/Components/Global/filters/FilterValueDropDown.vue'
 
 import { __ } from '@/utils/i18n'
 
@@ -25,5 +25,5 @@ onMounted(() => {
 </script>
 
 <template>
-    <filter-value-drop-down :data="branchesStore.branches" v-model:value="value"></filter-value-drop-down>
+    <filter-value-drop-down v-model:value="value" :data="branchesStore.branches"></filter-value-drop-down>
 </template>

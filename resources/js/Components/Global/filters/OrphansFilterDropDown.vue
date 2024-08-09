@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useOrphansStore } from '@/stores/orphans'
 
-import FilterPersonDropDown from '@/Pages/Shared/filters/FilterPersonDropDown.vue'
+import FilterPersonDropDown from '@/Components/Global/filters/FilterPersonDropDown.vue'
 
 const value = defineModel<{ id: string; name: string }>('value', {
     default: {

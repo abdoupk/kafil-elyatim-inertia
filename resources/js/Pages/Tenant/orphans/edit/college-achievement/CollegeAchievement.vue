@@ -5,11 +5,11 @@ import { useCollegeAchievementsStore } from '@/stores/college-achievement'
 import { router } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import CollegeAchievementCreateEditModal from '@/Pages/Tenant/orphans/edit/college-achievement/CollegeAchievementCreateEditModal.vue'
 import DataTable from '@/Pages/Tenant/orphans/edit/college-achievement/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 

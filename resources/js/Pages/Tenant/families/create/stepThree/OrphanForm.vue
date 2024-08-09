@@ -7,15 +7,14 @@ import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { computed, onMounted, ref, watch } from 'vue'
 
-import TheAcademicLevelSelector from '@/Pages/Shared/TheAcademicLevelSelector.vue'
-import TheVocationalTrainingSelector from '@/Pages/Shared/TheVocationalTrainingSelector.vue'
-
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
+import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheVocationalTrainingSelector from '@/Components/Global/TheVocationalTrainingSelector.vue'
 
 const props = defineProps<{
     form: Form<CreateFamilyForm>
