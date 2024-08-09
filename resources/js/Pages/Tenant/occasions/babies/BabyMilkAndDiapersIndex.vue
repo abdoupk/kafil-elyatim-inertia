@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import type { IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
+import type { BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
 
-import { schoolEntryFilters } from '@/constants/filters'
+import { babiesMilkAndDiapersFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
@@ -23,7 +23,7 @@ defineOptions({
 })
 
 const props = defineProps<{
-    orphans: PaginationData<SchoolEntryOrphansResource>
+    orphans: PaginationData<BabiesMilkAndDiapersResource>
     params: IndexParams
 }>()
 
@@ -45,7 +45,7 @@ const sort = (field: string) => handleSort(field, params)
     <the-table-header
         :export-pdf-url="route('tenant.occasions.babies-milk-and-diapers.export.pdf', params)"
         :export-xlsx-url="route('tenant.occasions.babies-milk-and-diapers.export.xlsx', params)"
-        :filters="schoolEntryFilters"
+        :filters="babiesMilkAndDiapersFilters"
         :pagination-data="orphans"
         :params="params"
         :title="$t('list', { attribute: $t('the_babies_milk_and_diapers') })"
