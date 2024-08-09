@@ -9,6 +9,6 @@ class FamiliesEidAlAdhaIndexExport implements FromCollection
 {
     public function collection(): Collection
     {
-        return collect(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()->items());
+        return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport();
     }
 }

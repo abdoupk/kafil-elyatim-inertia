@@ -9,6 +9,6 @@ class FamiliesRamadanBasketIndexExport implements FromCollection
 {
     public function collection(): Collection
     {
-        return collect(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()->items());
+        return listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport();
     }
 }

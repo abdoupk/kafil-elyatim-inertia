@@ -9,6 +9,6 @@ class OrphansEidSuitIndexExport implements FromCollection
 {
     public function collection(): Collection
     {
-        return collect(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()->items());
+        return listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport();
     }
 }

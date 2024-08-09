@@ -9,6 +9,6 @@ class BabiesIndexExport implements FromCollection
 {
     public function collection(): Collection
     {
-        return collect(getBabiesForExport());
+        return getBabiesForExport();
     }
 }

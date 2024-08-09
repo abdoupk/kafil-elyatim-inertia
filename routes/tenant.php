@@ -72,18 +72,18 @@ use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\BabyMilkAndDiapersIndex
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesPDFController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesXlsxController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
-use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDF;
+use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDFController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
 use App\Http\Controllers\V1\Occasions\EidSuit\EidSuitIndexController;
-use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitPDF;
+use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitPDFController;
 use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitXlsxController;
 use App\Http\Controllers\V1\Occasions\MonthlyBasket\ExportFamiliesMonthlyBasketPDFController;
 use App\Http\Controllers\V1\Occasions\MonthlyBasket\ExportFamiliesMonthlyBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\MonthlyBasket\FamiliesMonthlyBasketIndexController;
-use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDF;
+use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDFController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
-use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryPDF;
+use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryPDFController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryXlsxController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
@@ -423,7 +423,7 @@ Route::middleware([
                     Route::get('', EidAlAdhaIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportFamiliesEidAlAdhaPDF::class)
+                    Route::get('export-pdf', ExportFamiliesEidAlAdhaPDFController::class)
                         ->name('export.pdf');
 
                     Route::get('export-xlsx', ExportFamiliesEidAlAdhaXlsxController::class)
@@ -434,7 +434,7 @@ Route::middleware([
                     Route::get('', SchoolEntryIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportOrphansSchoolEntryPDF::class)
+                    Route::get('export-pdf', ExportOrphansSchoolEntryPDFController::class)
                         ->name('export.pdf');
 
                     Route::get('export-xlsx', ExportOrphansSchoolEntryXlsxController::class)
@@ -445,7 +445,7 @@ Route::middleware([
                     Route::get('', RamadanBasketIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportFamiliesRamadanBasketPDF::class)
+                    Route::get('export-pdf', ExportFamiliesRamadanBasketPDFController::class)
                         ->name('export.pdf');
 
                     Route::get('export-xlsx', ExportFamiliesRamadanBasketXlsxController::class)
@@ -456,7 +456,7 @@ Route::middleware([
                     Route::get('', EidSuitIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportOrphansEidSuitPDF::class)
+                    Route::get('export-pdf', ExportOrphansEidSuitPDFController::class)
                         ->name('export.pdf');
 
                     Route::get('export-xlsx', ExportOrphansEidSuitXlsxController::class)

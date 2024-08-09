@@ -7,7 +7,7 @@ use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
-class ExportFamiliesEidAlAdhaPDF extends Controller
+class ExportFamiliesEidAlAdhaPDFController extends Controller
 {
     /**
      * @throws Throwable

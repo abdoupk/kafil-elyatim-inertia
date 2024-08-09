@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ExportOrphansSchoolEntryPDF extends Controller
+class ExportOrphansSchoolEntryPDFController extends Controller
 {
     /**
      * @throws \Throwable

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ExportFamiliesRamadanBasketPDF extends Controller
+class ExportFamiliesRamadanBasketPDFController extends Controller
 {
     /**
      * @throws \Throwable
@@ -14,8 +14,8 @@ class ExportFamiliesRamadanBasketPDF extends Controller
      */
     public function __invoke(): StreamedResponse
     {
-        return saveToPDF('occasions/eid-al-adha-families', 'families', function () {
-            return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship();
+        return saveToPDF('occasions/ramadan-basket', 'sponsorships', function () {
+            return listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport();
         });
     }
 }

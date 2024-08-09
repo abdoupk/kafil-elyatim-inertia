@@ -5,10 +5,10 @@ namespace App\Exports;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class OrphansSchoolEntryIndexExport implements FromCollection
+class FamiliesMonthlyBasketIndexExport implements FromCollection
 {
     public function collection(): Collection
     {
-        return listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport();
+        return listOfFamiliesBenefitingFromTheMonthlyBasketForExport();
     }
 }
