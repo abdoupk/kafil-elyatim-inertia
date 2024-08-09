@@ -213,7 +213,7 @@ class Family extends Model
                 'address' => $this->secondSponsor?->address,
             ],
             'branch' => $this->branch?->only(['id', 'name']),
-            'total_income' => $this->totalIncomes(),
+            'total_income' => (float) $this->totalIncomes(),
             'orphans_count' => $this->orphans->count(),
             'family_sponsorships' => [
                 'monthly_allowance' => boolval($this->sponsorships?->monthly_allowance),

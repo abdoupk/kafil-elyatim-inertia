@@ -114,14 +114,14 @@ export const familiesFilters: ListBoxFilter[] = [
         operators: filterNumberOperators
     },
     {
-        icon: 'icon-children',
+        icon: 'icon-briefcase',
         field: 'spouse.function',
         label: 'spouse.function',
         type: 'string',
         operators: filterStringOperators
     },
     {
-        icon: 'icon-children',
+        icon: 'icon-dollar-sign',
         field: 'total_income',
         label: 'total_income',
         type: 'number',
@@ -159,14 +159,14 @@ export const sponsorsFilters: ListBoxFilter[] = [
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-children',
+        icon: 'icon-hashtag',
         field: 'orphans_count',
         label: 'children_count',
         type: 'number',
         operators: filterNumberOperators
     },
     {
-        icon: 'icon-children',
+        icon: 'icon-dollar-sign',
         field: 'income',
         label: 'income',
         type: 'number',
@@ -187,14 +187,14 @@ export const sponsorsFilters: ListBoxFilter[] = [
         operators: filterDateOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-handshake-angle',
         field: 'sponsorships',
         label: 'sponsor_sponsorships',
         type: 'object',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-stethoscope',
         field: 'health_status',
         label: 'health_status',
         type: 'string',
@@ -208,14 +208,14 @@ export const sponsorsFilters: ListBoxFilter[] = [
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-gender',
         field: 'gender',
         label: 'gender',
         type: 'object',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-briefcase',
         field: 'function',
         label: 'function',
         type: 'string',
@@ -232,7 +232,7 @@ export const orphansFilters: ListBoxFilter[] = [
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-children',
+        icon: 'icon-dollar-sign',
         field: 'income',
         label: 'income',
         type: 'number',
@@ -260,42 +260,42 @@ export const orphansFilters: ListBoxFilter[] = [
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-stethoscope',
         field: 'health_status',
         label: 'health_status',
         type: 'string',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-people-roof',
         field: 'family_status',
         label: 'family_status',
         type: 'string',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-gender',
         field: 'gender',
         label: 'gender',
         type: 'object',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-shoes',
         field: 'shoes_size',
         label: 'shoes_size',
         type: 'object',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-pants',
         field: 'pants_size',
         label: 'pants_size',
         type: 'object',
         operators: filterObjectOperators
     },
     {
-        icon: 'icon-hands-holding-heart',
+        icon: 'icon-shirt-long-sleeve',
         field: 'shirt_size',
         label: 'shirt_size',
         type: 'object',
