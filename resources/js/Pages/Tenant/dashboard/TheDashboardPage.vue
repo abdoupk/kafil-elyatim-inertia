@@ -1,74 +1,60 @@
 <script lang="ts" setup>
+import type { GeneralReports } from '@/types/dashboard'
+
+import { useSettingsStore } from '@/stores/settings'
 import { Head } from '@inertiajs/vue3'
+import { computed, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import ReportBox from '@/Pages/Tenant/dashboard/ReportBox.vue'
+import TheFinancialReport from '@/Pages/Tenant/dashboard/FinianchialReport/TheFinancialReport.vue'
+import TheGeneralReports from '@/Pages/Tenant/dashboard/GenralReports/TheGeneralReports.vue'
+
+import { getColor } from '@/utils/colors'
 
 defineOptions({
     layout: TheLayout
 })
 
-interface Stats {
-    total: number
-    percentageDifference: string
-}
-
-defineProps<{
-    members: Stats
-    orphans: Stats
-    branches: Stats
-    families: Stats
+const props = defineProps<{
+    reports: GeneralReports
+    financialReports: {
+        incomes: number[]
+        expenses: number[]
+    }
 }>()
+
+console.log(props)
+
+const colorScheme = computed(() => useSettingsStore().colorScheme)
+
+const darkMode = computed(() => useSettingsStore().appearance === 'dark')
+
+const datasets = ref([
+    {
+        // eslint-disable-next-line array-element-newline
+        data: props.financialReports.incomes,
+        label: 'Incomes',
+        borderColor: () => (colorScheme.value ? getColor('primary') : '')
+    },
+    {
+        // eslint-disable-next-line array-element-newline
+        data: props.financialReports.expenses,
+        label: 'Expenses',
+        borderColor: () => (darkMode.value ? getColor('darkmode.200') : getColor('slate.300'))
+    }
+])
+
+// eslint-disable-next-line array-element-newline
+const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May', 'Jun', 'Jul', 'Aug'])
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <div class="grid grid-cols-12 gap-6">
-        <div class="col-span-12 2xl:col-span-9">
-            <div class="grid grid-cols-12 gap-6">
-                <div class="col-span-12 mt-8">
-                    <div class="intro-y flex h-10 items-center">
-                        <h2 class="me-5 truncate text-lg font-medium">
-                            {{ $t('General Reports') }}
-                        </h2>
-                    </div>
-                    <div class="mt-5 grid grid-cols-12 gap-6">
-                        <report-box
-                            :percentageDifference="parseInt(orphans.percentageDifference)"
-                            :stat="orphans.total"
-                            :title="$t('total orphans')"
-                            icon="icon-hands-holding-child"
-                            icon-color="primary"
-                        ></report-box>
+    <the-general-reports :reports></the-general-reports>
 
-                        <report-box
-                            :percentageDifference="parseInt(families.percentageDifference)"
-                            :stat="families.total"
-                            :title="$t('total families')"
-                            icon="icon-family"
-                            icon-color="dark"
-                        ></report-box>
-
-                        <report-box
-                            :percentageDifference="parseInt(members.percentageDifference)"
-                            :stat="members.total"
-                            :title="$t('total members')"
-                            icon="icon-users-gear"
-                            icon-color="pending"
-                        ></report-box>
-
-                        <report-box
-                            :percentageDifference="parseInt(branches.percentageDifference)"
-                            :stat="branches.total"
-                            :title="$t('total branches')"
-                            icon="icon-branches"
-                            icon-color="success"
-                        ></report-box>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="grid co">
+        <the-financial-report></the-financial-report>
     </div>
 </template>

@@ -61,6 +61,7 @@
             "app/Helpers/families.php",
             "app/Helpers/occasions.php",
             "app/Helpers/statistics.php",
+            "app/Helpers/dashboard.php",
             "app/Helpers/members.php",
             "app/Helpers/zones.php",
             "app/Helpers/branches.php",

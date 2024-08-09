@@ -51,10 +51,7 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8),
-                    callback: function(value) {
-                        return '$' + value
-                    }
+                    color: getColor('slate.500', 0.8)
                 },
                 grid: {
                     display: false,
@@ -66,7 +63,10 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: getColor('slate.500', 0.8),
+                    callback: function(value) {
+                        return '$' + value
+                    }
                 },
                 grid: {
                     color: darkMode.value
@@ -75,6 +75,12 @@ const options = computed<ChartOptions>(() => {
                     borderDash: [2, 2],
                     drawBorder: false
                 }
+            },
+            grid: {
+                display: false
+            },
+            ticks: {
+                display: false
             }
         }
     }

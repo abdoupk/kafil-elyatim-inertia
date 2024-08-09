@@ -10,6 +10,10 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/dashboard/TheDashboardPage', generateGlobalDashBoardStatistics());
+        return Inertia::render('Tenant/dashboard/TheDashboardPage', [
+            'reports' => fn () => generateGlobalDashBoardReportStatistics(),
+            'financialReports' => fn () => generateFinancialReport(),
+            'radar' => generateTest(),
+        ]);
     }
 }
