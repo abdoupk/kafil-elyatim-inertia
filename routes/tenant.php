@@ -83,6 +83,8 @@ use App\Http\Controllers\V1\Occasions\MonthlyBasket\FamiliesMonthlyBasketIndexCo
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDF;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
+use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryPDF;
+use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryXlsxController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
@@ -432,10 +434,10 @@ Route::middleware([
                     Route::get('', SchoolEntryIndexController::class)
                         ->name('index');
 
-                    Route::get('export-pdf', ExportOrphansPDFController::class)
+                    Route::get('export-pdf', ExportOrphansSchoolEntryPDF::class)
                         ->name('export.pdf');
 
-                    Route::get('export-xlsx', ExportOrphansXlsxController::class)
+                    Route::get('export-xlsx', ExportOrphansSchoolEntryXlsxController::class)
                         ->name('export.xlsx');
                 });
 

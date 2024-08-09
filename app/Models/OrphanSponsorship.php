@@ -87,7 +87,7 @@ class OrphanSponsorship extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('orphan', 'orphan.sponsor', 'orphan.family', 'orphan.family.zone', 'orphan.lastAcademicYearAchievement');
+        return $models->load('orphan.academicLevel', 'orphan.sponsor', 'orphan.family', 'orphan.family.zone', 'orphan.lastAcademicYearAchievement');
     }
 
     public function toSearchableArray(): array
@@ -107,10 +107,9 @@ class OrphanSponsorship extends Model
             'orphan' => [
                 'id' => $this->orphan->id,
                 'name' => $this->orphan->getName(),
-                'academic_level' => [
-                    // TODO: Add academic level
-                    //                    $this->orphan?->lastAcademicYearAchievement?->academic_level,
-                    //                    'academic_phase' => $this->orphan?->lastAcademicYearAchievement?->academic_phase,
+                'academic_achievement' => [
+                    'academic_level' => $this->orphan->academicLevel,
+                    'academic_year' => $this->orphan->lastAcademicYearAchievement?->academic_year,
                 ],
                 'year_average' => (float) $this->orphan?->lastAcademicYearAchievement?->average,
                 'shirt_size' => $this->orphan->shirt_size,

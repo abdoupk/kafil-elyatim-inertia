@@ -9,6 +9,9 @@ use App\Models\OrphanSponsorship;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
+$last_academic_year = (now()->year) - 1;
+define('FILTER_SCHOOL_ENTRY', "AND school_bag = true AND school_bag IS NOT NULL AND orphan.academic_achievement.academic_year IS NOT EMPTY AND orphan.academic_achievement.academic_year >= $last_academic_year");
+
 function listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship(): LengthAwarePaginator
 {
     return search(FamilySponsorship::getModel(), 'AND eid_al_adha != false AND eid_al_adha IS NOT NULL')
@@ -38,12 +41,20 @@ function listOfFamiliesBenefitingFromTheMonthlyBasket(): LengthAwarePaginator
 
 function listOfOrphansBenefitingFromTheSchoolEntrySponsorship(): LengthAwarePaginator
 {
-    return search(OrphanSponsorship::getModel(), 'AND school_bag = true AND school_bag IS NOT NULL')
+    return search(OrphanSponsorship::getModel(), additional_filters: FILTER_SCHOOL_ENTRY)
         ->query(fn ($query) => $query
             ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.lastAcademicYearAchievement.academicLevel', 'orphan.family.zone:id,name'])
         )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
+}
+
+function listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport(): Collection
+{
+    return search(OrphanSponsorship::getModel(), FILTER_SCHOOL_ENTRY, 10000)
+        ->query(fn ($query) => $query
+            ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan', 'orphan.lastAcademicYearAchievement.academicLevel', 'orphan.family.zone:id,name'])
+        )->get();
 }
 
 function listOfFamiliesBenefitingFromTheRamadanBasketSponsorship(): LengthAwarePaginator

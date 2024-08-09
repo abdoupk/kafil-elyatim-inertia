@@ -14,8 +14,8 @@ class ExportOrphansSchoolEntryPDF extends Controller
      */
     public function __invoke(): StreamedResponse
     {
-        return saveToPDF('occasions/eid-al-adha-families', 'families', function () {
-            return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship();
+        return saveToPDF('occasions/school-entry', 'sponsorships', function () {
+            return listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport();
         });
     }
 }
