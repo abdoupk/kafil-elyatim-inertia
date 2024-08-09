@@ -402,7 +402,7 @@ const handleCloseModal = () => {
             <!-- End: Subject-->
 
             <!-- Begin: Orphans-->
-            <div class="col-span-12">
+            <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="orphans">
                     {{ $t('the_orphans') }}
                 </base-form-label>

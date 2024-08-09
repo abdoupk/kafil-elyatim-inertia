@@ -296,5 +296,6 @@
     "age_days": "{1} يوم|{2} يومين|[3,10] :value أيام|[11,*] :value يوم",
     "and": "و",
     "glue": "، ",
-    "finale_glue": " و"
+    "finale_glue": " و",
+    "age": "العمر"
 }

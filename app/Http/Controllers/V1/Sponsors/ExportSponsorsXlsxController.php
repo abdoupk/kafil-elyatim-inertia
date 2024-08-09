@@ -16,6 +16,6 @@ class ExportSponsorsXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new SponsorsIndexExport, 'sponsors.xlsx');
+        return Excel::download(new SponsorsIndexExport, 'exports.sponsors.xlsx');
     }
 }

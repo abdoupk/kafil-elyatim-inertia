@@ -23,7 +23,7 @@ function saveToPDF(string $directory, string $variableName, callable $function):
         $disk->makeDirectory($directory);
     }
 
-    $pdfName = __('pdf.'.Str::replace('-', '_', explode('/', "$directory/$variableName")[1]));
+    $pdfName = __('exports.'.Str::replace('-', '_', explode('/', "$directory/$variableName")[1]));
 
     $pdfFile = "$directory/$pdfName".'_'.now()->format('y-m-d').'.pdf';
 

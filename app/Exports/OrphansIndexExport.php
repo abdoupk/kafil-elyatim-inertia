@@ -5,7 +5,7 @@ namespace App\Exports;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class orphansIndexExport implements FromCollection
+class OrphansIndexExport implements FromCollection
 {
     public function collection(): Collection
     {

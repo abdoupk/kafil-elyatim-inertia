@@ -122,4 +122,9 @@ class Baby extends Model
             'orphan_id' => 'string',
         ];
     }
+
+    public function getName(): string
+    {
+        return $this->orphan->getName();
+    }
 }
