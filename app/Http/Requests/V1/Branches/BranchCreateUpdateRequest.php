@@ -9,7 +9,7 @@ class BranchCreateUpdateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => __('branch name'),
+            'name' => __('branch_name'),
             'city_id' => __('commune'),
             'president_id' => __('branch_president'),
             'created_at' => __('validation.attributes.created_at'),

@@ -3,12 +3,13 @@ import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/ty
 
 import { useZonesStore } from '@/stores/zones'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watchEffect } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import ZoneCreateEditModal from '@/Pages/Tenant/zones/ZoneCreateEditModal.vue'
+import ZoneShowModal from '@/Pages/Tenant/zones/ZoneShowModal.vue'
 import DataTable from '@/Pages/Tenant/zones/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -42,6 +43,8 @@ const zonesStore = useZonesStore()
 const deleteModalStatus = ref<boolean>(false)
 
 const createEditModalStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
@@ -81,6 +84,16 @@ const showEditModal = async (zoneId: string) => {
     createEditModalStatus.value = true
 }
 
+const showDetailsModal = async (zoneId: string | null) => {
+    if (zoneId) {
+        selectedZoneId.value = zoneId
+
+        await zonesStore.getZone(zoneId)
+
+        showModalStatus.value = true
+    }
+}
+
 const showCreateModal = () => {
     zonesStore.$reset()
 
@@ -93,9 +106,11 @@ const showDeleteModal = (zoneId: string) => {
     deleteModalStatus.value = true
 }
 
-watchEffect(() => {
-    if (new URLSearchParams(window.location.search).has('show')) {
-        // TODO: show Details Modal
+onMounted(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
     }
 })
 </script>
@@ -145,4 +160,6 @@ watchEffect(() => {
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></zone-create-edit-modal>
+
+    <zone-show-modal :open="showModalStatus" :title="'s'" @close="showModalStatus = false"></zone-show-modal>
 </template>
