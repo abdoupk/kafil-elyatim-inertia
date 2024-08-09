@@ -5,9 +5,9 @@ import { Link } from '@inertiajs/vue3'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
-import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
@@ -62,23 +62,23 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                 <base-tbody-table>
                     <base-tr-table v-for="(school, index) in schools.data" :key="school.id" class="intro-x">
-                        <base-td-table class="w-16">
+                        <the-table-td class="w-16">
                             {{ (schools.meta.from ?? 0) + index }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table class="!min-w-40 !max-w-40 truncate">
+                        <the-table-td class="!min-w-40 !max-w-40 truncate">
                             <Link :href="route('tenant.schools.show', school.id)" class="font-medium">
                                 {{ school.name }}
                             </Link>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table class="max-w-40 truncate text-center">
+                        <the-table-td class="max-w-40 truncate text-center">
                             {{ school.quota }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table class="text-center">
+                        <the-table-td class="text-center">
                             {{ formatDate(school.created_at, 'full') }}
-                        </base-td-table>
+                        </the-table-td>
 
                         <the-table-td-actions>
                             <div class="flex items-center justify-center">

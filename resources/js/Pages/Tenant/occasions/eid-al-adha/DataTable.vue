@@ -8,7 +8,6 @@ import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
-import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
 import { formatCurrency } from '@/utils/helper'
@@ -81,11 +80,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ (families.meta.from ?? 0) + index }}
                         </the-table-td>
 
-                        <the-table-td-actions class="!min-w-24 !max-w-24 truncate">
+                        <the-table-td class="!min-w-24 !max-w-24 truncate">
                             <Link :href="route('tenant.sponsors.show', family.sponsor.id)" class="font-medium">
                                 {{ family.sponsor.name }}
                             </Link>
-                        </the-table-td-actions>
+                        </the-table-td>
 
                         <the-table-td class="text-center">
                             {{ family.sponsor.phone_number }}
