@@ -23,10 +23,6 @@
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('health_status') }}
-        </th>
-
-        <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
             {{ __('phone_number') }}
         </th>
 
@@ -35,11 +31,11 @@
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('orphans_count') }}
+            {{ __('filters.gender') }}
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            ccp
+            {{ __('health_status') }}
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
@@ -47,7 +43,11 @@
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('filters.gender') }}
+            {{ __('filters.birth_date') }}
+        </th>
+
+        <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
+            {{ __('orphans_count') }}
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
@@ -55,11 +55,12 @@
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('income') }}
+            ccp
         </th>
 
+
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('filters.birth_date') }}
+            {{ __('income') }}
         </th>
     </tr>
     </thead>
@@ -84,6 +85,14 @@
                 {{ __($sponsor->sponsor_type) }}
             </td>
 
+            <td class="px-2 py-0.5 border text-center border-black">
+                {{ __($sponsor->gender) }}
+            </td>
+
+            <td class="px-2 py-0.5 border text-center border-black">
+                {{ $sponsor->health_status }}
+            </td>
+
             <td class="px-2 py-0.5 border border-black text-center">
                 {{ $sponsor->academicLevel->level }}
 
@@ -91,7 +100,7 @@
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ __($sponsor->gender) }}
+                {{ $sponsor->birth_date->format('Y/m/d') }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
@@ -99,23 +108,15 @@
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $sponsor->ccp }}
-            </td>
-
-            <td class="px-2 py-0.5 border text-center border-black">
                 {{ $sponsor->diploma }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
+                {{ $sponsor->ccp }}
+            </td>
+
+            <td class="px-2 py-0.5 border text-center border-black">
                 {{ formatCurrency($sponsor->incomes->total_income) }}
-            </td>
-
-            <td class="px-2 py-0.5 border text-center border-black">
-                {{ $sponsor->birth_date->format('Y/m/d') }}
-            </td>
-
-            <td class="px-2 py-0.5 border text-center border-black">
-                {{ $sponsor->birth_date->format('Y/m/d') }}
             </td>
         </tr>
     @endforeach
