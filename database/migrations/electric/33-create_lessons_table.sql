@@ -7,7 +7,8 @@ create table "lessons"
     "quota"             integer                        not null,
     "tenant_id"         uuid                           not null,
     "created_at"        timestamp(0) without time zone null,
-    "updated_at"        timestamp(0) without time zone null
+    "updated_at"        timestamp(0) without time zone null,
+    "deleted_at"        timestamp(0) without time zone null
 );
 alter table "lessons"
     add primary key ("id")

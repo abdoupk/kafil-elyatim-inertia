@@ -21,7 +21,8 @@ CREATE TABLE "finances"
     "created_by"    UUID                           NOT NULL,
     "tenant_id"     UUID                           NOT NULL,
     "created_at"    timestamp(0) WITHOUT TIME ZONE NULL,
-    "updated_at"    timestamp(0) WITHOUT TIME ZONE NULL
+    "updated_at"    timestamp(0) WITHOUT TIME ZONE NULL,
+    "deleted_at"    timestamp(0) without time zone null
 );
 
 -- Create Indexes

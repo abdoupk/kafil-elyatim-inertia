@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -44,7 +45,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class EventOccurrence extends Model
 {
-    use BelongsToTenant, BelongsToTenant, HasUuids;
+    use BelongsToTenant, BelongsToTenant, HasUuids,SoftDeletes;
 
     protected $fillable = [
         'event_id',

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
@@ -45,7 +46,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class Finance extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, Searchable;
+    use BelongsToTenant, HasFactory, HasUuids,Searchable, SoftDeletes;
 
     protected $fillable = [
         'amount',
