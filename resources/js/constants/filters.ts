@@ -417,7 +417,58 @@ export const needsFilters: ListBoxFilter[] = []
 
 export const monthlyBasketFilters: ListBoxFilter[] = []
 
-export const babiesMilkAndDiapersFilters: ListBoxFilter[] = []
+// Add diapers icon
+export const babiesMilkAndDiapersFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-children',
+        field: 'orphan.id',
+        label: 'orphan',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'sponsor.id',
+        label: 'sponsor',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'orphan.birth_date',
+        label: 'birth_date',
+        type: 'date',
+        operators: filterDateOperators
+    },
+    {
+        icon: 'icon-bottle-baby',
+        field: 'baby_milk_type',
+        label: 'baby_milk_type',
+        type: 'string',
+        operators: filterStringOperators
+    },
+    {
+        icon: 'icon-hashtag',
+        field: 'baby_milk_quantity',
+        label: 'baby_milk_quantity',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-briefcase',
+        field: 'diapers_type',
+        label: 'diapers_type',
+        type: 'string',
+        operators: filterStringOperators
+    },
+    {
+        icon: 'icon-hashtag',
+        field: 'diapers_quantity',
+        label: 'diapers_quantity',
+        type: 'number',
+        operators: filterNumberOperators
+    }
+]
 
 export const financialFilters: ListBoxFilter[] = []
 export const schoolsFilters: ListBoxFilter[] = []

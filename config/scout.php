@@ -150,7 +150,7 @@ return [
                 'sortableAttributes' => ['name', 'created_at'],
             ],
             'babies' => [
-                'filterableAttributes' => ['id', 'tenant_id', 'orphan.health_status', 'orphan.gender', 'family.id', 'orphan.birth_date', 'sponsor.id', 'orphan.id', 'address.zone.id'],
+                'filterableAttributes' => ['orphan.id', 'tenant_id', 'orphan.health_status', 'orphan.gender', 'family.id', 'orphan.birth_date', 'sponsor.id', 'orphan.id', 'address.zone.id', 'baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type'],
                 'searchableAttributes' => ['orphan.name', 'sponsor.name', 'family.name'],
                 'sortableAttributes' => ['name', 'created_at', 'baby_milk_quantity', 'diapers_quantity', 'orphan.birth_date'],
             ],

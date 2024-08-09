@@ -43,4 +43,8 @@ return [
     'shirt_size' => 'مقاس القميص',
     'orphan' => 'اليتيم',
     'general_average' => 'المعدل العام',
+    'baby_milk_quantity' => 'كمية حليب الأطفال',
+    'baby_milk_type' => 'نوع حليب الأطفال',
+    'diapers_quantity' => 'كمية الحفاضات',
+    'diapers_type' => 'نوع الحفاضات',
 ];
