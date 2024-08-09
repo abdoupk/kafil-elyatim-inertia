@@ -25,7 +25,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
         <base-dialog-panel>
             <form @submit.prevent="emit('handleSubmit')">
                 <base-dialog-title>
-                    <h2 class="me-auto text-base font-medium">
+                    <h2 class="me-auto text-base ltr:font-medium rtl:font-semibold">
                         {{ title }}
                     </h2>
 
