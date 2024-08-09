@@ -47,7 +47,7 @@ onMounted(() => {
                 <Link :href="route('tenant.dashboard')" class="intro-x flex items-center ps-5 pt-4">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
                     <span
-                        class="ms-3 hidden font-semibold max-w-40 capitalize truncate text-white xl:block"
+                        class="ms-3 hidden max-w-40 truncate font-semibold capitalize text-white xl:block"
                         :class="isAssociationNameLatin ? 'text-xs' : 'text-base'"
                     >
                         {{ $page.props.association }}

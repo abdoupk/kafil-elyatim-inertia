@@ -16,7 +16,7 @@ defineProps<{
 </script>
 
 <template>
-    <base-table class="mt-2 border-separate overflow-x-auto border-spacing-y-[10px]">
+    <base-table class="mt-2 border-separate border-spacing-y-[10px] overflow-x-auto">
         <base-thead-table>
             <base-tr-table>
                 <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
@@ -74,40 +74,40 @@ defineProps<{
                 </base-td-table>
 
                 <base-td-table
-                    class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                    class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                 >
                     {{ college_achievement.year }}
                 </base-td-table>
 
                 <base-td-table
-                    class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                    class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                 >
                     {{ college_achievement.university }}
                 </base-td-table>
 
                 <base-td-table
-                    class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                    class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                 >
                     {{ college_achievement.first_semester }}
                 </base-td-table>
 
                 <base-td-table
-                    class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                    class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                 >
                     {{ college_achievement.second_semester }}
                 </base-td-table>
 
                 <base-td-table
-                    class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                    class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                 >
                     {{ college_achievement.average }}
                 </base-td-table>
 
                 <base-td-table
-                    class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                    class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                 >
                     <base-tippy v-if="college_achievement?.note" :content="college_achievement?.note">
-                        <svg-loader class="block mx-auto h-6 w-6" name="icon-note"></svg-loader>
+                        <svg-loader class="mx-auto block h-6 w-6" name="icon-note"></svg-loader>
                     </base-tippy>
 
                     <span v-else> - </span>

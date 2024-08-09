@@ -20,12 +20,12 @@ const { view, updateView } = inject('familyEditView') as FamilyEditView
 
 <template>
     <a
-        :class="view === viewName ? 'rtl:font-bold text-primary' : 'font-medium'"
-        class="flex items-center mt-5"
+        :class="view === viewName ? 'text-primary rtl:font-bold' : 'font-medium'"
+        class="mt-5 flex items-center"
         href="javascript:void(0)"
         @click="updateView(viewName)"
     >
-        <svg-loader :name="icon" class="w-5 h-5 me-2"></svg-loader>
+        <svg-loader :name="icon" class="me-2 h-5 w-5"></svg-loader>
         {{ $t(viewName) }}
     </a>
 </template>

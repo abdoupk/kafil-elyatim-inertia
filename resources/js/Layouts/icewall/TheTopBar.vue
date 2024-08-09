@@ -23,7 +23,7 @@ const settingsStore = useSettingsStore()
                 <span
                     :class="
                         twMerge([
-                            'ms-3 text-white font-semibold max-w-40 capitalize truncate',
+                            'ms-3 max-w-40 truncate font-semibold capitalize text-white',
                             settingsStore.layout == 'side-menu' && 'hidden xl:block',
                             settingsStore.layout == 'simple-menu' && 'hidden',
                             isAssociationNameLatin && 'text-sm',

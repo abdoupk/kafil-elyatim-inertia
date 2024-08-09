@@ -109,12 +109,12 @@ watch(() => [params.value.fields, params.value.directions], getData)
                     @reset-filter="handleFilterReset"
                 ></advanced-filter>
 
-                <div class="relative w-full md:w-56 text-slate-500">
+                <div class="relative w-full text-slate-500 md:w-56">
                     <base-form-input
                         v-model="search"
                         :placeholder="$t('Search...')"
                         autofocus
-                        class="!box w-full md:w-56 pe-10"
+                        class="!box w-full pe-10 md:w-56"
                         type="text"
                     />
 

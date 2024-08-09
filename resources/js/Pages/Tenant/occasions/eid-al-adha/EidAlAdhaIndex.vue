@@ -56,12 +56,12 @@ const sort = (field: string) => handleSort(field, params)
     >
         <template #Hints>
             <base-alert
-                class="mt-5 bg-warning/20 w-1/4 dark:bg-darkmode-400 dark:border-darkmode-400"
+                class="mt-5 w-1/4 bg-warning/20 dark:border-darkmode-400 dark:bg-darkmode-400"
                 variant="outline-warning"
             >
                 <div class="flex items-center">
                     <span>
-                        <svg-loader class="w-6 h-6 me-3" name="icon-triangle-exclamation" />
+                        <svg-loader class="me-3 h-6 w-6" name="icon-triangle-exclamation" />
                     </span>
 
                     <span class="text-slate-800 dark:text-slate-500"> {{ $t('hints.eid_al_adha') }} </span>

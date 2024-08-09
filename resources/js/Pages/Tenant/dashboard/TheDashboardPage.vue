@@ -54,7 +54,7 @@ const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May
 
     <the-general-reports :reports></the-general-reports>
 
-    <div class="grid co">
+    <div class="co grid">
         <the-financial-report></the-financial-report>
     </div>
 </template>

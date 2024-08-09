@@ -89,7 +89,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ family.file_number }}
                         </base-td-table>
                         <base-td-table
-                            class="w-40 text-start border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="w-40 border-b-0 bg-white text-start first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="whitespace-nowrap">
                                 {{ formatDate(family.start_date, 'long') }}

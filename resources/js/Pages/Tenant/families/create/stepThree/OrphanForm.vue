@@ -98,7 +98,7 @@ watch(
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5 pt-2 pb-2.5 px-2 border-dashed border-2">
+    <div class="grid grid-cols-12 gap-4 gap-y-5 border-2 border-dashed px-2 pb-2.5 pt-2">
         <!-- Begin: First Name-->
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="first_name">

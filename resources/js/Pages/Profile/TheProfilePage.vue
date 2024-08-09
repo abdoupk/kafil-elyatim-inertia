@@ -31,17 +31,17 @@ provide('profileView', { view, updateView })
 </script>
 
 <template>
-    <div class="flex items-center mt-8 intro-y">
+    <div class="intro-y mt-8 flex items-center">
         <h2 class="me-auto text-lg font-medium ltr:capitalize">{{ $t('breadcrumb.profile') }}</h2>
     </div>
 
-    <base-tab-group class="grid grid-cols-12 w-5/6 gap-6 mt-5 box p-5" vertical>
+    <base-tab-group class="box mt-5 grid w-5/6 grid-cols-12 gap-6 p-5" vertical>
         <div class="col-span-3 text-base/relaxed">
             <base-tab-list variant="pills">
                 <base-tab>
                     <base-tab-button
                         as="button"
-                        class="w-full flex items-center content-around justify-center py-2"
+                        class="flex w-full content-around items-center justify-center py-2"
                         type="button"
                     >
                         <svg-loader name="icon-user"></svg-loader>
@@ -53,7 +53,7 @@ provide('profileView', { view, updateView })
                 <base-tab>
                     <base-tab-button
                         as="button"
-                        class="flex items-center content-around justify-center w-full py-2"
+                        class="flex w-full content-around items-center justify-center py-2"
                         type="button"
                     >
                         <svg-loader name="icon-brush"></svg-loader>
@@ -65,7 +65,7 @@ provide('profileView', { view, updateView })
                 <base-tab>
                     <base-tab-button
                         as="button"
-                        class="flex items-center content-around justify-center w-full py-2"
+                        class="flex w-full content-around items-center justify-center py-2"
                         type="button"
                     >
                         <svg-loader class="ms-3.5" name="icon-bell"></svg-loader>

@@ -21,7 +21,7 @@ onMounted(() => {
     <listbox v-model="selected" as="div">
         <div class="relative mt-2">
             <listbox-button
-                class="relative w-full cursor-default rounded-md bg-white dark:bg-darkmode-800 py-1.5 ps-3 pe-10 text-start text-gray-900 dark:text-slate-300 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 border dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
+                class="relative w-full cursor-default rounded-md border bg-white py-1.5 pe-10 ps-3 text-start text-gray-900 shadow-sm focus:ring-4 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:text-slate-300 dark:focus:ring-slate-700 dark:focus:ring-opacity-50 sm:text-sm sm:leading-6"
             >
                 <span class="flex items-center">
                     <svg-loader v-if="selected?.icon" :name="selected?.icon" class="h-5 w-5 flex-shrink-0" />
@@ -40,7 +40,7 @@ onMounted(() => {
                 leave-to-class="opacity-0"
             >
                 <listbox-options
-                    class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-darkmode-800 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                    class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-darkmode-800 sm:text-sm"
                 >
                     <listbox-option
                         v-for="filter in filters"
@@ -52,7 +52,7 @@ onMounted(() => {
                         <li
                             :class="[
                                 active ? 'bg-primary text-white' : 'text-gray-900 dark:text-slate-300',
-                                'relative cursor-default select-none py-2 ps-3 pe-9'
+                                'relative cursor-default select-none py-2 pe-9 ps-3'
                             ]"
                         >
                             <div class="flex items-center">

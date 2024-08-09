@@ -30,12 +30,12 @@ provide('sponsorDetailView', { view, updateView })
 </script>
 
 <template>
-    <div class="flex items-center mt-8 intro-y">
+    <div class="intro-y mt-8 flex items-center">
         <h2 class="me-auto text-lg font-medium ltr:capitalize">
             {{ $t('family details') }}
         </h2>
     </div>
-    <div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="mt-5 grid grid-cols-12 gap-6">
         <sponsor-menu :sponsor></sponsor-menu>
 
         <div class="col-span-12 lg:col-span-8 2xl:col-span-9">

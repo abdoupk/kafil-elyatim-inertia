@@ -76,10 +76,10 @@ onMounted(() => {
                     'housing_type.value'
                 )
             "
-            class="flex items-center mb-2 w-full sm:w-1/2"
+            class="mb-2 flex w-full items-center sm:w-1/2"
             variant="soft-danger"
         >
-            <svg-loader class="w-6 h-6 me-2 fill-current" name="icon-circle-exclamation"></svg-loader>
+            <svg-loader class="me-2 h-6 w-6 fill-current" name="icon-circle-exclamation"></svg-loader>
             {{
                 // @ts-ignore
                 form.errors['housing.housing_type.value'] ||
@@ -114,7 +114,7 @@ onMounted(() => {
                             'housing.independent'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    class="col-start-5 col-end-12 -ms-1 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore
@@ -150,7 +150,7 @@ onMounted(() => {
                             'housing.with_family'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    class="col-start-5 col-end-12 -ms-1 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore
@@ -162,8 +162,8 @@ onMounted(() => {
     </div>
 
     <div class="intro-x mt-6">
-        <div class="flex flex-col md:gap-16 md:flex-row mt-6">
-            <base-form-switch class="text-lg md:w-1/2 w-full">
+        <div class="mt-6 flex flex-col md:flex-row md:gap-16">
+            <base-form-switch class="w-full text-lg md:w-1/2">
                 <base-form-switch-input
                     id="inheritance"
                     :checked="housingType?.name === 'inheritance'"
@@ -176,7 +176,7 @@ onMounted(() => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <div class="w-full mt-2 md:mt-0">
+            <div class="mt-2 w-full md:mt-0">
                 <base-form-input
                     :disabled="housingType?.name !== 'inheritance' || !items.inheritance"
                     :placeholder="$t('housing.placeholders.inheritance')"
@@ -197,7 +197,7 @@ onMounted(() => {
                             'housing.inheritance'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    class="col-start-5 col-end-12 -ms-1 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore
@@ -209,8 +209,8 @@ onMounted(() => {
     </div>
 
     <div class="intro-x mt-6">
-        <div class="flex flex-col md:gap-16 md:flex-row mt-6">
-            <base-form-switch class="text-lg md:w-1/2 w-full">
+        <div class="mt-6 flex flex-col md:flex-row md:gap-16">
+            <base-form-switch class="w-full text-lg md:w-1/2">
                 <base-form-switch-input
                     id="tenant"
                     :checked="housingType?.name === 'tenant'"
@@ -223,7 +223,7 @@ onMounted(() => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <div class="w-full mt-2 md:mt-0">
+            <div class="mt-2 w-full md:mt-0">
                 <base-form-input
                     :disabled="housingType?.name !== 'tenant' || !items.tenant"
                     :placeholder="$t('housing.placeholders.tenant')"
@@ -244,7 +244,7 @@ onMounted(() => {
                             'housing.tenant'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    class="col-start-5 col-end-12 -ms-1 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore
@@ -256,8 +256,8 @@ onMounted(() => {
     </div>
 
     <div class="intro-x mt-6">
-        <div class="flex flex-col md:gap-16 md:flex-row mt-6">
-            <base-form-switch class="text-lg md:w-1/2 w-full">
+        <div class="mt-6 flex flex-col md:flex-row md:gap-16">
+            <base-form-switch class="w-full text-lg md:w-1/2">
                 <base-form-switch-input
                     id="other"
                     :checked="housingType?.name === 'other'"
@@ -270,7 +270,7 @@ onMounted(() => {
                 </base-form-switch-label>
             </base-form-switch>
 
-            <div class="w-full mt-2 md:mt-0">
+            <div class="mt-2 w-full md:mt-0">
                 <base-form-input
                     :disabled="housingType?.name !== 'other' || !items.other"
                     :placeholder="$t('housing.placeholders.other')"
@@ -291,7 +291,7 @@ onMounted(() => {
                             'housing.other'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 -ms-1 col-end-12"
+                    class="col-start-5 col-end-12 -ms-1 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore
@@ -302,8 +302,8 @@ onMounted(() => {
         </div>
     </div>
 
-    <div class="flex flex-col md:gap-16 md:flex-row mt-6 intro-x">
-        <div class="text-lg md:w-1/2 w-full">
+    <div class="intro-x mt-6 flex flex-col md:flex-row md:gap-16">
+        <div class="w-full text-lg md:w-1/2">
             <p class="md:ms-11">
                 {{ $t('housing.label.number_of_rooms') }}
             </p>
@@ -330,7 +330,7 @@ onMounted(() => {
                             'housing.number_of_rooms'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 col-end-12"
+                    class="col-start-5 col-end-12 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore
@@ -341,14 +341,14 @@ onMounted(() => {
         </div>
     </div>
 
-    <div class="flex flex-col md:gap-16 md:flex-row mt-6 intro-x">
-        <div class="text-lg md:w-1/2 w-full">
+    <div class="intro-x mt-6 flex flex-col md:flex-row md:gap-16">
+        <div class="w-full text-lg md:w-1/2">
             <p class="md:ms-11">
                 {{ $t('housing.label.housing_receipt_number') }}
             </p>
         </div>
 
-        <div class="w-full mt-2 md:mt-0">
+        <div class="mt-2 w-full md:mt-0">
             <base-form-input
                 v-model="housingReceiptNumber"
                 :placeholder="$t('housing.placeholders.housing_receipt_number')"
@@ -364,7 +364,7 @@ onMounted(() => {
                             'housing.housing_receipt_number'
                         )
                     "
-                    class="mt-2 text-danger col-start-5 col-end-12"
+                    class="col-start-5 col-end-12 mt-2 text-danger"
                 >
                     {{
                         // @ts-ignore

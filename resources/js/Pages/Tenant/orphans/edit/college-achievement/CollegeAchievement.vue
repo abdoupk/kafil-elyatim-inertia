@@ -76,10 +76,10 @@ const showEditModal = (id: string) => {
 
 <template>
     <!-- BEGIN: College Achievement -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
-            <base-button class="w-20 ms-auto border-dashed" variant="outline-primary" @click="showCreateModal">
-                <svg-loader class="w-4 h-4 dark:fill-slate-300/40" name="icon-plus"></svg-loader>
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
+            <base-button class="ms-auto w-20 border-dashed" variant="outline-primary" @click="showCreateModal">
+                <svg-loader class="h-4 w-4 dark:fill-slate-300/40" name="icon-plus"></svg-loader>
             </base-button>
         </div>
 

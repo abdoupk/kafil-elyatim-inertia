@@ -111,11 +111,11 @@ const modalType = computed(() => {
 
             <div class="col-span-12 mt-6">
                 <div v-for="(permissionMaps, key, index) in permissions" :key="index">
-                    <h2 class="rtl:font-bold ltr:font-medium mb-2 text-base/relaxed mt-2">
+                    <h2 class="mb-2 mt-2 text-base/relaxed ltr:font-medium rtl:font-bold">
                         {{ $t(`the_${key}`) }}
                     </h2>
 
-                    <div class="gap-3 grid grid-cols-4">
+                    <div class="grid grid-cols-4 gap-3">
                         <div v-for="permission in permissionMaps" :key="permission">
                             <div class="">
                                 <base-form-switch>

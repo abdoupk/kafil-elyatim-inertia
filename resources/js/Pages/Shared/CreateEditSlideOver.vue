@@ -23,8 +23,8 @@ const emit = defineEmits(['close', 'handleSubmit'])
 <template>
     <base-slideover :initialFocus="focusableInput" :open @close="emit('close')">
         <base-slideover-panel class="overflow-y-auto">
-            <a class="absolute top-0 start-0 end-auto mt-4 -ms-12" href="#" @click="emit('close')">
-                <svg-loader class="w-8 h-8 fill-slate-400" name="icon-x-mark"></svg-loader>
+            <a class="absolute end-auto start-0 top-0 -ms-12 mt-4" href="#" @click="emit('close')">
+                <svg-loader class="h-8 w-8 fill-slate-400" name="icon-x-mark"></svg-loader>
             </a>
 
             <form @submit.prevent="emit('handleSubmit')">
@@ -39,7 +39,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
                 </base-slideover-description>
 
                 <base-slideover-footer class="flex justify-end">
-                    <base-button class="w-20 me-1" type="button" variant="outline-secondary" @click="emit('close')">
+                    <base-button class="me-1 w-20" type="button" variant="outline-secondary" @click="emit('close')">
                         {{ $t('cancel') }}
                     </base-button>
 

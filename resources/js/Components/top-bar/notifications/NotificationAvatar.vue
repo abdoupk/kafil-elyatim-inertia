@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="relative flex-none w-12 h-12 me-1">
+    <div class="relative me-1 h-12 w-12 flex-none">
         <the-avatar :gender :name class="rounded-full"></the-avatar>
     </div>
 </template>

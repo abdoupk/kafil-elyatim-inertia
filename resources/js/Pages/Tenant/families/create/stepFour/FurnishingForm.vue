@@ -92,7 +92,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
+    <div class="mt-6 grid grid-cols-12 gap-4 gap-y-5">
         <!-- Begin: Television -->
         <div class="intro-y col-span-12">
             <div class="grid grid-cols-12">
@@ -110,7 +110,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="television"
                         :disabled="!items.television"
@@ -140,7 +140,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="refrigerator"
                         :disabled="!items.refrigerator"
@@ -170,7 +170,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="fireplace"
                         :disabled="!items.fireplace"
@@ -200,7 +200,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="washingMachine"
                         :disabled="!items.washing_machine"
@@ -230,7 +230,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="waterHeater"
                         :disabled="!items.water_heater"
@@ -260,7 +260,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="oven"
                         :disabled="!items.oven"
@@ -290,7 +290,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="wardrobe"
                         :disabled="!items.wardrobe"
@@ -320,7 +320,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="cupboard"
                         :disabled="!items.cupboard"
@@ -350,7 +350,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="covers"
                         :disabled="!items.covers"
@@ -380,7 +380,7 @@ onMounted(() => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="mattresses"
                         :disabled="!items.mattresses"

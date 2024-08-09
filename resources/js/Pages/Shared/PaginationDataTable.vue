@@ -22,7 +22,7 @@ const perPage = defineModel('perPage')
         >
         </the-pagination>
 
-        <base-form-select v-model="perPage" class="!box mt-3 w-20 sm:mt-0 ms-auto">
+        <base-form-select v-model="perPage" class="!box ms-auto mt-3 w-20 sm:mt-0">
             <option value="10">10</option>
             <option value="25">25</option>
             <option value="35">35</option>

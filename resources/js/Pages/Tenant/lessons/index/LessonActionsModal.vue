@@ -20,9 +20,7 @@ defineProps<{
     eventInfo: EventApi | null
 }>()
 
-const emit = defineEmits(['close',
-'delete',
-'edit'])
+const emit = defineEmits(['close', 'delete', 'edit'])
 
 const lessonsStore = useLessonsStore()
 </script>
@@ -30,7 +28,7 @@ const lessonsStore = useLessonsStore()
 <template>
     <base-dialog :open size="xl" @close="emit('close')">
         <base-dialog-panel>
-            <div class="p-5 leading-8 text-2xl text-center">
+            <div class="p-5 text-center text-2xl leading-8">
                 {{ eventInfo?.title }}
             </div>
 
@@ -40,22 +38,22 @@ const lessonsStore = useLessonsStore()
                     <p class="col-span-9">{{ lessonsStore.lesson?.formated_date }}</p>
                 </div>
 
-                <div class="grid grid-cols-12 mt-4 gap-4">
+                <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('quota_total') }}</h1>
                     <p class="col-span-9">{{ lessonsStore.lesson.lesson?.quota }}</p>
                 </div>
 
-                <div class="grid grid-cols-12 mt-4 gap-4">
+                <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('school_name') }}</h1>
                     <p class="col-span-9">{{ lessonsStore.lesson?.formatted_school?.name }}</p>
                 </div>
 
-                <div class="grid grid-cols-12 mt-4 gap-4">
+                <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('validation.attributes.subject') }}</h1>
                     <p class="col-span-9">{{ lessonsStore.lesson?.formatted_subject?.name }}</p>
                 </div>
 
-                <div class="grid grid-cols-12 mt-4 gap-4">
+                <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('academic_level') }}</h1>
                     <p class="col-span-9">{{ lessonsStore.lesson?.formatted_academic_level?.name }}</p>
                 </div>
@@ -98,7 +96,7 @@ const lessonsStore = useLessonsStore()
 
                 <base-button
                     ref="{deleteButtonRef}"
-                    class="w-24 me-2"
+                    class="me-2 w-24"
                     type="button"
                     variant="soft-warning"
                     @click.prevent="emit('edit')"

@@ -49,7 +49,7 @@ onMounted(() => {
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
                     <span
                         :class="isAssociationNameLatin ? 'text-sm' : 'text-base'"
-                        class="ms-3 font-semibold text-white max-w-40 capitalize truncate"
+                        class="ms-3 max-w-40 truncate font-semibold capitalize text-white"
                     >
                         {{ $page.props.association }}
                     </span>

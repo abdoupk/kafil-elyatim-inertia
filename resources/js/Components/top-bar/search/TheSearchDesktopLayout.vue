@@ -102,9 +102,7 @@ const onTermKeydown = (event: KeyboardEvent) => {
             break
     }
 
-    ;
-
-(
+    ;(
         resultsRefs.value[
             results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
         ] as HTMLElement
@@ -157,7 +155,7 @@ const noResults = computed(() => results.value.every((a) => isEmpty(a)))
             leave-to="mt-5 invisible opacity-0 translate-y-1"
         >
             <div class="absolute end-0 z-10 mt-[3px]">
-                <div class="w-[450px] px-5 pt-5 box scroll-smooth overflow-y-auto max-h-[500px] scrollbar-hidden">
+                <div class="box scrollbar-hidden max-h-[500px] w-[450px] overflow-y-auto scroll-smooth px-5 pt-5">
                     <the-no-results-found v-if="noResults"></the-no-results-found>
 
                     <!-- @vue-expect-error Results Types -->

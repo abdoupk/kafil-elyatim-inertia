@@ -42,8 +42,8 @@ const submit = () => {
 
 <template>
     <!-- BEGIN: The Report -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('the_report') }}</h2>
 
             <div
@@ -54,7 +54,7 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <div class="col-span-12">
                     <base-form-label for="report">
                         {{ $t('the_report') }}
@@ -116,7 +116,7 @@ const submit = () => {
                     </base-form-input-error>
                 </div>
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="!mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

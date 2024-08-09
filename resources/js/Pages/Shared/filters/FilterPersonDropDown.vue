@@ -80,7 +80,7 @@ function handleUpdateModelValue(selected) {
                 <combobox-input
                     :class="
                         twMerge([
-                            'transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80'
+                            'w-full rounded-md border-slate-200 text-sm shadow-sm transition duration-200 ease-in-out placeholder:text-slate-400/90 focus:border-primary focus:border-opacity-40 focus:ring-4 focus:ring-primary focus:ring-opacity-20 dark:border-transparent dark:bg-darkmode-800 dark:placeholder:text-slate-500/80 dark:focus:ring-slate-700 dark:focus:ring-opacity-50'
                         ])
                     "
                     :displayValue="(option) => option.name"
@@ -104,20 +104,20 @@ function handleUpdateModelValue(selected) {
             >
                 <combobox-options
                     :class="{ 'py-1': filteredOptions.length > 0 }"
-                    class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white dark:bg-darkmode-800 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                    class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-darkmode-800 sm:text-sm"
                 >
                     <div
                         v-if="filteredOptions.length === 0 && !isLoading && !queryOption && !props.createOption"
-                        class="relative cursor-default select-none py-2 px-4 text-gray-700"
+                        class="relative cursor-default select-none px-4 py-2 text-gray-700"
                     >
                         Nothing found.
                     </div>
 
                     <div
                         v-if="isLoading"
-                        class="flex items-center justify-center cursor-default select-none py-2 px-4 text-gray-700"
+                        class="flex cursor-default select-none items-center justify-center px-4 py-2 text-gray-700"
                     >
-                        <spinner-loader class="w-4 h-4"></spinner-loader>
+                        <spinner-loader class="h-4 w-4"></spinner-loader>
                     </div>
 
                     <template v-if="!isLoading">

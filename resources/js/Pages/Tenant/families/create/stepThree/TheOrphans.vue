@@ -11,12 +11,12 @@ const removeOrphan = (index: number) => {
 </script>
 
 <template>
-    <div class="flex my-5">
+    <div class="my-5 flex">
         <p class="text-base font-medium">
             {{ $t('child no', { no: String(index + 1) }) }}
         </p>
 
-        <button class="ms-auto me-2"></button>
+        <button class="me-2 ms-auto"></button>
 
         <a
             class="ms-2 inline-block !outline-none focus-visible:!rounded-sm focus-visible:!outline-red-300/70"

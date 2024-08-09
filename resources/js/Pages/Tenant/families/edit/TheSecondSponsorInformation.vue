@@ -16,9 +16,7 @@ import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
 
 const props = defineProps<{ secondSponsor: SecondSponsorType }>()
 
-const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSponsor, ['id',
-'family_id',
-'name']))
+const inputs = reactive<FamilyUpdateSecondSponsorFormType>(omit(props.secondSponsor, ['id', 'family_id', 'name']))
 
 const form = useForm('put', route('tenant.families.second-sponsor-update', props.secondSponsor.family_id), inputs)
 
@@ -42,8 +40,8 @@ const submit = () => {
 
 <template>
     <!-- BEGIN: Second Sponsor Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">
                 {{ secondSponsor.name }}
             </h2>
@@ -56,9 +54,9 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <!-- BEGIN: First Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="first_name">
                         {{ $t('validation.attributes.first_name') }}
                     </base-form-label>
@@ -89,7 +87,7 @@ const submit = () => {
                 <!-- END: First Name -->
 
                 <!-- BEGIN: Last Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="last_name">
                         {{ $t('validation.attributes.last_name') }}
                     </base-form-label>
@@ -120,7 +118,7 @@ const submit = () => {
                 <!-- END: Last Name -->
 
                 <!-- BEGIN: Degree of Kinship -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="degree_of_kinship">
                         {{ $t('filters.spouse.degree_of_kinship') }}
                     </base-form-label>
@@ -151,7 +149,7 @@ const submit = () => {
                 <!-- END: Degree of Kinship -->
 
                 <!-- BEGIN: Income -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="income">
                         {{ $t('validation.attributes.income') }}
                     </base-form-label>
@@ -179,7 +177,7 @@ const submit = () => {
                 <!-- END: Income -->
 
                 <!-- BEGIN: Address -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="address">
                         {{ $t('validation.attributes.address') }}
                     </base-form-label>
@@ -206,7 +204,7 @@ const submit = () => {
                 <!-- END: Address -->
 
                 <!-- BEGIN: Phone Number -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="phone_number">
                         {{ $t('validation.attributes.phone_number') }}
                     </base-form-label>
@@ -237,7 +235,7 @@ const submit = () => {
                 </div>
                 <!-- END: Phone Number -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="!mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

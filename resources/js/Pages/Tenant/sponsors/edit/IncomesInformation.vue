@@ -68,15 +68,15 @@ const submit = () => {
 
 <template>
     <!-- BEGIN: Incomes -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('income information') }}</h2>
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <!-- Begin: CNR -->
-                <div class="grid col-span-12 grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
                             <base-form-switch-input
@@ -92,7 +92,7 @@ const submit = () => {
                         </base-form-switch>
                     </div>
 
-                    <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+                    <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
                         <base-input-group>
                             <!-- @vue-ignore -->
                             <base-form-input
@@ -121,7 +121,7 @@ const submit = () => {
                 <!-- End: CNR -->
 
                 <!-- Begin: CNAS -->
-                <div class="grid col-span-12 grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
                             <base-form-switch-input
@@ -137,7 +137,7 @@ const submit = () => {
                         </base-form-switch>
                     </div>
 
-                    <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+                    <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
                         <base-input-group>
                             <!-- @vue-ignore -->
                             <base-form-input
@@ -166,7 +166,7 @@ const submit = () => {
                 <!-- End: CNAS -->
 
                 <!-- Begin: CASNOS -->
-                <div class="grid col-span-12 grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
                             <base-form-switch-input
@@ -182,7 +182,7 @@ const submit = () => {
                         </base-form-switch>
                     </div>
 
-                    <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+                    <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
                         <base-input-group>
                             <!-- @vue-ignore -->
                             <base-form-input
@@ -211,7 +211,7 @@ const submit = () => {
                 <!-- End: CASNOS -->
 
                 <!-- Begin: PENSION -->
-                <div class="grid col-span-12 grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
                             <base-form-switch-input
@@ -227,7 +227,7 @@ const submit = () => {
                         </base-form-switch>
                     </div>
 
-                    <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+                    <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
                         <base-input-group>
                             <!-- @vue-ignore -->
                             <base-form-input
@@ -256,7 +256,7 @@ const submit = () => {
                 <!-- End: PENSION -->
 
                 <!-- Begin: OTHER -->
-                <div class="grid col-span-12 grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
                             <base-form-switch-input
@@ -272,7 +272,7 @@ const submit = () => {
                         </base-form-switch>
                     </div>
 
-                    <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+                    <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
                         <base-input-group>
                             <!-- @vue-ignore -->
                             <base-form-input
@@ -301,7 +301,7 @@ const submit = () => {
                 <!-- End: OTHER -->
 
                 <!-- Begin: ACCOUNT -->
-                <div class="grid col-span-12 grid-cols-12">
+                <div class="col-span-12 grid grid-cols-12">
                     <div class="col-span-12 lg:col-span-4">
                         <base-form-switch class="text-lg">
                             <base-form-switch-input
@@ -317,7 +317,7 @@ const submit = () => {
                         </base-form-switch>
                     </div>
 
-                    <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+                    <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
                         <base-input-group>
                             <!-- @vue-ignore -->
                             <base-form-input
@@ -345,7 +345,7 @@ const submit = () => {
                 </div>
                 <!-- End: ACCOUNT -->
 
-                <base-button :disabled="form.processing" class="col-span-12 w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="col-span-12 !mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

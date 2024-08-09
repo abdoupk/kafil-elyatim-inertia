@@ -12,7 +12,7 @@ defineProps<{
     <li
         :class="[
             active ? 'bg-primary text-white' : 'text-gray-900 dark:text-slate-300',
-            'relative cursor-default select-none py-2 ps-3 pe-9'
+            'relative cursor-default select-none py-2 pe-9 ps-3'
         ]"
     >
         <div class="flex items-center">

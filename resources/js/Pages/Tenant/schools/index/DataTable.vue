@@ -38,7 +38,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <base-th-table
                             :direction="params.directions?.quota"
-                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'quota')"
                             >{{ $t('quota_total') }}
@@ -76,13 +76,13 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ school.quota }}
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ formatDate(school.created_at, 'full') }}
                         </base-td-table>

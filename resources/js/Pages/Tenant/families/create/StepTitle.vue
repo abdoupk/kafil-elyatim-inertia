@@ -39,7 +39,7 @@ const handleClick = (index: number) => emit('goTo', index)
         </transition>
         <div
             :class="{ 'font-medium': currentStep === index }"
-            class="ms-3 text-base text-slate-600 transition-all duration-150 dark:text-slate-400 lg:hidden block"
+            class="ms-3 block text-base text-slate-600 transition-all duration-150 dark:text-slate-400 lg:hidden"
         >
             {{ $t(title) }}
         </div>

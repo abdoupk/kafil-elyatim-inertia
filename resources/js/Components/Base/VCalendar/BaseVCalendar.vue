@@ -38,12 +38,12 @@ const popover = ref({
         <template v-slot="{ togglePopover, inputValue, inputEvents }">
             <div class="relative">
                 <div
-                    class="absolute flex items-center justify-center w-10 h-full border rounded-s bg-slate-100 text-slate-500 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400"
+                    class="absolute flex h-full w-10 items-center justify-center rounded-s border bg-slate-100 text-slate-500 dark:border-darkmode-800 dark:bg-darkmode-700 dark:text-slate-400"
                     @click="() => togglePopover()"
                 >
-                    <svg-loader v-if="$attrs?.mode === 'time'" class="w-4 h-4 fill-current" name="icon-clock" />
+                    <svg-loader v-if="$attrs?.mode === 'time'" class="h-4 w-4 fill-current" name="icon-clock" />
 
-                    <svg-loader v-else class="w-4 h-4 fill-current" name="icon-calendar" />
+                    <svg-loader v-else class="h-4 w-4 fill-current" name="icon-calendar" />
                 </div>
 
                 <base-form-input

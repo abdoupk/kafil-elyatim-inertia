@@ -14,7 +14,7 @@ const attrs = useComputedAttrs()
     <p
         :class="
             twMerge([
-                'p-4 text-sm text-gray-500 dark:text-slate-400 text-center',
+                'p-4 text-center text-sm text-gray-500 dark:text-slate-400',
                 typeof attrs.class === 'string' && attrs.class
             ])
         "

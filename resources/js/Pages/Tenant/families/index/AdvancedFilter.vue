@@ -109,7 +109,7 @@ const handleFieldChange = (index: number) => {
             </base-popover-button>
 
             <base-popover-panel :placement>
-                <div class="w-[400px] md:w-[505px] lg:w-[580px] px-2 pt-2">
+                <div class="w-[400px] px-2 pt-2 md:w-[505px] lg:w-[580px]">
                     <div class="grid grid-cols-12 gap-4">
                         <filter-rule
                             v-for="(rule, index) in filterRules"
@@ -131,30 +131,30 @@ const handleFieldChange = (index: number) => {
                     </div>
 
                     <a
-                        class="mt-2 -ms-1 p-1 rounded-md flex dark:hover:bg-darkmode-400 hover:bg-slate-200/60"
+                        class="-ms-1 mt-2 flex rounded-md p-1 hover:bg-slate-200/60 dark:hover:bg-darkmode-400"
                         href="#"
                         @click.prevent="addFilterRule"
                     >
-                        <svg-loader class="w-4 h-4 fill-slate-500 dark:fill-slate-400" name="icon-plus"></svg-loader>
+                        <svg-loader class="h-4 w-4 fill-slate-500 dark:fill-slate-400" name="icon-plus"></svg-loader>
 
-                        <span class="ms-0.5 font-medium dark:text-slate-400 text-slate-500">
+                        <span class="ms-0.5 font-medium text-slate-500 dark:text-slate-400">
                             {{ $t('add_filter') }}
                         </span>
                     </a>
                 </div>
 
-                <div class="mt-2 -mx-2 border-t border-slate-200">
+                <div class="-mx-2 mt-2 border-t border-slate-200">
                     <a
-                        class="mt-2 mx-2 p-1 group rounded-md flex dark:hover:bg-darkmode-400 hover:bg-slate-200/60"
+                        class="group mx-2 mt-2 flex rounded-md p-1 hover:bg-slate-200/60 dark:hover:bg-darkmode-400"
                         href="#"
                         @click.prevent="removeFilterRule(close)"
                     >
                         <svg-loader
-                            class="w-4 h-4 fill-slate-500 dark:fill-slate-300 group-hover:fill-red-500 ms-1"
+                            class="ms-1 h-4 w-4 fill-slate-500 group-hover:fill-red-500 dark:fill-slate-300"
                             name="icon-trash-can"
                         ></svg-loader>
 
-                        <span class="ms-1 font-medium dark:text-slate-300 text-slate-500 group-hover:text-red-500">{{
+                        <span class="ms-1 font-medium text-slate-500 group-hover:text-red-500 dark:text-slate-300">{{
                             $t('delete_filter')
                         }}</span>
                     </a>

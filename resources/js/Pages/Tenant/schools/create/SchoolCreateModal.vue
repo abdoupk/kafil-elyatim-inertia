@@ -146,7 +146,7 @@ const removeLesson = (index: number) => {
                 @remove-lesson="removeLesson(index)"
             ></the-subject-and-quota>
 
-            <div class="flex items-center justify-center col-span-12">
+            <div class="col-span-12 flex items-center justify-center">
                 <base-button
                     class="mx-auto mt-3 block w-1/2 border-dashed dark:text-slate-500"
                     data-test="add_phone_number"

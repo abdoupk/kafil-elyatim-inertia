@@ -56,7 +56,7 @@ const toggle = (key: keyof IncomeType) => {
 
 <template>
     <!-- Begin: CNR -->
-    <div class="grid grid-cols-12 intro-x mt-6">
+    <div class="intro-x mt-6 grid grid-cols-12">
         <div class="col-span-12 lg:col-span-4">
             <base-form-switch class="text-lg">
                 <base-form-switch-input id="cnr" type="checkbox" @click="toggle('cnr')"></base-form-switch-input>
@@ -67,7 +67,7 @@ const toggle = (key: keyof IncomeType) => {
             </base-form-switch>
         </div>
 
-        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+        <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
             <base-input-group>
                 <!-- @vue-ignore -->
                 <base-form-input
@@ -99,7 +99,7 @@ const toggle = (key: keyof IncomeType) => {
     <!-- End: CNR -->
 
     <!-- Begin: CNAS -->
-    <div class="grid grid-cols-12 intro-x mt-6">
+    <div class="intro-x mt-6 grid grid-cols-12">
         <div class="col-span-12 lg:col-span-4">
             <base-form-switch class="text-lg">
                 <base-form-switch-input id="cnas" type="checkbox" @click="toggle('cnas')"></base-form-switch-input>
@@ -110,7 +110,7 @@ const toggle = (key: keyof IncomeType) => {
             </base-form-switch>
         </div>
 
-        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+        <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
             <base-input-group>
                 <!-- @vue-ignore -->
                 <base-form-input
@@ -142,7 +142,7 @@ const toggle = (key: keyof IncomeType) => {
     <!-- End: CNAS -->
 
     <!-- Begin: CASNOS -->
-    <div class="grid grid-cols-12 intro-x mt-6">
+    <div class="intro-x mt-6 grid grid-cols-12">
         <div class="col-span-12 lg:col-span-4">
             <base-form-switch class="text-lg">
                 <base-form-switch-input id="casnos" type="checkbox" @click="toggle('casnos')"></base-form-switch-input>
@@ -153,7 +153,7 @@ const toggle = (key: keyof IncomeType) => {
             </base-form-switch>
         </div>
 
-        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+        <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
             <base-input-group>
                 <!-- @vue-ignore -->
                 <base-form-input
@@ -185,7 +185,7 @@ const toggle = (key: keyof IncomeType) => {
     <!-- End: CASNOS -->
 
     <!-- Begin: PENSION -->
-    <div class="grid grid-cols-12 intro-x mt-6">
+    <div class="intro-x mt-6 grid grid-cols-12">
         <div class="col-span-12 lg:col-span-4">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
@@ -200,7 +200,7 @@ const toggle = (key: keyof IncomeType) => {
             </base-form-switch>
         </div>
 
-        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+        <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
             <base-input-group>
                 <!-- @vue-ignore -->
                 <base-form-input
@@ -232,7 +232,7 @@ const toggle = (key: keyof IncomeType) => {
     <!-- End: PENSION -->
 
     <!-- Begin: OTHER -->
-    <div class="grid grid-cols-12 intro-x mt-6">
+    <div class="intro-x mt-6 grid grid-cols-12">
         <div class="col-span-12 lg:col-span-4">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
@@ -247,7 +247,7 @@ const toggle = (key: keyof IncomeType) => {
             </base-form-switch>
         </div>
 
-        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+        <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
             <base-input-group>
                 <!-- @vue-ignore -->
                 <base-form-input
@@ -279,7 +279,7 @@ const toggle = (key: keyof IncomeType) => {
     <!-- End: OTHER -->
 
     <!-- Begin: ACCOUNT -->
-    <div class="grid grid-cols-12 intro-x mt-6">
+    <div class="intro-x mt-6 grid grid-cols-12">
         <div class="col-span-12 lg:col-span-4">
             <base-form-switch class="text-lg">
                 <base-form-switch-input
@@ -294,7 +294,7 @@ const toggle = (key: keyof IncomeType) => {
             </base-form-switch>
         </div>
 
-        <div class="col-span-8 lg:col-span-3 mt-3 lg:mt-0">
+        <div class="col-span-8 mt-3 lg:col-span-3 lg:mt-0">
             <base-input-group>
                 <!-- @vue-ignore -->
                 <base-form-input
@@ -325,14 +325,14 @@ const toggle = (key: keyof IncomeType) => {
     </div>
     <!-- End: ACCOUNT -->
 
-    <hr class="mt-6 mb-4" />
+    <hr class="mb-4 mt-6" />
 
     <!-- Begin: TOTAL INCOME -->
-    <div class="grid grid-cols-12 intro-x mt-6">
-        <p class="col-span-4 text-lg ms-0 lg:ms-11">
+    <div class="intro-x mt-6 grid grid-cols-12">
+        <p class="col-span-4 ms-0 text-lg lg:ms-11">
             {{ $t('incomes.label.total_income') }}
         </p>
-        <p class="font-bold col-span-8 text-base">{{ totalIncome }}</p>
+        <p class="col-span-8 text-base font-bold">{{ totalIncome }}</p>
     </div>
     <!-- End: TOTAL INCOME -->
 </template>

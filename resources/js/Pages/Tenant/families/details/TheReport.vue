@@ -10,8 +10,8 @@ defineProps<{ preview: PreviewType }>()
 
 <template>
     <!-- BEGIN: The Report -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('the_report') }}</h2>
 
             <div
@@ -21,8 +21,8 @@ defineProps<{ preview: PreviewType }>()
             </div>
         </div>
 
-        <div class="p-5 grid grid-cols-12 gap-4">
-            <div class="col-span-12 prose prose-th:text-start dark:prose-invert" v-html="preview?.report"></div>
+        <div class="grid grid-cols-12 gap-4 p-5">
+            <div class="prose col-span-12 dark:prose-invert prose-th:text-start" v-html="preview?.report"></div>
 
             <div class="col-span-12"></div>
         </div>
@@ -30,24 +30,24 @@ defineProps<{ preview: PreviewType }>()
     <!-- END: The Report -->
 
     <!-- BEGIN: Inspectors members -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">
                 {{ $t('inspectors_members') }}
             </h2>
         </div>
 
-        <div class="p-5 grid grid-cols-12 gap-4">
+        <div class="grid grid-cols-12 gap-4 p-5">
             <div class="col-span-12">
                 <Link
                     v-for="member in preview.inspectors"
                     :key="member.id"
                     :href="route('tenant.members.show', member.id)"
-                    class="flex items-center px-5 mt-2 first:mt-0 rounded-md last:mb-3"
+                    class="mt-2 flex items-center rounded-md px-5 first:mt-0 last:mb-3"
                 >
-                    <div class="w-2 h-2 bg-current rounded-full me-3"></div>
+                    <div class="me-3 h-2 w-2 rounded-full bg-current"></div>
 
-                    <span class="font-semibold text-base">{{ member.name }}</span>
+                    <span class="text-base font-semibold">{{ member.name }}</span>
                 </Link>
             </div>
         </div>

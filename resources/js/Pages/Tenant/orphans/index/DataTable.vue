@@ -47,7 +47,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <base-th-table
                             :direction="params.directions?.health_status"
-                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'health_status')"
                             >{{ $t('validation.attributes.sponsor.health_status') }}
@@ -55,7 +55,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <base-th-table
                             :direction="params.directions?.academic_level"
-                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'academic_level')"
                             >{{ $t('validation.attributes.sponsor.academic_level') }}
@@ -87,7 +87,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <base-th-table
                             :direction="params.directions?.birth_date"
-                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'birth_date')"
                             >{{ $t('validation.attributes.date_of_birth') }}
@@ -122,13 +122,13 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.health_status }}
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 max-w-40 truncate bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ orphan.academic_level }}
                         </base-td-table>
@@ -152,7 +152,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <!--                        </base-td-table>-->
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ formatDate(orphan.birth_date, 'long') }}
                         </base-td-table>

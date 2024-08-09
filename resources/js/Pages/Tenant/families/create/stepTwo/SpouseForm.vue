@@ -26,7 +26,7 @@ const job = defineModel('job')
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
+    <div class="mt-6 grid grid-cols-12 gap-4 gap-y-5">
         <div class="col-span-12 sm:col-span-6">
             <base-form-label for="first_name">
                 {{ $t('validation.attributes.first_name') }}

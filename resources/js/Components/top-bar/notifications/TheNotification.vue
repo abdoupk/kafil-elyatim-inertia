@@ -45,7 +45,7 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
         </base-popover-button>
 
         <base-popover-panel
-            class="mt-2 w-[280px] p-5 sm:w-[350px] max-h-[500px] overflow-y-auto scroll-smooth scrollbar-hidden"
+            class="scrollbar-hidden mt-2 max-h-[500px] w-[280px] overflow-y-auto scroll-smooth p-5 sm:w-[350px]"
             placement="bottom-end"
         >
             <the-notification-menu></the-notification-menu>

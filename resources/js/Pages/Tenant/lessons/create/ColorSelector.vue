@@ -3,12 +3,12 @@
         <div
             v-for="color in colors"
             :key="color"
-            class="relative cursor-pointer gap-4 flex justify-center ms-2 first:ms-0"
+            class="relative ms-2 flex cursor-pointer justify-center gap-4 first:ms-0"
         >
             <button
                 :class="{ 'ring-2': selectedColor === color }"
                 :style="{ backgroundColor: color }"
-                class="w-8 h-8 transition-all rounded-full block ring-primary hover:ring-2 ring-offset-1 dark:ring-darkmode-200"
+                class="block h-8 w-8 rounded-full ring-primary ring-offset-1 transition-all hover:ring-2 dark:ring-darkmode-200"
                 type="button"
                 @click="selectColor(color)"
             ></button>
@@ -27,14 +27,7 @@ const props = defineProps<Props>()
 
 const emit = defineEmits(['update:modelValue'])
 
-const colors = ['#FF69B4',
-'#33CC33',
-'#6666CC',
-'#CC0000',
-'#87ceeb',
-'#0099CC',
-'#9900CC',
-'#CCCCCC']
+const colors = ['#FF69B4', '#33CC33', '#6666CC', '#CC0000', '#87ceeb', '#0099CC', '#9900CC', '#CCCCCC']
 
 const selectedColor = ref(props.modelValue)
 

@@ -62,15 +62,15 @@ onMounted(async () => {
 
 <template>
     <!-- BEGIN: Sponsor Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('display information') }}</h2>
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <!-- BEGIN: First Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="first_name">
                         {{ $t('validation.attributes.first_name') }}
                     </base-form-label>
@@ -101,7 +101,7 @@ onMounted(async () => {
                 <!-- END: First Name -->
 
                 <!-- BEGIN: Last Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="last_name">
                         {{ $t('validation.attributes.last_name') }}
                     </base-form-label>
@@ -132,7 +132,7 @@ onMounted(async () => {
                 <!-- END: Last Name -->
 
                 <!-- BEGIN: BirthDate -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="birth_date">
                         {{ $t('validation.attributes.spouse.birth_date') }}
                     </base-form-label>
@@ -151,7 +151,7 @@ onMounted(async () => {
                 <!-- END: BirthDate -->
 
                 <!-- BEGIN: Father Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="father_name">
                         {{ $t('validation.attributes.sponsor.father_name') }}
                     </base-form-label>
@@ -182,7 +182,7 @@ onMounted(async () => {
                 <!-- END: Father Name -->
 
                 <!-- BEGIN: Mother Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="mother_name">
                         {{ $t('validation.attributes.sponsor.mother_name') }}
                     </base-form-label>
@@ -213,7 +213,7 @@ onMounted(async () => {
                 <!-- END: Mother Name -->
 
                 <!-- BEGIN: Birth Certificate number -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="birth_certificate_number">
                         {{ $t('validation.attributes.sponsor.birth_certificate_number') }}
                     </base-form-label>
@@ -244,7 +244,7 @@ onMounted(async () => {
                 <!-- END: Birth Certificate number -->
 
                 <!-- BEGIN: CCP -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="ccp">
                         {{ $t('ccp') }}
                     </base-form-label>
@@ -271,7 +271,7 @@ onMounted(async () => {
                 <!-- END: CCP -->
 
                 <!-- BEGIN: Function (job) -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="function">
                         {{ $t('validation.attributes.sponsor.function') }}
                     </base-form-label>
@@ -302,7 +302,7 @@ onMounted(async () => {
                 <!-- END: Function (job) -->
 
                 <!-- BEGIN: Academic Level -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="academic_level_id">
                         {{ $t('academic_level') }}
                     </base-form-label>
@@ -328,7 +328,7 @@ onMounted(async () => {
                 <!-- END: Academic Level -->
 
                 <!-- BEGIN: Diploma -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="diploma">
                         {{ $t('validation.attributes.sponsor.diploma') }}
                     </base-form-label>
@@ -355,7 +355,7 @@ onMounted(async () => {
                 <!-- END: Diploma -->
 
                 <!-- BEGIN: Sponsor Type -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="sponsor_type">
                         {{ $t('validation.attributes.sponsor.sponsor_type') }}
                     </base-form-label>
@@ -385,7 +385,7 @@ onMounted(async () => {
                 </div>
                 <!-- END: Sponsor Type -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0 col-span-12" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="col-span-12 !mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

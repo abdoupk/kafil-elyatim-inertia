@@ -18,42 +18,42 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
 </script>
 
 <template>
-    <div v-if="orphan.college_achievements.length" class="flex-1 w-full mt-3 overflow-x-auto pb-2">
+    <div v-if="orphan.college_achievements.length" class="mt-3 w-full flex-1 overflow-x-auto pb-2">
         <base-table class="border">
             <base-thead-table>
                 <base-tr-table>
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 text-slate-500 dark:bg-darkmode-800">
                         #
                     </base-th-table>
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('academic_level') }}
                     </base-th-table>
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 text-slate-500 dark:bg-darkmode-800">
                         <div class="flex items-center">
                             {{ $t('academic_year') }}
                         </div>
                     </base-th-table>
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !px-2">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 !px-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('university') }}
                     </base-th-table>
 
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 !ps-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('validation.attributes.first_semester') }}
                     </base-th-table>
 
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 !ps-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('validation.attributes.second_semester') }}
                     </base-th-table>
 
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 !ps-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('general_average') }}
                     </base-th-table>
 
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 !ps-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('validation.attributes.note') }}
                     </base-th-table>
 
-                    <base-th-table class="bg-slate-50 dark:bg-darkmode-800 text-slate-500 whitespace-nowrap !ps-2">
+                    <base-th-table class="whitespace-nowrap bg-slate-50 !ps-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('actions') }}
                     </base-th-table>
                 </base-tr-table>
@@ -68,7 +68,7 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
                         {{ index + 1 }}
                     </base-td-table>
 
-                    <base-td-table class="text-center !min-w-40 !max-w-40 truncate">
+                    <base-td-table class="!min-w-40 !max-w-40 truncate text-center">
                         {{ college_achievement.academic_level }}
 
                         <p class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
@@ -98,7 +98,7 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
 
                     <base-td-table class="text-center">
                         <base-tippy v-if="college_achievement?.note" :content="college_achievement?.note">
-                            <svg-loader class="block mx-auto h-6 w-6" name="icon-note"></svg-loader>
+                            <svg-loader class="mx-auto block h-6 w-6" name="icon-note"></svg-loader>
                         </base-tippy>
 
                         <span v-else> - </span>

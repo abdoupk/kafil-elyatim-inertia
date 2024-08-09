@@ -86,9 +86,7 @@ const onTermKeydown = (event: KeyboardEvent) => {
             break
     }
 
-    ;
-
-(
+    ;(
         resultsRefs.value[
             results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
         ] as HTMLElement
@@ -144,7 +142,7 @@ onUnmounted(() => {
                     </div>
                     <div
                         :class="query.length > 0 ? 'pt-5' : ''"
-                        class="box max-h-96 overflow-y-auto px-5 scrollbar-hidden"
+                        class="box scrollbar-hidden max-h-96 overflow-y-auto px-5"
                     >
                         <the-no-results-found v-if="noResults && query != ''"></the-no-results-found>
 

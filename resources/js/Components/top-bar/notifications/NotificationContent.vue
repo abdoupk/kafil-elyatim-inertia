@@ -12,15 +12,15 @@ defineProps<{
 <template>
     <div class="ms-2 overflow-hidden">
         <div class="flex items-center">
-            <a class="me-5 font-medium truncate" href="">
+            <a class="me-5 truncate font-medium" href="">
                 {{ notification.data.user.name }}
             </a>
-            <div class="ms-auto text-xs text-slate-400 whitespace-nowrap">
+            <div class="ms-auto whitespace-nowrap text-xs text-slate-400">
                 {{ formatDate(notification.data.metadata.created_at, 'medium') }}
             </div>
         </div>
         <div
-            class="w-full line-clamp-2 text-slate-500 mt-0.5"
+            class="mt-0.5 line-clamp-2 w-full text-slate-500"
             v-html="n__(`notifications.${notification.type}`, 0, { ...notification.data.data })"
         ></div>
     </div>

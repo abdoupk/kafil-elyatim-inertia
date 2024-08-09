@@ -38,7 +38,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <base-th-table
                             :direction="params.directions?.permissions_count"
-                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'permissions_count')"
                         >
@@ -47,7 +47,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <base-th-table
                             :direction="params.directions?.users_count"
-                            class="whitespace-nowrap border-b-0 font-semibold text-center"
+                            class="whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'users_count')"
                         >
@@ -86,19 +86,19 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ role.permissions_count }}
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ role.users_count }}
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ formatDate(role.created_at, 'long') }}
                         </base-td-table>

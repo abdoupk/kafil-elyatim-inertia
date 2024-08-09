@@ -42,15 +42,15 @@ const submit = () => {
 
 <template>
     <!-- BEGIN: Spouse Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ spouse.name }}</h2>
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <!-- BEGIN: First Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="first_name">
                         {{ $t('validation.attributes.first_name') }}
                     </base-form-label>
@@ -81,7 +81,7 @@ const submit = () => {
                 <!-- END: First Name -->
 
                 <!-- BEGIN: Last Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="last_name">
                         {{ $t('validation.attributes.last_name') }}
                     </base-form-label>
@@ -112,7 +112,7 @@ const submit = () => {
                 <!-- END: Last Name -->
 
                 <!-- BEGIN: Birth Date -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="birth_date">
                         {{ $t('validation.attributes.spouse.birth_date') }}
                     </base-form-label>
@@ -132,7 +132,7 @@ const submit = () => {
                 <!-- END: Birth Date -->
 
                 <!-- BEGIN: Death Date -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="death_date">
                         {{ $t('validation.attributes.spouse.death_date') }}
                     </base-form-label>
@@ -152,7 +152,7 @@ const submit = () => {
                 <!-- END: Death Date -->
 
                 <!-- BEGIN: Function (Job) -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="function">
                         {{ $t('filters.spouse.function') }}
                     </base-form-label>
@@ -183,7 +183,7 @@ const submit = () => {
                 <!-- END: Function (Job) -->
 
                 <!-- BEGIN: Income -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="income">
                         {{ $t('validation.attributes.income') }}
                     </base-form-label>
@@ -210,7 +210,7 @@ const submit = () => {
                 </div>
                 <!-- END: Income -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="!mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

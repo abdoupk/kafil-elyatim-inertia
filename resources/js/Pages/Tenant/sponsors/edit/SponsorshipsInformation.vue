@@ -80,12 +80,12 @@ const setValue = (key: SponsorSponsorship, event: Event) => {
 
 <template>
     <!-- BEGIN: Sponsorships Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('sponsor_sponsorship') }}</h2>
         </div>
         <form @submit.prevent="submit">
-            <div class="p-5 grid col-span-12 grid-cols-12 gap-4">
+            <div class="col-span-12 grid grid-cols-12 gap-4 p-5">
                 <!-- Begin: monthly Allowance -->
                 <div class="col-span-12">
                     <div class="grid grid-cols-12">
@@ -104,7 +104,7 @@ const setValue = (key: SponsorSponsorship, event: Event) => {
                             </base-form-switch>
                         </div>
 
-                        <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                        <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                             <base-form-text-area
                                 :disabled="!isChecked('medical_sponsorship')"
                                 :placeholder="$t('notes')"
@@ -136,7 +136,7 @@ const setValue = (key: SponsorSponsorship, event: Event) => {
                             </base-form-switch>
                         </div>
 
-                        <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                        <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                             <base-form-text-area
                                 :disabled="!isChecked('literacy_lessons')"
                                 :placeholder="$t('notes')"
@@ -168,7 +168,7 @@ const setValue = (key: SponsorSponsorship, event: Event) => {
                             </base-form-switch>
                         </div>
 
-                        <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                        <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                             <base-form-text-area
                                 :disabled="!isChecked('direct_sponsorship')"
                                 :placeholder="$t('notes')"
@@ -200,7 +200,7 @@ const setValue = (key: SponsorSponsorship, event: Event) => {
                             </base-form-switch>
                         </div>
 
-                        <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                        <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                             <base-form-text-area
                                 :disabled="!isChecked('project_support')"
                                 :placeholder="$t('notes')"
@@ -214,7 +214,7 @@ const setValue = (key: SponsorSponsorship, event: Event) => {
                 </div>
                 <!-- End: monthly Allowance -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="!mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

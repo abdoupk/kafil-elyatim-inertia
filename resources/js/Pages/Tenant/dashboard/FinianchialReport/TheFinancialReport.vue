@@ -6,13 +6,13 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 
 <template>
     <div class="col-span-12 mt-8 lg:col-span-6">
-        <div class="items-center block h-10 intro-y sm:flex">
-            <h2 class="me-5 text-lg font-medium truncate">Sales Report</h2>
-            <div class="relative mt-3 sm:ms-auto sm:mt-0 text-slate-500">
+        <div class="intro-y block h-10 items-center sm:flex">
+            <h2 class="me-5 truncate text-lg font-medium">Sales Report</h2>
+            <div class="relative mt-3 text-slate-500 sm:ms-auto sm:mt-0">
                 <base-v-calendar></base-v-calendar>
             </div>
         </div>
-        <div class="p-5 mt-12 intro-y box sm:mt-5">
+        <div class="intro-y box mt-12 p-5 sm:mt-5">
             <div class="flex flex-col md:flex-row md:items-center">
                 <div class="flex">
                     <div>
@@ -20,7 +20,7 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
                         <div class="mt-0.5 text-slate-500">This Month</div>
                     </div>
                     <div
-                        class="w-px h-12 mx-4 border border-e border-dashed border-slate-200 dark:border-darkmode-300 xl:mx-5"
+                        class="mx-4 h-12 w-px border border-e border-dashed border-slate-200 dark:border-darkmode-300 xl:mx-5"
                     ></div>
                     <div>
                         <div class="text-lg font-medium text-slate-500 xl:text-xl">$10,000</div>
@@ -31,11 +31,11 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
             <div
                 :class="[
                     'relative',
-                    'before:content-[\'\'] before:block before:absolute before:w-16 before:start-0 before:top-0 before:bottom-0 before:ms-10 before:mb-7 before:bg-gradient-to-e before:from-white before:via-white/80 before:to-transparent before:dark:from-darkmode-600',
-                    'after:content-[\'\'] after:block after:absolute after:w-16 after:end-0 after:top-0 after:bottom-0 after:mb-7 after:bg-gradient-to-s after:from-white after:via-white/80 after:to-transparent after:dark:from-darkmode-600'
+                    'before:bg-gradient-to-e before:absolute before:bottom-0 before:start-0 before:top-0 before:mb-7 before:ms-10 before:block before:w-16 before:from-white before:via-white/80 before:to-transparent before:content-[\'\'] before:dark:from-darkmode-600',
+                    'after:bg-gradient-to-s after:absolute after:bottom-0 after:end-0 after:top-0 after:mb-7 after:block after:w-16 after:from-white after:via-white/80 after:to-transparent after:content-[\'\'] after:dark:from-darkmode-600'
                 ]"
             >
-                <ReportLineChart :height="275" class="mt-6 -mb-6" />
+                <ReportLineChart :height="275" class="-mb-6 mt-6" />
             </div>
         </div>
     </div>

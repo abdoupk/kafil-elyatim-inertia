@@ -33,7 +33,7 @@ const toggle = (key: SponsorSponsorship) => {
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
+    <div class="mt-6 grid grid-cols-12 gap-4 gap-y-5">
         <!-- Begin: monthly Allowance -->
         <div class="intro-y col-span-12">
             <div class="grid grid-cols-12">
@@ -51,7 +51,7 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="medicalSponsorship"
                         :disabled="!items.medical_sponsorship"
@@ -81,7 +81,7 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="literacyLessons"
                         :disabled="!items.literacy_lessons"
@@ -111,7 +111,7 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="directSponsorship"
                         :disabled="!items.direct_sponsorship"
@@ -141,7 +141,7 @@ const toggle = (key: SponsorSponsorship) => {
                     </base-form-switch>
                 </div>
 
-                <div class="col-span-12 lg:col-span-8 mt-3 lg:mt-0">
+                <div class="col-span-12 mt-3 lg:col-span-8 lg:mt-0">
                     <base-form-text-area
                         v-model="projectSupport"
                         :disabled="!items.project_support"

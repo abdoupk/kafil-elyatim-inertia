@@ -81,15 +81,15 @@ onMounted(async () => {
 
 <template>
     <!-- BEGIN: Orphan Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('display information') }}</h2>
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <!-- BEGIN: First Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="first_name">
                         {{ $t('validation.attributes.first_name') }}
                     </base-form-label>
@@ -120,7 +120,7 @@ onMounted(async () => {
                 <!-- END: First Name -->
 
                 <!-- BEGIN: Last Name -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="last_name">
                         {{ $t('validation.attributes.last_name') }}
                     </base-form-label>
@@ -151,7 +151,7 @@ onMounted(async () => {
                 <!-- END: Last Name -->
 
                 <!-- BEGIN: BirthDate -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="birth_date">
                         {{ $t('validation.attributes.spouse.birth_date') }}
                     </base-form-label>
@@ -170,7 +170,7 @@ onMounted(async () => {
                 <!-- END: BirthDate -->
 
                 <!-- BEGIN: Family Status -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="family_status">
                         {{ $t('family_status') }}
                     </base-form-label>
@@ -201,7 +201,7 @@ onMounted(async () => {
                 <!-- END: Family Status -->
 
                 <!-- BEGIN: Academic Level -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="academic_level_id">
                         {{ $t('academic_level') }}
                     </base-form-label>
@@ -227,7 +227,7 @@ onMounted(async () => {
                 <!-- END: Academic Level -->
 
                 <!-- BEGIN: Gender -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="gender">
                         {{ $t('validation.attributes.gender') }}
                     </base-form-label>
@@ -257,7 +257,7 @@ onMounted(async () => {
 
                 <template v-if="!isStillBaby">
                     <!-- BEGIN: Pants Size -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="pants_size">
                             {{ $t('pants_size') }}
                         </base-form-label>
@@ -284,7 +284,7 @@ onMounted(async () => {
                     <!-- END: Pants Size -->
 
                     <!-- BEGIN: Shirt Size -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="shirt_size">
                             {{ $t('shirt_size') }}
                         </base-form-label>
@@ -311,7 +311,7 @@ onMounted(async () => {
                     <!-- END: Shirt Size -->
 
                     <!-- BEGIN: Shoes Size -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="shoes_size">
                             {{ $t('shoes_size') }}
                         </base-form-label>
@@ -339,7 +339,7 @@ onMounted(async () => {
 
                 <template v-else>
                     <!-- BEGIN: Diapers Type -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="diapers_type">
                             {{ $t('diapers_type') }}
                         </base-form-label>
@@ -370,7 +370,7 @@ onMounted(async () => {
                     <!-- END: Diapers Type -->
 
                     <!-- BEGIN: Diapers Quantity -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="diapers_quantity">
                             {{ $t('diapers_quantity') }}
                         </base-form-label>
@@ -401,7 +401,7 @@ onMounted(async () => {
                     <!-- END: Diapers Quantity -->
 
                     <!-- BEGIN: Baby Milk Type -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="baby_milk_type">
                             {{ $t('baby_milk_type') }}
                         </base-form-label>
@@ -432,7 +432,7 @@ onMounted(async () => {
                     <!-- END: Baby Milk Type -->
 
                     <!-- BEGIN: Baby Milk Quantity -->
-                    <div class="@xl:col-span-6 col-span-12">
+                    <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="baby_milk_quantity">
                             {{ $t('baby_milk_quantity') }}
                         </base-form-label>
@@ -490,7 +490,7 @@ onMounted(async () => {
                 </div>
                 <!-- END: Notes -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="!mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

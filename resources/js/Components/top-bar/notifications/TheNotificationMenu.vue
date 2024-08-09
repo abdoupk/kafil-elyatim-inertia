@@ -10,7 +10,7 @@ import NotificationLoader from '@/Components/top-bar/notifications/NotificationL
     <div
         v-for="notification in $page.props.auth.notifications"
         :key="notification.id"
-        :class="['cursor-pointer relative flex items-center', { 'mt-5': notification.id }]"
+        :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
     >
         <notification-avatar
             :gender="notification.data.user?.gender"
@@ -25,7 +25,7 @@ import NotificationLoader from '@/Components/top-bar/notifications/NotificationL
     <div
         v-for="notification in $page.props.auth.notifications"
         :key="notification.id"
-        :class="['cursor-pointer relative flex items-center', { 'mt-5': notification.id }]"
+        :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
     >
         <notification-avatar
             :gender="notification.data.user?.gender"

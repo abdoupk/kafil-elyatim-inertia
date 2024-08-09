@@ -90,7 +90,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div :class="finance.amount < 0 ? 'text-danger' : 'text-success'">
                                 {{ formatCurrency(Math.abs(finance.amount)) }}
@@ -98,22 +98,22 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ $t(finance.specification) }}
                         </base-td-table>
 
                         <base-td-table
-                            class="max-w-40 text-center truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             {{ formatDate(finance.date, 'long') }}
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 truncate max-w-40 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
+                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <base-tippy :content="finance.description">
-                                <svg-loader class="block mx-auto h-6 w-6" name="icon-note"></svg-loader>
+                                <svg-loader class="mx-auto block h-6 w-6" name="icon-note"></svg-loader>
                             </base-tippy>
                         </base-td-table>
 

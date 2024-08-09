@@ -53,8 +53,8 @@ const submit = () => {
 
 <template>
     <!-- BEGIN: Family Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ family.name }}</h2>
 
             <div
@@ -65,9 +65,9 @@ const submit = () => {
         </div>
 
         <form @submit.prevent="submit">
-            <div class="p-5 grid grid-cols-12 gap-4">
+            <div class="grid grid-cols-12 gap-4 p-5">
                 <!-- BEGIN: File Number -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="file_number">
                         {{ $t('validation.attributes.file_number') }}
                     </base-form-label>
@@ -98,7 +98,7 @@ const submit = () => {
                 <!-- END: File Number -->
 
                 <!-- BEGIN: Branch -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="zone_id">
                         {{ $t('validation.attributes.zone_id') }}
                     </base-form-label>
@@ -118,7 +118,7 @@ const submit = () => {
                 <!-- END: Branch -->
 
                 <!-- BEGIN: Zone -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="branch_id">
                         {{ $t('validation.attributes.branch_id') }}
                     </base-form-label>
@@ -142,7 +142,7 @@ const submit = () => {
                 <!-- END: Zone -->
 
                 <!-- BEGIN: Address -->
-                <div class="@xl:col-span-6 col-span-12">
+                <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="address">
                         {{ $t('validation.attributes.address') }}
                     </base-form-label>
@@ -168,7 +168,7 @@ const submit = () => {
                 </div>
                 <!-- END: Address -->
 
-                <base-button :disabled="form.processing" class="w-20 !mt-0" type="submit" variant="primary">
+                <base-button :disabled="form.processing" class="!mt-0 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>

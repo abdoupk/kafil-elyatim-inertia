@@ -38,13 +38,13 @@ const childName = computed(() => {
 </script>
 
 <template>
-    <div class="flex my-5">
+    <div class="my-5 flex">
         <p class="text-base font-medium">
             {{ childName }}
         </p>
     </div>
 
-    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6 pt-2 pb-2.5 px-2 border-dashed border-2">
+    <div class="mt-6 grid grid-cols-12 gap-4 gap-y-5 border-2 border-dashed px-2 pb-2.5 pt-2">
         <!-- Begin: medical sponsorship -->
         <div class="intro-y col-span-12">
             <base-form-switch class="text-lg">

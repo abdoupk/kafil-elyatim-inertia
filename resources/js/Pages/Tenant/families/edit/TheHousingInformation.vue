@@ -70,8 +70,8 @@ const FurnishingsSubmit = () => {
 
 <template>
     <!-- BEGIN: Housing Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('housing information') }}</h2>
         </div>
 
@@ -84,7 +84,7 @@ const FurnishingsSubmit = () => {
                     :form="housing_form"
                 ></housing-form>
 
-                <base-button :disabled="housing_form.processing" class="w-20 !mt-6" type="submit" variant="primary">
+                <base-button :disabled="housing_form.processing" class="!mt-6 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="housing_form.processing" class="ms-auto"></spinner-button-loader>
@@ -95,8 +95,8 @@ const FurnishingsSubmit = () => {
     <!-- END: Housing Information -->
 
     <!-- BEGIN: Furnishings Information -->
-    <div class="col-span-12 intro-y box 2xl:col-span-6 @container">
-        <div class="flex items-center px-5 py-5 border-b sm:py-3 border-slate-200/60 dark:border-darkmode-400">
+    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+        <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">
                 {{ $t('furnishings information') }}
             </h2>
@@ -118,7 +118,7 @@ const FurnishingsSubmit = () => {
                     :form="furnishings_form"
                 ></furnishing-form>
 
-                <base-button :disabled="furnishings_form.processing" class="w-20 !mt-6" type="submit" variant="primary">
+                <base-button :disabled="furnishings_form.processing" class="!mt-6 w-20" type="submit" variant="primary">
                     {{ $t('save') }}
 
                     <spinner-button-loader :show="furnishings_form.processing" class="ms-auto"></spinner-button-loader>

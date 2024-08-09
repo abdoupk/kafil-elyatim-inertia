@@ -23,7 +23,7 @@ const emit = defineEmits(['close'])
                     {{ title }}
                 </h2>
 
-                <a class="absolute top-0 end-0 mt-3 me-3" href="#" @click="emit('close')">
+                <a class="absolute end-0 top-0 me-3 mt-3" href="#" @click="emit('close')">
                     <svg-loader class="h-5 w-5 fill-current" name="icon-x-mark"></svg-loader>
                 </a>
             </base-dialog-title>
@@ -33,7 +33,7 @@ const emit = defineEmits(['close'])
             </base-dialog-description>
 
             <base-dialog-footer class="flex justify-end">
-                <base-button class="w-20 me-1" type="button" variant="outline-secondary" @click="emit('close')">
+                <base-button class="me-1 w-20" type="button" variant="outline-secondary" @click="emit('close')">
                     {{ $t('cancel') }}
                 </base-button>
             </base-dialog-footer>

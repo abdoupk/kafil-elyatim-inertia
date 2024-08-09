@@ -56,7 +56,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <base-th-table
                             :direction="params.directions && params.directions['family.orphans_count']"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold !w-32"
+                            class="!w-32 whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'family.orphans_count')"
                         >
@@ -65,7 +65,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <base-th-table
                             :direction="params.directions?.total_income"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold !w-32"
+                            class="!w-32 whitespace-nowrap border-b-0 text-center font-semibold"
                             sortable
                             @click="emit('sort', 'total_income')"
                         >
@@ -114,14 +114,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         >
                             <Link
                                 :href="route('tenant.branches.index')"
-                                class="mt-0.5 block whitespace-nowrap truncate"
+                                class="mt-0.5 block truncate whitespace-nowrap"
                             >
                                 {{ family.branch?.name }}
                             </Link>
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="whitespace-nowrap">
                                 {{ family.orphans_count }}
@@ -129,7 +129,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </base-td-table>
 
                         <base-td-table
-                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"
+                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
                             <div class="whitespace-nowrap">
                                 {{ formatCurrency(family.total_income) }}

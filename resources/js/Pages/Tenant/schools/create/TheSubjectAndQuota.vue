@@ -51,7 +51,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="grid grid-cols-13 gap-4 col-span-12">
+    <div class="col-span-12 grid grid-cols-13 gap-4">
         <!-- Begin: Academic Level-->
         <div class="col-span-12 sm:col-span-4">
             <base-form-label htmlFor="academic_level">
@@ -125,10 +125,10 @@ onMounted(async () => {
         </div>
         <!-- End: Quota-->
 
-        <div class="col-span-1 flex justify-center items-center mt-6 -ms-6">
+        <div class="col-span-1 -ms-6 mt-6 flex items-center justify-center">
             <svg-loader
                 :class="{ '!cursor-not-allowed': index === 0 }"
-                class="h-5 w-5 fill-danger cursor-pointer"
+                class="h-5 w-5 cursor-pointer fill-danger"
                 name="icon-trash-can"
                 @click.prevent="emit('removeLesson', index)"
             ></svg-loader>
