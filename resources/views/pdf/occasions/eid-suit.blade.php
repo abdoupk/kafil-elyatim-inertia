@@ -89,15 +89,15 @@
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $sponsorship->orphan->shoes_size }}
+                {{ $sponsorship->orphan->shoesSize->label }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $sponsorship->orphan->pants_size }}
+                {{ $sponsorship->orphan->pantsSize->label }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $sponsorship->orphan->shirt_size }}
+                {{ $sponsorship->orphan->shirtSize->label }}
             </td>
 
             <td class="px-2 py-0.5 border truncate max-w-28 text-center border-black">

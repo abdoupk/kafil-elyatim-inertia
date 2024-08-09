@@ -306,6 +306,7 @@ export const orphansFilters: ListBoxFilter[] = [
 
 export const eidAlAdhaFilters: ListBoxFilter[] = []
 
+// TODO change icon general_average
 export const schoolEntryFilters: ListBoxFilter[] = [
     {
         icon: 'icon-hands-holding-child',
@@ -358,7 +359,57 @@ export const schoolEntryFilters: ListBoxFilter[] = [
     }
 ]
 
-export const eidSuitsFilters: ListBoxFilter[] = []
+export const eidSuitsFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'orphan.id',
+        label: 'orphan',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'orphan.birth_date',
+        label: 'birth_date',
+        type: 'date',
+        operators: filterDateOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'sponsorship',
+        label: 'orphan_sponsorships',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-gender',
+        field: 'orphan.gender',
+        label: 'gender',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-shoes',
+        field: 'orphan.shoes_size',
+        label: 'shoes_size',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-pants',
+        field: 'orphan.pants_size',
+        label: 'pants_size',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-shirt-long-sleeve',
+        field: 'orphan.shirt_size',
+        label: 'shirt_size',
+        type: 'object',
+        operators: filterObjectOperators
+    }
+]
 
 export const ramadanBasketFilters: ListBoxFilter[] = []
 

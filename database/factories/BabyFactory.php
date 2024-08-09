@@ -12,10 +12,10 @@ class BabyFactory extends Factory
     public function definition(): array
     {
         return [
-            'baby_milk_quantity' => fake()->randomNumber(),
-            'baby_milk_type' => fake()->word,
-            'diapers_quantity' => fake()->randomNumber(),
-            'diapers_type' => fake()->word,
+            'baby_milk_quantity' => fake()->numberBetween(1, 4),
+            'baby_milk_type' => fake('ar_SA')->realText(10),
+            'diapers_quantity' => fake()->numberBetween(1, 4),
+            'diapers_type' => fake('ar_SA')->realText(10),
             'tenant_id' => fake()->uuid,
             'orphan_id' => fake()->uuid,
             'family_id' => fake()->uuid,

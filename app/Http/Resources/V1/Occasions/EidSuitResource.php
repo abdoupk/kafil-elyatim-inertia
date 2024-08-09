@@ -30,9 +30,9 @@ class EidSuitResource extends JsonResource
             'orphan' => [
                 'id' => $this->orphan->id,
                 'name' => $this->orphan->getName(),
-                'shirt_size' => $this->orphan->shirt_size,
-                'pants_size' => $this->orphan->pants_size,
-                'shoes_size' => $this->orphan->shoes_size,
+                'shirt_size' => $this->orphan->shirtSize->label,
+                'pants_size' => $this->orphan->pantsSize->label,
+                'shoes_size' => $this->orphan->shoesSize->label,
             ],
         ];
     }

@@ -11,8 +11,6 @@ class OrphanFactory extends Factory
 {
     protected $model = Orphan::class;
 
-    protected array $sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-
     public function definition(): array
     {
         return [

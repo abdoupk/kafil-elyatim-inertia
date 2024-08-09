@@ -64,7 +64,7 @@ function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginato
 {
     return search(OrphanSponsorship::getModel(), FILTER_EID_SUIT)
         ->query(fn ($query) => $query
-            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
+            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name', 'orphan.shoesSize', 'orphan.pantsSize', 'orphan.shirtSize'])
         )
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
