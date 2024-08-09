@@ -80,7 +80,7 @@ const filterStringOperators: Array<ListBoxOperator> = [
 // TODO:add dzd icon add death date spouse
 export const familiesFilters: ListBoxFilter[] = [
     {
-        icon: 'icon-users',
+        icon: 'icon-family',
         field: 'id',
         label: 'family',
         type: 'object',
@@ -411,7 +411,50 @@ export const eidSuitsFilters: ListBoxFilter[] = [
     }
 ]
 
-export const ramadanBasketFilters: ListBoxFilter[] = []
+export const ramadanBasketFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-family',
+        field: 'family.id',
+        label: 'family',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'sponsor.id',
+        label: 'sponsor',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-branches',
+        field: 'family.branch.id',
+        label: 'branch',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-map-location-dot',
+        field: 'family.zone.id',
+        label: 'zone',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'family.orphans_count',
+        label: 'orphans_count',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-dollar-sign',
+        field: 'family.total_income',
+        label: 'total_income',
+        type: 'number',
+        operators: filterNumberOperators
+    }
+]
 
 export const needsFilters: ListBoxFilter[] = []
 

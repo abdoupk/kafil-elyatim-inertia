@@ -186,7 +186,7 @@ return [
                 'sortableAttributes' => ['note', 'needable.name', 'needable.type', 'status', 'created_at'],
             ],
             'family_sponsorships' => [
-                'filterableAttributes' => ['id', 'monthly_allowance', 'ramadan_basket', 'zakat', 'housing_assistance', 'eid_al_adha', 'tenant_id'],
+                'filterableAttributes' => ['id', 'monthly_allowance', 'ramadan_basket', 'zakat', 'housing_assistance', 'eid_al_adha', 'tenant_id', 'family.branch.id', 'family.zone.id', 'family.orphans_count', 'family.total_income'],
                 'searchableAttributes' => ['family.address', 'family.zone', 'family.branch', 'sponsor.name', 'sponsor.phone_number', 'family.orphans_count', 'total_income'],
                 'sortableAttributes' => ['created_at', 'family.orphans_count', 'family.zone', 'family.branch', 'sponsor.name', 'total_income'],
             ],

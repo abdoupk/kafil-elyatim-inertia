@@ -94,9 +94,16 @@ class FamilySponsorship extends Model
             'eid_al_adha' => $this->eid_al_adha,
             'family' => [
                 'address' => $this->family->address,
-                'zone' => $this->family->zone->name,
-                'branch' => $this->family->branch->name,
+                'zone' => [
+                    'id' => $this->family->zone->id,
+                    'name' => $this->family->zone->name,
+                ],
+                'branch' => [
+                    'id' => $this->family->branch->id,
+                    'name' => $this->family->branch->name,
+                ],
                 'orphans_count' => $this->family->orphans->count(),
+                'total_income' => $this->family->totalIncomes(),
             ],
             'sponsor' => [
                 'name' => $this->family->sponsor->getName(),
@@ -104,7 +111,6 @@ class FamilySponsorship extends Model
             ],
             'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,
-            'total_income' => $this->family->totalIncomes(),
         ];
     }
 }
