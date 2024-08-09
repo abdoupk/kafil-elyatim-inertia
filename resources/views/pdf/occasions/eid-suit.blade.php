@@ -25,6 +25,7 @@
             {{ __('sponsor_phone_number') }}
         </th>
 
+
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
             {{ __('the_orphan') }}
         </th>
@@ -34,69 +35,77 @@
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('age') }}
+            {{ __('validation.attributes.age') }}
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('baby_milk_type') }}
+            {{ __('shoes_size') }}
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('baby_milk_quantity') }}
+            {{ __('pants_size') }}
         </th>
 
         <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('diapers_type') }}
+            {{ __('shirt_size') }}
         </th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-            {{ __('diapers_quantity') }}
+        <th class="font-medium px-3 py-0.5 border border-black text-center">
+            {{ __('the_branch') }}
+        </th>
+
+        <th class="truncate font-medium px-3 py-0.5 border border-black text-center">
+            {{ __('the_zone') }}
         </th>
     </tr>
     </thead>
 
     <tbody>
 
-    @foreach ($babies as $baby)
+    @foreach ($sponsorships as $sponsorship)
         <tr>
             <td class="px-2 py-0.5 border text-center border-black">
                 {{ $loop->iteration }}
             </td>
 
-            <td class="px-2 py-0.5 border text-center border-black">
-                {{ $baby->orphan->sponsor->getName() }}
+            <td class="px-2 py-0.5 border  border-black">
+                {{ $sponsorship->orphan->sponsor->getName() }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{$baby->orphan->sponsor->formattedPhoneNumber()}}
+                {{ $sponsorship->orphan->sponsor->formattedPhoneNumber() }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $baby->getName() }}
+                {{ $sponsorship->orphan->getName() }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ __($baby->orphan->gender) }}
+                {{ __($sponsorship->orphan->gender) }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ calculateAge($baby->orphan->birth_date) }}
+                {{ trans_choice('age_years',$sponsorship->orphan->birth_date->age) }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $baby->baby_milk_type }}
+                {{ $sponsorship->orphan->shoes_size }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ $baby->baby_milk_quantity }}
+                {{ $sponsorship->orphan->pants_size }}
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{$baby->diapers_type }}
+                {{ $sponsorship->orphan->shirt_size }}
             </td>
 
-            <td class="px-2 py-0.5 border border-black text-center">
-                {{ $baby->diapers_quantity }}
+            <td class="px-2 py-0.5 border truncate max-w-28 text-center border-black">
+                {{ $sponsorship->orphan->family->branch->name }}
+            </td>
+
+            <td class="px-2 py-0.5 border text-center border-black">
+                {{ $sponsorship->orphan->family->zone->name }}
             </td>
         </tr>
     @endforeach

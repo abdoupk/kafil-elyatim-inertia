@@ -80,7 +80,7 @@
             </td>
 
             <td class="px-2 py-0.5 border text-center border-black">
-                {{ trans_choice('age_years',$sponsorship->orphan->birth_date->age,[]) }}
+                {{ trans_choice('age_years',$sponsorship->orphan->birth_date->age) }}
             </td>
 
 

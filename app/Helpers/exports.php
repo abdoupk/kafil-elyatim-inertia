@@ -18,7 +18,7 @@ function listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport(): Collection
 {
     return search(OrphanSponsorship::getModel(), FILTER_EID_SUIT, limit: 10000)
         ->query(fn ($query) => $query
-            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
+            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size,gender,birth_date', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family:id,branch_id,zone_id', 'orphan.family.zone:id,name', 'orphan.family.branch:id,name'])
         )
         ->get();
 }
