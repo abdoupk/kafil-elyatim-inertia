@@ -3,6 +3,7 @@ import type { SVGType } from '@/types/types'
 import { usePage } from '@inertiajs/vue3'
 import { type Hit, MeiliSearch } from 'meilisearch'
 
+
 const client = new MeiliSearch({
     host: 'http://127.0.0.1:7700',
     apiKey: 'masterKey'
@@ -14,18 +15,18 @@ export const search = async (q: string) => {
             {
                 indexUid: 'users',
                 q,
-                limit: 25,
+                limit: 5,
                 sort: ['created_at:desc'],
-                // filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
                 attributesToRetrieve: ['id', 'name', 'email'],
                 attributesToSearchOn: ['name', 'email', 'phone', 'gender']
             },
             {
                 indexUid: 'families',
                 q,
-                limit: 25,
+                limit: 5,
                 sort: ['created_at:desc'],
-                // filter: `tenant_id = ${usePage().props.auth.user.tenant_id}`,
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
                 attributesToRetrieve: ['id', 'name', 'address.zone.name'],
                 attributesToSearchOn: [
                     'name',
