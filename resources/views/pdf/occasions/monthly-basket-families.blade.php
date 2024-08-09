@@ -37,6 +37,14 @@
         <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
             {{ __('incomes.label.total_income') }}
         </th>
+
+        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+            {{ __('the_branch') }}
+        </th>
+
+        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+            {{ __('the_zone') }}
+        </th>
     </tr>
     </thead>
 
@@ -66,6 +74,14 @@
 
             <td class="px-2 py-1 whitespace-nowrap border border-black text-center">
                 {{ formatCurrency($sponsorship->family->totalIncomes()) }}
+            </td>
+
+            <td class="px-2 py-1 max-w-28 truncate border border-black text-center">
+                {{ $sponsorship->family->branch->name }}
+            </td>
+
+            <td class="px-2 py-1 whitespace-nowrap border border-black text-center">
+                {{ $sponsorship->family->zone->name }}
             </td>
         </tr>
     @endforeach

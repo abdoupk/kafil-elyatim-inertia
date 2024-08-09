@@ -14,7 +14,7 @@ class ExportFamiliesMonthlyBasketPDFController extends Controller
      */
     public function __invoke(): StreamedResponse
     {
-        return saveToPDF('occasions/monthly-basket', 'sponsorships', function () {
+        return saveToPDF('occasions/monthly-basket-families', 'sponsorships', function () {
             return listOfFamiliesBenefitingFromTheMonthlyBasketForExport();
         });
     }
