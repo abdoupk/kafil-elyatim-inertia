@@ -19,7 +19,8 @@ const toRGB = (value: string) => {
 }
 
 // noinspection JSUnusedLocalSymbols
-const slideUp = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {}) => {
+const slideUp = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {
+}) => {
     el.style.transitionProperty = 'height, margin, padding'
 
     el.style.transitionDuration = duration + 'ms'
@@ -68,7 +69,8 @@ const setSlideProperties = (el: HTMLElement) => {
 }
 
 // noinspection JSUnusedLocalSymbols
-const slideDown = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {}) => {
+const slideDown = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {
+}) => {
     el.style.removeProperty('display')
 
     let display = window.getComputedStyle(el).display
@@ -353,6 +355,10 @@ function handleFilterValue(filter: ListBoxFilter, value): string {
         if (isNaN(convertedDate)) return ''
 
         return convertedDate.toString()
+    } else if (filter.field === 'sponsorship') {
+        if (value.value !== '') return true
+
+        return ''
     } else if (filter.field === 'family_sponsorships' || filter.field === 'sponsorships') {
         if (value.value !== '') return true
 
@@ -366,20 +372,11 @@ function handleFilterValue(filter: ListBoxFilter, value): string {
     return value
 }
 
-const shouldFetchFilterData = (value, oldValue) => {
-    if (oldValue[0] === undefined) return false
-    else if (value?.length === oldValue?.length && value?.length === 0) return false
-    else if (JSON.stringify(value) === JSON.stringify(oldValue)) return false
-
-    return true
-}
-
 const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
     const isSponsorship = ['family_sponsorships', 'sponsor_sponsorships'].includes(field.label)
-
-    if (isSponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
+    if (field.field === 'sponsorship' && typeof value !== 'string') return `${value.value}`
+    else if (isSponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
     else if (field.label === 'orphan_sponsorships' && typeof value !== 'string') return `${field.field}.${value.value}`
-    else if (field.label === 'sponsorship' && typeof value !== 'string') return `${value.value}`
     else return field.field
 }
 

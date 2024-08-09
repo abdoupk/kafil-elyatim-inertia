@@ -42,4 +42,5 @@ return [
     'pants_size' => 'مقاس السروال',
     'shirt_size' => 'مقاس القميص',
     'orphan' => 'اليتيم',
+    'general_average' => 'المعدل العام',
 ];

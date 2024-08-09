@@ -11,6 +11,7 @@ const filterObjectOperators: Array<ListBoxOperator> = [
     }
 ]
 
+// TODO maybe reverse before and after <= and >=
 const filterDateOperators: Array<ListBoxOperator> = [
     {
         label: 'filters.before',
@@ -305,7 +306,57 @@ export const orphansFilters: ListBoxFilter[] = [
 
 export const eidAlAdhaFilters: ListBoxFilter[] = []
 
-export const schoolEntryFilters: ListBoxFilter[] = []
+export const schoolEntryFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'orphan.id',
+        label: 'orphan',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-graduation-cap',
+        field: 'orphan.academic_achievement.academic_level.id',
+        label: 'orphan.academic_level',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'orphan.birth_date',
+        label: 'birth_date',
+        type: 'date',
+        operators: filterDateOperators
+    },
+    {
+        icon: 'icon-dollar-sign',
+        field: 'orphan.academic_achievement.last_year_average',
+        label: 'general_average',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-hands-holding-heart',
+        field: 'sponsorship',
+        label: 'orphan_sponsorships',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-stethoscope',
+        field: 'health_status',
+        label: 'health_status',
+        type: 'string',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-gender',
+        field: 'gender',
+        label: 'gender',
+        type: 'object',
+        operators: filterObjectOperators
+    }
+]
 
 export const eidSuitsFilters: ListBoxFilter[] = []
 
@@ -314,6 +365,7 @@ export const ramadanBasketFilters: ListBoxFilter[] = []
 export const needsFilters: ListBoxFilter[] = []
 
 export const monthlyBasketFilters: ListBoxFilter[] = []
+
 export const babiesMilkAndDiapersFilters: ListBoxFilter[] = []
 
 export const financialFilters: ListBoxFilter[] = []
