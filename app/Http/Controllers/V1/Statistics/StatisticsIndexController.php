@@ -10,6 +10,6 @@ class StatisticsIndexController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/Statistics/StatisticsIndexPage');
+        return Inertia::render('Tenant/statistics/StatisticsIndexPage');
     }
 }
