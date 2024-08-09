@@ -17,7 +17,7 @@ import { formatDate } from '@/utils/helper'
 defineProps<{ branches: PaginationData<BranchesIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
-const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetailsModal'])
 </script>
 
 <template>
@@ -80,7 +80,9 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            {{ branch.name }}
+                            <a class="font-medium" href="#" @click.prevent="emit('showDetailsModal', branch.id)">
+                                {{ branch.name }}
+                            </a>
                         </base-td-table>
 
                         <base-td-table

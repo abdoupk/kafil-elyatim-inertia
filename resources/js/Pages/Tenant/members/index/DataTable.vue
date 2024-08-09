@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
-import { Link } from '@inertiajs/vue3'
-
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
@@ -14,7 +12,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 defineProps<{ members: PaginationData<MembersIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
-const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetailsModal'])
 </script>
 
 <template>
@@ -68,9 +66,9 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <base-td-table
                             class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
                         >
-                            <Link :href="route('tenant.members.show', member.id)" class="font-medium">
+                            <a class="font-medium" href="#" @click.prevent="emit('showDetailsModal', member.id)">
                                 {{ member.name }}
-                            </Link>
+                            </a>
                         </base-td-table>
 
                         <base-td-table
@@ -98,9 +96,9 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         >
                             <div class="flex items-center justify-center">
                                 <a
+                                    class="me-3 flex items-center"
                                     href="javascript:void(0)"
                                     @click.prevent="emit('showEditModal', member.id)"
-                                    class="me-3 flex items-center"
                                 >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}

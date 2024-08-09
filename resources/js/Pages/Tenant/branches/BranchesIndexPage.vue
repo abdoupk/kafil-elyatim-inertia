@@ -9,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import BranchCreateEditModal from '@/Pages/Tenant/branches/BranchCreateEditModal.vue'
+import BranchShowModal from '@/Pages/Tenant/branches/BranchShowModal.vue'
 import DataTable from '@/Pages/Tenant/branches/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -17,7 +18,6 @@ import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 
 import { handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
 
 defineOptions({
     layout: TheLayout
@@ -40,6 +40,8 @@ const params = reactive<IndexParams>({
 const deleteModalStatus = ref<boolean>(false)
 
 const createEditModalStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
@@ -93,9 +95,21 @@ const showEditModal = async (branchId: string) => {
     createEditModalStatus.value = true
 }
 
-watchEffect(() => {
-    if (new URLSearchParams(window.location.search).has('show')) {
-        // TODO: show Details Modal
+const showDetailsModal = async (branchID: string | null) => {
+    if (branchID) {
+        selectedBranchId.value = branchID
+
+        await branchesStore.getBranch(branchID)
+
+        showModalStatus.value = true
+    }
+}
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
     }
 })
 </script>
@@ -119,7 +133,7 @@ watchEffect(() => {
             </base-button>
         </template>
     </the-table-header>
-    
+
     <template v-if="branches.data.length > 0">
         <data-table
             :branches
@@ -127,6 +141,7 @@ watchEffect(() => {
             @showDeleteModal="showDeleteModal"
             @sort="sort"
             @show-edit-modal="showEditModal"
+            @show-details-modal="showDetailsModal"
         ></data-table>
 
         <the-table-footer :pagination-data="branches" :params :url="route('tenant.branches.index')"></the-table-footer>
@@ -145,4 +160,10 @@ watchEffect(() => {
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></branch-create-edit-modal>
+
+    <branch-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_branch') })"
+        @close="showModalStatus = false"
+    ></branch-show-modal>
 </template>

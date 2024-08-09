@@ -9,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
 import MemberCreateModal from '@/Pages/Tenant/members/MemberCreateModal.vue'
+import MemberShowModal from '@/Pages/Tenant/members/MemberShowModal.vue'
 import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -46,6 +47,8 @@ const selectedMemberId = ref<string>('')
 const membersStore = useMembersStore()
 
 const createUpdateSlideoverStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -93,9 +96,21 @@ const showEditModal = (memberId: string) => {
     createUpdateSlideoverStatus.value = true
 }
 
-watchEffect(() => {
-    if (new URLSearchParams(window.location.search).has('show')) {
-        // TODO: show Details Modal
+const showDetailsModal = async (memberId: string | null) => {
+    if (memberId) {
+        selectedMemberId.value = memberId
+
+        await membersStore.getMember(memberId)
+
+        showModalStatus.value = true
+    }
+}
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
     }
 })
 </script>
@@ -127,6 +142,7 @@ watchEffect(() => {
             @showDeleteModal="showDeleteModal"
             @sort="sort"
             @show-edit-modal="showEditModal"
+            @show-details-modal="showDetailsModal"
         ></data-table>
 
         <the-table-footer :pagination-data="members" :params :url="route('tenant.members.index')"></the-table-footer>
@@ -145,4 +161,10 @@ watchEffect(() => {
         :open="createUpdateSlideoverStatus"
         @close="createUpdateSlideoverStatus = false"
     ></member-create-modal>
+
+    <member-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_member') })"
+        @close="showModalStatus = false"
+    ></member-show-modal>
 </template>
