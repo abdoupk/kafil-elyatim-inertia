@@ -13,7 +13,7 @@ class ZoneFactory extends Factory
     {
         return [
             'name' => ' منطقة رقم '.fake()->numberBetween(1, 20),
-            'description' => fake()->realText(1000),
+            'description' => fake('ar_SA')->realText(1000),
             'created_at' => now(),
             'tenant_id' => fake()->uuid,
             'updated_at' => now(),
