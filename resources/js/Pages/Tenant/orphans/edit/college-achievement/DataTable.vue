@@ -127,5 +127,3 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
         </base-table>
     </div>
 </template>
-
-<style lang="postcss" scoped></style>

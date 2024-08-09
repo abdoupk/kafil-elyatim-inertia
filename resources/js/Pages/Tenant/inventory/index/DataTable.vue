@@ -5,11 +5,12 @@ import { Link } from '@inertiajs/vue3'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
-import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
-import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
+import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
+import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
+import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate, formatNumber } from '@/utils/helper'
@@ -26,84 +27,72 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
+                        <the-table-th class="text-start"> #</the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.name"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            class="text-start"
                             sortable
                             @click="emit('sort', 'name')"
                         >
                             {{ $t('the_item') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.qty"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'qty')"
                         >
                             {{ $t('validation.attributes.qty') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.created_at"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'created_at')"
                         >
                             {{ $t('validation.attributes.created_at') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <the-table-th class="text-center">
                             {{ $t('validation.attributes.notes') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <the-table-th class="text-center">
                             {{ $t('actions') }}
-                        </base-th-table>
+                        </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
 
                 <base-tbody-table>
                     <base-tr-table v-for="(item, index) in items.data" :key="item.id" class="intro-x">
-                        <base-td-table
-                            class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="w-16">
                             {{ (items.meta.from ?? 0) + index }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="!min-w-40 !max-w-40 truncate">
                             <Link :href="route('tenant.items.show', item.id)" class="font-medium">
                                 {{ item.name }}
                             </Link>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 text-center">
                             {{ formatNumber(item.qty) }} {{ $t(item.unit) }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="w-48 border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="w-48 text-center">
                             {{ formatDate(item.created_at, 'full') }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="text-center">
                             <base-tippy v-if="item.note" :content="item.note" as="div">
                                 <svg-loader class="mx-auto block" name="icon-note"></svg-loader>
                             </base-tippy>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td-actions>
                             <div class="flex items-center justify-center">
                                 <a
                                     class="me-3 flex items-center"
@@ -122,7 +111,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                     {{ $t('delete') }}
                                 </a>
                             </div>
-                        </base-td-table>
+                        </the-table-td-actions>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>

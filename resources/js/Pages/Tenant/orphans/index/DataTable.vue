@@ -5,10 +5,11 @@ import { Link } from '@inertiajs/vue3'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
-import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
-import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
+import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
+import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate } from '@/utils/helper'
@@ -25,141 +26,85 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
+                        <the-table-th class="text-start"> #</the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.name"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            class="text-start"
                             sortable
                             @click="emit('sort', 'name')"
                         >
                             {{ $t('the_child') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.family_status"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'email')"
                         >
                             {{ $t('family_status') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.health_status"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'health_status')"
                             >{{ $t('validation.attributes.sponsor.health_status') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.academic_level"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'academic_level')"
                             >{{ $t('validation.attributes.sponsor.academic_level') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <!--                        <base-th-table-->
-                        <!--                            :direction="params.directions?.shoes_size"-->
-                        <!--                            class="whitespace-nowrap border-b-0 font-semibold text-center"-->
-                        <!--                            sortable-->
-                        <!--                            @click="emit('sort', 'shoes_size')"-->
-                        <!--                            >{{ $t('shoes_size') }}-->
-                        <!--                        </base-th-table>-->
-
-                        <!--                        <base-th-table-->
-                        <!--                            :direction="params.directions?.pants_size"-->
-                        <!--                            class="whitespace-nowrap border-b-0 font-semibold text-center"-->
-                        <!--                            sortable-->
-                        <!--                            @click="emit('sort', 'pants_size')"-->
-                        <!--                            >{{ $t('pants_size') }}-->
-                        <!--                        </base-th-table>-->
-
-                        <!--                        <base-th-table-->
-                        <!--                            :direction="params.directions?.shirt_size"-->
-                        <!--                            class="whitespace-nowrap border-b-0 font-semibold text-center"-->
-                        <!--                            sortable-->
-                        <!--                            @click="emit('sort', 'shirt_size')"-->
-                        <!--                            >{{ $t('shirt_size') }}-->
-                        <!--                        </base-th-table>-->
-
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.birth_date"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'birth_date')"
                             >{{ $t('validation.attributes.date_of_birth') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <the-table-th class="text-center">
                             {{ $t('actions') }}
-                        </base-th-table>
+                        </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
 
                 <base-tbody-table>
                     <base-tr-table v-for="(orphan, index) in orphans.data" :key="orphan.id" class="intro-x">
-                        <base-td-table
-                            class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="w-16">
                             {{ (orphans.meta.from ?? 0) + index }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="!min-w-40 !max-w-40 truncate">
                             <Link :href="route('tenant.orphans.show', orphan.id)" class="font-medium">
                                 {{ orphan.name }}
                             </Link>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate">
                             {{ orphan.family_status }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate text-center">
                             {{ orphan.health_status }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate text-center">
                             {{ orphan.academic_level }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <!--                        <base-td-table-->
-                        <!--                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"-->
-                        <!--                        >-->
-                        <!--                            {{ orphan.shoes_size }}-->
-                        <!--                        </base-td-table>-->
-
-                        <!--                        <base-td-table-->
-                        <!--                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"-->
-                        <!--                        >-->
-                        <!--                            {{ orphan.pants_size }}-->
-                        <!--                        </base-td-table>-->
-
-                        <!--                        <base-td-table-->
-                        <!--                            class="border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b] text-center"-->
-                        <!--                        >-->
-                        <!--                            {{ orphan.shirt_size }}-->
-                        <!--                        </base-td-table>-->
-
-                        <base-td-table
-                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="text-center">
                             {{ formatDate(orphan.birth_date, 'long') }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td-actions>
                             <div class="flex items-center justify-center">
                                 <Link
                                     :href="route('tenant.orphans.edit', orphan.id)"
@@ -178,7 +123,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                     {{ $t('delete') }}
                                 </a>
                             </div>
-                        </base-td-table>
+                        </the-table-td-actions>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>

@@ -25,14 +25,17 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
                     <base-th-table class="whitespace-nowrap bg-slate-50 text-slate-500 dark:bg-darkmode-800">
                         #
                     </base-th-table>
+
                     <base-th-table class="whitespace-nowrap bg-slate-50 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('speciality') }}
                     </base-th-table>
+
                     <base-th-table class="whitespace-nowrap bg-slate-50 text-slate-500 dark:bg-darkmode-800">
                         <div class="flex items-center">
                             {{ $t('validation.attributes.year') }}
                         </div>
                     </base-th-table>
+
                     <base-th-table class="whitespace-nowrap bg-slate-50 !px-2 text-slate-500 dark:bg-darkmode-800">
                         {{ $t('institute') }}
                     </base-th-table>
@@ -106,5 +109,3 @@ const emit = defineEmits(['showDeleteModal', 'showEditModal'])
         </base-table>
     </div>
 </template>
-
-<style lang="postcss" scoped></style>

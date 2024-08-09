@@ -6,9 +6,10 @@ import { Link } from '@inertiajs/vue3'
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
-import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
+import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate } from '@/utils/helper'
@@ -25,71 +26,61 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
+                        <the-table-th class="text-start"> #</the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.name"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            class="text-start"
                             sortable
                             @click="emit('sort', 'name')"
                         >
                             {{ $t('the_school') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.quota"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'quota')"
                             >{{ $t('quota_total') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.created_at"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'created_at')"
                         >
                             {{ $t('added_at') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <the-table-th class="text-center">
                             {{ $t('actions') }}
-                        </base-th-table>
+                        </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
 
                 <base-tbody-table>
                     <base-tr-table v-for="(school, index) in schools.data" :key="school.id" class="intro-x">
-                        <base-td-table
-                            class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <base-td-table class="w-16">
                             {{ (schools.meta.from ?? 0) + index }}
                         </base-td-table>
 
-                        <base-td-table
-                            class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <base-td-table class="!min-w-40 !max-w-40 truncate">
                             <Link :href="route('tenant.schools.show', school.id)" class="font-medium">
                                 {{ school.name }}
                             </Link>
                         </base-td-table>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <base-td-table class="max-w-40 truncate text-center">
                             {{ school.quota }}
                         </base-td-table>
 
-                        <base-td-table
-                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <base-td-table class="text-center">
                             {{ formatDate(school.created_at, 'full') }}
                         </base-td-table>
 
-                        <base-td-table
-                            class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td-actions>
                             <div class="flex items-center justify-center">
                                 <a
                                     class="me-3 flex items-center"
@@ -108,7 +99,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                     {{ $t('delete') }}
                                 </a>
                             </div>
-                        </base-td-table>
+                        </the-table-td-actions>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>

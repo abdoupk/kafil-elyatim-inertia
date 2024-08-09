@@ -5,11 +5,12 @@ import { Link } from '@inertiajs/vue3'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
-import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
-import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
+import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
+import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
+import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatCurrency, formatDate } from '@/utils/helper'
@@ -25,101 +26,87 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
+                        <the-table-th class="text-start"> #</the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.creator"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
+                            class="text-start"
                             sortable
                             @click="emit('sort', 'creator')"
                         >
                             {{ $t('receiving_member') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.amount"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'amount')"
                         >
                             {{ $t('validation.attributes.amount') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.specification"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'specification')"
                         >
                             {{ $t('validation.attributes.specification') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table
+                        <the-table-th
                             :direction="params.directions?.date"
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
+                            class="text-center"
                             sortable
                             @click="emit('sort', 'date')"
                         >
                             {{ $t('validation.attributes.date') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <the-table-th class="text-center">
                             {{ $t('validation.attributes.note') }}
-                        </base-th-table>
+                        </the-table-th>
 
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        <the-table-th class="text-center">
                             {{ $t('actions') }}
-                        </base-th-table>
+                        </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
 
                 <base-tbody-table>
                     <base-tr-table v-for="(finance, index) in finances.data" :key="finance.id" class="intro-x">
-                        <base-td-table
-                            class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="w-16">
                             {{ (finances.meta.from ?? 0) + index }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="!min-w-40 !max-w-40 truncate">
                             <Link :href="route('tenant.members.show', finance.creator.id)" class="font-medium">
                                 {{ finance.creator.name }}
                             </Link>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate">
                             <div :class="finance.amount < 0 ? 'text-danger' : 'text-success'">
                                 {{ formatCurrency(Math.abs(finance.amount)) }}
                             </div>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate">
                             {{ $t(finance.specification) }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate">
                             {{ formatDate(finance.date, 'long') }}
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="max-w-40 truncate">
                             <base-tippy :content="finance.description">
                                 <svg-loader class="mx-auto block h-6 w-6" name="icon-note"></svg-loader>
                             </base-tippy>
-                        </base-td-table>
+                        </the-table-td>
 
-                        <base-td-table
-                            class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td-actions>
                             <div class="flex items-center justify-center">
                                 <Link class="me-3 flex items-center" href="#">
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
@@ -134,7 +121,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                                     {{ $t('delete') }}
                                 </a>
                             </div>
-                        </base-td-table>
+                        </the-table-td-actions>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>
