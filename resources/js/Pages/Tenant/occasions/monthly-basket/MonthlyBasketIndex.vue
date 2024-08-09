@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
-import { ramadanBasketFilters } from '@/constants/filters'
+import { monthlyBasketFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
@@ -43,13 +43,13 @@ const sort = (field: string) => handleSort(field, params)
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.ramadan-basket.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.ramadan-basket.export.xlsx', params)"
-        :filters="ramadanBasketFilters"
+        :export-pdf-url="route('tenant.occasions.monthly-basket.export.pdf', params)"
+        :export-xlsx-url="route('tenant.occasions.monthly-basket.export.xlsx', params)"
+        :filters="monthlyBasketFilters"
         :pagination-data="families"
         :params="params"
-        :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
-        :url="route('tenant.occasions.ramadan-basket.index')"
+        :title="$t('list', { attribute: $t('the_families_monthly_basket') })"
+        :url="route('tenant.occasions.monthly-basket.index')"
         entries="families"
         exportable
         filterable
@@ -64,7 +64,7 @@ const sort = (field: string) => handleSort(field, params)
                         <svg-loader class="w-6 h-6 me-3" name="icon-triangle-exclamation" />
                     </span>
 
-                    <span class="text-slate-800 dark:text-slate-500"> {{ $t('hints.ramadan_basket') }} </span>
+                    <span class="text-slate-800 dark:text-slate-500"> {{ $t('hints.monthly_basket') }} </span>
                 </div>
             </base-alert>
         </template>
@@ -82,7 +82,7 @@ const sort = (field: string) => handleSort(field, params)
         <the-table-footer
             :pagination-data="families"
             :params
-            :url="route('tenant.occasions.ramadan-basket.index')"
+            :url="route('tenant.occasions.monthly-basket.index')"
         ></the-table-footer>
     </template>
 

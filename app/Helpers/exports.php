@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Baby;
-use App\Models\Family;
 use App\Models\FamilySponsorship;
 use App\Models\OrphanSponsorship;
 use Illuminate\Database\Eloquent\Collection;
@@ -46,11 +45,12 @@ function listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport(): Collect
         ->get();
 }
 
+// TODO Optimize remove sponsors incomes and second sponsor and in all get incomes
 function listOfFamiliesBenefitingFromTheMonthlyBasketForExport(): Collection
 {
     //    $filters = ['monthly_allowance', '=', true];
 
-    return search(Family::getModel())
-        ->query(fn ($query) => $query->with('zone'))
-        ->get();
+    return search(FamilySponsorship::getModel())
+        ->query(fn ($query) => $query
+            ->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))->get();
 }
