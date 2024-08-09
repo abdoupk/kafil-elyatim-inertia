@@ -208,3 +208,11 @@ function calculateAge($birthDate): string
 
     return implode(trans('finale_glue'), $dates);
 }
+
+function formatPhoneNumber($phone): string
+{
+    return substr($phone, 0, 4).'-'.
+        substr($phone, 4, 2).'-'.
+        substr($phone, 6, 2).'-'.
+        substr($phone, 8, 2);
+}

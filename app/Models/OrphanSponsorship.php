@@ -118,7 +118,7 @@ class OrphanSponsorship extends Model
             ],
             'sponsor' => [
                 'name' => $this->orphan->sponsor->getName(),
-                'phone_number' => $this->orphan->sponsor->phone_number,
+                'phone_number' => $this->orphan->sponsor->formattedPhoneNumber(),
             ],
             'tenant_id' => $this->orphan->tenant_id,
         ];

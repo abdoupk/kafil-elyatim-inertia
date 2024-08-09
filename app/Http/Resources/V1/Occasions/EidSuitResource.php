@@ -18,7 +18,7 @@ class EidSuitResource extends JsonResource
             'sponsor' => [
                 'id' => $this->orphan->sponsor->id,
                 'name' => $this->orphan->sponsor->getName(),
-                'phone_number' => $this->orphan->sponsor->phone_number,
+                'phone_number' => $this->orphan->sponsor->formattedPhoneNumber(),
             ],
             'family' => [
                 'zone' => [

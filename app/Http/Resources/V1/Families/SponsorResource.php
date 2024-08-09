@@ -14,7 +14,7 @@ class SponsorResource extends JsonResource
     {
         return [
             'name' => $this->getName(),
-            'phone_number' => $this->phone_number,
+            'phone_number' => $this->formattedPhoneNumber(),
             'sponsor_type' => $this->sponsor_type,
             'birth_date' => $this->birth_date,
             'father_name' => $this->father_name,

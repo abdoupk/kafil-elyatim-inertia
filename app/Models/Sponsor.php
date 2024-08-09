@@ -233,12 +233,7 @@ class Sponsor extends Model
 
     public function formattedPhoneNumber(): string
     {
-        $phone = $this->phone_number;
-
-        return substr($phone, 0, 4).'-'.
-            substr($phone, 4, 2).'-'.
-            substr($phone, 6, 2).'-'.
-            substr($phone, 8, 2);
+        return formatPhoneNumber($this->phone_number);
     }
 
     protected function casts(): array

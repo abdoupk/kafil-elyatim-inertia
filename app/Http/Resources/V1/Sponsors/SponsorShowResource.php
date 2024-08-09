@@ -22,7 +22,7 @@ class SponsorShowResource extends JsonResource
             'start_date' => $this->family->start_date,
             'name' => $this->getName(),
             'address' => $this->family->address,
-            'phone_number' => $this->phone_number,
+            'phone_number' => $this->formattedPhoneNumber(),
             'birth_date' => $this->birth_date,
             'father_name' => $this->father_name,
             'mother_name' => $this->mother_name,

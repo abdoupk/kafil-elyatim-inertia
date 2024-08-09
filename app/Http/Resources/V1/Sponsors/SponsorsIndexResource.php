@@ -14,7 +14,7 @@ class SponsorsIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->getName(),
-            'phone_number' => $this->phone_number,
+            'phone_number' => $this->formattedPhoneNumber(),
             'birth_date' => $this->birth_date,
             'academic_level' => $this->academicLevel?->level,
             'function' => $this->function,

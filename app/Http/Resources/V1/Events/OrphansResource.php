@@ -15,7 +15,7 @@ class OrphansResource extends JsonResource
             'id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
-            'sponsor_phone' => $this->sponsor?->phone_number,
+            'sponsor_phone' => $this->sponsor->formattedPhoneNumber(),
             'name' => $this->getName(),
         ];
     }
