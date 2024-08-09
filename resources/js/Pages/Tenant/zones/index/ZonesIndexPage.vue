@@ -3,13 +3,11 @@ import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/ty
 
 import { useZonesStore } from '@/stores/zones'
 import { Head, router } from '@inertiajs/vue3'
-import { onMounted, reactive, ref } from 'vue'
+import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import ZoneCreateEditModal from '@/Pages/Tenant/zones/ZoneCreateEditModal.vue'
-import ZoneShowModal from '@/Pages/Tenant/zones/ZoneShowModal.vue'
 import DataTable from '@/Pages/Tenant/zones/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -37,6 +35,10 @@ const params = reactive<IndexParams>({
     filters: props.params.filters,
     search: props.params.search
 })
+
+const zoneShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/zones/ZoneShowModal.vue'))
+
+const ZoneCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/zones/ZoneCreateEditModal.vue'))
 
 const zonesStore = useZonesStore()
 
@@ -106,7 +108,7 @@ const showDeleteModal = (zoneId: string) => {
     deleteModalStatus.value = true
 }
 
-onMounted(async () => {
+watchEffect(async () => {
     const searchParams = new URLSearchParams(window.location.search)
 
     if (searchParams.has('show')) {
@@ -141,6 +143,7 @@ onMounted(async () => {
             :zones
             @showDeleteModal="showDeleteModal"
             @sort="sort"
+            @show-details-modal="showDetailsModal"
             @show-edit-modal="showEditModal"
         ></data-table>
 
@@ -161,5 +164,9 @@ onMounted(async () => {
         @close="createEditModalStatus = false"
     ></zone-create-edit-modal>
 
-    <zone-show-modal :open="showModalStatus" :title="'s'" @close="showModalStatus = false"></zone-show-modal>
+    <zone-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_zone') })"
+        @close="showModalStatus = false"
+    ></zone-show-modal>
 </template>

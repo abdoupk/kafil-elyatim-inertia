@@ -72,6 +72,8 @@
     "Your email address is unverified.": "لم يتم التحقق من عنوان بريدك الإلكتروني.",
     "actions": "الإجراءات",
     "add new": "اضافة :attribute جديد {1} | اضافة :attribute جديدة {0}",
+    "modal_update_title": "تحديث :attribute",
+    "modal_show_title": "عرض :attribute",
     "apply": "تطبيق",
     "association_email": "بريد الإلكتروني خاص بالجمعية",
     "branch": "فرع",

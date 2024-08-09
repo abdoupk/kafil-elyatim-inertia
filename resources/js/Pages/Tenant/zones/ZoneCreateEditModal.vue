@@ -63,7 +63,11 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the zone id
 const modalTitle = computed(() => {
-    return zonesStore.zone.id ? __('update zone') : n__('add new', 0, { attribute: __('zone') })
+    return zonesStore.zone.id
+        ? __('modal_update_title', {
+              attribute: __('the_zone')
+          })
+        : n__('add new', 0, { attribute: __('zone') })
 })
 
 // Initialize a ref for the first input element
