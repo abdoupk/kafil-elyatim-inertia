@@ -14,7 +14,7 @@ defineProps<{
 </script>
 
 <template>
-    <ComboboxOptions class="box scrollbar-hidden max-h-[500px] w-[450px] overflow-y-auto scroll-smooth px-5 pt-5">
+    <ComboboxOptions class="">
         <div v-if="isEmpty(options) && querySearch !== ''">
             <the-no-results-found></the-no-results-found>
         </div>

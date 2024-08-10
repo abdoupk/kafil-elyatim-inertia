@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Combobox, ComboboxButton, ComboboxInput, TransitionRoot } from '@headlessui/vue'
 import { router } from '@inertiajs/vue3'
-import type { Hits } from 'meilisearch'
+import type { Hit } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 
@@ -11,15 +11,9 @@ import TheResults from '@/Components/top-bar/search/TheResults.vue'
 
 import { search } from '@/utils/search'
 
-interface Option {
-    id: string
-    name: string
-    group?: string
-}
+const options = ref<Hit[]>([])
 
-const options = ref<Hits>([])
-
-const selectedOption = ref<Option | null>(null)
+const selectedOption = ref<Hit | null>(null)
 
 const querySearch = ref('')
 
@@ -33,7 +27,7 @@ watch(
         router.visit(value?.url, {
             method: 'get',
             // TODO change if has same pathname change else dont usePage.url
-            preserveState: true
+            preserveState: false
         })
     }
 )
@@ -82,7 +76,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
                             'w-56 rounded-full border-transparent bg-slate-200 pe-8 shadow-none transition-[width] duration-300 ease-in-out focus:w-72 focus:border-transparent dark:bg-darkmode-400'
                         )
                     "
-                    :displayValue="(option) => option?.title"
                     :placeholder="$t('Search...')"
                     @keydown.esc.prevent="() => (querySearch = '')"
                 />
@@ -107,7 +100,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
                     @after-leave="querySearch = ''"
                 >
                     <div class="absolute end-0 z-10 mt-[3px]">
-                        <the-results :options :querySearch></the-results>
+                        <the-results
+                            :options
+                            :querySearch
+                            class="box scrollbar-hidden max-h-[500px] w-[450px] overflow-y-auto scroll-smooth px-5 pt-5"
+                        ></the-results>
                     </div>
                 </transition-root>
             </div>

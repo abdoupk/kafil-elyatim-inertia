@@ -1,22 +1,20 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
+import { Combobox, ComboboxInput, Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
 import { router } from '@inertiajs/vue3'
 import { computedEager } from '@vueuse/core'
 import type { Hit } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheResults from '@/Components/top-bar/search/TheResults.vue'
 
-import { isEmpty, jumpToNextItem, jumpToPreviousItem } from '@/utils/helper'
 import { search } from '@/utils/search'
 
-const query = ref('')
+const querySearch = ref('')
 
 const open = ref(false)
 
@@ -32,66 +30,13 @@ const computedTheme = computedEager(() => {
 
 const results = ref<Hit[]>([])
 
-const resultsRefs = ref([])
-
 watch(
-    () => query.value,
-    async (query: string) => {
-        if (query != '')
-            await search(query)
-                .then((res) => (results.value = res.map((r) => r.hits)))
-                .finally(() => {
-                    currentIndex.value.group = currentIndex.value.item = 0
-                })
+    () => querySearch.value,
+    async (querySearch: string) => {
+        if (querySearch != '') await search(querySearch).then((res) => (results.value = res.map((r) => r.hits)))
     },
     { immediate: true }
 )
-
-const goTo = () => {
-    const item = results.value[currentIndex.value.group][currentIndex.value.item]
-
-    if (item) {
-        // SearchDropdown.value = false
-
-        setTimeout(() => {
-            router.visit(item.url, {
-                method: 'get',
-                preserveState: true
-            })
-        }, 100)
-    }
-}
-
-const currentIndex = ref({
-    group: 0,
-    item: 0
-})
-
-const noResults = computed(() => results.value.every((a) => isEmpty(a)))
-
-const onTermKeydown = (event: KeyboardEvent) => {
-    if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
-        event.preventDefault()
-    }
-
-    switch (event.code) {
-        case 'ArrowDown':
-            jumpToNextItem(results.value, currentIndex.value)
-
-            break
-
-        case 'ArrowUp':
-            jumpToPreviousItem(results.value, currentIndex.value)
-
-            break
-    }
-
-    ;(
-        resultsRefs.value[
-            results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
-        ] as HTMLElement
-    )?.scrollIntoView(false)
-}
 
 function onKeydown(event: KeyboardEvent) {
     if (event.key == 'k' && (event.metaKey || event.ctrlKey)) {
@@ -108,6 +53,25 @@ onMounted(() => {
 onUnmounted(() => {
     window.removeEventListener('keydown', onKeydown)
 })
+
+const selectedOption = ref<Hit | null>(null)
+
+watch(
+    () => selectedOption.value,
+    (value) => {
+        querySearch.value = ''
+
+        document.getElementById('search')?.blur()
+
+        router.visit(value?.url, {
+            method: 'get',
+            // TODO change if has same pathname change else dont usePage.url
+            preserveState: false
+        })
+
+        open.value = false
+    }
+)
 </script>
 
 <template>
@@ -118,43 +82,37 @@ onUnmounted(() => {
             name="icon-search"
         ></svg-loader>
     </a>
-    <transition-root :show="open" appear as="div" @after-enter="() => (query = '')">
+    <transition-root :show="open" appear as="div" @after-enter="() => (querySearch = '')">
         <headless-dialog class="relative z-[60]" @close="open = false">
             <base-dialog-panel class="rounded-xl" size="md">
-                <div class="divide-y divide-gray-100 overflow-hidden rounded-xl dark:divide-darkmode-400">
+                <Combobox
+                    v-model="selectedOption"
+                    as="div"
+                    class="divide-y divide-gray-100 overflow-hidden rounded-xl dark:divide-darkmode-400"
+                >
                     <div class="flex items-center px-4">
                         <svg-loader class="h-6 w-6 text-slate-500" name="icon-search"></svg-loader>
 
-                        <base-form-input
-                            v-model="query"
+                        <ComboboxInput
+                            id="search"
+                            v-model="querySearch"
+                            :as="BaseFormInput"
                             :class="
                                 twMerge(
                                     'h-12 border-transparent bg-transparent shadow-none ring-0 ring-black/5 focus:border-transparent focus:ring-0 dark:bg-transparent'
                                 )
                             "
                             :placeholder="$t('Search...')"
-                            type="text"
-                            @input="query = ($event.target as HTMLInputElement).value"
-                            @keydown="onTermKeydown"
-                            @keydown.enter.prevent="goTo"
-                            @keydown.esc.prevent="open = false"
-                        ></base-form-input>
+                            @keydown.esc.prevent="() => (querySearch = '')"
+                        />
                     </div>
                     <div
-                        :class="query.length > 0 ? 'pt-5' : ''"
+                        :class="querySearch.length > 0 ? 'pt-5' : ''"
                         class="box scrollbar-hidden max-h-96 overflow-y-auto px-5"
                     >
-                        <the-no-results-found v-if="noResults && query != ''"></the-no-results-found>
-
-                        <the-results
-                            v-if="query.length > 0 && !noResults"
-                            :currentIndex
-                            :results
-                            :results-refs="resultsRefs"
-                            @hover="currentIndex = $event"
-                        ></the-results>
+                        <the-results :options="results" :querySearch></the-results>
                     </div>
-                </div>
+                </Combobox>
             </base-dialog-panel>
         </headless-dialog>
     </transition-root>
