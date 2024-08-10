@@ -101,7 +101,7 @@ const handleEditLesson = () => {
     </h2>
 
     <div class="mt-5 grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center">
+        <div class="intro-y box col-span-12 mt-2 flex flex-wrap items-center p-5">
             <base-calendar
                 :events
                 class="w-full"
