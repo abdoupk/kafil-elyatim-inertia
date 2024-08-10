@@ -175,27 +175,27 @@ export const search = async (q: string) => {
 function constructLink(hit: Hit, indexUid: string) {
     switch (indexUid) {
         case 'users':
-            return route('tenant.members.show', hit.id)
+            return route('tenant.members.index', { show: hit.id })
         case 'families':
             return route('tenant.families.show', hit.id)
         case 'orphans':
-            return hit.name
+            return route('tenant.orphans.show', hit.id)
         case 'sponsors':
-            return hit.name
+            return route('tenant.sponsors.show', hit.id)
         case 'needs':
-            return hit.subject
+            return route('tenant.needs.index', { show: hit.id })
         case 'inventory':
-            return hit.name
+            return route('tenant.inventory.index', { show: hit.id })
         case 'schools':
-            return hit.name
+            return route('tenant.schools.index', { show: hit.id })
         case 'zones':
-            return hit.name
+            return route('tenant.zones.index', { show: hit.id })
         case 'branches':
-            return hit.name
+            return route('tenant.branches.index', { show: hit.id })
         case 'finances':
-            return hit.name
+            return route('tenant.financial.index', { show: hit.id })
         case 'babies':
-            return hit.orphan.name
+            return route('tenant.orphans.show', hit.orphan.id)
         default:
             return ''
     }
