@@ -146,22 +146,24 @@ return [
             ],
             'orphans' => [
                 'filterableAttributes' => ['__soft_deleted', 'id', 'name', 'tenant_id', 'academic_level.id', 'pants_size', 'shoes_size', 'shirt_size', 'health_status', 'family_status', 'gender', 'income', 'birth_date', 'sponsorships'],
-                'searchableAttributes' => ['name'],
+                'searchableAttributes' => ['name', 'note', 'health_status', 'family_status', 'academic_level.level', 'academic_level.phase', 'shoes_size',
+                    'shirt_size', 'pants_size', 'gender',
+                ],
                 'sortableAttributes' => ['name', 'created_at'],
             ],
             'babies' => [
                 'filterableAttributes' => ['__soft_deleted', 'orphan.id', 'tenant_id', 'orphan.health_status', 'orphan.gender', 'family.id', 'orphan.birth_date', 'sponsor.id', 'orphan.id', 'address.zone.id', 'baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type'],
-                'searchableAttributes' => ['orphan.name', 'sponsor.name', 'family.name'],
+                'searchableAttributes' => ['orphan.name', 'sponsor.name', 'family.name', 'baby_milk_type', 'diapers_type', 'baby_milk_quantity', 'diapers_quantity'],
                 'sortableAttributes' => ['name', 'created_at', 'baby_milk_quantity', 'diapers_quantity', 'orphan.birth_date'],
             ],
             'inventory' => [
                 'filterableAttributes' => ['__soft_deleted', 'id', 'name', 'qty', 'unit', 'tenant_id'],
-                'searchableAttributes' => ['name', 'qty', ' unit'],
+                'searchableAttributes' => ['name', 'quantity', 'unit', 'note', 'qty'],
                 'sortableAttributes' => ['name', 'created_at', 'qty', 'unit'],
             ],
             'sponsors' => [
                 'filterableAttributes' => ['__soft_deleted', 'id', 'name', 'tenant_id', 'academic_level_id', 'sponsor_type', 'gender', 'income', 'sponsorships', 'orphans_count', 'function'],
-                'searchableAttributes' => ['name'],
+                'searchableAttributes' => ['name', 'function', 'birth_certificate_number', 'mother_name', 'academic_level.level', 'academic_level.phase', 'father_name', 'phone_number', 'sponsor_type', 'gender', 'diploma', 'ccp'],
                 'sortableAttributes' => ['name', 'created_at'],
             ],
             'families' => [

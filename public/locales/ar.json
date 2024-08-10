@@ -820,5 +820,6 @@
     "finale_glue": " و",
     "age": "العمر",
     "milk and diapers": "الاستفادة من الحليب والحفاظات",
-    "vue_select_limit_text": " و:count أخرين"
+    "vue_select_limit_text": " و:count أخرين",
+    "number_of_places": "لا يوجد اي مقعد|مقعد واحد|{2} مقعدين|[3,10] :value مقاعد|[11,*] :value مقعد"
 }

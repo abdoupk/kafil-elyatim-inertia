@@ -3,6 +3,9 @@ import type { SVGType } from '@/types/types'
 import { usePage } from '@inertiajs/vue3'
 import { type Hit, MeiliSearch } from 'meilisearch'
 
+import { formatCurrency, formatDate, formatNumber } from '@/utils/helper'
+import { __, getLocale, n__ } from '@/utils/i18n'
+
 
 const client = new MeiliSearch({
     host: 'http://127.0.0.1:7700',
@@ -20,6 +23,75 @@ export const search = async (q: string) => {
                 filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
                 attributesToRetrieve: ['id', 'name', 'email'],
                 attributesToSearchOn: ['name', 'email', 'phone', 'gender']
+            },
+            {
+                indexUid: 'zones',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'name'],
+                attributesToSearchOn: ['name']
+            },
+            {
+                indexUid: 'branches',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'name'],
+                attributesToSearchOn: ['name']
+            },
+            {
+                indexUid: 'orphans',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'name', 'readable_birth_date'],
+                attributesToSearchOn: [
+                    'name',
+                    'note',
+                    'health_status',
+                    'family_status',
+                    'academic_level.level',
+                    'academic_level.phase',
+                    'shoes_size',
+                    'shirt_size',
+                    'pants_size',
+                    'gender'
+                ]
+            },
+            {
+                indexUid: 'sponsors',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'name', 'phone_number'],
+                attributesToSearchOn: [
+                    'name',
+                    'function',
+                    'birth_certificate_number',
+                    'mother_name',
+                    'academic_level.level',
+                    'academic_level.phase',
+                    'father_name',
+                    'phone_number',
+                    'sponsor_type',
+                    'gender',
+                    'diploma',
+                    'ccp'
+                ]
+            },
+            {
+                indexUid: 'finances',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'specification', 'amount'],
+                attributesToSearchOn: ['description', 'specification', 'creator']
             },
             {
                 indexUid: 'families',
@@ -41,6 +113,48 @@ export const search = async (q: string) => {
                     'spouse.name',
                     'spouse.function'
                 ]
+            },
+            {
+                indexUid: 'inventory',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'name', 'qty', 'unit'],
+                attributesToSearchOn: ['name', 'unit', 'note']
+            },
+            {
+                indexUid: 'babies',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: [
+                    'id',
+                    'baby_milk_quantity',
+                    'baby_milk_type',
+                    'diapers_quantity',
+                    'diapers_type'
+                ],
+                attributesToSearchOn: ['baby_milk_type', 'diapers_type']
+            },
+            {
+                indexUid: 'needs',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'subject', 'needable.name', 'status'],
+                attributesToSearchOn: ['subject', 'demand', 'needable.name', 'status', 'needable.type', 'note']
+            },
+            {
+                indexUid: 'schools',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'name', 'quota'],
+                attributesToSearchOn: ['name']
             }
         ]
     })
@@ -64,7 +178,24 @@ function constructLink(hit: Hit, indexUid: string) {
             return route('tenant.members.show', hit.id)
         case 'families':
             return route('tenant.families.show', hit.id)
-
+        case 'orphans':
+            return hit.name
+        case 'sponsors':
+            return hit.name
+        case 'needs':
+            return hit.subject
+        case 'inventory':
+            return hit.name
+        case 'schools':
+            return hit.name
+        case 'zones':
+            return hit.name
+        case 'branches':
+            return hit.name
+        case 'finances':
+            return hit.name
+        case 'babies':
+            return hit.orphan.name
         default:
             return ''
     }
@@ -82,6 +213,46 @@ const constructIcon = (indexUid: string): { icon: SVGType; color: string } => {
                 icon: 'icon-family',
                 color: 'bg-pending/20 text-pending dark:bg-pending/10'
             }
+        case 'orphans':
+            return {
+                icon: 'icon-children',
+                color: 'bg-indigo-500/20 text-indigo-600 dark:bg-indigo-200/30 dark:text-indigo-900'
+            }
+        case 'sponsors':
+            return {
+                icon: 'icon-hands-holding-child',
+                color: 'bg-danger/20 text-danger dark:bg-danger/10'
+            }
+        case 'needs':
+            return {
+                icon: 'icon-handshake-angle',
+                color: 'bg-warning/30 text-white dark:bg-warning/10'
+            }
+        case 'inventory':
+            return {
+                icon: 'icon-shelves',
+                color: 'bg-theme-1/20 text-theme-1 dark:bg-theme-1/10'
+            }
+        case 'schools':
+            return {
+                icon: 'icon-school-lock',
+                color: 'bg-theme-2/20 text-theme-2 dark:bg-theme-2/10'
+            }
+        case 'zones':
+            return {
+                icon: 'icon-map-location-dot',
+                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+            }
+        case 'branches':
+            return {
+                icon: 'icon-branches',
+                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+            }
+        case 'finances':
+            return {
+                icon: 'icon-dollar-sign',
+                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+            }
         default:
             return {
                 icon: 'icon-sort',
@@ -96,6 +267,22 @@ const constructHint = (hit: Hit, indexUid: string) => {
             return hit.email
         case 'families':
             return hit.address.zone?.name
+        case 'orphans':
+            return formatDate(hit.readable_birth_date, 'long')
+        case 'sponsors':
+            return hit.phone_number
+        case 'needs':
+            return __(hit.status)
+        case 'inventory':
+            return formatNumber(hit.qty) + '(' + __(hit.unit) + ')'
+        case 'schools':
+            return n__('number_of_places', hit.quota, { value: hit.quota })
+        case 'zones':
+            return formatDate(hit.created_at, 'long')
+        case 'branches':
+            return formatDate(hit.created_at, 'long')
+        case 'finances':
+            return formatCurrency(hit.amount)
         default:
             return null
     }
@@ -107,6 +294,22 @@ const constructTitle = (hit: Hit, indexUid: string) => {
             return hit.name
         case 'families':
             return hit.name
+        case 'orphans':
+            return hit.name
+        case 'sponsors':
+            return hit.name
+        case 'needs':
+            return hit.subject
+        case 'inventory':
+            return hit.name
+        case 'schools':
+            return hit.name
+        case 'zones':
+            return hit.name
+        case 'branches':
+            return hit.name
+        case 'finances':
+            return hit.specification[getLocale()]
         default:
             return ''
     }

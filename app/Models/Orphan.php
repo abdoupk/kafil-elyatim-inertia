@@ -166,11 +166,12 @@ class Orphan extends Model
         return [
             'name' => $this->getName(),
             'birth_date' => strtotime($this->birth_date),
+            'readable_birth_date' => $this->birth_date,
             'health_status' => $this->health_status,
             'family_status' => $this->family_status,
-            'shoes_size' => $this->shoes_size,
-            'shirt_size' => $this->shirt_size,
-            'pants_size' => $this->pants_size,
+            'shoes_size' => $this->shoesSize->label,
+            'shirt_size' => $this->shirtSize->label,
+            'pants_size' => $this->pantsSize->label,
             'income' => (float) $this->income,
             'gender' => $this->gender,
             'note' => $this->note,
@@ -236,7 +237,7 @@ class Orphan extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'sponsorships', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining']);
+        return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'sponsorships', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining', 'shoesSize', 'shirtSize', 'pantsSize']);
     }
 
     public function academicAchievements(): HasMany
