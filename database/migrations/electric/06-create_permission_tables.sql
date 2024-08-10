@@ -35,6 +35,7 @@ create table if not exists "model_has_permissions"
 (
     "permission_id" uuid not null references "permissions" ("uuid") on delete cascade,
     "model_type"    text not null,
+    "tenant_id"     uuid not null,
     "model_uuid"    uuid not null
 );
 

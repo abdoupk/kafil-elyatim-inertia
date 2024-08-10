@@ -10,7 +10,7 @@ class PermissionSeeder extends Seeder
 {
     public function run(): void
     {
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->setPermissionsTeamId(tenant('id'));
 
         $classes = ['members', 'families', 'sponsors', 'orphans', 'needs', 'zones', 'financial_transactions', 'branches', 'inventory', 'schools', 'lessons'];
 

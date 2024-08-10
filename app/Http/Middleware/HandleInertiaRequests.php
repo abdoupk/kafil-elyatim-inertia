@@ -29,7 +29,7 @@ class HandleInertiaRequests extends Middleware
                     ? NotificationResource::collection(auth()->user()?->unreadNotifications) : [],
             ],
             'association' => tenant('association'),
-            'language' => 'ar', // TODO: change to get automatically app()->getLocale()
+            'language' => 'ar', // TODO: change to get automatically app()->getLocale() and remove languages
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
@@ -52,7 +52,8 @@ class HandleInertiaRequests extends Middleware
                 }
 
                 return $value;
-            });
+            }) + ['permissions' => auth()->user()->permissions->toArray()];
+
         }
 
         return null;

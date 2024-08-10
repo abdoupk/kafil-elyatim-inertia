@@ -10,13 +10,9 @@ use App\Models\Tenant;
 use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Database\Seeder;
-use Random\RandomException;
 
 class TenantSeeder extends Seeder
 {
-    /**
-     * @throws RandomException
-     */
     public function run(): void
     {
         $tenant1 = Tenant::factory()->create([

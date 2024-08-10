@@ -11,6 +11,7 @@ export interface User {
     email_verified_at: string
     roles: string[]
     tenant_id: string
+    permissions: string[]
 }
 
 export interface UserSettings {
