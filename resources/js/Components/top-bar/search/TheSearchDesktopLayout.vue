@@ -1,114 +1,65 @@
 <script lang="ts" setup>
-import { TransitionRoot } from '@headlessui/vue'
+import { Combobox, ComboboxButton, ComboboxInput, TransitionRoot } from '@headlessui/vue'
 import { router } from '@inertiajs/vue3'
-import type { Hit } from 'meilisearch'
+import type { Hits } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
-import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 import TheResults from '@/Components/top-bar/search/TheResults.vue'
 
-import { isEmpty, jumpToNextItem, jumpToPreviousItem } from '@/utils/helper'
 import { search } from '@/utils/search'
-import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
-defineOptions({
-    inheritAttrs: false
-})
-
-const query = ref('')
-
-const searchDropdown = ref(false)
-
-const attrs = useComputedAttrs()
-
-const closeSearch = () => {
-    setTimeout(() => {
-        document.getElementById('search_dropdown')?.blur()
-    }, 100)
-
-    query.value = ''
+interface Option {
+    id: string
+    name: string
+    group?: string
 }
 
-function onKeydown(event: KeyboardEvent) {
-    const searchInput = document.getElementById('search_dropdown') as HTMLInputElement
+const options = ref<Hits>([])
 
-    if (event.key == 'k' && (event.metaKey || event.ctrlKey)) {
-        event.preventDefault()
+const selectedOption = ref<Option | null>(null)
 
-        if (searchDropdown.value) {
-            searchInput?.blur()
-
-            query.value = ''
-        } else {
-            searchInput?.focus()
-        }
-    }
-}
-
-const results = ref<Hit[]>([])
-
-const resultsRefs = ref([])
+const querySearch = ref('')
 
 watch(
-    () => query.value,
+    () => selectedOption.value,
+    (value) => {
+        querySearch.value = ''
+
+        document.getElementById('search')?.blur()
+
+        router.visit(value?.url, {
+            method: 'get',
+            // TODO change if has same pathname change else dont usePage.url
+            preserveState: true
+        })
+    }
+)
+
+watch(
+    () => querySearch.value,
     async (query: string) => {
-        if (query != '')
-            await search(query)
-                .then((res) => (results.value = res.map((r) => r.hits)))
-                .finally(() => {
-                    currentIndex.value.group = currentIndex.value.item = 0
-                })
+        if (query != '') await search(query).then((res) => (options.value = res.map((r) => r.hits)))
     },
     { immediate: true }
 )
 
-const goTo = () => {
-    const item = results.value[currentIndex.value.group][currentIndex.value.item]
+function onKeydown(event: KeyboardEvent) {
+    const searchInput = document.getElementById('search') as HTMLInputElement
 
-    if (item) {
-        closeSearch()
-
-        setTimeout(() => {
-            router.visit(item.url, {
-                method: 'get',
-                preserveState: false
-            })
-        }, 100)
-    }
-}
-
-const currentIndex = ref({
-    group: 0,
-    item: 0
-})
-
-const onTermKeydown = (event: KeyboardEvent) => {
-    if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
+    if (event.key == 'k' && (event.metaKey || event.ctrlKey)) {
         event.preventDefault()
+
+        if (searchInput.value) {
+            searchInput?.blur()
+
+            querySearch.value = ''
+        } else {
+            searchInput?.focus()
+        }
     }
-
-    switch (event.code) {
-        case 'ArrowDown':
-            jumpToNextItem(results.value, currentIndex.value)
-
-            break
-
-        case 'ArrowUp':
-            jumpToPreviousItem(results.value, currentIndex.value)
-
-            break
-    }
-
-    ;
-
-(
-        resultsRefs.value[
-            results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
-        ] as HTMLElement
-    )?.scrollIntoView(false)
 }
 
 onMounted(() => {
@@ -116,62 +67,50 @@ onMounted(() => {
 })
 
 onUnmounted(() => window.removeEventListener('keydown', onKeydown))
-
-const noResults = computed(() => results.value.every((a) => isEmpty(a)))
 </script>
 
 <template>
-    <div class="relative hidden sm:block">
-        <base-form-input
-            id="search_dropdown"
-            v-model="query"
-            :class="
-                twMerge(
-                    'w-56 rounded-full border-transparent bg-slate-200 pe-8 shadow-none transition-[width] duration-300 ease-in-out focus:w-72 focus:border-transparent dark:bg-darkmode-400',
-                    typeof attrs.class === 'string' && attrs.class
-                )
-            "
-            :placeholder="$t('Search...')"
-            type="text"
-            v-bind="attrs.attrs"
-            @blur="searchDropdown = false"
-            @focus="searchDropdown = true"
-            @input="query = ($event.target as HTMLInputElement).value"
-            @keydown="onTermKeydown"
-            @keydown.enter.prevent="goTo"
-            @keydown.esc.prevent="closeSearch"
-        ></base-form-input>
+    <div class="relative">
+        <Combobox v-model="selectedOption">
+            <div class="relative z-50 mt-1">
+                <ComboboxInput
+                    id="search"
+                    v-model="querySearch"
+                    :as="BaseFormInput"
+                    :class="
+                        twMerge(
+                            'w-56 rounded-full border-transparent bg-slate-200 pe-8 shadow-none transition-[width] duration-300 ease-in-out focus:w-72 focus:border-transparent dark:bg-darkmode-400'
+                        )
+                    "
+                    :displayValue="(option) => option?.title"
+                    :placeholder="$t('Search...')"
+                    @keydown.esc.prevent="() => (querySearch = '')"
+                />
 
-        <svg-loader
-            class="absolute inset-y-0 end-0 my-auto me-3 h-5 w-5 text-slate-600 dark:text-slate-500 rtl:rotate-90"
-            name="icon-search"
-        ></svg-loader>
+                <ComboboxButton class="absolute inset-y-0 end-0 flex items-center pe-2">
+                    <svg-loader
+                        class="absolute inset-y-0 end-0 my-auto me-3 h-5 w-5 text-slate-600 dark:text-slate-500 rtl:rotate-90"
+                        name="icon-search"
+                    ></svg-loader>
+                </ComboboxButton>
 
-        <transition-root
-            :show="query.length > 0 && searchDropdown"
-            as="template"
-            enter="transition-all ease-linear duration-150"
-            enter-from="mt-5 invisible opacity-0 translate-y-1"
-            enter-to="mt-[3px] visible opacity-100 translate-y-0"
-            entered="mt-[3px]"
-            leave="transition-all ease-linear duration-150"
-            leave-from="mt-[3px] visible opacity-100 translate-y-0"
-            leave-to="mt-5 invisible opacity-0 translate-y-1"
-        >
-            <div class="absolute end-0 z-10 mt-[3px]">
-                <div class="box scrollbar-hidden max-h-[500px] w-[450px] overflow-y-auto scroll-smooth px-5 pt-5">
-                    <the-no-results-found v-if="noResults"></the-no-results-found>
-
-                    <!-- @vue-expect-error Results Types -->
-                    <the-results
-                        v-else
-                        :currentIndex
-                        :results
-                        :results-refs="resultsRefs"
-                        @hover="currentIndex = $event"
-                    ></the-results>
-                </div>
+                <transition-root
+                    :show="querySearch.length > 0"
+                    as="template"
+                    enter="transition-all ease-linear duration-150"
+                    enter-from="mt-5 invisible opacity-0 translate-y-1"
+                    enter-to="mt-[3px] visible opacity-100 translate-y-0"
+                    entered="mt-[3px]"
+                    leave="transition-all ease-linear duration-150"
+                    leave-from="mt-[3px] visible opacity-100 translate-y-0"
+                    leave-to="mt-5 invisible opacity-0 translate-y-1"
+                    @after-leave="querySearch = ''"
+                >
+                    <div class="absolute end-0 z-10 mt-[3px]">
+                        <the-results :options :querySearch></the-results>
+                    </div>
+                </transition-root>
             </div>
-        </transition-root>
+        </Combobox>
     </div>
 </template>

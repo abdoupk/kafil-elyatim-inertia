@@ -126,7 +126,15 @@ const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: Appearan
     appearance === 'dark' && el.classList.add('dark')
 }
 
-const isEmpty = (obj) => !Object.entries(obj || {}).length && !obj?.length && !obj?.size
+const isEmpty = (value) => {
+    if (Array.isArray(value)) {
+        return value.length === 0 || value.every(item => isEmpty(item))
+    } else if (typeof value === 'object' && value !== null) {
+        return Object.keys(value).length === 0 || Object.values(value).every(item => isEmpty(item))
+    } else {
+        return value === null || value === undefined || value === ''
+    }
+}
 
 const getResultsSize = (results: Array<Hit>) => {
     return results?.reduce(

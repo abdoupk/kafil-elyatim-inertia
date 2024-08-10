@@ -1,90 +1,15 @@
-<template>
-    <div class="relative">
-        <Combobox v-model="selectedOption">
-            <div class="relative mt-1">
-                <div
-                    class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm"
-                >
-                    <ComboboxInput
-                        :displayValue="(option) => option?.name"
-                        class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
-                        @change="querySearch = $event.target.value"
-                    />
-                    <ComboboxButton class="absolute inset-y-0 right-0 flex items-center pr-2"> ddd</ComboboxButton>
-                </div>
-                <TransitionRoot
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                    @after-leave="querySearch = ''"
-                >
-                    <ComboboxOptions
-                        class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-                    >
-                        <div
-                            v-if="filteredOptions.length === 0 && querySearch !== ''"
-                            class="relative cursor-default select-none px-4 py-2 text-gray-700"
-                        >
-                            Nothing found.
-                        </div>
-                        <template v-for="(group, groupName) in groupedOptions" :key="groupName">
-                            <div
-                                v-if="group.length > 0"
-                                class="group-label bg-gray-100 px-4 py-2 text-sm font-medium text-gray-500"
-                            >
-                                {{ groupName }}
-                            </div>
-                            <ComboboxOption
-                                v-for="option in group"
-                                :key="option.id"
-                                v-slot="{ active, selected }"
-                                :value="option"
-                            >
-                                <div
-                                    :class="[
-                                        'relative cursor-default select-none py-2 pl-10 pr-4',
-                                        {
-                                            'bg-teal-600 text-white': active,
-                                            'text-gray-900': !active
-                                        }
-                                    ]"
-                                >
-                                    <span
-                                        :class="[
-                                            'block truncate',
-                                            { 'font-medium': selected, 'font-normal': !selected }
-                                        ]"
-                                    >
-                                        {{ option.name }}
-                                    </span>
-                                    <span
-                                        v-if="selected"
-                                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-white"
-                                    >
-                                        xhe
-                                    </span>
-                                </div>
-                            </ComboboxOption>
-                        </template>
-                    </ComboboxOptions>
-                </TransitionRoot>
-            </div>
-        </Combobox>
-    </div>
-</template>
-
 <script lang="ts" setup>
-import {
-    Combobox,
-    ComboboxButton,
-    ComboboxInput,
-    ComboboxOption,
-    ComboboxOptions,
-    TransitionRoot
-} from '@headlessui/vue'
-import { computed, ref } from 'vue'
+import { Combobox, ComboboxButton, ComboboxInput, TransitionRoot } from '@headlessui/vue'
+import { router } from '@inertiajs/vue3'
+import type { Hits } from 'meilisearch'
+import { twMerge } from 'tailwind-merge'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
-// Import { ChevronUpDownIcon, CheckIcon } from '@heroicons/vue/20/solid';
+import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
+import TheResults from '@/Components/top-bar/search/TheResults.vue'
+
+import { search } from '@/utils/search'
 
 interface Option {
     id: string
@@ -92,39 +17,99 @@ interface Option {
     group?: string
 }
 
-const options: Option[] = [
-    { id: '1', name: 'Option 1', group: 'Group A' },
-    { id: '2', name: 'Option 2', group: 'Group A' },
-    { id: '3', name: 'Option 3', group: 'Group B' },
-    { id: '4', name: 'Option 4', group: 'Group B' },
-    { id: '5', name: 'Option 5', group: 'Group C' },
-    { id: '6', name: 'Option 6', group: 'Group C' }
-]
+const options = ref<Hits>([])
 
 const selectedOption = ref<Option | null>(null)
 
 const querySearch = ref('')
 
-const groupedOptions = computed<{ [key: string]: Option[] }>(() => {
-    return options.reduce(
-        (acc, option) => {
-            if (!acc[option.group || 'Ungrouped']) {
-                acc[option.group || 'Ungrouped'] = []
-            }
+watch(
+    () => selectedOption.value,
+    (value) => {
+        // QuerySearch.value = ''
 
-            acc[option.group || 'Ungrouped'].push(option)
+        document.getElementById('search')?.blur()
 
-            return acc
-        },
-        {} as { [key: string]: Option[] }
-    )
+        router.visit(value?.url, {
+            method: 'get',
+            preserveState: false
+        })
+    }
+)
+
+watch(
+    () => querySearch.value,
+    async (query: string) => {
+        if (query != '') await search(query).then((res) => (options.value = res.map((r) => r.hits)))
+    },
+    { immediate: true }
+)
+
+function onKeydown(event: KeyboardEvent) {
+    const searchInput = document.getElementById('search') as HTMLInputElement
+
+    if (event.key == 'k' && (event.metaKey || event.ctrlKey)) {
+        event.preventDefault()
+
+        if (searchInput.value) {
+            searchInput?.blur()
+
+            querySearch.value = ''
+        } else {
+            searchInput?.focus()
+        }
+    }
+}
+
+onMounted(() => {
+    window.addEventListener('keydown', onKeydown)
 })
 
-const filteredOptions = computed(() => {
-    const searchTerm = querySearch.value.toLowerCase()
-
-    return Object.values(groupedOptions.value).flatMap((group) =>
-        group.filter((option) => option.name.toLowerCase().includes(searchTerm))
-    )
-})
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 </script>
+
+<template>
+    <div class="relative">
+        <Combobox v-model="selectedOption">
+            <div class="relative z-50 mt-1">
+                <ComboboxInput
+                    id="search"
+                    v-model="querySearch"
+                    :as="BaseFormInput"
+                    :class="
+                        twMerge(
+                            'w-56 rounded-full border-transparent bg-slate-200 pe-8 shadow-none transition-[width] duration-300 ease-in-out focus:w-72 focus:border-transparent dark:bg-darkmode-400'
+                        )
+                    "
+                    :displayValue="(option) => option?.title"
+                    :placeholder="$t('Search...')"
+                    @keydown.esc.prevent="() => (querySearch = '')"
+                />
+
+                <ComboboxButton class="absolute inset-y-0 end-0 flex items-center pe-2">
+                    <svg-loader
+                        class="absolute inset-y-0 end-0 my-auto me-3 h-5 w-5 text-slate-600 dark:text-slate-500 rtl:rotate-90"
+                        name="icon-search"
+                    ></svg-loader>
+                </ComboboxButton>
+
+                <transition-root
+                    :show="querySearch.length > 0"
+                    as="template"
+                    enter="transition-all ease-linear duration-150"
+                    enter-from="mt-5 invisible opacity-0 translate-y-1"
+                    enter-to="mt-[3px] visible opacity-100 translate-y-0"
+                    entered="mt-[3px]"
+                    leave="transition-all ease-linear duration-150"
+                    leave-from="mt-[3px] visible opacity-100 translate-y-0"
+                    leave-to="mt-5 invisible opacity-0 translate-y-1"
+                    @after-leave="querySearch = ''"
+                >
+                    <div class="absolute end-0 z-10 mt-[3px]">
+                        <the-results :options :querySearch></the-results>
+                    </div>
+                </transition-root>
+            </div>
+        </Combobox>
+    </div>
+</template>

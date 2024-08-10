@@ -1,84 +1,59 @@
 <script lang="ts" setup>
-import { Link } from '@inertiajs/vue3'
-import type { Hit } from 'meilisearch'
-import { ref, watch } from 'vue'
+import { ComboboxOption, ComboboxOptions } from '@headlessui/vue'
+import type { Hits } from 'meilisearch'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
+import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 
-const props = defineProps<{
-    results: Record<string, Hit[]>
-    resultsRefs: unknown[]
-    currentIndex: {
-        group: number
-        item: number
-    }
+import { isEmpty } from '@/utils/helper'
+
+defineProps<{
+    options: Hits
+    querySearch: string
 }>()
-
-const _currentIndex = ref(props.currentIndex)
-
-const _resultsRefs = ref(props.resultsRefs)
-
-const emit = defineEmits(['hover'])
-
-watch(
-    () => props.currentIndex,
-    (value) => {
-        _currentIndex.value = value
-    }
-)
 </script>
 
 <template>
-    <div v-for="(result, key, index) in results" :key="`${key}_${index}`">
-        <div v-if="result[0]?.index" :class="{ 'mb-0': Object.keys(results).length - 1 === index }" class="mb-5">
-            <div class="mb-2 font-medium ltr:capitalize">
-                {{ $t(`breadcrumb.${result[0]?.index}`) }}
+    <ComboboxOptions class="box scrollbar-hidden max-h-[500px] w-[450px] overflow-y-auto scroll-smooth px-5 pt-5">
+        <div v-if="isEmpty(options) && querySearch !== ''">
+            <the-no-results-found></the-no-results-found>
+        </div>
+
+        <template v-for="(group, groupName) in options" :key="groupName">
+            <div v-if="group.length > 0" class="mb-2 font-medium ltr:capitalize rtl:font-semibold">
+                {{ options[groupName][0].index }}
             </div>
 
-            <div
-                v-for="(info, i_index) in result"
-                :key="`${info.title}_${i_index}`"
-                :ref="
-                    (el) => {
-                        _resultsRefs[Number(key) * result.length + Number(i_index)] = el
-                    }
-                "
-                :class="{
-                    '-mx-1 rounded-md bg-slate-200 px-1 dark:bg-darkmode-300':
-                        Number(key) === _currentIndex.group && i_index === _currentIndex.item
-                }"
-                class="mb-1 py-1"
-                @mousemove="
-                    () => {
-                        _currentIndex = {
-                            item: Number(i_index),
-                            group: Number(key)
+            <ComboboxOption v-for="option in group" :key="option.id" v-slot="{ active }" :value="option">
+                <div
+                    :class="[
+                        'mb-1 flex cursor-pointer items-center py-1',
+                        {
+                            '-mx-1 rounded-md bg-slate-200 px-1 dark:bg-darkmode-300': active
                         }
-
-                        emit('hover', _currentIndex)
-                    }
-                "
-            >
-                <Link :href="info.url" class="flex items-center" preserve-state>
+                    ]"
+                >
                     <div
-                        v-if="info.icon"
-                        :class="info.icon.color"
+                        v-if="option.icon"
+                        :class="option.icon.color"
                         class="flex h-8 w-8 items-center justify-center rounded-full"
                     >
-                        <svg-loader :name="info.icon.icon" class="w-h h-4"></svg-loader>
+                        <svg-loader :name="option.icon.icon" class="w-h h-4"></svg-loader>
                     </div>
 
                     <div v-else class="image-fit h-8 w-8">
-                        <img :alt="info.title" :src="info.image" class="rounded-full" />
+                        <img :alt="option.title" :src="option.image" class="rounded-full" />
                     </div>
 
-                    <div class="ms-3 ltr:capitalize">{{ info.title }}</div>
-
-                    <div v-if="info.hint" class="ms-auto w-48 truncate text-end text-xs text-slate-500">
-                        {{ info.hint }}
+                    <div class="ms-3 ltr:capitalize">
+                        {{ option.title }}
                     </div>
-                </Link>
-            </div>
-        </div>
-    </div>
+
+                    <div v-if="option.hint" class="ms-auto w-48 truncate text-end text-xs text-slate-500">
+                        {{ option.hint }}
+                    </div>
+                </div>
+            </ComboboxOption>
+        </template>
+    </ComboboxOptions>
 </template>

@@ -53,10 +53,13 @@ const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May
 <template>
     <Head title="Dashboard" />
 
+    <div class="col-span-12 mt-5 w-1/2">
+        <test-combo></test-combo>
+    </div>
+
     <the-general-reports :reports></the-general-reports>
 
-    <div class="co grid">
+    <div class="co col-span-12 grid">
         <the-financial-report></the-financial-report>
     </div>
-    <test-combo></test-combo>
 </template>
