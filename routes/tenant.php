@@ -56,7 +56,9 @@ use App\Http\Controllers\V1\Lessons\ListOrphansController;
 use App\Http\Controllers\V1\List\ListClothesSizesController;
 use App\Http\Controllers\V1\List\ListRolesController;
 use App\Http\Controllers\V1\List\ListShoesSizesController;
+use App\Http\Controllers\V1\List\ListSubjectsController;
 use App\Http\Controllers\V1\Members\ListMembersController;
+use App\Http\Controllers\V1\Members\ListSchoolsController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
@@ -193,6 +195,10 @@ Route::middleware([
                 Route::get('roles', ListRolesController::class)->name('roles');
 
                 Route::get('members', ListMembersController::class)->name('members');
+
+                Route::get('subjects', ListSubjectsController::class)->name('subjects');
+
+                Route::get('schools', ListSchoolsController::class)->name('schools');
             });
 
             Route::get('', DashboardController::class)

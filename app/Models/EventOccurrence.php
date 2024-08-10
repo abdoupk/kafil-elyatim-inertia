@@ -45,7 +45,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class EventOccurrence extends Model
 {
-    use BelongsToTenant, BelongsToTenant, HasUuids,SoftDeletes;
+    use BelongsToTenant, BelongsToTenant, HasUuids, SoftDeletes;
 
     protected $fillable = [
         'event_id',
@@ -53,6 +53,7 @@ class EventOccurrence extends Model
         'lesson_id',
         'start_date',
         'end_date',
+        'tenant_id',
     ];
 
     public function orphans(): BelongsToMany

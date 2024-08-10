@@ -7,6 +7,10 @@ interface State {
     school: CreateSchoolForm & {
         id?: string
     }
+    schools: CreateSchoolForm &
+        {
+            id: string
+        }[]
 }
 
 export const useSchoolsStore = defineStore('schools', {
@@ -21,7 +25,8 @@ export const useSchoolsStore = defineStore('schools', {
                     subject_id: null
                 }
             ]
-        }
+        },
+        schools: []
     }),
     actions: {
         async getSchool(schoolId: string) {
@@ -30,6 +35,20 @@ export const useSchoolsStore = defineStore('schools', {
             } = await axios.get(`schools/show/${schoolId}`)
 
             this.school = { ...school }
+        },
+
+        async getSchools() {
+            const { data: schools } = await axios.get(route('tenant.list.schools'))
+
+            this.schools = schools
+        },
+
+        async findSchoolById(id: string) {
+            console.log(id)
+
+            console.log(this.schools.find((school) => school.id === id))
+
+            return this.schools.find((school) => school.id === id)
         }
     }
 })

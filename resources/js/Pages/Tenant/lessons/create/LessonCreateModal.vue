@@ -7,6 +7,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { computed, ref, watch } from 'vue'
 
 import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
+import OrphansSelector from '@/Pages/Tenant/lessons/create/OrphansSelector.vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -14,8 +15,9 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
+import TheSchoolSelector from '@/Components/Global/TheSchoolSelector.vue'
+import TheSubjectSelector from '@/Components/Global/TheSubjectSelector.vue'
 
 import { combineDateAndTime, omit, setDateToCurrentTime } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
@@ -60,22 +62,6 @@ watch(
 
             form.value.subject_id = subjects.value[0].id
         }
-    }
-)
-
-watch(
-    () => lessonsStore.lesson.orphans,
-    (value) => {
-        orphans.value = value.map((orphan: any) => {
-            return {
-                id: orphan.id,
-                name: orphan.name
-            }
-        })
-
-        vueSelectOrphans.value = orphans.value
-
-        form.value.orphans = value.map((orphan) => orphan.id)
     }
 )
 
@@ -132,8 +118,6 @@ const modalType = computed(() => {
 
 const date = ref(props.date)
 
-const loadingSearchOrphans = ref(false)
-
 watch(
     () => date.value,
     (value) => {
@@ -155,19 +139,6 @@ watch(
         date.value = formattedDate.toDate()
     }
 )
-
-const orphans = ref<{ id: string; name: string }[]>([])
-
-const asyncFind = (search: string) => {
-    loadingSearchOrphans.value = true
-
-    lessonsStore
-        .getOrphans(search, vueSelectSubjects.value.academic_level_id)
-        .then((res) => {
-            orphans.value = res.data
-        })
-        .finally(() => (loadingSearchOrphans.value = false))
-}
 
 const handleCloseModal = () => {
     emit('close')
@@ -340,24 +311,11 @@ const handleCloseModal = () => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
+                    <the-school-selector
                         id="school"
-                        v-model:value="vueSelectSchools"
-                        :allow-empty="false"
-                        :options="schools"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
-                        class="h-full w-full"
-                        label="name"
-                        track-by="id"
-                        @update:value="
-                            (value) => {
-                                form.school_id = value.id
-
-                                form?.validate('school_id')
-                            }
-                        "
-                    >
-                    </base-vue-select>
+                        v-model:school="form.school_id"
+                        @update:school="form?.validate('school_id')"
+                    ></the-school-selector>
                 </div>
 
                 <div v-if="form.errors?.school_id" class="mt-2">
@@ -373,26 +331,11 @@ const handleCloseModal = () => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
+                    <the-subject-selector
                         id="subject"
-                        v-model:value="vueSelectSubjects"
-                        :allow-empty="false"
-                        :options="subjects"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_child') })"
-                        class="h-full w-full"
-                        label="name"
-                        track-by="id"
-                        @update:value="
-                            (value) => {
-                                form.subject_id = value.id
-
-                                form.academic_level_id = value.academic_level_id
-
-                                form?.validate('subject_id')
-                            }
-                        "
-                    >
-                    </base-vue-select>
+                        v-model:subject="form.subject_id"
+                        @update:subject="form?.validate('subject_id')"
+                    ></the-subject-selector>
                 </div>
 
                 <div v-if="form.errors.subject_id" class="mt-2">
@@ -408,35 +351,19 @@ const handleCloseModal = () => {
                 </base-form-label>
 
                 <div>
-                    <base-vue-select
-                        id="orphans"
-                        v-model:value="vueSelectOrphans"
-                        :allow-empty="false"
-                        :clear-on-select="false"
-                        :close-on-select="false"
-                        :hide-selected="true"
-                        :internal-search="false"
-                        :loading="loadingSearchOrphans"
-                        :max="vueSelectSubjects?.quota ?? 0"
-                        :options="orphans"
-                        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_orphans') })"
-                        :searchable="true"
-                        :show-no-results="true"
-                        class="h-full w-full"
-                        label="name"
-                        multiple
-                        open-direction="bottom"
-                        track-by="id"
-                        @update:value="
+                    <!-- @vue-ignore -->
+                    <orphans-selector
+                        :academic_level_id="5"
+                        :orphans="form.orphans"
+                        :quota="5"
+                        @update:selected-orphans="
                             (value) => {
                                 form.orphans = value.map((orphan) => orphan.id)
 
                                 form?.validate('orphans')
                             }
                         "
-                        @search-change="asyncFind"
-                    >
-                    </base-vue-select>
+                    ></orphans-selector>
                 </div>
 
                 <div v-if="form.errors?.orphans" class="mt-2">

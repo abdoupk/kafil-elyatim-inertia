@@ -819,5 +819,6 @@
     "glue": "، ",
     "finale_glue": " و",
     "age": "العمر",
-    "milk and diapers": "الاستفادة من الحليب والحفاظات"
+    "milk and diapers": "الاستفادة من الحليب والحفاظات",
+    "vue_select_limit_text": " و:count أخرين"
 }
