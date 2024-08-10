@@ -82,6 +82,7 @@ class Baby extends Model
                 'id' => $this->orphan_id,
                 'name' => $this->orphan->getName(),
                 'birth_date' => strtotime($this->orphan->birth_date),
+                'readable_birth_date' => $this->orphan->birth_date,
                 'gender' => $this->orphan->gender,
                 'health_status' => $this->orphan->health_status,
             ],
@@ -105,6 +106,11 @@ class Baby extends Model
         ];
     }
 
+    public function getName(): string
+    {
+        return $this->orphan->getName();
+    }
+
     public function searchableAs(): string
     {
         return 'babies';
@@ -121,10 +127,5 @@ class Baby extends Model
             'tenant_id' => 'string',
             'orphan_id' => 'string',
         ];
-    }
-
-    public function getName(): string
-    {
-        return $this->orphan->getName();
     }
 }

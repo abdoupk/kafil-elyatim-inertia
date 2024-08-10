@@ -216,13 +216,21 @@ const isAssociationNameLatin = computed(() => {
 })
 
 const formatDate = (date: string | Date, dateStyle: 'full' | 'long' | 'medium' | 'short' | undefined) => {
-    return new Intl.DateTimeFormat(`${getLocale()}-DZ`, {
-        dateStyle
-    }).format(new Date(date))
+    try {
+        return new Intl.DateTimeFormat(`${getLocale()}-DZ`, {
+            dateStyle
+        }).format(new Date(date))
+    } catch ($e) {
+        return ''
+    }
 }
 
 const formatCurrency = (amount) => {
-    return new Intl.NumberFormat(`${getLocale()}-DZ`, { style: 'currency', currency: 'DZD' }).format(amount)
+    try {
+        return new Intl.NumberFormat(`${getLocale()}-DZ`, { style: 'currency', currency: 'DZD' }).format(amount)
+    } catch ($e) {
+        return ''
+    }
 }
 
 const handleSponsorship = (sponsorshipValue: string) => {

@@ -134,6 +134,9 @@ export const search = async (q: string) => {
                     'baby_milk_quantity',
                     'baby_milk_type',
                     'diapers_quantity',
+                    'orphan.id',
+                    'orphan.name',
+                    'orphan.readable_birth_date',
                     'diapers_type'
                 ],
                 attributesToSearchOn: ['baby_milk_type', 'diapers_type']
@@ -253,6 +256,11 @@ const constructIcon = (indexUid: string): { icon: SVGType; color: string } => {
                 icon: 'icon-dollar-sign',
                 color: 'bg-pending/20 text-pending dark:bg-pending/10'
             }
+        case 'babies':
+            return {
+                icon: 'icon-dollar-sign',
+                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+            }
         default:
             return {
                 icon: 'icon-sort',
@@ -283,6 +291,8 @@ const constructHint = (hit: Hit, indexUid: string) => {
             return formatDate(hit.created_at, 'long')
         case 'finances':
             return formatCurrency(hit.amount)
+        case 'babies':
+            return formatDate(hit.orphan.readable_birth_date, 'long')
         default:
             return null
     }
@@ -308,6 +318,8 @@ const constructTitle = (hit: Hit, indexUid: string) => {
             return hit.name
         case 'branches':
             return hit.name
+        case 'babies':
+            return hit.orphan.name
         case 'finances':
             return hit.specification[getLocale()]
         default:
