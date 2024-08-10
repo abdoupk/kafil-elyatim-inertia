@@ -3,7 +3,6 @@ import type { SVGType } from '@/types/types'
 import { usePage } from '@inertiajs/vue3'
 import { type Hit, MeiliSearch } from 'meilisearch'
 
-import { getPaginatedDocuments } from '@/utils/archive'
 import { formatCurrency, formatDate, formatNumber } from '@/utils/helper'
 import { __, getLocale, n__ } from '@/utils/i18n'
 
@@ -162,8 +161,6 @@ export const search = async (q: string) => {
             }
         ]
     })
-
-    await getPaginatedDocuments(2, 10)
 
     a.results.forEach((result) => {
         result.hits.forEach((hit) => {

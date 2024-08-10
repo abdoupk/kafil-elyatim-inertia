@@ -8,6 +8,7 @@ import { reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
+import FinancialShowModal from '@/Pages/Tenant/financials/FinancialShowModal.vue'
 import FinancialTransactionCreateModal from '@/Pages/Tenant/financials/create/FinancialTransactionCreateModal.vue'
 import DataTable from '@/Pages/Tenant/financials/index/DataTable.vue'
 
@@ -47,6 +48,19 @@ const deleteProgress = ref<boolean>(false)
 const selectedFinancialTransactionId = ref<string>('')
 
 const createEditModalStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
+
+const showDetailsModal = async (financialTransactionId: string | null) => {
+    if (financialTransactionId) {
+        selectedFinancialTransactionId.value = financialTransactionId
+        
+        //Fixme
+        // Await financialTransactionsStore.getFinancialTransaction(financialTransactionId)
+
+        showModalStatus.value = true
+    }
+}
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -94,9 +108,19 @@ const showCreateExpenseModal = () => {
     createEditModalStatus.value = true
 }
 
-watchEffect(() => {
-    if (new URLSearchParams(window.location.search).has('show')) {
-        // TODO: show Details Modal
+const showEditModal = () => {
+    financialTransactionsStore.$reset()
+
+    financialTransactionsStore.financialTransaction.type = 'expense'
+
+    createEditModalStatus.value = true
+}
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
     }
 })
 </script>
@@ -128,7 +152,14 @@ watchEffect(() => {
     </the-table-header>
 
     <template v-if="finances.data.length > 0">
-        <data-table :finances :params @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
+        <data-table
+            :finances
+            :params
+            @showDeleteModal="showDeleteModal"
+            @sort="sort"
+            @show-details-modal="showDetailsModal"
+            @show-edit-modal="showEditModal"
+        ></data-table>
 
         <the-table-footer :pagination-data="finances" :params :url="route('tenant.financial.index')"></the-table-footer>
     </template>
@@ -146,4 +177,10 @@ watchEffect(() => {
         :open="createEditModalStatus"
         @close="createEditModalStatus = false"
     ></financial-transaction-create-modal>
+
+    <financial-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_financial_transactions') })"
+        @close="showModalStatus = false"
+    ></financial-show-modal>
 </template>

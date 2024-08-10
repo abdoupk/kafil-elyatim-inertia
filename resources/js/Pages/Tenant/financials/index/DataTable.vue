@@ -17,7 +17,8 @@ import { formatCurrency, formatDate } from '@/utils/helper'
 
 defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+// eslint-disable-next-line array-element-newline
+const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEditModal'])
 </script>
 
 <template>
@@ -108,10 +109,24 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td-actions>
                             <div class="flex items-center justify-center">
-                                <Link class="me-3 flex items-center" href="#">
+                                <a
+                                    class="me-3 flex items-center"
+                                    href="#"
+                                    @click.prevent="emit('showDetailsModal', finance.id)"
+                                >
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
+                                    {{ $t('show') }}
+                                </a>
+
+                                <a
+                                    class="me-3 flex items-center"
+                                    href="#"
+                                    @click.prevent="emit('showEditModal', finance.id)"
+                                >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
-                                </Link>
+                                </a>
+
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
