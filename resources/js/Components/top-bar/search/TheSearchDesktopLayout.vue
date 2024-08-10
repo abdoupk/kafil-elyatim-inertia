@@ -69,12 +69,12 @@ const goTo = () => {
     const item = results.value[currentIndex.value.group][currentIndex.value.item]
 
     if (item) {
-        searchDropdown.value = false
+        closeSearch()
 
         setTimeout(() => {
             router.visit(item.url, {
                 method: 'get',
-                preserveState: true
+                preserveState: false
             })
         }, 100)
     }
@@ -102,7 +102,9 @@ const onTermKeydown = (event: KeyboardEvent) => {
             break
     }
 
-    ;(
+    ;
+
+(
         resultsRefs.value[
             results.value[currentIndex.value.group]?.length * currentIndex.value.group + currentIndex.value.item
         ] as HTMLElement
@@ -139,10 +141,12 @@ const noResults = computed(() => results.value.every((a) => isEmpty(a)))
             @keydown.enter.prevent="goTo"
             @keydown.esc.prevent="closeSearch"
         ></base-form-input>
+
         <svg-loader
             class="absolute inset-y-0 end-0 my-auto me-3 h-5 w-5 text-slate-600 dark:text-slate-500 rtl:rotate-90"
             name="icon-search"
         ></svg-loader>
+
         <transition-root
             :show="query.length > 0 && searchDropdown"
             as="template"
