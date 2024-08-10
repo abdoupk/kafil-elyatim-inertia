@@ -283,12 +283,12 @@ export interface CreateMemberForm {
     gender: 'male' | 'female'
 }
 
-export interface CreateLessonForm {
+export type CreateLessonForm = {
     title: string
     start_date: string
     end_date: string
     school_id: string
-    subject_id: number | null
+    subject_id?: number
     academic_level_id: number | null
     orphans: string[]
     color: string

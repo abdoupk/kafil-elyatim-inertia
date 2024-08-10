@@ -322,12 +322,14 @@ function setDateToCurrentTime(value: string | Date) {
         .add(currentTime.valueOf() - currentTime.startOf('day').valueOf(), 'millisecond')
 }
 
-const combineDateAndTime = (startDate: string | Date, theDate: string | Date) => {
-    const time = dayjs(startDate).format('HH:mm:ss')
+const combineDateAndTime = (startDate: string | Date | undefined, theDate: string | Date) => {
+    if (startDate && theDate) {
+        const time = dayjs(startDate).format('HH:mm:ss')
 
-    const date = dayjs(theDate).format('YYYY-MM-DD')
+        const date = dayjs(theDate).format('YYYY-MM-DD')
 
-    return dayjs(`${date} ${time}`).toDate()
+        return dayjs(`${date} ${time}`).toDate()
+    }
 }
 
 function getAcademicLevelFromId(id, academicLevels) {

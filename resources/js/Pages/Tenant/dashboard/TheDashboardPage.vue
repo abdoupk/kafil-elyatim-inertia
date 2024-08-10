@@ -9,6 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheFinancialReport from '@/Pages/Tenant/dashboard/FinianchialReport/TheFinancialReport.vue'
 import TheGeneralReports from '@/Pages/Tenant/dashboard/GenralReports/TheGeneralReports.vue'
+import TestCombo from '@/Pages/Tenant/dashboard/TestCombo.vue'
 
 import { getColor } from '@/utils/colors'
 
@@ -57,7 +58,5 @@ const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May
     <div class="co grid">
         <the-financial-report></the-financial-report>
     </div>
-    <div class="box h-[500px] w-[450px]">
-        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-600">55</div>
-    </div>
+    <test-combo></test-combo>
 </template>

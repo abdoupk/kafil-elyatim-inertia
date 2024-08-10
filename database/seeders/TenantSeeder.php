@@ -35,7 +35,7 @@ class TenantSeeder extends Seeder
             'association' => 'kafil el yatim El-bayadh 02',
         ]);
 
-        $tenants = Tenant::factory(5)->create();
+        //        $tenants = Tenant::factory(5)->create();
         $tenants[] = $tenant1;
         $tenants[] = $tenant2;
 
@@ -48,7 +48,7 @@ class TenantSeeder extends Seeder
 
             $zones = Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
 
-            $branches = Branch::factory(fake()->numberBetween(1, 6))->create([
+            $branches = Branch::factory(fake()->numberBetween(1, 12))->create([
                 'tenant_id' => $tenant?->id,
                 'president_id' => User::inRandomOrder()->whereTenantId(
                     $tenant?->id
@@ -61,11 +61,11 @@ class TenantSeeder extends Seeder
                 'zone_id' => $zones->random()?->id,
             ]);
 
-            Inventory::factory()->count(50)->create([
+            Inventory::factory()->count(fake()->numberBetween(10, 25))->create([
                 'tenant_id' => $tenant?->id,
             ]);
 
-            Finance::factory()->count(100)->create([
+            Finance::factory()->count(fake()->numberBetween(13, 89))->create([
                 'tenant_id' => $tenant->id,
                 'created_by' => $tenant->members->random()->first()->id,
             ]);

@@ -6,7 +6,7 @@ import { onMounted, ref, watch } from 'vue'
 
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-const subject = defineModel<number>('subject')
+const subject = defineModel<number | undefined>('subject')
 
 const selectedSubject = ref<SubjectType | number | undefined>()
 
