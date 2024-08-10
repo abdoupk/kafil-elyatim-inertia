@@ -16,7 +16,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 defineProps<{ needs: PaginationData<NeedsIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
-const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetailsModal'])
 </script>
 
 <template>
@@ -102,6 +102,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <the-table-td-actions>
                             <div class="flex items-center justify-center">
+                                <a
+                                    class="me-3 flex items-center"
+                                    href="#"
+                                    @click.prevent="emit('showDetailsModal', need.id)"
+                                >
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
+                                    {{ $t('show') }}
+                                </a>
+
                                 <a
                                     class="me-3 flex items-center"
                                     href="#"

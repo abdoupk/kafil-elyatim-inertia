@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { IndexParams, InventoryIndexResource, PaginationData } from '@/types/types'
 
-import { Link } from '@inertiajs/vue3'
-
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
@@ -18,7 +16,7 @@ import { formatDate, formatNumber } from '@/utils/helper'
 defineProps<{ items: PaginationData<InventoryIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
-const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
+const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetailsModal'])
 </script>
 
 <template>
@@ -73,9 +71,9 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link :href="route('tenant.items.show', item.id)" class="font-medium">
+                            <a class="font-medium" href="#" @click.prevent="emit('showDetailsModal', item.id)">
                                 {{ item.name }}
-                            </Link>
+                            </a>
                         </the-table-td>
 
                         <the-table-td class="max-w-40 text-center">

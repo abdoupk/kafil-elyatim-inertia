@@ -3,11 +3,12 @@ import type { IndexParams, InventoryIndexResource, PaginationData } from '@/type
 
 import { useInventoryStore } from '@/stores/inventory'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref } from 'vue'
+import { reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import ItemCreateEditModal from '@/Pages/Tenant/inventory/ItemCreateEditModal.vue'
+import ItemShowModal from '@/Pages/Tenant/inventory/ItemShowModal.vue'
 import DataTable from '@/Pages/Tenant/inventory/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -46,6 +47,18 @@ const selectedItemId = ref<string>('')
 const inventoryStore = useInventoryStore()
 
 const createUpdateModalStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
+
+const showDetailsModal = async (itemId: string | null) => {
+    if (itemId) {
+        selectedItemId.value = itemId
+
+        await inventoryStore.getItem(itemId)
+
+        showModalStatus.value = true
+    }
+}
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -92,6 +105,14 @@ const showEditModal = (itemID: string) => {
 
     createUpdateModalStatus.value = true
 }
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
+    }
+})
 </script>
 
 <template>
@@ -122,6 +143,7 @@ const showEditModal = (itemID: string) => {
             @showDeleteModal="showDeleteModal"
             @sort="sort"
             @show-edit-modal="showEditModal"
+            @show-details-modal="showDetailsModal"
         ></data-table>
 
         <the-table-footer :pagination-data="items" :params :url="route('tenant.inventory.index')"></the-table-footer>
@@ -140,4 +162,10 @@ const showEditModal = (itemID: string) => {
         :open="createUpdateModalStatus"
         @close="createUpdateModalStatus = false"
     ></item-create-edit-modal>
+
+    <item-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_item') })"
+        @close="showModalStatus = false"
+    ></item-show-modal>
 </template>

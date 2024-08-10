@@ -9,6 +9,7 @@ import { reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
+import SchoolShowModal from '@/Pages/Tenant/schools/SchoolShowModal.vue'
 import SchoolCreateModal from '@/Pages/Tenant/schools/create/SchoolCreateModal.vue'
 import DataTable from '@/Pages/Tenant/schools/index/DataTable.vue'
 
@@ -50,6 +51,8 @@ const selectedSchoolId = ref<string>('')
 const schoolsStore = useSchoolsStore()
 
 const createUpdateSlideoverStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -97,9 +100,21 @@ const showEditModal = (schoolId: string) => {
     createUpdateSlideoverStatus.value = true
 }
 
-watchEffect(() => {
-    if (new URLSearchParams(window.location.search).has('show')) {
-        // TODO: show Details Modal
+const showDetailsModal = async (schoolId: string | null) => {
+    if (schoolId) {
+        selectedSchoolId.value = schoolId
+
+        await schoolsStore.getSchool(schoolId)
+
+        showModalStatus.value = true
+    }
+}
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
     }
 })
 </script>
@@ -132,6 +147,7 @@ watchEffect(() => {
             @showDeleteModal="showDeleteModal"
             @sort="sort"
             @show-edit-modal="showEditModal"
+            @show-details-modal="showDetailsModal"
         ></data-table>
 
         <the-table-footer :pagination-data="schools" :params :url="route('tenant.schools.index')"></the-table-footer>
@@ -151,4 +167,10 @@ watchEffect(() => {
         :subjects
         @close="createUpdateSlideoverStatus = false"
     ></school-create-modal>
+
+    <school-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_school') })"
+        @close="showModalStatus = false"
+    ></school-show-modal>
 </template>

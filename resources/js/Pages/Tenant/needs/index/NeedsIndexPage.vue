@@ -9,6 +9,7 @@ import { reactive, ref, watchEffect } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import NeedShowModal from '@/Pages/Tenant/needs/NeedShowModal.vue'
 import DataTable from '@/Pages/Tenant/needs/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -49,6 +50,18 @@ const updateModalStatus = ref<boolean>(false)
 const showTheNeedable = ref(false)
 
 const needsStore = useNeedsStore()
+
+const showModalStatus = ref<boolean>(false)
+
+const showDetailsModal = async (needId: string | null) => {
+    if (needId) {
+        selectedNeedId.value = needId
+
+        await needsStore.getNeed(needId)
+
+        showModalStatus.value = true
+    }
+}
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -98,9 +111,11 @@ const showEditModal = (needId: string) => {
     updateModalStatus.value = true
 }
 
-watchEffect(() => {
-    if (new URLSearchParams(window.location.search).has('show')) {
-        // TODO: show Details Modal
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        await showDetailsModal(searchParams.get('show'))
     }
 })
 </script>
@@ -133,6 +148,7 @@ watchEffect(() => {
             @showDeleteModal="showDeleteModal"
             @sort="sort"
             @show-edit-modal="showEditModal"
+            @show-details-modal="showDetailsModal"
         ></data-table>
 
         <the-table-footer :pagination-data="needs" :params :url="route('tenant.needs.index')"></the-table-footer>
@@ -152,4 +168,10 @@ watchEffect(() => {
         :show-the-needable="showTheNeedable"
         @close="updateModalStatus = false"
     ></need-create-update-modal>
+
+    <need-show-modal
+        :open="showModalStatus"
+        :title="$t('modal_show_title', { attribute: $t('the_needs') })"
+        @close="showModalStatus = false"
+    ></need-show-modal>
 </template>
