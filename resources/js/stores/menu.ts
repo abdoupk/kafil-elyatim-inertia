@@ -184,16 +184,16 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-trash-list',
                 ignore: shouldHide('read_permission'),
-                routeName: 'tenant.schools.index',
+                routeName: 'tenant.trash',
                 title: __('the_trash'),
-                url: '/dashboard/schools'
+                url: '/dashboard/trash'
             },
             {
                 icon: 'icon-box-archive',
                 ignore: shouldHide('read_archive'),
-                routeName: 'tenant.schools.index',
+                routeName: 'tenant.archive',
                 title: __('the_archive'),
-                url: '/dashboard/schools'
+                url: '/dashboard/archive'
             }
         ]
     })

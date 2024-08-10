@@ -7,6 +7,7 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsShowControl
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsStoreController;
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateController;
 use App\Http\Controllers\V1\AcademicLevel\AcademicLevelIndexController;
+use App\Http\Controllers\V1\Archive\ArchiveIndexController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
 use App\Http\Controllers\V1\Branches\BranchesIndexController;
@@ -121,6 +122,7 @@ use App\Http\Controllers\V1\Sponsors\SponsorUpdateIncomesController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateInfosController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Statistics\StatisticsIndexController;
+use App\Http\Controllers\V1\Trash\TrashIndexController;
 use App\Http\Controllers\V1\VocationalTraining\VocationalTrainingIndexController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsDeleteController;
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsShowController;
@@ -602,6 +604,10 @@ Route::middleware([
             Route::get('academic-levels', AcademicLevelIndexController::class)->name('list-academic-levels');
 
             Route::get('vocational-training', VocationalTrainingIndexController::class)->name('list-vocational-trainings-specialities');
+
+            Route::get('trash', TrashIndexController::class)->name('trash');
+
+            Route::get('archive', ArchiveIndexController::class)->name('archive');
         });
     });
 
