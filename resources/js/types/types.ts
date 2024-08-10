@@ -762,3 +762,13 @@ export type CityType = {
     daira_name: string
     id: number
 }
+
+export type AuthInformation = {
+    email: string
+    first_name: string
+    last_name: string
+    phone: string
+    gender: 'male' | 'female'
+    address: string
+    qualification: string
+}

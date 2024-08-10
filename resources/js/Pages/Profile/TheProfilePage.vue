@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { AuthInformation } from '@/types/types'
+
 import { provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
@@ -18,6 +20,10 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 defineOptions({
     layout: TheLayout
 })
+
+defineProps<{
+    data: AuthInformation
+}>()
 
 const view = ref('account')
 
@@ -80,7 +86,7 @@ provide('profileView', { view, updateView })
             <div class="col-span-12 @3xl:col-span-9">
                 <base-tab-panels>
                     <base-tab-panel>
-                        <the-account-form></the-account-form>
+                        <the-account-form :data></the-account-form>
                     </base-tab-panel>
 
                     <base-tab-panel>

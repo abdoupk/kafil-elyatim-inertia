@@ -9,6 +9,7 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateContr
 use App\Http\Controllers\V1\AcademicLevel\AcademicLevelIndexController;
 use App\Http\Controllers\V1\Archive\ArchiveIndexController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\V1\Auth\PasswordController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
 use App\Http\Controllers\V1\Branches\BranchesIndexController;
 use App\Http\Controllers\V1\Branches\BranchShowController;
@@ -184,9 +185,11 @@ Route::middleware([
             Route::prefix('profile')->name('profile.')->group(function () {
                 Route::get('/', [ProfileController::class, 'edit'])->name('edit');
 
-                Route::patch('/', [ProfileController::class, 'update'])->name('update');
+                Route::patch('/', [ProfileController::class, 'update'])->name('update')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+
+                Route::put('password', [PasswordController::class, 'update'])->name('password.update');
             });
 
             Route::prefix('list')->name('list.')->group(function () {
