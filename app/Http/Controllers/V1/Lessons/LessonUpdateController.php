@@ -10,7 +10,9 @@ class LessonUpdateController extends Controller
 {
     public function __invoke(LessonCreateRequest $request, EventOccurrence $eventOccurrence)
     {
-        $eventOccurrence->update($request->except(['orphans']));
+        //TODO add to ask if update only this occurrence or all occurrences
+
+        $eventOccurrence->update($request->only(['start_date', 'end_date']));
 
         $eventOccurrence->orphans()->sync($request->orphans);
     }

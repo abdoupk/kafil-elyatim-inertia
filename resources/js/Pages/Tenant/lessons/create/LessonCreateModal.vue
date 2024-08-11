@@ -36,7 +36,12 @@ const subjects = ref([])
 
 const form = computed(() => {
     if (lessonsStore.lesson.id) {
-        return useForm('put', route('tenant.lessons.update', lessonsStore.lesson.id), { ...lessonsStore.lesson })
+        return useForm(
+            'put',
+            route('tenant.lessons.update', lessonsStore.lesson.id),
+            // eslint-disable-next-line array-element-newline
+            omit(lessonsStore.lesson, ['subject', 'lesson', 'formated_date', 'school'])
+        )
     }
 
     return useForm<CreateLessonForm>('post', route('tenant.lessons.store'), omit(lessonsStore.lesson, ['id']))
@@ -96,8 +101,8 @@ const handleCloseModal = () => {
     // TODO: Find a way to reset the vue select schools
 }
 
-const handleUpdateSchool = ($schoolId: string) => {
-    subjects.value = useSchoolsStore().findSchoolById($schoolId)?.subjects
+const handleUpdateSchool = (schoolId: string) => {
+    subjects.value = useSchoolsStore().findSchoolById(schoolId)?.subjects
 
     form.value.validate('school_id')
 }
