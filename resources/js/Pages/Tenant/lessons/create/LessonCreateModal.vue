@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { SchoolType } from '@/types/lessons'
 import type { CreateLessonForm } from '@/types/types'
 
 import { useLessonsStore } from '@/stores/lessons'
+import { useSchoolsStore } from '@/stores/schools'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
 import DateSelector from '@/Pages/Tenant/lessons/create/DateSelector.vue'
@@ -23,7 +23,6 @@ import { __, n__ } from '@/utils/i18n'
 
 const props = defineProps<{
     open: boolean
-    schools: SchoolType[]
     date: string | Date
 }>()
 
@@ -33,36 +32,7 @@ const lessonsStore = useLessonsStore()
 // Initialize a ref for loading state
 const loading = ref(false)
 
-const vueSelectSubjects = ref([])
-
-const vueSelectSchools = ref([])
-
-const vueSelectOrphans = ref([])
-
 const subjects = ref([])
-
-watch(
-    () => lessonsStore.lesson.formatted_school,
-    (newValue) => {
-        if (newValue) {
-            vueSelectSchools.value = newValue
-        }
-    }
-)
-
-watch(
-    () => vueSelectSchools.value,
-    (newValue) => {
-        if (newValue) {
-            subjects.value = newValue.subjects
-
-            // TODO: instead get the first subject from the list of subjects get by the id of subject
-            vueSelectSubjects.value = subjects.value[0]
-
-            form.value.subject_id = subjects.value[0].id
-        }
-    }
-)
 
 const form = computed(() => {
     if (lessonsStore.lesson.id) {
@@ -107,6 +77,10 @@ const modalTitle = computed(() => {
     return lessonsStore.lesson.id ? __('update lesson') : n__('add new', 1, { attribute: __('lesson') })
 })
 
+const date = computed(() => {
+    return lessonsStore.lesson.id ? form.value.start_date : props.date
+})
+
 // Initialize a ref for the first input element
 const firstInputRef = ref<HTMLElement>()
 
@@ -118,13 +92,28 @@ const modalType = computed(() => {
 const handleCloseModal = () => {
     emit('close')
 
-    vueSelectSubjects.value = []
-
-    vueSelectOrphans.value = []
-
     form.value.reset()
     // TODO: Find a way to reset the vue select schools
 }
+
+const handleUpdateSchool = ($e: string) => {
+    subjects.value = useSchoolsStore().findSchoolById($e)?.subjects
+
+    form.value.validate('school_id')
+}
+
+const handleUpdateSubject = ($e: number) => {
+    quota.value = useSchoolsStore().getQuotaAndAcademicLevel(form.value.school_id, $e).quota
+
+    form.value.academic_level_id = useSchoolsStore().getQuotaAndAcademicLevel(
+        form.value.school_id,
+        $e
+    ).academic_level_id
+
+    form.value.validate('subject_id')
+}
+
+const quota = ref<number>()
 </script>
 
 <template>
@@ -182,7 +171,7 @@ const handleCloseModal = () => {
                     <the-school-selector
                         id="school"
                         v-model:school="form.school_id"
-                        @update:school="form?.validate('school_id')"
+                        @update:school="handleUpdateSchool"
                     ></the-school-selector>
                 </div>
 
@@ -202,7 +191,8 @@ const handleCloseModal = () => {
                     <the-subject-selector
                         id="subject"
                         v-model:subject="form.subject_id"
-                        @update:subject="form?.validate('subject_id')"
+                        :subjects="subjects"
+                        @update:subject="handleUpdateSubject"
                     ></the-subject-selector>
                 </div>
 
@@ -221,9 +211,9 @@ const handleCloseModal = () => {
                 <div>
                     <!-- @vue-ignore -->
                     <orphans-selector
-                        :academic_level_id="5"
+                        :academic_level_id="form.academic_level_id"
                         :orphans="form.orphans"
-                        :quota="5"
+                        :quota="quota"
                         @update:selected-orphans="
                             (value) => {
                                 form.orphans = value.map((orphan) => orphan.id)

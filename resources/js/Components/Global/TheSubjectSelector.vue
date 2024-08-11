@@ -2,7 +2,7 @@
 import type { SubjectType } from '@/types/types'
 
 import { useSubjectsStore } from '@/stores/subjects'
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
@@ -12,20 +12,24 @@ const selectedSubject = ref<SubjectType | number | undefined>()
 
 const subjectsStore = useSubjectsStore()
 
+const props = defineProps<{
+    subjects: SubjectType[]
+}>()
+
+const subjects = ref(props.subjects)
+
 const handleUpdate = (value: SubjectType) => {
     subject.value = value?.id
+
+    selectedSubject.value = value
 }
 
-onMounted(async () => {
-    await subjectsStore.getSubjects()
-
-    selectedSubject.value = subjectsStore.findSubjectById(subject.value)
-})
-
 watch(
-    () => subject.value,
-    () => {
-        selectedSubject.value = subjectsStore.findSubjectById(subject.value)
+    () => props.subjects,
+    (value) => {
+        if (value) {
+            subjects.value = value
+        } else subjects.value = subjectsStore.subjects
     }
 )
 </script>
@@ -34,7 +38,7 @@ watch(
     <!--  @vue-ignore  -->
     <base-vue-select
         v-model:value="selectedSubject"
-        :options="subjectsStore.subjects"
+        :options="subjects"
         label="name"
         track-by="id"
         @update:value="handleUpdate"

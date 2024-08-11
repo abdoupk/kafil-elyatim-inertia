@@ -2,7 +2,7 @@
 import type { CreateLessonForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -11,7 +11,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 
-import { combineDateAndTime, setDateToCurrentTime } from '@/utils/helper'
+import { setDateToCurrentTime } from '@/utils/helper'
 
 const props = defineProps<{
     form: Form<CreateLessonForm>
@@ -30,27 +30,28 @@ const endDate = defineModel<string | Date>('endDate')
 
 const date = ref(props.date)
 
-watch(
-    () => props.date,
-    (value) => {
-        const formattedDate = setDateToCurrentTime(value)
+const setTimes = (value: string | Date) => {
+    const formattedDate = setDateToCurrentTime(value)
 
-        startDate.value = formattedDate.toDate()
+    startDate.value = formattedDate.toDate()
 
-        endDate.value = formattedDate.add(1, 'hour').toDate()
+    endDate.value = formattedDate.add(1, 'hour').toDate()
 
-        date.value = formattedDate.toDate()
-    }
-)
+    return formattedDate
+}
 
 watch(
     () => date.value,
     (value) => {
-        startDate.value = combineDateAndTime(startDate.value, value)
-
-        endDate.value = combineDateAndTime(endDate.value, value)
+        setTimes(value)
     }
 )
+
+onMounted(() => {
+    if (!startDate.value) {
+        date.value = setTimes(date.value).toDate()
+    }
+})
 </script>
 
 <template>

@@ -40,15 +40,25 @@ export const useSchoolsStore = defineStore('schools', {
         async getSchools() {
             const { data: schools } = await axios.get(route('tenant.list.schools'))
 
+            console.log(schools)
+
             this.schools = schools
         },
 
-        async findSchoolById(id: string) {
-            console.log(id)
-
-            console.log(this.schools.find((school) => school.id === id))
-
+        findSchoolById(id: string) {
             return this.schools.find((school) => school.id === id)
+        },
+
+        getQuotaAndAcademicLevel(schoolId: string, subjectId: number) {
+            console.log(
+                this.schools
+                    .find((school) => school.id === schoolId)
+                    .subjects.find((subject) => subject.id === subjectId)
+            )
+
+            return this.schools
+                .find((school) => school.id === schoolId)
+                .subjects.find((subject) => subject.id === subjectId)
         }
     }
 })

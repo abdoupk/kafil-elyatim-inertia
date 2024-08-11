@@ -34,7 +34,7 @@ export const useLessonsStore = defineStore('lessons', {
             orphans: [],
             id: '',
             subject_id: null,
-            academic_level_id: 3,
+            academic_level_id: null,
             school_id: '',
             title: '',
             start_date: '',
