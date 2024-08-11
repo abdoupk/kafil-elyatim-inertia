@@ -4,6 +4,8 @@
 
 /** @noinspection NullPointerExceptionInspection */
 
+use App\Models\Archive;
+use App\Models\FamilySponsorship;
 use App\Models\VocationalTraining;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
@@ -81,7 +83,7 @@ function generateFilterConditions(?string $additional_filters = ''): string
 
     return implode(' AND ', array_map(static function ($condition) {
         return implode(' ', $condition);
-    }, $filters)).' tenant_id = '.tenant('id').' '.$additional_filters;
+    }, $filters)).' AND tenant_id = '.tenant('id').' '.$additional_filters;
 }
 
 function generateFormattedSort(): array
@@ -221,4 +223,25 @@ function formatPhoneNumber($phone): string
         substr($phone, 4, 2).'-'.
         substr($phone, 6, 2).'-'.
         substr($phone, 8, 2);
+}
+
+function saveToArchive(?string $additional_filters): void
+{
+    $data = search(FamilySponsorship::getModel(), $additional_filters)->get();
+
+    $familyIds = $data->flatMap(function ($familySponsorShip) {
+        return $familySponsorShip->family()->pluck('id')->toArray();
+    });
+
+    $formatted_data = [
+        'family_ids' => $familyIds,
+        'families_count' => count($familyIds),
+        'saved_month' => now()->format('m-Y'),
+        'occasion' => request()->input('occasion'),
+        'saved_by' => auth()->user()->id,
+    ];
+
+    Archive::updateOrCreate([
+        'saved_month' => $formatted_data['saved_month'],
+    ], $formatted_data);
 }

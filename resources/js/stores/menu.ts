@@ -191,7 +191,7 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-box-archive',
                 ignore: shouldHide('read_archive'),
-                routeName: 'tenant.archive',
+                routeName: 'tenant.archive.index',
                 title: __('the_archive'),
                 url: '/dashboard/archive'
             }

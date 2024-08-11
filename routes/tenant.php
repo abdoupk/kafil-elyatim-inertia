@@ -8,6 +8,7 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsStoreContro
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateController;
 use App\Http\Controllers\V1\AcademicLevel\AcademicLevelIndexController;
 use App\Http\Controllers\V1\Archive\ArchiveIndexController;
+use App\Http\Controllers\V1\Archive\SaveToArchiveController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Auth\PasswordController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
@@ -616,7 +617,11 @@ Route::middleware([
 
             Route::get('trash', TrashIndexController::class)->name('trash');
 
-            Route::get('archive', ArchiveIndexController::class)->name('archive');
+            Route::prefix('archive')->name('archive.')->group(function () {
+                Route::get('archive', ArchiveIndexController::class)->name('index');
+
+                Route::get('save-to-archive', SaveToArchiveController::class)->name('save-to-archive');
+            });
         });
     });
 

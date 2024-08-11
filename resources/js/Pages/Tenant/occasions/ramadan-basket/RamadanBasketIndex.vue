@@ -3,7 +3,7 @@ import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from 
 
 import { ramadanBasketFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -14,9 +14,10 @@ import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -36,22 +37,54 @@ const params = reactive<IndexParams>({
     search: props.params.search
 })
 
-const sort = (field: string) => handleSort(field, params)
-</script>
+const exportable = ref(false)
 
+const loading = ref(false)
+
+const sort = (field: string) => handleSort(field, params)
+
+const handleSave = () => {
+    // Router.get(
+    //     Route('tenant.archive.save-to-archive'),
+    //     { occasion: 'ramadan_basket' },
+    //     {
+    //         OnStart: () => {
+    //             Loading.value = true
+    //         },
+    //         OnSuccess: () => {
+    //             Exportable.value = true
+    //
+    //             Loading.value = false
+    //         },
+    //         PreserveScroll: true,
+    //         PreserveState: true
+    //     }
+    // )
+
+    getDataForIndexPages(
+        route('tenant.archive.save-to-archive'),
+        { ...params, occasion: 'ramadan_basket' },
+        {
+            preserveScroll: true,
+            preserveState: true
+        }
+    )
+}
+</script>
+:
 <template>
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.occasions.ramadan-basket.export.pdf', params)"
         :export-xlsx-url="route('tenant.occasions.ramadan-basket.export.xlsx', params)"
+        :exportable
         :filters="ramadanBasketFilters"
         :pagination-data="families"
         :params="params"
         :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
         :url="route('tenant.occasions.ramadan-basket.index')"
         entries="families"
-        exportable
         filterable
     >
         <template #Hints>
@@ -70,8 +103,10 @@ const sort = (field: string) => handleSort(field, params)
         </template>
 
         <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="() => {}">
+            <base-button :disabled="loading" class="me-2 shadow-md" variant="primary" @click.prevent="handleSave">
                 {{ $t('save') }}
+
+                <spinner-button-loader :show="loading" class="ms-2"></spinner-button-loader>
             </base-button>
         </template>
     </the-table-header>
