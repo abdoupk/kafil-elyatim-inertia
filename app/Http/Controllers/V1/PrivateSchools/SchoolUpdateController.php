@@ -12,8 +12,10 @@ class SchoolUpdateController extends Controller
     {
         $school->update($request->only('name'));
 
+        $school->lessons()->forceDelete();
+
         collect($request->lessons)->each(function ($lesson) use ($school) {
-            $school->lessons()->updateOrCreate(['id' => $lesson['id'] ?? null], $lesson);
+            $school->lessons()->create($lesson);
         });
 
         return response('', 201);

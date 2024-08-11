@@ -96,18 +96,18 @@ const handleCloseModal = () => {
     // TODO: Find a way to reset the vue select schools
 }
 
-const handleUpdateSchool = ($e: string) => {
-    subjects.value = useSchoolsStore().findSchoolById($e)?.subjects
+const handleUpdateSchool = ($schoolId: string) => {
+    subjects.value = useSchoolsStore().findSchoolById($schoolId)?.subjects
 
     form.value.validate('school_id')
 }
 
-const handleUpdateSubject = ($e: number) => {
-    quota.value = useSchoolsStore().getQuotaAndAcademicLevel(form.value.school_id, $e).quota
+const handleUpdateSubject = (subjectId: number) => {
+    quota.value = useSchoolsStore().getQuotaAndAcademicLevel(form.value.school_id, subjectId).quota
 
     form.value.academic_level_id = useSchoolsStore().getQuotaAndAcademicLevel(
         form.value.school_id,
-        $e
+        subjectId
     ).academic_level_id
 
     form.value.validate('subject_id')

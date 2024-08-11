@@ -88,7 +88,17 @@ const addLesson = () => {
 }
 
 const removeLesson = (index: number) => {
-    if (index === 0) return
+    if (form.value.lessons.length === 1 && index === 0) {
+        form.value.lessons = [
+            {
+                academic_level_id: null,
+                quota: null,
+                subject_id: null
+            }
+        ]
+
+        return
+    }
 
     form.value.lessons.splice(index, 1)
 }

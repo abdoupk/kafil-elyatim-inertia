@@ -126,7 +126,6 @@ onMounted(async () => {
 
         <div class="col-span-1 -ms-6 mt-6 flex items-center justify-center">
             <svg-loader
-                :class="{ '!cursor-not-allowed': index === 0 }"
                 class="h-5 w-5 cursor-pointer fill-danger"
                 name="icon-trash-can"
                 @click.prevent="emit('removeLesson', index)"
