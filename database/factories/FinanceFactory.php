@@ -15,7 +15,7 @@ class FinanceFactory extends Factory
             'amount' => fake()->numberBetween(-1000000, 1000000),
             'description' => fake('ar_SA')->realText(),
             'date' => now()->subDays(fake()->numberBetween(1, 913)),
-            'specification' => fake()->randomElement(),
+            'specification' => fake()->randomElement(DONATION_SPECIFICATION),
             'created_by' => fake()->uuid,
             'tenant_id' => fake()->uuid,
             'created_at' => now()->subDays(fake()->numberBetween(1, 913)),

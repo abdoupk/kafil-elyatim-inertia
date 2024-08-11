@@ -7,20 +7,6 @@ use App\Models\FamilySponsorship;
 use App\Models\OrphanSponsorship;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-$last_academic_year = (now()->year) - 1;
-
-define('FILTER_SCHOOL_ENTRY', "AND school_bag = true AND school_bag IS NOT NULL AND orphan.academic_achievement.academic_year IS NOT EMPTY AND orphan.academic_achievement.academic_year >= $last_academic_year");
-
-const FILTER_RAMADAN_BASKET = 'AND ramadan_basket != false AND ramadan_basket IS NOT NULL';
-
-const FILTER_MONTHLY_BASKET = 'AND ramadan_basket != false AND ramadan_basket IS NOT NULL';
-
-const FILTER_EID_SUIT = 'AND eid_suit = true AND eid_suit IS NOT NULL';
-
-const FILTER_EID_AL_ADHA = 'AND eid_al_adha != false AND eid_al_adha IS NOT NULL';
-
-const LIMIT = 5000;
-
 function listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship(): LengthAwarePaginator
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_EID_AL_ADHA)

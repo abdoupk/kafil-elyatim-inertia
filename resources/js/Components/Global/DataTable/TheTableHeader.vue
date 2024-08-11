@@ -29,6 +29,8 @@ const params = ref(props.params)
 
 const search = ref(params.value.search)
 
+const emit = defineEmits(['changeFilters'])
+
 let routerOptions = {
     preserveState: true,
     preserveScroll: true
@@ -46,6 +48,8 @@ const handleFilter = (filters: IndexParams['filters']) => {
     if (!isEmpty(formatFilters(filters))) {
         params.value.filters = filters
 
+        emit('changeFilters', filters)
+
         getData()
     }
 }
@@ -61,7 +65,12 @@ watch(
     }, 400)
 )
 
-watch(() => [params.value.fields, params.value.directions], getData)
+watch(
+    () => [params.value.fields, params.value.directions],
+    (value) => {
+        console.log('1212')
+    }
+)
 </script>
 
 <template>

@@ -5,7 +5,6 @@
 /** @noinspection NullPointerExceptionInspection */
 
 use App\Models\Archive;
-use App\Models\FamilySponsorship;
 use App\Models\VocationalTraining;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
@@ -144,52 +143,6 @@ function formatedVocationalTrainingSpecialities(): array
     return array_values($formattedArray);
 }
 
-const DEFAULT_NOTIFICATIONS = [
-    'branch' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'zone' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'orphan' => [
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'sponsor' => [
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'family' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'school' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'lesson' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'member' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-    'need' => [
-        'created' => true,
-        'deleted' => true,
-        'updated' => true,
-    ],
-];
-
 function formatCurrency(float $amount): false|string
 {
     $formatter = new NumberFormatter(app()->getLocale().'_DZ', NumberFormatter::CURRENCY);
@@ -225,11 +178,9 @@ function formatPhoneNumber($phone): string
         substr($phone, 8, 2);
 }
 
-function saveToArchive(?string $additional_filters): void
+function saveToArchive(callable $function): void
 {
-    $data = search(FamilySponsorship::getModel(), $additional_filters)->get();
-
-    $familyIds = $data->flatMap(function ($familySponsorShip) {
+    $familyIds = $function()->flatMap(function ($familySponsorShip) {
         return $familySponsorShip->family()->pluck('id')->toArray();
     });
 
