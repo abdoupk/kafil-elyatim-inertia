@@ -2,7 +2,7 @@
 import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { ramadanBasketFilters } from '@/constants/filters'
-import { Head } from '@inertiajs/vue3'
+import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
@@ -17,7 +17,7 @@ import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { handleSort } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -44,34 +44,27 @@ const loading = ref(false)
 const sort = (field: string) => handleSort(field, params)
 
 const handleSave = () => {
-    // Router.get(
-    //     Route('tenant.archive.save-to-archive'),
-    //     { occasion: 'ramadan_basket' },
-    //     {
-    //         OnStart: () => {
-    //             Loading.value = true
-    //         },
-    //         OnSuccess: () => {
-    //             Exportable.value = true
-    //
-    //             Loading.value = false
-    //         },
-    //         PreserveScroll: true,
-    //         PreserveState: true
-    //     }
-    // )
-
-    getDataForIndexPages(
+    router.get(
         route('tenant.archive.save-to-archive'),
-        { ...params, occasion: 'ramadan_basket' },
+        { occasion: 'ramadan_basket' },
         {
+            onStart: () => {
+                loading.value = true
+            },
+            onSuccess: () => {
+                loading.value = false
+
+                setTimeout(() => {
+                    exportable.value = true
+                }, 300)
+            },
             preserveScroll: true,
             preserveState: true
         }
     )
 }
 </script>
-:
+
 <template>
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
@@ -86,6 +79,7 @@ const handleSave = () => {
         :url="route('tenant.occasions.ramadan-basket.index')"
         entries="families"
         filterable
+        @change-filters="params.filters = $event"
     >
         <template #Hints>
             <base-alert
