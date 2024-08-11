@@ -6,19 +6,19 @@ import { defineStore } from 'pinia'
 interface State {
     lesson: CreateLessonForm & {
         id?: string
-        formatted_subject?: {
+        subject?: {
             id: string
             name: string
         }
-        formatted_school?: {
+        school?: {
             id: string
             name: string
         }
-        formatted_academic_level?: {
+        academic_level?: {
             id: string
             name: string
         }
-        formatted_orphans?: {
+        orphans?: {
             id: string
             first_name: string
             last_name: string
@@ -49,17 +49,9 @@ export const useLessonsStore = defineStore('lessons', {
         async getLesson(lessonId: string) {
             const {
                 data: { lesson }
-            } = await axios.get(`lessons/show/${lessonId}`)
+            } = await axios.get(route('tenant.lessons.show', lessonId))
 
             this.lesson = { ...lesson }
-
-            this.lesson.formatted_academic_level = lesson.academic_level
-
-            this.lesson.formatted_subject = lesson.subject
-
-            this.lesson.formatted_school = lesson.school
-
-            this.lesson.formatted_orphans = lesson.orphans
         },
         async updateLesson(id: string, data: { start_date: string; end_date: string }) {
             await axios.put(route('tenant.lessons.update-dates', id), data)

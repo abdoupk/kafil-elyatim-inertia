@@ -1,11 +1,10 @@
+import type { SubjectType } from '@/types/types'
+
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
 interface State {
-    subjects: {
-        id: number
-        name: string
-    }[]
+    subjects: SubjectType[]
 }
 
 export const useSubjectsStore = defineStore('subjects', {

@@ -714,7 +714,7 @@ export type ClothesSizesType = { id: number; label: string }[]
 
 export type SubjectType = { id: number; name: string }
 
-export interface CreateSchoolForm {
+export type CreateSchoolForm = {
     name: string
     lessons: Array<AddSchoolLessonType>
 }

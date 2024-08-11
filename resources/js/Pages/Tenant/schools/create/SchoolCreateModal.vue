@@ -97,6 +97,8 @@ const removeLesson = (index: number) => {
             }
         ]
 
+        form.value.validate()
+        
         return
     }
 

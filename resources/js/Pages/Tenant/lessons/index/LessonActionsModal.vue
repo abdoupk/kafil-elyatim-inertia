@@ -46,17 +46,17 @@ const lessonsStore = useLessonsStore()
 
                 <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('school_name') }}</h1>
-                    <p class="col-span-9">{{ lessonsStore.lesson?.formatted_school?.name }}</p>
+                    <p class="col-span-9">{{ lessonsStore.lesson?.school?.name }}</p>
                 </div>
 
                 <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('validation.attributes.subject') }}</h1>
-                    <p class="col-span-9">{{ lessonsStore.lesson?.formatted_subject?.name }}</p>
+                    <p class="col-span-9">{{ lessonsStore.lesson?.subject?.name }}</p>
                 </div>
 
                 <div class="mt-4 grid grid-cols-12 gap-4">
                     <h1 class="col-span-3">{{ $t('academic_level') }}</h1>
-                    <p class="col-span-9">{{ lessonsStore.lesson?.formatted_academic_level?.name }}</p>
+                    <p class="col-span-9">{{ lessonsStore.lesson?.academic_level?.name }}</p>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@ const lessonsStore = useLessonsStore()
 
                     <base-tbody-table>
                         <base-tr-table
-                            v-for="(orphan, index) in lessonsStore.lesson.formatted_orphans"
+                            v-for="(orphan, index) in lessonsStore.lesson.orphans"
                             :key="orphan.id"
                             class="text-center"
                         >

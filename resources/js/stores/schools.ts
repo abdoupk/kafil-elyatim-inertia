@@ -32,15 +32,13 @@ export const useSchoolsStore = defineStore('schools', {
         async getSchool(schoolId: string) {
             const {
                 data: { school }
-            } = await axios.get(`schools/show/${schoolId}`)
+            } = await axios.get(route('tenant.schools.show', schoolId))
 
             this.school = { ...school }
         },
 
         async getSchools() {
             const { data: schools } = await axios.get(route('tenant.list.schools'))
-
-            console.log(schools)
 
             this.schools = schools
         },

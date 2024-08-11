@@ -1,51 +1,45 @@
 <script lang="ts" setup>
+/* eslint-disable */
 import type { SubjectType } from '@/types/lessons'
+import type { CreateSchoolForm } from '@/types/types'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
+import { useSubjectsStore } from '@/stores/subjects'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheSubjectSelector from '@/Components/Global/TheSubjectSelector.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-const props = defineProps<{
-    subjects: SubjectType[]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    form: Form<Record<string, any>>
+defineProps<{
+    form: Form<CreateSchoolForm>
     index: number
 }>()
 
 const emit = defineEmits(['removeLesson'])
 
-const vueSelectSubject = ref({})
-
-const subject = defineModel('subject')
-
 const academicLevel = defineModel('academicLevel')
 
 const quota = defineModel('quota')
-
-watch(
-    () => props.form,
-    () => {
-        vueSelectSubject.value =
-            props.subjects.find((subject) => subject.id == props.form.lessons[props.index].subject_id) ?? ''
-    },
-    { immediate: true }
-)
 
 const academicLevels = ref([])
 
 const academicLevelsStore = useAcademicLevelsStore()
 
+const subjects = ref<SubjectType[]>([])
+
 onMounted(async () => {
     await academicLevelsStore.getAcademicLevels()
 
+    await useSubjectsStore().getSubjects()
+
     academicLevels.value = academicLevelsStore.academicLevels
+
+    subjects.value = useSubjectsStore().subjects
 })
 </script>
 
@@ -64,7 +58,9 @@ onMounted(async () => {
                 ></the-academic-level-selector>
             </div>
 
+            <!-- @vue-ignore -->
             <div v-if="form.invalid(`lessons.${index}.academic_level_id`)" class="mt-2">
+                <!-- @vue-ignore -->
                 <base-input-error :message="form.errors[`lessons.${index}.academic_level_id`]"></base-input-error>
             </div>
         </div>
@@ -77,27 +73,18 @@ onMounted(async () => {
             </base-form-label>
 
             <div>
-                <base-vue-select
-                    id="subject"
-                    v-model:value="vueSelectSubject"
-                    :allow-empty="false"
-                    :options="subjects"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_subject') })"
-                    class="h-full w-full"
-                    label="name"
-                    track-by="id"
-                    @update:value="
-                        (value) => {
-                            subject = value.id
-
-                            form?.validate(`lessons.${index}.subject_id`)
-                        }
-                    "
+                <!-- @vue-ignore -->
+                <the-subject-selector
+                    v-model:subject="form.lessons[index].subject_id"
+                    :subjects
+                    @update:subject="form?.validate(`lessons.${index}.subject_id`)"
                 >
-                </base-vue-select>
+                    :subjects>
+                </the-subject-selector>
             </div>
-
+            <!-- @vue-ignore -->
             <div v-if="form.invalid(`lessons.${index}.subject_id`)" class="mt-2">
+                <!-- @vue-ignore -->
                 <base-input-error :message="form.errors[`lessons.${index}.subject_id`]"></base-input-error>
             </div>
         </div>
@@ -109,16 +96,18 @@ onMounted(async () => {
                 {{ $t('validation.attributes.quota') }}
             </base-form-label>
 
+            <!-- @vue-ignore -->
             <base-form-input
                 id="quota"
                 ref="firstInputRef"
                 v-model="quota"
                 :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.quota') })"
-                type="text"
+                type="number"
                 @change="form.validate(`lessons.${index}.quota`)"
             />
-
+            <!-- @vue-ignore -->
             <div v-if="form.invalid(`lessons.${index}.quota`)" class="mt-2">
+                <!-- @vue-ignore -->
                 <base-input-error :message="form.errors[`lessons.${index}.quota`]"></base-input-error>
             </div>
         </div>

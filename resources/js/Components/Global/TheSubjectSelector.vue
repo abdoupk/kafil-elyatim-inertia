@@ -8,7 +8,7 @@ import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
 const subject = defineModel<number | undefined>('subject')
 
-const selectedSubject = ref<SubjectType | number | undefined>()
+const selectedSubject = ref<SubjectType | number | string | undefined>()
 
 const subjectsStore = useSubjectsStore()
 
@@ -32,6 +32,17 @@ watch(
         } else subjects.value = subjectsStore.subjects
     }
 )
+
+watch(
+    () => subject.value,
+    (value) => {
+        if (value) {
+            selectedSubject.value = subjectsStore.findSubjectById(value)
+        } else {
+            selectedSubject.value = ''
+        }
+    }
+)
 </script>
 
 <template>
@@ -39,6 +50,7 @@ watch(
     <base-vue-select
         v-model:value="selectedSubject"
         :options="subjects"
+        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_subject') })"
         label="name"
         track-by="id"
         @update:value="handleUpdate"
