@@ -8,7 +8,6 @@ class SaveFamiliesRamadanBasketToArchiveController extends Controller
 {
     public function __invoke()
     {
-        ray(\request()->all());
         saveToArchive('ramadan_basket', function () {
             return listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport();
         });

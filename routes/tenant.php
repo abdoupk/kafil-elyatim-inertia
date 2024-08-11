@@ -76,21 +76,26 @@ use App\Http\Controllers\V1\Notifications\NotificationsIndexController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\BabyMilkAndDiapersIndexController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesPDFController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesXlsxController;
+use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\SaveBabiesToArchiveController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\EidAlAdhaIndexController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaPDFController;
 use App\Http\Controllers\V1\Occasions\EidAlAdha\ExportFamiliesEidAlAdhaXlsxController;
+use App\Http\Controllers\V1\Occasions\EidAlAdha\SaveFamiliesEidAlAdhaToArchiveController;
 use App\Http\Controllers\V1\Occasions\EidSuit\EidSuitIndexController;
 use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitPDFController;
 use App\Http\Controllers\V1\Occasions\EidSuit\ExportOrphansEidSuitXlsxController;
+use App\Http\Controllers\V1\Occasions\EidSuit\SaveOrphansEidSuitToArchiveController;
 use App\Http\Controllers\V1\Occasions\MonthlyBasket\ExportFamiliesMonthlyBasketPDFController;
 use App\Http\Controllers\V1\Occasions\MonthlyBasket\ExportFamiliesMonthlyBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\MonthlyBasket\FamiliesMonthlyBasketIndexController;
+use App\Http\Controllers\V1\Occasions\MonthlyBasket\SaveFamiliesMonthlyBasketToArchiveController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDFController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\SaveFamiliesRamadanBasketToArchiveController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryPDFController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryXlsxController;
+use App\Http\Controllers\V1\Occasions\SchoolEntry\SaveOrphansSchoolEntryToArchiveController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
@@ -441,6 +446,8 @@ Route::middleware([
 
                     Route::get('export-xlsx', ExportFamiliesEidAlAdhaXlsxController::class)
                         ->name('export.xlsx');
+
+                    Route::get('save-to-archive', SaveFamiliesEidAlAdhaToArchiveController::class)->name('save-to-archive');
                 });
 
                 Route::prefix('school-entry')->name('school-entry.')->group(function () {
@@ -452,6 +459,8 @@ Route::middleware([
 
                     Route::get('export-xlsx', ExportOrphansSchoolEntryXlsxController::class)
                         ->name('export.xlsx');
+
+                    Route::get('save-to-archive', SaveOrphansSchoolEntryToArchiveController::class)->name('save-to-archive');
                 });
 
                 Route::prefix('ramadan-basket')->name('ramadan-basket.')->group(function () {
@@ -476,6 +485,8 @@ Route::middleware([
 
                     Route::get('export-xlsx', ExportOrphansEidSuitXlsxController::class)
                         ->name('export.xlsx');
+
+                    Route::get('save-to-archive', SaveOrphansEidSuitToArchiveController::class)->name('save-to-archive');
                 });
 
                 Route::prefix('monthly-basket')->name('monthly-basket.')->group(function () {
@@ -487,6 +498,8 @@ Route::middleware([
 
                     Route::get('export-xlsx', ExportFamiliesMonthlyBasketXlsxController::class)
                         ->name('export.xlsx');
+
+                    Route::get('save-to-archive', SaveFamiliesMonthlyBasketToArchiveController::class)->name('save-to-archive');
                 });
 
                 Route::prefix('babies-milk-and-diapers')->name('babies-milk-and-diapers.')->group(function () {
@@ -498,6 +511,8 @@ Route::middleware([
 
                     Route::get('export-xlsx', ExportBabiesXlsxController::class)
                         ->name('export.xlsx');
+
+                    Route::get('save-to-archive', SaveBabiesToArchiveController::class)->name('save-to-archive');
                 });
             });
 
