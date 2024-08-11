@@ -200,8 +200,6 @@ export const useMenuStore = defineStore('menu', {
 })
 
 function shouldHide(permission) {
-    console.log(usePage().props.auth.user.permissions)
-
     return (
         !usePage().props.auth.user.roles.includes('super_admin') ||
         usePage().props.auth.user.permissions?.includes(permission)

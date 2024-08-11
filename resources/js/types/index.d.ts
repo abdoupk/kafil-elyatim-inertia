@@ -1,4 +1,11 @@
-import type { AppearanceType, ColorSchemesType, DatabaseNotification, LayoutsType, ThemesType } from '@/types/types'
+import type {
+    AppearanceType,
+    ColorSchemesType,
+    DatabaseNotification,
+    LayoutsType,
+    PaginationData,
+    ThemesType
+} from '@/types/types'
 
 import { Config } from 'ziggy-js'
 
@@ -25,7 +32,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     auth: {
         user: User
         settings: UserSettings
-        notifications: DatabaseNotification[]
+        notifications: PaginationData<DatabaseNotification>
     }
     association: string
     ziggy: Config & { location: string }

@@ -17,8 +17,6 @@ defineOptions({
     inheritAttrs: false
 })
 
-console.log(usePage().props.auth?.notifications)
-
 const settingsStore = useSettingsStore()
 
 window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification((notification) => {
@@ -45,7 +43,7 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
         </base-popover-button>
 
         <base-popover-panel
-            class="scrollbar-hidden mt-2 max-h-[500px] w-[280px] overflow-y-auto scroll-smooth p-5 sm:w-[350px]"
+            class="scrollbar-hidden mt-2 max-h-[250px] w-[280px] overflow-y-auto scroll-smooth p-5 sm:w-[350px]"
             placement="bottom-end"
         >
             <the-notification-menu></the-notification-menu>

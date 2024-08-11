@@ -72,6 +72,7 @@ use App\Http\Controllers\V1\Needs\NeedShowController;
 use App\Http\Controllers\V1\Needs\NeedsIndexController;
 use App\Http\Controllers\V1\Needs\NeedStoreController;
 use App\Http\Controllers\V1\Needs\NeedUpdateController;
+use App\Http\Controllers\V1\Notifications\NotificationsIndexController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\BabyMilkAndDiapersIndexController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesPDFController;
 use App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers\ExportBabiesXlsxController;
@@ -557,6 +558,11 @@ Route::middleware([
 
                 Route::delete('{school}', SchoolDeleteController::class)
                     ->name('destroy');
+            });
+
+            Route::prefix('notifications')->name('notifications.')->group(function () {
+                Route::get('', NotificationsIndexController::class)
+                    ->name('index');
             });
 
             Route::prefix('academic-achievements')->name('academic-achievements.')->group(function () {

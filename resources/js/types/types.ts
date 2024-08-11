@@ -236,6 +236,7 @@ export interface PaginationData<T> {
         url: string
         label: string
         active: boolean
+        next: string
     }>
 }
 
