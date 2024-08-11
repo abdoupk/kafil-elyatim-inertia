@@ -208,6 +208,9 @@ return [
                 'searchableAttributes' => ['name', 'quota'],
                 'sortableAttributes' => ['created_at', 'name', 'quota'],
             ],
+            'previews' => [
+                'filterableAttributes' => ['__soft_deleted', 'id', 'tenant_id'],
+            ],
         ],
     ],
 
