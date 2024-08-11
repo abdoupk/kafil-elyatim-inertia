@@ -21,6 +21,8 @@ const props = defineProps<{
     financialReports: {
         incomes: number[]
         expenses: number[]
+        totalThisMonth: number
+        totalLastMonth: number
     }
 }>()
 
@@ -51,10 +53,10 @@ const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May
 
 <template>
     <Head title="Dashboard" />
-    
+
     <the-general-reports :reports></the-general-reports>
 
     <div class="co col-span-12 grid">
-        <the-financial-report></the-financial-report>
+        <the-financial-report :financialReports></the-financial-report>
     </div>
 </template>

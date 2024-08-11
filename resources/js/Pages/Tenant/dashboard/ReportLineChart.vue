@@ -1,14 +1,20 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { useSettingsStore } from '@/stores/settings'
 import { ChartData, ChartOptions } from 'chart.js/auto'
+import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
+
 import { getColor } from '@/utils/colors'
-import { useSettingsStore } from '@/stores/settings'
+import { formatCurrency } from '@/utils/helper'
 
 const props = defineProps<{
-    width?: number;
-    height?: number;
+    width?: number
+    height?: number
+    financialReports: {
+        incomes: number[]
+        expenses: number[]
+    }
 }>()
 
 const colorScheme = computed(() => useSettingsStore().colorScheme)
@@ -17,35 +23,22 @@ const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
 const data = computed<ChartData>(() => {
     return {
-        labels: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
+        labels: ['Jan',
+'Feb',
+'Mar',
+'Apr',
+'May',
+'Jun',
+'Jul',
+'Aug',
+'Sep',
+'Oct',
+'Nov',
+'Dec'],
         datasets: [
             {
                 label: '# of Votes',
-                data: [0,
-200,
-250,
-200,
-700,
-550,
-650,
-1050,
-950,
-1100,
-900,
-1200],
+                data: props.financialReports.incomes,
                 borderWidth: 2,
                 borderColor: colorScheme.value ? getColor('primary', 0.8) : '',
 
@@ -55,23 +48,10 @@ const data = computed<ChartData>(() => {
             },
             {
                 label: '# of Votes',
-                data: [0,
-300,
-400,
-560,
-320,
-600,
-720,
-850,
-690,
-805,
-1200,
-1010],
+                data: props.financialReports.expenses,
                 borderWidth: 2,
                 borderDash: [2, 2],
-                borderColor: darkMode.value
-                    ? getColor('slate.400', 0.6)
-                    : getColor('slate.400'),
+                borderColor: darkMode.value ? getColor('slate.400', 0.6) : getColor('slate.400'),
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4
@@ -107,8 +87,8 @@ const options = computed<ChartOptions>(() => {
                         size: 12
                     },
                     color: getColor('slate.500', 0.8),
-                    callback: function(value) {
-                        return '$' + value
+                    callback: function (value) {
+                        return formatCurrency(value)
                     }
                 },
                 grid: {
@@ -123,11 +103,5 @@ const options = computed<ChartOptions>(() => {
 </script>
 
 <template>
-    <base-chart
-        :data="data"
-        :height="props.height"
-        :options="options"
-        :width="props.width"
-        type="line"
-    />
+    <base-chart :data="data" :height="props.height" :options="options" :width="props.width" type="line" />
 </template>

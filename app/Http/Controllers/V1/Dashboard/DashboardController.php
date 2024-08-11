@@ -13,7 +13,7 @@ class DashboardController extends Controller
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),
-            'radar' => generateTest(),
+            'radar' => fn () => generateTest(),
         ]);
     }
 }

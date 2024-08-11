@@ -38,12 +38,16 @@ function generateFinancialReport(): array
 {
     $year = date('Y');
 
+    $monthIndex = date('n') - 4;
+
     $data = DB::table('finances')
         ->selectRaw('CASE WHEN amount >= 0 THEN \'incomes\' ELSE \'expenses\' END AS sign, EXTRACT(MONTH FROM created_at) as month, SUM(amount) as total')
         ->whereYear('created_at', $year)
         ->where(function ($q) {
-            if (request()->input('specification', '')) {
-                return $q->where('specification', '=', 'other');
+            $specification = request()->input('specification', '');
+
+            if ($specification) {
+                return $q->where('specification', '=', $specification);
             }
 
             return $q;
@@ -61,6 +65,10 @@ function generateFinancialReport(): array
     foreach ($data as $row) {
         $result[$row->sign][$row->month - 1] = abs($row->total);
     }
+
+    $result['totalLastMonth'] = $result['incomes'][$monthIndex - 1] + $result['expenses'][$monthIndex - 1];
+
+    $result['totalThisMonth'] = $result['incomes'][$monthIndex] + $result['expenses'][$monthIndex];
 
     ray($result);
 
