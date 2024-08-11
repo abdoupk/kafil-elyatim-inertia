@@ -65,12 +65,7 @@ watch(
     }, 400)
 )
 
-watch(
-    () => [params.value.fields, params.value.directions],
-    (value) => {
-        console.log('1212')
-    }
-)
+watch(() => [params.value.fields, params.value.directions], getData)
 </script>
 
 <template>

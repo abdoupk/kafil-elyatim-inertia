@@ -178,7 +178,7 @@ function formatPhoneNumber($phone): string
         substr($phone, 8, 2);
 }
 
-function saveToArchive(callable $function): void
+function saveToArchive($occasion, callable $function): void
 {
     $familyIds = $function()->flatMap(function ($familySponsorShip) {
         return $familySponsorShip->family()->pluck('id')->toArray();
@@ -188,7 +188,7 @@ function saveToArchive(callable $function): void
         'family_ids' => $familyIds,
         'families_count' => count($familyIds),
         'saved_month' => now()->format('m-Y'),
-        'occasion' => request()->input('occasion'),
+        'occasion' => $occasion,
         'saved_by' => auth()->user()->id,
     ];
 

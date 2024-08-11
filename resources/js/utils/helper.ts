@@ -392,11 +392,20 @@ function handleFilterValue(filter: ListBoxFilter, value): string {
 
 const handleFilterName = (field: ListBoxFilter, value: { value: string } | string): string => {
     const isSponsorship = ['family_sponsorships', 'sponsor_sponsorships'].includes(field.label)
-    if (field.field === 'sponsorship' && typeof value !== 'string') return `${value.value}`
-    else if (isSponsorship && typeof value !== 'string') return `${field.label}.${value.value}`
-    else if (field.label === 'orphan_sponsorships' && typeof value !== 'string') return `${field.field}.${value.value}`
-    else return field.field
+
+    const isOrphanSponsorship = field.label === 'orphan_sponsorships'
+
+    if (field.field === 'sponsorship' && typeof value !== 'string') {
+        return `${value.value}`
+    } else if (isSponsorship && typeof value !== 'string') {
+        return `${field.label}.${value.value}`
+    } else if (isOrphanSponsorship && typeof value !== 'string') {
+        return `${field.field}.${value.value}`
+    } else {
+        return field.field || field
+    }
 }
+
 
 const formatUrl = (url: string) => {
     const parsedUrl = new URL(url)
@@ -420,7 +429,7 @@ const formatFilters = (filters) => {
             ?.map((filter) => {
                 return {
                     field: handleFilterName(filter.field, filter.value),
-                    operator: filter?.operator?.value,
+                    operator: filter?.operator?.value ?? filter.operator,
                     value: handleFilterValue(filter.field, filter.value)
                 }
             })

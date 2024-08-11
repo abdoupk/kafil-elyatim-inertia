@@ -8,7 +8,6 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsStoreContro
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateController;
 use App\Http\Controllers\V1\AcademicLevel\AcademicLevelIndexController;
 use App\Http\Controllers\V1\Archive\ArchiveIndexController;
-use App\Http\Controllers\V1\Archive\SaveToArchiveController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Auth\PasswordController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
@@ -89,6 +88,7 @@ use App\Http\Controllers\V1\Occasions\MonthlyBasket\FamiliesMonthlyBasketIndexCo
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketPDFController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\ExportFamiliesRamadanBasketXlsxController;
 use App\Http\Controllers\V1\Occasions\RamadanBasket\RamadanBasketIndexController;
+use App\Http\Controllers\V1\Occasions\RamadanBasket\SaveFamiliesRamadanBasketToArchiveController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryPDFController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryXlsxController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
@@ -463,6 +463,8 @@ Route::middleware([
 
                     Route::get('export-xlsx', ExportFamiliesRamadanBasketXlsxController::class)
                         ->name('export.xlsx');
+
+                    Route::get('save-to-archive', SaveFamiliesRamadanBasketToArchiveController::class)->name('save-to-archive');
                 });
 
                 Route::prefix('eid-suit')->name('eid-suit.')->group(function () {
@@ -619,8 +621,6 @@ Route::middleware([
 
             Route::prefix('archive')->name('archive.')->group(function () {
                 Route::get('archive', ArchiveIndexController::class)->name('index');
-
-                Route::get('save-to-archive', SaveToArchiveController::class)->name('save-to-archive');
             });
         });
     });

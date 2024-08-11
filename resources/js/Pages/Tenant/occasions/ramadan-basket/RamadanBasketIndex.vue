@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+/* eslint-disable */
 import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { ramadanBasketFilters } from '@/constants/filters'
-import { Head, router } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
@@ -17,7 +18,7 @@ import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -44,24 +45,31 @@ const loading = ref(false)
 const sort = (field: string) => handleSort(field, params)
 
 const handleSave = () => {
-    router.get(
-        route('tenant.archive.save-to-archive'),
-        { occasion: 'ramadan_basket' },
-        {
-            onStart: () => {
-                loading.value = true
-            },
-            onSuccess: () => {
-                loading.value = false
+    // router.get(route('tenant.occasions.ramadan-basket.save-to-archive'), formatFilters(params.filters), {
+    //     onStart: () => {
+    //         loading.value = true
+    //     },
+    //     onSuccess: () => {
+    //         exportable.value = true
+    //
+    //         loading.value = false
+    //     },
+    //     preserveScroll: true,
+    //     preserveState: true
+    // })
+    console.log(params.filters)
+    getDataForIndexPages(route('tenant.occasions.ramadan-basket.save-to-archive'), params, {
+        onStart: () => {
+            loading.value = true
+        },
+        onSuccess: () => {
+            exportable.value = true
 
-                setTimeout(() => {
-                    exportable.value = true
-                }, 300)
-            },
-            preserveScroll: true,
-            preserveState: true
-        }
-    )
+            loading.value = false
+        },
+        preserveScroll: true,
+        preserveState: true
+    })
 }
 </script>
 
