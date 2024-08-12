@@ -1,25 +1,33 @@
 <script lang="ts" setup>
+import type { SubjectType } from '@/types/lessons'
 import type { CreateLessonForm } from '@/types/types'
 
 import { useLessonsStore } from '@/stores/lessons'
 import { useSchoolsStore } from '@/stores/schools'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref } from 'vue'
-
-import ColorSelector from '@/Pages/Tenant/lessons/create/ColorSelector.vue'
-import DateSelector from '@/Pages/Tenant/lessons/create/DateSelector.vue'
-import OrphansSelector from '@/Pages/Tenant/lessons/create/OrphansSelector.vue'
-
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
-import TheSchoolSelector from '@/Components/Global/TheSchoolSelector.vue'
-import TheSubjectSelector from '@/Components/Global/TheSubjectSelector.vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
+
+const ColorSelector = defineAsyncComponent(() => import('@/Pages/Tenant/lessons/create/ColorSelector.vue'))
+
+const DateSelector = defineAsyncComponent(() => import('@/Pages/Tenant/lessons/create/DateSelector.vue'))
+
+const OrphansSelector = defineAsyncComponent(() => import('@/Pages/Tenant/lessons/create/OrphansSelector.vue'))
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
+
+const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
+
+const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
+
+const TheSchoolSelector = defineAsyncComponent(() => import('@/Components/Global/TheSchoolSelector.vue'))
+
+const TheSubjectSelector = defineAsyncComponent(() => import('@/Components/Global/TheSubjectSelector.vue'))
 
 const props = defineProps<{
     open: boolean
@@ -32,7 +40,7 @@ const lessonsStore = useLessonsStore()
 // Initialize a ref for loading state
 const loading = ref(false)
 
-const subjects = ref([])
+const subjects = ref<SubjectType[]>([])
 
 const form = computed(() => {
     if (lessonsStore.lesson.id) {
@@ -102,18 +110,19 @@ const handleCloseModal = () => {
 }
 
 const handleUpdateSchool = (schoolId: string) => {
-    subjects.value = useSchoolsStore().findSchoolById(schoolId)?.subjects
+    const schoolSubjects = useSchoolsStore().findSchoolById(schoolId)?.subjects
+
+    if (schoolSubjects) subjects.value = schoolSubjects
 
     form.value.validate('school_id')
 }
 
 const handleUpdateSubject = (subjectId: number) => {
-    quota.value = useSchoolsStore().getQuotaAndAcademicLevel(form.value.school_id, subjectId).quota
+    const schoolInfo = useSchoolsStore().getQuotaAndAcademicLevel(form.value.school_id, subjectId)
 
-    form.value.academic_level_id = useSchoolsStore().getQuotaAndAcademicLevel(
-        form.value.school_id,
-        subjectId
-    ).academic_level_id
+    quota.value = schoolInfo?.quota
+
+    form.value.academic_level_id = schoolInfo?.academic_level_id
 
     form.value.validate('subject_id')
 }

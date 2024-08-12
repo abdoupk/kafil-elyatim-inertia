@@ -33,7 +33,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
 <template>
     <base-dialog :initialFocus="focusableInput" :open @close="emit('close')">
         <base-dialog-panel>
-            <suspense>
+            <suspense suspensible>
                 <template #default>
                     <form @submit.prevent="emit('handleSubmit')">
                         <base-dialog-title>
@@ -46,7 +46,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
                             </a>
                         </base-dialog-title>
 
-                        <base-dialog-description id="modalContent" class="grid grid-cols-12 gap-4 gap-y-3">
+                        <base-dialog-description class="grid grid-cols-12 gap-4 gap-y-3">
                             <slot name="description"></slot>
                         </base-dialog-description>
 

@@ -6,6 +6,8 @@ export type SchoolType = {
 export type SubjectType = {
     id: number
     name: string
+    academic_level_id: number
+    quota: number
 }
 
 export interface AddSchoolLessonType {

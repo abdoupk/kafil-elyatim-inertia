@@ -1,3 +1,4 @@
+import type { SubjectType } from '@/types/lessons'
 import type { CreateSchoolForm } from '@/types/types'
 
 import axios from 'axios'
@@ -10,6 +11,7 @@ interface State {
     schools: CreateSchoolForm &
         {
             id: string
+            subjects: SubjectType[]
         }[]
 }
 
@@ -48,12 +50,6 @@ export const useSchoolsStore = defineStore('schools', {
         },
 
         getQuotaAndAcademicLevel(schoolId: string, subjectId: number) {
-            console.log(
-                this.schools
-                    .find((school) => school.id === schoolId)
-                    .subjects.find((subject) => subject.id === subjectId)
-            )
-
             return this.schools
                 .find((school) => school.id === schoolId)
                 .subjects.find((subject) => subject.id === subjectId)
