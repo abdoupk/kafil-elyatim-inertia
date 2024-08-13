@@ -304,6 +304,7 @@ export const orphansFilters: ListBoxFilter[] = [
     }
 ]
 
+// TODO add filters
 export const eidAlAdhaFilters: ListBoxFilter[] = []
 
 // TODO change icon general_average

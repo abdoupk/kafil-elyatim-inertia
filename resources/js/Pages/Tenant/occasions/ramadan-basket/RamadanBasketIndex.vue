@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-/* eslint-disable */
 import type { ArchiveOccasionType, IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { ramadanBasketFilters } from '@/constants/filters'
@@ -66,10 +65,10 @@ const save = () => {
         only: ['families']
     })
 }
+
 const handleSave = () => {
-    if (props.archive?.created_at) {
-        showWarningModalStatus.value = true
-    }
+    if (props.archive?.created_at) showWarningModalStatus.value = true
+    else save()
 }
 </script>
 

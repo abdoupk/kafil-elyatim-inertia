@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Occasions\EidAlAdha;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Occasions\EidAlAdhaResource;
+use App\Models\Archive;
 use Inertia\Inertia;
 
 class EidAlAdhaIndexController extends Controller
@@ -13,6 +14,8 @@ class EidAlAdhaIndexController extends Controller
         return Inertia::render('Tenant/occasions/eid-al-adha/EidAlAdhaIndex', [
             'families' => EidAlAdhaResource::collection(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()),
             'params' => getParams(),
+            'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('eid_al_adha')
+                ->whereMonth('created_at', now()->format('m-Y'))->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
     }
 }

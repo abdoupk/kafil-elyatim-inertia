@@ -194,5 +194,6 @@ function saveToArchive($occasion, callable $function): void
 
     Archive::updateOrCreate([
         'saved_month' => $formatted_data['saved_month'],
+        'occasion' => $occasion,
     ], $formatted_data);
 }
