@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { AuthInformation } from '@/types/types'
 
-import { provide, ref } from 'vue'
-
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheAppearanceForm from '@/Pages/Profile/TheAppearanceForm.vue'
@@ -24,16 +22,6 @@ defineOptions({
 defineProps<{
     data: AuthInformation
 }>()
-
-const view = ref('account')
-
-function updateView(newValue: string) {
-    view.value = newValue
-}
-
-// eslint-disable-next-line capitalized-comments
-// noinspection JSUnusedGlobalSymbols
-provide('profileView', { view, updateView })
 </script>
 
 <template>
