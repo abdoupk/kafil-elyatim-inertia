@@ -47,7 +47,7 @@ const showWarningModalStatus = ref(false)
 const sort = (field: string) => handleSort(field, params)
 
 const save = () => {
-    getDataForIndexPages(route('tenant.occasions.eid-al-adha.save-to-archive'), params, {
+    getDataForIndexPages(route('tenant.occasions.eid-suit.save-to-archive'), params, {
         onStart: () => {
             loading.value = true
         },

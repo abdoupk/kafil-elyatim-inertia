@@ -12,8 +12,7 @@ return new class extends Migration
             $table->uuid('id')->primary()->index();
             $table->string('occasion');
             $table->foreignUuid('tenant_id')->references('id')->on('tenants');
-            $table->integer('families_count');
-            $table->json('family_ids');
+            $table->morphs('archive');
             $table->string('saved_month');
             $table->foreignUuid('saved_by')->references('id')->on('users');
             $table->timestamps();

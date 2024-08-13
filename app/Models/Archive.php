@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Archive extends Model
@@ -24,6 +25,11 @@ class Archive extends Model
     public function savedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'saved_by');
+    }
+
+    public function archiveable(): MorphTo
+    {
+        return $this->morphTo();
     }
 
     protected function casts(): array

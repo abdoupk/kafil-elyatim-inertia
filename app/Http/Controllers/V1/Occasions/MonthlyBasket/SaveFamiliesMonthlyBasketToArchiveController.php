@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\V1\Occasions\MonthlyBasket;
 
 use App\Http\Controllers\Controller;
+use App\Models\FamilySponsorship;
 
 class SaveFamiliesMonthlyBasketToArchiveController extends Controller
 {
     public function __invoke()
     {
-        saveToArchive('monthly_basket', function () {
-            return listOfFamiliesBenefitingFromTheMonthlyBasketForExport();
+        listOfFamiliesBenefitingFromTheMonthlyBasketForExport()->flatMap(function (FamilySponsorship $familySponsorShip) {
+            saveToArchive('monthly_basket', $familySponsorShip);
         });
     }
 }

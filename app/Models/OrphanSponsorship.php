@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -125,5 +126,10 @@ class OrphanSponsorship extends Model
             ],
             'tenant_id' => $this->orphan->tenant_id,
         ];
+    }
+
+    public function archives(): MorphMany
+    {
+        return $this->morphMany(Archive::class, 'archiveable');
     }
 }

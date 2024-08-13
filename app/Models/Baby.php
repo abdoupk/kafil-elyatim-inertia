@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -127,5 +128,10 @@ class Baby extends Model
             'tenant_id' => 'string',
             'orphan_id' => 'string',
         ];
+    }
+
+    public function archives(): MorphMany
+    {
+        return $this->morphMany(Archive::class, 'archiveable');
     }
 }

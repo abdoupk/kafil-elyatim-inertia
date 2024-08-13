@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\V1\Occasions\SchoolEntry;
 
 use App\Http\Controllers\Controller;
+use App\Models\OrphanSponsorship;
 
 class SaveOrphansSchoolEntryToArchiveController extends Controller
 {
     public function __invoke()
     {
-        saveToArchive('school_entry', function () {
-            return listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport();
+        listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport()->flatMap(function (OrphanSponsorship $orphanSponsorship) {
+            saveToArchive('school_entry', $orphanSponsorship);
         });
     }
 }
