@@ -117,7 +117,7 @@
     "furnishings.covers": "الأغطية",
     "furnishings.mattresses": "الافرشة",
     "furnishings.other_furnishings": "اثاث اخرى",
-    "hints.eid_al_adha": "تم فلتره النتائج لعرض فقط الأسر...",
+    "hints.ramadan_basket": "تم فلتره النتائج لعرض فقط الأسر المستفيدة من قفة رمضان، يجب تحديث الأسر المراد عرضها هنا. ",
     "housing.label.independent": "خاص (مستقل)",
     "housing.label.with_family": "مع العائلة",
     "housing.label.inheritance": "ميراث",
@@ -824,5 +824,7 @@
     "number_of_places": "{0}لا يوجد اي مقعد|مقعد واحد|{2} مقعدين|[3,10] :value مقاعد|[11,*] :value مقعد",
     "this_month": "الشهر الحالي",
     "last_month": "الشهر السابق",
-    "all": "الكل"
+    "all": "الكل",
+    "accept": "موافقة",
+    "the_families_ramadan_basket": "العائلات المستفيدة من قفة رمضان"
 }

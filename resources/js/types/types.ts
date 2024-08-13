@@ -62,6 +62,9 @@ export interface ISettingState {
     colorScheme: ColorSchemesType
     theme: ThemesType
     layout: LayoutsType
+    hints: {
+        [key: string]: boolean
+    }
 }
 
 export type SVGType =
@@ -772,4 +775,13 @@ export type AuthInformation = {
     gender: 'male' | 'female'
     address: string
     qualification: string
+}
+
+export type ArchiveOccasionType = {
+    saved_by: {
+        first_name: string
+        last_name: string
+        id: string
+    }
+    created_at: string | Date
 }

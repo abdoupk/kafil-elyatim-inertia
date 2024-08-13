@@ -3,12 +3,16 @@ import type { AppearanceType, ColorSchemesType, ISettingState, LayoutsType, Them
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
+
 export const useSettingsStore = defineStore('settings', {
     state: (): ISettingState => ({
         appearance: 'light',
         colorScheme: 'theme-1',
         theme: 'tinker',
-        layout: 'side-menu'
+        layout: 'side-menu',
+        hints: {
+            ramadan_basket: true
+        }
     }),
     getters: {},
     actions: {
@@ -42,6 +46,10 @@ export const useSettingsStore = defineStore('settings', {
 
                 await axios.put('/settings', { layout })
             }
+        },
+
+        setHintToHidden(hint: string) {
+            this.hints[hint] = false
         }
     }
 })

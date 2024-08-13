@@ -7,18 +7,18 @@ import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.v
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-defineProps<{ open: boolean; deleteProgress: boolean }>()
+defineProps<{ open: boolean; onProgress: boolean }>()
 
-const emit = defineEmits(['close', 'delete'])
+const emit = defineEmits(['close', 'accept'])
 
-const deleteButtonRef = ref(null)
+const acceptButtonRef = ref(null)
 </script>
 
 <template>
-    <base-dialog :initialFocus="deleteButtonRef" :open @close="emit('close')">
+    <base-dialog :initialFocus="acceptButtonRef" :open @close="emit('close')">
         <base-dialog-panel>
             <div class="p-5 text-center">
-                <svg-loader class="mx-auto mt-3 h-16 w-16 text-danger" name="icon-circle-x-mark"></svg-loader>
+                <svg-loader class="mx-auto mt-3 h-16 w-16 text-warning" name="icon-circle-exclamation"></svg-loader>
 
                 <div class="mt-5 text-3xl">{{ $t('Are you sure?') }}</div>
 
@@ -36,16 +36,16 @@ const deleteButtonRef = ref(null)
                 </base-button>
 
                 <base-button
-                    ref="{deleteButtonRef}"
-                    :disabled="deleteProgress"
+                    ref="{acceptButtonRef}"
+                    :disabled="onProgress"
                     class="w-24"
                     type="button"
-                    variant="danger"
-                    @click="emit('delete')"
+                    variant="warning"
+                    @click="emit('accept')"
                 >
-                    <spinner-button-loader :show="deleteProgress"></spinner-button-loader>
+                    <spinner-button-loader :show="onProgress"></spinner-button-loader>
 
-                    {{ $t('delete') }}
+                    {{ $t('accept') }}
                 </base-button>
             </div>
         </base-dialog-panel>

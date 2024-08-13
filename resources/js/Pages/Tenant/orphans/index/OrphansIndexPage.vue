@@ -87,6 +87,7 @@ const sort = (field: string) => handleSort(field, params)
         entries="orphans"
         exportable
         filterable
+        @change-filters="params = $event"
     ></the-table-header>
 
     <template v-if="orphans.data.length > 0">

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Archive extends Model
@@ -20,12 +21,10 @@ class Archive extends Model
         'saved_month',
     ];
 
-    //    public static function boot(): void
-    //    {
-    //        static::creating(function ($model) {
-    //            $model->saved_by = auth()->user()->id;
-    //        });
-    //    }
+    public function savedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'saved_by');
+    }
 
     protected function casts(): array
     {

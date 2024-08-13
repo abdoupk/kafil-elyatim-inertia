@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 /* eslint-disable */
-import type { IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
+import type { ArchiveOccasionType, IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { ramadanBasketFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
@@ -10,13 +10,12 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DataTable from '@/Pages/Tenant/occasions/ramadan-basket/DataTable.vue'
 
-import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
-import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import TheOccasionHint from '@/Components/Global/TheOccasionHint.vue'
+import TheWarningModal from '@/Components/Global/TheWarningModal.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 
@@ -27,6 +26,7 @@ defineOptions({
 const props = defineProps<{
     families: PaginationData<RamadanBasketFamiliesResource>
     params: IndexParams
+    archive: ArchiveOccasionType
 }>()
 
 const params = reactive<IndexParams>({
@@ -42,34 +42,33 @@ const exportable = ref(false)
 
 const loading = ref(false)
 
+const showWarningModalStatus = ref(false)
+
 const sort = (field: string) => handleSort(field, params)
 
-const handleSave = () => {
-    // router.get(route('tenant.occasions.ramadan-basket.save-to-archive'), formatFilters(params.filters), {
-    //     onStart: () => {
-    //         loading.value = true
-    //     },
-    //     onSuccess: () => {
-    //         exportable.value = true
-    //
-    //         loading.value = false
-    //     },
-    //     preserveScroll: true,
-    //     preserveState: true
-    // })
-    console.log(params.filters)
+const save = () => {
     getDataForIndexPages(route('tenant.occasions.ramadan-basket.save-to-archive'), params, {
         onStart: () => {
             loading.value = true
         },
         onSuccess: () => {
-            exportable.value = true
-
             loading.value = false
+
+            showWarningModalStatus.value = false
+
+            setTimeout(() => {
+                exportable.value = true
+            }, 500)
         },
         preserveScroll: true,
-        preserveState: true
+        preserveState: true,
+        only: ['families']
     })
+}
+const handleSave = () => {
+    if (props.archive?.created_at) {
+        showWarningModalStatus.value = true
+    }
 }
 </script>
 
@@ -90,25 +89,12 @@ const handleSave = () => {
         @change-filters="params.filters = $event"
     >
         <template #Hints>
-            <base-alert
-                class="mt-5 w-1/4 bg-warning/20 dark:border-darkmode-400 dark:bg-darkmode-400"
-                variant="outline-warning"
-            >
-                <div class="flex items-center">
-                    <span>
-                        <svg-loader class="me-3 h-6 w-6" name="icon-triangle-exclamation" />
-                    </span>
-
-                    <span class="text-slate-800 dark:text-slate-500"> {{ $t('hints.ramadan_basket') }} </span>
-                </div>
-            </base-alert>
+            <the-occasion-hint :on-hide="() => {}" hint-type="ramadan_basket"></the-occasion-hint>
         </template>
 
         <template #ExtraButtons>
             <base-button :disabled="loading" class="me-2 shadow-md" variant="primary" @click.prevent="handleSave">
                 {{ $t('save') }}
-
-                <spinner-button-loader :show="loading" class="ms-2"></spinner-button-loader>
             </base-button>
         </template>
     </the-table-header>
@@ -126,4 +112,11 @@ const handleSave = () => {
     <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
         <no-results-found></no-results-found>
     </div>
+
+    <the-warning-modal
+        :on-progress="loading"
+        :open="showWarningModalStatus"
+        @accept="save"
+        @close="showWarningModalStatus = false"
+    ></the-warning-modal>
 </template>
