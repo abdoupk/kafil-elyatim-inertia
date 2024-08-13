@@ -1,3 +1,11 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps<{
+    test: unknown
+}>()
+</script>
 
-<template>archive</template>
+<template>
+    <pre>
+        {{ test }}
+    </pre>
+</template>
