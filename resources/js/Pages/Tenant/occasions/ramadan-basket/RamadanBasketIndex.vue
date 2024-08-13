@@ -3,6 +3,7 @@
 import type { ArchiveOccasionType, IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
 import { ramadanBasketFilters } from '@/constants/filters'
+import { useSettingsStore } from '@/stores/settings'
 import { Head } from '@inertiajs/vue3'
 import { reactive, ref } from 'vue'
 
@@ -89,7 +90,14 @@ const handleSave = () => {
         @change-filters="params.filters = $event"
     >
         <template #Hints>
-            <the-occasion-hint :on-hide="() => {}" hint-type="ramadan_basket"></the-occasion-hint>
+            <the-occasion-hint
+                :on-hidden="
+                    () => {
+                        useSettingsStore().setHintToHidden('ramadan_basket')
+                    }
+                "
+                hint-type="ramadan_basket"
+            ></the-occasion-hint>
         </template>
 
         <template #ExtraButtons>

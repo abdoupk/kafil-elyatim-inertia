@@ -11,6 +11,7 @@ use App\Models\Orphan;
 use App\Models\PrivateSchool;
 use App\Models\Sponsor;
 use App\Models\Zone;
+use DB;
 use Illuminate\Pagination\Paginator;
 use Inertia\Inertia;
 
@@ -21,35 +22,42 @@ class ArchiveIndexController extends Controller
         $perPage = 10; // Number of items per page
         $currentPage = Paginator::resolveCurrentPage();
         $startIndex = ($currentPage - 1) * $perPage;
+        ray($currentPage, $startIndex);
+        $items = DB::table('families')
+            ->select('id', 'name')
+            ->unionAll(
+                DB::table('orphans')
+                    ->select('id', 'first_name as name')
+            )
+            ->unionAll(
+                DB::table('sponsors')
+                    ->select('id', 'first_name as name')
+            )
+            ->unionAll(
+                DB::table('zones')
+                    ->select('id', 'name')
+            )
+            ->unionAll(
+                DB::table('branches')
+                    ->select('id', 'name')
+            )
+            ->unionAll(
+                DB::table('private_schools')
+                    ->select('id', 'name')
+            )
+            ->unionAll(
+                DB::table('events')
+                    ->select('id', 'title as name')
+            )
+            ->offset($startIndex)
+            ->limit($perPage)
+            ->get();
 
-        $items = collect([
-            Family::withTrashed()->get(),
-            Orphan::withTrashed()->get(),
-            Sponsor::withTrashed()->get(),
-            Zone::withTrashed()->get(),
-            Branch::withTrashed()->get(),
-            Finance::withTrashed()->get(),
-            PrivateSchool::withTrashed()->get(),
-            Event::withTrashed()->get(),
-        ])->flatten(1)->map(function ($item) {
-            $modelInfo = $this->getNameFromModel($item);
-
-            return [
-                'type' => $modelInfo['type'],
-                'name' => $modelInfo['name'],
-                //                'deleted_at' => $item->deleted_at,
-                //                'deleted_by' => $this->getDeletedByFromModel($item),
-            ];
-        });
-
-        $totalItems = $items->count();
         $paginatedItems = new Paginator(
-            $items->slice($startIndex, $perPage),
-            $totalItems,
+            $items,
+            $items->count(),
             $perPage
         );
-
-        ray($paginatedItems);
 
         return Inertia::render('Tenant/archive/ArchiveIndexPage', [
             'test' => $paginatedItems,
@@ -60,15 +68,37 @@ class ArchiveIndexController extends Controller
     {
         $modelClass = get_class($model);
 
-        return match ($modelClass) {
-            Orphan::class, Family::class, Sponsor::class => [
-                'name' => $model->getName(),
-                'type' => $model->getTable(),
-            ],
-            Zone::class, Branch::class, PrivateSchool::class => ['name' => $model->name, 'type' => $model->getTable()],
-            Finance::class => ['name' => $model->id, 'type' => $model->getTable()],
-            Event::class => ['name' => $model->title, 'type' => 'lessons'],
-            default => 'Unknown',
-        };
+        switch ($modelClass) {
+            case Orphan::class:
+            case Family::class:
+            case Sponsor::class:
+                return [
+                    'name' => $model->getName(),
+                    'type' => $model->getTable(),
+                ];
+
+            case Zone::class:
+            case Branch::class:
+            case PrivateSchool::class:
+                return [
+                    'name' => $model->name,
+                    'type' => $model->getTable(),
+                ];
+
+            case Finance::class:
+                return [
+                    'name' => $model->id,
+                    'type' => $model->getTable(),
+                ];
+
+            case Event::class:
+                return [
+                    'name' => $model->title,
+                    'type' => 'lessons',
+                ];
+
+            default:
+                return 'Unknown';
+        }
     }
 }

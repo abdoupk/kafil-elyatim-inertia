@@ -5,7 +5,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     hintType: string
-    onHide: () => void
+    onHidden: () => void
 }>()
 </script>
 
@@ -13,6 +13,7 @@ defineProps<{
     <div class="intro-x">
         <base-alert
             v-slot="{ dismiss }"
+            :on-hidden="onHidden"
             class="mt-5 w-fit dark:border-darkmode-400 dark:bg-darkmode-400"
             dismissible
             variant="soft-danger"
