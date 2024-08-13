@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -115,8 +115,8 @@ class FamilySponsorship extends Model
         ];
     }
 
-    public function archives(): MorphMany
+    public function archives(): MorphToMany
     {
-        return $this->morphMany(Archive::class, 'archiveable');
+        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }

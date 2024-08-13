@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -130,8 +130,8 @@ class Baby extends Model
         ];
     }
 
-    public function archives(): MorphMany
+    public function archives(): MorphToMany
     {
-        return $this->morphMany(Archive::class, 'archiveable');
+        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }

@@ -9,8 +9,6 @@ class ArchiveIndexController extends Controller
 {
     public function __invoke()
     {
-        return Inertia::render('Tenant/archive/ArchiveIndexPage', [
-
-        ]);
+        return Inertia::render('Tenant/archive/ArchiveIndexPage');
     }
 }

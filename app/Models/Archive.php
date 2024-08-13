@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Archive extends Model
@@ -16,10 +16,7 @@ class Archive extends Model
     protected $fillable = [
         'occasion',
         'tenant_id',
-        'families_count',
-        'family_ids',
         'saved_by',
-        'saved_month',
     ];
 
     public function savedBy(): BelongsTo
@@ -27,9 +24,19 @@ class Archive extends Model
         return $this->belongsTo(User::class, 'saved_by');
     }
 
-    public function archiveable(): MorphTo
+    public function families(): MorphToMany
     {
-        return $this->morphTo();
+        return $this->morphedByMany(Family::class, 'archiveable');
+    }
+
+    public function orphans(): MorphToMany
+    {
+        return $this->morphedByMany(Orphan::class, 'archiveable');
+    }
+
+    public function babies(): MorphToMany
+    {
+        return $this->morphedByMany(Baby::class, 'archiveable');
     }
 
     protected function casts(): array

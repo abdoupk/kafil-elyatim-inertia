@@ -1,14 +1,11 @@
 create table "archives"
 (
-    "id"               uuid                           not null,
-    "occasion"         text                           not null,
-    "tenant_id"        uuid                           not null,
-    "saved_by"         uuid                           not null,
-    "saved_month"      text                           not null,
-    "archiveable_id"   uuid                           not null,
-    "archiveable_type" text                           not null,
-    "created_at"       timestamp(0) without time zone null,
-    "updated_at"       timestamp(0) without time zone null
+    "id"         uuid                           not null,
+    "tenant_id"  uuid                           not null,
+    "saved_by"   uuid                           not null,
+    "occasion"   text                           not null,
+    "created_at" timestamp(0) without time zone null,
+    "updated_at" timestamp(0) without time zone null
 );
 
 -- alter table "archives"
