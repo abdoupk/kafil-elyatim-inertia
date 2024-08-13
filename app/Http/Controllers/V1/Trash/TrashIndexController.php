@@ -28,7 +28,7 @@ class TrashIndexController extends Controller
             'families' AS type
         FROM families f
         LEFT JOIN users u ON f.deleted_by = u.id
-        WHERE f.deleted_at IS NOT NULL AND f.tenant_id = :tenant_id
+        WHERE f.deleted_at IS NULL AND f.tenant_id = :tenant_id
     )
     UNION ALL
     (
@@ -41,7 +41,7 @@ class TrashIndexController extends Controller
             'orphans' AS type
         FROM orphans o
         LEFT JOIN users u ON o.deleted_by = u.id
-        WHERE o.deleted_at IS NOT NULL AND o.tenant_id = :tenant_id
+        WHERE o.deleted_at IS NULL AND o.tenant_id = :tenant_id
     )
     UNION ALL
     (
@@ -54,7 +54,7 @@ class TrashIndexController extends Controller
             'sponsors' AS type
         FROM sponsors s
         LEFT JOIN users u ON s.deleted_by = u.id
-        WHERE s.deleted_at IS NOT NULL AND s.tenant_id = :tenant_id
+        WHERE s.deleted_at IS NULL AND s.tenant_id = :tenant_id
     )";
         $items = DB::table(DB::raw("($unionQuery) AS temp_table"))
             ->offset($startIndex)
@@ -68,14 +68,28 @@ class TrashIndexController extends Controller
             ->setBindings(['tenant_id' => tenant('id')])
             ->count();
 
+        $paginated = (new LengthAwarePaginator(
+            $items,
+            $totalItems,
+            $perPage,
+            $currentPage,
+            ['path' => Paginator::resolveCurrentPath()],
+        ));
+
+        $data = $paginated->toArray();
+
+        $data['meta'] = [
+            'current_page' => $paginated->currentPage(),
+            'last_page' => $paginated->lastPage(),
+            'total' => $paginated->total(),
+            'per_page' => $paginated->perPage(),
+            'from' => $paginated->firstItem(),
+            'to' => $paginated->lastItem(),
+            'path' => $paginated->path(),
+        ];
+
         return Inertia::render('Tenant/trash/TrashIndexPage', [
-            'items' => new LengthAwarePaginator(
-                $items,
-                $totalItems,
-                $perPage,
-                $currentPage,
-                ['path' => Paginator::resolveCurrentPath()]
-            ),
+            'items' => $data,
             'params' => getParams(),
         ]);
     }

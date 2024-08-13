@@ -344,6 +344,14 @@ export interface FamiliesIndexResource {
     address: string
 }
 
+export interface TrashIndexResource {
+    id: string
+    name: string
+    deleted_at: Date
+    user_name: string
+    user_id: string
+}
+
 export interface EidAlAdhaFamiliesResource {
     id: string
     address: string
