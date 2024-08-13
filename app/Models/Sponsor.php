@@ -132,7 +132,6 @@ class Sponsor extends Model
         'function',
         'health_status',
         'diploma',
-        'card_number',
         'ccp',
         'gender',
         'created_by',
@@ -142,10 +141,18 @@ class Sponsor extends Model
     protected static function boot(): void
     {
         parent::boot();
-        // TODO: should be searchable error
-        //        static::updated(function (Sponsor $sponsor) {
-        //            $sponsor->sponsorships()->searchable();
-        //        });
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
     }
 
     public function searchableAs(): string

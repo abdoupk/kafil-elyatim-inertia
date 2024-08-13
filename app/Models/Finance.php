@@ -46,7 +46,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class Finance extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids,Searchable, SoftDeletes;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $fillable = [
         'amount',
@@ -54,7 +54,25 @@ class Finance extends Model
         'date',
         'specification',
         'created_by',
+        'deleted_by',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
 
     public function creator(): BelongsTo
     {

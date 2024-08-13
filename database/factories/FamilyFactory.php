@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Family;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FamilyFactory extends Factory
@@ -18,7 +19,8 @@ class FamilyFactory extends Factory
             'file_number' => fake()->randomNumber(),
             'start_date' => now()->subDays(fake()->numberBetween(100, 1000)),
             'tenant_id' => fake()->uuid,
-            'created_by' => fake()->uuid,
+            'created_by' => User::inRandomOrder()->first()->id,
+            'deleted_by' => User::inRandomOrder()->first()->id,
             'created_at' => now()->subDays(fake()->numberBetween(0, 35)),
             'updated_at' => now()->subDays(fake()->numberBetween(0, 35)),
         ];

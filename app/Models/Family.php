@@ -97,10 +97,29 @@ class Family extends Model
         'name',
         'zone_id',
         'address',
+        'created_by',
+        'deleted_by',
         'file_number',
         'start_date',
         'branch_id',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
 
     public function orphans(): HasMany
     {
@@ -225,6 +244,11 @@ class Family extends Model
         ];
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function totalIncomes(): float
     {
         return (float) $this->sponsor?->incomes->total_income + (float) $this->orphans?->sum('income') + $this->secondSponsor?->income;
@@ -241,10 +265,5 @@ class Family extends Model
             'start_date' => 'date',
             'preview_date' => 'date',
         ];
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
     }
 }

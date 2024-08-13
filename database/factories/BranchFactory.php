@@ -20,6 +20,8 @@ class BranchFactory extends Factory
             'president_id' => User::inRandomOrder()->first()?->id,
             'tenant_id' => fake()->uuid,
             'name' => fake('ar_SA')->sentence(5),
+            'created_by' => User::inRandomOrder()->first()->id,
+            'deleted_by' => User::inRandomOrder()->first()->id,
         ];
     }
 }

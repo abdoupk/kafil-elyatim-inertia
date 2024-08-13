@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\ClothesSize;
 use App\Models\Orphan;
 use App\Models\ShoeSize;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrphanFactory extends Factory
@@ -30,6 +31,8 @@ class OrphanFactory extends Factory
             'family_id' => fake()->uuid,
             'created_at' => now()->subDays(fake()->numberBetween(0, 35)),
             'updated_at' => now()->subDays(fake()->numberBetween(0, 35)),
+            'created_by' => User::inRandomOrder()->first()?->id,
+            'deleted_by' => User::inRandomOrder()->first()?->id,
         ];
     }
 }

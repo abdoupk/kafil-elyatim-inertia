@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EventFactory extends Factory
@@ -20,6 +21,8 @@ class EventFactory extends Factory
             'start_date' => now(),
             'end_date' => now(),
             'tenant_id' => fake()->uuid,
+            'created_by' => User::inRandomOrder()->first()->id,
+            'deleted_by' => User::inRandomOrder()->first()->id,
             'color' => fake('ar_SA')->word,
         ];
     }

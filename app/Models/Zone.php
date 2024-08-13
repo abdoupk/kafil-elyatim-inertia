@@ -54,7 +54,24 @@ class Zone extends Model
 
     protected $table = 'zones';
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'created_at', 'deleted_at'];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
 
     public function searchableAs(): string
     {

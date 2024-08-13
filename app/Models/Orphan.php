@@ -131,6 +131,23 @@ class Orphan extends Model
         'deleted_at',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
+
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);

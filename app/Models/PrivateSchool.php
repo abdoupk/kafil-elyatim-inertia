@@ -48,7 +48,26 @@ class PrivateSchool extends Model
 
     protected $fillable = [
         'name',
+        'created_by',
+        'deleted_by',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
 
     public function searchableAs(): string
     {

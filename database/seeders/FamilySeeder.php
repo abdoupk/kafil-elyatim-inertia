@@ -47,6 +47,7 @@ class FamilySeeder extends Seeder
                 ]);
 
                 for ($j = 0; $j < fake()->numberBetween(2, 6); $j++) {
+
                     $orphan = Orphan::factory()
                         ->hasAcademicAchievements(3, function (array $attributes, Orphan $orphan) {
                             return [
@@ -71,7 +72,7 @@ class FamilySeeder extends Seeder
                         ->create([
                             'tenant_id' => $tenant->id,
                             'family_id' => $family?->id,
-                            'created_by' => User::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
+                            'created_by' => User::whereTenantId($tenant->id)->first()?->id,
                             'sponsor_id' => $sponsor->id,
                         ]);
 

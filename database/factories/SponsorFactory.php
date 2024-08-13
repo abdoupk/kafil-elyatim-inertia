@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\AcademicLevel;
 use App\Models\Sponsor;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SponsorFactory extends Factory
@@ -16,6 +17,7 @@ class SponsorFactory extends Factory
             //            'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
             'first_name' => fake('ar_SA')->firstName,
             'last_name' => fake('ar_SA')->lastName,
+            'deleted_by' => User::inRandomOrder()->first()->id,
             'phone_number' => fake('ar_SA')->regexify('(06|07|05)[0-9]{8}'),
             'sponsor_type' => fake('ar_SA')->shuffleArray(['father', 'mother', 'grandMother', 'grandFather'])[0],
             'birth_date' => now()->subYears(fake()->numberBetween(25, 60))->toDate(),
@@ -27,7 +29,7 @@ class SponsorFactory extends Factory
             'health_status' => fake('ar_SA')->word,
             'diploma' => fake('ar_SA')->word,
             'tenant_id' => fake()->uuid,
-            'created_by' => fake()->uuid,
+            'created_by' => User::inRandomOrder()->first()->id,
             'ccp' => fake()->regexify('[1-9][0-9]{8}'),
             'gender' => fake()->randomElement(['male', 'female']),
             'created_at' => now(),
