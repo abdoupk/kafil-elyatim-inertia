@@ -1,22 +1,23 @@
 <script lang="ts" setup>
-import type { BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
+import type { ArchiveOccasionType, BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
 
 import { babiesMilkAndDiapersFilters } from '@/constants/filters'
+import { useSettingsStore } from '@/stores/settings'
 import { Head } from '@inertiajs/vue3'
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import DataTable from '@/Pages/Tenant/occasions/babies/DataTable.vue'
 
-import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import TheOccasionHint from '@/Components/Global/TheOccasionHint.vue'
+import TheWarningModal from '@/Components/Global/TheWarningModal.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -25,6 +26,7 @@ defineOptions({
 const props = defineProps<{
     orphans: PaginationData<BabiesMilkAndDiapersResource>
     params: IndexParams
+    archive: ArchiveOccasionType
 }>()
 
 const params = reactive<IndexParams>({
@@ -36,7 +38,38 @@ const params = reactive<IndexParams>({
     search: props.params.search
 })
 
+const exportable = ref(false)
+
+const loading = ref(false)
+
+const showWarningModalStatus = ref(false)
+
 const sort = (field: string) => handleSort(field, params)
+
+const save = () => {
+    getDataForIndexPages(route('tenant.occasions.babies-milk-and-diapers.save-to-archive'), params, {
+        onStart: () => {
+            loading.value = true
+        },
+        onSuccess: () => {
+            loading.value = false
+
+            showWarningModalStatus.value = false
+
+            setTimeout(() => {
+                exportable.value = true
+            }, 500)
+        },
+        preserveScroll: true,
+        preserveState: true,
+        only: ['orphans']
+    })
+}
+
+const handleSave = () => {
+    if (props.archive?.created_at) showWarningModalStatus.value = true
+    else save()
+}
 </script>
 
 <template>
@@ -45,34 +78,29 @@ const sort = (field: string) => handleSort(field, params)
     <the-table-header
         :export-pdf-url="route('tenant.occasions.babies-milk-and-diapers.export.pdf', params)"
         :export-xlsx-url="route('tenant.occasions.babies-milk-and-diapers.export.xlsx', params)"
+        :exportable
         :filters="babiesMilkAndDiapersFilters"
         :pagination-data="orphans"
         :params="params"
         :title="$t('list', { attribute: $t('the_babies_milk_and_diapers') })"
         :url="route('tenant.occasions.babies-milk-and-diapers.index')"
         entries="orphans"
-        exportable
         filterable
+        @change-filters="params = $event"
     >
         <template #Hints>
-            <base-alert
-                class="mt-5 w-1/4 bg-warning/20 dark:border-darkmode-400 dark:bg-darkmode-400"
-                variant="outline-warning"
-            >
-                <div class="flex items-center">
-                    <span>
-                        <svg-loader class="me-3 h-6 w-6" name="icon-triangle-exclamation" />
-                    </span>
-
-                    <span class="text-slate-800 dark:text-slate-500">
-                        {{ $t('hints.babies_milk_and_diapers') }}
-                    </span>
-                </div>
-            </base-alert>
+            <the-occasion-hint
+                :on-hidden="
+                    () => {
+                        useSettingsStore().setHintToHidden('babies_milk_and_diapers')
+                    }
+                "
+                hint-type="babies_milk_and_diapers"
+            ></the-occasion-hint>
         </template>
 
         <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="() => {}">
+            <base-button :disabled="loading" class="me-2 shadow-md" variant="primary" @click.prevent="handleSave">
                 {{ $t('save') }}
             </base-button>
         </template>
@@ -89,4 +117,11 @@ const sort = (field: string) => handleSort(field, params)
     </template>
 
     <the-no-results-table v-else></the-no-results-table>
+
+    <the-warning-modal
+        :on-progress="loading"
+        :open="showWarningModalStatus"
+        @accept="save"
+        @close="showWarningModalStatus = false"
+    ></the-warning-modal>
 </template>
