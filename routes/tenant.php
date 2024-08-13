@@ -635,7 +635,7 @@ Route::middleware([
             Route::get('trash', TrashIndexController::class)->name('trash');
 
             Route::prefix('archive')->name('archive.')->group(function () {
-                Route::get('archive', ArchiveIndexController::class)->name('index');
+                Route::get('', ArchiveIndexController::class)->name('index');
             });
         });
     });
