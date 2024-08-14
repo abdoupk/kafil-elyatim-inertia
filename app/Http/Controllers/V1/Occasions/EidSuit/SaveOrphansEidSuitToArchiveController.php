@@ -9,10 +9,12 @@ class SaveOrphansEidSuitToArchiveController extends Controller
 {
     public function __invoke()
     {
-        ray(listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport()->pluck('id'));
         Archive::where('occasion', '=', 'eid_suit')
-            ->whereMonth('created_at', '=', now()->month)->firstOrCreate(['occasion' => 'eid_suit', 'saved_by' => auth()->user()->id])->orphans()->syncWithPivotValues(listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport()->pluck('id'), ['tenant_id' => tenant('id')]);
-        //        Archive::where('occasion', '=', 'eid_suit')
-        //            ->whereMonth('created_at', '=', now()->month)->first()->orphans()->attach(listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport()->pluck('id'));
+            ->whereMonth('created_at', '=', now()->month)->firstOrCreate([
+                'occasion' => 'eid_suit',
+                'saved_by' => auth()->user()->id,
+            ])
+            ->orphans()
+            ->syncWithPivotValues(listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport()->pluck('id'), ['tenant_id' => tenant('id')]);
     }
 }

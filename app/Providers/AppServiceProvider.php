@@ -31,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
             'user' => 'App\Models\User',
             'orphan' => 'App\Models\Orphan',
             'sponsor' => 'App\Models\Sponsor',
+            'family' => 'App\Models\Family',
+            'baby' => 'App\Models\Baby',
             'settings' => 'App\Models\Settings',
         ]);
 
@@ -68,7 +70,7 @@ class AppServiceProvider extends ServiceProvider
 
                 /* @phpstan-ignore-next-line */
                 ray()->notify(
-                    "Attempted to lazy load [{$relation}] on model [{$class}]."
+                    "Attempted to lazy load [$relation] on model [$class]."
                 );
             }
         );
