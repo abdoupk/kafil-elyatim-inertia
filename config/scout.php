@@ -161,6 +161,11 @@ return [
                 'searchableAttributes' => ['name', 'quantity', 'unit', 'note', 'qty'],
                 'sortableAttributes' => ['name', 'created_at', 'qty', 'unit'],
             ],
+            'archive' => [
+                'filterableAttributes' => ['tenant_id'],
+                'searchableAttributes' => [],
+                'sortableAttributes' => [],
+            ],
             'sponsors' => [
                 'filterableAttributes' => ['__soft_deleted', 'id', 'name', 'tenant_id', 'academic_level_id', 'sponsor_type', 'gender', 'income', 'sponsorships', 'orphans_count', 'function'],
                 'searchableAttributes' => ['name', 'function', 'birth_certificate_number', 'mother_name', 'academic_level.level', 'academic_level.phase', 'father_name', 'phone_number', 'sponsor_type', 'gender', 'diploma', 'ccp'],

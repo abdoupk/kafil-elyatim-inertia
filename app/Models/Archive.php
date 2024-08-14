@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class Archive extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable;
 
     protected $fillable = [
         'occasion',
@@ -37,6 +38,11 @@ class Archive extends Model
     public function babies(): MorphToMany
     {
         return $this->morphedByMany(Baby::class, 'archiveable');
+    }
+
+    public function searchableAs(): string
+    {
+        return 'archive';
     }
 
     protected function casts(): array

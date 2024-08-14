@@ -59,6 +59,8 @@
     "autoload": {
         "files": [
             "app/Helpers/families.php",
+            "app/Helpers/archive.php",
+            "app/Helpers/trash.php",
             "app/Helpers/constants.php",
             "app/Helpers/occasions.php",
             "app/Helpers/statistics.php",

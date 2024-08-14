@@ -57,7 +57,7 @@ const deleteItem = (id: string) => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_members') })"></Head>
+    <Head :title="$t('the_trash')"></Head>
 
     <the-table-header
         :filters="[]"

@@ -38,6 +38,8 @@ const params = reactive<IndexParams>({
     search: props.params.search
 })
 
+console.log(props.members)
+
 const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
