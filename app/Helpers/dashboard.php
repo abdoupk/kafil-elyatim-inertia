@@ -38,7 +38,7 @@ function generateFinancialReport(): array
 {
     $year = date('Y');
 
-    $monthIndex = date('n');
+    $monthIndex = date('n') - 1;
 
     $data = DB::table('finances')
         ->selectRaw('CASE WHEN amount >= 0 THEN \'incomes\' ELSE \'expenses\' END AS sign, EXTRACT(MONTH FROM created_at) as month, SUM(amount) as total')

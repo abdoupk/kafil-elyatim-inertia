@@ -77,9 +77,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link class="font-medium" href="#">
-                                {{ role.name }}
-                            </Link>
+                            {{ role.name }}
                         </the-table-td>
 
                         <the-table-td class="text-center">
@@ -91,7 +89,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-td>
 
                         <the-table-td class="text-center">
-                            {{ formatDate(role.created_at, 'long') }}
+                            {{ formatDate(role.created_at, 'full') }}
                         </the-table-td>
 
                         <the-table-td-actions>
@@ -120,7 +118,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
         </div>
 
         <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @3xl:hidden">
-            <div v-for="role in roles.data" :key="role.id" class="intro-y col-span-12 @xl:col-span-6">
+            <div v-for="role in roles.data" :key="role.uuid" class="intro-y col-span-12 @xl:col-span-6">
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
