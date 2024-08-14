@@ -12,6 +12,8 @@ use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Auth\PasswordController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
 use App\Http\Controllers\V1\Branches\BranchesIndexController;
+use App\Http\Controllers\V1\Branches\BranchForceDeleteController;
+use App\Http\Controllers\V1\Branches\BranchRestoreController;
 use App\Http\Controllers\V1\Branches\BranchShowController;
 use App\Http\Controllers\V1\Branches\BranchStoreController;
 use App\Http\Controllers\V1\Branches\BranchUpdateController;
@@ -28,6 +30,8 @@ use App\Http\Controllers\V1\Families\FamiliesIndexController;
 use App\Http\Controllers\V1\Families\FamilyCreateController;
 use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
+use App\Http\Controllers\V1\Families\FamilyForceDeleteController;
+use App\Http\Controllers\V1\Families\FamilyRestoreController;
 use App\Http\Controllers\V1\Families\FamilyShowController;
 use App\Http\Controllers\V1\Families\FamilyStoreController;
 use App\Http\Controllers\V1\Families\FamilyUpdateFurnishingsController;
@@ -39,7 +43,9 @@ use App\Http\Controllers\V1\Families\FamilyUpdateSponsorShipsController;
 use App\Http\Controllers\V1\Families\FamilyUpdateSpouseController;
 use App\Http\Controllers\V1\Families\SearchFamiliesController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
+use App\Http\Controllers\V1\Financial\FinancialForceDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
+use App\Http\Controllers\V1\Financial\FinancialRestoreController;
 use App\Http\Controllers\V1\Financial\FinancialShowController;
 use App\Http\Controllers\V1\Financial\FinancialStoreController;
 use App\Http\Controllers\V1\Financial\FinancialUpdateController;
@@ -62,12 +68,16 @@ use App\Http\Controllers\V1\List\ListSubjectsController;
 use App\Http\Controllers\V1\Members\ListMembersController;
 use App\Http\Controllers\V1\Members\ListSchoolsController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
+use App\Http\Controllers\V1\Members\MemberForceDeleteController;
+use App\Http\Controllers\V1\Members\MemberRestoreController;
 use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Needs\GetOrphansController;
 use App\Http\Controllers\V1\Needs\NeedDeleteController;
+use App\Http\Controllers\V1\Needs\NeedForceDeleteController;
+use App\Http\Controllers\V1\Needs\NeedRestoreController;
 use App\Http\Controllers\V1\Needs\NeedShowController;
 use App\Http\Controllers\V1\Needs\NeedsIndexController;
 use App\Http\Controllers\V1\Needs\NeedStoreController;
@@ -101,12 +111,16 @@ use App\Http\Controllers\V1\Orphans\ExportOrphansPDFController;
 use App\Http\Controllers\V1\Orphans\ExportOrphansXlsxController;
 use App\Http\Controllers\V1\Orphans\OrphanDeleteController;
 use App\Http\Controllers\V1\Orphans\OrphanEditController;
+use App\Http\Controllers\V1\Orphans\OrphanForceDeleteController;
+use App\Http\Controllers\V1\Orphans\OrphanRestoreController;
 use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Orphans\SearchOrphansController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolDeleteController;
+use App\Http\Controllers\V1\PrivateSchools\SchoolForceDeleteController;
+use App\Http\Controllers\V1\PrivateSchools\SchoolRestoreController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolShowController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolsIndexController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolStoreController;
@@ -124,6 +138,8 @@ use App\Http\Controllers\V1\Sponsors\ExportSponsorsXlsxController;
 use App\Http\Controllers\V1\Sponsors\SearchSponsorsController;
 use App\Http\Controllers\V1\Sponsors\SponsorDeleteController;
 use App\Http\Controllers\V1\Sponsors\SponsorEditController;
+use App\Http\Controllers\V1\Sponsors\SponsorForceDeleteController;
+use App\Http\Controllers\V1\Sponsors\SponsorRestoreController;
 use App\Http\Controllers\V1\Sponsors\SponsorShowController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateIncomesController;
@@ -138,6 +154,8 @@ use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAch
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsUpdateController;
 use App\Http\Controllers\V1\Zones\ListZonesController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
+use App\Http\Controllers\V1\Zones\ZoneForceDeleteController;
+use App\Http\Controllers\V1\Zones\ZoneRestoreController;
 use App\Http\Controllers\V1\Zones\ZoneShowController;
 use App\Http\Controllers\V1\Zones\ZonesIndexController;
 use App\Http\Controllers\V1\Zones\ZoneStoreController;
@@ -257,6 +275,12 @@ Route::middleware([
                 Route::put('furnishings/{family}', FamilyUpdateFurnishingsController::class)->name('furnishings-update')->middleware([HandlePrecognitiveRequests::class]);
 
                 Route::put('sponsorships/{family}', FamilyUpdateSponsorShipsController::class)->name('sponsorships-update')->middleware([HandlePrecognitiveRequests::class]);
+
+                Route::post('{family}/restore', FamilyRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{family}/force-delete', FamilyForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('inventory')->group(function () {
@@ -293,6 +317,12 @@ Route::middleware([
                     ->name('destroy');
 
                 Route::get('list-branches', ListBranchesController::class)->name('list-branches');
+
+                Route::post('{branch}/restore', BranchRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{branch}/force-delete', BranchForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('orphans')->name('orphans.')->group(function () {
@@ -322,6 +352,12 @@ Route::middleware([
 
                 Route::get('search', SearchOrphansController::class)
                     ->name('search');
+
+                Route::post('{orphan}/restore', OrphanRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{orphan}/force-delete', OrphanForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('members')->name('members.')->group(function () {
@@ -339,6 +375,12 @@ Route::middleware([
 
                 Route::delete('{member}', MemberDeleteController::class)
                     ->name('destroy');
+
+                Route::post('{member}/restore', MemberRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{member}/force-delete', MemberForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('roles')->name('roles.')->group(function () {
@@ -388,6 +430,12 @@ Route::middleware([
 
                 Route::get('search', SearchSponsorsController::class)
                     ->name('search');
+
+                Route::post('{sponsor}/restore', SponsorRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{sponsor}/force-delete', SponsorForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('settings')->name('settings.')->group(function () {
@@ -410,6 +458,12 @@ Route::middleware([
 
                 Route::delete('{finance}', FinancialDeleteController::class)
                     ->name('destroy');
+
+                Route::post('{finance}/restore', FinancialRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{finance}/force-delete', FinancialForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('statistics')->name('statistics.')->group(function () {
@@ -434,6 +488,12 @@ Route::middleware([
                     ->name('destroy');
 
                 Route::get('list-zones', ListZonesController::class)->name('list-zones');
+
+                Route::post('{zone}/restore', ZoneRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{zone}/force-delete', ZoneForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('occasions')->name('occasions.')->group(function () {
@@ -532,6 +592,12 @@ Route::middleware([
                 Route::delete('{need}', NeedDeleteController::class)
                     ->name('destroy');
 
+                Route::post('{need}/restore', NeedRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{need}/force-delete', NeedForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
+
                 Route::get('get-orphans', GetOrphansController::class)->name('get-orphans');
             });
 
@@ -576,6 +642,12 @@ Route::middleware([
 
                 Route::delete('{school}', SchoolDeleteController::class)
                     ->name('destroy');
+
+                Route::post('{school}/restore', SchoolRestoreController::class)
+                    ->name('restore')->withTrashed();
+
+                Route::delete('{school}/force-delete', SchoolForceDeleteController::class)
+                    ->name('force-delete')->withTrashed();
             });
 
             Route::prefix('notifications')->name('notifications.')->group(function () {
