@@ -1,27 +1,13 @@
 <script lang="ts" setup>
-import type { AppearanceType } from '@/types/types'
-
 import { useSettingsStore } from '@/stores/settings'
 import { twMerge } from 'tailwind-merge'
 
 const settingsStore = useSettingsStore()
-
-const setDarkModeClass = () => {
-    settingsStore.appearance === 'dark'
-        ? document.documentElement.classList.add('dark')
-        : document.documentElement.classList.remove('dark')
-}
-
-const switchMode = (value: AppearanceType) => {
-    settingsStore.toggleAppearance(value)
-
-    setDarkModeClass()
-}
 </script>
 
 <template>
-    <div class="px-8 pb-8 pt-6">
-        <div class="text-base font-medium">Appearance</div>
+    <div class="mt-5">
+        <div class="font-semibold">Appearance</div>
 
         <div class="mt-0.5 text-slate-500">Choose your appearance</div>
 
@@ -35,7 +21,6 @@ const switchMode = (value: AppearanceType) => {
                             settingsStore?.appearance === 'light' ? 'active' : ''
                         ])
                     "
-                    @click.prevent="switchMode('light')"
                 >
                     <div class="h-full overflow-hidden rounded-md bg-slate-200"></div>
                 </a>
@@ -50,7 +35,6 @@ const switchMode = (value: AppearanceType) => {
                             settingsStore?.appearance === 'dark' ? 'active' : ''
                         ])
                     "
-                    @click.prevent="switchMode('dark')"
                 >
                     <div class="h-full overflow-hidden rounded-md bg-slate-900"></div>
                 </a>

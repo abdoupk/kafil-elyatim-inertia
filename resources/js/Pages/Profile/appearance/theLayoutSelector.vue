@@ -8,12 +8,12 @@ const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <div class="px-8 pb-8 pt-6">
+    <div class="mt-5">
         <div class="font-semibold">Layouts</div>
 
         <div class="mt-0.5 text-slate-500">Choose your layout</div>
 
-        <div class="mt-5 grid grid-cols-3 gap-x-5 gap-y-3.5">
+        <div class="mt-5 grid grid-cols-3 gap-x-5 gap-y-3.5 md:grid-cols-4">
             <template v-for="layout in layouts" :key="layout">
                 <div>
                     <a

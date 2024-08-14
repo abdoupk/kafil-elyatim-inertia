@@ -1,24 +1,15 @@
 <script lang="ts" setup>
-import type { ColorSchemesType } from '@/types/types'
-
 import { useSettingsStore } from '@/stores/settings'
 import { twMerge } from 'tailwind-merge'
 
 import { colorSchemes } from '@/utils/constants'
-import { setColorSchemeClass } from '@/utils/helper'
 
 const settingsStore = useSettingsStore()
-
-const switchColorScheme = (colorScheme: ColorSchemesType) => {
-    settingsStore.changeColorScheme(colorScheme)
-
-    setColorSchemeClass(colorScheme, settingsStore.appearance)
-}
 </script>
 
 <template>
-    <div class="px-8 pb-8 pt-6">
-        <div class="text-base font-medium">Accent Colors</div>
+    <div class="mt-5">
+        <div class="font-semibold">Accent Colors</div>
 
         <div class="mt-0.5 text-slate-500">Choose your accent color</div>
 
@@ -33,7 +24,6 @@ const switchColorScheme = (colorScheme: ColorSchemesType) => {
                                 colorScheme === settingsStore.colorScheme ? 'active' : ''
                             ])
                         "
-                        @click="switchColorScheme(colorScheme)"
                     >
                         <div class="h-full overflow-hidden rounded-md">
                             <div class="-mx-2 flex h-full items-center gap-1">

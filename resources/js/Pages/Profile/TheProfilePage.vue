@@ -3,9 +3,9 @@ import type { AuthInformation } from '@/types/types'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import TheAppearanceForm from '@/Pages/Profile/TheAppearanceForm.vue'
-import TheNotificationsForm from '@/Pages/Profile/TheNotificationsForm.vue'
 import TheAccountForm from '@/Pages/Profile/account/TheAccountForm.vue'
+import TheAppearanceForm from '@/Pages/Profile/appearance/TheAppearanceForm.vue'
+import TheNotificationsForm from '@/Pages/Profile/notifications/TheNotificationsForm.vue'
 
 import BaseTab from '@/Components/Base/headless/Tab/BaseTab.vue'
 import BaseTabButton from '@/Components/Base/headless/Tab/BaseTabButton.vue'
