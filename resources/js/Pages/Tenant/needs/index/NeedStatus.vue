@@ -14,7 +14,7 @@ defineProps<{ status: 'pending' | 'in_progress' | 'completed' | 'rejected' }>()
                 status === 'rejected' && 'bg-danger/30 text-danger/90 dark:bg-danger/10'
             ])
         "
-        class="rounded-full px-2 py-1 font-medium"
+        class="whitespace-nowrap rounded-full px-2 py-1 font-medium"
         >{{ $t(status) }}</span
     >
 </template>

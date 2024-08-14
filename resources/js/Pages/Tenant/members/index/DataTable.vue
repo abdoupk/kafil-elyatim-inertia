@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { formatDate } from '../../../../utils/helper'
+
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
@@ -127,7 +129,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ member.start_date }}
+                                {{ formatDate(member.created_at, 'long') }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">

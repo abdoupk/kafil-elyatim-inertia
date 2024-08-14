@@ -70,6 +70,7 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-trash-undo'
+    | 'icon-eye'
     | 'icon-file-certificate'
     | 'icon-trash-list'
     | 'icon-algerian-dinar'
@@ -667,6 +668,7 @@ export interface MembersIndexResource {
     email: string
     phone: string
     zone: Zone
+    created_at: Date | string
 }
 
 export interface NeedsIndexResource {
@@ -680,6 +682,8 @@ export interface NeedsIndexResource {
         name: string
     }
     note: string
+    created_at: string | Date
+    readable_created_at: string
 }
 
 export interface FinancialTransactionsIndexResource {

@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/types'
 
-import { Link } from '@inertiajs/vue3'
-
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
@@ -127,25 +125,34 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ role.phone }}
+                            {{ formatDate(role.created_at, 'full') }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
-                        <div class="w-3/4">
-                            <p class="truncate">{{ role.email }}</p>
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ role.role?.name }}
+                        <div class="flex w-3/4 flex-col gap-4">
+                            <div class="flex">
+                                <div class="w-28">
+                                    {{ $t('users_count') }}
+                                </div>
+                                {{ role.users_count }}
                             </div>
-                            <div
-                                class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
-                            >
-                                {{ role.start_date }}
+
+                            <div class="flex">
+                                <div class="w-28">
+                                    {{ $t('permissions_count') }}
+                                </div>
+                                
+                                {{ role.permissions_count }}
                             </div>
                         </div>
+
                         <div class="flex w-1/4 items-center justify-end">
-                            <Link class="me-2 font-semibold text-slate-500 dark:text-slate-400" href="#"
+                            <a
+                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                                href="#"
+                                @click="emit('showEditModal', role.uuid)"
                                 >{{ $t('edit') }}
-                            </Link>
+                            </a>
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"

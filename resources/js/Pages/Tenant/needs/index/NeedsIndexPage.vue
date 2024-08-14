@@ -96,6 +96,8 @@ const showDeleteModal = (needId: string) => {
 }
 
 const showCreateModal = () => {
+    needsStore.$reset()
+    
     updateModalStatus.value = true
 
     showTheNeedable.value = true

@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
-        Carbon::setLocale(config('app.locale'));
+        Carbon::setLocale(config('app.locale').'_DZ');
 
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
