@@ -69,6 +69,7 @@ export interface ISettingState {
 
 export type SVGType =
     | 'icon-hands-holding-child'
+    | 'icon-trash-undo'
     | 'icon-file-certificate'
     | 'icon-trash-list'
     | 'icon-algerian-dinar'

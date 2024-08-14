@@ -164,7 +164,7 @@ return [
             'archive' => [
                 'filterableAttributes' => ['tenant_id'],
                 'searchableAttributes' => [],
-                'sortableAttributes' => [],
+                'sortableAttributes' => ['created_at'],
             ],
             'sponsors' => [
                 'filterableAttributes' => ['__soft_deleted', 'id', 'name', 'tenant_id', 'academic_level_id', 'sponsor_type', 'gender', 'income', 'sponsorships', 'orphans_count', 'function'],

@@ -51,18 +51,22 @@ const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
 <template>
     <div class="mb-5 font-medium">{{ $t('notifications') }}</div>
 
-    <div
-        v-for="notification in notifications?.data"
-        :key="notification.id"
-        :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
-    >
-        <notification-avatar
-            :gender="notification.data.user?.gender"
-            :name="notification.data.user?.name"
-        ></notification-avatar>
+    <div v-if="notifications?.data?.length">
+        <div
+            v-for="notification in notifications?.data"
+            :key="notification.id"
+            :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
+        >
+            <notification-avatar
+                :gender="notification.data.user?.gender"
+                :name="notification.data.user?.name"
+            ></notification-avatar>
 
-        <notification-content :notification="notification"></notification-content>
+            <notification-content :notification="notification"></notification-content>
+        </div>
     </div>
+
+    <div v-else class="flex items-center justify-center">no no</div>
 
     <div ref="last" class="-translate-y-2"></div>
 

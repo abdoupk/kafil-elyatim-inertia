@@ -7,6 +7,12 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsShowControl
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsStoreController;
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateController;
 use App\Http\Controllers\V1\AcademicLevel\AcademicLevelIndexController;
+use App\Http\Controllers\V1\Archive\ArchiveDetailsBabiesMilkAndDiapersController;
+use App\Http\Controllers\V1\Archive\ArchiveDetailsEidAlAdhaController;
+use App\Http\Controllers\V1\Archive\ArchiveDetailsEidSuitController;
+use App\Http\Controllers\V1\Archive\ArchiveDetailsMonthlyBasketController;
+use App\Http\Controllers\V1\Archive\ArchiveDetailsRamadanBasketController;
+use App\Http\Controllers\V1\Archive\ArchiveDetailsSchoolEntryController;
 use App\Http\Controllers\V1\Archive\ArchiveIndexController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Auth\PasswordController;
@@ -708,6 +714,18 @@ Route::middleware([
 
             Route::prefix('archive')->name('archive.')->group(function () {
                 Route::get('', ArchiveIndexController::class)->name('index');
+
+                Route::get('details/eid-al-adha/{archive}', ArchiveDetailsEidAlAdhaController::class)->name('details.eid-al-adha');
+
+                Route::get('details/monthly-basket/{archive}', ArchiveDetailsMonthlyBasketController::class)->name('details.monthly-basket');
+
+                Route::get('details/ramadan-basket/{archive}', ArchiveDetailsRamadanBasketController::class)->name('details.ramadan-basket');
+
+                Route::get('details/school-entry/{archive}', ArchiveDetailsSchoolEntryController::class)->name('details.school-entry');
+
+                Route::get('details/eid-suit/{archive}', ArchiveDetailsEidSuitController::class)->name('details.eid-suit');
+
+                Route::get('details/babies-milk-and-diapers/{archive}', ArchiveDetailsBabiesMilkAndDiapersController::class)->name('details.babies-milk-and-diapers');
             });
         });
     });

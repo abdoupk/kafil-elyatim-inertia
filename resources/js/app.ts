@@ -14,7 +14,6 @@ import { type DefineComponent, createApp, h } from 'vue'
 // TODO remove it and replace to component
 import { ZiggyVue } from 'ziggy-js'
 
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({

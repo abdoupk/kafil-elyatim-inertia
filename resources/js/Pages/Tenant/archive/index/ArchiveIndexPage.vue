@@ -6,7 +6,7 @@ import { reactive } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DataTable from '@/Pages/Tenant/archive/DataTable.vue'
+import DataTable from '@/Pages/Tenant/archive/index/DataTable.vue'
 
 import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'

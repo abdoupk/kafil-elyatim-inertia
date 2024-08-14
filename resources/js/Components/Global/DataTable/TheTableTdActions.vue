@@ -9,5 +9,3 @@ import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
         <slot></slot>
     </the-table-td>
 </template>
-
-<style lang="postcss" scoped></style>
