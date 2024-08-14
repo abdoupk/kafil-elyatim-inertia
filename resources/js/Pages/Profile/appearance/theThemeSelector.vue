@@ -8,9 +8,9 @@ const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <h3 class="font-semibold">Theme</h3>
+    <h3 class="font-semibold">{{ $t('theme') }}</h3>
 
-    <h4 class="mt-0.5 text-slate-500">Select the theme for the dashboard.</h4>
+    <h4 class="mt-0.5 text-slate-500">{{ $t('theme.theme_hint') }}</h4>
 
     <div class="mt-5 grid grid-cols-2 gap-x-5 gap-y-3.5 md:grid-cols-4">
         <template v-for="theme in themes" :key="theme">

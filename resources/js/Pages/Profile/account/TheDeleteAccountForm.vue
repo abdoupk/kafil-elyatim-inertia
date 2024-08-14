@@ -43,14 +43,15 @@ const closeModal = () => {
 <template>
     <div class="mt-5 border-t">
         <div class="mt-5 px-2">
-            <h2 class="text-base/relaxed">Delete Account</h2>
+            <h2 class="text-base/relaxed">{{ $t('profile.delete_account') }}</h2>
 
             <h2 class="mt-0.5 text-sm/4 text-slate-500">
-                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting
-                your account, please download any data or information that you wish to retain.
+                {{ $t('profile.delete_account_hint') }}
             </h2>
 
-            <base-button variant="danger" @click.prevent="confirmUserDeletion">delete</base-button>
+            <base-button class="!mt-2 w-20" variant="danger" @click.prevent="confirmUserDeletion"
+                >{{ $t('delete') }}
+            </base-button>
 
             <delete-modal
                 :delete-progress="form.processing"
@@ -60,8 +61,7 @@ const closeModal = () => {
             >
                 <div class="col-span-12 text-start sm:col-span-6">
                     <base-form-label htmlFor="password">
-                        Once your account is deleted, all of its resources and data will be permanently deleted. Please
-                        enter your password to confirm you would like to permanently delete your account.
+                        {{ $t('profile.delete_account_confirm') }}
                     </base-form-label>
 
                     <base-form-input

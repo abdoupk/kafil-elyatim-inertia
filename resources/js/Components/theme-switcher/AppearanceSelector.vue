@@ -21,9 +21,9 @@ const switchMode = (value: AppearanceType) => {
 
 <template>
     <div class="px-8 pb-8 pt-6">
-        <div class="text-base font-medium">Appearance</div>
+        <div class="text-base font-medium">{{ $t('appearance') }}</div>
 
-        <div class="mt-0.5 text-slate-500">Choose your appearance</div>
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.appearance_hint') }}</div>
 
         <div class="mt-5 grid grid-cols-2 gap-3.5">
             <div>

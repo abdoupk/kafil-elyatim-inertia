@@ -9,9 +9,9 @@ const settingsStore = useSettingsStore()
 
 <template>
     <div class="px-8 pb-8 pt-6">
-        <div class="font-semibold">Layouts</div>
+        <div class="text-base font-medium">{{ $t('theme.layouts') }}</div>
 
-        <div class="mt-0.5 text-slate-500">Choose your layout</div>
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.layouts_hint') }}</div>
 
         <div class="mt-5 grid grid-cols-3 gap-x-5 gap-y-3.5">
             <template v-for="layout in layouts" :key="layout">

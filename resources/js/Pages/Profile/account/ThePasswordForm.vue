@@ -17,10 +17,10 @@ const form = useForm('put', route('tenant.profile.password.update'), {
 <template>
     <div class="mt-5 border-t">
         <div class="mt-5 px-2">
-            <h2 class="text-base/relaxed">Update Password</h2>
+            <h2 class="text-base/relaxed">{{ $t('profile.update_password') }}</h2>
 
             <h2 class="mt-0.5 text-sm/4 text-slate-500">
-                Ensure your account is using a long, random password to stay secure.
+                {{ $t('profile.update_password_hint') }}
             </h2>
 
             <form action="" @submit.prevent="form.submit()">

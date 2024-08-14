@@ -21,9 +21,9 @@ const form = useForm('patch', route('tenant.profile.update'), { ...props.data })
 
 <template>
     <div class="px-2">
-        <h2 class="text-base/relaxed">Profile Information</h2>
+        <h2 class="text-base/relaxed">{{ $t('profile.profile_information') }}</h2>
 
-        <h2 class="mt-0.5 text-sm/4 text-slate-500">Update your account's profile information and email address.</h2>
+        <h2 class="mt-0.5 text-sm/4 text-slate-500">{{ $t('profile.profile_information_hint') }}</h2>
 
         <form @submit.prevent="form.submit()">
             <div class="mt-5 grid grid-cols-12 gap-4 gap-y-3">

@@ -18,9 +18,9 @@ const switchColorScheme = (colorScheme: ColorSchemesType) => {
 
 <template>
     <div class="px-8 pb-8 pt-6">
-        <div class="text-base font-medium">Accent Colors</div>
+        <div class="text-base font-medium">{{ $t('theme.accent_color') }}</div>
 
-        <div class="mt-0.5 text-slate-500">Choose your accent color</div>
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.accent_color_hint') }}</div>
 
         <div class="mt-5 grid grid-cols-2 gap-3.5">
             <template v-for="colorScheme in colorSchemes" :key="colorScheme">

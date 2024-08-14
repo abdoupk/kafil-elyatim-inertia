@@ -29,7 +29,7 @@ defineProps<{
         <h2 class="me-auto text-lg font-medium ltr:capitalize">{{ $t('breadcrumb.profile') }}</h2>
     </div>
 
-    <div class="@container">
+    <div class="intro-y @container">
         <base-tab-group class="box mt-5 grid w-full grid-cols-12 gap-6 p-5 @3xl:w-11/12">
             <div class="col-span-12 text-base/relaxed @3xl:col-span-3">
                 <base-tab-list class="flex @3xl:block" variant="pills">

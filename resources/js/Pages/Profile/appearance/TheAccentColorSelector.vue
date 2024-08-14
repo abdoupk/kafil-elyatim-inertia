@@ -9,9 +9,9 @@ const settingsStore = useSettingsStore()
 
 <template>
     <div class="mt-5">
-        <div class="font-semibold">Accent Colors</div>
+        <div class="font-semibold">{{ $t('theme.accent_color') }}</div>
 
-        <div class="mt-0.5 text-slate-500">Choose your accent color</div>
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.accent_color_hint') }}</div>
 
         <div class="mt-5 grid grid-cols-2 gap-3.5">
             <template v-for="colorScheme in colorSchemes" :key="colorScheme">

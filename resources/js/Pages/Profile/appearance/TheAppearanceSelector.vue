@@ -7,9 +7,9 @@ const settingsStore = useSettingsStore()
 
 <template>
     <div class="mt-5">
-        <div class="font-semibold">Appearance</div>
+        <div class="font-semibold">{{ $t('appearance') }}</div>
 
-        <div class="mt-0.5 text-slate-500">Choose your appearance</div>
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.appearance_hint') }}</div>
 
         <div class="mt-5 grid grid-cols-2 gap-3.5">
             <div>

@@ -9,10 +9,10 @@ const submit = () => {}
 
 <template>
     <div class="border-b px-5 pb-5">
-        <h2 class="text-lg font-semibold">Appearance</h2>
+        <h2 class="text-lg font-semibold">{{ $t('appearance') }}</h2>
 
         <p class="mt-1 text-slate-600 dark:text-slate-400">
-            Customize the appearance of the app. Automatically switch between day and night themes.
+            {{ $t('theme.profile_appearance_hint') }}
         </p>
     </div>
 
