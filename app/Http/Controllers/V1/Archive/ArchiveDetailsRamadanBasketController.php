@@ -14,7 +14,7 @@ class ArchiveDetailsRamadanBasketController extends Controller
     {
         return Inertia::render('Tenant/archive/details/ramadan-basket/RamadanBasketArchiveDetailsPage', [
             'archive' => ['id' => $archive->id],
-            'orphans' => RamadanBasketArchiveIndexResource::collection($archive->listFamilies()->paginate(request()->integer('perPage', 10))),
+            'families' => RamadanBasketArchiveIndexResource::collection($archive->listFamilies()->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
     }

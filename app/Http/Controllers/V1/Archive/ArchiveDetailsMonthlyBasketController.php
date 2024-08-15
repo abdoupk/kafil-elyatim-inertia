@@ -14,7 +14,7 @@ class ArchiveDetailsMonthlyBasketController extends Controller
     {
         return Inertia::render('Tenant/archive/details/monthly-basket/MonthlyBasketArchiveDetailsPage', [
             'archive' => ['id' => $archive->id],
-            'orphans' => MonthlyBasketArchiveIndexResource::collection($archive->listFamilies()->paginate(request()->integer('perPage', 10))),
+            'families' => MonthlyBasketArchiveIndexResource::collection($archive->listFamilies()->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
     }

@@ -32,14 +32,14 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.email') }}
+                            {{ $t('type') }}
                         </the-table-th>
-
-                        <the-table-th class="text-center">{{ $t('validation.attributes.phone') }}</the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.zone') }}
+                            {{ $t('deleted_by') }}
                         </the-table-th>
+
+                        <the-table-th class="text-center">{{ $t('validation.attributes.deleted_at') }}</the-table-th>
 
                         <the-table-th class="text-center">
                             {{ $t('actions') }}
@@ -59,15 +59,19 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                             </Link>
                         </the-table-td>
 
+                        <the-table-td class="">
+                            {{ item.type }}
+                        </the-table-td>
+
                         <the-table-td class="max-w-40 truncate">
-                            {{ item.email }}
+                            <Link :href="route('tenant.members.index') + `?show=${item.user_id}`">
+                                {{ item.user_name }}
+                            </Link>
                         </the-table-td>
 
                         <the-table-td class="text-center">
-                            {{ item.phone }}
+                            {{ formatDate(item.deleted_at, 'full') }}
                         </the-table-td>
-
-                        <the-table-td class="w-40"></the-table-td>
 
                         <the-table-td-actions>
                             <div class="flex items-center justify-center">
@@ -82,7 +86,12 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
-                                    @click="emit('showDeleteModal', item.id)"
+                                    @click="
+                                        emit('showDeleteModal', {
+                                            id: item.id,
+                                            url: item.force_delete_url
+                                        })
+                                    "
                                 >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
                                     {{ $t('delete') }}

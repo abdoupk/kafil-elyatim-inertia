@@ -15,7 +15,7 @@ class FamiliesMonthlyBasketIndexController extends Controller
             'families' => MonthlyBasketResource::collection(listOfFamiliesBenefitingFromTheMonthlyBasket()),
             'params' => getParams(),
             'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('monthly_basket')
-                ->whereMonth('created_at', now()->format('m-Y'))->select(['id', 'saved_by', 'created_at'])->first(),
+                ->whereMonth('created_at', now()->month)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
     }
 }

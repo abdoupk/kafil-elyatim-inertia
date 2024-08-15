@@ -351,6 +351,7 @@ export interface TrashIndexResource {
     name: string
     deleted_at: Date
     user_name: string
+    type: string
     restore_url: string
     force_delete_url: string
     user_id: string

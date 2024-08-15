@@ -22,8 +22,6 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-console.log(props.items)
-
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page
@@ -39,10 +37,16 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const showDeleteModal = () => {}
+const selectedItem = ref()
 
-const deleteItem = (id: string) => {
-    router.delete(route('tenant.members.destroy', id), {
+const showDeleteModal = ({ id, url }: { id: string; url: string }) => {
+    selectedItem.value = { id, url }
+
+    deleteModalStatus.value = true
+}
+
+const deleteItem = () => {
+    router.delete(route(selectedItem.value.url, selectedItem.value.id), {
         preserveScroll: true,
         onStart: () => {
             deleteProgress.value = true

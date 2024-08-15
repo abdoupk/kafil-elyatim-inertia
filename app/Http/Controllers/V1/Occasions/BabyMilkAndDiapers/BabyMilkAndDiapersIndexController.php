@@ -14,8 +14,8 @@ class BabyMilkAndDiapersIndexController extends Controller
         return Inertia::render('Tenant/occasions/babies/BabyMilkAndDiapersIndex', [
             'orphans' => BabyMilkAndDiapersResource::collection(listOfBabies()),
             'params' => getParams(),
-            'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('baby_milk_and_diapers')
-                ->whereMonth('created_at', now()->format('m-Y'))->select(['id', 'saved_by', 'created_at'])->first(),
+            'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('babies_milk_and_diapers')
+                ->whereMonth('created_at', now()->month)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
     }
 }

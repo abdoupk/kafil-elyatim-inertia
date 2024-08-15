@@ -43,6 +43,7 @@ function generateFinancialReport(): array
     $data = DB::table('finances')
         ->selectRaw('CASE WHEN amount >= 0 THEN \'incomes\' ELSE \'expenses\' END AS sign, EXTRACT(MONTH FROM created_at) as month, SUM(amount) as total')
         ->whereYear('created_at', $year)
+        ->where('tenant_id', tenant('id'))
         ->where(function ($q) {
             $specification = request()->input('specification', '');
 
