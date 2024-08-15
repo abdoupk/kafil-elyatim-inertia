@@ -7,6 +7,7 @@ import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { formatCurrency } from '@/utils/helper'
+import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
     width?: number
@@ -23,7 +24,18 @@ const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
 const data = computed<ChartData>(() => {
     return {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: ['Jan',
+'Feb',
+'Mar',
+'Apr',
+'May',
+'Jun',
+'Jul',
+'Aug',
+'Sep',
+'Oct',
+'Nov',
+'Dec'],
         datasets: [
             {
                 label: '# of Votes',
@@ -54,11 +66,19 @@ const options = computed<ChartOptions>(() => {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                display: false
+                display: false,
+                rtl: getLocale() === 'ar'
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
             }
         },
         scales: {
             x: {
+                reverse: getLocale() === 'ar',
+                border: {
+                    display: false
+                },
                 ticks: {
                     font: {
                         size: 12
@@ -66,11 +86,15 @@ const options = computed<ChartOptions>(() => {
                     color: getColor('slate.500', 0.8)
                 },
                 grid: {
-                    display: false,
-                    drawBorder: false
+                    display: false
                 }
             },
             y: {
+                border: {
+                    display: false,
+                    dash: [2, 2]
+                },
+                position: getLocale() === 'ar' ? 'right' : 'left',
                 ticks: {
                     font: {
                         size: 12
@@ -81,12 +105,13 @@ const options = computed<ChartOptions>(() => {
                     }
                 },
                 grid: {
-                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
-                    borderDash: [2, 2],
-                    drawBorder: false
+                    drawTicks: false,
+                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300')
                 }
             }
-        }
+        },
+
+        locale: getLocale()
     }
 })
 </script>
