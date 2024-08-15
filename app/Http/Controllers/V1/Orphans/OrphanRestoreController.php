@@ -7,5 +7,10 @@ use App\Models\Orphan;
 
 class OrphanRestoreController extends Controller
 {
-    public function __invoke(Orphan $orphan) {}
+    public function __invoke(Orphan $orphan)
+    {
+        $orphan->restore();
+
+        return redirect()->back();
+    }
 }

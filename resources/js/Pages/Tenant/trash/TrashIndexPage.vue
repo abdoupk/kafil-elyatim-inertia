@@ -22,6 +22,8 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
+console.log(props.items)
+
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page

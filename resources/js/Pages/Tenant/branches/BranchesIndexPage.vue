@@ -126,6 +126,8 @@ watchEffect(async () => {
         entries="branches"
         export-pdf-url=""
         export-xlsx-url=""
+        searchable
+        @change-filters="params = $event"
     >
         <template #ExtraButtons>
             <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">

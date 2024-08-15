@@ -7,5 +7,10 @@ use App\Models\Finance;
 
 class FinancialRestoreController extends Controller
 {
-    public function __invoke(Finance $finance) {}
+    public function __invoke(Finance $finance)
+    {
+        $finance->restore();
+
+        return redirect()->back();
+    }
 }

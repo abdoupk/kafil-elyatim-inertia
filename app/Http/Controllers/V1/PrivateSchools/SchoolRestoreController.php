@@ -7,5 +7,10 @@ use App\Models\PrivateSchool;
 
 class SchoolRestoreController extends Controller
 {
-    public function __invoke(PrivateSchool $school) {}
+    public function __invoke(PrivateSchool $school)
+    {
+        $school->restore();
+
+        return redirect()->back();
+    }
 }

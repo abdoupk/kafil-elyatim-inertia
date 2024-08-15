@@ -97,7 +97,7 @@ const showDeleteModal = (needId: string) => {
 
 const showCreateModal = () => {
     needsStore.$reset()
-    
+
     updateModalStatus.value = true
 
     showTheNeedable.value = true
@@ -135,6 +135,8 @@ watchEffect(async () => {
         export-pdf-url=""
         export-xlsx-url=""
         filterable
+        searchable
+        @change-filters="params.filters = $event"
     >
         <template #ExtraButtons>
             <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">

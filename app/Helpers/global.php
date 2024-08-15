@@ -84,7 +84,7 @@ function generateFilterConditions(?string $additional_filters = ''): string
 
     return implode(' AND ', array_map(static function ($condition) {
         return implode(' ', $condition);
-    }, $filters)).' AND tenant_id = '.tenant('id').' '.$additional_filters;
+    }, $filters)).' '.$additional_filters;
 }
 
 function generateFormattedSort(): array
@@ -111,10 +111,14 @@ function search(Model $model, ?string $additional_filters = '', ?int $limit = nu
         $limit = (int) request()->input('perPage', 10);
     }
 
+    if (property_exists($model, 'deleted_at')) {
+        $additional_filters .= ' AND __soft_deleted = 0';
+    }
+
     $query = trim(request()->input('search', '')) ?? '';
 
     $meilisearchOptions = [
-        'filter' => generateFilterConditions($additional_filters),
+        'filter' => generateFilterConditions($additional_filters).' AND tenant_id = '.tenant('id'),
         'sort' => generateFormattedSort(),
         'limit' => $limit,
     ];

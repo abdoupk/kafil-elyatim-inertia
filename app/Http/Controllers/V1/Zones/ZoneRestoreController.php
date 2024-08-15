@@ -7,5 +7,10 @@ use App\Models\Zone;
 
 class ZoneRestoreController extends Controller
 {
-    public function __invoke(Zone $zone) {}
+    public function __invoke(Zone $zone)
+    {
+        $zone->restore();
+
+        return redirect()->back();
+    }
 }

@@ -87,6 +87,7 @@ const sort = (field: string) => handleSort(field, params)
         entries="orphans"
         exportable
         filterable
+        searchable
         @change-filters="params = $event"
     ></the-table-header>
 

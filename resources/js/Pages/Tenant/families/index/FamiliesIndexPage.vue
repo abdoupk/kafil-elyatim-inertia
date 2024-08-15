@@ -87,6 +87,8 @@ const showDeleteModal = (familyId: string) => {
         entries="families"
         exportable
         filterable
+        searchable
+        @change-filters="params = $event"
     >
         <template #ExtraButtons>
             <base-button

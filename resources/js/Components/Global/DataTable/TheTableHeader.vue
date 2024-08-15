@@ -23,6 +23,7 @@ const props = defineProps<{
     params: IndexParams
     exportable?: boolean
     filterable?: boolean
+    searchable?: boolean
 }>()
 
 const params = ref(props.params)
@@ -113,7 +114,7 @@ watch(() => [params.value.fields, params.value.directions], getData)
                     @reset-filter="handleFilterReset"
                 ></advanced-filter>
 
-                <div class="relative w-full text-slate-500 md:w-56">
+                <div v-if="searchable" class="relative w-full text-slate-500 md:w-56">
                     <base-form-input
                         v-model="search"
                         :placeholder="$t('Search...')"

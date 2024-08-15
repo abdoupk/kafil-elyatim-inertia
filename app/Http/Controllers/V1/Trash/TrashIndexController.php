@@ -25,10 +25,12 @@ class TrashIndexController extends Controller
             f.deleted_at,
             u.id AS user_id,
             CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+            'tenant.families.restore' AS restore_url,
+            'tenant.families.force-delete' AS force_delete_url,
             'families' AS type
         FROM families f
         LEFT JOIN users u ON f.deleted_by = u.id
-        WHERE f.deleted_at IS NULL AND f.tenant_id = :tenant_id
+        WHERE f.deleted_at IS NOT NULL AND f.tenant_id = :tenant_id
     )
     UNION ALL
     (
@@ -38,10 +40,12 @@ class TrashIndexController extends Controller
             o.deleted_at,
             u.id AS user_id,
             CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+            'tenant.orphans.restore' AS restore_url,
+            'tenant.orphans.force-delete' AS force_delete_url,
             'orphans' AS type
         FROM orphans o
         LEFT JOIN users u ON o.deleted_by = u.id
-        WHERE o.deleted_at IS NULL AND o.tenant_id = :tenant_id
+        WHERE o.deleted_at IS NOT NULL AND o.tenant_id = :tenant_id
     )
     UNION ALL
     (
@@ -51,10 +55,12 @@ class TrashIndexController extends Controller
             s.deleted_at,
             u.id AS user_id,
             CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+            'tenant.sponsors.restore' AS restore_url,
+            'tenant.sponsors.force-delete' AS force_delete_url,
             'sponsors' AS type
         FROM sponsors s
         LEFT JOIN users u ON s.deleted_by = u.id
-        WHERE s.deleted_at IS NULL AND s.tenant_id = :tenant_id
+        WHERE s.deleted_at IS NOT NULL AND s.tenant_id = :tenant_id
     )";
         $items = DB::table(DB::raw("($unionQuery) AS temp_table"))
             ->offset($startIndex)

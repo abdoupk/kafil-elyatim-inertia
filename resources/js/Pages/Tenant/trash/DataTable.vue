@@ -67,18 +67,18 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                             {{ item.phone }}
                         </the-table-td>
 
-                        <the-table-td class="w-40"> </the-table-td>
+                        <the-table-td class="w-40"></the-table-td>
 
                         <the-table-td-actions>
                             <div class="flex items-center justify-center">
-                                <a
+                                <Link
+                                    :href="route(item.restore_url, item.id)"
                                     class="me-3 flex items-center"
-                                    href="javascript:void(0)"
-                                    @click.prevent="emit('showEditModal', item.id)"
+                                    method="post"
                                 >
-                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
-                                    {{ $t('edit') }}
-                                </a>
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-undo" />
+                                    {{ $t('restore') }}
+                                </Link>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"

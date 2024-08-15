@@ -86,6 +86,7 @@ const handleSave = () => {
         :url="route('tenant.occasions.monthly-basket.index')"
         entries="families"
         filterable
+        searchable
         @change-filters="params = $event"
     >
         <template #Hints>

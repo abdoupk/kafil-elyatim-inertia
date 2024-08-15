@@ -7,5 +7,10 @@ use App\Models\Event;
 
 class EventRestoreController extends Controller
 {
-    public function __invoke(Event $event) {}
+    public function __invoke(Event $event)
+    {
+        $event->restore();
+
+        return redirect()->back();
+    }
 }

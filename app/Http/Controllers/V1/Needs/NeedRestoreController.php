@@ -7,5 +7,10 @@ use App\Models\Need;
 
 class NeedRestoreController extends Controller
 {
-    public function __invoke(Need $need) {}
+    public function __invoke(Need $need)
+    {
+        $need->restore();
+
+        return redirect()->back();
+    }
 }

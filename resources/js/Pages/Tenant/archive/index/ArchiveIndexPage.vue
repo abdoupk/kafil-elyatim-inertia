@@ -39,6 +39,8 @@ const params = reactive<IndexParams>({
         entries="items"
         export-pdf-url=""
         export-xlsx-url=""
+        searchable
+        @change-filters="params.filters = $event"
     >
     </the-table-header>
 

@@ -8,15 +8,8 @@ use Illuminate\Support\Collection;
 
 function getFamilies(): LengthAwarePaginator
 {
-    ray(search(Family::getModel())
-        ->query(fn ($query) => $query->with('zone'))
-        ->withTrashed()
-        /** @phpstan-ignore-next-line */
-        ->paginate(perPage: request()?->input('perPage', 10)));
-
     return search(Family::getModel())
         ->query(fn ($query) => $query->with('zone'))
-
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
 }

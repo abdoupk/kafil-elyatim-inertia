@@ -87,6 +87,7 @@ const handleSave = () => {
         :url="route('tenant.occasions.eid-al-adha.index')"
         entries="families"
         filterable
+        searchable
         @change-filters="params.filters = $event"
     >
         <template #Hints>

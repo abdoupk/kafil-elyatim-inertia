@@ -7,5 +7,10 @@ use App\Models\Sponsor;
 
 class SponsorRestoreController extends Controller
 {
-    public function __invoke(Sponsor $sponsor) {}
+    public function __invoke(Sponsor $sponsor)
+    {
+        $sponsor->restore();
+
+        return redirect()->back();
+    }
 }

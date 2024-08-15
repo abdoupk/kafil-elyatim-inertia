@@ -7,5 +7,10 @@ use App\Models\Family;
 
 class FamilyRestoreController extends Controller
 {
-    public function __invoke(Family $family) {}
+    public function __invoke(Family $family)
+    {
+        $family->restore();
+
+        return redirect()->back();
+    }
 }

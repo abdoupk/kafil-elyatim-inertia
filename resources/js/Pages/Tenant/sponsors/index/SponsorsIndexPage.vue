@@ -87,6 +87,8 @@ const showDeleteModal = (sponsorId: string) => {
         entries="sponsors"
         exportable
         filterable
+        searchable
+        @change-filters="params = $event"
     ></the-table-header>
 
     <template v-if="sponsors.data.length > 0">

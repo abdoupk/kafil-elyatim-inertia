@@ -7,5 +7,10 @@ use App\Models\Branch;
 
 class BranchRestoreController extends Controller
 {
-    public function __invoke(Branch $orphan) {}
+    public function __invoke(Branch $branch)
+    {
+        $branch->restore();
+
+        return redirect()->back();
+    }
 }

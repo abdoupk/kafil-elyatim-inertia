@@ -7,5 +7,10 @@ use App\Models\User;
 
 class MemberRestoreController extends Controller
 {
-    public function __invoke(User $member) {}
+    public function __invoke(User $member)
+    {
+        $member->restore();
+
+        return redirect()->back();
+    }
 }
