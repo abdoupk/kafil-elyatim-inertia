@@ -8,6 +8,10 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
+import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
+import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
+import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
+
 import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
@@ -39,6 +43,8 @@ const lessonsStore = useLessonsStore()
 
 // Initialize a ref for loading state
 const loading = ref(false)
+
+const selectThisAndAllComingLessons = ref(true)
 
 const subjects = ref<SubjectType[]>([])
 
@@ -152,6 +158,7 @@ const quota = ref<number>()
                     id="title"
                     ref="firstInputRef"
                     v-model="form.title"
+                    :disabled="!selectThisAndAllComingLessons"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.title') })"
                     type="text"
                     @change="form.validate('title')"
@@ -165,6 +172,7 @@ const quota = ref<number>()
 
             <!-- Begin: Date Options-->
             <date-selector
+                v-model:disabled="selectThisAndAllComingLessons"
                 v-model:end-date="form.end_date"
                 v-model:frequency="form.frequency"
                 v-model:interval="form.interval"
@@ -172,6 +180,9 @@ const quota = ref<number>()
                 v-model:until="form.until"
                 :date
                 :form
+                @update:frequency="form.validate('frequency')"
+                @update:interval="form.validate('interval')"
+                @update:until="form.validate('until')"
             ></date-selector>
             <!-- End: Date Options-->
 
@@ -185,6 +196,7 @@ const quota = ref<number>()
                     <the-school-selector
                         id="school"
                         v-model:school="form.school_id"
+                        :disabled="!selectThisAndAllComingLessons"
                         @update:school="handleUpdateSchool"
                     ></the-school-selector>
                 </div>
@@ -205,6 +217,7 @@ const quota = ref<number>()
                     <the-subject-selector
                         id="subject"
                         v-model:subject="form.subject_id"
+                        :disabled="!selectThisAndAllComingLessons"
                         :subjects="subjects"
                         @update:subject="handleUpdateSubject"
                     ></the-subject-selector>
@@ -226,6 +239,7 @@ const quota = ref<number>()
                     <!-- @vue-ignore -->
                     <orphans-selector
                         :academic_level_id="form.academic_level_id"
+                        :disabled="!selectThisAndAllComingLessons"
                         :orphans="form.orphans"
                         :quota="quota"
                         @update:selected-orphans="
@@ -267,6 +281,20 @@ const quota = ref<number>()
                 </div>
             </div>
             <!-- End: Color-->
+
+            <div class="col-span-12">
+                <base-form-switch class="text-lg">
+                    <base-form-switch-input
+                        id="selectThisAndAllComingLessons"
+                        v-model="selectThisAndAllComingLessons"
+                        type="checkbox"
+                    ></base-form-switch-input>
+
+                    <base-form-switch-label htmlFor="selectThisAndAllComingLessons">
+                        {{ $t('incomes.label.cnr') }}
+                    </base-form-switch-label>
+                </base-form-switch>
+            </div>
         </template>
     </create-edit-modal>
 </template>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ProvideFormInline } from './BaseFormInline.vue'
 
 import { twMerge } from 'tailwind-merge'
@@ -62,7 +62,7 @@ const localValue = computed({
 </script>
 
 <template>
-    <select ref="selectRef" :class="computedClass" v-bind="attrs.attrs" v-model="localValue">
+    <select ref="selectRef" v-model="localValue" :class="computedClass" v-bind="$attrs">
         <slot></slot>
     </select>
 </template>

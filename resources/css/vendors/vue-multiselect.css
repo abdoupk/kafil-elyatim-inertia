@@ -4,6 +4,10 @@
     font-size: theme('fontSize.sm') !important;
 }
 
+.multiselect--disabled {
+    background: transparent !important;
+}
+
 /*.multiselect__option--selected {*/
 /*    font-weight: bolder !important;*/
 /*}*/

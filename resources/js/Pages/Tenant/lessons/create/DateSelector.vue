@@ -20,6 +20,8 @@ const props = defineProps<{
 
 const interval = defineModel('interval')
 
+const disabled = defineModel('disabled')
+
 const frequency = defineModel('frequency')
 
 const startDate = defineModel<string | Date>('startDate')
@@ -113,7 +115,7 @@ onMounted(() => {
             {{ $t('validation.attributes.frequency') }}
         </base-form-label>
 
-        <base-form-select id="frequency" v-model="frequency" placeholder="ddd">
+        <base-form-select id="frequency" v-model="frequency" :disabled="!disabled">
             <option value="">{{ $t('none') }}</option>
             <option value="daily">{{ $t('daily') }}</option>
             <option value="weekly">{{ $t('weekly') }}</option>
@@ -135,6 +137,7 @@ onMounted(() => {
         <base-form-input
             id="interval"
             v-model="interval"
+            :disabled="!disabled"
             :placeholder="$t('placeholders.fill_interval')"
             type="number"
         ></base-form-input>
