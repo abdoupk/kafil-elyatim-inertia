@@ -157,6 +157,7 @@ onMounted(() => {
         <base-v-calendar
             id="until"
             v-model:date="until"
+            :disabled="!disabled"
             :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.until') })"
             type="text"
         ></base-v-calendar>

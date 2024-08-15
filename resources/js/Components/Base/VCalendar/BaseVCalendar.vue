@@ -39,7 +39,13 @@ const popover = ref({
             <div class="relative">
                 <div
                     class="absolute flex h-full w-10 items-center justify-center rounded-s border bg-slate-100 text-slate-500 dark:border-darkmode-800 dark:bg-darkmode-700 dark:text-slate-400"
-                    @click="() => togglePopover()"
+                    @click="
+                        () => {
+                            if (!$attrs.disabled) {
+                                togglePopover()
+                            }
+                        }
+                    "
                 >
                     <svg-loader v-if="$attrs?.mode === 'time'" class="h-4 w-4 fill-current" name="icon-clock" />
 
@@ -47,6 +53,7 @@ const popover = ref({
                 </div>
 
                 <base-form-input
+                    :disabled="$attrs.disabled"
                     :placeholder="
                         $attrs?.placeholder || $t('auth.placeholders.tomselect', { attribute: $t('the date') })
                     "

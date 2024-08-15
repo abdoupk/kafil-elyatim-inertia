@@ -265,6 +265,7 @@ const quota = ref<number>()
                 </base-form-label>
 
                 <color-selector
+                    :disabled="!selectThisAndAllComingLessons"
                     :model-value="form.color"
                     class="col-span-12"
                     @update:model-value="
