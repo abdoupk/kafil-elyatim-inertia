@@ -141,7 +141,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                 <div class="w-28">
                                     {{ $t('permissions_count') }}
                                 </div>
-                                
+
                                 {{ role.permissions_count }}
                             </div>
                         </div>

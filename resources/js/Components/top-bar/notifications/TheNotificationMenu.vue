@@ -64,11 +64,11 @@ const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
 
             <notification-content :notification="notification"></notification-content>
         </div>
+
+        <div ref="last" class="-translate-y-2"></div>
     </div>
 
     <div v-else class="flex items-center justify-center">no no</div>
-
-    <div ref="last" class="-translate-y-2"></div>
 
     <notification-loader v-if="loading"></notification-loader>
 </template>
