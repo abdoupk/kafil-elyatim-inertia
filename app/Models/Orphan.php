@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -327,5 +328,10 @@ class Orphan extends Model
         return [
             'birth_date' => 'date',
         ];
+    }
+
+    public function archives(): MorphToMany
+    {
+        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }

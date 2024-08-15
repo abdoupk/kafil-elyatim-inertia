@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -113,10 +112,5 @@ class FamilySponsorship extends Model
             'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,
         ];
-    }
-
-    public function archives(): MorphToMany
-    {
-        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }

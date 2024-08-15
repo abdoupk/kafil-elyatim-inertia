@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -265,5 +266,10 @@ class Family extends Model
             'start_date' => 'date',
             'preview_date' => 'date',
         ];
+    }
+
+    public function archives(): MorphToMany
+    {
+        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }
