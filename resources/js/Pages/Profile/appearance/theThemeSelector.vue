@@ -5,6 +5,10 @@ import { twMerge } from 'tailwind-merge'
 import { themes } from '@/utils/constants'
 
 const settingsStore = useSettingsStore()
+
+const theTheme = defineModel('theTheme')
+
+theTheme.value = settingsStore.theme
 </script>
 
 <template>
@@ -19,9 +23,10 @@ const settingsStore = useSettingsStore()
                     :class="
                         twMerge([
                             'box block h-28 cursor-pointer bg-slate-50 p-1',
-                            settingsStore?.theme === theme ? 'border-2 border-theme-1/60 dark:border-darkmode-50' : ''
+                            theTheme === theme ? 'border-2 border-theme-1/60 dark:border-darkmode-50' : ''
                         ])
                     "
+                    @click.prevent="theTheme = theme"
                 >
                     <div class="image-fit h-full w-full overflow-hidden rounded-md">
                         <img :alt="theme" :src="`/images/themes/${theme}.png`" class="h-full w-full" />

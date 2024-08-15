@@ -4,6 +4,8 @@ import TheAppearanceSelector from '@/Pages/Profile/appearance/TheAppearanceSelec
 import TheLayoutSelector from '@/Pages/Profile/appearance/theLayoutSelector.vue'
 import TheThemeSelector from '@/Pages/Profile/appearance/theThemeSelector.vue'
 
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+
 const submit = () => {}
 </script>
 
@@ -25,6 +27,8 @@ const submit = () => {}
             <the-accent-color-selector></the-accent-color-selector>
 
             <the-appearance-selector></the-appearance-selector>
+
+            <base-button class="mt-5 w-20" type="submit" variant="primary">{{ $t('save') }}</base-button>
         </form>
     </div>
 </template>

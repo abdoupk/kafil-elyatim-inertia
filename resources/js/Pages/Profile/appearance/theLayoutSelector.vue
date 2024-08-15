@@ -5,6 +5,10 @@ import { twMerge } from 'tailwind-merge'
 import { layouts } from '@/utils/constants'
 
 const settingsStore = useSettingsStore()
+
+const theLayout = defineModel('theLayout')
+
+theLayout.value = settingsStore.layout
 </script>
 
 <template>
@@ -20,12 +24,10 @@ const settingsStore = useSettingsStore()
                         :class="
                             twMerge([
                                 'box block h-24 cursor-pointer bg-slate-50 p-1',
-                                settingsStore?.layout === layout
-                                    ? 'border-2 border-theme-1/60 dark:border-darkmode-50'
-                                    : ''
+                                theLayout === layout ? 'border-2 border-theme-1/60 dark:border-darkmode-50' : ''
                             ])
                         "
-                        @click.prevent="settingsStore.changeLayout(layout)"
+                        @click.prevent="theLayout = layout"
                     >
                         <div class="image-fit h-full w-full overflow-hidden rounded-md">
                             <img
