@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Occasions\SchoolEntry;
 
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
+use App\Models\OrphanSponsorship;
 
 class SaveOrphansSchoolEntryToArchiveController extends Controller
 {
@@ -15,6 +16,8 @@ class SaveOrphansSchoolEntryToArchiveController extends Controller
                 'saved_by' => auth()->user()->id,
             ])
             ->orphans()
-            ->syncWithPivotValues(listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport()->pluck('id'), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport()->map(function (OrphanSponsorship $sponsorship) {
+                return $sponsorship->orphan->id;
+            }), ['tenant_id' => tenant('id')]);
     }
 }

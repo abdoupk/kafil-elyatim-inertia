@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Occasions\EidAlAdha;
 
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
+use App\Models\FamilySponsorship;
 
 class SaveFamiliesEidAlAdhaToArchiveController extends Controller
 {
@@ -15,6 +16,8 @@ class SaveFamiliesEidAlAdhaToArchiveController extends Controller
                 'saved_by' => auth()->user()->id,
             ])
             ->families()
-            ->syncWithPivotValues(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport()->pluck('id'), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport()->map(function (FamilySponsorship $sponsorship) {
+                return $sponsorship->family->id;
+            }), ['tenant_id' => tenant('id')]);
     }
 }

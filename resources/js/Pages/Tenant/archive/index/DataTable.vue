@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { IndexParams, PaginationData, TrashIndexResource } from '@/types/types'
+import type { ArchiveIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
@@ -8,13 +8,11 @@ import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
-import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate } from '@/utils/helper'
 
-defineProps<{ items: PaginationData<TrashIndexResource>; params: IndexParams }>()
+defineProps<{ items: PaginationData<ArchiveIndexResource>; params: IndexParams }>()
 
 const emit = defineEmits(['showDeleteModal', 'restore'])
 </script>
@@ -32,17 +30,13 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.email') }}
+                            {{ $t('archive.saved_by') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">{{ $t('validation.attributes.phone') }}</the-table-th>
+                        <the-table-th class="text-center">{{ $t('validation.attributes.created_at') }}</the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.zone') }}
-                        </the-table-th>
-
-                        <the-table-th class="text-center">
-                            {{ $t('actions') }}
+                            {{ $t('archive.families_count') }}
                         </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
@@ -53,42 +47,23 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                             {{ (items.meta.from ?? 0) + index }}
                         </the-table-td>
 
-                        <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link class="font-medium" href="#">
+                        <the-table-td class="!min-w-44 !max-w-44 truncate">
+                            <Link :href="item.url" class="font-medium">
                                 {{ item.name }}
                             </Link>
                         </the-table-td>
 
                         <the-table-td class="max-w-40 truncate">
-                            {{ item.email }}
+                            {{ item.savedBy.name }}
                         </the-table-td>
 
                         <the-table-td class="text-center">
-                            {{ item.phone }}
+                            {{ formatDate(item.created_at, 'long') }}
                         </the-table-td>
 
-                        <the-table-td class="w-40"> </the-table-td>
-
-                        <the-table-td-actions>
-                            <div class="flex items-center justify-center">
-                                <a
-                                    class="me-3 flex items-center"
-                                    href="javascript:void(0)"
-                                    @click.prevent="emit('showEditModal', item.id)"
-                                >
-                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
-                                    {{ $t('edit') }}
-                                </a>
-                                <a
-                                    class="flex items-center text-danger"
-                                    href="javascript:void(0)"
-                                    @click="emit('showDeleteModal', item.id)"
-                                >
-                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
-                                    {{ $t('delete') }}
-                                </a>
-                            </div>
-                        </the-table-td-actions>
+                        <the-table-td class="w-40">
+                            {{ item.families_count }}
+                        </the-table-td>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>

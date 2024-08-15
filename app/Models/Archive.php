@@ -49,7 +49,6 @@ class Archive extends Model
     {
         return [
             'tenant_id' => 'string',
-            'family_ids' => 'array',
             'saved_by' => 'string',
         ];
     }

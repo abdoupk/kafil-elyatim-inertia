@@ -356,10 +356,16 @@ export interface TrashIndexResource {
 
 export interface ArchiveIndexResource {
     id: string
+    occasion: string
     name: string
-    deleted_at: Date
-    user_name: string
-    user_id: string
+    savedBy: {
+        id: string
+        name: string
+    }
+    created_at: Date
+    readable_created_at: string
+    url: string
+    families_count: number
 }
 
 export interface EidAlAdhaFamiliesResource {
