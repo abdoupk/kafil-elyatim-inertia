@@ -15,7 +15,7 @@ class EidAlAdhaIndexController extends Controller
             'families' => EidAlAdhaResource::collection(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship()),
             'params' => getParams(),
             'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('eid_al_adha')
-                ->whereMonth('created_at', now()->format('m-Y'))->select(['id', 'saved_by', 'created_at'])->first(),
+                ->whereYear('created_at', now()->year)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
     }
 }

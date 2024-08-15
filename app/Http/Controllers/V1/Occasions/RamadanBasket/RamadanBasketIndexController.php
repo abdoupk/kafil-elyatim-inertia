@@ -16,7 +16,7 @@ class RamadanBasketIndexController extends Controller
             'families' => RamadanBasketResource::collection(listOfFamiliesBenefitingFromTheRamadanBasketSponsorship()),
             'params' => getParams(),
             'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('ramadan_basket')
-                ->whereMonth('created_at', now()->format('m-Y'))->select(['id', 'saved_by', 'created_at'])->first(),
+                ->whereYear('created_at', now()->year)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
     }
 }

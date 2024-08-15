@@ -15,7 +15,7 @@ class EidSuitIndexController extends Controller
             'orphans' => EidSuitResource::collection(listOfOrphansBenefitingFromTheEidSuitSponsorship()),
             'params' => getParams(),
             'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('eid_suit')
-                ->whereMonth('created_at', now()->format('m-Y'))->select(['id', 'saved_by', 'created_at'])->first(),
+                ->whereYear('created_at', now()->year)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
     }
 }
