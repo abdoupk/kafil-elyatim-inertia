@@ -28,7 +28,7 @@ const breadcrumbs = computedEager(() => {
 
         if (prevText !== 'edit' && prevText !== 'create' && prevText !== 'show') {
             breadCrumbs.push({
-                href: resolvedHref,
+                href: path === 'occasions' ? '#' : resolvedHref,
                 active: path !== pathArray[pathArray.length - 1],
                 text: __('breadcrumb.' + path.split(/[?#]/)[0])
             })
@@ -49,9 +49,9 @@ const breadcrumbs = computedEager(() => {
             v-for="(breadcrumb, index) in breadcrumbs"
             :key="index"
             :active="breadcrumb.active"
+            :href="breadcrumb.href"
             :index="index"
             :light="light"
-            :href="breadcrumb.href"
         >
             {{ breadcrumb.text }}
         </base-bread-crumb-link>

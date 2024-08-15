@@ -11,6 +11,8 @@ class FamilyRestoreController extends Controller
     {
         $family->restore();
 
+        $family->archives()->searchable();
+
         return redirect()->back();
     }
 }

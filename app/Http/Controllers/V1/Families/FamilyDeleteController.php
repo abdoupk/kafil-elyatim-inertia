@@ -11,6 +11,24 @@ class FamilyDeleteController extends Controller
     {
         $family->delete();
 
+        $family->archives()->searchable();
+
+        $family->sponsorships()->delete();
+
+        $family->sponsorships()->searchable();
+
+        $family->orphans()->delete();
+
+        $family->orphans()->searchable();
+
+        $family->babies()->delete();
+
+        $family->babies()->searchable();
+
+        $family->sponsor()->delete();
+
+        $family->sponsor()->searchable();
+
         return redirect()->back();
     }
 }
