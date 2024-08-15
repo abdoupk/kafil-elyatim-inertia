@@ -33,6 +33,7 @@ use App\Http\Controllers\V1\Events\LessonShowController;
 use App\Http\Controllers\V1\Families\ExportFamiliesPDFController;
 use App\Http\Controllers\V1\Families\ExportFamiliesXlsxController;
 use App\Http\Controllers\V1\Families\FamiliesIndexController;
+use App\Http\Controllers\V1\Families\FamiliesStatisticsController;
 use App\Http\Controllers\V1\Families\FamilyCreateController;
 use App\Http\Controllers\V1\Families\FamilyDeleteController;
 use App\Http\Controllers\V1\Families\FamilyEditController;
@@ -53,6 +54,7 @@ use App\Http\Controllers\V1\Financial\FinancialForceDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
 use App\Http\Controllers\V1\Financial\FinancialRestoreController;
 use App\Http\Controllers\V1\Financial\FinancialShowController;
+use App\Http\Controllers\V1\Financial\FinancialStatisticsController;
 use App\Http\Controllers\V1\Financial\FinancialStoreController;
 use App\Http\Controllers\V1\Financial\FinancialUpdateController;
 use App\Http\Controllers\V1\Inventory\InventoryIndexController;
@@ -121,6 +123,7 @@ use App\Http\Controllers\V1\Orphans\OrphanForceDeleteController;
 use App\Http\Controllers\V1\Orphans\OrphanRestoreController;
 use App\Http\Controllers\V1\Orphans\OrphanShowController;
 use App\Http\Controllers\V1\Orphans\OrphansIndexController;
+use App\Http\Controllers\V1\Orphans\OrphansStatisticsController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Orphans\SearchOrphansController;
@@ -148,6 +151,7 @@ use App\Http\Controllers\V1\Sponsors\SponsorForceDeleteController;
 use App\Http\Controllers\V1\Sponsors\SponsorRestoreController;
 use App\Http\Controllers\V1\Sponsors\SponsorShowController;
 use App\Http\Controllers\V1\Sponsors\SponsorsIndexController;
+use App\Http\Controllers\V1\Sponsors\SponsorsStatisticsController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateIncomesController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateInfosController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateSponsorshipsController;
@@ -287,6 +291,9 @@ Route::middleware([
 
                 Route::delete('{family}/force-delete', FamilyForceDeleteController::class)
                     ->name('force-delete')->withTrashed();
+
+                Route::get('statistics', FamiliesStatisticsController::class)
+                    ->name('statistics');
             });
 
             Route::prefix('inventory')->group(function () {
@@ -364,6 +371,9 @@ Route::middleware([
 
                 Route::delete('{orphan}/force-delete', OrphanForceDeleteController::class)
                     ->name('force-delete')->withTrashed();
+
+                Route::get('statistics', OrphansStatisticsController::class)
+                    ->name('statistics');
             });
 
             Route::prefix('members')->name('members.')->group(function () {
@@ -442,6 +452,9 @@ Route::middleware([
 
                 Route::delete('{sponsor}/force-delete', SponsorForceDeleteController::class)
                     ->name('force-delete')->withTrashed();
+
+                Route::get('statistics', SponsorsStatisticsController::class)
+                    ->name('statistics');
             });
 
             Route::prefix('settings')->name('settings.')->group(function () {
@@ -470,6 +483,9 @@ Route::middleware([
 
                 Route::delete('{finance}/force-delete', FinancialForceDeleteController::class)
                     ->name('force-delete')->withTrashed();
+
+                Route::get('statistics', FinancialStatisticsController::class)
+                    ->name('statistics');
             });
 
             Route::prefix('statistics')->name('statistics.')->group(function () {
