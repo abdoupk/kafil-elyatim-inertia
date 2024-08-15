@@ -813,4 +813,5 @@ export type ArchiveOccasionType = {
         id: string
     }
     created_at: string | Date
+    id: string
 }
