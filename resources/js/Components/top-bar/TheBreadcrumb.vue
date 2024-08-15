@@ -23,12 +23,11 @@ const breadcrumbs = computedEager(() => {
 
         const resolvedHref = href === '/' ? '/dashboard' : href
 
-        // eslint-disable-next-line
-        // const text = __(path, settingsStore.lang)
-
-        if (prevText !== 'edit' && prevText !== 'create' && prevText !== 'show') {
+        if (prevText === 'details') {
+            continue
+        } else if (prevText !== 'edit' && prevText !== 'create' && prevText !== 'show') {
             breadCrumbs.push({
-                href: path === 'occasions' ? '#' : resolvedHref,
+                href: path === 'occasions' || (path === 'details' && prevText === 'archive') ? '#' : resolvedHref,
                 active: path !== pathArray[pathArray.length - 1],
                 text: __('breadcrumb.' + path.split(/[?#]/)[0])
             })
