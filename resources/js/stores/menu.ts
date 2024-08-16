@@ -5,6 +5,7 @@ import { defineStore } from 'pinia'
 
 import { __, n__ } from '@/utils/i18n'
 
+
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({
         menu: [
@@ -56,6 +57,12 @@ export const useMenuStore = defineStore('menu', {
                         title: n__(__('add new'), 0, { attribute: __('family') }),
                         routeName: 'tenant.families.create',
                         url: '/dashboard/families/create'
+                    },
+                    {
+                        icon: 'icon-chart-pie-simple',
+                        title: __('statistics'),
+                        routeName: 'tenant.families.statistics',
+                        url: '/dashboard/families/statistics'
                     }
                 ]
             },
@@ -63,15 +70,44 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-children',
                 ignore: shouldHide('read_orphans'),
                 title: __('orphans'),
-                routeName: 'tenant.orphans.index',
-                url: '/dashboard/orphans'
+                routeName: '',
+                subMenu: [
+                    {
+                        icon: 'icon-children',
+                        ignore: shouldHide('read_orphans'),
+                        title: __('list', { attribute: __('orphans') }),
+                        routeName: 'tenant.orphans.index',
+                        url: '/dashboard/orphans'
+                    },
+                    {
+                        icon: 'icon-chart-pie-simple',
+                        title: __('statistics'),
+                        routeName: 'tenant.orphans.statistics',
+                        url: '/dashboard/orphans/statistics'
+                    }
+                ]
             },
             {
                 icon: 'icon-hands-holding-child',
                 ignore: shouldHide('read_sponsors'),
                 title: __('the_sponsors'),
-                routeName: 'tenant.sponsors.index',
-                url: '/dashboard/sponsors'
+                routeName: '',
+                url: '',
+                subMenu: [
+                    {
+                        icon: 'icon-hands-holding-child',
+                        ignore: shouldHide('read_sponsors'),
+                        title: __('list', { attribute: __('sponsors') }),
+                        routeName: 'tenant.sponsors.index',
+                        url: '/dashboard/sponsors'
+                    },
+                    {
+                        icon: 'icon-chart-pie-simple',
+                        title: __('statistics'),
+                        routeName: 'tenant.sponsors.statistics',
+                        url: '/dashboard/sponsors/statistics'
+                    }
+                ]
             },
             {
                 icon: 'icon-calendar-star',
@@ -125,13 +161,6 @@ export const useMenuStore = defineStore('menu', {
             },
             'divider',
             {
-                icon: 'icon-chart-pie-simple',
-                // Ignore: shouldHide('read_permission'),
-                title: __('statistics'),
-                routeName: 'tenant.statistics.index',
-                url: '/dashboard/statistics'
-            },
-            {
                 icon: 'icon-map-location-dot',
                 ignore: shouldHide('read_zones'),
                 title: __('the_zones'),
@@ -140,10 +169,23 @@ export const useMenuStore = defineStore('menu', {
             },
             {
                 icon: 'icon-hands-holding-dollar',
-                ignore: shouldHide('read_financial'),
                 title: __('financial'),
-                routeName: 'tenant.financial.index',
-                url: '/dashboard/financial'
+                routeName: '',
+                subMenu: [
+                    {
+                        icon: 'icon-hands-holding-dollar',
+                        ignore: shouldHide('read_financial'),
+                        title: __('financial'),
+                        routeName: 'tenant.financial.index',
+                        url: '/dashboard/financial'
+                    },
+                    {
+                        icon: 'icon-chart-pie-simple',
+                        title: __('statistics'),
+                        routeName: 'tenant.financial.statistics',
+                        url: '/dashboard/financial/statistics'
+                    }
+                ]
             },
             {
                 icon: 'icon-shelves',

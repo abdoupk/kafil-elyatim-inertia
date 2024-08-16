@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue'
 
+import TheModalLoader from '@/Components/Global/TheModalLoader.vue'
+
 const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
 
 const BaseDialog = defineAsyncComponent(() => import('@/Components/Base/headless/Dialog/BaseDialog.vue'))
@@ -69,7 +71,9 @@ const emit = defineEmits(['close', 'handleSubmit'])
                     </form>
                 </template>
 
-                <template #fallback>loadd</template>
+                <template #fallback>
+                    <the-modal-loader></the-modal-loader>
+                </template>
             </suspense>
         </base-dialog-panel>
     </base-dialog>

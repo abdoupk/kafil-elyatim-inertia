@@ -1,5 +1,9 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import TheLayout from '@/Layouts/TheLayout.vue'
 
-<template></template>
+defineOptions({
+    layout: TheLayout
+})
+</script>
 
-<style scoped lang="postcss"></style>
+<template>sponsors statistics</template>
