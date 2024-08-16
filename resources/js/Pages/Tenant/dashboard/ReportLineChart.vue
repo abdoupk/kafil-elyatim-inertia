@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
+import { abbreviationMonths } from '@/utils/constants'
 import { formatCurrency } from '@/utils/helper'
 import { getLocale } from '@/utils/i18n'
 
@@ -24,25 +25,13 @@ const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
 const data = computed<ChartData>(() => {
     return {
-        labels: ['Jan',
-'Feb',
-'Mar',
-'Apr',
-'May',
-'Jun',
-'Jul',
-'Aug',
-'Sep',
-'Oct',
-'Nov',
-'Dec'],
+        labels: abbreviationMonths[getLocale()],
         datasets: [
             {
                 label: '# of Votes',
                 data: props.financialReports.incomes,
                 borderWidth: 2,
                 borderColor: colorScheme.value ? getColor('primary', 0.8) : '',
-
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4

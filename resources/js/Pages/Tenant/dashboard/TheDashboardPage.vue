@@ -1,22 +1,22 @@
 <script lang="ts" setup>
 import type { GeneralReports } from '@/types/dashboard'
 
-import { useSettingsStore } from '@/stores/settings'
 import { Head } from '@inertiajs/vue3'
-import { computed, ref } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import TheFinancialReport from '@/Pages/Tenant/dashboard/FinianchialReport/TheFinancialReport.vue'
-import TheGeneralReports from '@/Pages/Tenant/dashboard/GenralReports/TheGeneralReports.vue'
+import TheGeneralReports from '@/Pages/Tenant/dashboard/GeneralReports/TheGeneralReports.vue'
 
-import { getColor } from '@/utils/colors'
+const TheFinancialReport = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/FinancialReport/TheFinancialReport.vue')
+)
 
 defineOptions({
     layout: TheLayout
 })
 
-const props = defineProps<{
+defineProps<{
     reports: GeneralReports
     financialReports: {
         incomes: number[]
@@ -25,30 +25,6 @@ const props = defineProps<{
         totalLastMonth: number
     }
 }>()
-
-console.log(props)
-
-const colorScheme = computed(() => useSettingsStore().colorScheme)
-
-const darkMode = computed(() => useSettingsStore().appearance === 'dark')
-
-const datasets = ref([
-    {
-        // eslint-disable-next-line array-element-newline
-        data: props.financialReports.incomes,
-        label: 'Incomes',
-        borderColor: () => (colorScheme.value ? getColor('primary') : '')
-    },
-    {
-        // eslint-disable-next-line array-element-newline
-        data: props.financialReports.expenses,
-        label: 'Expenses',
-        borderColor: () => (darkMode.value ? getColor('darkmode.200') : getColor('slate.300'))
-    }
-])
-
-// eslint-disable-next-line array-element-newline
-const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May', 'Jun', 'Jul', 'Aug'])
 </script>
 
 <template>
@@ -57,8 +33,12 @@ const labels = ref(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'May
     <the-general-reports :reports></the-general-reports>
 
     <div class="grid grid-cols-12">
-        <div class="col-span-12 mt-8 lg:col-span-6">
-            <the-financial-report :financialReports></the-financial-report>
+        <div class="col-span-12 mt-8 lg:col-span-8">
+            <suspense>
+                <template #default>
+                    <the-financial-report :financialReports></the-financial-report>
+                </template>
+            </suspense>
         </div>
     </div>
 </template>

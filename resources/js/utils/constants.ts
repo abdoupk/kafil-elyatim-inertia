@@ -319,3 +319,28 @@ export const permissions = {
     schools: ['create', 'read', 'update', 'delete'],
     lessons: ['create', 'read', 'update', 'delete']
 }
+
+const monthAbbreviationsFrench = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec']
+
+const monthAbbreviationsEnglish = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+const monthAbbreviationsArabic = [
+    'جانفي',
+    'فيفري',
+    'مارس',
+    'أفريل',
+    'ماي',
+    'جوان',
+    'جويلية',
+    'أوت',
+    'سبتمبر',
+    'أكتوبر',
+    'نوفمبر',
+    'ديسمبر'
+]
+
+export const abbreviationMonths = {
+    en: monthAbbreviationsEnglish,
+    ar: monthAbbreviationsArabic,
+    fr: monthAbbreviationsFrench
+}

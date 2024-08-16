@@ -2,6 +2,7 @@ import type { LangType } from '@/types/types'
 
 import { type App, ref } from 'vue'
 
+
 const locale = ref('ar') // default locale
 
 const langData = ref<Record<string, string>>({})
@@ -18,7 +19,7 @@ function setLocale(newLocale: LangType) {
     fetchLocale().then()
 }
 
-export function getLocale() {
+export function getLocale(): LangType {
     return locale.value
 }
 

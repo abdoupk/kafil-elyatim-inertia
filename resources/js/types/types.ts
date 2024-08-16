@@ -190,7 +190,7 @@ export interface Commune {
     commune_name: string
 }
 
-export type LangType = 'ar' | 'en' | 'fr' | 'tam'
+export type LangType = 'ar' | 'en' | 'fr'
 
 export type RegisterForm = {
     association: string
