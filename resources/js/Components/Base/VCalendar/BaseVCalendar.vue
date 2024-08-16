@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
+import { DatePicker } from 'v-calendar'
+import 'v-calendar/style.css'
 import { ref } from 'vue'
 
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -22,7 +24,7 @@ const popover = ref({
 </script>
 
 <template>
-    <VDatePicker
+    <DatePicker
         v-model="date"
         :is-dark="settingsStore.appearance === 'dark'"
         :locale="getLocale()"
@@ -63,7 +65,7 @@ const popover = ref({
                 ></base-form-input>
             </div>
         </template>
-    </VDatePicker>
+    </DatePicker>
 </template>
 
 <style lang="postcss">

@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import Multiselect from 'vue-multiselect'
+
+defineProps<{ options: Record<string, string | unknown> }>()
+
+const value = defineModel('value')
+</script>
+
 <template>
     <multiselect v-model="value" :options="options" :show-labels="false">
         <template #noResult>
@@ -13,14 +21,6 @@
         </template>
     </multiselect>
 </template>
-
-<script lang="ts" setup>
-import Multiselect from 'vue-multiselect'
-
-defineProps<{ options: Record<string, string | unknown> }>()
-
-const value = defineModel('value')
-</script>
 
 <!-- TODO change vue-multiselect.ssr.css  -->
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>

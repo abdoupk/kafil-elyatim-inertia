@@ -6,13 +6,9 @@ import i18n from './utils/i18n'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
-// import "vue-select/dist/vue-select.css";
-import VCalendar from 'v-calendar'
-// TODO remove it and replace to component
-import 'v-calendar/style.css'
 import { type DefineComponent, createApp, h } from 'vue'
-// TODO remove it and replace to component
 import { ZiggyVue } from 'ziggy-js'
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
@@ -26,9 +22,6 @@ createInertiaApp({
             .use(plugin)
             .use(createPinia())
             .use(ZiggyVue)
-
-        // app.component("v-select", vSelect);
-        app.use(VCalendar, {}) // TODO remove it and replace to component
 
         app.mount(el)
 
