@@ -2,21 +2,27 @@
 import { useBranchesStore } from '@/stores/branches'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref } from 'vue'
-
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import TheCitySelector from '@/Components/Global/CitySelector/TheCitySelector.vue'
-import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
-import TheMemberSelector from '@/Components/Global/TheMemberSelector.vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
-// TODO remove members and replace by selector in the future search members: MembersType
+const BaseVCalendar = defineAsyncComponent(() => import('@/Components/Base/VCalendar/BaseVCalendar.vue'))
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseFormInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInputError.vue'))
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
+
+const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
+
+const TheCitySelector = defineAsyncComponent(() => import('@/Components/Global/CitySelector/TheCitySelector.vue'))
+
+const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
+
+const TheMemberSelector = defineAsyncComponent(() => import('@/Components/Global/TheMemberSelector.vue'))
+
 defineProps<{
     open: boolean
 }>()

@@ -2,19 +2,26 @@
 import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref } from 'vue'
-
-import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
-import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
-import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
-import TheMemberSelector from '@/Components/Global/TheMemberSelector.vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 import { financialTransactionSpecifications } from '@/utils/constants'
 import { __, n__ } from '@/utils/i18n'
+
+const BaseVCalendar = defineAsyncComponent(() => import('@/Components/Base/VCalendar/BaseVCalendar.vue'))
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
+
+const BaseFormTextArea = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormTextArea.vue'))
+
+const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
+
+const BaseVueSelect = defineAsyncComponent(() => import('@/Components/Base/vue-select/BaseVueSelect.vue'))
+
+const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
+
+const TheMemberSelector = defineAsyncComponent(() => import('@/Components/Global/TheMemberSelector.vue'))
 
 defineProps<{
     open: boolean

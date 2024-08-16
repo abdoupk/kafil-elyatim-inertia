@@ -3,18 +3,25 @@ import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, onMounted, ref } from 'vue'
-
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
-import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
-import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
-import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 
 import { __, n__ } from '@/utils/i18n'
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseFormInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInputError.vue'))
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
+
+const BaseFormSelect = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormSelect.vue'))
+
+const BaseFormTextArea = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormTextArea.vue'))
+
+const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
+
+const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
+
+const TheAcademicLevelSelector = defineAsyncComponent(() => import('@/Components/Global/TheAcademicLevelSelector.vue'))
 
 defineProps<{
     open: boolean

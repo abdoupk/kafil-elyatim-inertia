@@ -4,18 +4,23 @@ import type { SubjectType } from '@/types/lessons'
 import { useSchoolsStore } from '@/stores/schools'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref } from 'vue'
-
-import TheSubjectAndQuota from '@/Pages/Tenant/schools/create/TheSubjectAndQuota.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 import { __, n__ } from '@/utils/i18n'
+
+const TheSubjectAndQuota = defineAsyncComponent(() => import('@/Pages/Tenant/schools/create/TheSubjectAndQuota.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
+
+const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
+
+const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
+
+const SvgLoader = defineAsyncComponent(() => import('@/Components/SvgLoader.vue'))
 
 defineProps<{
     open: boolean

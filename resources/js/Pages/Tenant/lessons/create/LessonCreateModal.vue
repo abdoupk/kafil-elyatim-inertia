@@ -8,12 +8,18 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
-import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
-import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
-import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
-
 import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
+
+const BaseFormSwitch = defineAsyncComponent(() => import('@/Components/Base/form/form-switch/BaseFormSwitch.vue'))
+
+const BaseFormSwitchInput = defineAsyncComponent(
+    () => import('@/Components/Base/form/form-switch/BaseFormSwitchInput.vue')
+)
+
+const BaseFormSwitchLabel = defineAsyncComponent(
+    () => import('@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue')
+)
 
 const ColorSelector = defineAsyncComponent(() => import('@/Pages/Tenant/lessons/create/ColorSelector.vue'))
 

@@ -2,19 +2,26 @@
 import { useMembersStore } from '@/stores/members'
 import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, ref } from 'vue'
-
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
-import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
-import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
-import TheBranchSelector from '@/Components/Global/TheBranchSelector.vue'
-import TheRoleSelector from '@/Components/Global/TheRoleSelector.vue'
-import TheZoneSelector from '@/Components/Global/TheZoneSelector.vue'
+import { computed, defineAsyncComponent, ref } from 'vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
+
+const BaseFormSelect = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormSelect.vue'))
+
+const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
+
+const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
+
+const TheBranchSelector = defineAsyncComponent(() => import('@/Components/Global/TheBranchSelector.vue'))
+
+const TheRoleSelector = defineAsyncComponent(() => import('@/Components/Global/TheRoleSelector.vue'))
+
+const TheZoneSelector = defineAsyncComponent(() => import('@/Components/Global/TheZoneSelector.vue'))
 
 defineProps<{
     open: boolean

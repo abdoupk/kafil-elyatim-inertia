@@ -1,6 +1,9 @@
 <script lang="ts" setup>
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import { defineAsyncComponent } from 'vue'
+
 import ShowModal from '@/Components/Global/ShowModal.vue'
+
+const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormLabel.vue'))
 
 defineProps<{
     open: boolean
