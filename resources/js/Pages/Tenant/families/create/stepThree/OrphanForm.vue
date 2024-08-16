@@ -14,6 +14,8 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheFamilyStatusSelector from '@/Components/Global/TheFamilyStatusSelector.vue'
+import TheShoesSizeSelector from '@/Components/Global/TheShoesSizeSelector.vue'
 import TheVocationalTrainingSelector from '@/Components/Global/TheVocationalTrainingSelector.vue'
 
 const props = defineProps<{
@@ -309,22 +311,18 @@ watch(
                 {{ $t('family_status') }}
             </base-form-label>
 
-            <base-form-input
-                :id="`family_status_${index}`"
-                v-model="familyStatus"
-                :placeholder="
-                    $t('auth.placeholders.fill', {
-                        attribute: $t('family_status')
-                    })
-                "
-                type="text"
-                @change="
-                    form?.validate(
-                        //@ts-ignore
-                        `orphans.${index}.family_status`
-                    )
-                "
-            ></base-form-input>
+            <div>
+                <the-family-status-selector
+                    :id="`family_status_${index}`"
+                    v-model:family-status="familyStatus"
+                    @update:family-status="
+                        form?.validate(
+                            //@ts-ignore
+                            `orphans.${index}.family_status`
+                        )
+                    "
+                ></the-family-status-selector>
+            </div>
 
             <base-form-input-error>
                 <div
@@ -597,22 +595,19 @@ watch(
                     {{ $t('shoes_size') }}
                 </base-form-label>
 
-                <base-form-input
-                    :id="`shoes_size_${index}`"
-                    v-model="shoesSize"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('shoes_size')
-                        })
-                    "
-                    type="text"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            `orphans.${index}.shoes_size`
-                        )
-                    "
-                ></base-form-input>
+                <div>
+                    <!-- @vue-ignore -->
+                    <the-shoes-size-selector
+                        :id="`shoes_size_${index}`"
+                        v-model:size="shoesSize"
+                        @update:size="
+                            form?.validate(
+                                //@ts-ignore
+                                `orphans.${index}.shoes_size`
+                            )
+                        "
+                    ></the-shoes-size-selector>
+                </div>
 
                 <base-form-input-error>
                     <div
@@ -640,22 +635,19 @@ watch(
                     {{ $t('shirt_size') }}
                 </base-form-label>
 
-                <base-form-input
-                    :id="`shirt_size_${index}`"
-                    v-model="shirtSize"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('shirt_size')
-                        })
-                    "
-                    type="text"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            `orphans.${index}.shirt_size`
-                        )
-                    "
-                ></base-form-input>
+                <div>
+                    <!-- @vue-ignore -->
+                    <the-shoes-size-selector
+                        :id="`shirt_size_${index}`"
+                        v-model:size="shirtSize"
+                        @update:size="
+                            form?.validate(
+                                //@ts-ignore
+                                `orphans.${index}.shirt_size`
+                            )
+                        "
+                    ></the-shoes-size-selector>
+                </div>
 
                 <base-form-input-error>
                     <div
@@ -682,23 +674,19 @@ watch(
                 <base-form-label for="pants_size">
                     {{ $t('pants_size') }}
                 </base-form-label>
-
-                <base-form-input
-                    :id="`pants_size_${index}`"
-                    v-model="pantsSize"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('pants_size')
-                        })
-                    "
-                    type="text"
-                    @change="
-                        form?.validate(
-                            //@ts-ignore
-                            `orphans.${index}.pants_size`
-                        )
-                    "
-                ></base-form-input>
+                <div>
+                    <!-- @vue-ignore -->
+                    <the-shoes-size-selector
+                        :id="`pants_size_${index}`"
+                        v-model:size="pantsSize"
+                        @update:size="
+                            form?.validate(
+                                //@ts-ignore
+                                `orphans.${index}.pants_size`
+                            )
+                        "
+                    ></the-shoes-size-selector>
+                </div>
 
                 <base-form-input-error>
                     <div

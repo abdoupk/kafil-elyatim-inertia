@@ -9,11 +9,10 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheSponsorTypeSelector from '@/Components/Global/TheSponsorTypeSelector.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
 
 const props = defineProps<{
     form?: Form<CreateFamilyForm>
@@ -64,30 +63,6 @@ const ccp = defineModel('ccp')
 const sponsorType = defineModel('sponsorType')
 
 const birthDate = defineModel('birth_date', { default: '' })
-
-// TODO change to ارمل ....
-const sponsorTypes = [
-    {
-        label: __('father'),
-        value: 'father'
-    },
-    {
-        label: __('mother'),
-        value: 'mother'
-    },
-    {
-        label: __('grand_father'),
-        value: 'grand_father'
-    },
-    {
-        label: __('grand_mother'),
-        value: 'grand_mother'
-    },
-    {
-        label: __('other'),
-        value: 'other'
-    }
-]
 </script>
 
 <template>
@@ -225,30 +200,25 @@ const sponsorTypes = [
 
         <!-- Begin: Branch -->
         <div class="col-span-12 sm:col-span-6">
-            <base-form-label for="branch">
-                {{ $t('the_sponsor') }}
+            <base-form-label for="sponsor_type">
+                {{ $t('filters.sponsor_type') }}
             </base-form-label>
 
             <div>
                 <!-- @vue-ignore -->
-                <base-vue-select
-                    :options="sponsorTypes"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_sponsor') })"
-                    label="label"
-                    track_by="value"
-                    @update:value="
-                        (type) => {
-                            sponsorType = type.value
-                            // @ts-ignore
-                            form?.validate('sponsor.sponsor_type')
-                        }
-                    "
-                ></base-vue-select>
+                <the-sponsor-type-selector
+                    v-model:type="sponsorType"
+                    @update:type="form?.validate('sponsor.sponsor_type')"
+                ></the-sponsor-type-selector>
             </div>
 
             <base-form-input-error>
-                <div v-if="form?.invalid('branch_id')" class="mt-2 text-danger" data-test="error_branch_message">
-                    {{ form.errors.branch_id }}
+                <div
+                    v-if="form?.invalid('sponsor.sponsor_type')"
+                    class="mt-2 text-danger"
+                    data-test="error_sponsor_type_message"
+                >
+                    {{ form.errors['sponsor.sponsor_type'] }}
                 </div>
             </base-form-input-error>
         </div>
