@@ -12,6 +12,7 @@ class ItemCreateRequest extends FormRequest
             'name' => 'required',
             'qty' => 'required|integer',
             'note' => 'nullable',
+            'type' => 'nullable',
             'unit' => 'required|in:kg,piece,liter',
         ];
     }

@@ -14,6 +14,8 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheBabyMilkSelector from '@/Components/Global/TheBabyMilkSelector.vue'
+import TheDiapersSelector from '@/Components/Global/TheDiapersSelector.vue'
 import TheFamilyStatusSelector from '@/Components/Global/TheFamilyStatusSelector.vue'
 import TheShoesSizeSelector from '@/Components/Global/TheShoesSizeSelector.vue'
 import TheVocationalTrainingSelector from '@/Components/Global/TheVocationalTrainingSelector.vue'
@@ -53,9 +55,9 @@ const babyMilkQuantity = defineModel('babyMilkQuantity')
 
 const gender = defineModel('gender')
 
-const babyMilkType = defineModel('babyMilkType')
+const babyMilkType = defineModel<string | undefined>('babyMilkType')
 
-const diapersType = defineModel('diapersType')
+const diapersType = defineModel<string | undefined>('diapersType')
 
 const diapersQuantity = defineModel('diapersQuantity')
 
@@ -419,22 +421,16 @@ watch(
                     {{ $t('baby_milk_type') }}
                 </base-form-label>
 
-                <base-form-input
+                <the-baby-milk-selector
                     :id="`baby_milk_type_${index}`"
-                    v-model="babyMilkType"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('baby_milk_type')
-                        })
-                    "
-                    type="text"
-                    @change="
+                    v-model:baby-milk="babyMilkType"
+                    @update:baby-milk="
                         form?.validate(
                             //@ts-ignore
                             `orphans.${index}.baby_milk_type`
                         )
                     "
-                ></base-form-input>
+                ></the-baby-milk-selector>
 
                 <base-form-input-error>
                     <div
@@ -505,22 +501,16 @@ watch(
                     {{ $t('diapers_type') }}
                 </base-form-label>
 
-                <base-form-input
+                <the-diapers-selector
                     :id="`diapers_type_${index}`"
-                    v-model="diapersType"
-                    :placeholder="
-                        $t('auth.placeholders.fill', {
-                            attribute: $t('diapers_type')
-                        })
-                    "
-                    type="text"
-                    @change="
+                    v-model:diaper="diapersType"
+                    @update:diaper="
                         form?.validate(
                             //@ts-ignore
                             `orphans.${index}.diapers_type`
                         )
                     "
-                ></base-form-input>
+                ></the-diapers-selector>
 
                 <base-form-input-error>
                     <div

@@ -1,31 +1,31 @@
 <script lang="ts" setup>
-import type { Zone } from '@/types/types'
+import type { BabyMilk } from '@/types/types'
 
-import { useZonesStore } from '@/stores/zones'
+import { useInventoryStore } from '@/stores/inventory'
 import { onMounted, ref, watch } from 'vue'
 
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-const zone = defineModel<string>('zone', { default: '' })
+const babyMilk = defineModel<string>('babyMilk', { default: '' })
 
-const selectedZone = ref<Zone | string | undefined>('')
+const selectedBabyMilk = ref<BabyMilk | string | undefined>('')
 
-const zonesStore = useZonesStore()
+const inventoryStore = useInventoryStore()
 
-const handleUpdate = (value: Zone) => {
-    zone.value = value?.id
+const handleUpdate = (value: BabyMilk) => {
+    babyMilk.value = value?.id
 }
 
 onMounted(async () => {
-    await zonesStore.getZones()
+    await inventoryStore.getBabyMilk()
 
-    selectedZone.value = zonesStore.findZoneById(zone.value)
+    selectedBabyMilk.value = inventoryStore.findBabyMilkById(babyMilk.value)
 })
 
 watch(
-    () => zone.value,
+    () => babyMilk.value,
     () => {
-        selectedZone.value = zonesStore.findZoneById(zone.value)
+        selectedBabyMilk.value = inventoryStore.findBabyMilkById(babyMilk.value)
     }
 )
 </script>
@@ -33,8 +33,9 @@ watch(
 <template>
     <!--  @vue-ignore  -->
     <base-vue-select
-        v-model:value="selectedZone"
-        :options="zonesStore.zones"
+        v-model:value="selectedBabyMilk"
+        :options="inventoryStore.babyMilk"
+        :placeholder="$t('auth.placeholders.fill', { attribute: $t('baby_milk_type') })"
         label="name"
         track-by="id"
         @update:value="handleUpdate"

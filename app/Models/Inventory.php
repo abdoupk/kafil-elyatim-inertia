@@ -53,6 +53,7 @@ class Inventory extends Model
         'qty',
         'unit',
         'note',
+        'type',
     ];
 
     public function searchableAs(): string

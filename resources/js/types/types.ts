@@ -819,3 +819,13 @@ export type ArchiveOccasionType = {
     created_at: string | Date
     id: string
 }
+
+export type Diaper = {
+    id: string
+    name: string
+}
+
+export type BabyMilk = {
+    id: string
+    name: string
+}
