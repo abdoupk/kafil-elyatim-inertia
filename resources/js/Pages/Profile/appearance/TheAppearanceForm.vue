@@ -10,7 +10,7 @@ const submit = () => {}
 </script>
 
 <template>
-    <div class="border-b px-5 pb-5">
+    <div class="border-b pb-5 pe-5">
         <h2 class="rtl:text-xl rtl:font-semibold">{{ $t('appearance') }}</h2>
 
         <p class="mt-1 text-slate-600 dark:text-slate-400">
@@ -19,7 +19,7 @@ const submit = () => {}
     </div>
 
     <form @submit.prevent="submit">
-        <div class="p-5">
+        <div class="py-5 pe-5">
             <the-theme-selector></the-theme-selector>
 
             <the-layout-selector></the-layout-selector>
