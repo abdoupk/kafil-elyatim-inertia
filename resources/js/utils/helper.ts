@@ -19,8 +19,7 @@ const toRGB = (value: string) => {
 }
 
 // noinspection JSUnusedLocalSymbols
-const slideUp = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {
-}) => {
+const slideUp = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {}) => {
     el.style.transitionProperty = 'height, margin, padding'
 
     el.style.transitionDuration = duration + 'ms'
@@ -69,8 +68,7 @@ const setSlideProperties = (el: HTMLElement) => {
 }
 
 // noinspection JSUnusedLocalSymbols
-const slideDown = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {
-}) => {
+const slideDown = (el: HTMLElement, duration = 300, callback = (el: HTMLElement) => {}) => {
     el.style.removeProperty('display')
 
     let display = window.getComputedStyle(el).display
@@ -118,6 +116,15 @@ const setDarkModeClass = (appearance: AppearanceType) => {
         : document.documentElement.classList.remove('dark')
 }
 
+function getDateSuffix(date) {
+    const options = { day: 'numeric', locale: 'en-US' }
+    const formatter = new Intl.DateTimeFormat(`${getLocale()}-DZ`, options)
+    const formattedDate = formatter.format(date)
+
+    // Extract the date suffix from the formatted string
+    return formattedDate.match(/\D+$/)[0]
+}
+
 const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: AppearanceType) => {
     const el = document.querySelectorAll('html')[0]
 
@@ -128,9 +135,9 @@ const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: Appearan
 
 const isEmpty = (value) => {
     if (Array.isArray(value)) {
-        return value.length === 0 || value.every(item => isEmpty(item))
+        return value.length === 0 || value.every((item) => isEmpty(item))
     } else if (typeof value === 'object' && value !== null) {
-        return Object.keys(value).length === 0 || Object.values(value).every(item => isEmpty(item))
+        return Object.keys(value).length === 0 || Object.values(value).every((item) => isEmpty(item))
     } else {
         return value === null || value === undefined || value === ''
     }
@@ -282,46 +289,6 @@ const formatNumber = (value: number) => {
     return new Intl.NumberFormat(`${getLocale()}-DZ`).format(value)
 }
 
-function jumpToPreviousItem(results, currentIndex) {
-    const previousItemIndex = currentIndex.item - 1
-
-    if (previousItemIndex >= 0) {
-        // Jump to previous item in current group
-        currentIndex.item = previousItemIndex
-    } else {
-        // Jump to last item in previous group
-        const previousGroupIndex = currentIndex.group - 1
-
-        if (previousGroupIndex >= 0) {
-            const previousGroup = results[previousGroupIndex]
-
-            currentIndex.group = previousGroupIndex
-
-            currentIndex.item = previousGroup.length - 1
-        }
-    }
-}
-
-function jumpToNextItem(results, currentIndex) {
-    const currentGroup = results[currentIndex.group]
-
-    const nextItemIndex = currentIndex.item + 1
-
-    if (nextItemIndex < currentGroup.length) {
-        // Jump to next item in current group
-        currentIndex.item = nextItemIndex
-    } else {
-        // Jump to first item in next group
-        const nextGroupIndex = currentIndex.group + 1
-
-        if (nextGroupIndex < results.length) {
-            currentIndex.group = nextGroupIndex
-
-            currentIndex.item = 0
-        }
-    }
-}
-
 function setDateToCurrentTime(value: string | Date) {
     const currentTime = dayjs()
 
@@ -406,7 +373,6 @@ const handleFilterName = (field: ListBoxFilter, value: { value: string } | strin
     }
 }
 
-
 const formatUrl = (url: string) => {
     const parsedUrl = new URL(url)
 
@@ -457,9 +423,15 @@ const getDataForIndexPages = (url: string, params: IndexParams, options: object)
 
 function hasPermission(permission) {
     if (typeof permission === 'string') {
-        return !usePage().props.auth.user.roles.includes('super_admin') || usePage().props.auth.user.permissions.includes(permission.toString())
+        return (
+            !usePage().props.auth.user.roles.includes('super_admin') ||
+            usePage().props.auth.user.permissions.includes(permission.toString())
+        )
     } else if (Array.isArray(permission)) {
-        return !usePage().props.auth.user.roles.includes('super_admin') || usePage().props.auth.user.permissions.some(item => permission.includes(item))
+        return (
+            !usePage().props.auth.user.roles.includes('super_admin') ||
+            usePage().props.auth.user.permissions.some((item) => permission.includes(item))
+        )
     } else {
         return false
     }
@@ -473,14 +445,12 @@ export {
     handleFilterValue,
     formatDate,
     formatUrl,
-    shouldFetchFilterData,
     combineDateAndTime,
     getAcademicLevelFromId,
     getVocationalTrainingSpecialityFromId,
     setDateToCurrentTime,
     formatNumber,
-    jumpToNextItem,
-    jumpToPreviousItem,
+    getDateSuffix,
     isAssociationNameLatin,
     groupByKey,
     handleSponsorship,
