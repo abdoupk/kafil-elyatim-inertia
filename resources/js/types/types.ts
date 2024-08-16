@@ -301,6 +301,7 @@ export type CreateLessonForm = {
     until: string
     frequency: 'weekly' | 'monthly' | 'daily' | ''
     interval: number | null
+    update_this_and_all_coming: boolean
 }
 
 export interface CreateNeedForm {

@@ -876,5 +876,6 @@
     "family_statuses.worker_with_family": "عامل يسكن مع العائلة",
     "family_statuses.worker_outside_family": "عامل يسكن خارج العائلة",
     "family_statuses.married_with_family": "متزوج مع العائلة + أسرته",
-    "family_statuses.married_outside_family": "متزوج خارج العائلة"
+    "family_statuses.married_outside_family": "متزوج خارج العائلة",
+    "lessons.update_this_and_all_coming": "تحديث هذا الدرس وجميع الدروس القادمة"
 }

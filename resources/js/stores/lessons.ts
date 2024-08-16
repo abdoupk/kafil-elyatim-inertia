@@ -42,7 +42,8 @@ export const useLessonsStore = defineStore('lessons', {
             color: '',
             frequency: '',
             interval: null,
-            until: ''
+            until: '',
+            update_this_and_all_coming: true
         }
     }),
     actions: {

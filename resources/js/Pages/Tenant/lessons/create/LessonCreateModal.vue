@@ -44,8 +44,6 @@ const lessonsStore = useLessonsStore()
 // Initialize a ref for loading state
 const loading = ref(false)
 
-const selectThisAndAllComingLessons = ref(true)
-
 const subjects = ref<SubjectType[]>([])
 
 const form = computed(() => {
@@ -58,7 +56,11 @@ const form = computed(() => {
         )
     }
 
-    return useForm<CreateLessonForm>('post', route('tenant.lessons.store'), omit(lessonsStore.lesson, ['id']))
+    return useForm<CreateLessonForm>(
+        'post',
+        route('tenant.lessons.store'),
+        omit(lessonsStore.lesson, ['id', 'update_this_and_all_coming'])
+    )
 })
 
 // Define custom event emitter for 'close' event
@@ -158,7 +160,7 @@ const quota = ref<number>()
                     id="title"
                     ref="firstInputRef"
                     v-model="form.title"
-                    :disabled="!selectThisAndAllComingLessons"
+                    :disabled="!lessonsStore.lesson.update_this_and_all_coming"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.title') })"
                     type="text"
                     @change="form.validate('title')"
@@ -172,7 +174,7 @@ const quota = ref<number>()
 
             <!-- Begin: Date Options-->
             <date-selector
-                v-model:disabled="selectThisAndAllComingLessons"
+                v-model:disabled="lessonsStore.lesson.update_this_and_all_coming"
                 v-model:end-date="form.end_date"
                 v-model:frequency="form.frequency"
                 v-model:interval="form.interval"
@@ -196,7 +198,7 @@ const quota = ref<number>()
                     <the-school-selector
                         id="school"
                         v-model:school="form.school_id"
-                        :disabled="!selectThisAndAllComingLessons"
+                        :disabled="!lessonsStore.lesson.update_this_and_all_coming"
                         @update:school="handleUpdateSchool"
                     ></the-school-selector>
                 </div>
@@ -217,7 +219,7 @@ const quota = ref<number>()
                     <the-subject-selector
                         id="subject"
                         v-model:subject="form.subject_id"
-                        :disabled="!selectThisAndAllComingLessons"
+                        :disabled="!lessonsStore.lesson.update_this_and_all_coming"
                         :subjects="subjects"
                         @update:subject="handleUpdateSubject"
                     ></the-subject-selector>
@@ -239,7 +241,7 @@ const quota = ref<number>()
                     <!-- @vue-ignore -->
                     <orphans-selector
                         :academic_level_id="form.academic_level_id"
-                        :disabled="!selectThisAndAllComingLessons"
+                        :disabled="!lessonsStore.lesson.update_this_and_all_coming"
                         :orphans="form.orphans"
                         :quota="quota"
                         @update:selected-orphans="
@@ -265,7 +267,7 @@ const quota = ref<number>()
                 </base-form-label>
 
                 <color-selector
-                    :disabled="!selectThisAndAllComingLessons"
+                    :disabled="!lessonsStore.lesson.update_this_and_all_coming"
                     :model-value="form.color"
                     class="col-span-12"
                     @update:model-value="
@@ -283,16 +285,16 @@ const quota = ref<number>()
             </div>
             <!-- End: Color-->
 
-            <div class="col-span-12">
-                <base-form-switch class="text-lg">
+            <div v-if="lessonsStore.lesson.id" class="col-span-12 mt-2">
+                <base-form-switch class="text-sm">
                     <base-form-switch-input
                         id="selectThisAndAllComingLessons"
-                        v-model="selectThisAndAllComingLessons"
+                        v-model="lessonsStore.lesson.update_this_and_all_coming"
                         type="checkbox"
                     ></base-form-switch-input>
 
                     <base-form-switch-label htmlFor="selectThisAndAllComingLessons">
-                        {{ $t('incomes.label.cnr') }}
+                        {{ $t('lessons.update_this_and_all_coming') }}
                     </base-form-switch-label>
                 </base-form-switch>
             </div>
