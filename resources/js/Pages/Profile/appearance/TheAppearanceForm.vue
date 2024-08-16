@@ -1,4 +1,9 @@
 <script lang="ts" setup>
+import type { AppearanceType, ColorSchemesType, LayoutsType, ThemesType } from '@/types/types'
+
+import { useSettingsStore } from '@/stores/settings'
+import { useForm } from 'laravel-precognition-vue'
+
 import TheAccentColorSelector from '@/Pages/Profile/appearance/TheAccentColorSelector.vue'
 import TheAppearanceSelector from '@/Pages/Profile/appearance/TheAppearanceSelector.vue'
 import TheLayoutSelector from '@/Pages/Profile/appearance/theLayoutSelector.vue'
@@ -6,7 +11,33 @@ import TheThemeSelector from '@/Pages/Profile/appearance/theThemeSelector.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 
-const submit = () => {}
+import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
+
+const form = useForm<{
+    appearance: AppearanceType
+    layout: LayoutsType
+    theme: ThemesType
+    color_scheme: ColorSchemesType
+}>('put', route('tenant.profile.settings.update'), {
+    appearance: useSettingsStore().appearance,
+    layout: useSettingsStore().layout,
+    theme: useSettingsStore().theme,
+    color_scheme: useSettingsStore().colorScheme
+})
+
+const submit = () => {
+    form.submit({
+        onSuccess: () => {
+            useSettingsStore().theme = form.theme
+
+            useSettingsStore().layout = form.layout
+
+            setDarkModeClass(form.appearance)
+
+            setColorSchemeClass(form.color_scheme, form.appearance)
+        }
+    })
+}
 </script>
 
 <template>
@@ -20,13 +51,13 @@ const submit = () => {}
 
     <form @submit.prevent="submit">
         <div class="py-5 pe-5">
-            <the-theme-selector></the-theme-selector>
+            <the-theme-selector v-model:the-theme="form.theme"></the-theme-selector>
 
-            <the-layout-selector></the-layout-selector>
+            <the-layout-selector v-model:the-layout="form.layout"></the-layout-selector>
 
-            <the-appearance-selector></the-appearance-selector>
+            <the-appearance-selector v-model:appearance="form.appearance"></the-appearance-selector>
 
-            <the-accent-color-selector></the-accent-color-selector>
+            <the-accent-color-selector v-model:the-accent-color="form.color_scheme"></the-accent-color-selector>
 
             <base-button class="ms-auto mt-5 block w-20" type="submit" variant="primary">{{ $t('save') }}</base-button>
         </div>

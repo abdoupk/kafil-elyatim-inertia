@@ -227,6 +227,8 @@ Route::middleware([
                 Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
 
                 Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+
+                Route::put('settings', UpdateSettingsController::class)->name('settings.update');
             });
 
             Route::prefix('list')->name('list.')->group(function () {
@@ -752,5 +754,4 @@ Route::middleware([
         });
     });
 
-    Route::put('settings', UpdateSettingsController::class)->name('settings.update');
 });

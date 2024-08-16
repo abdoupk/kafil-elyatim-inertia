@@ -3,6 +3,7 @@ import type { AppearanceType, ColorSchemesType, ISettingState, LayoutsType, Them
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
+
 export const useSettingsStore = defineStore('settings', {
     state: (): ISettingState => ({
         appearance: 'light',
@@ -19,7 +20,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.appearance !== value) {
                 this.appearance = value
 
-                await axios.put('/settings', { appearance: value })
+                await axios.put(route('tenant.profile.settings.update'), { appearance: value })
             }
         },
 
@@ -27,7 +28,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.colorScheme !== colorScheme) {
                 this.colorScheme = colorScheme
 
-                await axios.put('/settings', { color_scheme: colorScheme })
+                await axios.put(route('tenant.profile.settings.update'), { color_scheme: colorScheme })
             }
         },
 
@@ -35,7 +36,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.theme !== theme) {
                 this.theme = theme
 
-                await axios.put('/settings', { theme })
+                await axios.put(route('tenant.profile.settings.update'), { theme })
             }
         },
 
@@ -43,7 +44,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.layout !== layout) {
                 this.layout = layout
 
-                await axios.put('/settings', { layout })
+                await axios.put(route('tenant.profile.settings.update'), { layout })
             }
         },
 

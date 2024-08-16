@@ -11,6 +11,6 @@ class UpdateSettingsController extends Controller
     {
         auth()->user()?->settings->update($request->validated());
 
-        return response()->json(['message' => 'Settings updated successfully.']);
+        return response('', 204);
     }
 }
