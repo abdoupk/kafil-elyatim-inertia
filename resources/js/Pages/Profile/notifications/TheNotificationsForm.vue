@@ -1,17 +1,23 @@
 <script lang="ts" setup>
-import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
-import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
-import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
+import TheNotificationItem from '@/Pages/Profile/notifications/TheNotificationItem.vue'
 </script>
 
 <template>
-    <div class="flex flex-row items-center justify-between rounded-lg border p-4">
-        <div class="space-y-0.5">
-            <base-form-label class="text-base"> Communication emails</base-form-label>
-            <p>Receive emails about your account activity.</p>
-        </div>
-        <base-form-switch class="text-lg">
-            <base-form-switch-input id="television" type="checkbox"></base-form-switch-input>
-        </base-form-switch>
+    <div class="border-b pb-5">
+        <h2 class="rtl:text-xl rtl:font-semibold">{{ $t('appearance') }}</h2>
+
+        <p class="mt-1 text-slate-600 dark:text-slate-400">
+            {{ $t('theme.profile_appearance_hint') }}
+        </p>
+    </div>
+
+    <p class="py-5">Notify me about...</p>
+
+    <div class="space-y-4">
+        <the-notification-item description="test" label="test"></the-notification-item>
+
+        <the-notification-item description="test2" label="test2"></the-notification-item>
+
+        <the-notification-item description="test3" label="test3"></the-notification-item>
     </div>
 </template>

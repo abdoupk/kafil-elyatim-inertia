@@ -455,8 +455,19 @@ const getDataForIndexPages = (url: string, params: IndexParams, options: object)
     router.get(url, data, options)
 }
 
+function hasPermission(permission) {
+    if (typeof permission === 'string') {
+        return !usePage().props.auth.user.roles.includes('super_admin') || usePage().props.auth.user.permissions.includes(permission.toString())
+    } else if (Array.isArray(permission)) {
+        return !usePage().props.auth.user.roles.includes('super_admin') || usePage().props.auth.user.permissions.some(item => permission.includes(item))
+    } else {
+        return false
+    }
+}
+
 export {
     isEqual,
+    hasPermission,
     formatFilters,
     getDataForIndexPages,
     handleFilterValue,
