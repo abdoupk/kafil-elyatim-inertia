@@ -17,6 +17,7 @@ use App\Http\Controllers\V1\Archive\ArchiveIndexController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Auth\PasswordController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
+use App\Http\Controllers\V1\Branches\BranchDetailsController;
 use App\Http\Controllers\V1\Branches\BranchesIndexController;
 use App\Http\Controllers\V1\Branches\BranchForceDeleteController;
 use App\Http\Controllers\V1\Branches\BranchRestoreController;
@@ -331,6 +332,9 @@ Route::middleware([
 
                 Route::get('show/{branch}', BranchShowController::class)
                     ->name('show');
+
+                Route::get('details/{branch}', BranchDetailsController::class)
+                    ->name('details');
 
                 Route::put('{branch}', BranchUpdateController::class)
                     ->name('update')->middleware([HandlePrecognitiveRequests::class]);

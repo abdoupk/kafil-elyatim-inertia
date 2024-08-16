@@ -13,8 +13,6 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate } from '@/utils/helper'
-
 defineProps<{ branches: PaginationData<BranchesIndexResource>; params: IndexParams }>()
 
 // eslint-disable-next-line array-element-newline
@@ -98,7 +96,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
 
                         <the-table-td>
                             <div class="whitespace-nowrap text-center">
-                                {{ formatDate(branch.created_at) }}
+                                {{ branch.created_at }}
                             </div>
                         </the-table-td>
 

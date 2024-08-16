@@ -99,7 +99,7 @@ const showDetailsModal = async (branchID: string | null) => {
     if (branchID) {
         selectedBranchId.value = branchID
 
-        await branchesStore.getBranch(branchID)
+        await branchesStore.getBranchDetails(branchID)
 
         showModalStatus.value = true
     }
