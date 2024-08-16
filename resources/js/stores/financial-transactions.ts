@@ -26,29 +26,16 @@ export const useFinancialTransactionsStore = defineStore('financialTransactions'
             date: new Date(),
             description: '',
             type: 'income',
-            member_id: '',
-            formatted_specification: {
-                label: 'monthly_sponsorship',
-                value: 'monthly_sponsorship'
-            },
-            formatted_member: {
-                id: '',
-                name: ''
-            }
+            member_id: ''
         }
     }),
     actions: {
         async getFinancialTransaction(financialTransactionId: string) {
             const {
                 data: { financialTransaction }
-            } = await axios.get(`financial/show/${financialTransactionId}`)
+            } = await axios.get(route('tenant.financial.show', financialTransactionId))
 
             this.financialTransaction = { ...financialTransaction }
-
-            this.financialTransaction.formatted_specification = {
-                label: financialTransaction.specification,
-                value: financialTransaction.specification
-            }
         }
     }
 })

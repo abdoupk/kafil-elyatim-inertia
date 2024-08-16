@@ -59,7 +59,7 @@ export const useLessonsStore = defineStore('lessons', {
         },
 
         async getOrphans(search: string, academic_level_id: number) {
-            return await axios.get(`lessons/list-orphans?search=${search} &academic_level_id=${academic_level_id}`)
+            return await axios.get(route('tenant.lessons.list-orphans', { search, academic_level_id }))
         }
     }
 })

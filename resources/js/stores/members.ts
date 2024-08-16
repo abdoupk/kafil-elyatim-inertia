@@ -62,6 +62,10 @@ export const useMembersStore = defineStore('members', {
         },
 
         async getMembers() {
+            if (this.members.length) {
+                return
+            }
+
             const { data: members } = await axios.get(route('tenant.list.members'))
 
             this.members = members

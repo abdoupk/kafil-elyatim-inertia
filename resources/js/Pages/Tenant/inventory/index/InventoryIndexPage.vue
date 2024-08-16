@@ -16,9 +16,9 @@ import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.v
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
 
 defineOptions({
     layout: TheLayout
@@ -98,6 +98,26 @@ const showCreateModal = () => {
     createUpdateModalStatus.value = true
 }
 
+const showCreateModalForBabyMilk = () => {
+    inventoryStore.$reset()
+
+    inventoryStore.item.type = 'baby_milk'
+
+    inventoryStore.item.unit = 'piece'
+
+    createUpdateModalStatus.value = true
+}
+
+const showCreateModalForDiapers = () => {
+    inventoryStore.$reset()
+
+    inventoryStore.item.type = 'diapers'
+
+    inventoryStore.item.unit = 'piece'
+
+    createUpdateModalStatus.value = true
+}
+
 const showEditModal = (itemID: string) => {
     selectedItemId.value = itemID
 
@@ -133,7 +153,15 @@ watchEffect(async () => {
     >
         <template #ExtraButtons>
             <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                {{ n__('add new', 1, { attribute: $t('item') }) }}
+                <svg-loader name="icon-plus"></svg-loader>
+            </base-button>
+
+            <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForBabyMilk">
+                <svg-loader name="icon-bottle-baby"></svg-loader>
+            </base-button>
+
+            <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForDiapers">
+                <svg-loader class="stroke-current stroke-1.5" name="icon-diapers"></svg-loader>
             </base-button>
         </template>
     </the-table-header>

@@ -73,6 +73,8 @@ use App\Http\Controllers\V1\List\ListClothesSizesController;
 use App\Http\Controllers\V1\List\ListRolesController;
 use App\Http\Controllers\V1\List\ListShoesSizesController;
 use App\Http\Controllers\V1\List\ListSubjectsController;
+use App\Http\Controllers\V1\Members\ListBabyMilkController;
+use App\Http\Controllers\V1\Members\ListDiapersController;
 use App\Http\Controllers\V1\Members\ListMembersController;
 use App\Http\Controllers\V1\Members\ListSchoolsController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
@@ -239,6 +241,14 @@ Route::middleware([
                 Route::get('subjects', ListSubjectsController::class)->name('subjects');
 
                 Route::get('schools', ListSchoolsController::class)->name('schools');
+
+                Route::get('list-branches', ListBranchesController::class)->name('branches');
+
+                Route::get('list-zones', ListZonesController::class)->name('zones');
+
+                Route::get('baby-milk', ListBabyMilkController::class)->name('baby-milk');
+
+                Route::get('diapers', ListDiapersController::class)->name('diapers');
             });
 
             Route::get('', DashboardController::class)
@@ -328,8 +338,6 @@ Route::middleware([
 
                 Route::delete('{branch}', BranchDeleteController::class)
                     ->name('destroy');
-
-                Route::get('list-branches', ListBranchesController::class)->name('list-branches');
 
                 Route::post('{branch}/restore', BranchRestoreController::class)
                     ->name('restore')->withTrashed();
@@ -508,8 +516,6 @@ Route::middleware([
 
                 Route::delete('{zone}', ZoneDeleteController::class)
                     ->name('destroy');
-
-                Route::get('list-zones', ListZonesController::class)->name('list-zones');
 
                 Route::post('{zone}/restore', ZoneRestoreController::class)
                     ->name('restore')->withTrashed();

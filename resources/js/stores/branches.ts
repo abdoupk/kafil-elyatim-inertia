@@ -5,6 +5,7 @@ import { defineStore } from 'pinia'
 
 import { omit } from '@/utils/helper'
 
+
 interface State {
     branch: CreateBranchForm & { id: string }
     branches: { id: string; name: string }[]
@@ -23,15 +24,17 @@ export const useBranchesStore = defineStore('branches', {
     }),
     actions: {
         async getBranch(branchId: string) {
-            await axios.get(`branches/show/${branchId}`).then((res) => {
+            await axios.get(route('tenant.branches.show', branchId)).then((res) => {
                 this.branch = omit(res.data.branch, [])
             })
         },
 
         async getBranches() {
-            const { data: branches } = await axios.get(route('tenant.branches.list-branches'))
+            if (this.branches.length === 0) {
+                const { data: branches } = await axios.get(route('tenant.list.branches'))
 
-            this.branches = branches
+                this.branches = branches
+            }
         },
 
         findBranchById(id: string) {

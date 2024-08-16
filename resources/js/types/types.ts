@@ -70,6 +70,7 @@ export interface ISettingState {
 export type SVGType =
     | 'icon-hands-holding-child'
     | 'icon-trash-undo'
+    | 'icon-diapers'
     | 'icon-eye'
     | 'icon-file-certificate'
     | 'icon-trash-list'
@@ -333,8 +334,9 @@ export interface CreateFinancialTransactionForm {
 
 export interface AddItemToInventoryForm {
     name: string
-    qty: number
+    qty: number | null
     unit: 'kg' | 'piece' | 'liter'
+    type: 'diapers' | 'baby_milk' | string
     note: string
 }
 
