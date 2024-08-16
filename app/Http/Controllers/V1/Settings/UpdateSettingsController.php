@@ -9,7 +9,7 @@ class UpdateSettingsController extends Controller
 {
     public function __invoke(UpdateSettingsRequest $request)
     {
-        auth()->user()?->settings->update($request->validated());
+        auth()->user()->settings->update($request->validated());
 
         return response('', 204);
     }
