@@ -4,8 +4,8 @@ return [
     'profile_information' => 'معلومات الملف الشخصي',
     'profile_information_hint' => 'تحرير المعلومات الشخصية للمستخدم',
     'update_password' => 'تحديث كلمة المرور',
-    'update_password_hint' => 'Ensure your account is using a long, random password to stay secure.',
+    'update_password_hint' => 'تأكد من أن حسابك يستخدم كلمة مرور عشوائية طويلة وعشوائية للبقاء آمنًا.',
     'delete_account' => 'حذف الحساب',
-    'delete_account_hint' => 'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.',
-    'delete_account_confirm' => 'Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.',
+    'delete_account_hint' => 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. قبل حذف حسابك، يرجى تنزيل أي بيانات أو معلومات ترغب في الاحتفاظ بها.',
+    'delete_account_confirm' => 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. يُرجى إدخال كلمة المرور الخاصة بك لتأكيد رغبتك في حذف حسابك نهائياً.',
 ];

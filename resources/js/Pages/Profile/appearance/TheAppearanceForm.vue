@@ -11,24 +11,24 @@ const submit = () => {}
 
 <template>
     <div class="border-b px-5 pb-5">
-        <h2 class="text-lg font-semibold">{{ $t('appearance') }}</h2>
+        <h2 class="rtl:text-xl rtl:font-semibold">{{ $t('appearance') }}</h2>
 
         <p class="mt-1 text-slate-600 dark:text-slate-400">
             {{ $t('theme.profile_appearance_hint') }}
         </p>
     </div>
 
-    <div class="p-5">
-        <form @submit.prevent="submit">
+    <form @submit.prevent="submit">
+        <div class="p-5">
             <the-theme-selector></the-theme-selector>
 
             <the-layout-selector></the-layout-selector>
 
-            <the-accent-color-selector></the-accent-color-selector>
-
             <the-appearance-selector></the-appearance-selector>
 
-            <base-button class="mt-5 w-20" type="submit" variant="primary">{{ $t('save') }}</base-button>
-        </form>
-    </div>
+            <the-accent-color-selector></the-accent-color-selector>
+
+            <base-button class="ms-auto mt-5 block w-20" type="submit" variant="primary">{{ $t('save') }}</base-button>
+        </div>
+    </form>
 </template>

@@ -13,31 +13,26 @@ theAccentColor.value = settingsStore.colorScheme
 
 <template>
     <div class="mt-5">
-        <div class="font-semibold">{{ $t('theme.accent_color') }}</div>
+        <div class="rtl:text-lg rtl:font-semibold">{{ $t('theme.accent_color') }}</div>
 
         <div class="mt-0.5 text-slate-500">{{ $t('theme.accent_color_hint') }}</div>
 
-        <div class="mt-5 grid grid-cols-2 gap-3.5">
+        <div class="mt-5 flex justify-start">
             <template v-for="colorScheme in colorSchemes" :key="colorScheme">
-                <div>
-                    <a
+                <div class="relative ms-2 flex justify-center gap-4 first:ms-0">
+                    <button
                         :class="
                             twMerge([
-                                'box block h-14 cursor-pointer border-slate-300/80 bg-slate-50 p-1',
+                                theAccentColor === colorScheme ? 'ring-2' : '',
                                 '[&.active]:border-2 [&.active]:border-theme-1/60',
-                                theAccentColor === colorScheme ? 'active' : ''
+                                colorScheme === settingsStore.colorScheme ? 'active' : '',
+                                ['bg-theme-1 dark:bg-theme-2', colorScheme]
                             ])
                         "
-                        @click.prevent="theAccentColor = colorScheme"
-                    >
-                        <div class="h-full overflow-hidden rounded-md">
-                            <div class="-mx-2 flex h-full items-center gap-1">
-                                <div :class="twMerge(['h-[200%] w-1/2 rotate-12 bg-theme-1', colorScheme])"></div>
-
-                                <div :class="twMerge(['h-[200%] w-1/2 rotate-12 bg-theme-2', colorScheme])"></div>
-                            </div>
-                        </div>
-                    </a>
+                        class="block h-8 w-8 rounded-full ring-primary ring-offset-1 transition-all hover:ring-2 dark:ring-darkmode-400"
+                        type="button"
+                        @click="theAccentColor = colorScheme"
+                    ></button>
                 </div>
             </template>
         </div>

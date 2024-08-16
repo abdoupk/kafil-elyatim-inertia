@@ -13,7 +13,7 @@ theLayout.value = settingsStore.layout
 
 <template>
     <div class="mt-5">
-        <div class="font-semibold">{{ $t('theme.layouts') }}</div>
+        <div class="rtl:text-lg rtl:font-semibold">{{ $t('theme.layouts') }}</div>
 
         <div class="mt-0.5 text-slate-500">{{ $t('theme.layouts_hint') }}</div>
 
@@ -38,7 +38,7 @@ theLayout.value = settingsStore.layout
                         </div>
                     </a>
                     <div class="mt-2.5 text-center text-xs capitalize">
-                        {{ layout.replace('_', '-') }}
+                        {{ $t(layout.replace('_', '-')) }}
                     </div>
                 </div>
             </template>

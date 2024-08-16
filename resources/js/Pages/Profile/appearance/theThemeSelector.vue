@@ -12,7 +12,7 @@ theTheme.value = settingsStore.theme
 </script>
 
 <template>
-    <h3 class="font-semibold">{{ $t('theme') }}</h3>
+    <h3 class="rtl:text-lg rtl:font-semibold">{{ $t('theme.theme') }}</h3>
 
     <h4 class="mt-0.5 text-slate-500">{{ $t('theme.theme_hint') }}</h4>
 

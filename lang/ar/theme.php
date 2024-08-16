@@ -1,14 +1,14 @@
 <?php
 
 return [
-    'profile_appearance_hint' => 'Customize the appearance of the app. Automatically switch between day and night themes.',
-    'appearance' => 'Appearance',
-    'appearance_hint' => 'Customize the appearance of the app. Automatically switch between day and night themes.',
-    'layouts' => 'Layout',
-    'layouts_hint' => 'Customize the layout of the app. Available layouts: Classic, Modern, Minimal.',
-    'theme' => 'Theme',
-    'themes' => 'Themes',
-    'theme_hint' => 'Select the theme of the app. Available themes: Enigma, IceWall, Tinker, Rubick.',
-    'accent_color' => 'Accent Color',
-    'accent_color_hint' => 'Select the color scheme of the app. Available color schemes: Theme 1, Theme 2, Theme 3, Theme 4.',
+    'profile_appearance_hint' => 'تخصيص مظهر التطبيق. التبديل تلقائيًا بين السمات النهارية والليلية.',
+    'appearance' => 'الوضع',
+    'appearance_hint' => 'تخصيص وضع التطبيق ليلي او نهاري.',
+    'layouts' => 'التخطيط',
+    'layouts_hint' => 'تخصيص تخطيط التطبيق.',
+    'theme' => 'السمة',
+    'themes' => 'السمات',
+    'theme_hint' => 'حدد سمة التطبيق.',
+    'accent_color' => 'لون التطبيق',
+    'accent_color_hint' => 'حدد نظام ألوان التطبيق.',
 ];

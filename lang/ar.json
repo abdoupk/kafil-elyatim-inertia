@@ -307,5 +307,10 @@
     "last_month": "الشهر السابق",
     "all": "الكل",
     "accept": "موافقة",
-    "the_families_ramadan_basket": "العائلات المستفيدة من قفة رمضان"
+    "the_families_ramadan_basket": "العائلات المستفيدة من قفة رمضان",
+    "side-menu": "قائمة جانبية",
+    "simple-menu": "قائمة بسيطة",
+    "top-menu": "قائمة علوية",
+    "light_mode": "الوضع النهاري",
+    "dark_mode": "الوضع الداكن"
 }

@@ -11,7 +11,7 @@ appearance.value = settingsStore.appearance
 
 <template>
     <div class="mt-5">
-        <div class="font-semibold">{{ $t('appearance') }}</div>
+        <div class="rtl:text-lg rtl:font-semibold">{{ $t('theme.appearance') }}</div>
 
         <div class="mt-0.5 text-slate-500">{{ $t('theme.appearance_hint') }}</div>
 
@@ -20,7 +20,7 @@ appearance.value = settingsStore.appearance
                 <div
                     :class="
                         twMerge([
-                            '[&.active]:border-2 [&.active]:border-theme-1/60',
+                            '[&.active]:border-2 [&.active]:border-theme-1/60  dark:[&.active]:border-primary',
                             appearance === 'light' ? 'active' : ''
                         ])
                     "
@@ -43,13 +43,13 @@ appearance.value = settingsStore.appearance
                     </div>
                 </div>
 
-                <div class="mt-2.5 text-center text-xs capitalize">Light</div>
+                <div class="mt-2.5 text-center text-xs capitalize">{{ $t('light_mode') }}</div>
             </div>
             <div>
                 <div
                     :class="
                         twMerge([
-                            '[&.active]:border-2 [&.active]:border-theme-1/60',
+                            '[&.active]:border-2 [&.active]:border-theme-1/60 dark:[&.active]:border-primary',
                             appearance === 'dark' ? 'active' : ''
                         ])
                     "
@@ -72,7 +72,7 @@ appearance.value = settingsStore.appearance
                     </div>
                 </div>
 
-                <div class="mt-2.5 text-center text-xs capitalize">Dark</div>
+                <div class="mt-2.5 text-center text-xs capitalize">{{ $t('dark_mode') }}</div>
             </div>
         </div>
     </div>
