@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { GeneralReports } from '@/types/dashboard'
 
-import ReportBox from '@/Pages/Tenant/dashboard/GeneralReports/ReportBox.vue'
+import ReportBox from '@/Pages/Tenant/dashboard/general-reports/ReportBox.vue'
 
 defineProps<{
     reports: GeneralReports

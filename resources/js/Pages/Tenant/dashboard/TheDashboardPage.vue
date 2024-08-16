@@ -6,10 +6,10 @@ import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import TheGeneralReports from '@/Pages/Tenant/dashboard/GeneralReports/TheGeneralReports.vue'
+import TheGeneralReports from '@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue'
 
 const TheFinancialReport = defineAsyncComponent(
-    () => import('@/Pages/Tenant/dashboard/FinancialReport/TheFinancialReport.vue')
+    () => import('@/Pages/Tenant/dashboard/financial-report/TheFinancialReport.vue')
 )
 
 defineOptions({
@@ -40,5 +40,7 @@ defineProps<{
                 </template>
             </suspense>
         </div>
+
+        weekly radar financial
     </div>
 </template>

@@ -7,7 +7,9 @@ import TheChartLoader from '@/Components/Global/TheChartLoader.vue'
 
 import { formatCurrency } from '@/utils/helper'
 
-const ReportLineChart = defineAsyncComponent(() => import('@/Pages/Tenant/dashboard/ReportLineChart.vue'))
+const ReportLineChart = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/financial-report/ReportLineChart.vue')
+)
 
 defineProps<{
     financialReports: {
