@@ -150,6 +150,7 @@ use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Roles\RoleStoreController;
 use App\Http\Controllers\V1\Roles\RoleUpdateController;
 use App\Http\Controllers\V1\Settings\SettingsIndexController;
+use App\Http\Controllers\V1\Settings\UpdateNotificationsSettingsController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsPDFController;
 use App\Http\Controllers\V1\Sponsors\ExportSponsorsXlsxController;
@@ -237,6 +238,8 @@ Route::middleware([
                 Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
                 Route::put('settings', UpdateSettingsController::class)->name('settings.update');
+
+                Route::put('settings', UpdateNotificationsSettingsController::class)->name('notifications.update');
             });
 
             Route::prefix('list')->name('list.')->group(function () {
