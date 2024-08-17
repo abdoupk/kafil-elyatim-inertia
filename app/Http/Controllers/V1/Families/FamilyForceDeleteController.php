@@ -9,16 +9,6 @@ class FamilyForceDeleteController extends Controller
 {
     public function __invoke(Family $family)
     {
-        $family->forceDelete();
-
-        $family->orphans()->forceDelete();
-
-        $family->sponsorships()->forceDelete();
-
-        $family->sponsor()->forceDelete();
-
-        $family->deceased()->forceDelete();
-
         return redirect()->back();
     }
 }

@@ -8,7 +8,7 @@ create table if not exists incomes
     "account"      text             not null,
     "other_income" text             not null,
     "total_income" double precision not null,
-    "sponsor_id"   uuid             not null references sponsors ("id"),
+    "sponsor_id"   uuid             not null references sponsors ("id") on delete cascade,
     "tenant_id"    text             not null references tenants ("id")
 );
 

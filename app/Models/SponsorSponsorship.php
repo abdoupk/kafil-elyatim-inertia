@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
@@ -50,7 +51,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class SponsorSponsorship extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable;
 
     public $timestamps = false;
 
@@ -67,5 +68,10 @@ class SponsorSponsorship extends Model
     public function sponsor(): BelongsTo
     {
         return $this->belongsTo(Sponsor::class);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'sponsor_sponsorships';
     }
 }
