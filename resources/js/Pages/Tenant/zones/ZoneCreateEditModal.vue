@@ -9,6 +9,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { __, n__ } from '@/utils/i18n'
 
@@ -21,6 +22,12 @@ const zonesStore = useZonesStore()
 
 // Initialize a ref for loading state
 const loading = ref(false)
+
+const showSuccessNotification = ref(false)
+
+const notificationTitle = computed(() => {
+    return zonesStore.zone.id ? __('successfully_updated') : __('successfully_created', { attribute: __('the_zone') })
+})
 
 const form = computed(() => {
     if (zonesStore.zone.id) {
@@ -54,7 +61,16 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
@@ -131,4 +147,6 @@ const modalType = computed(() => {
             <!-- End: Name-->
         </template>
     </create-edit-modal>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

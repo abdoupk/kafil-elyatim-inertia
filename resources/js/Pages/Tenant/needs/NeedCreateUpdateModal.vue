@@ -12,6 +12,7 @@ import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { needStatuses } from '@/utils/constants'
 import { omit } from '@/utils/helper'
@@ -32,6 +33,12 @@ const needStatusesLabels = ({ label }: { label: string }) => {
 
 // Initialize a ref for loading state
 const loading = ref(false)
+
+const showSuccessNotification = ref(false)
+
+const notificationTitle = computed(() => {
+    return needsStore.need.id ? __('successfully_updated') : __('successfully_created', { attribute: __('the_need') })
+})
 
 const form = computed(() => {
     if (needsStore.need.id) {
@@ -67,7 +74,16 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
@@ -127,6 +143,7 @@ const modalType = computed(() => {
                 </base-form-label>
 
                 <div>
+                    <!-- @vue-ignore -->
                     <base-vue-select
                         v-model:value="form.formatted_status"
                         :custom-label="needStatusesLabels"
@@ -208,4 +225,6 @@ const modalType = computed(() => {
             <!-- End: Note-->
         </template>
     </create-edit-modal>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

@@ -11,6 +11,7 @@ import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vu
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 import CreateEditSlideOver from '@/Components/Global/CreateEditSlideOver.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { permissions } from '@/utils/constants'
 import { __, n__ } from '@/utils/i18n'
@@ -31,6 +32,12 @@ const form = computed(() => {
     }
 
     return useForm('post', route('tenant.roles.store'), { ...rolesStore.role })
+})
+
+const showSuccessNotification = ref(false)
+
+const notificationTitle = computed(() => {
+    return rolesStore.role.uuid ? __('successfully_updated') : __('successfully_created', { attribute: __('the_role') })
 })
 
 // Define custom event emitter for 'close' event
@@ -57,7 +64,16 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
@@ -119,11 +135,12 @@ const modalType = computed(() => {
                             <div class="">
                                 <base-form-switch>
                                     <base-form-switch-input
+                                        :id="`${permission}_${key}`"
                                         v-model="form.permissions[`${permission}_${key}`]"
                                         type="checkbox"
                                     ></base-form-switch-input>
 
-                                    <base-form-switch-label>
+                                    <base-form-switch-label :for="`${permission}_${key}`">
                                         {{ `${$t(`permissions.${permission}`)}` }}
                                     </base-form-switch-label>
                                 </base-form-switch>
@@ -134,4 +151,6 @@ const modalType = computed(() => {
             </div>
         </template>
     </create-edit-slide-over>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

@@ -4,6 +4,8 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+
 import { financialTransactionSpecifications } from '@/utils/constants'
 import { __, n__ } from '@/utils/i18n'
 
@@ -29,6 +31,22 @@ defineProps<{
 
 // Get the financialTransactions store
 const financialTransactionsStore = useFinancialTransactionsStore()
+
+const showSuccessNotification = ref(false)
+
+const notificationTitle = computed(() => {
+    // Return financialTransactionsStore.financialTransaction.id
+    //     ? __('successfully_updated')
+    //     : __('successfully_created', { attribute: __('the_branch') })
+
+    if (financialTransactionsStore.financialTransaction.id) {
+        return __('successfully_updated')
+    } else {
+        return financialTransactionsStore.financialTransaction.type == 'income'
+            ? __('successfully_created', { attribute: __('new income') })
+            : __('successfully_created', { attribute: __('new expense') })
+    }
+})
 
 // Initialize a ref for loading state
 const loading = ref(false)
@@ -67,7 +85,16 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
@@ -215,4 +242,6 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
             <!-- End: Description  -->
         </template>
     </create-edit-modal>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

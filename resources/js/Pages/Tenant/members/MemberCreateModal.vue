@@ -4,6 +4,8 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
@@ -65,7 +67,16 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
@@ -74,6 +85,14 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the member id
 const modalTitle = computed(() => {
     return membersStore.member.id ? __('update member') : n__('add new', 0, { attribute: __('member') })
+})
+
+const showSuccessNotification = ref(false)
+
+const notificationTitle = computed(() => {
+    return membersStore.member.id
+        ? __('successfully_updated')
+        : __('successfully_created', { attribute: __('the_member') })
 })
 
 // Initialize a ref for the first input element
@@ -345,4 +364,6 @@ const modalType = computed(() => {
             <!-- End: roles-->
         </template>
     </create-edit-modal>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

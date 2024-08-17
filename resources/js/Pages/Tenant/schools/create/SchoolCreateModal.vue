@@ -6,6 +6,8 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+
 import { __, n__ } from '@/utils/i18n'
 
 const TheSubjectAndQuota = defineAsyncComponent(() => import('@/Pages/Tenant/schools/create/TheSubjectAndQuota.vue'))
@@ -32,6 +34,14 @@ const schoolsStore = useSchoolsStore()
 
 // Initialize a ref for loading state
 const loading = ref(false)
+
+const showSuccessNotification = ref(false)
+
+const notificationTitle = computed(() => {
+    return schoolsStore.school.id
+        ? __('successfully_updated')
+        : __('successfully_created', { attribute: __('the_school') })
+})
 
 const form = computed(() => {
     if (schoolsStore.school.id) {
@@ -65,7 +75,16 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
@@ -178,4 +197,6 @@ const removeLesson = (index: number) => {
             </div>
         </template>
     </create-edit-modal>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

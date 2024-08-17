@@ -4,6 +4,8 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+
 import { omit } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
@@ -32,6 +34,8 @@ const branchesStore = useBranchesStore()
 
 // Initialize a ref for loading state
 const loading = ref(false)
+
+const showSuccessNotification = ref(false)
 
 const form = computed(() => {
     if (branchesStore.branch.id) {
@@ -70,11 +74,26 @@ const handleSubmit = async () => {
     loading.value = true
 
     try {
-        await form.value.submit().then(handleSuccess)
+        await form.value
+            .submit({
+                onSuccess() {
+                    showSuccessNotification.value = true
+                },
+                onFinish() {
+                    showSuccessNotification.value = false
+                }
+            })
+            .then(handleSuccess)
     } finally {
         loading.value = false
     }
 }
+
+const notificationTitle = computed(() => {
+    return branchesStore.branch.id
+        ? __('successfully_updated')
+        : __('successfully_created', { attribute: __('the_branch') })
+})
 
 // Compute the slideover title based on the branch id
 const modalTitle = computed(() => {
@@ -177,4 +196,6 @@ const modalType = computed(() => {
             </div>
         </template>
     </create-edit-modal>
+
+    <success-notification :open="showSuccessNotification" :title="notificationTitle"></success-notification>
 </template>

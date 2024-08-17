@@ -60,6 +60,7 @@ class Settings extends Model
         'appearance',
         'user_id',
         'notifications',
+        'tenant_id',
     ];
 
     public function user(): BelongsTo
