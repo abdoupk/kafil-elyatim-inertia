@@ -26,6 +26,13 @@ export interface UserSettings {
     color_scheme: ColorSchemesType
     theme: ThemesType
     appearance: AppearanceType
+    notifications: {
+        families_changes: boolean
+        branches_and_zones_changes: boolean
+        schools_and_lessons_changes: boolean
+        occasions_saves: boolean
+        financial_changes: boolean
+    }
 }
 
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {

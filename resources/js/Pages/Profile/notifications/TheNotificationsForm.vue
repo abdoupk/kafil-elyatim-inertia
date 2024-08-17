@@ -1,16 +1,18 @@
 <script lang="ts" setup>
+import { usePage } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 
 import TheNotificationItem from '@/Pages/Profile/notifications/TheNotificationItem.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
 const form = useForm('put', route('tenant.profile.notifications.update'), {
-    families_changes: false,
-    branches_and_zones_changes: false,
-    schools_and_lessons_changes: false,
-    occasions_saves: false,
-    financial_changes: false
+    families_changes: usePage().props.auth.settings.notifications.families_changes,
+    branches_and_zones_changes: usePage().props.auth.settings.notifications.branches_and_zones_changes,
+    schools_and_lessons_changes: usePage().props.auth.settings.notifications.schools_and_lessons_changes,
+    occasions_saves: usePage().props.auth.settings.notifications.occasions_saves,
+    financial_changes: usePage().props.auth.settings.notifications.financial_changes
 })
 </script>
 
@@ -58,6 +60,10 @@ const form = useForm('put', route('tenant.profile.notifications.update'), {
             ></the-notification-item>
         </div>
 
-        <base-button class="ms-auto mt-5 block w-20" type="submit" variant="primary">{{ $t('save') }}</base-button>
+        <base-button :disabled="form.processing" class="col-span-12 !mt-5 w-20" type="submit" variant="primary">
+            {{ $t('update') }}
+
+            <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
+        </base-button>
     </form>
 </template>

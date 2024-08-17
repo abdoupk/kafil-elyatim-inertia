@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { provide, ref, watch } from 'vue'
 
 import BaseNotification, { type NotificationElement } from '@/Components/Base/notification/BaseNotification.vue'
@@ -21,22 +21,22 @@ watch(props, (value) => {
 
 <template>
     <base-notification
-        data-test="successNotification"
-        refKey="successNotification"
         :options="{
             duration: 3000,
             gravity: 'top',
             position: 'right'
         }"
         class="flex"
+        data-test="successNotification"
+        refKey="successNotification"
     >
-        <svg-loader name="icon-check-circle" class="h-4 w-4 fill-success"></svg-loader>
+        <svg-loader class="h-4 w-4 fill-success" name="icon-check-circle"></svg-loader>
 
         <div class="mx-4">
             <div class="font-medium">
                 {{ props.title }}
             </div>
-            <div class="mt-1 text-slate-500" v-if="props.message">{{ props.message }}}</div>
+            <div v-if="props.message" class="mt-1 text-slate-500">{{ props.message }}}</div>
         </div>
     </base-notification>
 </template>

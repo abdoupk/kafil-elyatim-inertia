@@ -239,7 +239,7 @@ Route::middleware([
 
                 Route::put('settings', UpdateSettingsController::class)->name('settings.update');
 
-                Route::put('settings', UpdateNotificationsSettingsController::class)->name('notifications.update');
+                Route::put('notifications', UpdateNotificationsSettingsController::class)->name('notifications.update');
             });
 
             Route::prefix('list')->name('list.')->group(function () {

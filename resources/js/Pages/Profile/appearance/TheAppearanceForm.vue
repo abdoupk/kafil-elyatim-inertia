@@ -10,6 +10,7 @@ import TheLayoutSelector from '@/Pages/Profile/appearance/theLayoutSelector.vue'
 import TheThemeSelector from '@/Pages/Profile/appearance/theThemeSelector.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
 import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
 
@@ -59,7 +60,13 @@ const submit = () => {
 
             <the-accent-color-selector v-model:the-accent-color="form.color_scheme"></the-accent-color-selector>
 
-            <base-button class="ms-auto mt-5 block w-20" type="submit" variant="primary">{{ $t('save') }}</base-button>
+            <div class="col-span-12 mt-2 flex justify-end">
+                <base-button :disabled="form.processing" class="w-20" type="submit" variant="primary">
+                    {{ $t('save') }}
+
+                    <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
+                </base-button>
+            </div>
         </div>
     </form>
 </template>
