@@ -71,6 +71,16 @@ class Baby extends Model
         return $this->belongsTo(Orphan::class);
     }
 
+    public function diapers(): BelongsTo
+    {
+        return $this->belongsTo(Inventory::class, 'diapers_type', 'id');
+    }
+
+    public function babyMilk(): BelongsTo
+    {
+        return $this->belongsTo(Inventory::class, 'baby_milk_type', 'id');
+    }
+
     public function toSearchableArray(): array
     {
         return [

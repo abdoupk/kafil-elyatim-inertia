@@ -22,5 +22,5 @@ function getFamiliesForExport(): Collection
 
 function searchFamilies(): \Illuminate\Database\Eloquent\Collection
 {
-    return search(Family::getModel())->get();
+    return search(Family::getModel(), limit: LIMIT)->get();
 }

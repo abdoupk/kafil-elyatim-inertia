@@ -16,7 +16,7 @@ function getSponsors(): LengthAwarePaginator
 
 function searchSponsors(): Collection
 {
-    return search(Sponsor::getModel())->get();
+    return search(Sponsor::getModel(), limit: LIMIT)->get();
 }
 
 function getSponsorsForExport(): Collection

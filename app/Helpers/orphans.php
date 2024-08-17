@@ -16,7 +16,7 @@ function getOrphans(): LengthAwarePaginator
 
 function searchOrphans(): Collection
 {
-    return search(Orphan::getModel())->get();
+    return search(Orphan::getModel(), limit: LIMIT)->get();
 }
 
 function getOrphansForExport(): Collection

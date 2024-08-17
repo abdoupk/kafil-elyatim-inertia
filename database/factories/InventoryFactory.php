@@ -15,7 +15,7 @@ class InventoryFactory extends Factory
             'created_at' => now(),
             'updated_at' => now(),
             'name' => fake()->name(),
-            'qty' => fake()->randomNumber(),
+            'qty' => fake()->numberBetween(1, 1000),
             'unit' => fake()->randomElement(['kg', 'liter', 'piece']),
             'tenant_id' => fake()->words(),
             'note' => fake()->realText(600),
