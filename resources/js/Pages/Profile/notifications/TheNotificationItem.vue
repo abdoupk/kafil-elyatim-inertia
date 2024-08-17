@@ -14,11 +14,18 @@ const status = defineModel('status')
 <template>
     <div class="flex flex-row items-center justify-between rounded-lg border p-5">
         <div class="space-y-0.5">
-            <base-form-label class="text-base">{{ $t(`profile.notifications.${label}`) }}</base-form-label>
+            <base-form-label :for="`notification-${label}`" class="cursor-pointer text-base"
+                >{{ $t(`profile.notifications.${label}`) }}
+            </base-form-label>
+
             <p class="text-sm text-slate-400">{{ $t(`profile.notifications.${description}`) }}</p>
         </div>
         <base-form-switch class="text-lg">
-            <base-form-switch-input v-model="status" type="checkbox"></base-form-switch-input>
+            <base-form-switch-input
+                :id="`notification-${label}`"
+                v-model="status"
+                type="checkbox"
+            ></base-form-switch-input>
         </base-form-switch>
     </div>
 </template>
