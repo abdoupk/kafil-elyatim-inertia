@@ -38,8 +38,8 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.eid-al-adha.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.eid-al-adha.export.xlsx', params)"
+        :export-pdf-url="route('tenant.archive.export.eid-al-adha.pdf', { ...params, archive: archive.id })"
+        :export-xlsx-url="route('tenant.archive.export.eid-al-adha.xlsx', { ...params, archive: archive.id })"
         :filters="eidAlAdhaFilters"
         :pagination-data="families"
         :params="params"

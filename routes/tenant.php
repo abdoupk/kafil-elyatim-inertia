@@ -14,6 +14,8 @@ use App\Http\Controllers\V1\Archive\ArchiveDetailsMonthlyBasketController;
 use App\Http\Controllers\V1\Archive\ArchiveDetailsRamadanBasketController;
 use App\Http\Controllers\V1\Archive\ArchiveDetailsSchoolEntryController;
 use App\Http\Controllers\V1\Archive\ArchiveIndexController;
+use App\Http\Controllers\V1\Archive\ExportArchiveFamiliesEidAlAdhaPDFController;
+use App\Http\Controllers\V1\Archive\ExportArchiveFamiliesEidAlAdhaXlsxController;
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\V1\Auth\PasswordController;
 use App\Http\Controllers\V1\Branches\BranchDeleteController;
@@ -763,17 +765,35 @@ Route::middleware([
             Route::prefix('archive')->name('archive.')->group(function () {
                 Route::get('', ArchiveIndexController::class)->name('index');
 
-                Route::get('details/eid-al-adha/{archive}', ArchiveDetailsEidAlAdhaController::class)->name('details.eid-al-adha');
+                Route::prefix('details')->name('details.')->group(function () {
+                    Route::get('eid-al-adha/{archive}', ArchiveDetailsEidAlAdhaController::class)->name('eid-al-adha');
 
-                Route::get('details/monthly-basket/{archive}', ArchiveDetailsMonthlyBasketController::class)->name('details.monthly-basket');
+                    Route::get('monthly-basket/{archive}', ArchiveDetailsMonthlyBasketController::class)->name('monthly-basket');
 
-                Route::get('details/ramadan-basket/{archive}', ArchiveDetailsRamadanBasketController::class)->name('details.ramadan-basket');
+                    Route::get('ramadan-basket/{archive}', ArchiveDetailsRamadanBasketController::class)->name('ramadan-basket');
 
-                Route::get('details/school-entry/{archive}', ArchiveDetailsSchoolEntryController::class)->name('details.school-entry');
+                    Route::get('school-entry/{archive}', ArchiveDetailsSchoolEntryController::class)->name('school-entry');
 
-                Route::get('details/eid-suit/{archive}', ArchiveDetailsEidSuitController::class)->name('details.eid-suit');
+                    Route::get('eid-suit/{archive}', ArchiveDetailsEidSuitController::class)->name('eid-suit');
 
-                Route::get('details/babies-milk-and-diapers/{archive}', ArchiveDetailsBabiesMilkAndDiapersController::class)->name('details.babies-milk-and-diapers');
+                    Route::get('babies-milk-and-diapers/{archive}', ArchiveDetailsBabiesMilkAndDiapersController::class)->name('babies-milk-and-diapers');
+                });
+
+                Route::prefix('export')->name('export.')->group(function () {
+                    Route::get('eid-al-adha/pdf/{archive}', ExportArchiveFamiliesEidAlAdhaPDFController::class)->name('eid-al-adha.pdf');
+
+                    Route::get('eid-al-adha/xlsx/{archive}', ExportArchiveFamiliesEidAlAdhaXlsxController::class)->name('eid-al-adha.xlsx');
+
+                    //                    Route::get('monthly-basket/{archive}', ArchiveDetailsMonthlyBasketController::class)->name('monthly-basket');
+                    //
+                    //                    Route::get('ramadan-basket/{archive}', ArchiveDetailsRamadanBasketController::class)->name('ramadan-basket');
+                    //
+                    //                    Route::get('school-entry/{archive}', ArchiveDetailsSchoolEntryController::class)->name('school-entry');
+                    //
+                    //                    Route::get('eid-suit/{archive}', ArchiveDetailsEidSuitController::class)->name('eid-suit');
+                    //
+                    //                    Route::get('babies-milk-and-diapers/{archive}', ArchiveDetailsBabiesMilkAndDiapersController::class)->name('babies-milk-and-diapers');
+                });
             });
         });
     });

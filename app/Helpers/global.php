@@ -4,9 +4,6 @@
 
 /** @noinspection NullPointerExceptionInspection */
 
-use App\Models\Baby;
-use App\Models\FamilySponsorship;
-use App\Models\OrphanSponsorship;
 use App\Models\VocationalTraining;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
@@ -33,6 +30,37 @@ function saveToPDF(string $directory, string $variableName, callable $function):
     $pdfPath = $disk->path($pdfFile);
 
     Browsershot::html(view("pdf.$directory", [$variableName => $function()])
+        ->render())
+        ->ignoreHttpsErrors()
+        ->noSandbox()
+        ->format('A4')
+        ->margins(2, 4, 2, 4)
+        ->landscape()
+        ->save($pdfPath);
+
+    // TODO add Footer name of auth and date
+    return $disk->download($pdfFile);
+}
+
+/**
+ * @throws Throwable
+ * @throws CouldNotTakeBrowsershot
+ */
+function saveArchiveToPDF(string $directory, callable $function, string $date): StreamedResponse
+{
+    $disk = Storage::disk('public');
+
+    if (! $disk->directoryExists("archives/$directory")) {
+        $disk->makeDirectory($directory);
+    }
+
+    $pdfName = __('exports.archive.'.Str::replace('-', '_', explode('/', "archives/$directory/sponsorships")[1]), ['date' => $date]);
+
+    $pdfFile = "$directory/$pdfName".'.pdf';
+
+    $pdfPath = $disk->path($pdfFile);
+
+    Browsershot::html(view("pdf.occasions.$directory", ['sponsorships' => $function()])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()
@@ -183,18 +211,4 @@ function formatPhoneNumber($phone): string
         substr($phone, 4, 2).'-'.
         substr($phone, 6, 2).'-'.
         substr($phone, 8, 2);
-}
-
-function saveToArchive($occasion, FamilySponsorship|Baby|OrphanSponsorship $model): void
-{
-    $formatted_data = [
-        'saved_month' => now()->format('m-Y'),
-        'occasion' => $occasion,
-        'saved_by' => auth()->user()->id,
-    ];
-
-    $model->archives()->updateOrCreate([
-        'saved_month' => $formatted_data['saved_month'],
-        'occasion' => $formatted_data['occasion'],
-    ], $formatted_data);
 }
