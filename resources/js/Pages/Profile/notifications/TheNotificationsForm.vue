@@ -7,13 +7,7 @@ import TheNotificationItem from '@/Pages/Profile/notifications/TheNotificationIt
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
-const form = useForm('put', route('tenant.profile.notifications.update'), {
-    families_changes: usePage().props.auth.settings.notifications.families_changes,
-    branches_and_zones_changes: usePage().props.auth.settings.notifications.branches_and_zones_changes,
-    schools_and_lessons_changes: usePage().props.auth.settings.notifications.schools_and_lessons_changes,
-    occasions_saves: usePage().props.auth.settings.notifications.occasions_saves,
-    financial_changes: usePage().props.auth.settings.notifications.financial_changes
-})
+const form = useForm('put', route('tenant.profile.notifications.update'), usePage().props.auth.settings.notifications)
 </script>
 
 <template>

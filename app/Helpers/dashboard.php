@@ -71,8 +71,6 @@ function generateFinancialReport(): array
 
     $result['totalThisMonth'] = $result['incomes'][$monthIndex] + $result['expenses'][$monthIndex];
 
-    ray($result);
-
     return $result;
 }
 
@@ -80,7 +78,7 @@ function generateTest(): array
 {
     $year = date('Y');
 
-    $a = Finance::selectRaw('
+    return Finance::selectRaw('
             EXTRACT(MONTH FROM created_at) as month, SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END) as negative_amount, SUM(CASE WHEN amount >= 0 THEN amount ELSE 0 END) as positive_amount, specification
         ')
         ->whereYear('created_at', $year)
@@ -98,8 +96,4 @@ function generateTest(): array
 
             return $monthlyTotals;
         })->toArray();
-
-    ray($a);
-
-    return $a;
 }
