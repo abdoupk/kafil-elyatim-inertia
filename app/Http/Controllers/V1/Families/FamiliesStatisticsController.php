@@ -10,6 +10,12 @@ class FamiliesStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/families/statistics/FamiliesStatisticsPage');
+        return Inertia::render('Tenant/families/statistics/FamiliesStatisticsPage', [
+            'familiesByZone' => fn () => getFamiliesGroupedByZone(),
+            'familiesByBranch' => fn () => getFamiliesGroupedByBranch(),
+            'familiesByOrphansCount' => fn () => getFamiliesGroupedByOrphansCount(),
+            'familiesSponsorShips' => fn () => getFamiliesSponsorShips(),
+            'familiesGroupByDate' => fn () => getFamiliesGroupByDate(),
+        ]);
     }
 }

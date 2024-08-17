@@ -9,7 +9,6 @@ import { createPinia } from 'pinia'
 import { type DefineComponent, createApp, h } from 'vue'
 import { ZiggyVue } from 'ziggy-js'
 
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({

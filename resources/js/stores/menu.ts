@@ -5,7 +5,6 @@ import { defineStore } from 'pinia'
 import { hasPermission } from '@/utils/helper'
 import { __, n__ } from '@/utils/i18n'
 
-
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({
         menu: [

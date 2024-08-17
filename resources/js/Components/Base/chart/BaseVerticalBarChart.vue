@@ -1,18 +1,20 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-import type { ChartData, ChartOptions } from 'chart.js/auto'
-import BaseChart from '@/Components/Base/chart/BaseChart.vue'
-import { getColor } from '@/utils/colors'
 import { useSettingsStore } from '@/stores/settings'
+import type { ChartData, ChartOptions } from 'chart.js/auto'
+import { computed } from 'vue'
+
+import BaseChart from '@/Components/Base/chart/BaseChart.vue'
+
+import { getColor } from '@/utils/colors'
 
 const props = defineProps<{
-    width?: number;
-    height?: number;
-    labels: string[];
+    width?: number
+    height?: number
+    labels: string[] | number[]
     datasets: {
-        label: string;
-        data: number[];
-        backgroundColor: () => string;
+        label: string
+        data: number[]
+        backgroundColor: () => string
     }[]
 }>()
 
@@ -63,24 +65,13 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8),
-                    callback: function(value) {
-                        return '$' + value
-                    }
+                    color: getColor('slate.500', 0.8)
                 },
                 grid: {
-                    color: darkMode.value
-                        ? getColor('slate.500', 0.3)
-                        : getColor('slate.300'),
+                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
                     borderDash: [2, 2],
                     drawBorder: false
                 }
-            },
-            grid: {
-                display: false
-            },
-            ticks: {
-                display: false
             }
         }
     }
@@ -88,11 +79,5 @@ const options = computed<ChartOptions>(() => {
 </script>
 
 <template>
-    <base-chart
-        :data
-        :height
-        :options
-        :width
-        type="bar"
-    />
+    <base-chart :data :height :options :width type="bar" />
 </template>
