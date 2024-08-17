@@ -60,6 +60,7 @@ use App\Http\Controllers\V1\Financial\FinancialStoreController;
 use App\Http\Controllers\V1\Financial\FinancialUpdateController;
 use App\Http\Controllers\V1\Inventory\InventoryIndexController;
 use App\Http\Controllers\V1\Inventory\ItemDeleteController;
+use App\Http\Controllers\V1\Inventory\ItemDetailsController;
 use App\Http\Controllers\V1\Inventory\ItemShowController;
 use App\Http\Controllers\V1\Inventory\ItemStoreController;
 use App\Http\Controllers\V1\Inventory\ItemUpdateController;
@@ -79,6 +80,7 @@ use App\Http\Controllers\V1\Members\ListDiapersController;
 use App\Http\Controllers\V1\Members\ListMembersController;
 use App\Http\Controllers\V1\Members\ListSchoolsController;
 use App\Http\Controllers\V1\Members\MemberDeleteController;
+use App\Http\Controllers\V1\Members\MemberDetailsController;
 use App\Http\Controllers\V1\Members\MemberForceDeleteController;
 use App\Http\Controllers\V1\Members\MemberRestoreController;
 use App\Http\Controllers\V1\Members\MemberShowController;
@@ -87,6 +89,7 @@ use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
 use App\Http\Controllers\V1\Needs\GetOrphansController;
 use App\Http\Controllers\V1\Needs\NeedDeleteController;
+use App\Http\Controllers\V1\Needs\NeedDetailsController;
 use App\Http\Controllers\V1\Needs\NeedForceDeleteController;
 use App\Http\Controllers\V1\Needs\NeedRestoreController;
 use App\Http\Controllers\V1\Needs\NeedShowController;
@@ -131,6 +134,7 @@ use App\Http\Controllers\V1\Orphans\OrphanUpdateInfosController;
 use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Orphans\SearchOrphansController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolDeleteController;
+use App\Http\Controllers\V1\PrivateSchools\SchoolDetailsController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolForceDeleteController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolRestoreController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolShowController;
@@ -167,6 +171,7 @@ use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAch
 use App\Http\Controllers\V1\VocationalTrainingAchievements\VocationalTrainingAchievementsUpdateController;
 use App\Http\Controllers\V1\Zones\ListZonesController;
 use App\Http\Controllers\V1\Zones\ZoneDeleteController;
+use App\Http\Controllers\V1\Zones\ZoneDetailsController;
 use App\Http\Controllers\V1\Zones\ZoneForceDeleteController;
 use App\Http\Controllers\V1\Zones\ZoneRestoreController;
 use App\Http\Controllers\V1\Zones\ZoneShowController;
@@ -319,6 +324,9 @@ Route::middleware([
                 Route::get('show/{item}', ItemShowController::class)
                     ->name('items.show');
 
+                Route::get('details/{item}', ItemDetailsController::class)
+                    ->name('items.details');
+
                 Route::put('{item}', ItemUpdateController::class)
                     ->name('items.update')->middleware([HandlePrecognitiveRequests::class]);
 
@@ -396,6 +404,9 @@ Route::middleware([
 
                 Route::get('show/{member}', MemberShowController::class)
                     ->name('show');
+
+                Route::get('details/{member}', MemberDetailsController::class)
+                    ->name('details');
 
                 Route::put('{member}', MemberUpdateController::class)
                     ->name('update')->middleware([HandlePrecognitiveRequests::class]);
@@ -514,6 +525,9 @@ Route::middleware([
                 Route::get('show/{zone}', ZoneShowController::class)
                     ->name('show');
 
+                Route::get('details/{zone}', ZoneDetailsController::class)
+                    ->name('details');
+
                 Route::put('{zone}', ZoneUpdateController::class)
                     ->name('update')->middleware([HandlePrecognitiveRequests::class]);
 
@@ -617,6 +631,9 @@ Route::middleware([
                 Route::get('show/{need}', NeedShowController::class)
                     ->name('show');
 
+                Route::get('details/{need}', NeedDetailsController::class)
+                    ->name('details');
+
                 Route::put('{need}', NeedUpdateController::class)
                     ->name('update')->middleware([HandlePrecognitiveRequests::class]);
 
@@ -673,6 +690,9 @@ Route::middleware([
 
                 Route::get('show/{school}', SchoolShowController::class)
                     ->name('show');
+
+                Route::get('details/{school}', SchoolDetailsController::class)
+                    ->name('details');
 
                 Route::delete('{school}', SchoolDeleteController::class)
                     ->name('destroy');
@@ -757,5 +777,4 @@ Route::middleware([
             });
         });
     });
-
 });

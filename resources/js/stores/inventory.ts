@@ -39,6 +39,12 @@ export const useInventoryStore = defineStore('inventory', {
             this.item = { ...item }
         },
 
+        async getItemDetails(itemId: string) {
+            const { data } = await axios.get(route('tenant.items.details', itemId))
+
+            this.item = data.item
+        },
+
         async getBabyMilk() {
             if (this.babyMilk.length > 0) {
                 return

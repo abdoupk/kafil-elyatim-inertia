@@ -36,6 +36,12 @@ export const useNeedsStore = defineStore('needs', {
             this.need.formatted_status = { label: need.status, value: need.status }
         },
 
+        async getNeedDetails(needId: string) {
+            const { data } = await axios.get(route('tenant.needs.details', needId))
+
+            this.need = data.need
+        },
+
         async getOrphans() {
             return await axios.get(route('tenant.needs.get-orphans'))
         },

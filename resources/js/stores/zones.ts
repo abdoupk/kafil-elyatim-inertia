@@ -23,6 +23,13 @@ export const useZonesStore = defineStore('zones', {
                 this.zone = res.data.zone
             })
         },
+
+        async getZoneDetails(zoneId: string) {
+            const { data } = await axios.get(route('tenant.zones.details', zoneId))
+
+            this.zone = data.zone
+        },
+
         async getZones() {
             if (this.zones.length > 0) {
                 return

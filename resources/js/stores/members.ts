@@ -70,6 +70,13 @@ export const useMembersStore = defineStore('members', {
 
             this.members = members
         },
+
+        async getMemberDetails(memberId: string) {
+            const { data } = await axios.get(route('tenant.members.details', memberId))
+
+            this.member = data.member
+        },
+
         findMembersByIds(ids: string[] | string) {
             if (typeof ids === 'string') {
                 return this.members.filter((member) => member.id === ids)
