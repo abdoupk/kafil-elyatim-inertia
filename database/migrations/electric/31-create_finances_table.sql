@@ -23,6 +23,7 @@ CREATE TABLE "finances"
     "updated_at"    timestamp(0) WITHOUT TIME ZONE NULL,
     "deleted_at"    timestamp(0) without time zone null,
     "created_by"    uuid                           not null references users (id) on delete set null,
+    "received_by"   uuid                           not null references users (id) on delete set null,
     "deleted_by"    uuid                           null references users (id) on delete set null
 );
 

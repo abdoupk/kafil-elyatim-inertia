@@ -52,6 +52,8 @@ use App\Http\Controllers\V1\Families\FamilyUpdateSecondSponsorController;
 use App\Http\Controllers\V1\Families\FamilyUpdateSponsorShipsController;
 use App\Http\Controllers\V1\Families\FamilyUpdateSpouseController;
 use App\Http\Controllers\V1\Families\SearchFamiliesController;
+use App\Http\Controllers\V1\Financial\ExportFinancialTransactionsPDFController;
+use App\Http\Controllers\V1\Financial\ExportFinancialTransactionsXlsxController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialForceDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
@@ -516,6 +518,12 @@ Route::middleware([
 
                 Route::get('statistics', FinancialStatisticsController::class)
                     ->name('statistics');
+
+                Route::get('export-pdf', ExportFinancialTransactionsPDFController::class)
+                    ->name('export.pdf');
+
+                Route::get('export-xlsx', ExportFinancialTransactionsXlsxController::class)
+                    ->name('export.xlsx');
             });
 
             Route::prefix('statistics')->name('statistics.')->group(function () {

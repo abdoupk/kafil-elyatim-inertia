@@ -79,7 +79,7 @@ function getParams(): array
         /* @phpstan-ignore-next-line */
         'page' => (int) request()->input('page', 1),
         'search' => request()->input('search', ''),
-        'perPage' => request()->input('perPage', 10),
+        'perPage' => request()->integer('perPage', 10),
         'fields' => request()->input('fields'),
         'directions' => request()->input('directions'),
         'filters' => request()->input('filters'),
@@ -136,7 +136,7 @@ function generateFormattedSort(): array
 function search(Model $model, ?string $additional_filters = '', ?int $limit = null): Builder
 {
     if (! $limit) {
-        $limit = (int) request()->input('perPage', 10);
+        $limit = (int) request()->integer('perPage', 10);
     }
 
     if (property_exists($model, 'deleted_at')) {

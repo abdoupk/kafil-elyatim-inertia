@@ -17,5 +17,5 @@ function getBranches(): LengthAwarePaginator
             ->withCount('families')
         )
         /** @phpstan-ignore-next-line */
-        ->paginate(perPage: request()->input('perPage', 10));
+        ->paginate(perPage: request()->integer('perPage', 10));
 }

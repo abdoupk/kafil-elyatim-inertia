@@ -13,7 +13,7 @@ class TrashIndexController extends Controller
 {
     public function __invoke(): Response
     {
-        $perPage = (int) request()->input('perPage', 10);
+        $perPage = (int) request()->integer('perPage', 10);
         $currentPage = Paginator::resolveCurrentPage();
         $startIndex = ($currentPage - 1) * $perPage;
 

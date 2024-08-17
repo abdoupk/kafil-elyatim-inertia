@@ -19,6 +19,7 @@ class FinancialIndexResource extends JsonResource
             'date' => $this->date,
             'specification' => $this->specification,
             'creator' => new MemberResource($this->whenLoaded('creator')),
+            'receiver' => new MemberResource($this->whenLoaded('receiver')),
         ];
     }
 }

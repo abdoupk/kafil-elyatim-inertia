@@ -70,6 +70,7 @@
     "entries.finances": "[11,*]إيراد|[3,10]إيرادات|{2}إيرادين",
     "exports.eid_al_adha_families": "قائمة المستفيدين من الأضحية لسنة :date",
     "exports.archive.eid_al_adha_families": "أرشيف المستفيدين من الأضحية لسنة :date",
+    "exports.transactions": "المعاملات المالية",
     "filters.family": "العائلة",
     "filters.sponsor": "المتكفل",
     "filters.branch": "الفرع",
@@ -897,5 +898,6 @@
     "piece": "علبة",
     "created_by": "تم الإضافة بواسطة",
     "new income": "دخل جديد",
-    "new expense": "مصروف جديد"
+    "new expense": "مصروف جديد",
+    "the_total_amount": "المبلغ الإجمالي"
 }

@@ -14,7 +14,7 @@ function getZones(): LengthAwarePaginator
     $directions = (array) request()->input('directions', []);
 
     /** @phpstan-ignore-next-line */
-    $perPage = (int) request()->input('perPage', 10);
+    $perPage = (int) request()->integer('perPage', 10);
 
     $zones = Zone::search($search);
 

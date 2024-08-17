@@ -79,6 +79,11 @@ class Finance extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function receiver(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'received_by');
+    }
+
     public function searchableAs(): string
     {
         return 'finances';
