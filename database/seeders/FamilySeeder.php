@@ -6,6 +6,7 @@ use App\Models\AcademicLevel;
 use App\Models\Baby;
 use App\Models\Branch;
 use App\Models\Family;
+use App\Models\Inventory;
 use App\Models\Need;
 use App\Models\Orphan;
 use App\Models\SecondSponsor;
@@ -80,6 +81,8 @@ class FamilySeeder extends Seeder
                         'tenant_id' => $tenant->id,
                         'orphan_id' => $orphan->id,
                         'family_id' => $family->id,
+                        'diapers_type' => Inventory::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
+                        'baby_milk_type' => Inventory::whereTenantId($tenant->id)->inRandomOrder()->first()?->id,
                     ]);
 
                     Need::factory()->create([

@@ -63,6 +63,7 @@ class TenantSeeder extends Seeder
 
             Inventory::factory()->count(fake()->numberBetween(10, 25))->create([
                 'tenant_id' => $tenant?->id,
+                'type' => fake()->randomElement(['diapers', 'baby_milk', null]),
             ]);
 
             Finance::factory()->count(fake()->numberBetween(13, 89))->create([

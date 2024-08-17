@@ -13,9 +13,9 @@ class BabyFactory extends Factory
     {
         return [
             'baby_milk_quantity' => fake()->numberBetween(1, 4),
-            'baby_milk_type' => fake('ar_SA')->realText(10),
+            'baby_milk_type' => fake()->uuid,
             'diapers_quantity' => fake()->numberBetween(1, 4),
-            'diapers_type' => fake('ar_SA')->realText(10),
+            'diapers_type' => fake()->uuid,
             'tenant_id' => fake()->uuid,
             'orphan_id' => fake()->uuid,
             'family_id' => fake()->uuid,
