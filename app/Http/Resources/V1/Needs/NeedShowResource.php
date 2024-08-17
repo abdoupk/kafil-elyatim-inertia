@@ -2,10 +2,12 @@
 
 namespace App\Http\Resources\V1\Needs;
 
+use App\Http\Resources\V1\Members\MemberResource;
+use App\Models\Need;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Need */
+/** @mixin Need */
 class NeedShowResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -15,13 +17,14 @@ class NeedShowResource extends JsonResource
             'demand' => $this->demand,
             'subject' => $this->subject,
             'status' => $this->status,
-            'needable_type' => $this->needable_type,
-            'needable_id' => $this->needable_id,
+            'needable' => [
+                'id' => $this->needable_id,
+                'name' => $this->needable->getName(),
+                'type' => $this->needable_type,
+            ],
+            'creator' => new MemberResource($this->whenLoaded('creator')),
             'note' => $this->note,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-
-            'tenant_id' => $this->tenant_id,
+            'readable_created_at' => $this->created_at->translatedFormat('d F Y H:i A'),
         ];
     }
 }

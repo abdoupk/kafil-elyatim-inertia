@@ -11,7 +11,7 @@ class NeedDetailsController extends Controller
     public function __invoke(Need $need)
     {
         return response()->json([
-            'need' => NeedShowResource::make($need->load(['city', 'president:id,last_name,first_name', 'creator:id,first_name,last_name'])->loadCount('families')),
+            'need' => NeedShowResource::make($need->load(['needable:id,first_name,last_name', 'creator:id,first_name,last_name'])),
         ]);
     }
 }

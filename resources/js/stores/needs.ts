@@ -10,6 +10,16 @@ interface State {
             label: string
             value: string
         }
+        readable_created_at?: string
+        creator?: {
+            id: string
+            name: string
+        }
+        needable?: {
+            id: string
+            name: string
+            type: string
+        }
     }
 }
 

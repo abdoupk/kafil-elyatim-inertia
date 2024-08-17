@@ -11,8 +11,6 @@ class NeedsIndexController extends Controller
 {
     public function __invoke(): Response
     {
-        ray(getNeeds());
-
         return Inertia::render('Tenant/needs/index/NeedsIndexPage', [
             'needs' => NeedsIndexResource::collection(getNeeds()),
             'params' => getParams(),

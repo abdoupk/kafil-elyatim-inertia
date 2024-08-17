@@ -57,7 +57,7 @@ const showDetailsModal = async (needId: string | null) => {
     if (needId) {
         selectedNeedId.value = needId
 
-        await needsStore.getNeed(needId)
+        await needsStore.getNeedDetails(needId)
 
         showModalStatus.value = true
     }
