@@ -100,7 +100,7 @@ const showDetailsModal = async (memberId: string | null) => {
     if (memberId) {
         selectedMemberId.value = memberId
 
-        await membersStore.getMember(memberId)
+        await membersStore.getMemberDetails(memberId)
 
         showModalStatus.value = true
     }

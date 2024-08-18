@@ -18,6 +18,13 @@ interface State {
             id: string
             name: string
         }
+        name?: string
+        readable_created_at?: string
+        creator?: {
+            id: string
+            name: string
+        }
+        readable_roles?: string
     }
     members: MembersType[]
 }

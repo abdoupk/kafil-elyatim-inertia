@@ -20,9 +20,13 @@ class MemberDetailsResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getName(),
             'email' => $this->email,
+            'gender' => $this->gender,
+            'qualification' => $this->qualification,
             'phone' => formatPhoneNumber($this->phone),
             'zone' => ZoneResource::make($this->whenLoaded('zone')),
-            'created_at' => $this->created_at,
+            'readable_created_at' => $this->created_at->translatedFormat('j F Y H:i A'),
+            'creator' => MemberResource::make($this->whenLoaded('creator')),
+            'readable_roles' => $this->roles->pluck('name')->implode(__('glue')),
         ];
     }
 }

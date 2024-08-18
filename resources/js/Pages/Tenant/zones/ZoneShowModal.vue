@@ -71,9 +71,9 @@ const zonesStore = useZonesStore()
             <div class="col-span-12">
                 <h2 class="rtl:font-semibold">{{ $t('validation.attributes.description') }}</h2>
 
-                <h3 class="mt-1 rtl:font-medium">
+                <p class="mt-1 rtl:font-medium">
                     {{ zonesStore.zone.description }}
-                </h3>
+                </p>
             </div>
             <!-- End: Description-->
         </template>

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { useNeedsStore } from '@/stores/needs'
+import { useMembersStore } from '@/stores/members'
 import { Link } from '@inertiajs/vue3'
-import { computed } from 'vue'
 
 import ShowModal from '@/Components/Global/ShowModal.vue'
 
@@ -13,19 +12,7 @@ defineProps<{
 // Define custom event emitter for 'close' event
 const emit = defineEmits(['close'])
 
-const needsStore = useNeedsStore()
-
-const needableUrl = computed(() => {
-    if (needsStore.need.needable) {
-        if (needsStore.need.needable.type === 'orphan') {
-            return route('tenant.orphans.show', needsStore.need.needable.id)
-        } else {
-            return route('tenant.sponsors.show', needsStore.need.needable.id)
-        }
-    }
-
-    return '#'
-})
+const membersStore = useMembersStore()
 </script>
 
 <template>
@@ -33,34 +20,30 @@ const needableUrl = computed(() => {
         <template #description>
             <!-- Begin: Name-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.subject') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.name') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.subject }}
+                    {{ membersStore.member.name }}
                 </h3>
             </div>
             <!-- End: Name-->
 
             <!-- Begin: Email-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('the_requester') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.email') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.needable?.name }}
-
-                    <Link :href="needableUrl" class="mt-1 rtl:font-medium">
-                        {{ needsStore.need.needable?.name }} ({{ $t(`needs.${needsStore.need.needable?.type}`) }})
-                    </Link>
+                    {{ membersStore.member.email }}
                 </h3>
             </div>
             <!-- End: Email-->
 
             <!-- Begin: Phone-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.status') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.sponsor.phone_number') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ $t(needsStore.need.status) }}
+                    {{ $t(membersStore.member.phone) }}
                 </h3>
             </div>
             <!-- End: Phone-->
@@ -70,7 +53,7 @@ const needableUrl = computed(() => {
                 <h2 class="rtl:font-semibold">{{ $t('validation.attributes.created_at') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.readable_created_at }}
+                    {{ membersStore.member.readable_created_at }}
                 </h3>
             </div>
             <!-- End: Created At-->
@@ -80,35 +63,35 @@ const needableUrl = computed(() => {
                 <h2 class="rtl:font-semibold">{{ $t('created_by') }}</h2>
 
                 <Link
-                    :href="route('tenant.members.index') + `?show=${needsStore.need.creator?.id}`"
+                    :href="route('tenant.members.index') + `?show=${membersStore.member.creator?.id}`"
                     class="mt-1 rtl:font-medium"
                 >
-                    {{ needsStore.need.creator?.name }}
+                    {{ membersStore.member.creator?.name }}
                 </Link>
             </div>
             <!-- End: Creator-->
 
             <!-- Begin: Gender-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('the_demand') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('filters.gender') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.demand }}</p>
+                <p class="mt-1 rtl:font-medium">{{ $t(membersStore.member.gender) }}</p>
             </div>
             <!-- End: Gender-->
 
             <!-- Begin: Roles-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.note') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('the_roles') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.note }}</p>
+                <p class="mt-1 rtl:font-medium">{{ membersStore.member.readable_roles }}</p>
             </div>
             <!-- End: Roles-->
 
             <!-- Begin: Qualification-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.note') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.qualification') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.note }}</p>
+                <p class="mt-1 rtl:font-medium">{{ membersStore.member.qualification }}</p>
             </div>
             <!-- End: Qualification-->
         </template>
