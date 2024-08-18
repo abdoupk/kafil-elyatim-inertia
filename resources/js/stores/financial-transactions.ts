@@ -6,14 +6,6 @@ import { defineStore } from 'pinia'
 interface State {
     financialTransaction: CreateFinancialTransactionForm & {
         id?: string
-        formatted_specification?: {
-            label: string
-            value: string
-        }
-        formatted_member?: {
-            id: string
-            name: string
-        }
         creator?: {
             id: string
             name: string
@@ -31,7 +23,7 @@ export const useFinancialTransactionsStore = defineStore('financialTransactions'
     state: (): State => ({
         financialTransaction: {
             id: '',
-            specification: 'monthly_sponsorship',
+            specification: 'drilling_wells',
             amount: null,
             date: new Date(),
             description: '',
@@ -42,10 +34,10 @@ export const useFinancialTransactionsStore = defineStore('financialTransactions'
     actions: {
         async getFinancialTransaction(financialTransactionId: string) {
             const {
-                data: { financialTransaction }
+                data: { finance }
             } = await axios.get(route('tenant.financial.show', financialTransactionId))
 
-            this.financialTransaction = { ...financialTransaction }
+            this.financialTransaction = { ...finance }
         },
 
         async getFinancialTransactionDetails(financialTransactionId: string) {

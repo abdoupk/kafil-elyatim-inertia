@@ -123,10 +123,23 @@ const showCreateExpenseModal = () => {
     createEditModalStatus.value = true
 }
 
-const showEditModal = () => {
+const showEditModal = async (financialTransactionId: string) => {
     financialTransactionsStore.$reset()
 
-    financialTransactionsStore.financialTransaction.type = 'expense'
+    selectedFinancialTransactionId.value = financialTransactionId
+
+    await financialTransactionsStore.getFinancialTransaction(financialTransactionId)
+
+    if (
+        financialTransactionsStore.financialTransaction.amount &&
+        financialTransactionsStore.financialTransaction.amount > 0
+    ) {
+        financialTransactionsStore.financialTransaction.type = 'income'
+    } else {
+        financialTransactionsStore.financialTransaction.type = 'expense'
+    }
+
+    console.log(financialTransactionsStore.financialTransaction)
 
     createEditModalStatus.value = true
 }

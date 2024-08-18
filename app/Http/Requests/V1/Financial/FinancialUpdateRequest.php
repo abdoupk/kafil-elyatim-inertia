@@ -13,8 +13,6 @@ class FinancialUpdateRequest extends FormRequest
             'description' => ['nullable'],
             'date' => ['required', 'date'],
             'specification' => ['required'],
-            'created_by' => ['required', 'exists:users'],
-            'tenant_id' => ['required', 'exists:tenants'],
         ];
     }
 

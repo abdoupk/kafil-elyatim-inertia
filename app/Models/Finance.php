@@ -54,6 +54,7 @@ class Finance extends Model
         'date',
         'specification',
         'created_by',
+        'received_by',
         'deleted_by',
     ];
 

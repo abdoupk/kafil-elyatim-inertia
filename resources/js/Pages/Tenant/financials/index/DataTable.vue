@@ -114,7 +114,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                                     href="#"
                                     @click.prevent="emit('showDetailsModal', finance.id)"
                                 >
-                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-eye" />
                                     {{ $t('show') }}
                                 </a>
 

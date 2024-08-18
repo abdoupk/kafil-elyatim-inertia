@@ -5,8 +5,8 @@ import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheFinanceSpecificationSelector from '@/Components/Global/TheFinanceSpecificationSelector.vue'
 
-import { financialTransactionSpecifications } from '@/utils/constants'
 import { __, n__ } from '@/utils/i18n'
 
 const BaseVCalendar = defineAsyncComponent(() => import('@/Components/Base/VCalendar/BaseVCalendar.vue'))
@@ -18,8 +18,6 @@ const BaseFormLabel = defineAsyncComponent(() => import('@/Components/Base/form/
 const BaseFormTextArea = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormTextArea.vue'))
 
 const BaseInputError = defineAsyncComponent(() => import('@/Components/Base/form/BaseInputError.vue'))
-
-const BaseVueSelect = defineAsyncComponent(() => import('@/Components/Base/vue-select/BaseVueSelect.vue'))
 
 const CreateEditModal = defineAsyncComponent(() => import('@/Components/Global/CreateEditModal.vue'))
 
@@ -35,10 +33,6 @@ const financialTransactionsStore = useFinancialTransactionsStore()
 const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
-    // Return financialTransactionsStore.financialTransaction.id
-    //     ? __('successfully_updated')
-    //     : __('successfully_created', { attribute: __('the_branch') })
-
     if (financialTransactionsStore.financialTransaction.id) {
         return __('successfully_updated')
     } else {
@@ -114,10 +108,6 @@ const firstInputRef = ref<HTMLElement>()
 const modalType = computed(() => {
     return financialTransactionsStore.financialTransaction.id ? 'update' : 'create'
 })
-
-const financialTransactionSpecificationsLabels = ({ label }: { label: string }) => {
-    return __(label)
-}
 </script>
 
 <template>
@@ -159,7 +149,7 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                     {{ $t('validation.attributes.date') }}
                 </base-form-label>
 
-                <base-v-calendar></base-v-calendar>
+                <base-v-calendar v-model:date="form.date"></base-v-calendar>
 
                 <div v-if="form.errors?.date" class="mt-2">
                     <base-input-error :message="form.errors.date"></base-input-error>
@@ -174,16 +164,8 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                 </base-form-label>
 
                 <div>
-                    <!--TODO Fix This-->
-                    <base-vue-select
-                        v-model:value="form.formatted_specification"
-                        :custom-label="financialTransactionSpecificationsLabels"
-                        :options="financialTransactionSpecifications"
-                        :placeholder="
-                            $t('auth.placeholders.tomselect', { attribute: $t('validation.attributes.the_status') })
-                        "
-                        label="label"
-                        track_by="value"
+                    <the-finance-specification-selector
+                        v-model:specification="form.specification"
                         @update:value="
                             (specification) => {
                                 form.specification = specification.value
@@ -191,7 +173,7 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                                 form?.validate('specification')
                             }
                         "
-                    ></base-vue-select>
+                    ></the-finance-specification-selector>
                 </div>
 
                 <div v-if="form.errors?.specification" class="mt-2">
@@ -210,7 +192,6 @@ const financialTransactionSpecificationsLabels = ({ label }: { label: string }) 
                     <the-member-selector
                         v-model:member="form.member_id"
                         :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_member') })"
-                        multiple
                         @update:members="form?.validate('member_id')"
                     ></the-member-selector>
                 </div>
