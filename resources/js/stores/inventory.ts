@@ -29,6 +29,7 @@ export const useInventoryStore = defineStore('inventory', {
             id: '',
             name: '',
             qty: null,
+            qty_for_family: 0,
             unit: 'kg',
             type: '',
             note: ''

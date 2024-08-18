@@ -289,5 +289,6 @@ return [
         'speciality' => 'التخصص',
         'university' => 'الجامعة',
         'role_name' => 'اسم الدور',
+        'qty_for_family' => 'الكمية لكل عائلة',
     ],
 ];

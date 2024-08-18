@@ -171,9 +171,9 @@ const modalType = computed(() => {
             <!-- End: quantity & Unit-->
 
             <!-- Begin: quantity For each Family-->
-            <div class="col-span-12 sm:col-span-6">
+            <div v-if="!['diapers', 'baby_milk'].includes(inventoryStore.item.type)" class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="quantity_for_each_family">
-                    {{ $t('validation.attributes.qty') }}
+                    {{ $t('validation.attributes.qty_for_family') }}
                 </base-form-label>
 
                 <base-input-group>
