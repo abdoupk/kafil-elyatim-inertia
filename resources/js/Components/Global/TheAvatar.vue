@@ -14,6 +14,7 @@ defineProps<{
     />
 
     <img
+        v-else
         :alt="name"
         class="rounded-full border border-slate-400/65 p-0.5 dark:border-darkmode-200"
         src="/images/male-avatar.svg"

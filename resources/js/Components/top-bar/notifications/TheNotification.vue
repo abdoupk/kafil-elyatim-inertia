@@ -2,10 +2,12 @@
 import { useSettingsStore } from '@/stores/settings'
 import { usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
+import { ref } from 'vue'
 
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'
 import BasePopoverButton from '@/Components/Base/headless/Popover/BasePopoverButton.vue'
 import BasePopoverPanel from '@/Components/Base/headless/Popover/BasePopoverPanel.vue'
+import TheRealTimeNotification from '@/Components/Global/TheRealTimeNotification.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNotificationMenu from '@/Components/top-bar/notifications/TheNotificationMenu.vue'
 
@@ -19,8 +21,14 @@ defineOptions({
 
 const settingsStore = useSettingsStore()
 
+const a = ref(false)
+
+const notification = ref(false)
+
 window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification((notification) => {
     console.log(notification)
+
+    a.value = true
 })
 </script>
 
@@ -49,4 +57,6 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
             <the-notification-menu></the-notification-menu>
         </base-popover-panel>
     </base-popover>
+
+    <the-real-time-notification :open="a" :title="notification?.data?.city"></the-real-time-notification>
 </template>

@@ -147,10 +147,10 @@ class User extends Authenticatable
                 'tenant_id' => $user->tenant_id,
                 'notifications' => [
                     'families_changes' => true,
-                    'branches_and_zones_changes' => false,
-                    'schools_and_lessons_changes' => false,
+                    'branches_and_zones_changes' => true,
+                    'schools_and_lessons_changes' => true,
                     'occasions_saves' => true,
-                    'financial_changes' => false,
+                    'financial_changes' => true,
                 ],
             ]);
         });
