@@ -64,7 +64,7 @@ class DashboardController extends Controller
 
     private function getRecentFamilies(): array
     {
-        return Family::with(['zone:id,name', 'branch:id,name'])->withCount(['orphans'])->select(['id', 'name', 'branch_id', 'zone_id', 'address'])->latest()->take(4)->get()->map(function (Family $family) {
+        return Family::with(['zone:id,name', 'branch:id,name'])->select(['id', 'name', 'branch_id', 'zone_id', 'address'])->withCount(['orphans'])->latest()->take(4)->get()->map(function (Family $family) {
             return [
                 'id' => $family->id,
                 'name' => $family->name,
@@ -77,7 +77,7 @@ class DashboardController extends Controller
                     'id' => $family->branch->id,
                     'name' => $family->branch->name,
                 ],
-                'orphans_count' => 2,
+                'orphans_count' => $family->orphans_count,
             ];
         })->toArray();
     }
