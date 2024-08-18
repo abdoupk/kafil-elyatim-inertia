@@ -10,7 +10,10 @@ class FinancialUpdateController extends Controller
 {
     public function __invoke(FinancialUpdateRequest $request, Finance $finance)
     {
-        $finance->update($request->only(['specification', 'amount', 'description', 'date']));
+        $finance->update([
+            ...$request->only(['specification', 'description', 'date']),
+            'amount' => $request->type == 'income' ? abs($request->amount) : abs($request->amount) * -1,
+        ]);
 
         return response('', 201);
     }

@@ -130,16 +130,17 @@ const showEditModal = async (financialTransactionId: string) => {
 
     await financialTransactionsStore.getFinancialTransaction(financialTransactionId)
 
-    if (
-        financialTransactionsStore.financialTransaction.amount &&
-        financialTransactionsStore.financialTransaction.amount > 0
-    ) {
-        financialTransactionsStore.financialTransaction.type = 'income'
-    } else {
-        financialTransactionsStore.financialTransaction.type = 'expense'
-    }
+    if (financialTransactionsStore.financialTransaction.amount) {
+        if (financialTransactionsStore.financialTransaction.amount > 0) {
+            financialTransactionsStore.financialTransaction.type = 'income'
+        } else {
+            financialTransactionsStore.financialTransaction.type = 'expense'
 
-    console.log(financialTransactionsStore.financialTransaction)
+            financialTransactionsStore.financialTransaction.amount = Math.abs(
+                financialTransactionsStore.financialTransaction.amount
+            )
+        }
+    }
 
     createEditModalStatus.value = true
 }

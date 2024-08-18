@@ -136,7 +136,7 @@ const modalType = computed(() => {
                     ref="firstInputRef"
                     v-model="form.amount"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.amount') })"
-                    type="text"
+                    type="number"
                     @change="form.validate('amount')"
                 />
 

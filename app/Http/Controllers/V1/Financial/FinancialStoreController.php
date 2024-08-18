@@ -13,7 +13,7 @@ class FinancialStoreController extends Controller
         Finance::create([
             ...$request->only(['specification', 'date', 'description']),
             'received_by' => $request->only('member_id')['member_id'],
-            'amount' => $request->type == 'income' ? $request->amount : $request->amount * -1,
+            'amount' => $request->type == 'income' ? abs($request->amount) : abs($request->amount) * -1,
         ]);
 
         return response('', 201);
