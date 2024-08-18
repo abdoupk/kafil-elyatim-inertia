@@ -84,6 +84,11 @@ class Zone extends Model
         return $this->hasMany(Family::class);
     }
 
+    public function members(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function toSearchableArray(): array
     {
         return [

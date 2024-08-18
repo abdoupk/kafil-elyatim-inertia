@@ -90,7 +90,7 @@ const showDetailsModal = async (zoneId: string | null) => {
     if (zoneId) {
         selectedZoneId.value = zoneId
 
-        await zonesStore.getZone(zoneId)
+        await zonesStore.getZoneDetails(zoneId)
 
         showModalStatus.value = true
     }

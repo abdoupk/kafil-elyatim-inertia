@@ -12,7 +12,7 @@ class ZoneDetailsController extends Controller
     public function __invoke(Zone $zone): JsonResponse
     {
         return response()->json([
-            'zone' => ZoneShowResource::make($zone->load(['city', 'president:id,last_name,first_name', 'creator:id,first_name,last_name'])->loadCount('families')),
+            'zone' => ZoneShowResource::make($zone->load(['creator:id,first_name,last_name'])->loadCount(['families', 'members'])),
         ]);
     }
 }

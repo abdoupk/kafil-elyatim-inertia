@@ -4,7 +4,15 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 
 interface State {
-    zone: Zone
+    zone: Zone & {
+        readable_created_at?: string
+        creator?: {
+            id: string
+            name: string
+        }
+        families_count?: number
+        members_count?: number
+    }
     zones: Zone[]
 }
 
