@@ -1,4 +1,10 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { RecentFamiliesType } from '@/types/dashboard'
+
+defineProps<{
+    recentFamilies: RecentFamiliesType
+}>()
+</script>
 
 <template>
     <div class="col-span-12 mt-6">

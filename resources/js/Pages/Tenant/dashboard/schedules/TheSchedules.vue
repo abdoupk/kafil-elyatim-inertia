@@ -1,7 +1,13 @@
 <script lang="ts" setup>
+import type { ComingEventsType } from '@/types/dashboard'
+
 import TheExpandedCalendar from '@/Pages/Tenant/dashboard/schedules/TheExpandedCalendar.vue'
 
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+defineProps<{
+    comingEvents: ComingEventsType
+}>()
 </script>
 
 <template>

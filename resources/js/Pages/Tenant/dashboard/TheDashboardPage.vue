@@ -1,5 +1,13 @@
 <script lang="ts" setup>
-import type { GeneralReports } from '@/types/dashboard'
+import type {
+    ComingEventsType,
+    FinancialReportsType,
+    GeneralReportsType,
+    RecentActivitiesType,
+    RecentFamiliesType,
+    RecentNeedsType,
+    RecentTransactionsType
+} from '@/types/dashboard'
 
 import { Head } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
@@ -21,21 +29,23 @@ defineOptions({
 })
 
 defineProps<{
-    reports: GeneralReports
-    financialReports: {
-        incomes: number[]
-        expenses: number[]
-        totalThisMonth: number
-        totalLastMonth: number
-    }
+    reports: GeneralReportsType
+    financialReports: FinancialReportsType
+    recentActivities: RecentActivitiesType
+    recentTransactions: RecentTransactionsType
+    comingEvents: ComingEventsType
+    recentFamilies: RecentFamiliesType
+    recentNeeds: RecentNeedsType
 }>()
 </script>
 
 <template>
     <Head title="Dashboard" />
-
+    <!--Begin: General Reports-->
     <the-general-reports :reports></the-general-reports>
+    <!--End: General Reports-->
 
+    <!--Begin: Financial Reports-->
     <div class="grid grid-cols-12">
         <div class="col-span-12 mt-8 lg:col-span-8">
             <suspense>
@@ -47,15 +57,20 @@ defineProps<{
 
         weekly radar financial
     </div>
-    <the-recent-families></the-recent-families>
+    <!--End: Financial Reports-->
+
+    <!--Begin: Recent Families-->
+    <the-recent-families :recentFamilies></the-recent-families>
+    <!--End: Recent Families-->
+
     <div class="col-span-12 2xl:col-span-3">
         <div class="-mb-10 pb-10 2xl:border-l">
             <div class="grid grid-cols-12 gap-x-6 gap-y-6 2xl:gap-x-0 2xl:pl-6">
-                <the-recent-activities></the-recent-activities>
+                <the-recent-activities :recentActivities></the-recent-activities>
 
-                <the-schedules></the-schedules>
+                <the-schedules :comingEvents></the-schedules>
 
-                <the-recent-financial-transactions></the-recent-financial-transactions>
+                <the-recent-financial-transactions :recentTransactions></the-recent-financial-transactions>
             </div>
         </div>
     </div>
