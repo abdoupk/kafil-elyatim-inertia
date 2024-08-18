@@ -16,6 +16,7 @@ class InventoryFactory extends Factory
             'updated_at' => now(),
             'created_by' => fake()->uuid,
             'name' => fake()->name(),
+            'qty_for_family' => fake()->numberBetween(1, 5),
             'qty' => fake()->numberBetween(1, 1000),
             'unit' => fake()->randomElement(['kg', 'liter', 'piece']),
             'tenant_id' => fake()->words(),

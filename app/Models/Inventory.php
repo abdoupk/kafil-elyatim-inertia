@@ -55,20 +55,9 @@ class Inventory extends Model
         'unit',
         'note',
         'type',
+        'qty_for_family',
         'created_by',
     ];
-
-    public function searchableAs(): string
-    {
-        return 'inventory';
-    }
-
-    protected function casts(): array
-    {
-        return [
-            'tenant_id' => 'string',
-        ];
-    }
 
     protected static function boot(): void
     {
@@ -87,8 +76,20 @@ class Inventory extends Model
         });
     }
 
+    public function searchableAs(): string
+    {
+        return 'inventory';
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    protected function casts(): array
+    {
+        return [
+            'tenant_id' => 'string',
+        ];
     }
 }

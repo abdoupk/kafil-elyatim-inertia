@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { useNeedsStore } from '@/stores/needs'
+import { useInventoryStore } from '@/stores/inventory'
 import { Link } from '@inertiajs/vue3'
-import { computed } from 'vue'
 
 import ShowModal from '@/Components/Global/ShowModal.vue'
 
@@ -13,19 +12,7 @@ defineProps<{
 // Define custom event emitter for 'close' event
 const emit = defineEmits(['close'])
 
-const needsStore = useNeedsStore()
-
-const needableUrl = computed(() => {
-    if (needsStore.need.needable) {
-        if (needsStore.need.needable.type === 'orphan') {
-            return route('tenant.orphans.show', needsStore.need.needable.id)
-        } else {
-            return route('tenant.sponsors.show', needsStore.need.needable.id)
-        }
-    }
-
-    return '#'
-})
+const inventoryStore = useInventoryStore()
 </script>
 
 <template>
@@ -33,44 +20,38 @@ const needableUrl = computed(() => {
         <template #description>
             <!-- Begin: Name-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.subject') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('item_name') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.subject }}
+                    {{ inventoryStore.item.name }}
                 </h3>
             </div>
             <!-- End: Name-->
 
-            <!-- Begin: Email-->
+            <!-- Begin: Quantity-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('the_requester') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.amount') }}</h2>
 
-                <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.needable?.name }}
-
-                    <Link :href="needableUrl" class="mt-1 rtl:font-medium">
-                        {{ needsStore.need.needable?.name }} ({{ $t(`needs.${needsStore.need.needable?.type}`) }})
-                    </Link>
-                </h3>
+                <h3 class="mt-1 rtl:font-medium">{{ inventoryStore.item.qty }} ({{ $t(inventoryStore.item.unit) }})</h3>
             </div>
-            <!-- End: Email-->
+            <!-- End: Quantity-->
 
-            <!-- Begin: Phone-->
-            <div class="col-span-6">
+            <!-- Begin: Type-->
+            <div v-if="['diapers', 'baby_milk'].includes(inventoryStore.item.type)" class="col-span-6">
                 <h2 class="rtl:font-semibold">{{ $t('validation.attributes.status') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ $t(needsStore.need.status) }}
+                    {{ $t(inventoryStore.item.type) }}
                 </h3>
             </div>
-            <!-- End: Phone-->
+            <!-- End: Type-->
 
             <!-- Begin: Created At-->
             <div class="col-span-6">
                 <h2 class="rtl:font-semibold">{{ $t('validation.attributes.created_at') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.readable_created_at }}
+                    {{ inventoryStore.item.readable_created_at }}
                 </h3>
             </div>
             <!-- End: Created At-->
@@ -80,37 +61,29 @@ const needableUrl = computed(() => {
                 <h2 class="rtl:font-semibold">{{ $t('created_by') }}</h2>
 
                 <Link
-                    :href="route('tenant.members.index') + `?show=${needsStore.need.creator?.id}`"
+                    :href="route('tenant.members.index') + `?show=${inventoryStore.item.creator?.id}`"
                     class="mt-1 rtl:font-medium"
                 >
-                    {{ needsStore.need.creator?.name }}
+                    {{ inventoryStore.item.creator?.name }}
                 </Link>
             </div>
             <!-- End: Creator-->
 
-            <!-- Begin: Gender-->
-            <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('the_demand') }}</h2>
+            <!-- Begin: Quantity For each Family-->
+            <div v-if="!['diapers', 'baby_milk'].includes(inventoryStore.item.type)" class="col-span-6">
+                <h2 class="rtl:font-semibold">{{ $t('quantity_for_each_family') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.demand }}</p>
+                <p class="mt-1 rtl:font-medium">{{ inventoryStore.item.qty_for_family }}</p>
             </div>
-            <!-- End: Gender-->
+            <!-- End: Quantity For each Family-->
 
-            <!-- Begin: Roles-->
-            <div class="col-span-6">
+            <!-- Begin: Note-->
+            <div class="col-span-12">
                 <h2 class="rtl:font-semibold">{{ $t('validation.attributes.note') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.note }}</p>
+                <p class="mt-1 rtl:font-medium">{{ inventoryStore.item.note }}</p>
             </div>
-            <!-- End: Roles-->
-
-            <!-- Begin: Qualification-->
-            <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.note') }}</h2>
-
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.note }}</p>
-            </div>
-            <!-- End: Qualification-->
+            <!-- End: Note-->
         </template>
     </show-modal>
 </template>

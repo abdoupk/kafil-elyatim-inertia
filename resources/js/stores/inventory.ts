@@ -6,6 +6,12 @@ import { defineStore } from 'pinia'
 interface State {
     item: AddItemToInventoryForm & {
         id?: string
+        readable_created_at?: string
+        creator?: {
+            id: string
+            name: string
+        }
+        qty_for_family?: number
     }
     diapers: {
         id: string

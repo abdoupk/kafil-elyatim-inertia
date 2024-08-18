@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('name');
             $table->integer('qty');
             $table->text('type')->nullable();
+            $table->integer('qty_for_family')->nullable();
             $table->text('note')->nullable();
             $table->text('tenant_id');
             $table->timestamp('created_at')->nullable();

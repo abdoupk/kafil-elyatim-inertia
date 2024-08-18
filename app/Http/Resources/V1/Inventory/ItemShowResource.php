@@ -2,10 +2,12 @@
 
 namespace App\Http\Resources\V1\Inventory;
 
+use App\Http\Resources\V1\Members\MemberResource;
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Inventory */
+/** @mixin Inventory */
 class ItemShowResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -14,12 +16,13 @@ class ItemShowResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'qty' => $this->qty,
+            'type' => $this->type,
+            'qty_for_family' => $this->qty_for_family,
             'note' => $this->note,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'readable_created_at' => $this->created_at->translatedFormat('d F Y H:i A'),
             'unit' => $this->unit,
 
-            'tenant_id' => $this->tenant_id,
+            'creator' => new MemberResource($this->whenLoaded('creator')),
         ];
     }
 }

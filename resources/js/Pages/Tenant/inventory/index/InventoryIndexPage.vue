@@ -54,7 +54,7 @@ const showDetailsModal = async (itemId: string | null) => {
     if (itemId) {
         selectedItemId.value = itemId
 
-        await inventoryStore.getItem(itemId)
+        await inventoryStore.getItemDetails(itemId)
 
         showModalStatus.value = true
     }

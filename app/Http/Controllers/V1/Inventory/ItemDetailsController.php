@@ -11,7 +11,7 @@ class ItemDetailsController extends Controller
     public function __invoke(Inventory $item)
     {
         return response()->json([
-            'item' => ItemShowResource::make($item->load(['city', 'president:id,last_name,first_name', 'creator:id,first_name,last_name'])->loadCount('families')),
+            'item' => ItemShowResource::make($item->load(['creator:id,first_name,last_name'])),
         ]);
     }
 }
