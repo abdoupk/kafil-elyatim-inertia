@@ -119,10 +119,12 @@ class Orphan extends Model
         'family_status',
         'health_status',
         'academic_level_id',
+        'vocational_training_id',
         'academic_year',
         'shoes_size',
         'pants_size',
         'shirt_size',
+        'is_handicapped',
         'income',
         'note',
         'family_id',
@@ -323,15 +325,15 @@ class Orphan extends Model
         return $this->lastAcademicYearAchievement?->academicLevel->level.' ('.$this->lastAcademicYearAchievement?->academic_year.')';
     }
 
+    public function archives(): MorphToMany
+    {
+        return $this->morphToMany(Archive::class, 'archiveable');
+    }
+
     protected function casts(): array
     {
         return [
             'birth_date' => 'date',
         ];
-    }
-
-    public function archives(): MorphToMany
-    {
-        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }
