@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->softDeletes();
             $table->timestamps();
+            $table->uuid('created_by')->nullable();
 
             $table->index(['needable_type', 'needable_id']);
         });

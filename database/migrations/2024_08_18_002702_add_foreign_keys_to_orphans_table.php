@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::table('orphans', function (Blueprint $table) {
             $table->foreign(['created_by'], 'orphans_created_by_fkey')->references(['id'])->on('users')->onUpdate('no action')->onDelete('set null');
             $table->foreign(['deleted_by'], 'orphans_deleted_by_fkey')->references(['id'])->on('users')->onUpdate('no action')->onDelete('set null');
-            $table->foreign(['family_id'], 'orphans_family_id_fkey')->references(['id'])->on('families')->onUpdate('no action')->onDelete('no action');
-            $table->foreign(['sponsor_id'], 'orphans_sponsor_id_fkey')->references(['id'])->on('sponsors')->onUpdate('no action')->onDelete('no action');
+            $table->foreign(['family_id'], 'orphans_family_id_fkey')->references(['id'])->on('families')->onUpdate('no action')->onDelete('cascade');
+            $table->foreign(['sponsor_id'], 'orphans_sponsor_id_fkey')->references(['id'])->on('sponsors')->onUpdate('no action')->onDelete('cascade');
             $table->foreign(['tenant_id'], 'orphans_tenant_id_fkey')->references(['id'])->on('tenants')->onUpdate('no action')->onDelete('cascade');
         });
     }

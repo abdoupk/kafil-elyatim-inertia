@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('inventories', function (Blueprint $table) {
+            $table->foreign(['created_by'], 'inventories_created_by_fkey')->references(['id'])->on('users')->onUpdate('no action')->onDelete('set null');
             $table->foreign(['tenant_id'], 'inventories_tenant_id_fkey')->references(['id'])->on('tenants')->onUpdate('no action')->onDelete('cascade');
         });
     }
@@ -22,6 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('inventories', function (Blueprint $table) {
+            $table->dropForeign('inventories_created_by_fkey');
             $table->dropForeign('inventories_tenant_id_fkey');
         });
     }
