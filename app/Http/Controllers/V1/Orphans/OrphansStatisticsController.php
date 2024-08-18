@@ -22,6 +22,7 @@ class OrphansStatisticsController extends Controller
             'orphansByShoeSize' => getOrphansByShoeSize(),
             'orphansByVocationalTraining' => getOrphansByVocationalTraining(),
             'orphansByCreatedDate' => getOrphansGroupByCreatedDate(),
+            'orphansGroupHealthStatus' => getOrphansGroupHealthStatus(),
         ]);
     }
 }

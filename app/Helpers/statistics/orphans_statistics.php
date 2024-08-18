@@ -21,3 +21,6 @@ function getOrphansByShoeSize() {}
 function getOrphansByVocationalTraining() {}
 
 function getOrphansGroupByCreatedDate() {}
+
+//TODO get by is_Handicapped
+function getOrphansGroupHealthStatus() {}
