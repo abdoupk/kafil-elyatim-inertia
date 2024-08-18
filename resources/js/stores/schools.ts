@@ -7,6 +7,12 @@ import { defineStore } from 'pinia'
 interface State {
     school: CreateSchoolForm & {
         id?: string
+        lessons_count?: number
+        readable_created_at?: string
+        creator?: {
+            id: string
+            name: string
+        }
     }
     schools: CreateSchoolForm &
         {

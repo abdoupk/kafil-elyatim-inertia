@@ -12,7 +12,7 @@ export const useAcademicLevelsStore = defineStore('academic-levels', {
     actions: {
         async getAcademicLevels() {
             if (this.academicLevels.length == 0) {
-                const { data: academicLevels } = await axios.get(route('tenant.list-academic-levels'))
+                const { data: academicLevels } = await axios.get(route('tenant.list.academic-levels'))
 
                 this.academicLevels = academicLevels
             }

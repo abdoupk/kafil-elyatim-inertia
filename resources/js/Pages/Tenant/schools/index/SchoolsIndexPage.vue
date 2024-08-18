@@ -104,7 +104,7 @@ const showDetailsModal = async (schoolId: string | null) => {
     if (schoolId) {
         selectedSchoolId.value = schoolId
 
-        await schoolsStore.getSchool(schoolId)
+        await schoolsStore.getSchoolDetails(schoolId)
 
         showModalStatus.value = true
     }
