@@ -14,6 +14,16 @@ interface State {
             id: string
             name: string
         }
+        creator?: {
+            id: string
+            name: string
+        }
+        readable_date?: string
+        readable_created_at?: string
+        receiver?: {
+            id: string
+            name: string
+        }
     }
 }
 
@@ -36,6 +46,12 @@ export const useFinancialTransactionsStore = defineStore('financialTransactions'
             } = await axios.get(route('tenant.financial.show', financialTransactionId))
 
             this.financialTransaction = { ...financialTransaction }
+        },
+
+        async getFinancialTransactionDetails(financialTransactionId: string) {
+            const { data } = await axios.get(route('tenant.financial.details', financialTransactionId))
+
+            this.financialTransaction = data.transaction
         }
     }
 })

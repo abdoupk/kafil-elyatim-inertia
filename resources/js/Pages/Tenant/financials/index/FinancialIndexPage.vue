@@ -55,8 +55,7 @@ const showDetailsModal = async (financialTransactionId: string | null) => {
     if (financialTransactionId) {
         selectedFinancialTransactionId.value = financialTransactionId
 
-        //Fixme
-        // Await financialTransactionsStore.getFinancialTransaction(financialTransactionId)
+        await financialTransactionsStore.getFinancialTransactionDetails(financialTransactionId)
 
         showModalStatus.value = true
     }

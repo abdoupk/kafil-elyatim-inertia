@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { useNeedsStore } from '@/stores/needs'
+import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { Link } from '@inertiajs/vue3'
-import { computed } from 'vue'
 
 import ShowModal from '@/Components/Global/ShowModal.vue'
+
+import { formatCurrency } from '@/utils/helper'
 
 defineProps<{
     open: boolean
@@ -13,19 +14,7 @@ defineProps<{
 // Define custom event emitter for 'close' event
 const emit = defineEmits(['close'])
 
-const needsStore = useNeedsStore()
-
-const needableUrl = computed(() => {
-    if (needsStore.need.needable) {
-        if (needsStore.need.needable.type === 'orphan') {
-            return route('tenant.orphans.show', needsStore.need.needable.id)
-        } else {
-            return route('tenant.sponsors.show', needsStore.need.needable.id)
-        }
-    }
-
-    return '#'
-})
+const financialTransactionsStore = useFinancialTransactionsStore()
 </script>
 
 <template>
@@ -33,34 +22,36 @@ const needableUrl = computed(() => {
         <template #description>
             <!-- Begin: Receiving Member-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.subject') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('receiving_member') }}</h2>
 
-                <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.subject }}
-                </h3>
+                <Link
+                    :href="
+                        route('tenant.members.index') +
+                        `?show=${financialTransactionsStore.financialTransaction.creator?.id}`
+                    "
+                    class="mt-1 rtl:font-medium"
+                >
+                    {{ financialTransactionsStore.financialTransaction.creator?.name }}
+                </Link>
             </div>
             <!-- End: Receiving Member-->
 
             <!-- Begin: Amount-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('the_requester') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('the_amount') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.needable?.name }}
-
-                    <Link :href="needableUrl" class="mt-1 rtl:font-medium">
-                        {{ needsStore.need.needable?.name }} ({{ $t(`needs.${needsStore.need.needable?.type}`) }})
-                    </Link>
+                    {{ formatCurrency(financialTransactionsStore.financialTransaction.amount) }}
                 </h3>
             </div>
             <!-- End: Amount-->
 
             <!-- Begin: Date-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.status') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('the date') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ $t(needsStore.need.status) }}
+                    {{ financialTransactionsStore.financialTransaction.readable_date }}
                 </h3>
             </div>
             <!-- End: Date-->
@@ -70,7 +61,7 @@ const needableUrl = computed(() => {
                 <h2 class="rtl:font-semibold">{{ $t('validation.attributes.created_at') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ needsStore.need.readable_created_at }}
+                    {{ financialTransactionsStore.financialTransaction.readable_created_at }}
                 </h3>
             </div>
             <!-- End: Created At-->
@@ -80,27 +71,32 @@ const needableUrl = computed(() => {
                 <h2 class="rtl:font-semibold">{{ $t('created_by') }}</h2>
 
                 <Link
-                    :href="route('tenant.members.index') + `?show=${needsStore.need.creator?.id}`"
+                    :href="
+                        route('tenant.members.index') +
+                        `?show=${financialTransactionsStore.financialTransaction.creator?.id}`
+                    "
                     class="mt-1 rtl:font-medium"
                 >
-                    {{ needsStore.need.creator?.name }}
+                    {{ financialTransactionsStore.financialTransaction.creator?.name }}
                 </Link>
             </div>
             <!-- End: Creator-->
 
             <!-- Begin: Specification-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ $t('the_demand') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.specification') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.demand }}</p>
+                <p class="mt-1 rtl:font-medium">
+                    {{ $t(financialTransactionsStore.financialTransaction.specification) }}
+                </p>
             </div>
             <!-- End: Specification-->
 
             <!-- Begin: Description-->
             <div class="col-span-12">
-                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.note') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.description') }}</h2>
 
-                <p class="mt-1 rtl:font-medium">{{ needsStore.need.note }}</p>
+                <p class="mt-1 rtl:font-medium">{{ financialTransactionsStore.financialTransaction.description }}</p>
             </div>
             <!-- End: Description-->
         </template>

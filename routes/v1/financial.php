@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Http\Controllers\V1\Financial\ExportFinancialTransactionsPDFController;
 use App\Http\Controllers\V1\Financial\ExportFinancialTransactionsXlsxController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
+use App\Http\Controllers\V1\Financial\FinancialDetailsController;
 use App\Http\Controllers\V1\Financial\FinancialForceDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialIndexController;
 use App\Http\Controllers\V1\Financial\FinancialRestoreController;
@@ -44,4 +45,7 @@ Route::prefix('financial')->name('financial.')->group(function () {
 
     Route::get('export-xlsx', ExportFinancialTransactionsXlsxController::class)
         ->name('export.xlsx');
+
+    Route::get('details/{finance}', FinancialDetailsController::class)
+        ->name('details');
 });
