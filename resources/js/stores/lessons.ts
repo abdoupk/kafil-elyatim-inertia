@@ -53,6 +53,8 @@ export const useLessonsStore = defineStore('lessons', {
             } = await axios.get(route('tenant.lessons.show', lessonId))
 
             this.lesson = { ...lesson }
+
+            this.lesson.update_this_and_all_coming = true
         },
         async updateLesson(id: string, data: { start_date: string; end_date: string }) {
             await axios.put(route('tenant.lessons.update-dates', id), data)

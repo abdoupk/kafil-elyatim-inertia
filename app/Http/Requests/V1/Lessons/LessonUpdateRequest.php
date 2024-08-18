@@ -16,7 +16,7 @@ class LessonUpdateRequest extends FormRequest
             'end_date' => 'required|date',
             'color' => 'required|hex_color',
             'until' => 'nullable|date',
-            'orphans.*' => 'required|exists:orphans,id',
+            'orphans.*' => 'required|exists:App\Models\Orphan,id',
             'school_id' => 'required|exists:App\Models\PrivateSchool,id',
             'subject_id' => 'required|integer',
             'academic_level_id' => 'required|integer',

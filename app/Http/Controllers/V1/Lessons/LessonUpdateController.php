@@ -10,14 +10,17 @@ class LessonUpdateController extends Controller
 {
     public function __invoke(LessonUpdateRequest $request, EventOccurrence $eventOccurrence)
     {
-        //TODO add to ask if update only this occurrence or all occurrences
-
         if (! $request->update_this_and_all_coming) {
             $eventOccurrence->update($request->only(['start_date', 'end_date']));
-        } else {
-            //            TODO add to update all occurrences
-            $eventOccurrence->orphans()->sync($request->orphans);
-        }
 
+        } else {
+            $eventOccurrence->orphans()->detach();
+
+            $eventOccurrence->orphans()->attach($request->orphans, ['lesson_id' => $eventOccurrence->lesson_id]);
+
+            $eventOccurrence->event()->update($request->only(['color', 'until', 'frequency', 'title', 'start_date', 'end_date', 'interval']));
+
+            $eventOccurrence->event->occurrences()->each(fn (EventOccurrence $eventOccurrence) => $eventOccurrence->update($request->only(['start_date', 'end_date'])));
+        }
     }
 }

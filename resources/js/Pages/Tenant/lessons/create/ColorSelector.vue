@@ -10,16 +10,16 @@
                 :class="[
                     { 'ring-2': selectedColor === color },
                     {
-                        'ring-primary ring-offset-1 transition-all hover:ring-2 dark:ring-darkmode-200':
+                        'cursor-pointer ring-primary ring-offset-1 transition-all hover:ring-2 dark:ring-darkmode-200':
                             !$attrs.disabled
                     },
                     {
                         'cursor-not-allowed': $attrs.disabled
                     }
                 ]"
+                :disabled="$attrs.disabled"
                 :style="{ backgroundColor: color }"
                 class="block h-8 w-8 rounded-full"
-                disabled
                 type="button"
                 @click="selectColor(color)"
             ></button>
