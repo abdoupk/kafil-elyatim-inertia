@@ -4,10 +4,13 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
-import TheFinanceSpecificationSelector from '@/Components/Global/TheFinanceSpecificationSelector.vue'
-
 import { __, n__ } from '@/utils/i18n'
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
+
+const TheFinanceSpecificationSelector = defineAsyncComponent(
+    () => import('@/Components/Global/TheFinanceSpecificationSelector.vue')
+)
 
 const BaseVCalendar = defineAsyncComponent(() => import('@/Components/Base/VCalendar/BaseVCalendar.vue'))
 
