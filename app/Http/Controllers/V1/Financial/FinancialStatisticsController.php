@@ -10,6 +10,11 @@ class FinancialStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/financials/statistics/FinancialStatisticsPage');
+        return Inertia::render('Tenant/financials/statistics/FinancialStatisticsPage', [
+            'financesBySpecification' => getFinancesBySpecification(),
+            'financesByType' => getFinancesByType(),
+            'financesByYear' => getFinancesByYear(),
+            'financesByMonth' => getFinancesByMonth(),
+        ]);
     }
 }

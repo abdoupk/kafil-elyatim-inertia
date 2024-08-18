@@ -10,6 +10,18 @@ class OrphansStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/orphans/statistics/OrphansStatisticsPage');
+        return Inertia::render('Tenant/orphans/statistics/OrphansStatisticsPage', [
+            'orphansByFamilyStatus' => getOrphansByFamilyStatus(),
+            'orphansByAcademicLevel' => getOrphansByAcademicLevel(),
+            'orphansBySponsorship' => getOrphansBySponsorship(),
+            'orphansByGender' => getOrphansByGender(),
+            'orphansByAge' => getOrphansByAge(),
+            'orphansByZone' => getOrphansByZone(),
+            'orphansByBranch' => getOrphansByBranch(),
+            'orphansByPantsAndShirtSize' => getByPantsAndShirtSize(),
+            'orphansByShoeSize' => getOrphansByShoeSize(),
+            'orphansByVocationalTraining' => getOrphansByVocationalTraining(),
+            'orphansByCreatedDate' => getOrphansGroupByCreatedDate(),
+        ]);
     }
 }

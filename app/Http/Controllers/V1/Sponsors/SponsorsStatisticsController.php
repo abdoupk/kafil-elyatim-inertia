@@ -10,6 +10,11 @@ class SponsorsStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Tenant/sponsors/statistics/SponsorsStatisticsPage');
+        return Inertia::render('Tenant/sponsors/statistics/SponsorsStatisticsPage', [
+            'sponsorsBySponsorType' => getSponsorsBySponsorType(),
+            'sponsorsByAcademicLevel' => getSponsorsByAcademicLevel(),
+            'sponsorsBySponsorship' => getSponsorsBySponsorship(),
+            'sponsorsByDiploma' => getSponsorsByDiploma(),
+        ]);
     }
 }
