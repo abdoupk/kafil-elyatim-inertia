@@ -11,7 +11,10 @@ import DataTable from '@/Pages/Tenant/orphans/edit/academic-achievement/DataTabl
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { n__ } from '@/utils/i18n'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
@@ -38,6 +41,13 @@ const deleteAcademicAchievement = () => {
                         deleteProgress.value = false
 
                         deleteModalStatus.value = false
+                    },
+                    onFinish: () => {
+                        showSuccessNotification.value = true
+
+                        setTimeout(() => {
+                            showSuccessNotification.value = false
+                        }, 2000)
                     }
                 }
             )
@@ -50,6 +60,8 @@ const selectedAcademicAchievementId = ref('')
 const academicAchievementsStore = useAcademicAchievementsStore()
 
 const deleteProgress = ref(false)
+
+const showSuccessNotification = ref(false)
 
 const showDeleteModal = (id: string) => {
     selectedAcademicAchievementId.value = id
@@ -111,4 +123,9 @@ const showEditModal = (id: string) => {
         @close="deleteModalStatus = false"
         @delete="deleteAcademicAchievement"
     ></delete-modal>
+
+    <success-notification
+        :open="showSuccessNotification"
+        :title="n__('successfully_trashed', 0, { attribute: $t('academic_achievement') })"
+    ></success-notification>
 </template>

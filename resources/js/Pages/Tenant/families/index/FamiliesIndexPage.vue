@@ -14,8 +14,10 @@ import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.v
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { handleSort } from '@/utils/helper'
+import { n__ } from '@/utils/i18n'
 
 defineOptions({
     layout: TheLayout
@@ -37,6 +39,8 @@ const params = reactive<IndexParams>({
 const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
+
+const showSuccessNotification = ref<boolean>(false)
 
 const selectedFamilyId = ref<string>('')
 
@@ -60,8 +64,21 @@ const deleteFamily = () => {
             if (props.families.meta.last_page < params.page) {
                 params.page = params.page - 1
             }
+            
+            router.get(route('tenant.families.index'), params, {
+                onStart: () => {
+                    closeDeleteModal()
+                },
+                onFinish: () => {
+                    showSuccessNotification.value = true
 
-            closeDeleteModal()
+                    setTimeout(() => {
+                        showSuccessNotification.value = false
+                    }, 2000)
+                },
+                preserveScroll: true,
+                preserveState: true
+            })
         }
     })
 }
@@ -115,4 +132,9 @@ const showDeleteModal = (familyId: string) => {
         @close="closeDeleteModal"
         @delete="deleteFamily"
     ></delete-modal>
+
+    <success-notification
+        :open="showSuccessNotification"
+        :title="n__('successfully_trashed', 0, { attribute: $t('the_family') })"
+    ></success-notification>
 </template>

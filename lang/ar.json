@@ -338,5 +338,6 @@
     "the_total_amount": "المبلغ الإجمالي",
     "members_count": "عدد الأعضاء",
     "lessons_count": "عدد الدروس",
-    "quantity_for_each_family": "الكمية لكل عائلة"
+    "quantity_for_each_family": "الكمية لكل عائلة",
+    "successfully_trashed": "تم حذف :attribute بنجاح وتم نقلها إلى سلة المهملات. {0}|  تم حذف :attribute بنجاح وتم نقله إلى سلة المهملات.{1}"
 }

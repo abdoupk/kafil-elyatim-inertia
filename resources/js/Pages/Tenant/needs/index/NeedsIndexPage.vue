@@ -17,6 +17,7 @@ import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.v
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
@@ -42,6 +43,8 @@ const params = reactive<IndexParams>({
 const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
+
+const showSuccessNotification = ref<boolean>(false)
 
 const selectedNeedId = ref<string>('')
 
@@ -84,7 +87,20 @@ const deleteNeed = () => {
                 params.page = params.page - 1
             }
 
-            closeDeleteModal()
+            router.get(route('tenant.needs.index'), params, {
+                onStart: () => {
+                    closeDeleteModal()
+                },
+                onFinish: () => {
+                    showSuccessNotification.value = true
+
+                    setTimeout(() => {
+                        showSuccessNotification.value = false
+                    }, 2000)
+                },
+                preserveScroll: true,
+                preserveState: true
+            })
         }
     })
 }
@@ -178,4 +194,9 @@ watchEffect(async () => {
         :title="$t('modal_show_title', { attribute: $t('the_needs') })"
         @close="showModalStatus = false"
     ></need-show-modal>
+
+    <success-notification
+        :open="showSuccessNotification"
+        :title="n__('successfully_trashed', 0, { attribute: $t('the_demand') })"
+    ></success-notification>
 </template>

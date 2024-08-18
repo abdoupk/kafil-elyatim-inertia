@@ -16,8 +16,10 @@ import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.v
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { handleSort } from '@/utils/helper'
+import { n__ } from '@/utils/i18n'
 
 defineOptions({
     layout: TheLayout
@@ -45,6 +47,8 @@ const showModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
+const showSuccessNotification = ref<boolean>(false)
+
 const selectedBranchId = ref<string>('')
 
 const branchesStore = useBranchesStore()
@@ -70,7 +74,20 @@ const deleteBranch = () => {
                 params.page = params.page - 1
             }
 
-            closeDeleteModal()
+            router.get(route('tenant.branches.index'), params, {
+                onStart: () => {
+                    closeDeleteModal()
+                },
+                onFinish: () => {
+                    showSuccessNotification.value = true
+
+                    setTimeout(() => {
+                        showSuccessNotification.value = false
+                    }, 2000)
+                },
+                preserveScroll: true,
+                preserveState: true
+            })
         }
     })
 }
@@ -168,4 +185,9 @@ watchEffect(async () => {
         :title="$t('modal_show_title', { attribute: $t('the_branch') })"
         @close="showModalStatus = false"
     ></branch-show-modal>
+
+    <success-notification
+        :open="showSuccessNotification"
+        :title="n__('successfully_trashed', 1, { attribute: $t('the_branch') })"
+    ></success-notification>
 </template>
