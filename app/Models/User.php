@@ -121,6 +121,7 @@ class User extends Authenticatable
         'gender',
         'address',
         'qualification',
+        'created_by',
     ];
 
     /**
@@ -152,6 +153,18 @@ class User extends Authenticatable
                     'financial_changes' => false,
                 ],
             ]);
+        });
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
         });
     }
 
@@ -206,6 +219,11 @@ class User extends Authenticatable
     public function previews(): BelongsToMany
     {
         return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**

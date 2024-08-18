@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -54,7 +55,7 @@ class Zone extends Model
 
     protected $table = 'zones';
 
-    protected $fillable = ['name', 'description', 'created_at', 'deleted_at'];
+    protected $fillable = ['name', 'description', 'created_by', 'deleted_by'];
 
     protected static function boot(): void
     {
@@ -92,5 +93,10 @@ class Zone extends Model
             'description' => $this->description,
             'created_at' => $this->created_at,
         ];
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

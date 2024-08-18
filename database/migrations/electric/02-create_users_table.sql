@@ -17,6 +17,7 @@ create table if not exists "users"
     "remember_token"    text                           null,
     "tenant_id"         text                           not null references "tenants" ("id") on delete cascade,
     "created_at"        timestamp(0) without time zone null,
+    "created_by"        uuid                           null references "users" ("id") on delete set null,
     "updated_at"        timestamp(0) without time zone null,
     "deleted_at"        timestamp(0) without time zone null
 );

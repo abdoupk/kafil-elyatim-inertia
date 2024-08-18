@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
@@ -54,6 +55,7 @@ class Inventory extends Model
         'unit',
         'note',
         'type',
+        'created_by',
     ];
 
     public function searchableAs(): string
@@ -66,5 +68,27 @@ class Inventory extends Model
         return [
             'tenant_id' => 'string',
         ];
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::deleting(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

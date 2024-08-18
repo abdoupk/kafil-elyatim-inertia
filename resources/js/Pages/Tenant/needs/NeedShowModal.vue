@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { useNeedsStore } from '../../../stores/needs'
-
+import { useNeedsStore } from '@/stores/needs'
 import { Link } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
@@ -24,6 +23,8 @@ const needableUrl = computed(() => {
             return route('tenant.sponsors.show', needsStore.need.needable.id)
         }
     }
+
+    return '#'
 })
 </script>
 
