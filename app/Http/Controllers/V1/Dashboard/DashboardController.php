@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Family;
 use App\Models\Finance;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -63,7 +64,22 @@ class DashboardController extends Controller
 
     private function getRecentFamilies(): array
     {
-        return [];
+        return Family::with(['zone:id,name', 'branch:id,name'])->withCount(['orphans'])->select(['id', 'name', 'branch_id', 'zone_id', 'address'])->latest()->take(4)->get()->map(function (Family $family) {
+            return [
+                'id' => $family->id,
+                'name' => $family->name,
+                'address' => $family->address,
+                'zone' => [
+                    'id' => $family->zone->id,
+                    'name' => $family->zone->name,
+                ],
+                'branch' => [
+                    'id' => $family->branch->id,
+                    'name' => $family->branch->name,
+                ],
+                'orphans_count' => 2,
+            ];
+        })->toArray();
     }
 
     private function getRecentNeeds(): array

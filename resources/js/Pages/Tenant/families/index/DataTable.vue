@@ -85,15 +85,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             </Link>
                         </the-table-td>
 
-                        <the-table-td
-                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="text-center">
                             {{ family.file_number }}
                         </the-table-td>
 
-                        <the-table-td
-                            class="w-40 border-b-0 bg-white text-start first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        <the-table-td class="w-40 text-start">
                             <div class="whitespace-nowrap">
                                 {{ formatDate(family.start_date, 'long') }}
                             </div>

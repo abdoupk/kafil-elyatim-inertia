@@ -1,3 +1,5 @@
+import type { Branch, Zone } from '@/types/types'
+
 interface Stats {
     total: number
     percentageDifference: string
@@ -42,6 +44,13 @@ export type RecentTransactionsType = {
 
 export type ComingEventsType = unknown
 
-export type RecentFamiliesType = unknown
+export type RecentFamiliesType = {
+    id: string
+    name: string
+    address: string
+    zone: Zone
+    branch: Branch
+    orphans_count: number
+}[]
 
 export type RecentNeedsType = unknown
