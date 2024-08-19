@@ -5,14 +5,17 @@ import { router } from '@inertiajs/vue3'
 import { computedEager } from '@vueuse/core'
 import type { Hit } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
-import { onMounted, onUnmounted, ref, watch } from 'vue'
-
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import BaseDialogPanel from '@/Components/Base/headless/Dialog/BaseDialogPanel.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import TheResults from '@/Components/top-bar/search/TheResults.vue'
+import { defineAsyncComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 
 import { search } from '@/utils/search'
+
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
+
+const BaseDialogPanel = defineAsyncComponent(() => import('@/Components/Base/headless/Dialog/BaseDialogPanel.vue'))
+
+const SvgLoader = defineAsyncComponent(() => import('@/Components/SvgLoader.vue'))
+
+const TheResults = defineAsyncComponent(() => import('@/Components/top-bar/search/TheResults.vue'))
 
 const querySearch = ref('')
 

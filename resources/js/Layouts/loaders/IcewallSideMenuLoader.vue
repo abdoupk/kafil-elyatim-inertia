@@ -6,7 +6,7 @@ const ready = ref(false)
 onMounted(() => {
     setTimeout(() => {
         ready.value = true
-    }, 300)
+    }, 0)
 })
 </script>
 

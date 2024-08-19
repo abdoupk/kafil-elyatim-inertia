@@ -3,7 +3,7 @@ import { useSettingsStore } from '@/stores/settings'
 import { Link, usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
 
-import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
+import TheAccountMenu from '@/Components/top-bar/TheAccountMenu/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
 import TheNotification from '@/Components/top-bar/notifications/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'

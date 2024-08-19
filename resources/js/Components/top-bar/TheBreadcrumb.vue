@@ -46,19 +46,15 @@ const breadcrumbs = computedEager(() => {
 
 <template>
     <base-bread-crumb :light="light" class="-intro-x me-auto hidden sm:flex">
-        <suspense suspensible>
-            <base-bread-crumb-link
-                v-for="(breadcrumb, index) in breadcrumbs"
-                :key="index"
-                :active="breadcrumb.active"
-                :href="breadcrumb.href"
-                :index="index"
-                :light="light"
-            >
-                {{ breadcrumb.text }}
-            </base-bread-crumb-link>
-
-            <template #fallback>55555555555</template>
-        </suspense>
+        <base-bread-crumb-link
+            v-for="(breadcrumb, index) in breadcrumbs"
+            :key="index"
+            :active="breadcrumb.active"
+            :href="breadcrumb.href"
+            :index="index"
+            :light="light"
+        >
+            {{ breadcrumb.text }}
+        </base-bread-crumb-link>
     </base-bread-crumb>
 </template>

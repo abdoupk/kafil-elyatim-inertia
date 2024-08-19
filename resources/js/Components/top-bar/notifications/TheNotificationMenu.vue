@@ -1,11 +1,17 @@
 <script lang="ts" setup>
 import { useNotificationsStore } from '@/stores/notifications'
 import { useIntersectionObserver } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
+import { defineAsyncComponent, onMounted, ref } from 'vue'
 
-import NotificationAvatar from '@/Components/top-bar/notifications/NotificationAvatar.vue'
-import NotificationContent from '@/Components/top-bar/notifications/NotificationContent.vue'
 import NotificationLoader from '@/Components/top-bar/notifications/NotificationLoader.vue'
+
+const NotificationAvatar = defineAsyncComponent(
+    () => import('@/Components/top-bar/notifications/NotificationAvatar.vue')
+)
+
+const NotificationContent = defineAsyncComponent(
+    () => import('@/Components/top-bar/notifications/NotificationContent.vue')
+)
 
 const last = ref()
 
@@ -54,7 +60,9 @@ useIntersectionObserver(last, ([{ isIntersecting }]) => {
         </div>
     </div>
 
-    <div v-else class="flex items-center justify-center">no no</div>
+    <div v-if="!loading && !notificationsStore.notifications?.data?.length" class="flex items-center justify-center">
+        no no
+    </div>
 
     <notification-loader v-if="loading"></notification-loader>
 
