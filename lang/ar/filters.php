@@ -47,4 +47,12 @@ return [
     'baby_milk_type' => 'نوع حليب الأطفال',
     'diapers_quantity' => 'كمية الحفاضات',
     'diapers_type' => 'نوع الحفاضات',
+    'created_at' => 'تاريخ الانشاء',
+    'families_count' => 'عدد العائلات',
+    'is_in_the_past' => 'الوقت الحالي أو في الماضي',
+    'is_not_on' => 'ليس في',
+    'on' => 'في',
+    'before' => 'قبل',
+    'after' => 'بعد',
+    'is_in_the_future' => 'الوقت الحالي أو القادم',
 ];

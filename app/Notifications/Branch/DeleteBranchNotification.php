@@ -60,6 +60,6 @@ class DeleteBranchNotification extends Notification implements ShouldQueue
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'branch.deleted';
     }
 }

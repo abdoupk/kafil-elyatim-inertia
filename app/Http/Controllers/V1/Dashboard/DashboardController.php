@@ -71,12 +71,12 @@ class DashboardController extends Controller
                 'name' => $family->name,
                 'address' => $family->address,
                 'zone' => [
-                    'id' => $family->zone->id,
-                    'name' => $family->zone->name,
+                    'id' => $family->zone?->id,
+                    'name' => $family->zone?->name,
                 ],
                 'branch' => [
-                    'id' => $family->branch->id,
-                    'name' => $family->branch->name,
+                    'id' => $family->branch?->id,
+                    'name' => $family->branch?->name,
                 ],
                 'orphans_count' => $family->orphans_count,
             ];

@@ -4,7 +4,7 @@ namespace App\Jobs\V1\Branch;
 
 use App\Models\Branch;
 use App\Models\User;
-use App\Notifications\Branch\CreateBranchNotification;
+use App\Notifications\Branch\DeleteBranchNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -24,6 +24,6 @@ class BranchTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateBranchNotification(branch: $this->branch, user: $this->user));
+            new DeleteBranchNotification(branch: $this->branch, user: $this->user));
     }
 }

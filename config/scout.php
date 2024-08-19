@@ -353,6 +353,7 @@ return [
                     'city.id',
                     'president.id',
                     'families_count',
+                    'created_at',
                     'tenant_id',
                 ],
                 'searchableAttributes' => [

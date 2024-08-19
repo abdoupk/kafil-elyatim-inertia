@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
+import { branchedFilters } from '@/constants/filters'
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watchEffect } from 'vue'
@@ -135,7 +136,7 @@ watchEffect(async () => {
     <Head :title="$t('list', { attribute: $t('branches') })"></Head>
 
     <the-table-header
-        :filters="[]"
+        :filters="branchedFilters"
         :pagination-data="branches"
         :params="params"
         :title="$t('list', { attribute: $t('branches') })"
@@ -143,6 +144,7 @@ watchEffect(async () => {
         entries="branches"
         export-pdf-url=""
         export-xlsx-url=""
+        filterable
         searchable
         @change-filters="params = $event"
     >
