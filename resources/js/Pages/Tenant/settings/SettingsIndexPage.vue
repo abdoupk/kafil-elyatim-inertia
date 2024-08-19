@@ -1,9 +1,13 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import TheLayout from '@/Layouts/TheLayout.vue'
+
+import TheCalculationTable from '@/Pages/Tenant/settings/TheCalculationTable.vue'
 
 defineOptions({
     layout: TheLayout
 })
 </script>
 
-<template>settings</template>
+<template>
+    <the-calculation-table></the-calculation-table>
+</template>
