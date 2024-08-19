@@ -63,12 +63,6 @@ function getFamiliesSponsorShips(): array
      SUM(CASE WHEN eid_al_adha != \'0\' THEN 1 ELSE 0 END) AS eid_al_adha_count
 ')
         ->first();
-    ray([
-        'ramadan_basket_count' => $sponsorships->ramadan_basket_count,
-        'zakat_count' => $sponsorships->zakat_count,
-        'housing_assistance_count' => $sponsorships->housing_assistance_count,
-        'eid_al_adha_count' => $sponsorships->eid_al_adha_count,
-    ]);
 
     return [
         'ramadan_basket_count' => $sponsorships->ramadan_basket_count,
