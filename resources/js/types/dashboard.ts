@@ -53,4 +53,15 @@ export type RecentFamiliesType = {
     orphans_count: number
 }[]
 
-export type RecentNeedsType = unknown
+export type RecentNeedsType = {
+    id: string
+    subject: string
+    demand: string
+    date: string
+    needable: {
+        id: string
+        name: string
+        type: string
+    }
+    status: string
+}[]

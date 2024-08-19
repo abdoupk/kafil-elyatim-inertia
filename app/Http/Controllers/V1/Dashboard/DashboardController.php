@@ -5,6 +5,7 @@ namespace App\Http\Controllers\V1\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Family;
 use App\Models\Finance;
+use App\Models\Need;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -84,6 +85,19 @@ class DashboardController extends Controller
 
     private function getRecentNeeds(): array
     {
-        return [];
+        return Need::with('needable')->select(['id', 'demand', 'subject', 'status', 'needable_id', 'needable_type', 'created_at'])->latest()->take(5)->get()->map(function (Need $need) {
+            return [
+                'id' => $need->id,
+                'status' => $need->status,
+                'subject' => $need->subject,
+                'demand' => $need->demand,
+                'date' => $need->created_at->diffForHumans(),
+                'needable' => [
+                    'id' => $need->needable->id,
+                    'name' => $need->needable->getName(),
+                    'type' => $need->needable_type,
+                ],
+            ];
+        })->toArray();
     }
 }

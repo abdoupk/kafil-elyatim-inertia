@@ -15,6 +15,7 @@ import { defineAsyncComponent } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheGeneralReports from '@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue'
+import TheRecentNeeds from '@/Pages/Tenant/dashboard/needs/TheRecentNeeds.vue'
 import TheRecentActivities from '@/Pages/Tenant/dashboard/recent-activities/TheRecentActivities.vue'
 import TheRecentFamilies from '@/Pages/Tenant/dashboard/recent-families/TheRecentFamilies.vue'
 import TheSchedules from '@/Pages/Tenant/dashboard/schedules/TheSchedules.vue'
@@ -61,6 +62,10 @@ defineProps<{
 
     <!--Begin: Recent Families-->
     <the-recent-families :recentFamilies></the-recent-families>
+    <!--End: Recent Families-->
+
+    <!--Begin: Recent Families-->
+    <the-recent-needs :recentNeeds></the-recent-needs>
     <!--End: Recent Families-->
 
     <div class="col-span-12 2xl:col-span-3">
