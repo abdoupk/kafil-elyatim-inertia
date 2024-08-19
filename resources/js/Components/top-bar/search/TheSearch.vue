@@ -14,9 +14,13 @@ const TheSearchDesktopLayout = defineAsyncComponent(() => {
 </script>
 
 <template>
-    <div class="intro-x relative me-3 sm:me-6">
-        <the-search-desktop-layout v-if="width >= 640"></the-search-desktop-layout>
+    <suspense suspensible>
+        <div class="intro-x relative me-3 sm:me-6">
+            <the-search-desktop-layout v-if="width >= 640"></the-search-desktop-layout>
 
-        <the-search-mobile-layout v-else></the-search-mobile-layout>
-    </div>
+            <the-search-mobile-layout v-else></the-search-mobile-layout>
+        </div>
+
+        <template #fallback> 6565656</template>
+    </suspense>
 </template>

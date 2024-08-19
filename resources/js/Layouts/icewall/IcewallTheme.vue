@@ -1,26 +1,19 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
 import { defineAsyncComponent, defineProps } from 'vue'
-
-import IcewallSideMenuLoader from '@/Layouts/loaders/IcewallSideMenuLoader.vue'
-import IcewallSimpleMenuLoader from '@/Layouts/loaders/IcewallSimpleMenuLoader.vue'
-import IcewallTopMenuLoader from '@/Layouts/loaders/IcewallTopMenuLoader.vue'
 
 defineProps<{ showLoader: boolean }>()
 
 const sideMenu = defineAsyncComponent({
-    loader: () => import('./side-menu/TheSideMenu.vue'),
-    loadingComponent: IcewallSideMenuLoader
+    loader: () => import('./side-menu/TheSideMenu.vue')
 })
 
 const simpleMenu = defineAsyncComponent({
-    loader: () => import('./simple-menu/TheSimpleMenu.vue'),
-    loadingComponent: IcewallSimpleMenuLoader
+    loader: () => import('./simple-menu/TheSimpleMenu.vue')
 })
 
 const topMenu = defineAsyncComponent({
-    loader: () => import('./top-menu/TheTopMenu.vue'),
-    loadingComponent: IcewallTopMenuLoader
+    loader: () => import('./top-menu/TheTopMenu.vue')
 })
 
 const settingsStore = useSettingsStore()
@@ -31,26 +24,17 @@ const settingsStore = useSettingsStore()
         <component :is="simpleMenu">
             <slot></slot>
         </component>
-        <template v-if="showLoader" #fallback>
-            <icewall-simple-menu-loader></icewall-simple-menu-loader>
-        </template>
     </Suspense>
 
     <Suspense v-if="settingsStore.layout === 'side_menu'">
         <component :is="sideMenu">
             <slot></slot>
         </component>
-        <template v-if="showLoader" #fallback>
-            <icewall-side-menu-loader></icewall-side-menu-loader>
-        </template>
     </Suspense>
 
     <Suspense v-if="settingsStore.layout === 'top_menu'">
         <component :is="topMenu">
             <slot></slot>
         </component>
-        <template v-if="showLoader" #fallback>
-            <icewall-top-menu-loader></icewall-top-menu-loader>
-        </template>
     </Suspense>
 </template>

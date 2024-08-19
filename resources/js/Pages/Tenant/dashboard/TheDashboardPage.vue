@@ -49,14 +49,16 @@ defineProps<{
     <!--Begin: Financial Reports-->
     <div class="grid grid-cols-12">
         <div class="col-span-12 mt-8 lg:col-span-8">
-            <suspense>
+            <suspense suspensible>
                 <template #default>
                     <the-financial-report :financialReports></the-financial-report>
                 </template>
+
+                <template #fallback>45454</template>
             </suspense>
         </div>
 
-        weekly radar financial
+        <!--        weekly radar financial-->
     </div>
     <!--End: Financial Reports-->
 

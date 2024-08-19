@@ -22,7 +22,7 @@ const settingsStore = useSettingsStore()
                 'before:absolute before:inset-0 before:top-0 before:mx-7 before:mt-3 before:hidden before:h-[65px] before:rounded-xl before:bg-primary/30 before:content-[\'\'] before:dark:bg-darkmode-600/30 before:md:block',
                 'after:absolute after:inset-0 after:mx-3 after:mt-5 after:hidden after:h-[65px] after:rounded-xl after:bg-primary after:shadow-md after:content-[\'\'] after:dark:bg-darkmode-600 after:md:block',
 
-                settingsStore.layout == 'top-menu' && 'dark:md:from-darkmode-800'
+                settingsStore.layout == 'top_menu' && 'dark:md:from-darkmode-800'
             ])
         "
     >
@@ -48,8 +48,8 @@ const settingsStore = useSettingsStore()
                 :class="
                     twMerge([
                         '-intro-x me-auto h-[45px] border-white/[0.08] dark:border-white/[0.08] md:ms-10 md:border-s',
-                        settingsStore.layout != 'top-menu' && 'md:ps-6',
-                        settingsStore.layout == 'top-menu' && 'md:ps-10'
+                        settingsStore.layout != 'top_menu' && 'md:ps-6',
+                        settingsStore.layout == 'top_menu' && 'md:ps-10'
                     ])
                 "
                 light

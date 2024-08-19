@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
 import type { PageProps } from '@/types'
 import { usePage } from '@inertiajs/vue3'
@@ -48,18 +48,18 @@ onMounted(() => {
 <template>
     <suspense>
         <div>
-            <enigma-theme :show-loader="showLoader" v-if="settingsStore.theme === 'enigma'">
+            <enigma-theme v-if="settingsStore.theme === 'enigma'" :show-loader="showLoader">
                 <slot></slot>
             </enigma-theme>
 
-            <icewall-theme :show-loader="showLoader" v-if="settingsStore.theme === 'icewall'">
+            <icewall-theme v-if="settingsStore.theme === 'icewall'" :show-loader="showLoader">
                 <slot></slot>
             </icewall-theme>
 
-            <rubick-theme :show-loader="showLoader" v-if="settingsStore.theme === 'rubick'">
+            <rubick-theme v-if="settingsStore.theme === 'rubick'" :show-loader="showLoader">
                 <slot></slot>
             </rubick-theme>
-            <tinker-theme :show-loader="showLoader" v-if="settingsStore.theme === 'tinker'">
+            <tinker-theme v-if="settingsStore.theme === 'tinker'" :show-loader="showLoader">
                 <slot></slot>
             </tinker-theme>
 

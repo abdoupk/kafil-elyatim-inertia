@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import { usePage } from '@inertiajs/vue3'
 import { computedEager } from '@vueuse/core'
-
-import BaseBreadCrumb from '@/Components/Base/Breadcrumb/BaseBreadcrumb.vue'
-import BaseBreadCrumbLink from '@/Components/Base/Breadcrumb/BaseBreadcrumbLink.vue'
+import { defineAsyncComponent } from 'vue'
 
 import { __ } from '@/utils/i18n'
+
+const BaseBreadCrumb = defineAsyncComponent(() => import('@/Components/Base/Breadcrumb/BaseBreadcrumb.vue'))
+
+const BaseBreadCrumbLink = defineAsyncComponent(() => import('@/Components/Base/Breadcrumb/BaseBreadcrumbLink.vue'))
 
 const { light = false } = defineProps<{ light?: boolean }>()
 
@@ -44,15 +46,19 @@ const breadcrumbs = computedEager(() => {
 
 <template>
     <base-bread-crumb :light="light" class="-intro-x me-auto hidden sm:flex">
-        <base-bread-crumb-link
-            v-for="(breadcrumb, index) in breadcrumbs"
-            :key="index"
-            :active="breadcrumb.active"
-            :href="breadcrumb.href"
-            :index="index"
-            :light="light"
-        >
-            {{ breadcrumb.text }}
-        </base-bread-crumb-link>
+        <suspense suspensible>
+            <base-bread-crumb-link
+                v-for="(breadcrumb, index) in breadcrumbs"
+                :key="index"
+                :active="breadcrumb.active"
+                :href="breadcrumb.href"
+                :index="index"
+                :light="light"
+            >
+                {{ breadcrumb.text }}
+            </base-bread-crumb-link>
+
+            <template #fallback>55555555555</template>
+        </suspense>
     </base-bread-crumb>
 </template>
