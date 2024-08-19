@@ -50,9 +50,7 @@ class TenantSeeder extends Seeder
 
             $branches = Branch::factory(fake()->numberBetween(1, 12))->create([
                 'tenant_id' => $tenant?->id,
-                'president_id' => User::inRandomOrder()->whereTenantId(
-                    $tenant?->id
-                )->first()?->id,
+                'president_id' => $tenant->members->random()->first()->id,
             ]);
 
             User::factory(10)->create([
@@ -63,12 +61,14 @@ class TenantSeeder extends Seeder
 
             Inventory::factory()->count(fake()->numberBetween(10, 25))->create([
                 'tenant_id' => $tenant?->id,
+                'deleted_by' => $tenant->members->random()->first()->id,
                 'created_by' => $tenant->members->random()->first()->id,
             ]);
 
             Finance::factory()->count(fake()->numberBetween(13, 89))->create([
                 'tenant_id' => $tenant->id,
                 'created_by' => $tenant->members->random()->first()->id,
+                'received_by' => $tenant->members->random()->first()->id,
             ]);
         }
     }

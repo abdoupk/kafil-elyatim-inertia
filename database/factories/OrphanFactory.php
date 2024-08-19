@@ -27,6 +27,7 @@ class OrphanFactory extends Factory
             'gender' => fake()->randomElement(['male', 'female']),
             'income' => fake()->numberBetween(0, 100000),
             'note' => fake('ar_SA')->realText(500),
+            'is_handicapped' => fake('ar_SA')->boolean(20),
             'tenant_id' => fake()->uuid,
             'family_id' => fake()->uuid,
             'created_at' => now()->subDays(fake()->numberBetween(0, 35)),
