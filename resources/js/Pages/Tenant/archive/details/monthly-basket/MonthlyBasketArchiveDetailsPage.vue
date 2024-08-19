@@ -37,8 +37,8 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.monthly-basket.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.monthly-basket.export.xlsx', params)"
+        :export-pdf-url="route('tenant.archive.export.monthly-basket.pdf', { ...params, archive: archive.id })"
+        :export-xlsx-url="route('tenant.archive.export.monthly-basket.xlsx', { ...params, archive: archive.id })"
         :filters="monthlyBasketFilters"
         :pagination-data="families"
         :params="params"

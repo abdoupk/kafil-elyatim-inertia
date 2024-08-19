@@ -46,7 +46,7 @@ function saveToPDF(string $directory, string $variableName, callable $function):
  * @throws Throwable
  * @throws CouldNotTakeBrowsershot
  */
-function saveArchiveToPDF(string $directory, callable $function, string $date): StreamedResponse
+function saveArchiveToPDF(string $directory, callable $function, string $date, ?string $variableName = 'sponsorships'): StreamedResponse
 {
     $disk = Storage::disk('public');
 
@@ -60,7 +60,7 @@ function saveArchiveToPDF(string $directory, callable $function, string $date): 
 
     $pdfPath = $disk->path($pdfFile);
 
-    Browsershot::html(view("pdf.occasions.$directory", ['sponsorships' => $function()])
+    Browsershot::html(view("pdf.occasions.$directory", [$variableName => $function()])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()

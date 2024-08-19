@@ -41,8 +41,10 @@ const sort = (field: string) => handleSort(field, params)
     <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.babies-milk-and-diapers.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.babies-milk-and-diapers.export.xlsx', params)"
+        :export-pdf-url="route('tenant.archive.export.babies-milk-and-diapers.pdf', { ...params, archive: archive.id })"
+        :export-xlsx-url="
+            route('tenant.archive.export.babies-milk-and-diapers.xlsx', { ...params, archive: archive.id })
+        "
         :filters="babiesMilkAndDiapersFilters"
         :pagination-data="orphans"
         :params="params"
