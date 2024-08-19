@@ -7,6 +7,7 @@ import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
@@ -37,25 +38,36 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.email"
+                            :direction="params.directions && params.directions['president.name']"
                             class="text-start"
                             sortable
-                            @click="emit('sort', 'email')"
+                            @click="emit('sort', 'president.name')"
                         >
                             {{ $t('branch_president') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">{{ $t('location') }}</the-table-th>
+                        <the-table-th
+                            :direction="params.directions && params.directions['city.ar_name']"
+                            class="text-center"
+                            sortable
+                            @click="emit('sort', 'city.ar_name')"
+                            >{{ $t('location') }}
+                        </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th
+                            :direction="params.directions?.families_count"
+                            class="text-center"
+                            sortable
+                            @click="emit('sort', 'families_count')"
+                        >
                             {{ $t('families_count') }}
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.start_date"
+                            :direction="params.directions?.created_at"
                             class="text-center"
                             sortable
-                            @click="emit('sort', 'start_date')"
+                            @click="emit('sort', 'created_at')"
                         >
                             {{ $t('validation.attributes.created_at') }}
                         </the-table-th>
@@ -135,19 +147,21 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ branch.phone }}
+                            <base-tippy :content="$t('families_count')">
+                                <div class="whitespace-nowrap text-center">
+                                    {{ branch.families_count }}
+                                </div>
+                            </base-tippy>
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ branch.email }}</p>
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ branch.zone?.name }}
-                            </div>
+                            <p class="truncate rtl:font-medium">{{ branch.city }}</p>
+
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ branch.start_date }}
+                                {{ branch.created_at }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">

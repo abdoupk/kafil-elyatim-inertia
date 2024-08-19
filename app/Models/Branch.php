@@ -96,6 +96,36 @@ class Branch extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function searchableAs(): string
+    {
+        return 'branches';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load(['city', 'president'])->loadCount('families');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'created_at' => strtotime($this->created_at),
+            'tenant_id' => $this->tenant_id,
+            'name' => $this->name,
+            'families_count' => $this->families_count,
+            'city' => [
+                'id' => $this->city_id,
+                'ar_name' => $this->city->getFullName(),
+                'latin_name' => $this->city->getFullName('fr'),
+            ],
+            'president' => [
+                'id' => $this->president_id,
+                'name' => $this->president->getName(),
+            ],
+        ];
+    }
+
     protected function casts(): array
     {
         return [
