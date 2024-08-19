@@ -1,9 +1,21 @@
 <?php
 
-function getFinancesBySpecification() {}
+function getFinancesBySpecification(): array
+{
+    return [];
+}
 
-function getFinancesByType() {}
+function getFinancesByType(): array
+{
+    return [];
+}
 
-function getFinancesByYear() {}
+function getFinancesByYear(): array
+{
+    return [];
+}
 
-function getFinancesByMonth() {}
+function getFinancesByMonth(): array
+{
+    return [];
+}
