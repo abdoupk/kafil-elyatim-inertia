@@ -10,7 +10,7 @@ class OrphansStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
-        ray(getByPantsAndShirtSize());
+        ray(getOrphansGroupHealthStatus());
 
         return Inertia::render('Tenant/orphans/statistics/OrphansStatisticsPage', [
             'orphansByFamilyStatus' => getOrphansByFamilyStatus(),

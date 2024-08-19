@@ -149,7 +149,14 @@ function getOrphansByShoeSize(): array
 
 function getOrphansByVocationalTraining(): array
 {
-    return [];
+    $orphans = Orphan::select('vocational_training_id', DB::raw('count(*) as total'))->with('vocationalTraining:id,division')
+        ->groupBy('vocational_training_id')
+        ->get();
+
+    return [
+        'labels' => $orphans->pluck('vocationalTraining.division')->toArray(),
+        'data' => $orphans->pluck('total')->toArray(),
+    ];
 }
 
 function getOrphansGroupByCreatedDate(): array
@@ -164,5 +171,10 @@ function getOrphansGroupByCreatedDate(): array
 //TODO get by is_Handicapped
 function getOrphansGroupHealthStatus(): array
 {
-    return [];
+    $orphans = Orphan::select('is_handicapped', DB::raw('count(*) as total'))->groupBy('is_handicapped')->get();
+
+    return [
+        'labels' => $orphans->pluck('is_handicapped')->map(fn ($is_handicapped) => $is_handicapped ? __('statistics.handicapped') : __('statistics.healthy'))->toArray(),
+        'data' => $orphans->pluck('total')->toArray(),
+    ];
 }

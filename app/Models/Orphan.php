@@ -305,6 +305,11 @@ class Orphan extends Model
         return $this->belongsTo(AcademicLevel::class, 'academic_level_id');
     }
 
+    public function vocationalTraining(): BelongsTo
+    {
+        return $this->belongsTo(VocationalTraining::class, 'vocational_training_id');
+    }
+
     public function events(): BelongsToMany
     {
         return $this->belongsToMany(EventOccurrence::class, 'event_occurrence_orphan', 'orphan_id', 'event_occurrence_id');

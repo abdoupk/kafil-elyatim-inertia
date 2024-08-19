@@ -9,4 +9,6 @@ return [
         'total_orphans' => 'اجمالي الأيتام',
         'financial_report' => 'تقارير المالية',
     ],
+    'handicapped' => 'معاقين',
+    'healthy' => 'الأصحاء',
 ];

@@ -286,6 +286,8 @@
     "statistics.dashboard.total_members": "اجمالي الأعضاء",
     "statistics.dashboard.total_orphans": "اجمالي الأيتام",
     "statistics.dashboard.financial_report": "تقارير المالية",
+    "statistics.handicapped": "معاقين",
+    "statistics.healthy": "الأصحاء",
     "theme.profile_appearance_hint": "تخصيص مظهر التطبيق. التبديل تلقائيًا بين السمات النهارية والليلية.",
     "theme.appearance": "الوضع",
     "theme.appearance_hint": "تخصيص وضع التطبيق ليلي او نهاري.",
