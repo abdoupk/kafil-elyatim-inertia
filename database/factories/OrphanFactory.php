@@ -2,10 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\AcademicLevel;
 use App\Models\ClothesSize;
 use App\Models\Orphan;
 use App\Models\ShoeSize;
 use App\Models\User;
+use App\Models\VocationalTraining;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrphanFactory extends Factory
@@ -20,7 +22,8 @@ class OrphanFactory extends Factory
             'birth_date' => now()->subYears(fake()->numberBetween(0, 4))->subDays(fake()->numberBetween(1, 365))->subMonths(fake()->numberBetween(1, 12))->toDate(),
             'family_status' => fake('ar_SA')->word,
             'health_status' => fake('ar_SA')->word,
-            'academic_level_id' => 5,
+            'academic_level_id' => AcademicLevel::inRandomOrder()->first()->id,
+            'vocational_training_id' => VocationalTraining::inRandomOrder()->first()->id,
             'shoes_size' => ShoeSize::inRandomOrder()->first()->id,
             'pants_size' => ClothesSize::inRandomOrder()->first()->id,
             'shirt_size' => ClothesSize::inRandomOrder()->first()->id,
