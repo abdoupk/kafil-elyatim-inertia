@@ -1,13 +1,15 @@
 <script lang="ts" setup>
+import type { DatabaseNotification } from '@/types/types'
+
+import { useNotificationsStore } from '@/stores/notifications'
 import { useSettingsStore } from '@/stores/settings'
 import { usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
-import { ref } from 'vue'
+import { Toaster, toast } from 'vue-sonner'
 
 import BasePopover from '@/Components/Base/headless/Popover/BasePopover.vue'
 import BasePopoverButton from '@/Components/Base/headless/Popover/BasePopoverButton.vue'
 import BasePopoverPanel from '@/Components/Base/headless/Popover/BasePopoverPanel.vue'
-import TheRealTimeNotification from '@/Components/Global/TheRealTimeNotification.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNotificationMenu from '@/Components/top-bar/notifications/TheNotificationMenu.vue'
 
@@ -21,15 +23,21 @@ defineOptions({
 
 const settingsStore = useSettingsStore()
 
-const a = ref(false)
+const notificationsStore = useNotificationsStore()
 
-const notification = ref(false)
+window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification(
+    (notification: DatabaseNotification) => {
+        notificationsStore.addNotification(notification)
 
-window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification((notification) => {
-    console.log(notification)
-
-    a.value = true
-})
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                toast('New notification', {
+                    description: 'desc' + i
+                })
+            }, 1000)
+        }
+    }
+)
 </script>
 
 <template>
@@ -58,5 +66,11 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
         </base-popover-panel>
     </base-popover>
 
-    <the-real-time-notification :open="a" :title="notification?.data?.city"></the-real-time-notification>
+    <Toaster
+        :expand="false"
+        :toast-options="{
+            duration: 3000
+        }"
+        dir="rtl"
+    />
 </template>

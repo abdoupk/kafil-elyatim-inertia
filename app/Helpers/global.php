@@ -136,7 +136,7 @@ function generateFormattedSort(): array
 function search(Model $model, ?string $additional_filters = '', ?int $limit = null): Builder
 {
     if (! $limit) {
-        $limit = (int) request()->integer('perPage', 10);
+        $limit = request()->integer('perPage', 10);
     }
 
     if (property_exists($model, 'deleted_at')) {

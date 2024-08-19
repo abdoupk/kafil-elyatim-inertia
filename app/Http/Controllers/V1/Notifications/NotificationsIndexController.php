@@ -15,7 +15,7 @@ class NotificationsIndexController extends Controller
         }
 
         return response()->json([
-            'notifications' => auth()->user()?->notifications()->cursorPaginate(4),
+            'notifications' => auth()->user()?->notifications()->cursorPaginate(10),
         ]);
     }
 }

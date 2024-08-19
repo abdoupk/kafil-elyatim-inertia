@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Notifications\Branch;
 
 use App\Models\Branch;
 use App\Models\User;
@@ -53,7 +53,7 @@ class CreateBranchNotification extends Notification implements ShouldQueue
             ],
             'metadata' => [
                 'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
+                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
             ],
         ]);
     }

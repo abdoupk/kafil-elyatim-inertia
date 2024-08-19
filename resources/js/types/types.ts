@@ -225,7 +225,7 @@ export type RegisterStepThreeProps = typeof registerStepThreeErrorProps
 
 export interface PaginationData<T> {
     data: Array<T>
-    meta: {
+    meta?: {
         current_page: number
         first_page_url: string
         from: number
@@ -238,12 +238,12 @@ export interface PaginationData<T> {
         to: number
         total: number
     }
-    links: Array<{
+    links: {
         url: string
         label: string
         active: boolean
         next: string
-    }>
+    }
 }
 
 export interface Zone {

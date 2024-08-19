@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Jobs\V1;
+namespace App\Jobs\V1\Branch;
 
 use App\Models\Branch;
 use App\Models\User;
-use App\Notifications\CreateBranchNotification;
+use App\Notifications\Branch\CreateBranchNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

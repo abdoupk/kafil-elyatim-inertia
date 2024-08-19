@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import type { DatabaseNotification, PaginationData } from '@/types/types'
-
+import { useNotificationsStore } from '@/stores/notifications'
 import { useIntersectionObserver } from '@vueuse/core'
-import axios from 'axios'
 import { onMounted, ref } from 'vue'
 
 import NotificationAvatar from '@/Components/top-bar/notifications/NotificationAvatar.vue'
@@ -11,44 +9,28 @@ import NotificationLoader from '@/Components/top-bar/notifications/NotificationL
 
 const last = ref()
 
-const notifications = ref<PaginationData<DatabaseNotification>>()
-
 const loading = ref(false)
 
-onMounted(() => {
-    axios.get('/dashboard/notifications').then((response) => {
-        notifications.value = response.data
+const notificationsStore = useNotificationsStore()
 
-        loading.value = false
-    })
+onMounted(async () => {
+    loading.value = true
+
+    await notificationsStore.getNotifications()
+
+    loading.value = false
 })
 
-const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
+useIntersectionObserver(last, ([{ isIntersecting }]) => {
     if (!isIntersecting) {
         return
     }
 
-    if (notifications.value?.links.next) {
+    if (notificationsStore.notifications?.links.next) {
         loading.value = true
 
-        axios.get().then((res) => {
-            notifications.value.data = [...notifications.value?.data, ...res.data.data]
-
-            notifications.value.meta = res.data.meta
-
-            notifications.value.links = res.data.links
-
-            setTimeout(() => {
-                console.log('45454')
-
-                loading.value = false
-            }, 300)
-
-            if (!res.data.meta.next_cursor) {
-                loading.value = false
-
-                stop()
-            }
+        notificationsStore.loadMoreNotifications().finally(() => {
+            loading.value = false
         })
     }
 })
@@ -57,24 +39,24 @@ const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
 <template>
     <div class="mb-5 font-medium">{{ $t('notifications') }}</div>
 
-    <!--    <div v-if="notifications?.data?.length">-->
-    <div
-        v-for="notification in notifications?.data"
-        :key="notification.id"
-        :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
-    >
-        <notification-avatar
-            :gender="notification.data.user?.gender"
-            :name="notification.data.user?.name"
-        ></notification-avatar>
+    <div v-if="notificationsStore.notifications?.data?.length">
+        <div
+            v-for="notification in notificationsStore.notifications?.data"
+            :key="notification.id"
+            :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
+        >
+            <notification-avatar
+                :gender="notification.data.user?.gender"
+                :name="notification.data.user?.name"
+            ></notification-avatar>
 
-        <notification-content :notification="notification"></notification-content>
+            <notification-content :notification="notification"></notification-content>
+        </div>
     </div>
 
-    <div ref="last" class="-translate-y-2"></div>
-    <!--    </div>-->
-
-    <!--    <div v-else class="flex items-center justify-center">no no</div>-->
+    <div v-else class="flex items-center justify-center">no no</div>
 
     <notification-loader v-if="loading"></notification-loader>
+
+    <div ref="last" class="-translate-y-2"></div>
 </template>
