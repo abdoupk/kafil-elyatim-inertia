@@ -21,6 +21,7 @@ class OrphansIndexResource extends JsonResource
             'shoes_size' => $this->shoes_size,
             'pants_size' => $this->pants_size,
             'shirt_size' => $this->shirt_size,
+            'note' => $this->note,
         ];
     }
 }

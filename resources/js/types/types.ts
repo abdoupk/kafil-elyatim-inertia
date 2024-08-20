@@ -497,6 +497,7 @@ export interface OrphansIndexResource {
     shoes_size: string
     pants_size: string
     shirt_size: string
+    note?: string
     income: number
 }
 

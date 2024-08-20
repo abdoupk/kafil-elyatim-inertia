@@ -135,34 +135,30 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
             <div v-for="orphan in orphans.data" :key="orphan.id" class="intro-y col-span-12 @xl:col-span-6">
                 <div class="box p-5">
                     <div class="flex">
-                        <div class="me-3 truncate text-lg font-medium">
+                        <Link :href="route('tenant.orphans.show', orphan.id)" class="me-3 truncate text-lg font-medium">
                             {{ orphan.name }}
-                        </div>
+                        </Link>
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ orphan.phone }}
+                            {{ $t(`family_statuses.${orphan.family_status}`) }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ orphan.email }}</p>
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ orphan.zone?.name }}
-                            </div>
+                            <p class="line-clamp-2 font-medium">{{ orphan.note }}</p>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ orphan.start_date }}
+                                {{ formatDate(orphan.birth_date, 'long') }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <a
+                            <Link
+                                :href="route('tenant.orphans.edit', orphan.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                href="javascript:void(0)"
-                                @click.prevent="emit('showEditModal', orphan.id)"
                                 >{{ $t('edit') }}
-                            </a>
+                            </Link>
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
