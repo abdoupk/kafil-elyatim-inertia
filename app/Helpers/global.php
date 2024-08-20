@@ -140,7 +140,6 @@ function search(Model $model, ?string $additional_filters = '', ?int $limit = nu
     }
 
     if (property_exists($model, 'deleted_at')) {
-        ray('12121');
         $additional_filters .= ' AND __soft_deleted = 0';
     }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
  * @property int $id
@@ -38,6 +39,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class City extends Model
 {
+    use Searchable;
+
     public $timestamps = false;
 
     protected $fillable = [

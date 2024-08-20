@@ -538,5 +538,19 @@ export const branchedFilters: ListBoxFilter[] = [
         label: 'created_at',
         type: 'date',
         operators: filterDateOperators
+    },
+    {
+        icon: 'icon-map-location-dot',
+        field: 'city.id',
+        label: 'city',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-users-gear',
+        field: 'president.id',
+        label: 'member',
+        type: 'object',
+        operators: filterObjectOperators
     }
 ]

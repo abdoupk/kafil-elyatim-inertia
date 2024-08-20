@@ -11,8 +11,6 @@ class BranchDeleteController extends Controller
 {
     public function __invoke(Branch $branch): RedirectResponse
     {
-        $branch->unsearchable();
-
         $branch->delete();
 
         dispatch(new BranchTrashedJob($branch, auth()->user()));

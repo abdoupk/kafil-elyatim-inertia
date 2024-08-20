@@ -80,7 +80,7 @@ Route::middleware([
 
             Route::get('trash', TrashIndexController::class)->name('trash');
 
-            Route::get('search/city', CitySearchController::class)->name('city.search');
+            Route::get('search/cities', CitySearchController::class)->name('cities.search');
 
             Route::post(
                 'logout',

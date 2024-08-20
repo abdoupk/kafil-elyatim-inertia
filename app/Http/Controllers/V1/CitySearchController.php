@@ -10,6 +10,7 @@ class CitySearchController extends Controller
 {
     public function __invoke()
     {
+        //TODO fix to search
         return CitySearchResource::collection(search(City::getModel(), limit: 100)->get());
     }
 }

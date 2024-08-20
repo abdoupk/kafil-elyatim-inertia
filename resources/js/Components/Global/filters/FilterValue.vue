@@ -4,10 +4,12 @@ import type { FilterValueType, ListBoxFilter } from '@/types/types'
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BranchesFilterDropDown from '@/Components/Global/filters/BranchesFilterDropDown.vue'
+import CitiesFilterDropDown from '@/Components/Global/filters/CitiesFilterDropDown.vue'
 import ClothesSizeFilterDropDown from '@/Components/Global/filters/ClothesSizeFilterDropDown.vue'
 import FamiliesFilterDropDown from '@/Components/Global/filters/FamiliesFilterDropDown.vue'
 import FamilySponsorShipFilterDropDown from '@/Components/Global/filters/FamilySponsorShipFilterDropDown.vue'
 import GenderTypeFilterDropDown from '@/Components/Global/filters/GenderTypeFilterDropDown.vue'
+import MembersFilterDropDown from '@/Components/Global/filters/MembersFilterDropDown.vue'
 import OrphanAcademicLevelFilterDropDown from '@/Components/Global/filters/OrphanAcademicLevelFilterDropDown.vue'
 import OrphanSponsorShipFilterDropDown from '@/Components/Global/filters/OrphanSponsorShipFilterDropDown.vue'
 import OrphansFilterDropDown from '@/Components/Global/filters/OrphansFilterDropDown.vue'
@@ -37,6 +39,18 @@ const value = defineModel<FilterValueType>('value')
                 v-model:value="value"
                 class="text-sm"
             ></sponsors-filter-drop-down>
+
+            <cities-filter-drop-down
+                v-else-if="field?.label === 'city'"
+                v-model:value="value"
+                class="text-sm"
+            ></cities-filter-drop-down>
+
+            <members-filter-drop-down
+                v-else-if="field?.label === 'member'"
+                v-model:value="value"
+                class="text-sm"
+            ></members-filter-drop-down>
 
             <orphans-filter-drop-down
                 v-else-if="field?.label === 'orphan'"

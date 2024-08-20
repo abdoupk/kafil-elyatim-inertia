@@ -35,7 +35,7 @@ Route::prefix('members')->name('members.')->group(function () {
     Route::post('{member}/restore', MemberRestoreController::class)
         ->name('restore')->withTrashed();
 
-    Route::post('search', MemberSearchController::class)
+    Route::get('search', MemberSearchController::class)
         ->name('search');
 
     Route::delete('{member}/force-delete', MemberForceDeleteController::class)
