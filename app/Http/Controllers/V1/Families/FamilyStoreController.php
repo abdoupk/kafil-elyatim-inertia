@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Families;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
+use App\Jobs\V1\Family\FamilyCreatedJob;
 use App\Models\Family;
 use App\Models\Orphan;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -90,6 +91,8 @@ class FamilyStoreController extends Controller
         $family->sponsorships()->create($request->validated('family_sponsorship'));
 
         $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
+
+        dispatch(new FamilyCreatedJob($family, auth()->user()));
 
         return response(['family' => $family->id], 201);
     }

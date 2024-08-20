@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Lessons;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Lessons\LessonCreateRequest;
+use App\Jobs\V1\Lesson\LessonCreatedJob;
 use App\Models\Event;
 use App\Models\EventOccurrence;
 use App\Models\Lesson;
@@ -26,12 +27,13 @@ class LessonStoreController extends Controller
             ->where('private_school_id', $request->school_id)
             ->where('academic_level_id', $request->academic_level_id)
             ->first();
-        ray($lesson->id);
 
         $event = Event::create([
             ...$request->except(['orphans', 'subject_id', 'academic_level_id', 'school_id']),
             'lesson_id' => $lesson->id,
         ]);
+
+        dispatch(new LessonCreatedJob($event, auth()->user()));
 
         $this->generateOccurrences($event, $lesson->id, $request->orphans);
     }

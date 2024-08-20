@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Members;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Members\MemberCreateRequest;
+use App\Jobs\V1\Member\MemberCreatedJob;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -20,6 +21,8 @@ class MemberStoreController extends Controller
         $user->searchable();
 
         $user->roles()->searchable();
+
+        dispatch(new MemberCreatedJob($user, auth()->user()));
 
         return response('', 201);
     }

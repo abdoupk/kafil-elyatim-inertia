@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\AcademicAchievements;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\AcademicAchievements\AcademicAchievementsUpdateRequest;
+use App\Jobs\V1\Orphan\OrphanUpdatedJob;
 use App\Models\AcademicAchievement;
 
 class AcademicAchievementsUpdateController extends Controller
@@ -13,6 +14,8 @@ class AcademicAchievementsUpdateController extends Controller
         $academicAchievement->update($request->validated());
 
         $academicAchievement->orphan->searchable();
+
+        dispatch(new OrphanUpdatedJob($academicAchievement->orphan, auth()->user()));
 
         return response('', 201);
     }

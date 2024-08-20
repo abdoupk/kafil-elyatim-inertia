@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\PrivateSchools;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Schools\SchoolUpdateRequest;
+use App\Jobs\V1\School\SchoolUpdatedJob;
 use App\Models\PrivateSchool;
 
 class SchoolUpdateController extends Controller
@@ -17,6 +18,8 @@ class SchoolUpdateController extends Controller
         collect($request->lessons)->each(function ($lesson) use ($school) {
             $school->lessons()->create($lesson);
         });
+
+        dispatch(new SchoolUpdatedJob($school, auth()->user()));
 
         return response('', 201);
     }

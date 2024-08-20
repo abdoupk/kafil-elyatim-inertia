@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Roles;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Roles\RoleUpdateRequest;
+use App\Jobs\V1\Role\RoleUpdatedJob;
 use App\Models\Role;
 
 class RoleUpdateController extends Controller
@@ -17,6 +18,8 @@ class RoleUpdateController extends Controller
         $role->syncPermissions($permissions);
 
         $role->searchable();
+
+        dispatch(new RoleUpdatedJob($role, auth()->user()));
 
         return response('', 201);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1\Roles;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Roles\RoleCreateRequest;
+use App\Jobs\V1\Role\RoleCreatedJob;
 use App\Models\Role;
 
 class RoleStoreController extends Controller
@@ -17,6 +18,8 @@ class RoleStoreController extends Controller
         $role->givePermissionTo($permissions);
 
         $role->searchable();
+
+        dispatch(new RoleCreatedJob($role, auth()->user()));
 
         return response('', 201);
     }

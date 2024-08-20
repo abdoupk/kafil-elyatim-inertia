@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Families;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\V1\Family\FamilyTrashedJob;
 use App\Models\Family;
 
 class FamilyDeleteController extends Controller
@@ -28,6 +29,8 @@ class FamilyDeleteController extends Controller
         $family->sponsor()->delete();
 
         $family->sponsor()->searchable();
+
+        dispatch(new FamilyTrashedJob($family, auth()->user()));
 
         return redirect()->back();
     }
