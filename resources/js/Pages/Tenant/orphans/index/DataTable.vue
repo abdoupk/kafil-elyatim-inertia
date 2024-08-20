@@ -2,6 +2,7 @@
 import type { IndexParams, OrphansIndexResource, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
+import { computed } from 'vue'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
@@ -13,6 +14,11 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate } from '@/utils/helper'
+import { getLocale } from '@/utils/i18n'
+
+const familyStatusFilter = computed(() => {
+    return `family_status.${getLocale()}`
+})
 
 defineProps<{ orphans: PaginationData<OrphansIndexResource>; params: IndexParams }>()
 
@@ -38,27 +44,23 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.family_status"
+                            :direction="params.directions && params.directions[familyStatusFilter]"
                             class="text-center"
                             sortable
-                            @click="emit('sort', 'email')"
+                            @click="emit('sort', familyStatusFilter)"
                         >
                             {{ $t('family_status') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions?.health_status"
-                            class="text-center"
-                            sortable
-                            @click="emit('sort', 'health_status')"
+                        <the-table-th class="text-center"
                             >{{ $t('validation.attributes.sponsor.health_status') }}
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.academic_level"
+                            :direction="params.directions && params.directions['academic_level.id']"
                             class="text-center"
                             sortable
-                            @click="emit('sort', 'academic_level')"
+                            @click="emit('sort', 'academic_level.id')"
                             >{{ $t('validation.attributes.sponsor.academic_level') }}
                         </the-table-th>
 
@@ -88,8 +90,8 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             </Link>
                         </the-table-td>
 
-                        <the-table-td class="max-w-40 truncate">
-                            {{ orphan.family_status }}
+                        <the-table-td class="max-w-40 truncate text-center">
+                            {{ $t(`family_statuses.${orphan.family_status}`) }}
                         </the-table-td>
 
                         <the-table-td class="max-w-40 truncate text-center">

@@ -18,6 +18,7 @@ class LessonUpdateController extends Controller
 
             $eventOccurrence->orphans()->attach($request->orphans, ['lesson_id' => $eventOccurrence->lesson_id]);
 
+            // TODO update coming events and generate occurrences
             $eventOccurrence->event()->update($request->only(['color', 'until', 'frequency', 'title', 'start_date', 'end_date', 'interval']));
 
             $eventOccurrence->event->occurrences()->each(fn (EventOccurrence $eventOccurrence) => $eventOccurrence->update($request->only(['start_date', 'end_date'])));

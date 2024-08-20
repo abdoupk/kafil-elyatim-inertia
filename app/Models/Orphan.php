@@ -188,7 +188,11 @@ class Orphan extends Model
             'birth_date' => strtotime($this->birth_date),
             'readable_birth_date' => $this->birth_date,
             'health_status' => $this->health_status,
-            'family_status' => $this->family_status,
+            'family_status' => [
+                'ar' => __('family_statuses.'.$this->family_status, locale: 'ar'),
+                'fr' => __('family_statuses.'.$this->family_status, locale: 'fr'),
+                'en' => __('family_statuses.'.$this->family_status, locale: 'en'),
+            ],
             'shoes_size' => $this->shoesSize->label,
             'shirt_size' => $this->shirtSize->label,
             'pants_size' => $this->pantsSize->label,

@@ -916,5 +916,11 @@
     "quantity_for_each_family": "الكمية لكل عائلة",
     "successfully_trashed": "تم حذف :attribute بنجاح وتم نقلها إلى سلة المهملات. {0}|  تم حذف :attribute بنجاح وتم نقله إلى سلة المهملات.{1}",
     "successfully_force_deleted": "تم حذف :attribute بنجاح وتم نقلها إلى سلة المهملات. {0}|  تم حذف :attribute بنجاح وتم نقله إلى سلة المهملات.{1}",
-    "successfully_restored": "تم حذف :attribute بنجاح وتم نقلها إلى سلة المهملات. {0}|  تم حذف :attribute بنجاح وتم نقله إلى سلة المهملات.{1}"
+    "successfully_restored": "تم حذف :attribute بنجاح وتم نقلها إلى سلة المهملات. {0}|  تم حذف :attribute بنجاح وتم نقله إلى سلة المهملات.{1}",
+    "medical_sponsorship": "كفالة طبية",
+    "university_scholarship": "منحة جامعية",
+    "association_trips": "رحلات الجمعية",
+    "summer_camp": "مخيف صيفي",
+    "eid_suit": "بدلة العيد",
+    "school_bag": "حقيبة مدرسية"
 }
