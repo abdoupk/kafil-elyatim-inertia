@@ -2,7 +2,7 @@
 
 namespace App\Notifications\Role;
 
-use App\Models\Branch;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ class CreateRoleNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Role $role, public User $user) {}
 
     public function via(): array
     {

@@ -2,7 +2,7 @@
 
 namespace App\Notifications\Inventory;
 
-use App\Models\Branch;
+use App\Models\Inventory;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ class UpdateInventoryItemNotification extends Notification implements ShouldQueu
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Inventory $inventory, public User $user) {}
 
     public function via(): array
     {

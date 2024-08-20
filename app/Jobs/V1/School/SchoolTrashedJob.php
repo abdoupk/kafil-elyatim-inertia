@@ -2,9 +2,9 @@
 
 namespace App\Jobs\V1\School;
 
-use App\Models\Branch;
+use App\Models\PrivateSchool;
 use App\Models\User;
-use App\Notifications\Branch\CreateBranchNotification;
+use App\Notifications\School\DeleteSchoolNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,7 +16,7 @@ class SchoolTrashedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public PrivateSchool $school, public User $user) {}
 
     public function handle(): void
     {
@@ -24,6 +24,6 @@ class SchoolTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateBranchNotification(branch: $this->branch, user: $this->user));
+            new DeleteSchoolNotification(school: $this->school, user: $this->user));
     }
 }

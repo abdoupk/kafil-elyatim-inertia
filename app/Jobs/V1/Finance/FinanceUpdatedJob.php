@@ -2,9 +2,9 @@
 
 namespace App\Jobs\V1\Finance;
 
-use App\Models\Branch;
+use App\Models\Finance;
 use App\Models\User;
-use App\Notifications\Branch\CreateBranchNotification;
+use App\Notifications\Finance\UpdateFinanceTransactionNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,7 +16,7 @@ class FinanceUpdatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Finance $finance, public User $user) {}
 
     public function handle(): void
     {
@@ -24,6 +24,6 @@ class FinanceUpdatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateBranchNotification(branch: $this->branch, user: $this->user));
+            new UpdateFinanceTransactionNotification(finance: $this->finance, user: $this->user));
     }
 }

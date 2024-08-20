@@ -2,7 +2,7 @@
 
 namespace App\Notifications\Orphan;
 
-use App\Models\Branch;
+use App\Models\Orphan;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ class DeleteOrphanNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Orphan $orphan, public User $user) {}
 
     public function via(): array
     {

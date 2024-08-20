@@ -2,8 +2,8 @@
 
 namespace App\Notifications\Zone;
 
-use App\Models\Branch;
 use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -13,7 +13,7 @@ class DeleteZoneNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Zone $zone, public User $user) {}
 
     public function via(): array
     {

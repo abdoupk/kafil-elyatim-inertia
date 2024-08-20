@@ -2,7 +2,7 @@
 
 namespace App\Notifications\Finance;
 
-use App\Models\Branch;
+use App\Models\Finance;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ class DeleteFinanceTransactionNotification extends Notification implements Shoul
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Finance $finance, public User $user) {}
 
     public function via(): array
     {

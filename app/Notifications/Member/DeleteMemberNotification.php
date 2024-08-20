@@ -2,7 +2,6 @@
 
 namespace App\Notifications\Member;
 
-use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +12,7 @@ class DeleteMemberNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public User $member, public User $user) {}
 
     public function via(): array
     {

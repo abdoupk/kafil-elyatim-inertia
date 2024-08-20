@@ -2,7 +2,7 @@
 
 namespace App\Notifications\Sponsor;
 
-use App\Models\Branch;
+use App\Models\Sponsor;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ class UpdateSponsorNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Sponsor $sponsor, public User $user) {}
 
     public function via(): array
     {
