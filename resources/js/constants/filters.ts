@@ -603,7 +603,29 @@ export const babiesMilkAndDiapersFilters: ListBoxFilter[] = [
 export const financialFilters: ListBoxFilter[] = []
 export const schoolsFilters: ListBoxFilter[] = []
 
-export const zonesFilters: ListBoxFilter[] = []
+export const zonesFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-map-location-dot',
+        field: 'id',
+        label: 'zone',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hashtag',
+        field: 'families_count',
+        label: 'families_count',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-calendar',
+        field: 'created_at',
+        label: 'created_at',
+        type: 'date',
+        operators: filterDateOperators
+    }
+]
 
 export const branchedFilters: ListBoxFilter[] = [
     {

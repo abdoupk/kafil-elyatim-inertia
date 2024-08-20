@@ -146,6 +146,7 @@ watchEffect(async () => {
         entries="zones"
         export-pdf-url=""
         export-xlsx-url=""
+        filterable
         searchable
         @change-filters="params.filters = $event"
     >
