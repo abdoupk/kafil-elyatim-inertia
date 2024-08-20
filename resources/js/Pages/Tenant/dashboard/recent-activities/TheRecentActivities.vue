@@ -2,8 +2,9 @@
 import type { RecentActivitiesType } from '@/types/dashboard'
 
 import { Link } from '@inertiajs/vue3'
+import { defineAsyncComponent } from 'vue'
 
-import TheAvatar from '@/Components/Global/TheAvatar.vue'
+const TheAvatar = defineAsyncComponent(() => import('@/Components/Global/TheAvatar.vue'))
 
 defineProps<{
     recentActivities: RecentActivitiesType
@@ -11,15 +12,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="col-span-12 mt-3 md:col-span-6 xl:col-span-4 2xl:col-span-12">
-        <div class="intro-x flex h-10 items-center">
-            <h2 class="me-5 truncate text-lg font-medium">Recent Activities</h2>
-
-            <Link :href="route('tenant.dashboard')" class="ms-auto truncate text-primary" only="recentActivities">
-                Show More
-            </Link>
-        </div>
-
+    <suspense suspensible>
         <div
             class="relative mt-5 before:absolute before:ms-5 before:mt-5 before:block before:h-[85%] before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
         >
@@ -51,5 +44,5 @@ defineProps<{
 
             <div class="intro-x my-4 text-center text-xs text-slate-500">12 November</div>
         </div>
-    </div>
+    </suspense>
 </template>

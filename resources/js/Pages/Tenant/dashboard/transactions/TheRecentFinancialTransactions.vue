@@ -14,10 +14,7 @@ defineProps<{
 
 <template>
     <!-- BEGIN: Transactions -->
-    <div class="col-span-12 mt-3 md:col-span-6 xl:col-span-4 2xl:col-span-12 2xl:mt-8">
-        <div class="intro-x flex h-10 items-center">
-            <h2 class="me-5 truncate text-lg font-medium">Transactions</h2>
-        </div>
+    <suspense suspensible>
         <div class="mt-5">
             <div v-for="transaction in recentTransactions" :key="transaction.id" class="intro-x">
                 <div class="box zoom-in mb-3 flex items-center px-5 py-3">
@@ -53,6 +50,6 @@ defineProps<{
                 View More
             </a>
         </div>
-    </div>
+    </suspense>
     <!-- END: Transactions -->
 </template>

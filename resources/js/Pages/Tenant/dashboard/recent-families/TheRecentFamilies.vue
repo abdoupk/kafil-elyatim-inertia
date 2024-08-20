@@ -2,15 +2,23 @@
 import type { RecentFamiliesType } from '@/types/dashboard'
 
 import { Link } from '@inertiajs/vue3'
+import { defineAsyncComponent } from 'vue'
 
-import BaseTable from '@/Components/Base/table/BaseTable.vue'
-import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
-import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
-import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
-import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
-import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
-import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+const BaseTable = defineAsyncComponent(() => import('@/Components/Base/table/BaseTable.vue'))
+
+const BaseTbodyTable = defineAsyncComponent(() => import('@/Components/Base/table/BaseTbodyTable.vue'))
+
+const BaseTheadTable = defineAsyncComponent(() => import('@/Components/Base/table/BaseTheadTable.vue'))
+
+const BaseTrTable = defineAsyncComponent(() => import('@/Components/Base/table/BaseTrTable.vue'))
+
+const TheTableTd = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableTd.vue'))
+
+const TheTableTdActions = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableTdActions.vue'))
+
+const TheTableTh = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableTh.vue'))
+
+const SvgLoader = defineAsyncComponent(() => import('@/Components/SvgLoader.vue'))
 
 defineProps<{
     recentFamilies: RecentFamiliesType
@@ -18,11 +26,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="col-span-12 mt-6">
-        <div class="intro-y block h-10 items-center sm:flex">
-            <h2 class="me-5 truncate text-lg font-medium">Recent Added Families</h2>
-        </div>
-
+    <suspense suspensible>
         <div class="@container">
             <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible">
                 <base-table class="mt-2 border-separate border-spacing-y-[10px]">
@@ -142,9 +146,9 @@ defineProps<{
                 </div>
             </div>
         </div>
+    </suspense>
 
-        <!--        <div class="intro-y mt-8 overflow-auto sm:mt-0 lg:overflow-visible">-->
-        <!--            -->
-        <!--        </div>-->
-    </div>
+    <!--        <div class="intro-y mt-8 overflow-auto sm:mt-0 lg:overflow-visible">-->
+    <!--            -->
+    <!--        </div>-->
 </template>

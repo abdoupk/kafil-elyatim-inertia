@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import type { ComingEventsType } from '@/types/dashboard'
 
-import TheExpandedCalendar from '@/Pages/Tenant/dashboard/schedules/TheExpandedCalendar.vue'
+import { defineAsyncComponent } from 'vue'
 
-import SvgLoader from '@/Components/SvgLoader.vue'
+const TheExpandedCalendar = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/schedules/TheExpandedCalendar.vue')
+)
 
 defineProps<{
     comingEvents: ComingEventsType
@@ -11,18 +13,7 @@ defineProps<{
 </script>
 
 <template>
-    <div
-        class="col-span-12 mt-3 md:col-span-6 xl:col-span-4 xl:col-start-1 xl:row-start-2 2xl:col-span-12 2xl:col-start-auto 2xl:row-start-auto"
-    >
-        <div class="intro-x flex h-10 items-center">
-            <h2 class="me-5 truncate text-lg font-medium">Schedules</h2>
-            <a class="ms-auto flex items-center truncate text-primary" href="">
-                <svg-loader class="me-1 h-4 w-4" name="icon-plus"></svg-loader>
-
-                Add New Schedules
-            </a>
-        </div>
-
+    <suspense suspensible>
         <div class="intro-x box mt-5">
             <the-expanded-calendar class="px-1 py-2.5"></the-expanded-calendar>
 
@@ -42,5 +33,5 @@ defineProps<{
                 </div>
             </div>
         </div>
-    </div>
+    </suspense>
 </template>
