@@ -40,6 +40,12 @@ export const useCityStore = defineStore('city', {
             }
         },
 
+        async searchCities(query: string) {
+            const { data: cities } = await axios.get(route('tenant.cities.search', query))
+
+            return cities
+        },
+
         async fetchDairas(wilaya_code: string | undefined) {
             if (typeof wilaya_code === 'undefined' || wilaya_code == '') return
 

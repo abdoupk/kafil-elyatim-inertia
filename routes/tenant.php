@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\V1\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\V1\CitySearchController;
 use App\Http\Controllers\V1\Trash\TrashIndexController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -78,6 +79,8 @@ Route::middleware([
             require_once __DIR__.'/v1/zones.php';
 
             Route::get('trash', TrashIndexController::class)->name('trash');
+
+            Route::get('search/city', CitySearchController::class)->name('city.search');
 
             Route::post(
                 'logout',

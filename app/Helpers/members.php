@@ -4,6 +4,7 @@
 
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /** @noinspection NullPointerExceptionInspection */
 function getMembers(): LengthAwarePaginator
@@ -12,4 +13,9 @@ function getMembers(): LengthAwarePaginator
         ->query(fn ($query) => $query->with('zone'))
         /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()?->input('perPage', 10));
+}
+
+function searchMembers(): Collection
+{
+    return search(User::getModel(), limit: 100)->get();
 }

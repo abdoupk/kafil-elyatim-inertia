@@ -78,6 +78,12 @@ export const useMembersStore = defineStore('members', {
             this.members = members
         },
 
+        async searchMembers(query: string) {
+            const { data: members } = await axios.get(route('tenant.members.search', query))
+
+            return members
+        },
+
         async getMemberDetails(memberId: string) {
             const { data } = await axios.get(route('tenant.members.details', memberId))
 

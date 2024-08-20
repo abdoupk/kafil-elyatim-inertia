@@ -6,6 +6,7 @@ use App\Http\Controllers\V1\Members\MemberDeleteController;
 use App\Http\Controllers\V1\Members\MemberDetailsController;
 use App\Http\Controllers\V1\Members\MemberForceDeleteController;
 use App\Http\Controllers\V1\Members\MemberRestoreController;
+use App\Http\Controllers\V1\Members\MemberSearchController;
 use App\Http\Controllers\V1\Members\MemberShowController;
 use App\Http\Controllers\V1\Members\MembersIndexController;
 use App\Http\Controllers\V1\Members\MemberStoreController;
@@ -33,6 +34,9 @@ Route::prefix('members')->name('members.')->group(function () {
 
     Route::post('{member}/restore', MemberRestoreController::class)
         ->name('restore')->withTrashed();
+
+    Route::post('search', MemberSearchController::class)
+        ->name('search');
 
     Route::delete('{member}/force-delete', MemberForceDeleteController::class)
         ->name('force-delete')->withTrashed();
