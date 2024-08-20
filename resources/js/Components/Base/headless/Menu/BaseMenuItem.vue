@@ -31,7 +31,7 @@ const computedClass = computed(() =>
 
 <template>
     <headless-menu-item as="template" v-bind="$attrs">
-        <component :is="as" :class="computedClass" as="button" v-bind="$attrs">
+        <component :is="as" :class="computedClass" :href as="button" v-bind="$attrs">
             <slot></slot>
         </component>
     </headless-menu-item>
