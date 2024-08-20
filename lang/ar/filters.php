@@ -55,4 +55,6 @@ return [
     'before' => 'قبل',
     'after' => 'بعد',
     'is_in_the_future' => 'الوقت الحالي أو القادم',
+    'location' => 'الموقع',
+    'branch_president' => ' رئيس الفرع',
 ];

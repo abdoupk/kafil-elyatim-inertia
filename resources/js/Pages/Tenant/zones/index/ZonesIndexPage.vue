@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/types'
 
+import { zonesFilters } from '@/constants/filters'
 import { useZonesStore } from '@/stores/zones'
 import { Head, router } from '@inertiajs/vue3'
 import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
@@ -16,7 +17,7 @@ import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -76,7 +77,7 @@ const deleteZone = () => {
                 params.page = params.page - 1
             }
 
-            router.get(route('tenant.zones.index'), params, {
+            getDataForIndexPages(route('tenant.zones.index'), params, {
                 onStart: () => {
                     closeDeleteModal()
                 },
@@ -137,7 +138,7 @@ watchEffect(async () => {
     <Head :title="$t('list', { attribute: $t('the_zones') })"></Head>
 
     <the-table-header
-        :filters="[]"
+        :filters="zonesFilters"
         :pagination-data="zones"
         :params="params"
         :title="$t('list', { attribute: $t('the_zones') })"

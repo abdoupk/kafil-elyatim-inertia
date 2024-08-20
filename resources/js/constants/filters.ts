@@ -305,7 +305,50 @@ export const orphansFilters: ListBoxFilter[] = [
 ]
 
 // TODO add filters
-export const eidAlAdhaFilters: ListBoxFilter[] = []
+export const eidAlAdhaFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-family',
+        field: 'family.id',
+        label: 'family',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'sponsor.id',
+        label: 'sponsor',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-branches',
+        field: 'family.branch.id',
+        label: 'branch',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-map-location-dot',
+        field: 'family.zone.id',
+        label: 'zone',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'family.orphans_count',
+        label: 'orphans_count',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-dollar-sign',
+        field: 'family.total_income',
+        label: 'total_income',
+        type: 'number',
+        operators: filterNumberOperators
+    }
+]
 
 // TODO change icon general_average
 export const schoolEntryFilters: ListBoxFilter[] = [
@@ -459,7 +502,50 @@ export const ramadanBasketFilters: ListBoxFilter[] = [
 
 export const needsFilters: ListBoxFilter[] = []
 
-export const monthlyBasketFilters: ListBoxFilter[] = []
+export const monthlyBasketFilters: ListBoxFilter[] = [
+    {
+        icon: 'icon-family',
+        field: 'family.id',
+        label: 'family',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-hands-holding-child',
+        field: 'sponsor.id',
+        label: 'sponsor',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-branches',
+        field: 'family.branch.id',
+        label: 'branch',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-map-location-dot',
+        field: 'family.zone.id',
+        label: 'zone',
+        type: 'object',
+        operators: filterObjectOperators
+    },
+    {
+        icon: 'icon-children',
+        field: 'family.orphans_count',
+        label: 'orphans_count',
+        type: 'number',
+        operators: filterNumberOperators
+    },
+    {
+        icon: 'icon-dollar-sign',
+        field: 'family.total_income',
+        label: 'total_income',
+        type: 'number',
+        operators: filterNumberOperators
+    }
+]
 
 // Add diapers icon
 export const babiesMilkAndDiapersFilters: ListBoxFilter[] = [
@@ -517,6 +603,8 @@ export const babiesMilkAndDiapersFilters: ListBoxFilter[] = [
 export const financialFilters: ListBoxFilter[] = []
 export const schoolsFilters: ListBoxFilter[] = []
 
+export const zonesFilters: ListBoxFilter[] = []
+
 export const branchedFilters: ListBoxFilter[] = [
     {
         icon: 'icon-branches',
@@ -542,14 +630,14 @@ export const branchedFilters: ListBoxFilter[] = [
     {
         icon: 'icon-map-location-dot',
         field: 'city.id',
-        label: 'city',
+        label: 'location',
         type: 'object',
         operators: filterObjectOperators
     },
     {
         icon: 'icon-users-gear',
         field: 'president.id',
-        label: 'member',
+        label: 'branch_president',
         type: 'object',
         operators: filterObjectOperators
     }

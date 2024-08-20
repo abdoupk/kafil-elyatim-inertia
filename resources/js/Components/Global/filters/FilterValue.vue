@@ -41,13 +41,13 @@ const value = defineModel<FilterValueType>('value')
             ></sponsors-filter-drop-down>
 
             <cities-filter-drop-down
-                v-else-if="field?.label === 'city'"
+                v-else-if="field?.label === 'location'"
                 v-model:value="value"
                 class="text-sm"
             ></cities-filter-drop-down>
 
             <members-filter-drop-down
-                v-else-if="field?.label === 'member'"
+                v-else-if="field?.label === 'branch_president'"
                 v-model:value="value"
                 class="text-sm"
             ></members-filter-drop-down>

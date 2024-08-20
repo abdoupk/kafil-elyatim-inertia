@@ -19,7 +19,7 @@ import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -75,7 +75,7 @@ const deleteBranch = () => {
                 params.page = params.page - 1
             }
 
-            router.get(route('tenant.branches.index'), params, {
+            getDataForIndexPages(route('tenant.branches.index'), params, {
                 onStart: () => {
                     closeDeleteModal()
                 },

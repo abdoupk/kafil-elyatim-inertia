@@ -19,7 +19,7 @@ import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 
 defineOptions({
     layout: TheLayout
@@ -84,7 +84,7 @@ const deleteItem = () => {
                 params.page = params.page - 1
             }
 
-            router.get(route('tenant.financial.index'), params, {
+            getDataForIndexPages(route('tenant.financial.index'), params, {
                 onStart: () => {
                     closeDeleteModal()
                 },

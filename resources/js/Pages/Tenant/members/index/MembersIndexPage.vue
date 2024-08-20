@@ -18,7 +18,7 @@ import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
-import { handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 defineOptions({
@@ -74,7 +74,7 @@ const deleteMember = () => {
                 params.page = params.page - 1
             }
 
-            router.get(route('tenant.members.index'), params, {
+            getDataForIndexPages(route('tenant.members.index'), params, {
                 onStart: () => {
                     closeDeleteModal()
                 },

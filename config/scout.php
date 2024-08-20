@@ -421,9 +421,11 @@ return [
                     'eid_al_adha',
                     'tenant_id',
                     'family.branch.id',
+                    'family.id',
                     'family.zone.id',
                     'family.orphans_count',
                     'family.total_income',
+                    'sponsor.id',
                 ],
                 'searchableAttributes' => [
                     'family.address',
