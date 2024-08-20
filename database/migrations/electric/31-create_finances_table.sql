@@ -18,7 +18,7 @@ CREATE TABLE "finances"
     "description"   text                           NULL,
     "date"          timestamp(0) WITHOUT TIME ZONE NOT NULL,
     "specification" donation_specification         NOT NULL,
-    "tenant_id"     UUID                           NOT NULL,
+    "tenant_id"     text                           NOT NULL,
     "created_at"    timestamp(0) WITHOUT TIME ZONE NULL,
     "updated_at"    timestamp(0) WITHOUT TIME ZONE NULL,
     "deleted_at"    timestamp(0) without time zone null,

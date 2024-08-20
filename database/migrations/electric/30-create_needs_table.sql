@@ -11,7 +11,8 @@ create table "needs"
     "deleted_at"    timestamp(0) without time zone null,
     "created_at"    timestamp(0) without time zone null,
     "updated_at"    timestamp(0) without time zone null,
-    "created_by"    uuid                           null references "users" ("id") on delete set null
+    "created_by"    uuid                           null references "users" ("id") on delete set null,
+    "deleted_by"    uuid                           null references "users" ("id") on delete set null
 );
 
 create index "needs_needable_type_needable_id_index" on "needs" ("needable_type", "needable_id");
