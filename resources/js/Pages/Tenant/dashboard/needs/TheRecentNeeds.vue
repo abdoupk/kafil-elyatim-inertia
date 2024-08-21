@@ -4,9 +4,9 @@ import type { RecentNeedsType } from '@/types/dashboard'
 import 'swiper/css'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { defineAsyncComponent } from 'vue'
 
-const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SvgLoader from '@/Components/SvgLoader.vue'
 
 defineProps<{
     recentNeeds: RecentNeedsType
@@ -15,19 +15,21 @@ defineProps<{
 
 <template>
     <div class="intro-x flex h-10 items-center">
-        <h2 class="me-auto truncate text-lg font-medium">Important Notes</h2>
+        <h2 class="me-auto truncate text-lg font-medium">
+            {{ $t('important notes') }}
+        </h2>
 
         <base-button class="swiper-button-prev me-2 border-slate-300 px-2 text-slate-600 dark:text-slate-300">
-            CL
+            <svg-loader name="icon-chevron-right"></svg-loader>
         </base-button>
 
         <base-button class="swiper-button-next me-2 border-slate-300 px-2 text-slate-600 dark:text-slate-300">
-            CR
+            <svg-loader name="icon-chevron-left"></svg-loader>
         </base-button>
     </div>
 
     <div class="intro-x mt-5">
-        <div class="box zoom-in">
+        <div class="box">
             <Swiper
                 :autoplay="{
                     delay: 3000

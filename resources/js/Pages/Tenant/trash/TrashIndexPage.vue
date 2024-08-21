@@ -69,7 +69,7 @@ const deleteItem = () => {
         :filters="[]"
         :pagination-data="items"
         :params="params"
-        :title="$t('list', { attribute: $t('the_items') })"
+        :title="$t('list_trash')"
         :url="route('tenant.trash')"
         entries="items"
         export-pdf-url=""

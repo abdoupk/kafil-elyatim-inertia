@@ -47,7 +47,7 @@ defineProps<{
                 class="intro-x block w-full rounded-md border border-dotted border-slate-400 py-3 text-center text-slate-500 dark:border-darkmode-300"
                 href=""
             >
-                View More
+                {{ $t('Show More') }}
             </a>
         </div>
     </suspense>

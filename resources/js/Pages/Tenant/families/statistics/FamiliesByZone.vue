@@ -3,6 +3,8 @@ import type { FamiliesByZoneType } from '@/types/statistics'
 
 import { defineAsyncComponent } from 'vue'
 
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
+
 const BasePieChart = defineAsyncComponent(() => import('@/Components/Base/chart/BasePieChart.vue'))
 
 defineProps<{
@@ -12,6 +14,12 @@ defineProps<{
 
 <template>
     <suspense>
-        <base-pie-chart :chart-data="familiesByZone.data" :labels="familiesByZone.labels"></base-pie-chart>
+        <base-pie-chart
+            v-if="familiesByZone.data?.length"
+            :chart-data="familiesByZone.data"
+            :labels="familiesByZone.labels"
+        ></base-pie-chart>
+
+        <the-no-data-chart v-else></the-no-data-chart>
     </suspense>
 </template>

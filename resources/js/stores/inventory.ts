@@ -11,7 +11,7 @@ interface State {
             id: string
             name: string
         }
-        qty_for_family?: number
+        qty_for_family?: number | null
     }
     diapers: {
         id: string

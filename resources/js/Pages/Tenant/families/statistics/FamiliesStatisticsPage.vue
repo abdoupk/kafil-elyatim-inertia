@@ -12,8 +12,8 @@ import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
 import TheStatisticBox from '@/Components/Global/TheStatisticBox.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 const FamiliesByBranch = defineAsyncComponent(() => import('@/Pages/Tenant/families/statistics/FamiliesByBranch.vue'))
 
@@ -123,9 +123,7 @@ defineProps<{
         </div>
 
         <template #fallback>
-            <div class="mt-16 flex h-screen w-full items-start justify-center">
-                <spinner-loader class="h-8 w-8"></spinner-loader>
-            </div>
+            <the-content-loader></the-content-loader>
         </template>
     </suspense>
 </template>

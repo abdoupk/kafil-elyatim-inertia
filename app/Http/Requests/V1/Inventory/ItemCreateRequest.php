@@ -11,7 +11,7 @@ class ItemCreateRequest extends FormRequest
         return [
             'name' => 'required',
             'qty' => 'required|integer',
-            'qty_for_family' => 'required|integer|lt:qty',
+            'qty_for_family' => 'required|integer|lt:qty|gt:0',
             'note' => 'nullable',
             'type' => 'nullable',
             'unit' => 'required|in:kg,piece,liter',

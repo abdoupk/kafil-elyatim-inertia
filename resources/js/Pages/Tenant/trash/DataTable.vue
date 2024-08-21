@@ -32,10 +32,6 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('type') }}
-                        </the-table-th>
-
-                        <the-table-th class="text-center">
                             {{ $t('deleted_by') }}
                         </the-table-th>
 
@@ -54,13 +50,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link class="font-medium" href="#">
-                                {{ item.name }}
-                            </Link>
-                        </the-table-td>
-
-                        <the-table-td class="">
-                            {{ item.type }}
+                            <Link class="font-medium" href="#"> {{ item.name }} ({{ $t(item.type) }})</Link>
                         </the-table-td>
 
                         <the-table-td class="max-w-40 truncate">

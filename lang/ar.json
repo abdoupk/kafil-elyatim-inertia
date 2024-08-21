@@ -347,5 +347,18 @@
     "association_trips": "رحلات الجمعية",
     "summer_camp": "مخيف صيفي",
     "eid_suit": "بدلة العيد",
-    "school_bag": "حقيبة مدرسية"
+    "school_bag": "حقيبة مدرسية",
+    "add_new_item": "اضافة عنصر جديد",
+    "add_baby_milk": "اضافة حليب الأطفال",
+    "add_diapers": "اضافة حفاظات الأطفال",
+    "Recent Added Families": "العائلات المضافة حديثا",
+    "Schedules": "الجداول",
+    "deleted_by": "تم الحذف بواسطة",
+    "Recent Activities": "النشاطات الحديثة",
+    "Transactions": "المعاملات المالية",
+    "important notes": "ملاحظات مهمة",
+    "Show More": "اظهار المزيد",
+    "Add New Schedules": "اضافة درس دعم",
+    "list_trash": "قائمة المحذوفات",
+    "No data available": "لا توجد بيانات متاحة"
 }

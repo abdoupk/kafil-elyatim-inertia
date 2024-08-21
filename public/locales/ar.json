@@ -68,6 +68,7 @@
     "entries.needs": "[11,*]احتياج|[3,10]احتياجات|{2}احتياجين",
     "entries.schools": "[11,*]مدرسة خاصة|[3,10]مدارس خاصة|{2}مدرستين",
     "entries.finances": "[11,*]إيراد|[3,10]إيرادات|{2}إيرادين",
+    "entries.items": "[11,*]عنصر|[3,10]عناصر|{2}عنصرين",
     "exports.eid_al_adha_families": "قائمة المستفيدين من الأضحية لسنة :date",
     "exports.archive.eid_al_adha_families": "أرشيف المستفيدين من الأضحية لسنة :date",
     "exports.transactions": "المعاملات المالية",
@@ -931,5 +932,18 @@
     "association_trips": "رحلات الجمعية",
     "summer_camp": "مخيف صيفي",
     "eid_suit": "بدلة العيد",
-    "school_bag": "حقيبة مدرسية"
+    "school_bag": "حقيبة مدرسية",
+    "add_new_item": "اضافة عنصر جديد",
+    "add_baby_milk": "اضافة حليب الأطفال",
+    "add_diapers": "اضافة حفاظات الأطفال",
+    "Recent Added Families": "العائلات المضافة حديثا",
+    "Schedules": "الجداول",
+    "deleted_by": "تم الحذف بواسطة",
+    "Recent Activities": "النشاطات الحديثة",
+    "Transactions": "المعاملات المالية",
+    "important notes": "ملاحظات مهمة",
+    "Show More": "اظهار المزيد",
+    "Add New Schedules": "اضافة درس دعم",
+    "list_trash": "قائمة المحذوفات",
+    "No data available": "لا توجد بيانات متاحة"
 }

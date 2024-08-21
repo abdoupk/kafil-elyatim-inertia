@@ -38,7 +38,7 @@ UNION ALL
   (
     SELECT
       o.id,
-      o.first_name AS name,
+      CONCAT(o.first_name, ' ', o.last_name) AS name,
       o.deleted_at,
       u.id AS user_id,
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
@@ -56,7 +56,7 @@ UNION ALL
   (
     SELECT
       s.id,
-      s.first_name AS name,
+      CONCAT(s.first_name, ' ', s.last_name) AS name,
       s.deleted_at,
       u.id AS user_id,
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
@@ -74,7 +74,7 @@ UNION ALL
   (
     SELECT
       m.id,
-      m.first_name AS name,
+      CONCAT(m.first_name, ' ', m.last_name) AS name,
       m.deleted_at,
       u.id AS user_id,
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
@@ -141,24 +141,6 @@ UNION ALL
     WHERE
       n.deleted_at IS NOT NULL
       AND n.tenant_id = :tenant_id
-  )
-UNION ALL
-  (
-    SELECT
-      s.id,
-      s.name,
-      s.deleted_at,
-      u.id AS user_id,
-      CONCAT(u.first_name, ' ', u.last_name) AS user_name,
-      'tenant.schools.restore' AS restore_url,
-      'tenant.schools.force-delete' AS force_delete_url,
-      'schools' AS type
-    FROM
-      private_schools s
-      LEFT JOIN users u ON s.deleted_by = u.id
-    WHERE
-      s.deleted_at IS NOT NULL
-      AND s.tenant_id = :tenant_id
   )
 UNION ALL
   (

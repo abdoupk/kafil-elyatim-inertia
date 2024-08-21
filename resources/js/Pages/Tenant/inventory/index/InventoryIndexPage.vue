@@ -12,6 +12,7 @@ import ItemShowModal from '@/Pages/Tenant/inventory/ItemShowModal.vue'
 import DataTable from '@/Pages/Tenant/inventory/index/DataTable.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
 import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
 import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
@@ -111,6 +112,8 @@ const showDeleteModal = (itemId: string) => {
 const showCreateModal = () => {
     inventoryStore.$reset()
 
+    inventoryStore.item.qty_for_family = null
+
     createUpdateModalStatus.value = true
 }
 
@@ -163,22 +166,27 @@ watchEffect(async () => {
         entries="items"
         export-pdf-url=""
         export-xlsx-url=""
-        filterable
         searchable
         @change-filters="params.filters = $event"
     >
         <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                <svg-loader name="icon-plus"></svg-loader>
-            </base-button>
+            <base-tippy :content="$t('add_new_item')">
+                <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                    <svg-loader name="icon-plus"></svg-loader>
+                </base-button>
+            </base-tippy>
 
-            <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForBabyMilk">
-                <svg-loader name="icon-bottle-baby"></svg-loader>
-            </base-button>
+            <base-tippy :content="$t('add_baby_milk')">
+                <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForBabyMilk">
+                    <svg-loader name="icon-bottle-baby"></svg-loader>
+                </base-button>
+            </base-tippy>
 
-            <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForDiapers">
-                <svg-loader class="stroke-current stroke-1.5" name="icon-diapers"></svg-loader>
-            </base-button>
+            <base-tippy :content="$t('add_diapers')">
+                <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForDiapers">
+                    <svg-loader class="stroke-current stroke-1.5" name="icon-diapers"></svg-loader>
+                </base-button>
+            </base-tippy>
         </template>
     </the-table-header>
 
