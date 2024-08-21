@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
+import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
     width?: number
@@ -15,7 +16,6 @@ const props = defineProps<{
     datasets: {
         label: string
         data: number[]
-        borderColor: () => string
     }[]
 }>()
 
@@ -29,7 +29,7 @@ const data = computed<ChartData>(() => {
                 label: dataset.label,
                 data: dataset.data,
                 borderWidth: 2,
-                borderColor: dataset.borderColor(),
+                borderColor: !darkMode.value ? getColor('primary', 0.8) : getColor('slate.400', 0.8),
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4
@@ -43,13 +43,19 @@ const options = computed<ChartOptions>(() => {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                labels: {
-                    color: getColor('slate.500', 0.8)
-                }
+                display: false,
+                rtl: getLocale() === 'ar'
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
             }
         },
         scales: {
             x: {
+                reverse: getLocale() === 'ar',
+                border: {
+                    display: false
+                },
                 ticks: {
                     font: {
                         size: 12
@@ -57,24 +63,34 @@ const options = computed<ChartOptions>(() => {
                     color: getColor('slate.500', 0.8)
                 },
                 grid: {
-                    display: false,
-                    drawBorder: false
+                    display: false
                 }
             },
             y: {
+                border: {
+                    display: false,
+                    dash: [2, 2]
+                },
+                position: getLocale() === 'ar' ? 'right' : 'left',
                 ticks: {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: getColor('slate.500', 0.8),
+                    callback: function (value: number) {
+                        if (value % 1 === 0) {
+                            return value
+                        }
+                    }
                 },
                 grid: {
-                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
-                    borderDash: [2, 2],
-                    drawBorder: false
+                    drawTicks: false,
+                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300')
                 }
             }
-        }
+        },
+
+        locale: getLocale()
     }
 })
 </script>

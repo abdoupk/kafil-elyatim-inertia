@@ -9,6 +9,7 @@ import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
 
+
 dayjs.extend(duration)
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
@@ -436,9 +437,28 @@ function hasPermission(permission) {
     }
 }
 
+function hexToRgba(hex, opacity) {
+    // Remove the hash at the start if it's there
+    hex = hex.replace(/^#/, '')
+
+    // Parse the r, g, b values
+    let r = parseInt(hex.substring(0, 2), 16)
+    let g = parseInt(hex.substring(2, 4), 16)
+    let b = parseInt(hex.substring(4, 6), 16)
+
+    // Return the RGBA string
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
+
+// Function to add opacity to an array of hex colors
+function addOpacityToHexColors(hexColors, opacity) {
+    return hexColors.map((color) => hexToRgba(color, opacity))
+}
+
 export {
     isEqual,
     hasPermission,
+    addOpacityToHexColors,
     formatFilters,
     getDataForIndexPages,
     handleFilterValue,

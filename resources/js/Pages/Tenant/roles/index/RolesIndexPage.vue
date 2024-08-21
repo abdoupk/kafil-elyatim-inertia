@@ -122,7 +122,6 @@ const showEditModal = async (roleId: string) => {
         entries="roles"
         export-pdf-url=""
         export-xlsx-url=""
-        filterable
         searchable
         @change-filters="params.filters = $event"
     >

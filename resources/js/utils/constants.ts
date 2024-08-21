@@ -344,3 +344,24 @@ export const abbreviationMonths = {
     ar: monthAbbreviationsArabic,
     fr: monthAbbreviationsFrench
 }
+
+export const colorPalette = {
+    dark: [
+        '#264653', // Dark Gray
+        '#2a9d8f', // Gray
+        '#e9c46a', // Amber
+        '#f4a261', // Cyan
+        '#d9534f', // Red
+        '#e76f51', // Green
+        '#e3d5ca', // Blue
+        '#f7f7f7', // Light Gray
+        '#e7e7e7', // Silver
+        '#d9534f', // Coral
+        '#f0ad4e', // Gold
+        '#5bc0de', // Sky Blue
+        '#5cb85c', // Lime Green
+        '#d9534f', // Crimson
+        '#6f42c1' // Purple
+    ],
+    light: ['#00202e', '#003f5c', '#2c4875', '#8a508f', '#bc5090', '#ff6361', '#ff8531', '#ffa600', '#ffd380']
+}

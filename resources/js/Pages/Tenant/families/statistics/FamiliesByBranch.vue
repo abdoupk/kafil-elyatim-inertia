@@ -14,11 +14,7 @@ defineProps<{
 
 <template>
     <suspense>
-        <base-pie-chart
-            :chart-colors="['#ff0000', '#452025', '#f50022', '#250022', '#131313']"
-            :chart-data="familiesByBranch.data"
-            :labels="familiesByBranch.labels"
-        ></base-pie-chart>
+        <base-pie-chart :chart-data="familiesByBranch.data" :labels="familiesByBranch.labels"></base-pie-chart>
 
         <template #fallback>
             <the-chart-loader></the-chart-loader>
