@@ -22,21 +22,43 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheStatisticBox from '@/Components/Global/TheStatisticBox.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-const FamiliesByBranch = defineAsyncComponent(() => import('@/Pages/Tenant/families/statistics/FamiliesByBranch.vue'))
-
-const FamiliesByOrphansCount = defineAsyncComponent(
-    () => import('@/Pages/Tenant/families/statistics/FamiliesByOrphansCount.vue')
+const OrphansByAcademicLevel = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansByAcademicLevel.vue')
 )
 
-const FamiliesBySponsorShip = defineAsyncComponent(
-    () => import('@/Pages/Tenant/families/statistics/FamiliesBySponsorShip.vue')
+const OrphansByAge = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/statistics/OrphansByAge.vue'))
+
+const OrphansByBranch = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/statistics/OrphansByBranch.vue'))
+
+const OrphansByCreatedDate = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansByCreatedDate.vue')
 )
 
-const FamiliesByStartDateYear = defineAsyncComponent(
-    () => import('@/Pages/Tenant/families/statistics/FamiliesByStartDateYear.vue')
+const OrphansByFamilyStatus = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansByFamilyStatus.vue')
 )
 
-const FamiliesByZone = defineAsyncComponent(() => import('@/Pages/Tenant/families/statistics/FamiliesByZone.vue'))
+const OrphansByGender = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/statistics/OrphansByGender.vue'))
+
+const OrphansByPantsAndShirtSize = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansByPantsAndShirtSize.vue')
+)
+
+const OrphansByShoeSize = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/statistics/OrphansByShoeSize.vue'))
+
+const OrphansBySponsorship = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansBySponsorship.vue')
+)
+
+const OrphansByVocationalTraining = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansByVocationalTraining.vue')
+)
+
+const OrphansByZone = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/statistics/OrphansByZone.vue'))
+
+const OrphansGroupHealthStatus = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/statistics/OrphansGroupHealthStatus.vue')
+)
 
 defineOptions({
     layout: TheLayout
@@ -59,81 +81,183 @@ defineProps<{
 </script>
 
 <template>
-    <Head :title="$t('statistics', { attribute: $t('the_families') })"></Head>
+    <Head :title="$t('statistics', { attribute: $t('the_orphans') })"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('statistics.header', { attribute: $t('the_families') }) }}</h2>
+    <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('statistics.header', { attribute: $t('the_orphans') }) }}</h2>
 
     <suspense suspensible>
         <div class="intro-y mt-5 grid grid-cols-12 gap-6">
-            <!-- Begin: familiesByZone -->
+            <!-- Begin: orphansByFamilyStatus -->
             <div class="col-span-12 lg:col-span-6">
                 <the-statistic-box>
-                    <template #title> {{ $t('statistics.families.titles.families_by_zone') }}</template>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_family_status') }}</template>
 
                     <template #chart>
                         <suspense suspensible>
-                            <families-by-zone :familiesByZone></families-by-zone>
+                            <orphans-by-family-status :orphansByFamilyStatus></orphans-by-family-status>
                         </suspense>
                     </template>
                 </the-statistic-box>
             </div>
-            <!-- End: familiesByZone -->
+            <!-- End: orphansByFamilyStatus -->
 
-            <!-- Begin: familiesByBranch -->
+            <!-- Begin: orphansByAcademicLevel -->
             <div class="col-span-12 lg:col-span-6">
                 <the-statistic-box>
-                    <template #title> {{ $t('statistics.families.titles.families_by_branch') }}</template>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_academic_level') }}</template>
 
                     <template #chart>
                         <suspense suspensible>
-                            <families-by-branch :familiesByBranch></families-by-branch>
+                            <orphans-by-academic-level :orphansByAcademicLevel></orphans-by-academic-level>
                         </suspense>
                     </template>
                 </the-statistic-box>
             </div>
-            <!-- End: familiesByBranch -->
+            <!-- End: orphansByAcademicLevel -->
 
-            <!-- Begin: familiesByOrphansCount -->
+            <!-- Begin: orphansBySponsorship -->
             <div class="col-span-12 lg:col-span-6">
                 <the-statistic-box>
-                    <template #title> {{ $t('statistics.families.titles.families_by_orphans_count') }}</template>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_sponsorship') }}</template>
 
                     <template #chart>
                         <suspense suspensible>
-                            <families-by-orphans-count :familiesByOrphansCount></families-by-orphans-count>
+                            <orphans-by-sponsorship :orphansBySponsorship></orphans-by-sponsorship>
                         </suspense>
                     </template>
                 </the-statistic-box>
             </div>
-            <!-- End: familiesByOrphansCount -->
+            <!-- End: orphansBySponsorship -->
 
-            <!-- Begin: Start Date -->
+            <!-- Begin: orphansByGender -->
             <div class="col-span-12 lg:col-span-6">
                 <the-statistic-box>
-                    <template #title> {{ $t('statistics.families.titles.families_by_start_date') }}</template>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_gender') }}</template>
 
                     <template #chart>
                         <suspense suspensible>
-                            <families-by-start-date-year :familiesGroupByDate></families-by-start-date-year>
+                            <orphans-by-gender :orphansByGender></orphans-by-gender>
                         </suspense>
                     </template>
                 </the-statistic-box>
             </div>
-            <!-- End: Start Date -->
+            <!-- End: orphansByGender -->
 
-            <!-- Begin: Sponsorships -->
+            <!-- Begin: orphansByAge -->
             <div class="col-span-12 lg:col-span-6">
                 <the-statistic-box>
-                    <template #title> {{ $t('statistics.families.titles.families_by_sponsorships') }}</template>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_age') }}</template>
 
                     <template #chart>
                         <suspense suspensible>
-                            <families-by-sponsor-ship :familiesSponsorShips></families-by-sponsor-ship>
+                            <orphans-by-age :orphansByAge></orphans-by-age>
                         </suspense>
                     </template>
                 </the-statistic-box>
             </div>
-            <!-- End: Sponsorships -->
+            <!-- End: orphansByAge -->
+
+            <!-- Begin: orphansByZone -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_zone') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-by-zone :orphansByZone></orphans-by-zone>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansByZone -->
+
+            <!-- Begin: orphansByBranch -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_branch') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-by-branch :orphansByBranch></orphans-by-branch>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansByBranch -->
+
+            <!-- Begin: orphansByPantsAndShirtSize -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_pants_and_shirt_size') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-by-pants-and-shirt-size
+                                :orphansByPantsAndShirtSize
+                            ></orphans-by-pants-and-shirt-size>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansByPantsAndShirtSize -->
+
+            <!-- Begin: orphansByShoeSize -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_shoe_size') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-by-shoe-size :orphansByShoeSize></orphans-by-shoe-size>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansByShoeSize -->
+
+            <!-- Begin: orphansByVocationalTraining -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_vocational_training') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-by-vocational-training
+                                :orphansByVocationalTraining
+                            ></orphans-by-vocational-training>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansByVocationalTraining -->
+
+            <!-- Begin: orphansByCreatedDate -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_by_created_date') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-by-created-date :orphansByCreatedDate></orphans-by-created-date>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansByCreatedDate -->
+
+            <!-- Begin: orphansGroupHealthStatus -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.orphans.titles.orphans_group_health_status') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <orphans-group-health-status :orphansGroupHealthStatus></orphans-group-health-status>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: orphansGroupHealthStatus -->
         </div>
 
         <template #fallback>

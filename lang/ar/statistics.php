@@ -23,5 +23,35 @@ return [
             'orphans_count' => '{1} يتيم|{2}يتيمين|[3,10]:value أيتام|[11,*] :value يتيم',
         ],
     ],
+    'orphans' => [
+        'titles' => [
+            'orphans_by_family_status' => '',
+            'orphans_by_academic_level' => '',
+            'orphans_by_sponsorship' => '',
+            'orphans_by_gender' => '',
+            'orphans_by_age' => '',
+            'orphans_by_zone' => '',
+            'orphans_by_branch' => '',
+            'orphans_by_pants_and_shirt_size' => '',
+            'orphans_by_shoe_size' => '',
+            'orphans_by_vocational_training' => '',
+            'orphans_by_created_date' => '',
+            'orphans_group_health_status' => '',
+        ],
+        'labels' => [
+        ],
+    ],
+    'sponsors' => [
+        'titles' => [
+        ],
+        'labels' => [
+        ],
+    ],
+    'finances' => [
+        'titles' => [
+        ],
+        'labels' => [
+        ],
+    ],
     'header' => 'الإحصائيات الخاصة ب:attribute',
 ];
