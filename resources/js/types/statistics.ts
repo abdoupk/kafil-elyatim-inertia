@@ -45,3 +45,11 @@ export type OrphansByVocationalTrainingType = number[]
 export type OrphansByCreatedDateType = number[]
 
 export type OrphansGroupHealthStatusType = number[]
+
+export type SponsorsBySponsorTypeType = number[]
+
+export type SponsorsByAcademicLevelType = number[]
+
+export type SponsorsBySponsorshipType = number[]
+
+export type SponsorsByDiplomaType = number[]

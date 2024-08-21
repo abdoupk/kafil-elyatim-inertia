@@ -43,6 +43,10 @@ return [
     ],
     'sponsors' => [
         'titles' => [
+            'sponsors_by_sponsor_type' => '',
+            'sponsors_by_academic_level' => '',
+            'sponsors_by_sponsorship' => '',
+            'sponsors_by_diploma' => '',
         ],
         'labels' => [
         ],
