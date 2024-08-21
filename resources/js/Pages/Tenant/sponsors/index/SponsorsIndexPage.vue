@@ -91,7 +91,7 @@ const showDeleteModal = (sponsorId: string) => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_sponsors') })"></Head>
+    <Head :title="$t('the_sponsors')"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.sponsors.export.pdf', params)"

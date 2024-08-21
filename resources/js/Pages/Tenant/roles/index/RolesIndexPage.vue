@@ -111,7 +111,7 @@ const showEditModal = async (roleId: string) => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_roles') })"></Head>
+    <Head :title="$t('the_roles')"></Head>
 
     <the-table-header
         :filters="[]"

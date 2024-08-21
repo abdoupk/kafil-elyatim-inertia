@@ -73,7 +73,7 @@ const handleSave = () => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
+    <Head :title="$t('the_orphans_school_entry')"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.occasions.school-entry.export.pdf', params)"
@@ -82,7 +82,7 @@ const handleSave = () => {
         :filters="schoolEntryFilters"
         :pagination-data="orphans"
         :params="params"
-        :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
+        :title="$t('list', { attribute: $t('the_orphans_school_entry') })"
         :url="route('tenant.occasions.school-entry.index')"
         entries="orphans"
         filterable

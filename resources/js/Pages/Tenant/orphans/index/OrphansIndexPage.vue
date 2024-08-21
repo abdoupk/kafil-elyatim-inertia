@@ -91,7 +91,7 @@ const sort = (field: string) => handleSort(field, params)
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
+    <Head :title="$t('the_orphans')"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.orphans.export.pdf', params)"

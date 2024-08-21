@@ -20,11 +20,11 @@ defineProps<{
         </h2>
 
         <base-button class="swiper-button-prev me-2 border-slate-300 px-2 text-slate-600 dark:text-slate-300">
-            <svg-loader name="icon-chevron-right"></svg-loader>
+            <svg-loader class="fill-current" name="icon-chevron-right"></svg-loader>
         </base-button>
 
         <base-button class="swiper-button-next me-2 border-slate-300 px-2 text-slate-600 dark:text-slate-300">
-            <svg-loader name="icon-chevron-left"></svg-loader>
+            <svg-loader class="fill-current" name="icon-chevron-left"></svg-loader>
         </base-button>
     </div>
 

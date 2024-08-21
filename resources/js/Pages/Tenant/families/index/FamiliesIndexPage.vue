@@ -91,7 +91,7 @@ const showDeleteModal = (familyId: string) => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="$t('the_families')"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.families.export.pdf', params)"

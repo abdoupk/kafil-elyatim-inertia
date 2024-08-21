@@ -74,7 +74,7 @@ const handleSave = () => {
 
 <template>
     <!--    TODO change title in all heads-->
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="$t('the_families_eid_al_adha')"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.occasions.eid-al-adha.export.pdf', params)"

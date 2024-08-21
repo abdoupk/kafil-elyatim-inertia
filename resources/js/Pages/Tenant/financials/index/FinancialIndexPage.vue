@@ -154,7 +154,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_finances') })"></Head>
+    <Head :title="$t('the_financial_transactions')"></Head>
 
     <!--TODO add Export routes and exportable-->
     <the-table-header

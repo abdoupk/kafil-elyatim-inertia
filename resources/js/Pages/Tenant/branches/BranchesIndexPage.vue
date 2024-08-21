@@ -133,7 +133,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('branches') })"></Head>
+    <Head :title="$t('branches')"></Head>
 
     <the-table-header
         :filters="branchedFilters"

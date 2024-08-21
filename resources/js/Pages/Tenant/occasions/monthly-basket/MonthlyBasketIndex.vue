@@ -73,7 +73,7 @@ const handleSave = () => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="$t('the_families_monthly_basket')"></Head>
 
     <the-table-header
         :export-pdf-url="route('tenant.occasions.monthly-basket.export.pdf', params)"

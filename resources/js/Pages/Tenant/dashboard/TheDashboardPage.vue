@@ -55,7 +55,7 @@ defineProps<{
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="$t('home')" />
 
     <suspense>
         <template #default>

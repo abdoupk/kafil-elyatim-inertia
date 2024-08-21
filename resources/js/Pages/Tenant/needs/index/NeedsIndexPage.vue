@@ -138,7 +138,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_needs') })"></Head>
+    <Head :title="$t('the_needs')"></Head>
 
     <the-table-header
         :filters="[]"

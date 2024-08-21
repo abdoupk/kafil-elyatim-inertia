@@ -94,7 +94,7 @@ const handleEditLesson = () => {
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_members') })"></Head>
+    <Head :title="$t('the_lessons')"></Head>
 
     <h2 class="intro-y mt-10 text-lg font-medium">
         {{ $t('list', { attribute: $t('the_lessons') }) }}
