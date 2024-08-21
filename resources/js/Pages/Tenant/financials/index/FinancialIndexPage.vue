@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { FinancialTransactionsIndexResource, IndexParams, PaginationData } from '@/types/types'
 
-import { financialFilters } from '@/constants/filters'
 import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watchEffect } from 'vue'
@@ -161,14 +160,13 @@ watchEffect(async () => {
     <the-table-header
         :export-pdf-url="route('tenant.financial.export.pdf')"
         :export-xlsx-url="route('tenant.financial.export.xlsx')"
-        :filters="financialFilters"
+        :filters="[]"
         :pagination-data="finances"
         :params="params"
         :title="$t('the_financial_transactions')"
         :url="route('tenant.financial.index')"
         entries="finances"
         exportable
-        filterable
         searchable
         @change-filters="params.filters = $event"
     >

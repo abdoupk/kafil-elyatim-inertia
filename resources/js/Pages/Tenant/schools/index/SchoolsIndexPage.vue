@@ -2,7 +2,6 @@
 import type { SubjectType } from '@/types/lessons'
 import type { IndexParams, PaginationData, SchoolsIndexResource } from '@/types/types'
 
-import { schoolsFilters } from '@/constants/filters'
 import { useSchoolsStore } from '@/stores/schools'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watchEffect } from 'vue'
@@ -139,7 +138,7 @@ watchEffect(async () => {
     <Head :title="$t('list', { attribute: $t('the_schools') })"></Head>
 
     <the-table-header
-        :filters="schoolsFilters"
+        :filters="[]"
         :pagination-data="schools"
         :params="params"
         :title="$t('list', { attribute: $t('the_schools') })"
@@ -147,7 +146,6 @@ watchEffect(async () => {
         entries="schools"
         export-pdf-url=""
         export-xlsx-url=""
-        filterable
         searchable
         @change-filters="params.filters = $event"
     >

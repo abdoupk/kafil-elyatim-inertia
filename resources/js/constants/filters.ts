@@ -11,7 +11,6 @@ const filterObjectOperators: Array<ListBoxOperator> = [
     }
 ]
 
-// TODO maybe reverse before and after <= and >=
 const filterDateOperators: Array<ListBoxOperator> = [
     {
         label: 'filters.before',
@@ -304,7 +303,6 @@ export const orphansFilters: ListBoxFilter[] = [
     }
 ]
 
-// TODO add filters
 export const eidAlAdhaFilters: ListBoxFilter[] = [
     {
         icon: 'icon-family',
@@ -350,7 +348,6 @@ export const eidAlAdhaFilters: ListBoxFilter[] = [
     }
 ]
 
-// TODO change icon general_average
 export const schoolEntryFilters: ListBoxFilter[] = [
     {
         icon: 'icon-hands-holding-child',
@@ -374,7 +371,7 @@ export const schoolEntryFilters: ListBoxFilter[] = [
         operators: filterDateOperators
     },
     {
-        icon: 'icon-dollar-sign',
+        icon: 'icon-hashtag',
         field: 'orphan.academic_achievement.last_year_average',
         label: 'general_average',
         type: 'number',
@@ -500,8 +497,6 @@ export const ramadanBasketFilters: ListBoxFilter[] = [
     }
 ]
 
-export const needsFilters: ListBoxFilter[] = []
-
 export const monthlyBasketFilters: ListBoxFilter[] = [
     {
         icon: 'icon-family',
@@ -599,9 +594,6 @@ export const babiesMilkAndDiapersFilters: ListBoxFilter[] = [
         operators: filterNumberOperators
     }
 ]
-
-export const financialFilters: ListBoxFilter[] = []
-export const schoolsFilters: ListBoxFilter[] = []
 
 export const zonesFilters: ListBoxFilter[] = [
     {

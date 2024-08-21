@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/types'
 
-import { needsFilters } from '@/constants/filters'
 import { useNeedsStore } from '@/stores/needs'
 import { Head, router } from '@inertiajs/vue3'
 import { reactive, ref, watchEffect } from 'vue'
@@ -142,7 +141,7 @@ watchEffect(async () => {
     <Head :title="$t('list', { attribute: $t('the_needs') })"></Head>
 
     <the-table-header
-        :filters="needsFilters"
+        :filters="[]"
         :pagination-data="needs"
         :params="params"
         :title="$t('list', { attribute: $t('the_needs') })"
@@ -150,7 +149,6 @@ watchEffect(async () => {
         entries="needs"
         export-pdf-url=""
         export-xlsx-url=""
-        filterable
         searchable
         @change-filters="params.filters = $event"
     >
