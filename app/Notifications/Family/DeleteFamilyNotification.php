@@ -24,8 +24,9 @@ class DeleteFamilyNotification extends Notification implements ShouldQueue
     {
         return [
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->family->name,
+                'zone' => $this->family->zone->name,
+                'branch' => $this->family->branch->name,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -33,8 +34,7 @@ class DeleteFamilyNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
+                'deleted_at' => $this->family->deleted_at,
             ],
         ];
     }
@@ -43,8 +43,9 @@ class DeleteFamilyNotification extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->family->name,
+                'zone' => $this->family->zone->name,
+                'branch' => $this->family->branch->name,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -52,14 +53,13 @@ class DeleteFamilyNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
+                'deleted_at' => $this->family->deleted_at,
             ],
         ]);
     }
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'family.deleted';
     }
 }

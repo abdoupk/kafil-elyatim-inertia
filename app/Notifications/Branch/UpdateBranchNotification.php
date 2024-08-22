@@ -33,8 +33,8 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
+                'updated_at' => $this->branch->updated_at,
+                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
             ],
         ];
     }
@@ -52,7 +52,7 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
+                'updated_at' => $this->branch->updated_at,
                 'url' => route('tenant.branches.index').'?show='.$this->branch->id,
             ],
         ]);
@@ -60,6 +60,6 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'branch.updated';
     }
 }
