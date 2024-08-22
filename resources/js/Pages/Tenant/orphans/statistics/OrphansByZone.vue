@@ -1,7 +1,13 @@
 <script lang="ts" setup>
-const props = defineProps<{
+import type { OrphansByZoneType } from '@/types/statistics'
+
+import BasePolarBarChart from '@/Components/Base/chart/BasePolarBarChart.vue'
+
+defineProps<{
     orphansByZone: OrphansByZoneType
 }>()
 </script>
 
-<template></template>
+<template>
+    <base-polar-bar-chart :chart-data="orphansByZone.data" :labels="orphansByZone.labels"></base-polar-bar-chart>
+</template>

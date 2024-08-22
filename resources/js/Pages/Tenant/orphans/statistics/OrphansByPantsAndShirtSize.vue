@@ -1,9 +1,28 @@
 <script lang="ts" setup>
-import OrphansByPantsAndShirtSize from '@/Pages/Tenant/orphans/statistics/OrphansByPantsAndShirtSize.vue'
+import type { OrphansByPantsAndShirtSizeType } from '@/types/statistics'
 
-const props = defineProps<{
-    orphansByPantsAndShirtSize: OrphansByPantsAndShirtSize
+import BaseVerticalBarChart from '@/Components/Base/chart/BaseVerticalBarChart.vue'
+
+import { __ } from '@/utils/i18n'
+
+defineProps<{
+    orphansByPantsAndShirtSize: OrphansByPantsAndShirtSizeType
 }>()
 </script>
 
-<template></template>
+<template>
+    <base-vertical-bar-chart
+        :datasets="[
+            {
+                data: orphansByPantsAndShirtSize.shirts_data,
+                label: __('orphans_count')
+            },
+            {
+                data: orphansByPantsAndShirtSize.pants_data,
+                label: __('orphans_count')
+            }
+        ]"
+        :height="300"
+        :labels="orphansByPantsAndShirtSize.labels"
+    ></base-vertical-bar-chart>
+</template>

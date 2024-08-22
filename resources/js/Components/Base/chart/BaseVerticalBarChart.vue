@@ -14,7 +14,7 @@ const props = defineProps<{
     datasets: {
         label: string
         data: number[]
-        backgroundColor: () => string
+        backgroundColor?: () => string
     }[]
 }>()
 
@@ -26,10 +26,6 @@ const data = computed<ChartData>(() => {
         datasets: props.datasets.map((dataset) => {
             return {
                 label: dataset.label,
-                barPercentage: 0.5,
-                barThickness: 6,
-                maxBarThickness: 8,
-                minBarLength: 2,
                 data: dataset.data,
                 backgroundColor: darkMode.value ? getColor('sky.500', 0.6) : getColor('primary', 0.7)
             }

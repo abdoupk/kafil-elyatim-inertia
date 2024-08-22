@@ -41,19 +41,38 @@ export type OrphansByGenderType = {
 
 export type OrphansByAgeType = number[]
 
-export type OrphansByZoneType = number[]
+export type OrphansByZoneType = {
+    labels: string[]
+    data: number[]
+}
 
-export type OrphansByBranchType = number[]
+export type OrphansByBranchType = {
+    labels: string[]
+    data: number[]
+}
 
-export type OrphansByPantsAndShirtSizeType = number[]
+export type OrphansByPantsAndShirtSizeType = {
+    labels: string[]
+    pants_data: number[]
+    shirts_data: number[]
+}
 
-export type OrphansByShoeSizeType = number[]
+export type OrphansByShoeSizeType = {
+    labels: string[]
+    data: number[]
+}
 
-export type OrphansByVocationalTrainingType = number[]
+export type OrphansByVocationalTrainingType = {
+    labels: string[]
+    data: number[]
+}
 
 export type OrphansByCreatedDateType = number[]
 
-export type OrphansGroupHealthStatusType = number[]
+export type OrphansGroupHealthStatusType = {
+    labels: string[]
+    data: number[]
+}
 
 export type SponsorsBySponsorTypeType = number[]
 
