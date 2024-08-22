@@ -22,13 +22,22 @@ export type FamiliesSponsorShipsType = {
 
 export type FamiliesGroupByDateType = number[]
 
-export type OrphansByFamilyStatusType = number[]
+export type OrphansByFamilyStatusType = {
+    labels: string[]
+    data: number[]
+}
 
-export type OrphansByAcademicLevelType = number[]
+export type OrphansByAcademicLevelType = {
+    labels: string[]
+    data: number[]
+}
 
 export type OrphansBySponsorshipType = number[]
 
-export type OrphansByGenderType = number[]
+export type OrphansByGenderType = {
+    labels: string[]
+    data: number[]
+}
 
 export type OrphansByAgeType = number[]
 

@@ -8,7 +8,9 @@ function getOrphansByFamilyStatus(): array
     $orphans = Orphan::select('family_status', DB::raw('count(*) as total'))->groupBy('family_status')->get();
 
     return [
-        'labels' => $orphans->pluck('family_status')->toArray(),
+        'labels' => $orphans->pluck('family_status')->map(function (string $familyStatus) {
+            return __('family_statuses.'.$familyStatus);
+        })->toArray(),
         'data' => $orphans->pluck('total')->toArray(),
     ];
 }
@@ -19,9 +21,18 @@ function getOrphansByAcademicLevel(): array
         ->groupBy('academic_level_id')
         ->get();
 
+    $result = $orphans->groupBy(function ($orphan) {
+        return $orphan->academicLevel->phase;
+    })->map(function ($group) {
+        return [
+            'total' => $group->count(),
+            'phase' => $group->first()->academicLevel->phase,
+        ];
+    })->values()->toArray();
+
     return [
-        'labels' => $orphans->pluck('academicLevel.phase')->toArray(),
-        'data' => $orphans->pluck('total')->toArray(),
+        'labels' => array_column($result, 'phase'),
+        'data' => array_column($result, 'total'),
     ];
 }
 

@@ -31,7 +31,7 @@ const data = computed<ChartData>(() => {
                 maxBarThickness: 8,
                 minBarLength: 2,
                 data: dataset.data,
-                backgroundColor: dataset.backgroundColor
+                backgroundColor: darkMode.value ? getColor('sky.500', 0.6) : getColor('primary', 0.7)
             }
         })
     }

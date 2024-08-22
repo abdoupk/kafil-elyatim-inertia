@@ -6,18 +6,26 @@ import { computed } from 'vue'
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
+import { colorPalette } from '@/utils/constants'
+import { addOpacityToHexColors } from '@/utils/helper'
 
 const props = defineProps<{
     width?: number
     height?: number
     labels: string[]
     chartData: number[]
-    chartColors: string[]
 }>()
 
-const colorScheme = computed(() => useSettingsStore().colorScheme)
-
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
+
+const palette = colorPalette[darkMode.value ? 'dark' : 'light'].sort(() => Math.random() - 0.5)
+
+const colors = computed(() => {
+    return {
+        backgroundColor: palette,
+        hoverBackgroundColor: addOpacityToHexColors(palette, 0.7)
+    }
+})
 
 const data = computed<ChartData>(() => {
     return {
@@ -25,9 +33,9 @@ const data = computed<ChartData>(() => {
         datasets: [
             {
                 data: props.chartData,
-                backgroundColor: colorScheme.value ? props.chartColors : '',
-                hoverBackgroundColor: colorScheme.value ? props.chartColors : '',
-                borderWidth: 5,
+                backgroundColor: colors.value.backgroundColor,
+                hoverBackgroundColor: colors.value.hoverBackgroundColor,
+                borderWidth: 3,
                 borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
             }
         ]
