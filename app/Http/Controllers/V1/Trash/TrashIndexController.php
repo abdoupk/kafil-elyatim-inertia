@@ -26,7 +26,7 @@ class TrashIndexController extends Controller
     CONCAT(u.first_name, ' ', u.last_name) AS user_name,
     'tenant.families.restore' AS restore_url,
     'tenant.families.force-delete' AS force_delete_url,
-    'families' AS type
+    'family' AS type
   FROM
     families f
     LEFT JOIN users u ON f.deleted_by = u.id
@@ -44,7 +44,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.orphans.restore' AS restore_url,
       'tenant.orphans.force-delete' AS force_delete_url,
-      'orphans' AS type
+      'orphan' AS type
     FROM
       orphans o
       LEFT JOIN users u ON o.deleted_by = u.id
@@ -62,7 +62,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.sponsors.restore' AS restore_url,
       'tenant.sponsors.force-delete' AS force_delete_url,
-      'sponsors' AS type
+      'sponsor' AS type
     FROM
       sponsors s
       LEFT JOIN users u ON s.deleted_by = u.id
@@ -80,7 +80,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.members.restore' AS restore_url,
       'tenant.members.force-delete' AS force_delete_url,
-      'members' AS type
+      'member' AS type
     FROM
       users m
       LEFT JOIN users u ON m.deleted_by = u.id
@@ -98,7 +98,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.zones.restore' AS restore_url,
       'tenant.zones.force-delete' AS force_delete_url,
-      'zones' AS type
+      'zone' AS type
     FROM
       zones z
       LEFT JOIN users u ON z.deleted_by = u.id
@@ -116,7 +116,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.branches.restore' AS restore_url,
       'tenant.branches.force-delete' AS force_delete_url,
-      'branches' AS type
+      'branch' AS type
     FROM
       branches b
       LEFT JOIN users u ON b.deleted_by = u.id
@@ -134,7 +134,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.needs.restore' AS restore_url,
       'tenant.needs.force-delete' AS force_delete_url,
-      'needs' AS type
+      'need' AS type
     FROM
       needs n
       LEFT JOIN users u ON n.deleted_by = u.id
@@ -152,7 +152,7 @@ UNION ALL
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
       'tenant.schools.restore' AS restore_url,
       'tenant.schools.force-delete' AS force_delete_url,
-      'schools' AS type
+      'school' AS type
     FROM
       private_schools s
       LEFT JOIN users u ON s.deleted_by = u.id
@@ -164,13 +164,13 @@ UNION ALL
   (
     SELECT
       fin.id,
-      fin.description as name,
+      CASE WHEN fin.amount > 0 THEN 'income' ELSE 'expense' END AS name,
       fin.deleted_at,
       u.id AS user_id,
       CONCAT(u.first_name, ' ', u.last_name) AS user_name,
-      'tenant.finances.restore' AS restore_url,
-      'tenant.finances.force-delete' AS force_delete_url,
-      'schools' AS type
+      'tenant.financial.restore' AS restore_url,
+      'tenant.financial.force-delete' AS force_delete_url,
+      'finance' AS type
     FROM
       finances fin
       LEFT JOIN users u ON fin.deleted_by = u.id

@@ -12,7 +12,7 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate } from '@/utils/helper'
+import { formatDate, formatDateAndTime } from '@/utils/helper'
 
 defineProps<{ items: PaginationData<TrashIndexResource>; params: IndexParams }>()
 
@@ -20,7 +20,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
 </script>
 
 <template>
-    <div class="@container">
+    <div class="-mt-5 @container">
         <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible">
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
@@ -50,10 +50,14 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link class="font-medium" href="#"> {{ item.name }} ({{ $t(item.type) }})</Link>
+                            <p v-if="item.type === 'finance'" class="font-medium">
+                                {{ $t(item.name) }} ({{ $t(item.type) }})
+                            </p>
+
+                            <p v-else class="font-medium">{{ item.name }} ({{ $t(item.type) }})</p>
                         </the-table-td>
 
-                        <the-table-td class="max-w-40 truncate">
+                        <the-table-td class="max-w-40 truncate text-center">
                             <Link :href="route('tenant.members.index') + `?show=${item.user_id}`">
                                 {{ item.user_name }}
                             </Link>
@@ -103,7 +107,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ formatDate(item.deleted_at, 'full') }}
+                            {{ formatDateAndTime(item.deleted_at) }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
@@ -115,7 +119,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('restore', item.id)"
-                                >{{ $t('edit') }}
+                                >{{ $t('restore') }}
                             </a>
                             <a
                                 class="font-semibold text-danger"

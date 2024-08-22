@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use App\Http\Controllers\V1\Financial\ExportFinancialTransactionsPDFController;
 use App\Http\Controllers\V1\Financial\ExportFinancialTransactionsXlsxController;
+use App\Http\Controllers\V1\Financial\FinanceForceDeleteController;
+use App\Http\Controllers\V1\Financial\FinanceRestoreController;
 use App\Http\Controllers\V1\Financial\FinancialDeleteController;
 use App\Http\Controllers\V1\Financial\FinancialDetailsController;
 use App\Http\Controllers\V1\Financial\FinancialForceDeleteController;
@@ -48,4 +50,10 @@ Route::prefix('financial')->name('financial.')->group(function () {
 
     Route::get('details/{finance}', FinancialDetailsController::class)
         ->name('details');
+
+    Route::delete('{finance}/force-delete', FinanceForceDeleteController::class)
+        ->name('force-delete')->withTrashed();
+
+    Route::post('{finance}/restore', FinanceRestoreController::class)
+        ->name('restore')->withTrashed();
 });

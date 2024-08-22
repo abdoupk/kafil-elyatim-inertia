@@ -2,12 +2,15 @@ import type { AppearanceType, ColorSchemesType, IndexParams, ListBoxFilter } fro
 
 import { router, usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
+import 'dayjs/locale/ar'
+import 'dayjs/locale/fr'
 import duration from 'dayjs/plugin/duration'
 import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
 import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
+
 
 dayjs.extend(duration)
 const toRaw = (obj: object) => {
@@ -237,6 +240,10 @@ const formatDate = (date: string | Date, dateStyle: 'full' | 'long' | 'medium' |
     } catch ($e) {
         return ''
     }
+}
+
+const formatDateAndTime = (date: string | Date) => {
+    return dayjs(date).locale(getLocale()).format('DD MMMM YYYY hh:mm A')
 }
 
 const formatCurrency = (amount) => {
@@ -487,5 +494,6 @@ export {
     setColorSchemeClass,
     allowOnlyNumbersOnKeyDown,
     capitalizeFirstLetter,
+    formatDateAndTime,
     checkErrors
 }
