@@ -8,7 +8,9 @@ function getSponsorsBySponsorType(): array
     $sponsors = Sponsor::select('sponsor_type', DB::raw('count(*) as total'))->groupBy('sponsor_type')->get();
 
     return [
-        'labels' => $sponsors->pluck('sponsor_type')->toArray(),
+        'labels' => $sponsors->pluck('sponsor_type')->map(function (string $sponsor_type) {
+            return __('sponsor_types.'.$sponsor_type);
+        })->toArray(),
         'data' => $sponsors->pluck('total')->toArray(),
     ];
 }
@@ -19,9 +21,18 @@ function getSponsorsByAcademicLevel(): array
         ->groupBy('academic_level_id')
         ->get();
 
+    $result = $sponsors->groupBy(function ($orphan) {
+        return $orphan->academicLevel->phase;
+    })->map(function ($group) {
+        return [
+            'total' => $group->count(),
+            'phase' => $group->first()->academicLevel->phase,
+        ];
+    })->values()->toArray();
+
     return [
-        'labels' => $sponsors->pluck('academicLevel.phase')->toArray(),
-        'data' => $sponsors->pluck('total')->toArray(),
+        'labels' => array_column($result, 'phase'),
+        'data' => array_column($result, 'total'),
     ];
 }
 
@@ -36,10 +47,10 @@ function getSponsorsBySponsorship(): array
         ->first();
 
     return [
-        'literacy_lessons_count' => $sponsorships->literacy_lessons_count,
-        'direct_sponsorship_count' => $sponsorships->direct_sponsorship_count,
-        'project_support_count' => $sponsorships->project_support_count,
-        'medical_sponsorship_count' => $sponsorships->medical_sponsorship_count,
+        'literacy_lessons' => $sponsorships->literacy_lessons_count,
+        'direct_sponsorship' => $sponsorships->direct_sponsorship_count,
+        'project_support' => $sponsorships->project_support_count,
+        'medical_sponsorship' => $sponsorships->medical_sponsorship_count,
     ];
 }
 

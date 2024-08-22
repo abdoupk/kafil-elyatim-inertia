@@ -77,10 +77,19 @@ export type OrphansGroupHealthStatusType = {
     data: number[]
 }
 
-export type SponsorsBySponsorTypeType = number[]
+export type SponsorsBySponsorTypeType = {
+    data: number[]
+    labels: string[]
+}
 
-export type SponsorsByAcademicLevelType = number[]
+export type SponsorsByAcademicLevelType = {
+    labels: string[]
+    data: number[]
+}
 
 export type SponsorsBySponsorshipType = number[]
 
-export type SponsorsByDiplomaType = number[]
+export type SponsorsByDiplomaType = {
+    labels: string[]
+    data: number[]
+}

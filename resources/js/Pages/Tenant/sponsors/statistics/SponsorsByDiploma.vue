@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import type { SponsorsByDiplomaType } from '@/types/statistics'
 
-const props = defineProps<{
+import BaseDonutChart from '@/Components/Base/chart/BaseDonutChart.vue'
+
+defineProps<{
     sponsorsByDiploma: SponsorsByDiplomaType
 }>()
 </script>
 
-<template></template>
+<template>
+    <base-donut-chart :chart-data="sponsorsByDiploma.data" :labels="sponsorsByDiploma.labels"></base-donut-chart>
+</template>
