@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
@@ -22,6 +23,8 @@ const _route = { routeName: '' } as ILocation
 
 const sideMenu = computed(() => nestedMenu(menuStore.menu as Array<IFormattedMenu | 'divider'>, _route))
 
+const { width } = useWindowSize()
+
 watch(
     computed(() => usePage().url),
     () => {
@@ -40,7 +43,7 @@ onMounted(() => {
     <div
         class="icewall relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8"
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
         <the-top-bar></the-top-bar>
 

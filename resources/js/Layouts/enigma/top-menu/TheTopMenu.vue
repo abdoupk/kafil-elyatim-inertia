@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
@@ -20,6 +21,8 @@ const menuStore = useMenuStore()
 const _route = { routeName: '' } as ILocation
 
 const topMenu = computed(() => nestedMenu(menuStore.menu as IMenu[], _route))
+
+const { width } = useWindowSize()
 
 watch(
     computed(() => usePage().url),
@@ -39,7 +42,7 @@ onMounted(() => {
     <div
         class="enigma px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8 md:bg-slate-200 md:px-0 md:py-0 md:before:bg-none md:dark:bg-darkmode-800"
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
         <the-top-bar></the-top-bar>
 
@@ -48,12 +51,12 @@ onMounted(() => {
                 <template v-for="(menu, menuKey) in formattedMenu" :key="`enigma_side__menu_${menu + menuKey}`">
                     <li
                         v-if="menu !== 'divider'"
-                        class="relative [&:hover>a>div:nth-child(2)>svg]:rotate-180 [&:hover>ul]:block"
                         :class="
                             !menu.active
                                 ? '[&:hover>a]:bg-slate-100 [&:hover>a]:before:absolute [&:hover>a]:before:inset-0 [&:hover>a]:before:z-[-1] [&:hover>a]:before:block [&:hover>a]:before:rounded-full [&:hover>a]:before:border-b-[3px] [&:hover>a]:before:border-solid [&:hover>a]:before:border-black/[0.08] [&:hover>a]:before:content-[\'\'] [&:hover>a]:dark:bg-transparent [&:hover>a]:before:dark:bg-darkmode-700 [&:hover>a]:xl:before:rounded-xl'
                                 : ''
                         "
+                        class="relative [&:hover>a>div:nth-child(2)>svg]:rotate-180 [&:hover>ul]:block"
                     >
                         <top-menu-link
                             :class="!menu.active ? `animate-delay-${(menuKey + 1) * 10}` : ''"

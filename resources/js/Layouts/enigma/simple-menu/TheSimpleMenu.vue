@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { twMerge } from 'tailwind-merge'
 import { computed, onMounted, ref, watch } from 'vue'
 
@@ -22,6 +23,8 @@ const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 const menuStore = useMenuStore()
 
 const simpleMenu = computed(() => nestedMenu(menuStore.menu as Array<IFormattedMenu | 'divider'>, _route))
+
+const { width } = useWindowSize()
 
 watch(
     computed(() => usePage().url),
@@ -46,7 +49,7 @@ onMounted(() => {
             ])
         "
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
         <the-top-bar></the-top-bar>
 

@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
@@ -20,6 +21,8 @@ const menuStore = useMenuStore()
 const _route = { routeName: '' } as ILocation
 
 const topMenu = computed(() => nestedMenu(menuStore.menu as IMenu[], _route))
+
+const { width } = useWindowSize()
 
 watch(
     computed(() => usePage().url),
@@ -39,7 +42,7 @@ onMounted(() => {
     <div
         class="icewall relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8"
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
         <the-top-bar></the-top-bar>
         <nav
@@ -52,12 +55,12 @@ onMounted(() => {
                 >
                     <li
                         v-if="menu !== 'divider'"
-                        class="relative [&:hover>a>div:nth-child(2)>svg]:rotate-180 [&:hover>ul]:block"
                         :class="
                             !menu.active
                                 ? '[&:hover>a]:bg-primary/60 [&:hover>a]:before:absolute [&:hover>a]:before:inset-0 [&:hover>a]:before:z-[-1] [&:hover>a]:before:block [&:hover>a]:before:rounded-full [&:hover>a]:before:bg-white/[0.04] [&:hover>a]:before:content-[\'\'] [&:hover>a]:dark:bg-transparent [&:hover>a]:before:dark:bg-darkmode-700 [&:hover>a]:xl:before:rounded-lg [&:hover>a]:xl:before:bg-white/10'
                                 : ''
                         "
+                        class="relative [&:hover>a>div:nth-child(2)>svg]:rotate-180 [&:hover>ul]:block"
                     >
                         <top-menu-link
                             :class="!menu.active ? `animate-delay-${(menuKey + 1) * 10}` : ''"
@@ -65,7 +68,7 @@ onMounted(() => {
                             level="first"
                         ></top-menu-link>
 
-                        <ul :class="{ 'top-menu__sub-open': menu.subMenu && menu.activeDropdown }" v-if="menu.subMenu">
+                        <ul v-if="menu.subMenu" :class="{ 'top-menu__sub-open': menu.subMenu && menu.activeDropdown }">
                             <li
                                 v-for="(subMenu, subMenuKey) in menu.subMenu"
                                 :key="`icewall_top__menu__${subMenu.title}__${subMenuKey}`"

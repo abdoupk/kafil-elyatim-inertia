@@ -48,7 +48,7 @@ onMounted(() => {
         <div
             class="icewall relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8"
         >
-            <the-mobile-menu v-if="width < 640"></the-mobile-menu>
+            <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
             <the-top-bar></the-top-bar>
 

@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { Link, usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import { nestedMenu } from '@/Layouts/menu'
@@ -24,6 +25,8 @@ const _route = { routeName: '' } as ILocation
 
 const topMenu = computed(() => nestedMenu(menuStore.menu as IMenu[], _route))
 
+const { width } = useWindowSize()
+
 watch(
     computed(() => usePage().url),
     () => {
@@ -42,7 +45,8 @@ onMounted(() => {
     <div
         class="rubick px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8"
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
+
         <div class="-mx-3 mb-10 mt-[2.2rem] border-b border-white/[0.08] px-3 pt-3 sm:-mx-8 sm:px-8 md:-mt-5 md:pt-0">
             <div class="relative z-[51] flex h-[70px] items-center">
                 <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">

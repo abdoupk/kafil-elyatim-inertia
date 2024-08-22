@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { Link, usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
@@ -22,6 +23,8 @@ const _route = { routeName: '' } as ILocation
 
 const sideMenu = computed(() => nestedMenu(menuStore.menu as Array<IFormattedMenu | 'divider'>, _route))
 
+const { width } = useWindowSize()
+
 watch(
     computed(() => usePage().url),
     () => {
@@ -40,15 +43,15 @@ onMounted(() => {
     <div
         class="rubick px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8"
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
         <div class="mt-[4.7rem] flex md:mt-0">
             <nav class="side-nav hidden w-[80px] overflow-x-hidden pb-16 pe-5 md:block xl:w-[230px]">
                 <Link :href="route('tenant.dashboard')" class="intro-x flex items-center ps-5 pt-4">
                     <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
                     <span
-                        class="ms-3 hidden max-w-40 truncate font-semibold capitalize text-white xl:block"
                         :class="isAssociationNameLatin ? 'text-xs' : 'text-base'"
+                        class="ms-3 hidden max-w-40 truncate font-semibold capitalize text-white xl:block"
                     >
                         {{ $page.props.association }}
                     </span>

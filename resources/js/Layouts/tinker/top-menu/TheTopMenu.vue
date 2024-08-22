@@ -3,6 +3,7 @@ import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
 
 import { useMenuStore } from '@/stores/menu'
 import { Link, usePage } from '@inertiajs/vue3'
+import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import { nestedMenu } from '@/Layouts/menu'
@@ -19,6 +20,8 @@ import { isAssociationNameLatin, toRaw } from '@/utils/helper'
 const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 
 const menuStore = useMenuStore()
+
+const { width } = useWindowSize()
 
 const _route = { routeName: '' } as ILocation
 
@@ -42,7 +45,7 @@ onMounted(() => {
     <div
         class="tinker relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:bg-transparent dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8 md:bg-black/[0.15] md:px-0 md:py-0"
     >
-        <the-mobile-menu></the-mobile-menu>
+        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
 
         <div
             class="relative z-[51] -mx-5 mb-10 mt-12 h-[70px] border-b border-white/[0.08] px-4 sm:-mx-8 sm:px-8 md:mx-0 md:mb-8 md:mt-0 md:px-6"
