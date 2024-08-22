@@ -115,9 +115,18 @@ class Family extends Model
             }
         });
 
-        static::deleting(function ($model) {
+        static::deleting(function ($family) {
             if (auth()->id()) {
-                $model->deleted_by = auth()->id();
+                $family->deleted_by = auth()->id();
+
+                $family->orphans()->delete();
+
+                $family->babies()->delete();
+
+                $family->sponsor()->delete();
+
+                $family->sponsorships()->unsearchable();
+
             }
         });
     }
@@ -127,24 +136,9 @@ class Family extends Model
         return $this->hasMany(Orphan::class);
     }
 
-    public function preview(): HasOne
+    public function babies(): HasMany
     {
-        return $this->hasOne(Preview::class);
-    }
-
-    public function branch(): BelongsTo
-    {
-        return $this->belongsTo(Branch::class);
-    }
-
-    public function secondSponsor(): HasOne
-    {
-        return $this->hasOne(SecondSponsor::class);
-    }
-
-    public function spouse(): HasOne
-    {
-        return $this->hasOne(Spouse::class);
+        return $this->hasMany(Baby::class);
     }
 
     public function sponsor(): HasOne
@@ -157,19 +151,9 @@ class Family extends Model
         return $this->hasOne(FamilySponsorship::class);
     }
 
-    public function orphansSponsorships(): HasManyThrough
+    public function furnishings(): HasOne
     {
-        return $this->hasManyThrough(OrphanSponsorship::class, Orphan::class);
-    }
-
-    public function sponsorSponsorships(): HasOneThrough
-    {
-        return $this->hasOneThrough(SponsorSponsorship::class, Sponsor::class);
-    }
-
-    public function deceased(): HasOne
-    {
-        return $this->hasOne(Spouse::class);
+        return $this->hasOne(Furnishing::class);
     }
 
     public function housing(): HasOne
@@ -177,19 +161,44 @@ class Family extends Model
         return $this->hasOne(Housing::class);
     }
 
-    public function furnishings(): HasOne
+    public function deceased(): HasOne
     {
-        return $this->hasOne(Furnishing::class);
+        return $this->hasOne(Spouse::class);
+    }
+
+    public function secondSponsor(): HasOne
+    {
+        return $this->hasOne(SecondSponsor::class);
+    }
+
+    public function sponsorSponsorships(): HasOneThrough
+    {
+        return $this->hasOneThrough(SponsorSponsorship::class, Sponsor::class);
+    }
+
+    public function preview(): HasOne
+    {
+        return $this->hasOne(Preview::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function spouse(): HasOne
+    {
+        return $this->hasOne(Spouse::class);
+    }
+
+    public function orphansSponsorships(): HasManyThrough
+    {
+        return $this->hasManyThrough(OrphanSponsorship::class, Orphan::class);
     }
 
     public function zone(): BelongsTo
     {
         return $this->belongsTo(Zone::class);
-    }
-
-    public function babies(): HasMany
-    {
-        return $this->hasMany(Baby::class);
     }
 
     public function searchableAs(): string
@@ -260,16 +269,16 @@ class Family extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function archives(): MorphToMany
+    {
+        return $this->morphToMany(Archive::class, 'archiveable');
+    }
+
     protected function casts(): array
     {
         return [
             'start_date' => 'date',
             'preview_date' => 'date',
         ];
-    }
-
-    public function archives(): MorphToMany
-    {
-        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }

@@ -10,6 +10,17 @@ class OrphansStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
+        ray(getOrphansByFamilyStatus());
+        ray(getOrphansByAcademicLevel());
+        ray(getOrphansBySponsorship());
+        ray(getOrphansByGender());
+        ray(getOrphansByAge());
+        ray(getOrphansByZone());
+        ray(getOrphansByBranch());
+        ray(getByPantsAndShirtSize());
+        ray(getOrphansByShoeSize());
+        ray(getOrphansByVocationalTraining());
+        ray(getOrphansGroupByCreatedDate());
         ray(getOrphansGroupHealthStatus());
 
         return Inertia::render('Tenant/orphans/statistics/OrphansStatisticsPage', [

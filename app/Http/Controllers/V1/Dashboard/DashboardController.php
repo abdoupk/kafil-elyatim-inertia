@@ -85,7 +85,7 @@ class DashboardController extends Controller
 
     private function getRecentNeeds(): array
     {
-        return Need::with('needable')->select(['id', 'demand', 'subject', 'status', 'needable_id', 'needable_type', 'created_at'])->latest()->take(5)->get()->map(function (Need $need) {
+        return Need::whereHas('needable')->select(['id', 'demand', 'subject', 'status', 'needable_id', 'needable_type', 'created_at'])->with('needable')->latest()->take(5)->get()->map(function (Need $need) {
             return [
                 'id' => $need->id,
                 'status' => $need->status,

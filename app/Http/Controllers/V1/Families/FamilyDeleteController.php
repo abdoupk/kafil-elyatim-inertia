@@ -5,30 +5,37 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Jobs\V1\Family\FamilyTrashedJob;
 use App\Models\Family;
+use App\Models\Orphan;
 
 class FamilyDeleteController extends Controller
 {
     public function __invoke(Family $family)
     {
-        $family->delete();
+        $family->unsearchable();
 
-        $family->archives()->searchable();
+        $family->orphans()->each(function (Orphan $orphan) {
+            $orphan->babyNeeds()->unsearchable();
 
-        $family->sponsorships()->delete();
+            $orphan->babyNeeds()->delete();
 
-        $family->sponsorships()->searchable();
+            $orphan->sponsorships()->unsearchable();
 
-        $family->orphans()->delete();
+            $orphan->needs()->unsearchable();
 
-        $family->orphans()->searchable();
+            $orphan->needs()->delete();
 
-        $family->babies()->delete();
+            $orphan->unsearchable();
+        });
 
-        $family->babies()->searchable();
+        $family->sponsor->sponsorships()->unsearchable();
+
+        $family->sponsor->needs()->unsearchable();
+
+        $family->sponsor()->unsearchable();
 
         $family->sponsor()->delete();
 
-        $family->sponsor()->searchable();
+        $family->delete();
 
         dispatch(new FamilyTrashedJob($family, auth()->user()));
 

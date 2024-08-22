@@ -23,6 +23,6 @@ defineProps<{
             }
         ]"
         :height="300"
-        :labels="orphansByPantsAndShirtSize.labels"
+        :labels="Object.values(orphansByPantsAndShirtSize.labels)"
     ></base-vertical-bar-chart>
 </template>
