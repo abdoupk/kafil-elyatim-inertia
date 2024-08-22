@@ -2,6 +2,7 @@
 import type { RecentActivitiesType } from '@/types/dashboard'
 
 import { Link } from '@inertiajs/vue3'
+import dayjs from 'dayjs'
 import { defineAsyncComponent } from 'vue'
 
 const TheAvatar = defineAsyncComponent(() => import('@/Components/Global/TheAvatar.vue'))
@@ -9,6 +10,10 @@ const TheAvatar = defineAsyncComponent(() => import('@/Components/Global/TheAvat
 defineProps<{
     recentActivities: RecentActivitiesType
 }>()
+
+const isCurrentDay = (date: Date) => {
+    return dayjs(date).isSame(dayjs(), 'day')
+}
 </script>
 
 <template>
@@ -21,6 +26,9 @@ defineProps<{
                 :key="activity.id"
                 class="intro-x relative mb-3 flex items-center"
             >
+                <div v-if="isCurrentDay(activity.date)" class="intro-x my-4 text-center text-xs text-slate-500">
+                    12 November
+                </div>
                 <div
                     class="before:absolute before:ms-5 before:mt-5 before:block before:h-px before:w-20 before:bg-slate-200 before:dark:bg-darkmode-400"
                 >
@@ -41,8 +49,6 @@ defineProps<{
                     <div class="mt-1 text-slate-500" v-html="activity.message"></div>
                 </div>
             </div>
-
-            <div class="intro-x my-4 text-center text-xs text-slate-500">12 November</div>
         </div>
     </suspense>
 </template>

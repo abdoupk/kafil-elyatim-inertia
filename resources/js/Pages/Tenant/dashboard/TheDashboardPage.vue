@@ -9,7 +9,7 @@ import type {
     RecentTransactionsType
 } from '@/types/dashboard'
 
-import { Head, Link } from '@inertiajs/vue3'
+import { Head } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
@@ -17,7 +17,6 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheGeneralReports from '@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
 
 const TheRecentNeeds = defineAsyncComponent(() => import('@/Pages/Tenant/dashboard/needs/TheRecentNeeds.vue'))
 
@@ -116,10 +115,6 @@ defineProps<{
                             <div class="col-span-12 mt-3 md:col-span-6 xl:col-span-4 2xl:col-span-12">
                                 <div class="intro-x flex h-10 items-center">
                                     <h2 class="me-5 truncate text-lg font-medium">{{ $t('Recent Activities') }}</h2>
-
-                                    <Link :href="route('tenant.dashboard')" class="ms-auto truncate text-primary">
-                                        {{ $t('Show More') }}
-                                    </Link>
                                 </div>
                                 <suspense suspensible>
                                     <the-recent-activities :recentActivities></the-recent-activities>
@@ -135,11 +130,6 @@ defineProps<{
                             >
                                 <div class="intro-x flex h-10 items-center">
                                     <h2 class="me-5 truncate text-lg font-medium">{{ $t('Schedules') }}</h2>
-                                    <a class="ms-auto flex items-center truncate text-primary" href="">
-                                        <svg-loader class="me-1 h-4 w-4" name="icon-plus"></svg-loader>
-
-                                        {{ $t('Add New Schedules') }}
-                                    </a>
                                 </div>
 
                                 <suspense suspensible>

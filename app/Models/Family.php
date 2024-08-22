@@ -115,9 +115,11 @@ class Family extends Model
             }
         });
 
-        static::deleting(function ($family) {
+        static::softDeleted(function ($family) {
             if (auth()->id()) {
                 $family->deleted_by = auth()->id();
+
+                $family->save();
 
                 $family->orphans()->delete();
 
