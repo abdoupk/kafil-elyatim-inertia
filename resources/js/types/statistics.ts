@@ -39,7 +39,10 @@ export type OrphansByGenderType = {
     data: number[]
 }
 
-export type OrphansByAgeType = number[]
+export type OrphansByAgeType = {
+    age: string[]
+    data: number[]
+}
 
 export type OrphansByZoneType = {
     labels: string[]
