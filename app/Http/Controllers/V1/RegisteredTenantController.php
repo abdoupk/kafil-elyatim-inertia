@@ -29,6 +29,6 @@ class RegisteredTenantController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('Auth/Register/RegisterPage');
+        return Inertia::render('Auth/Register/V2/TheRegisterPage');
     }
 }
