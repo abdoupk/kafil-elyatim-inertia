@@ -16,6 +16,5 @@ function getBranches(): LengthAwarePaginator
             ->with(['president', 'city'])
             ->withCount('families')
         )
-        /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()->integer('perPage', 10));
 }

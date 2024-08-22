@@ -10,8 +10,7 @@ function getSponsors(): LengthAwarePaginator
 {
     return search(Sponsor::getModel())
         ->query(fn ($query) => $query->with('academicLevel'))
-        /** @phpstan-ignore-next-line */
-        ->paginate(perPage: request()?->input('perPage', 10));
+        ->paginate(perPage: request()?->integer('perPage', 10));
 }
 
 function searchSponsors(): Collection

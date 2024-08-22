@@ -17,7 +17,6 @@ function getSchools(): LengthAwarePaginator
 {
     return search(PrivateSchool::getModel())
         ->query(fn ($query) => $query->with('lessons'))
-        /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()->integer('perPage', 10));
 }
 

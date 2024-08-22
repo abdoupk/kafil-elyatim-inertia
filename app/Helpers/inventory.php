@@ -8,6 +8,5 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 function getInventoryItems(): LengthAwarePaginator
 {
     return search(Inventory::getModel())
-        /** @phpstan-ignore-next-line */
-        ->paginate(perPage: request()?->input('perPage', 10));
+        ->paginate(perPage: request()?->integer('perPage', 10));
 }

@@ -11,6 +11,8 @@ class OrphanRestoreController extends Controller
     {
         $orphan->restore();
 
+        $orphan->sponsorships()->searchable();
+
         return redirect()->back();
     }
 }

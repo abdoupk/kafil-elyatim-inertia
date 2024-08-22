@@ -11,8 +11,7 @@ function getMembers(): LengthAwarePaginator
 {
     return search(User::getModel())
         ->query(fn ($query) => $query->with('zone'))
-        /** @phpstan-ignore-next-line */
-        ->paginate(perPage: request()?->input('perPage', 10));
+        ->paginate(perPage: request()?->integer('perPage', 10));
 }
 
 function searchMembers(): Collection

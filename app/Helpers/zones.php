@@ -8,8 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 /** @noinspection NullPointerExceptionInspection */
 function getZones(): LengthAwarePaginator
 {
-    /** @phpstan-ignore-next-line */
-    $search = (string) request()->input('search', '');
+    $search = request()->string('search', '');
 
     $directions = (array) request()->input('directions', []);
 

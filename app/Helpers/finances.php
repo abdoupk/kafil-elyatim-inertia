@@ -9,7 +9,6 @@ function getFinances(): LengthAwarePaginator
 {
     return search(Finance::getModel())
         ->query(fn (Builder $query) => $query->with('creator'))
-        /** @phpstan-ignore-next-line */
         ->paginate(perPage: request()->integer('perPage', 10));
 }
 
