@@ -62,4 +62,9 @@ class CreateBranchNotification extends Notification implements ShouldQueue
     {
         return 'branch.created';
     }
+
+    public function broadcastType(): string
+    {
+        return 'branch.created';
+    }
 }

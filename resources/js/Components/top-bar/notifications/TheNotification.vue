@@ -1,16 +1,17 @@
 <script lang="ts" setup>
-import type { DatabaseNotification } from '@/types/types'
+import type { RealTimeNotification } from '@/types/types'
 
-import { useNotificationsStore } from '@/stores/notifications'
 import { useSettingsStore } from '@/stores/settings'
 import { usePage } from '@inertiajs/vue3'
 import { useWindowSize } from '@vueuse/core'
 import { twMerge } from 'tailwind-merge'
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 import { Toaster, toast } from 'vue-sonner'
 
 import NotificationLoader from '@/Components/top-bar/notifications/NotificationLoader.vue'
 
+import { debounce } from '@/utils/helper'
+import { getLocale, n__ } from '@/utils/i18n'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 const BasePopover = defineAsyncComponent(() => import('@/Components/Base/headless/Popover/BasePopover.vue'))
@@ -33,20 +34,35 @@ defineOptions({
 
 const settingsStore = useSettingsStore()
 
-const notificationsStore = useNotificationsStore()
-
 const { width } = useWindowSize()
 
-window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification(
-    (notification: DatabaseNotification) => {
-        notificationsStore.addNotification(notification)
+const queue = ref<RealTimeNotification[]>([])
 
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                toast('New notification', {
-                    description: 'desc' + i
+const stopShowNotification = ref(false)
+
+const displayNextNotification = debounce(() => {
+    if (queue.value.length === 0) return
+
+    for (const notification of queue.value) {
+        setTimeout(() => {
+            toast(notification.user.name, {
+                onDismiss: () => (stopShowNotification.value = true),
+                description: n__(`notifications.${notification.type}`, notification.user.gender === 'male' ? 1 : 0, {
+                    ...notification.data
                 })
-            }, 1000)
+            })
+        }, 1000)
+
+        queue.value.shift()
+    }
+}, 1000)
+
+window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notification(
+    (notification: RealTimeNotification) => {
+        if (!stopShowNotification.value) {
+            queue.value.push(notification)
+
+            displayNextNotification()
         }
     }
 )
@@ -91,10 +107,17 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
     </base-popover>
 
     <Toaster
+        :dir="getLocale() === 'ar' ? 'rtl' : 'ltr'"
         :expand="false"
         :toast-options="{
-            duration: 3000
+            duration: 3000,
+            unstyled: true,
+            classes: {
+                toast: 'rounded-lg border border-slate-200/60 bg-white py-5 px-6 shadow-xl dark:border-darkmode-600 dark:bg-darkmode-600 dark:text-slate-300',
+                title: 'rtl:font-medium text-slate-800 dark:text-slate-300',
+                description: 'text-red-400'
+            }
         }"
-        dir="rtl"
+        close-button
     />
 </template>

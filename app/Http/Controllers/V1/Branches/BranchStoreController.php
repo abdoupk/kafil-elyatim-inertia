@@ -17,6 +17,7 @@ class BranchStoreController extends Controller
         $branch = Branch::create($request->validated());
 
         dispatch(new BranchCreatedJob($branch, auth()->user()));
+        dd();
 
         return response('', 201);
     }

@@ -21,7 +21,11 @@ defineProps<{
         </div>
         <div
             class="mt-0.5 line-clamp-2 w-full text-slate-500"
-            v-html="n__(`notifications.${notification.type}`, 0, { ...notification.data.data })"
+            v-html="
+                n__(`notifications.${notification.type}`, notification.data.user.gender === 'male' ? 1 : 0, {
+                    ...notification.data.data
+                })
+            "
         ></div>
     </div>
 </template>

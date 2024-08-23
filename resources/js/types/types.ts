@@ -782,6 +782,21 @@ export interface DatabaseNotification {
     id: string
 }
 
+export interface RealTimeNotification {
+    user: {
+        id: string
+        gender: 'male' | 'female'
+        name: string
+    }
+    metadata: {
+        created_at: string
+        url: string
+    }
+    data: object
+    type: string
+    id: string
+}
+
 export type PopOverPlacementType =
     | 'top-start'
     | 'top'
