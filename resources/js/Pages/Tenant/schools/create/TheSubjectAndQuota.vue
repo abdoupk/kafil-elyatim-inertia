@@ -33,11 +33,9 @@ const academicLevelsStore = useAcademicLevelsStore()
 const subjects = ref<SubjectType[]>([])
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
+    academicLevels.value = await academicLevelsStore.getAcademicLevelsForSelectLessons()
 
     await useSubjectsStore().getSubjects()
-
-    academicLevels.value = academicLevelsStore.academicLevels
 
     subjects.value = useSubjectsStore().subjects
 })

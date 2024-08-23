@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -14,18 +15,16 @@ import TheSponsorTypeSelector from '@/Components/Global/TheSponsorTypeSelector.v
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 
-const props = defineProps<{
+defineProps<{
     form?: Form<CreateFamilyForm>
 }>()
 
 const academicLevelsStore = useAcademicLevelsStore()
 
-const academicLevels = ref([])
+const academicLevels = ref<AcademicLevelType[]>([])
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
-
-    academicLevels.value = academicLevelsStore.academicLevels
+    academicLevels.value = await academicLevelsStore.getAcademicLevelsForSponsors()
 })
 
 const firstName = defineModel('first_name')
@@ -41,14 +40,6 @@ const motherName = defineModel('mother_name')
 const birthCertificateNumber = defineModel('birth_certificate_number')
 
 const academicLevel = defineModel('academic_level')
-
-watch(
-    () => academicLevel.value,
-    () => {
-        // @ts-ignore
-        props.form?.validate(`sponsor.academic_level_id`)
-    }
-)
 
 const job = defineModel('function')
 
@@ -213,12 +204,16 @@ const birthDate = defineModel('birth_date', { default: '' })
             </div>
 
             <base-form-input-error>
+                <!-- @vue-ignore -->
                 <div
                     v-if="form?.invalid('sponsor.sponsor_type')"
                     class="mt-2 text-danger"
                     data-test="error_sponsor_type_message"
                 >
-                    {{ form.errors['sponsor.sponsor_type'] }}
+                    {{
+                        // @ts-ignore
+                        form.errors['sponsor.sponsor_type']
+                    }}
                 </div>
             </base-form-input-error>
         </div>
@@ -433,10 +428,12 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-label>
 
             <div>
+                <!-- @vue-ignore -->
                 <the-academic-level-selector
                     id="academic_level"
                     v-model:academic-level="academicLevel"
                     :academicLevels
+                    @update:academic-level="form?.validate(`sponsor.academic_level_id`)"
                 ></the-academic-level-selector>
             </div>
 

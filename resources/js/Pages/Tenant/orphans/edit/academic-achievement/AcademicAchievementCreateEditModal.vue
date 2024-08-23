@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { AcademicLevelType } from '@/types/lessons'
+
 import { useAcademicAchievementsStore } from '@/stores/academic-achievement'
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { router } from '@inertiajs/vue3'
@@ -97,15 +99,12 @@ const modalType = computed(() => {
     return academicAchievementStore.academicAchievement.id ? 'update' : 'create'
 })
 
-const academicLevels = ref([])
+const academicLevels = ref<AcademicLevelType[]>([])
 
 const academicLevelsStore = useAcademicLevelsStore()
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
-
-    // TODO: get academic levels for university
-    academicLevels.value = academicLevelsStore.academicLevels
+    academicLevels.value = await academicLevelsStore.getAcademicLevelsForOrphansForSelectCollege()
 })
 </script>
 

@@ -590,6 +590,8 @@ export type OrphanType = {
     baby_milk_type: string
     diapers_type: string
     diapers_quantity: number
+    is_handicapped: boolean
+    is_unemployed: boolean
 }
 
 export type IncomeType = {

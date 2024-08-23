@@ -23,16 +23,47 @@ export const useAcademicLevelsStore = defineStore('academic-levels', {
                 await this.getAcademicLevels()
             }
 
-            return this.academicLevels
+            return this.academicLevels.map((item) => {
+                const newItem = { ...item }
+
+                newItem.levels = item.levels.filter((level) => level.name !== 'امي')
+
+                return newItem
+            })
+        },
+
+        async getAcademicLevelsForSelectLessons() {
+            if (this.academicLevels.length == 0) {
+                await this.getAcademicLevels()
+            }
+
+            return this.academicLevels.filter((academicLevel) =>
+                // eslint-disable-next-line array-element-newline
+                ['الطور الابتدائي', 'الطور الثانوي', 'الطور المتوسط'].includes(academicLevel.phase)
+            )
         },
 
         async getAcademicLevelsForSponsors() {
-            await this.getAcademicLevels()
+            if (this.academicLevels.length == 0) {
+                await this.getAcademicLevels()
+            }
 
-            return this.academicLevels.filter((academicLevel) => academicLevel.phase !== 'Sponsor')
+            return this.academicLevels.map((item) => {
+                const newItem = { ...item }
+
+                newItem.levels = item.levels.filter((level) => !['مفصول', 'تحضيري'].includes(level.name))
+
+                return newItem
+            })
         },
 
-        async getAcademicLevelsForOrphansForSelectCollege() {},
+        async getAcademicLevelsForOrphansForSelectCollege() {
+            if (this.academicLevels.length == 0) {
+                await this.getAcademicLevels()
+            }
+
+            return this.academicLevels.filter((academicLevel) => academicLevel.phase === 'الطور الجامعي')
+        },
 
         async getAcademicLevelsForSponsorsForSelectFilterValue() {
             await this.getAcademicLevels()
@@ -62,6 +93,18 @@ export const useAcademicLevelsStore = defineStore('academic-levels', {
                         name: phase === 'التكوين المهني' || phase === 'الشبه طبي' ? `${name} (${phase})` : name
                     }))
             )
+        },
+
+        getPhaseFromId(id: number) {
+            for (const item of this.academicLevels) {
+                const level = item.levels.find((level) => level.id === id)
+
+                if (level) {
+                    return item.phase
+                }
+            }
+
+            return null
         }
     }
 })

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
@@ -66,15 +67,12 @@ const submit = () => {
     })
 }
 
-const academicLevels = ref([])
+const academicLevels = ref<AcademicLevelType[]>([])
 
 const academicLevelsStore = useAcademicLevelsStore()
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
-
-    // TODO: get academic levels for orphan
-    academicLevels.value = academicLevelsStore.academicLevels
+    academicLevels.value = await academicLevelsStore.getAcademicLevelsForOrphans()
 })
 </script>
 

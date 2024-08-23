@@ -108,6 +108,8 @@ const addOrphan = () => {
         pants_size: '',
         shirt_size: '',
         shoes_size: '',
+        is_unemployed: false,
+        is_handicapped: false,
         first_name: ''
     })
 
@@ -367,6 +369,8 @@ const submit = () => {
                                             v-model:gender="orphan.gender"
                                             v-model:health_status="orphan.health_status"
                                             v-model:income="orphan.income"
+                                            v-model:is-handicapped="orphan.is_handicapped"
+                                            v-model:is-unemployed="orphan.is_unemployed"
                                             v-model:last_name="orphan.last_name"
                                             v-model:note="orphan.note"
                                             v-model:pants-size="orphan.pants_size"

@@ -140,6 +140,8 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             diapers_type: '',
             note: '',
             income: null,
+            is_handicapped: false,
+            is_unemployed: false,
             gender: 'male'
         }
     ],

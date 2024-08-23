@@ -94,6 +94,8 @@ class CreateFamilyRequest extends FormRequest
 ,orphans.*.shirt_size,orphans.*.pants_size',
             'orphans.*.diapers_type' => 'required_with:baby_milk_type|required_without:orphans.*.shoes_size
 ,orphans.*.shirt_size,orphans.*.pants_size',
+            'orphans.*.is_unemployed' => 'required|boolean',
+            'orphans.*.is_handicapped' => 'required|boolean',
             'orphans_sponsorship.*.*' => 'present|nullable',
             'sponsor_sponsorship.*' => 'present|nullable',
             'family_sponsorship.*' => 'present|nullable',

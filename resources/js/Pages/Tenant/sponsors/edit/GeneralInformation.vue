@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { AcademicLevelType } from '@/types/lessons'
 import type { SponsorUpdateFormType } from '@/types/sponsors'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
@@ -47,15 +48,12 @@ const submit = () => {
     })
 }
 
-const academicLevels = ref([])
+const academicLevels = ref<AcademicLevelType[]>([])
 
 const academicLevelsStore = useAcademicLevelsStore()
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
-
-    // TODO: get academic levels for sponsor
-    academicLevels.value = academicLevelsStore.academicLevels
+    academicLevels.value = await academicLevelsStore.getAcademicLevelsForSponsors()
 })
 </script>
 

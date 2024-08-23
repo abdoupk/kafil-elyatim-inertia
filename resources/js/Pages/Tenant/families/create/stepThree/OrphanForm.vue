@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import type { AcademicLevelType, LevelType } from '@/types/lessons'
+import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -13,6 +13,9 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
+import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
+import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
+import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
 import TheBabyMilkSelector from '@/Components/Global/TheBabyMilkSelector.vue'
 import TheDiapersSelector from '@/Components/Global/TheDiapersSelector.vue'
@@ -33,7 +36,7 @@ const firstName = defineModel('first_name', { default: '' })
 
 const lastName = defineModel('last_name')
 
-const academicLevel = defineModel('academicLevel')
+const academicLevel = defineModel<{ id: number; name: string }>('academicLevel')
 
 const income = defineModel('income')
 
@@ -50,6 +53,10 @@ const pantsSize = defineModel('pantsSize')
 const shirtSize = defineModel('shirtSize')
 
 const note = defineModel('note')
+
+const isHandicapped = defineModel('isHandicapped')
+
+const isUnemployed = defineModel('isUnemployed')
 
 const babyMilkQuantity = defineModel('babyMilkQuantity')
 
@@ -72,32 +79,20 @@ const academicLevelsStore = useAcademicLevelsStore()
 const academicLevels = ref<AcademicLevelType[]>([])
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
-
-    academicLevels.value = academicLevelsStore.academicLevels
+    academicLevels.value = await academicLevelsStore.getAcademicLevelsForOrphans()
 })
 
-watch(
-    () => academicLevel.value,
-    (value) => {
-        if (value) {
-            phase.value = academicLevels.value.find((academicLevel) =>
-                academicLevel.levels.find((level: LevelType) => level.id === value?.id)
-            )?.phase
-        }
+const handleUpdateAcademicLevel = (value: number) => {
+    phase.value = academicLevelsStore.getPhaseFromId(value)
 
-        // @ts-ignore
-        props.form?.validate(`orphans.${props.index}.academic_level_id`)
-    }
-)
+    // @ts-ignore
+    props.form?.validate(`orphans.${props.index}.academic_level_id`)
+}
 
-watch(
-    () => vocationalTraining.value,
-    () => {
-        // @ts-ignore
-        props.form?.validate(`orphans.${props.index}.vocational_training_id`)
-    }
-)
+const handleUpdateVocationalTraining = () => {
+    // @ts-ignore
+    props.form?.validate(`orphans.${props.index}.vocational_training_id`)
+}
 </script>
 
 <template>
@@ -357,6 +352,7 @@ watch(
                     :id="`academic_level_${index}`"
                     v-model:academic-level="academicLevel"
                     :academic-levels="academicLevels"
+                    @update:academic-level="handleUpdateAcademicLevel"
                 ></the-academic-level-selector>
             </div>
 
@@ -390,6 +386,7 @@ watch(
                 <the-vocational-training-selector
                     :id="`vocational_training_id_${index}`"
                     v-model:vocational-training="vocationalTraining"
+                    @update:vocational-training="handleUpdateVocationalTraining"
                 ></the-vocational-training-selector>
             </div>
 
@@ -743,6 +740,40 @@ watch(
             </base-form-input-error>
         </div>
         <!-- End: Income-->
+
+        <div class="col-span-12 grid grid-cols-12 gap-4 sm:col-span-6 sm:mt-8">
+            <!--Begin: Handicapped-->
+            <div class="col-span-6 sm:col-span-3">
+                <base-form-switch class="text-lg">
+                    <base-form-switch-input
+                        id="is_handicapped"
+                        v-model="isHandicapped"
+                        type="checkbox"
+                    ></base-form-switch-input>
+
+                    <base-form-switch-label htmlFor="is_handicapped">
+                        {{ $t('handicapped') }}
+                    </base-form-switch-label>
+                </base-form-switch>
+            </div>
+            <!--END: Handicapped-->
+
+            <!--Begin: Handicapped-->
+            <div class="col-span-6 sm:col-span-3">
+                <base-form-switch class="text-lg">
+                    <base-form-switch-input
+                        id="is_unemployed"
+                        v-model="isUnemployed"
+                        type="checkbox"
+                    ></base-form-switch-input>
+
+                    <base-form-switch-label htmlFor="is_unemployed">
+                        {{ $t('unemployed') }}
+                    </base-form-switch-label>
+                </base-form-switch>
+            </div>
+            <!--END: Handicapped-->
+        </div>
 
         <!-- Begin: Note -->
         <div class="col-span-8">
