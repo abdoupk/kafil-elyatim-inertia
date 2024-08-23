@@ -22,8 +22,6 @@ onMounted(async () => {
     await schoolsStore.getSchools()
 
     if (school.value) {
-        console.log('000s')
-
         selectedSchool.value = schoolsStore.findSchoolById(school.value)
     }
 })

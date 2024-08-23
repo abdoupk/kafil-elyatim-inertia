@@ -2,7 +2,7 @@
 
 namespace App\Jobs\V1\Lesson;
 
-use App\Models\Lesson;
+use App\Models\Event;
 use App\Models\User;
 use App\Notifications\Lesson\CreateLessonNotification;
 use Illuminate\Bus\Queueable;
@@ -16,7 +16,7 @@ class LessonCreatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Lesson $lesson, public User $user) {}
+    public function __construct(public Event $event, public User $user) {}
 
     public function handle(): void
     {
@@ -24,6 +24,6 @@ class LessonCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->schools_and_lessons_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateLessonNotification(lesson: $this->lesson, user: $this->user));
+            new CreateLessonNotification(event: $this->event, user: $this->user));
     }
 }

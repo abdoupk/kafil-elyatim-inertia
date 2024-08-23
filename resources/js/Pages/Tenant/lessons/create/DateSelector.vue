@@ -35,6 +35,8 @@ const date = ref(props.date)
 const setTimes = (value: string | Date) => {
     const formattedDate = setDateToCurrentTime(value)
 
+    console.log(formattedDate)
+
     startDate.value = formattedDate.toDate()
 
     endDate.value = formattedDate.add(1, 'hour').toDate()
@@ -78,6 +80,7 @@ onMounted(() => {
                 hide-time-header
                 is24hr
                 mode="time"
+                timezone="Africa/Algiers"
             ></base-v-calendar>
 
             <base-form-input-error>

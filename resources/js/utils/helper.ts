@@ -4,7 +4,6 @@ import { router, usePage } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ar'
 import 'dayjs/locale/fr'
-import duration from 'dayjs/plugin/duration'
 import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
 import { computed } from 'vue'
@@ -12,7 +11,6 @@ import { computed } from 'vue'
 import { __, getLocale } from '@/utils/i18n'
 
 
-dayjs.extend(duration)
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
