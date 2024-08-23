@@ -63,9 +63,11 @@ class PrivateSchool extends Model
             }
         });
 
-        static::deleting(function ($model) {
+        static::softDeleted(function ($model) {
             if (auth()->id()) {
                 $model->deleted_by = auth()->id();
+
+                $model->save();
             }
         });
     }

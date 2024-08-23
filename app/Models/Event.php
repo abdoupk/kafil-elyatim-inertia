@@ -78,11 +78,6 @@ class Event extends Model
         'color',
     ];
 
-    public function school(): BelongsTo
-    {
-        return $this->belongsTo(PrivateSchool::class);
-    }
-
     protected static function boot(): void
     {
         parent::boot();
@@ -93,11 +88,18 @@ class Event extends Model
             }
         });
 
-        static::deleting(function ($model) {
+        static::softDeleted(function ($model) {
             if (auth()->id()) {
                 $model->deleted_by = auth()->id();
+
+                $model->save();
             }
         });
+    }
+
+    public function school(): BelongsTo
+    {
+        return $this->belongsTo(PrivateSchool::class);
     }
 
     public function occurrences(): HasMany
