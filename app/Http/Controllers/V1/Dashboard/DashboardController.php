@@ -16,7 +16,6 @@ class DashboardController extends Controller
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),
-            'radar' => fn () => generateTest(),
             'recentActivities' => fn () => $this->getRecentActivities(),
             'recentTransactions' => fn () => $this->getRecentTransactions(),
             'comingEvents' => fn () => $this->getComingEvents(),

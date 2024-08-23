@@ -1,3 +1,5 @@
+import type { FinancialReportsType } from '@/types/dashboard'
+
 export type FamiliesByZoneType = {
     labels: string[]
     data: number[]
@@ -93,3 +95,18 @@ export type SponsorsByDiplomaType = {
     labels: string[]
     data: number[]
 }
+
+export type FinancesBySpecificationType = {
+    incomes: {
+        [key: string]: number
+    }
+    expenses: {
+        [key: string]: number
+    }
+}
+export type FinancesByTypeType = {
+    incomes: number[]
+    expenses: number[]
+}
+export type FinancesByYearType = {}
+export type FinancesByMonthType = FinancialReportsType

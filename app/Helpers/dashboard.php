@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Finance;
-
 function generateGlobalDashBoardReportStatistics(): array
 {
     $currentMonth = date('m');
@@ -72,28 +70,4 @@ function generateFinancialReport(): array
     $result['totalThisMonth'] = $result['incomes'][$monthIndex] + $result['expenses'][$monthIndex];
 
     return $result;
-}
-
-function generateTest(): array
-{
-    $year = date('Y');
-
-    return Finance::selectRaw('
-            EXTRACT(MONTH FROM created_at) as month, SUM(CASE WHEN amount < 0 THEN amount ELSE 0 END) as negative_amount, SUM(CASE WHEN amount >= 0 THEN amount ELSE 0 END) as positive_amount, specification
-        ')
-        ->whereYear('created_at', $year)
-        ->groupBy('specification', 'month')
-        ->get()
-        ->groupBy('specification')
-        ->map(function ($items) {
-            $monthlyTotals = array_fill(0, 12, ['positive' => 0, 'negative' => 0]);
-
-            $items->each(function ($item) use (&$monthlyTotals) {
-                $monthIndex = $item->month - 1;
-                $monthlyTotals[$monthIndex]['positive'] = $item->positive_amount;
-                $monthlyTotals[$monthIndex]['negative'] = abs($item->negative_amount);
-            });
-
-            return $monthlyTotals;
-        })->toArray();
 }

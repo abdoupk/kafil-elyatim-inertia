@@ -365,3 +365,15 @@ export const colorPalette = {
     ],
     light: ['#00202e', '#003f5c', '#2c4875', '#8a508f', '#bc5090', '#ff6361', '#ff8531', '#ffa600', '#ffd380']
 }
+
+export const financialSpecifications = [
+    'drilling_wells',
+    'monthly_sponsorship',
+    'eid_el_adha',
+    'eid_el_fitr',
+    'other',
+    'school_entry',
+    'analysis',
+    'therapy',
+    'ramadan_basket'
+]

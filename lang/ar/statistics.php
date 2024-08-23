@@ -54,6 +54,10 @@ return [
     ],
     'finances' => [
         'titles' => [
+            'finances_by_month' => '',
+            'finances_by_specification' => '',
+            'finances_by_year' => '',
+            'finances_by_type' => '',
         ],
         'labels' => [
         ],
