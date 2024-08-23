@@ -15,9 +15,11 @@ class FamiliesEidAlAdhaIndexExport implements FromCollection, WithEvents, WithHe
     {
         return [
             '#',
-            __('update'),
-            __('validation.attributes.created_at'),
-            __('filters.baby_milk_quantity'),
+            __('the_sponsor'),
+            __('sponsor_phone_number'),
+            __('validation.attributes.address'),
+            __('orphans_count'),
+            __('incomes.label.total_income'),
         ];
     }
 
@@ -33,8 +35,15 @@ class FamiliesEidAlAdhaIndexExport implements FromCollection, WithEvents, WithHe
     public function collection(): Collection
     {
 
-        return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport()->map(function (FamilySponsorship $familySponsorship) {
-            return $familySponsorship->family;
+        return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport()->map(function (FamilySponsorship $familySponsorship, $key) {
+            return [
+                $key + 1,
+                $familySponsorship->family->sponsor->getName(),
+                $familySponsorship->family->sponsor->formattedPhoneNumber(),
+                $familySponsorship->family->address,
+                $familySponsorship->family->loadCount('orphans')->orphans_count,
+                formatCurrency($familySponsorship->family->totalIncomes()),
+            ];
         });
     }
 }
