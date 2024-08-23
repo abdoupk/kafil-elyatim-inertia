@@ -232,6 +232,15 @@ const isAssociationNameLatin = computed(() => {
     return /^[a-z]+/i.test(usePage().props.association)
 })
 
+const pathNameOfCurrentPage = (): string => {
+    const parsedUrl = new URL(usePage().url, import.meta.env.VITE_APP_URL)
+
+    // Remove the search parameters
+    parsedUrl.search = ''
+
+    return parsedUrl.pathname.toString()
+}
+
 const formatDate = (date: string | Date, dateStyle: 'full' | 'long' | 'medium' | 'short' | undefined) => {
     try {
         return new Intl.DateTimeFormat(`${getLocale()}-DZ`, {
@@ -495,5 +504,6 @@ export {
     allowOnlyNumbersOnKeyDown,
     capitalizeFirstLetter,
     formatDateAndTime,
-    checkErrors
+    checkErrors,
+    pathNameOfCurrentPage
 }

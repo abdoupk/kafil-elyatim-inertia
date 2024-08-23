@@ -7,6 +7,7 @@ create table if not exists families
     "address"     text                           not null,
     "file_number" text                           not null,
     "start_date"  date                           not null,
+    "income_rate" double precision               null,
     "tenant_id"   text                           not null references "tenants" ("id") on delete cascade on update cascade,
     "created_by"  uuid                           null references "users" ("id") on delete set null,
     "deleted_by"  uuid                           null references users (id),

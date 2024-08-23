@@ -148,7 +148,9 @@ watchEffect(async () => {
     const searchParams = new URLSearchParams(window.location.search)
 
     if (searchParams.has('show')) {
-        await showDetailsModal(searchParams.get('show'))
+        setTimeout(async () => {
+            await showDetailsModal(searchParams.get('show'))
+        }, 1000)
     }
 })
 </script>

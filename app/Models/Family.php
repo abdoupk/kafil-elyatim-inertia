@@ -101,6 +101,7 @@ class Family extends Model
         'created_by',
         'deleted_by',
         'file_number',
+        'income_rate',
         'start_date',
         'branch_id',
     ];

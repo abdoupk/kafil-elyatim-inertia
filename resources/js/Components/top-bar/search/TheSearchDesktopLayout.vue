@@ -28,7 +28,6 @@ watch(
 
         router.visit(value?.url, {
             method: 'get',
-            // TODO change if has same pathname change else dont usePage.url
             preserveState: false
         })
     }
