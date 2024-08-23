@@ -12,10 +12,10 @@ const form = useForm('put', route('tenant.profile.notifications.update'), usePag
 
 <template>
     <div class="border-b pb-5">
-        <h2 class="rtl:text-xl rtl:font-semibold">{{ $t('appearance') }}</h2>
+        <h2 class="rtl:text-xl rtl:font-semibold">{{ $t('notifications') }}</h2>
 
         <p class="mt-1 text-slate-600 dark:text-slate-400">
-            {{ $t('theme.profile_appearance_hint') }}
+            {{ $t('profile.notifications.hint') }}
         </p>
     </div>
 

@@ -10,6 +10,7 @@ return [
     'delete_account_confirm' => 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. يُرجى إدخال كلمة المرور الخاصة بك لتأكيد رغبتك في حذف حسابك نهائياً.',
     'notifications' => [
         'Notify me about' => 'تحب إشعارك عندما يكون',
+        'hint' => '',
         // suggest title for settings notification when family created or updated or deleted
         'families_changes' => 'تغيرات في العائلات',
         'families_changes_description' => 'تلقى إشعارات عند إنشاء، تعديل أو حذف عائلة، المتكفل، اليتيم او الاحتياج.',

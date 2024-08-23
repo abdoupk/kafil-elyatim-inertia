@@ -300,6 +300,7 @@
     "profile.delete_account_hint": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. قبل حذف حسابك، يرجى تنزيل أي بيانات أو معلومات ترغب في الاحتفاظ بها.",
     "profile.delete_account_confirm": "بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. يُرجى إدخال كلمة المرور الخاصة بك لتأكيد رغبتك في حذف حسابك نهائياً.",
     "profile.notifications.Notify me about": "تحب إشعارك عندما يكون",
+    "profile.notifications.hint": "",
     "profile.notifications.families_changes": "تغيرات في العائلات",
     "profile.notifications.families_changes_description": "تلقى إشعارات عند إنشاء، تعديل أو حذف عائلة، المتكفل، اليتيم او الاحتياج.",
     "profile.notifications.branches_and_zones_changes": "تغيرات في الفروع والمناطق",
