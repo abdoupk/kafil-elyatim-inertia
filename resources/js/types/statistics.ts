@@ -108,5 +108,5 @@ export type FinancesByTypeType = {
     incomes: number[]
     expenses: number[]
 }
-export type FinancesByYearType = {}
+
 export type FinancesByMonthType = FinancialReportsType
