@@ -125,6 +125,7 @@ class Orphan extends Model
         'pants_size',
         'shirt_size',
         'is_handicapped',
+        'is_unemployed',
         'income',
         'note',
         'family_id',

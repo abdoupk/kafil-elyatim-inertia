@@ -32,6 +32,7 @@ export interface UserSettings {
         schools_and_lessons_changes: boolean
         occasions_saves: boolean
         financial_changes: boolean
+        association_changes: boolean
     }
 }
 

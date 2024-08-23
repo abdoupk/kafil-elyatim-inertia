@@ -22,7 +22,7 @@ class MonthlyBasketFamiliesListSavedJob implements ShouldQueue
     {
         Notification::send(
             User::whereHas('settings', function ($query) {
-                return $query->where('notifications->branches_and_zones_changes', true);
+                return $query->where('notifications->occasions_saves', true);
             })->where('users.id', '!=', $this->user->id)->get(),
             new CreateBranchNotification(branch: $this->branch, user: $this->user));
     }

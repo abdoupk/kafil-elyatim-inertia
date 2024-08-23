@@ -151,6 +151,7 @@ class User extends Authenticatable
                     'schools_and_lessons_changes' => true,
                     'occasions_saves' => true,
                     'financial_changes' => true,
+                    'association_changes' => true,
                 ],
             ]);
         });

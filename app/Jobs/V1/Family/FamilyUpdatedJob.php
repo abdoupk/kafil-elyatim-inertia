@@ -22,7 +22,7 @@ class FamilyUpdatedJob implements ShouldQueue
     {
         Notification::send(
             User::whereHas('settings', function ($query) {
-                return $query->where('notifications->branches_and_zones_changes', true);
+                return $query->where('notifications->families_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
             new UpdateFamilyNotification(family: $this->family, user: $this->user));
     }

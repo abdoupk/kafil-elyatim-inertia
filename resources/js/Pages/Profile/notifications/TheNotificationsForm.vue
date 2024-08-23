@@ -52,6 +52,12 @@ const form = useForm('put', route('tenant.profile.notifications.update'), usePag
                 description="occasions_saves_description"
                 label="occasions_saves"
             ></the-notification-item>
+
+            <the-notification-item
+                v-model:status="form.association_changes"
+                description="association_changes_description"
+                label="association_changes"
+            ></the-notification-item>
         </div>
 
         <base-button :disabled="form.processing" class="col-span-12 !mt-5 w-20" type="submit" variant="primary">

@@ -14,6 +14,7 @@ create table if not exists orphans
     "gender"                 text                           not null,
     "income"                 double precision               not null,
     "is_handicapped"         boolean                        not null,
+    "is_unemployed"          boolean                        not null,
     "note"                   text                           null,
     "tenant_id"              text                           not null references tenants (id) on delete cascade,
     "family_id"              uuid                           not null references families (id) on delete cascade,

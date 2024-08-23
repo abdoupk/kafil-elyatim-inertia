@@ -21,7 +21,7 @@ class MemberUpdatedJob implements ShouldQueue
     {
         Notification::send(
             User::whereHas('settings', function ($query) {
-                return $query->where('notifications->branches_and_zones_changes', true);
+                return $query->where('notifications->association_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
             new UpdateMemberNotification(member: $this->member, user: $this->user));
     }
