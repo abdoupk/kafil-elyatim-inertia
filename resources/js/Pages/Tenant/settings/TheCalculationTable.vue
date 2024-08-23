@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { useForm } from 'laravel-precognition-vue'
+
+import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
 import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
@@ -7,6 +10,11 @@ import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
 import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+
+const form = useForm('put', route('tenant.site-settings.update-calculation-weights'), {
+    association_name: ''
+})
 </script>
 
 <template>
@@ -547,6 +555,12 @@ import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
                 <!--            <base-td-table></base-td-table>-->
                 <!--        </base-tr-table>-->
             </base-table>
+
+            <base-button :disabled="form.processing" class="!mt-5 w-20" type="submit" variant="primary">
+                {{ $t('save') }}
+
+                <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
+            </base-button>
         </div>
     </div>
 </template>

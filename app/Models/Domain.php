@@ -5,9 +5,9 @@ namespace App\Models;
 use Database\Factories\DomainFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use Stancl\Tenancy\Database\Models\Domain as ModelsDomain;
 
 /**
@@ -32,14 +32,7 @@ use Stancl\Tenancy\Database\Models\Domain as ModelsDomain;
  */
 class Domain extends ModelsDomain
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = ['domain', 'tenant_id', 'id'];
-
-    protected static function booted(): void
-    {
-        static::creating(static function ($domain) {
-            $domain->id = Str::uuid();
-        });
-    }
 }

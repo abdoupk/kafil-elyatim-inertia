@@ -72,6 +72,8 @@ Route::middleware([
 
             require_once __DIR__.'/v1/settings.php';
 
+            require_once __DIR__.'/v1/site-settings.php';
+
             require_once __DIR__.'/v1/sponsors.php';
 
             require_once __DIR__.'/v1/vocational-training-achievements.php';

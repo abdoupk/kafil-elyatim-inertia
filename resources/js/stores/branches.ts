@@ -1,9 +1,10 @@
-import type { CreateBranchForm } from '@/types/types'
+import type { CityType, CreateBranchForm } from '@/types/types'
 
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
 import { omit } from '@/utils/helper'
+
 
 interface State {
     branch: CreateBranchForm & {
@@ -19,6 +20,7 @@ interface State {
         readable_created_at: string
         city_name?: string
         families_count: number
+        city: CityType
     }
     branches: { id: string; name: string }[]
 }

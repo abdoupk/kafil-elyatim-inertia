@@ -830,3 +830,15 @@ export type BabyMilk = {
     id: string
     name: string
 }
+
+export type SiteSettingsType = {
+    association: string
+    address: string
+    domain: string
+    super_admin: {
+        id: string
+        name: string
+    }
+    city: CityType
+    city_id: string
+}

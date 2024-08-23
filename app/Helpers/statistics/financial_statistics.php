@@ -77,11 +77,6 @@ function getFinancesByType(): array
     return $result;
 }
 
-function getFinancesByYear(): array
-{
-    return [];
-}
-
 function getFinancesByMonth(): array
 {
     return generateFinancialReport();
