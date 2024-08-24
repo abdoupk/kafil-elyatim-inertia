@@ -386,7 +386,6 @@ const handleUpdateVocationalTraining = () => {
                 <the-vocational-training-selector
                     :id="`vocational_training_id_${index}`"
                     v-model:vocational-training="vocationalTraining"
-                    @update:vocational-training="handleUpdateVocationalTraining"
                 ></the-vocational-training-selector>
             </div>
 

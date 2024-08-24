@@ -345,7 +345,7 @@ function getVocationalTrainingSpecialityFromId(id, specialities) {
     if (!id) return ''
     else {
         return specialities.reduce((acc, curr) => {
-            const speciality = curr.specialities.find((speciality) => Number(speciality.id) === id)
+            const speciality = curr.specialities.find((speciality) => Number(speciality.id) === id[0])
 
             if (speciality) acc = speciality
 
