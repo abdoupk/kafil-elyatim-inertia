@@ -419,6 +419,10 @@ const formatFilters = (filters) => {
 }
 
 const getDataForIndexPages = (url: string, params: IndexParams, options: object) => {
+    router.get(url, formatParams(params), options)
+}
+
+const formatParams = (params: IndexParams) => {
     let data = { ...params }
 
     if (params.search === '' || params.search === undefined) {
@@ -431,7 +435,7 @@ const getDataForIndexPages = (url: string, params: IndexParams, options: object)
 
     data.filters = formatFilters(data.filters)
 
-    router.get(url, data, options)
+    return data
 }
 
 function hasPermission(permission) {
@@ -503,5 +507,6 @@ export {
     capitalizeFirstLetter,
     formatDateAndTime,
     checkErrors,
-    pathNameOfCurrentPage
+    pathNameOfCurrentPage,
+    formatParams
 }

@@ -29,7 +29,8 @@ const params = reactive<IndexParams>({
     directions: props.params.directions,
     fields: props.params.fields,
     filters: props.params.filters,
-    search: props.params.search
+    search: props.params.search,
+    archive: props.archive.id
 })
 </script>
 
@@ -38,17 +39,15 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.archive.export.eid-al-adha.pdf', { ...params, archive: archive.id })"
-        :export-xlsx-url="route('tenant.archive.export.eid-al-adha.xlsx', { ...params, archive: archive.id })"
         :filters="eidAlAdhaFilters"
         :pagination-data="families"
         :params="params"
         :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
         :url="route('tenant.occasions.eid-al-adha.index')"
         entries="families"
+        export-pdf-url="tenant.archive.export.eid-al-adha.pdf"
+        export-xlsx-url="tenant.archive.export.eid-al-adha.xlsx"
         exportable
-        filterable
-        searchable
         @change-filters="params.filters = $event"
     >
     </the-table-header>

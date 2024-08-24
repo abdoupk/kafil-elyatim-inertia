@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { IndexParams } from '@/types/types'
+
 import print from 'print-js'
 import { ref } from 'vue'
 
@@ -10,18 +12,31 @@ import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatUrl } from '@/utils/helper'
-
 const props = defineProps<{
     exportPdfUrl: string
     exportXlsxUrl: string
+    params: IndexParams
 }>()
 
-const exportPdfUrl = ref<string>(formatUrl(props.exportPdfUrl))
-
-const exportXlsxUrl = ref<string>(formatUrl(props.exportXlsxUrl))
-
 const printStarting = ref<boolean>(false)
+
+// Watch(
+//     () => props.params,
+//     (value) => {
+//         Let a = new URL(props.exportPdfUrl)
+//
+//         A.search = ''
+//
+//         Let b = formatParams(value)
+//
+//         Console.log(b)
+//
+//         Console.log(a.pathname)
+//
+//         Console.log(value)
+//     },
+//     { immediate: true }
+// )
 
 const printPdf = () => {
     print({

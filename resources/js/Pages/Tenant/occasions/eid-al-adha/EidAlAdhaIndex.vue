@@ -77,8 +77,6 @@ const handleSave = () => {
     <Head :title="$t('the_families_eid_al_adha')"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.eid-al-adha.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.eid-al-adha.export.xlsx', params)"
         :exportable
         :filters="eidAlAdhaFilters"
         :pagination-data="families"
@@ -86,6 +84,8 @@ const handleSave = () => {
         :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
         :url="route('tenant.occasions.eid-al-adha.index')"
         entries="families"
+        export-pdf-url="tenant.occasions.eid-al-adha.export.pdf"
+        export-xlsx-url="tenant.occasions.eid-al-adha.export.xlsx"
         filterable
         searchable
         @change-filters="params.filters = $event"

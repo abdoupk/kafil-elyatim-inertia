@@ -9,7 +9,7 @@ import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import ExportMenu from '@/Components/Global/ExportMenu.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { debounce, formatFilters, getDataForIndexPages, isEmpty } from '@/utils/helper'
+import { debounce, formatFilters, formatParams, getDataForIndexPages, isEmpty } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -37,10 +37,16 @@ let routerOptions = {
     preserveScroll: true
 }
 
+const exportPdfUrl = ref<string>(route(props.exportPdfUrl, params.value))
+
+const exportXlsxUrl = ref<string>(route(props.exportXlsxUrl, params.value))
+
 const getData = () => getDataForIndexPages(props.url, params.value, routerOptions)
 
 const handleFilterReset = () => {
     params.value.filters = []
+
+    handleExport(params.value)
 
     getData()
 }
@@ -48,6 +54,8 @@ const handleFilterReset = () => {
 const handleFilter = (filters: IndexParams['filters']) => {
     if (!isEmpty(formatFilters(filters))) {
         params.value.filters = filters
+
+        handleExport(params.value)
 
         emit('changeFilters', filters)
 
@@ -67,6 +75,14 @@ watch(
 )
 
 watch(() => [params.value.fields, params.value.directions], getData)
+
+const handleExport = (value) => {
+    if (props.exportable) {
+        exportPdfUrl.value = route(props.exportPdfUrl, formatParams(value))
+
+        exportXlsxUrl.value = route(props.exportXlsxUrl, formatParams(value))
+    }
+}
 </script>
 
 <template>
@@ -80,7 +96,7 @@ watch(() => [params.value.fields, params.value.directions], getData)
         <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
             <slot name="ExtraButtons"></slot>
 
-            <export-menu v-if="exportable" :exportPdfUrl :exportXlsxUrl></export-menu>
+            <export-menu v-if="exportable" :exportPdfUrl :exportXlsxUrl :params></export-menu>
 
             <advanced-filter
                 v-if="filterable"
