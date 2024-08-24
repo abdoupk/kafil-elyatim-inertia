@@ -1,16 +1,31 @@
 <script lang="ts" setup>
 import type { OrphanShowType } from '@/types/orphans'
 
-import { provide, ref } from 'vue'
+import { defineAsyncComponent, provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import GeneralInformation from '@/Pages/Tenant/orphans/details/GeneralInformation.vue'
-import OrphanMenu from '@/Pages/Tenant/orphans/details/OrphanMenu.vue'
-import SponsorshipsInformation from '@/Pages/Tenant/orphans/details/SponsorshipsInformation.vue'
-import AcademicAchievement from '@/Pages/Tenant/orphans/details/academic-achievement/AcademicAchievement.vue'
-import CollegeAchievement from '@/Pages/Tenant/orphans/details/college-achievement/CollegeAchievement.vue'
-import VocationalTrainingAchievement from '@/Pages/Tenant/orphans/details/vocational-training-achievement/VocationalTrainingAchievement.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+const GeneralInformation = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/details/GeneralInformation.vue'))
+
+const OrphanMenu = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/details/OrphanMenu.vue'))
+
+const SponsorshipsInformation = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/details/SponsorshipsInformation.vue')
+)
+
+const AcademicAchievement = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/details/academic-achievement/AcademicAchievement.vue')
+)
+
+const CollegeAchievement = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/details/college-achievement/CollegeAchievement.vue')
+)
+
+const VocationalTrainingAchievement = defineAsyncComponent(
+    () => import('@/Pages/Tenant/orphans/details/vocational-training-achievement/VocationalTrainingAchievement.vue')
+)
 
 defineOptions({
     layout: TheLayout
@@ -26,35 +41,45 @@ function updateView(newValue: string) {
     view.value = newValue
 }
 
-// eslint-disable-next-line capitalized-comments
-// noinspection JSUnusedGlobalSymbols
 provide('orphanDetailView', { view, updateView })
 </script>
 
 <template>
-    <div class="intro-y mt-8 flex items-center">
-        <h2 class="me-auto text-lg font-medium ltr:capitalize">
-            {{ $t('orphan details') }}
-        </h2>
-    </div>
-    <div class="mt-5 grid grid-cols-12 gap-6">
-        <orphan-menu :orphan></orphan-menu>
+    <suspense>
+        <div>
+            <div class="intro-y mt-8 flex items-center">
+                <h2 class="me-auto text-lg font-medium ltr:capitalize">
+                    {{ $t('orphan details') }}
+                </h2>
+            </div>
 
-        <div class="col-span-12 lg:col-span-8 2xl:col-span-9">
-            <div class="grid grid-cols-12 gap-6">
-                <general-information v-if="view === 'general_information'" :orphan></general-information>
+            <div class="mt-5 grid grid-cols-12 gap-6">
+                <orphan-menu :orphan></orphan-menu>
 
-                <sponsorships-information v-if="view === 'sponsorships_information'" :orphan></sponsorships-information>
+                <div class="col-span-12 lg:col-span-8 2xl:col-span-9">
+                    <div class="grid grid-cols-12 gap-6">
+                        <general-information v-if="view === 'general_information'" :orphan></general-information>
 
-                <academic-achievement v-if="view === 'academic_achievement'" :orphan></academic-achievement>
+                        <sponsorships-information
+                            v-if="view === 'sponsorships_information'"
+                            :orphan
+                        ></sponsorships-information>
 
-                <college-achievement v-if="view === 'college_achievement'" :orphan></college-achievement>
+                        <academic-achievement v-if="view === 'academic_achievement'" :orphan></academic-achievement>
 
-                <vocational-training-achievement
-                    v-if="view === 'vocational_training_achievement'"
-                    :orphan
-                ></vocational-training-achievement>
+                        <college-achievement v-if="view === 'college_achievement'" :orphan></college-achievement>
+
+                        <vocational-training-achievement
+                            v-if="view === 'vocational_training_achievement'"
+                            :orphan
+                        ></vocational-training-achievement>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

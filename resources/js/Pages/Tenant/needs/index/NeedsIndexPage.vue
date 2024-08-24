@@ -3,23 +3,34 @@ import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/ty
 
 import { useNeedsStore } from '@/stores/needs'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import NeedShowModal from '@/Pages/Tenant/needs/NeedShowModal.vue'
-import NeedCreateUpdateModal from '@/Pages/Tenant/needs/create/NeedCreateUpdateModal.vue'
-import DataTable from '@/Pages/Tenant/needs/index/DataTable.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+
+const NeedShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/needs/NeedShowModal.vue'))
+
+const NeedCreateUpdateModal = defineAsyncComponent(
+    () => import('@/Pages/Tenant/needs/create/NeedCreateUpdateModal.vue')
+)
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/needs/index/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -142,61 +153,73 @@ watchEffect(async () => {
 <template>
     <Head :title="$t('the_needs')"></Head>
 
-    <the-table-header
-        :filters="[]"
-        :pagination-data="needs"
-        :params="params"
-        :title="$t('list', { attribute: $t('the_needs') })"
-        :url="route('tenant.needs.index')"
-        entries="needs"
-        export-pdf-url=""
-        export-xlsx-url=""
-        searchable
-        @change-filters="params.filters = $event"
-    >
-        <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                {{ n__('add new', 1, { attribute: $t('demand') }) }}
-            </base-button>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="[]"
+                :pagination-data="needs"
+                :params="params"
+                :title="$t('list', { attribute: $t('the_needs') })"
+                :url="route('tenant.needs.index')"
+                entries="needs"
+                export-pdf-url=""
+                export-xlsx-url=""
+                searchable
+                @change-filters="params.filters = $event"
+            >
+                <template #ExtraButtons>
+                    <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                        {{ n__('add new', 1, { attribute: $t('demand') }) }}
+                    </base-button>
+                </template>
+            </the-table-header>
+
+            <template v-if="needs.data.length > 0">
+                <data-table
+                    :needs
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-edit-modal="showEditModal"
+                    @show-details-modal="showDetailsModal"
+                ></data-table>
+
+                <the-table-footer
+                    :pagination-data="needs"
+                    :params
+                    :url="route('tenant.needs.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteNeed"
+            ></delete-modal>
+
+            <need-create-update-modal
+                :open="updateModalStatus"
+                :show-the-needable="showTheNeedable"
+                @close="updateModalStatus = false"
+            ></need-create-update-modal>
+
+            <need-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_needs') })"
+                @close="showModalStatus = false"
+            ></need-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 0, { attribute: $t('the_demand') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
         </template>
-    </the-table-header>
-
-    <template v-if="needs.data.length > 0">
-        <data-table
-            :needs
-            :params
-            @showDeleteModal="showDeleteModal"
-            @sort="sort"
-            @show-edit-modal="showEditModal"
-            @show-details-modal="showDetailsModal"
-        ></data-table>
-
-        <the-table-footer :pagination-data="needs" :params :url="route('tenant.needs.index')"></the-table-footer>
-    </template>
-
-    <the-no-results-table v-else></the-no-results-table>
-
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteNeed"
-    ></delete-modal>
-
-    <need-create-update-modal
-        :open="updateModalStatus"
-        :show-the-needable="showTheNeedable"
-        @close="updateModalStatus = false"
-    ></need-create-update-modal>
-
-    <need-show-modal
-        :open="showModalStatus"
-        :title="$t('modal_show_title', { attribute: $t('the_needs') })"
-        @close="showModalStatus = false"
-    ></need-show-modal>
-
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 0, { attribute: $t('the_demand') })"
-    ></success-notification>
+    </suspense>
 </template>

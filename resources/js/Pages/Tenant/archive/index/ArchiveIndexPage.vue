@@ -2,15 +2,19 @@
 import type { ArchiveIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
-import { reactive } from 'vue'
+import { defineAsyncComponent, reactive } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DataTable from '@/Pages/Tenant/archive/index/DataTable.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/archive/index/DataTable.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -30,25 +34,37 @@ const params = reactive<IndexParams>({
 <template>
     <Head :title="$t('the_archive')"></Head>
 
-    <the-table-header
-        :filters="[]"
-        :pagination-data="items"
-        :params="params"
-        :title="$t('the_archive')"
-        :url="route('tenant.archive.index')"
-        entries="items"
-        export-pdf-url=""
-        export-xlsx-url=""
-        searchable
-        @change-filters="params.filters = $event"
-    >
-    </the-table-header>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="[]"
+                :pagination-data="items"
+                :params="params"
+                :title="$t('the_archive')"
+                :url="route('tenant.archive.index')"
+                entries="items"
+                export-pdf-url=""
+                export-xlsx-url=""
+                searchable
+                @change-filters="params.filters = $event"
+            >
+            </the-table-header>
 
-    <template v-if="items.data.length > 0">
-        <data-table :items :params></data-table>
+            <template v-if="items.data.length > 0">
+                <data-table :items :params></data-table>
 
-        <the-table-footer :pagination-data="items" :params :url="route('tenant.archive.index')"></the-table-footer>
-    </template>
+                <the-table-footer
+                    :pagination-data="items"
+                    :params
+                    :url="route('tenant.archive.index')"
+                ></the-table-footer>
+            </template>
 
-    <the-no-results-table v-else></the-no-results-table>
+            <the-no-results-table v-else></the-no-results-table>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

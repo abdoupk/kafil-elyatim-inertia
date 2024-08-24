@@ -4,20 +4,27 @@ import type { ArchiveOccasionType, IndexParams, PaginationData, RamadanBasketFam
 import { ramadanBasketFilters } from '@/constants/filters'
 import { useSettingsStore } from '@/stores/settings'
 import { Head } from '@inertiajs/vue3'
-import { reactive, ref } from 'vue'
+import { defineAsyncComponent, reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DataTable from '@/Pages/Tenant/occasions/ramadan-basket/DataTable.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
-import TheOccasionHint from '@/Components/Global/TheOccasionHint.vue'
-import TheWarningModal from '@/Components/Global/TheWarningModal.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/ramadan-basket/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const NoResultsFound = defineAsyncComponent(() => import('@/Components/Global/NoResultsFound.vue'))
+
+const TheOccasionHint = defineAsyncComponent(() => import('@/Components/Global/TheOccasionHint.vue'))
+
+const TheWarningModal = defineAsyncComponent(() => import('@/Components/Global/TheWarningModal.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -75,56 +82,69 @@ const handleSave = () => {
 <template>
     <Head :title="$t('the_families_ramadan_basket')"></Head>
 
-    <the-table-header
-        :exportable
-        :filters="ramadanBasketFilters"
-        :pagination-data="families"
-        :params="params"
-        :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
-        :url="route('tenant.occasions.ramadan-basket.index')"
-        entries="families"
-        export-pdf-url="tenant.occasions.ramadan-basket.export.pdf"
-        export-xlsx-url="tenant.occasions.ramadan-basket.export.xlsx"
-        filterable
-        searchable
-        @change-filters="params.filters = $event"
-    >
-        <template #Hints>
-            <the-occasion-hint
-                :on-hidden="
-                    () => {
-                        useSettingsStore().setHintToHidden('ramadan_basket')
-                    }
-                "
-                hint-type="ramadan_basket"
-            ></the-occasion-hint>
+    <suspense>
+        <div>
+            <the-table-header
+                :exportable
+                :filters="ramadanBasketFilters"
+                :pagination-data="families"
+                :params="params"
+                :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
+                :url="route('tenant.occasions.ramadan-basket.index')"
+                entries="families"
+                export-pdf-url="tenant.occasions.ramadan-basket.export.pdf"
+                export-xlsx-url="tenant.occasions.ramadan-basket.export.xlsx"
+                filterable
+                searchable
+                @change-filters="params.filters = $event"
+            >
+                <template #Hints>
+                    <the-occasion-hint
+                        :on-hidden="
+                            () => {
+                                useSettingsStore().setHintToHidden('ramadan_basket')
+                            }
+                        "
+                        hint-type="ramadan_basket"
+                    ></the-occasion-hint>
+                </template>
+
+                <template #ExtraButtons>
+                    <base-button
+                        :disabled="loading"
+                        class="me-2 shadow-md"
+                        variant="primary"
+                        @click.prevent="handleSave"
+                    >
+                        {{ $t('save') }}
+                    </base-button>
+                </template>
+            </the-table-header>
+
+            <template v-if="families.data.length > 0">
+                <data-table :families :params @sort="sort"></data-table>
+
+                <the-table-footer
+                    :pagination-data="families"
+                    :params
+                    :url="route('tenant.occasions.ramadan-basket.index')"
+                ></the-table-footer>
+            </template>
+
+            <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
+                <no-results-found></no-results-found>
+            </div>
+
+            <the-warning-modal
+                :on-progress="loading"
+                :open="showWarningModalStatus"
+                @accept="save"
+                @close="showWarningModalStatus = false"
+            ></the-warning-modal>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
         </template>
-
-        <template #ExtraButtons>
-            <base-button :disabled="loading" class="me-2 shadow-md" variant="primary" @click.prevent="handleSave">
-                {{ $t('save') }}
-            </base-button>
-        </template>
-    </the-table-header>
-
-    <template v-if="families.data.length > 0">
-        <data-table :families :params @sort="sort"></data-table>
-
-        <the-table-footer
-            :pagination-data="families"
-            :params
-            :url="route('tenant.occasions.ramadan-basket.index')"
-        ></the-table-footer>
-    </template>
-
-    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
-        <no-results-found></no-results-found>
-    </div>
-
-    <the-warning-modal
-        :on-progress="loading"
-        :open="showWarningModalStatus"
-        @accept="save"
-        @close="showWarningModalStatus = false"
-    ></the-warning-modal>
+    </suspense>
 </template>

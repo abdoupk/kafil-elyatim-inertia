@@ -3,23 +3,34 @@ import type { FinancialTransactionsIndexResource, IndexParams, PaginationData } 
 
 import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import FinancialShowModal from '@/Pages/Tenant/financials/FinancialShowModal.vue'
-import FinancialTransactionCreateModal from '@/Pages/Tenant/financials/create/FinancialTransactionCreateModal.vue'
-import DataTable from '@/Pages/Tenant/financials/index/DataTable.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+
+const FinancialShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/financials/FinancialShowModal.vue'))
+
+const FinancialTransactionCreateModal = defineAsyncComponent(
+    () => import('@/Pages/Tenant/financials/create/FinancialTransactionCreateModal.vue')
+)
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/financials/index/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -158,66 +169,81 @@ watchEffect(async () => {
 <template>
     <Head :title="$t('the_financial_transactions')"></Head>
 
-    <!--TODO add Export routes and exportable-->
-    <the-table-header
-        :filters="[]"
-        :pagination-data="finances"
-        :params="params"
-        :title="$t('the_financial_transactions')"
-        :url="route('tenant.financial.index')"
-        entries="finances"
-        export-pdf-url="tenant.financial.export.pdf"
-        export-xlsx-url="tenant.financial.export.xlsx"
-        exportable
-        searchable
-        @change-filters="params.filters = $event"
-    >
-        <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateIncomeModal">
-                {{ n__('add new', 1, { attribute: $t('income') }) }}
-            </base-button>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="[]"
+                :pagination-data="finances"
+                :params="params"
+                :title="$t('the_financial_transactions')"
+                :url="route('tenant.financial.index')"
+                entries="finances"
+                export-pdf-url="tenant.financial.export.pdf"
+                export-xlsx-url="tenant.financial.export.xlsx"
+                exportable
+                searchable
+                @change-filters="params.filters = $event"
+            >
+                <template #ExtraButtons>
+                    <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateIncomeModal">
+                        {{ n__('add new', 1, { attribute: $t('income') }) }}
+                    </base-button>
 
-            <base-button class="me-2 shadow-md" variant="outline-danger" @click.prevent="showCreateExpenseModal">
-                {{ n__('add new', 1, { attribute: $t('expense') }) }}
-            </base-button>
+                    <base-button
+                        class="me-2 shadow-md"
+                        variant="outline-danger"
+                        @click.prevent="showCreateExpenseModal"
+                    >
+                        {{ n__('add new', 1, { attribute: $t('expense') }) }}
+                    </base-button>
+                </template>
+            </the-table-header>
+
+            <template v-if="finances.data.length > 0">
+                <data-table
+                    :finances
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-details-modal="showDetailsModal"
+                    @show-edit-modal="showEditModal"
+                ></data-table>
+
+                <the-table-footer
+                    :pagination-data="finances"
+                    :params
+                    :url="route('tenant.financial.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteFinancialTransaction"
+            ></delete-modal>
+
+            <financial-transaction-create-modal
+                :open="createEditModalStatus"
+                @close="createEditModalStatus = false"
+            ></financial-transaction-create-modal>
+
+            <financial-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_financial_transactions') })"
+                @close="showModalStatus = false"
+            ></financial-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 0, { attribute: $t('the_family') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
         </template>
-    </the-table-header>
-
-    <template v-if="finances.data.length > 0">
-        <data-table
-            :finances
-            :params
-            @showDeleteModal="showDeleteModal"
-            @sort="sort"
-            @show-details-modal="showDetailsModal"
-            @show-edit-modal="showEditModal"
-        ></data-table>
-
-        <the-table-footer :pagination-data="finances" :params :url="route('tenant.financial.index')"></the-table-footer>
-    </template>
-
-    <the-no-results-table v-else></the-no-results-table>
-
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteFinancialTransaction"
-    ></delete-modal>
-
-    <financial-transaction-create-modal
-        :open="createEditModalStatus"
-        @close="createEditModalStatus = false"
-    ></financial-transaction-create-modal>
-
-    <financial-show-modal
-        :open="showModalStatus"
-        :title="$t('modal_show_title', { attribute: $t('the_financial_transactions') })"
-        @close="showModalStatus = false"
-    ></financial-show-modal>
-
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 0, { attribute: $t('the_family') })"
-    ></success-notification>
+    </suspense>
 </template>

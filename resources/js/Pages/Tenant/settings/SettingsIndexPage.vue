@@ -3,11 +3,17 @@ import type { CalculationTableType } from '@/types/settings'
 import type { SiteSettingsType } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
+import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import TheCalculationTable from '@/Pages/Tenant/settings/TheCalculationTable.vue'
-import TheTenantInfosUpdateForm from '@/Pages/Tenant/settings/TheTenantInfosUpdateForm.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+const TheCalculationTable = defineAsyncComponent(() => import('@/Pages/Tenant/settings/TheCalculationTable.vue'))
+
+const TheTenantInfosUpdateForm = defineAsyncComponent(
+    () => import('@/Pages/Tenant/settings/TheTenantInfosUpdateForm.vue')
+)
 
 defineOptions({
     layout: TheLayout
@@ -22,10 +28,19 @@ defineProps<{
 <template>
     <Head :title="$t('settings')"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('settings') }}</h2>
-    <div class="intro-y mt-5 grid grid-cols-12 gap-6">
-        <the-tenant-infos-update-form :settings></the-tenant-infos-update-form>
+    <suspense>
+        <div>
+            <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('settings') }}</h2>
 
-        <the-calculation-table :calculation></the-calculation-table>
-    </div>
+            <div class="intro-y mt-5 grid grid-cols-12 gap-6">
+                <the-tenant-infos-update-form :settings></the-tenant-infos-update-form>
+
+                <the-calculation-table :calculation></the-calculation-table>
+            </div>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

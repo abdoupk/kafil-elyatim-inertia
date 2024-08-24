@@ -3,20 +3,26 @@ import type { IndexParams, PaginationData, SponsorsIndexResource } from '@/types
 
 import { sponsorsFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref } from 'vue'
+import { defineAsyncComponent, reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DataTable from '@/Pages/Tenant/sponsors/index/DataTable.vue'
-
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/sponsors/index/DataTable.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -93,38 +99,50 @@ const showDeleteModal = (sponsorId: string) => {
 <template>
     <Head :title="$t('the_sponsors')"></Head>
 
-    <the-table-header
-        :filters="sponsorsFilters"
-        :pagination-data="sponsors"
-        :params="params"
-        :title="$t('list', { attribute: $t('the_sponsors') })"
-        :url="route('tenant.sponsors.index')"
-        entries="sponsors"
-        export-pdf-url="tenant.sponsors.export.pdf"
-        export-xlsx-url="tenant.sponsors.export.xlsx"
-        exportable
-        filterable
-        searchable
-        @change-filters="params = $event"
-    ></the-table-header>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="sponsorsFilters"
+                :pagination-data="sponsors"
+                :params="params"
+                :title="$t('list', { attribute: $t('the_sponsors') })"
+                :url="route('tenant.sponsors.index')"
+                entries="sponsors"
+                export-pdf-url="tenant.sponsors.export.pdf"
+                export-xlsx-url="tenant.sponsors.export.xlsx"
+                exportable
+                filterable
+                searchable
+                @change-filters="params = $event"
+            ></the-table-header>
 
-    <template v-if="sponsors.data.length > 0">
-        <data-table :params :sponsors @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
+            <template v-if="sponsors.data.length > 0">
+                <data-table :params :sponsors @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
 
-        <the-table-footer :pagination-data="sponsors" :params :url="route('tenant.sponsors.index')"></the-table-footer>
-    </template>
+                <the-table-footer
+                    :pagination-data="sponsors"
+                    :params
+                    :url="route('tenant.sponsors.index')"
+                ></the-table-footer>
+            </template>
 
-    <the-no-results-table v-else></the-no-results-table>
+            <the-no-results-table v-else></the-no-results-table>
 
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteSponsor"
-    ></delete-modal>
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteSponsor"
+            ></delete-modal>
 
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 0, { attribute: $t('the_sponsor') })"
-    ></success-notification>
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 0, { attribute: $t('the_sponsor') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

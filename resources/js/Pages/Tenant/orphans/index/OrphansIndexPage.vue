@@ -3,20 +3,26 @@ import type { IndexParams, OrphansIndexResource, PaginationData } from '@/types/
 
 import { orphansFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref } from 'vue'
+import { defineAsyncComponent, reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DataTable from '@/Pages/Tenant/orphans/index/DataTable.vue'
-
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/index/DataTable.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -93,38 +99,50 @@ const sort = (field: string) => handleSort(field, params)
 <template>
     <Head :title="$t('the_orphans')"></Head>
 
-    <the-table-header
-        :filters="orphansFilters"
-        :pagination-data="orphans"
-        :params="params"
-        :title="$t('list', { attribute: $t('the_orphans') })"
-        :url="route('tenant.orphans.index')"
-        entries="orphans"
-        export-pdf-url="tenant.orphans.export.pdf"
-        export-xlsx-url="tenant.orphans.export.xlsx"
-        exportable
-        filterable
-        searchable
-        @change-filters="params = $event"
-    ></the-table-header>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="orphansFilters"
+                :pagination-data="orphans"
+                :params="params"
+                :title="$t('list', { attribute: $t('the_orphans') })"
+                :url="route('tenant.orphans.index')"
+                entries="orphans"
+                export-pdf-url="tenant.orphans.export.pdf"
+                export-xlsx-url="tenant.orphans.export.xlsx"
+                exportable
+                filterable
+                searchable
+                @change-filters="params = $event"
+            ></the-table-header>
 
-    <template v-if="orphans.data.length > 0">
-        <data-table :orphans :params @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
+            <template v-if="orphans.data.length > 0">
+                <data-table :orphans :params @showDeleteModal="showDeleteModal" @sort="sort"></data-table>
 
-        <the-table-footer :pagination-data="orphans" :params :url="route('tenant.orphans.index')"></the-table-footer>
-    </template>
+                <the-table-footer
+                    :pagination-data="orphans"
+                    :params
+                    :url="route('tenant.orphans.index')"
+                ></the-table-footer>
+            </template>
 
-    <the-no-results-table v-else></the-no-results-table>
+            <the-no-results-table v-else></the-no-results-table>
 
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteOrphan"
-    ></delete-modal>
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteOrphan"
+            ></delete-modal>
 
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 0, { attribute: $t('the_orphan') })"
-    ></success-notification>
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 0, { attribute: $t('the_orphan') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

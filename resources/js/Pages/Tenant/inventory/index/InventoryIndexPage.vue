@@ -3,24 +3,34 @@ import type { IndexParams, InventoryIndexResource, PaginationData } from '@/type
 
 import { useInventoryStore } from '@/stores/inventory'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import ItemCreateEditModal from '@/Pages/Tenant/inventory/ItemCreateEditModal.vue'
-import ItemShowModal from '@/Pages/Tenant/inventory/ItemShowModal.vue'
-import DataTable from '@/Pages/Tenant/inventory/index/DataTable.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
+
+const ItemCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/inventory/ItemCreateEditModal.vue'))
+
+const ItemShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/inventory/ItemShowModal.vue'))
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/inventory/index/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const BaseTippy = defineAsyncComponent(() => import('@/Components/Base/tippy/BaseTippy.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -159,74 +169,94 @@ watchEffect(async () => {
 <template>
     <Head :title="$t('the_inventory')"></Head>
 
-    <the-table-header
-        :filters="[]"
-        :pagination-data="items"
-        :params="params"
-        :title="$t('the_inventory')"
-        :url="route('tenant.inventory.index')"
-        entries="items"
-        export-pdf-url=""
-        export-xlsx-url=""
-        searchable
-        @change-filters="params.filters = $event"
-    >
-        <template #ExtraButtons>
-            <base-tippy :content="$t('add_new_item')">
-                <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                    <svg-loader name="icon-plus"></svg-loader>
-                </base-button>
-            </base-tippy>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="[]"
+                :pagination-data="items"
+                :params="params"
+                :title="$t('the_inventory')"
+                :url="route('tenant.inventory.index')"
+                entries="items"
+                export-pdf-url=""
+                export-xlsx-url=""
+                searchable
+                @change-filters="params.filters = $event"
+            >
+                <template #ExtraButtons>
+                    <base-tippy :content="$t('add_new_item')">
+                        <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                            <svg-loader name="icon-plus"></svg-loader>
+                        </base-button>
+                    </base-tippy>
 
-            <base-tippy :content="$t('add_baby_milk')">
-                <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForBabyMilk">
-                    <svg-loader name="icon-bottle-baby"></svg-loader>
-                </base-button>
-            </base-tippy>
+                    <base-tippy :content="$t('add_baby_milk')">
+                        <base-button
+                            class="me-2 shadow-md"
+                            variant="secondary"
+                            @click.prevent="showCreateModalForBabyMilk"
+                        >
+                            <svg-loader name="icon-bottle-baby"></svg-loader>
+                        </base-button>
+                    </base-tippy>
 
-            <base-tippy :content="$t('add_diapers')">
-                <base-button class="me-2 shadow-md" variant="secondary" @click.prevent="showCreateModalForDiapers">
-                    <svg-loader class="stroke-current stroke-1.5" name="icon-diapers"></svg-loader>
-                </base-button>
-            </base-tippy>
+                    <base-tippy :content="$t('add_diapers')">
+                        <base-button
+                            class="me-2 shadow-md"
+                            variant="secondary"
+                            @click.prevent="showCreateModalForDiapers"
+                        >
+                            <svg-loader class="stroke-current stroke-1.5" name="icon-diapers"></svg-loader>
+                        </base-button>
+                    </base-tippy>
+                </template>
+            </the-table-header>
+
+            <template v-if="items.data.length > 0">
+                <data-table
+                    :items
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-edit-modal="showEditModal"
+                    @show-details-modal="showDetailsModal"
+                ></data-table>
+
+                <the-table-footer
+                    :pagination-data="items"
+                    :params
+                    :url="route('tenant.inventory.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteItem"
+            ></delete-modal>
+
+            <item-create-edit-modal
+                :open="createUpdateModalStatus"
+                @close="createUpdateModalStatus = false"
+            ></item-create-edit-modal>
+
+            <item-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_item') })"
+                @close="showModalStatus = false"
+            ></item-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 1, { attribute: $t('the_item') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
         </template>
-    </the-table-header>
-
-    <template v-if="items.data.length > 0">
-        <data-table
-            :items
-            :params
-            @showDeleteModal="showDeleteModal"
-            @sort="sort"
-            @show-edit-modal="showEditModal"
-            @show-details-modal="showDetailsModal"
-        ></data-table>
-
-        <the-table-footer :pagination-data="items" :params :url="route('tenant.inventory.index')"></the-table-footer>
-    </template>
-
-    <the-no-results-table v-else></the-no-results-table>
-
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteItem"
-    ></delete-modal>
-
-    <item-create-edit-modal
-        :open="createUpdateModalStatus"
-        @close="createUpdateModalStatus = false"
-    ></item-create-edit-modal>
-
-    <item-show-modal
-        :open="showModalStatus"
-        :title="$t('modal_show_title', { attribute: $t('the_item') })"
-        @close="showModalStatus = false"
-    ></item-show-modal>
-
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 1, { attribute: $t('the_item') })"
-    ></success-notification>
+    </suspense>
 </template>
