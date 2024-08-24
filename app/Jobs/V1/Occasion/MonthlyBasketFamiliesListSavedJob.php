@@ -2,9 +2,9 @@
 
 namespace App\Jobs\V1\Occasion;
 
-use App\Models\Branch;
+use App\Models\Archive;
 use App\Models\User;
-use App\Notifications\Branch\CreateBranchNotification;
+use App\Notifications\Occasion\SaveMonthlyBasketFamiliesListNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -16,7 +16,7 @@ class MonthlyBasketFamiliesListSavedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Archive $archive, public User $user) {}
 
     public function handle(): void
     {
@@ -24,6 +24,6 @@ class MonthlyBasketFamiliesListSavedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->occasions_saves', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateBranchNotification(branch: $this->branch, user: $this->user));
+            new SaveMonthlyBasketFamiliesListNotification(archive: $this->archive, user: $this->user));
     }
 }

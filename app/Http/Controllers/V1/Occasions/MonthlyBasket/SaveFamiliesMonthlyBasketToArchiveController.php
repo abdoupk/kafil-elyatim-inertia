@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Occasions\MonthlyBasket;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\V1\Occasion\MonthlyBasketFamiliesListSavedJob;
 use App\Models\Archive;
 use App\Models\FamilySponsorship;
 use App\Models\Inventory;
@@ -24,6 +25,8 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller
             $this->syncFamiliesWithArchive($archive);
 
             $this->decrementQuantities($archive);
+
+            $this->dispatchJob($archive);
         });
     }
 
@@ -64,5 +67,10 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller
             ->where('type', '!=', 'diapers')->update([
                 'qty' => Inventory::raw("qty - (qty_for_family * {$families_count})"),
             ]);
+    }
+
+    private function dispatchJob(Archive $archive)
+    {
+        dispatch(new MonthlyBasketFamiliesListSavedJob($archive, auth()->user()));
     }
 }

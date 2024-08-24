@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Occasions\BabyMilkAndDiapers;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\V1\Occasion\BabiesMilkAndDiapersListSavedJob;
 use App\Models\Archive;
 use App\Models\Baby;
 use DB;
@@ -23,6 +24,8 @@ class SaveBabiesToArchiveController extends Controller
             $this->syncBabiesWithArchive($archive);
 
             $this->decrementQuantities($archive);
+
+            $this->dispatchJob($archive);
         });
     }
 
@@ -66,5 +69,10 @@ class SaveBabiesToArchiveController extends Controller
 
                 $baby->babyMilk()->update(['qty' => $baby->babyMilk->qty - $baby->baby_milk_quantity]);
             });
+    }
+
+    private function dispatchJob(Archive $archive)
+    {
+        dispatch(new BabiesMilkAndDiapersListSavedJob($archive, auth()->user()));
     }
 }
