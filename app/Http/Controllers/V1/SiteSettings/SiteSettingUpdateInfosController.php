@@ -25,7 +25,7 @@ class SiteSettingUpdateInfosController extends Controller
             'email' => $superAdmin->email,
             'password' => $superAdmin->password,
         ];
-        ray($data);
+
         Tenant::whereId(tenant('id'))->update([
             'data->infos' => $data,
         ]);

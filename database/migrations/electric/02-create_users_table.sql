@@ -5,7 +5,7 @@ create table if not exists "users"
     "id"                uuid                           not null primary key,
     "first_name"        text                           not null,
     "last_name"         text                           not null,
-    "phone"             text                           not null,
+    "phone"             text                           null,
     "email"             text                           not null,
     "address"           text                           null,
     "gender"            gender                         null,

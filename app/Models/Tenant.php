@@ -84,8 +84,13 @@ class Tenant extends BaseTenant implements TenantWithDatabase
 
     public static function booted(): void
     {
-        static::creating(function ($tenant) {
-            $tenant->password = bcrypt($tenant->password);
+        static::created(function ($tenant) {
+            $password = bcrypt($tenant->infos['super_admin']['password']);
+            $tenant->update([
+                'infos' => array_merge($tenant->infos, [
+                    'super_admin' => array_merge($tenant->infos['super_admin'], ['password' => $password]),
+                ]),
+            ]);
         });
     }
 

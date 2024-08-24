@@ -11,18 +11,17 @@ class SiteSettingsIndexResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $city = City::whereId($this->city_id)->first();
+        $city = City::whereId($this->infos['city_id'] ?? null)->first();
 
         return [
-            'association' => $this->association,
+            'association' => $this->infos['association'],
             'city' => CityResource::make($city),
-            'city_id' => $this->city_id,
-            'domain' => explode('.', $this->domain)[0],
+            'city_id' => $this->infos['city_id'] ?? null,
+            'domain' => explode('.', $this->infos['domain'])[0],
             'super_admin' => [
-                'id' => $this->super_admin['id'],
-                'name' => $this->super_admin['name'],
+                'id' => $this->infos['super_admin']['id'],
             ],
-            'address' => $this->address,
+            'address' => $this->infos['address'] ?? null,
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Notifications\Lesson;
 
-use App\Models\Lesson;
+use App\Models\EventOccurrence;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,7 +13,7 @@ class DeleteLessonNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Lesson $lesson, public User $user) {}
+    public function __construct(public EventOccurrence $eventOccurrence, public User $user) {}
 
     public function via(): array
     {

@@ -16,23 +16,29 @@ class TenantSeeder extends Seeder
     public function run(): void
     {
         $tenant1 = Tenant::factory()->create([
-            'first_name' => 'Rezig',
-            'last_name' => 'Chikh',
-            'email' => 'test@example.com',
-            'phone' => '0558494137',
-            'domain' => 'foo.kafil.elyatim.test',
-            'password' => 'password',
-            'association' => 'kafil el yatim El-bayadh',
+            'infos' => [
+                'super_admin' => [
+                    'first_name' => 'Rezig',
+                    'last_name' => 'Chikh',
+                    'password' => 'password',
+                    'email' => 'test@example.com',
+                ],
+                'domain' => 'foo.kafil.elyatim.test',
+                'association' => 'kafil el yatim El-bayadh',
+            ],
         ]);
 
         $tenant2 = Tenant::factory()->create([
-            'first_name' => 'Rezig',
-            'last_name' => 'Abderrahmane',
-            'email' => 'test@example.com',
-            'phone' => '0664954817',
-            'domain' => 'bar.kafil.elyatim.test',
-            'password' => 'password',
-            'association' => 'kafil el yatim El-bayadh 02',
+            'infos' => [
+                'super_admin' => [
+                    'first_name' => 'Rezig',
+                    'last_name' => 'Abderrahmane',
+                    'email' => 'test@example.com',
+                    'password' => 'password',
+                ],
+                'domain' => 'bar.kafil.elyatim.test',
+                'association' => 'kafil el yatim El-bayadh 02',
+            ],
         ]);
 
         //        $tenants = Tenant::factory(5)->create();
@@ -42,8 +48,7 @@ class TenantSeeder extends Seeder
         foreach ($tenants as $tenant) {
             Domain::factory()->create([
                 'tenant_id' => $tenant?->id,
-                /* @phpstan-ignore-next-line */
-                'domain' => $tenant?->domain,
+                'domain' => $tenant?->infos['domain'],
             ]);
 
             $zones = Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);

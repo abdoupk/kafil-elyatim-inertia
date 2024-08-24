@@ -24,7 +24,6 @@ class LessonUpdatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->schools_and_lessons_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateLessonNotification(lesson
-                : $this->lesson, user: $this->user));
+            new UpdateLessonNotification(event: $this->event, user: $this->user));
     }
 }
