@@ -4,23 +4,32 @@ import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types
 import { branchedFilters } from '@/constants/filters'
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import BranchCreateEditModal from '@/Pages/Tenant/branches/BranchCreateEditModal.vue'
-import BranchShowModal from '@/Pages/Tenant/branches/BranchShowModal.vue'
-import DataTable from '@/Pages/Tenant/branches/DataTable.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+
+const BranchCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/branches/BranchCreateEditModal.vue'))
+
+const BranchShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/branches/BranchShowModal.vue'))
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/branches/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -137,61 +146,73 @@ watchEffect(async () => {
 <template>
     <Head :title="$t('branches')"></Head>
 
-    <the-table-header
-        :filters="branchedFilters"
-        :pagination-data="branches"
-        :params="params"
-        :title="$t('list', { attribute: $t('branches') })"
-        :url="route('tenant.branches.index')"
-        entries="branches"
-        export-pdf-url=""
-        export-xlsx-url=""
-        filterable
-        searchable
-        @change-filters="params = $event"
-    >
-        <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                {{ n__('add new', 1, { attribute: $t('branch') }) }}
-            </base-button>
+    <suspense>
+        <div class="">
+            <the-table-header
+                :filters="branchedFilters"
+                :pagination-data="branches"
+                :params="params"
+                :title="$t('list', { attribute: $t('branches') })"
+                :url="route('tenant.branches.index')"
+                entries="branches"
+                export-pdf-url=""
+                export-xlsx-url=""
+                filterable
+                searchable
+                @change-filters="params = $event"
+            >
+                <template #ExtraButtons>
+                    <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                        {{ n__('add new', 1, { attribute: $t('branch') }) }}
+                    </base-button>
+                </template>
+            </the-table-header>
+
+            <template v-if="branches.data.length > 0">
+                <data-table
+                    :branches
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-edit-modal="showEditModal"
+                    @show-details-modal="showDetailsModal"
+                ></data-table>
+
+                <the-table-footer
+                    :pagination-data="branches"
+                    :params
+                    :url="route('tenant.branches.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteBranch"
+            ></delete-modal>
+
+            <branch-create-edit-modal
+                :open="createEditModalStatus"
+                @close="createEditModalStatus = false"
+            ></branch-create-edit-modal>
+
+            <branch-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_branch') })"
+                @close="showModalStatus = false"
+            ></branch-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 1, { attribute: $t('the_branch') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
         </template>
-    </the-table-header>
-
-    <template v-if="branches.data.length > 0">
-        <data-table
-            :branches
-            :params
-            @showDeleteModal="showDeleteModal"
-            @sort="sort"
-            @show-edit-modal="showEditModal"
-            @show-details-modal="showDetailsModal"
-        ></data-table>
-
-        <the-table-footer :pagination-data="branches" :params :url="route('tenant.branches.index')"></the-table-footer>
-    </template>
-
-    <the-no-results-table v-else></the-no-results-table>
-
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteBranch"
-    ></delete-modal>
-
-    <branch-create-edit-modal
-        :open="createEditModalStatus"
-        @close="createEditModalStatus = false"
-    ></branch-create-edit-modal>
-
-    <branch-show-modal
-        :open="showModalStatus"
-        :title="$t('modal_show_title', { attribute: $t('the_branch') })"
-        @close="showModalStatus = false"
-    ></branch-show-modal>
-
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 1, { attribute: $t('the_branch') })"
-    ></success-notification>
+    </suspense>
 </template>
