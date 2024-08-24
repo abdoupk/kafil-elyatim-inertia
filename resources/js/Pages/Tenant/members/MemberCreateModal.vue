@@ -84,7 +84,9 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the member id
 const modalTitle = computed(() => {
-    return membersStore.member.id ? __('update member') : n__('add new', 0, { attribute: __('member') })
+    return membersStore.member.id
+        ? __('modal_update_title', { attribute: __('the_member') })
+        : n__('add new', 0, { attribute: __('member') })
 })
 
 const showSuccessNotification = ref(false)

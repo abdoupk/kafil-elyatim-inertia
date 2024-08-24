@@ -254,7 +254,10 @@
     "No academic achievement added yet.": "لم يتم إضافة أي تحصيل أكاديمي حتى الآن.",
     "sponsorships_information": "معلومات عن الكفالات",
     "academic_achievement": "متابعة التحصيل الدراسي",
+    "the_college_achievement": "التحصيل الجامعي",
+    "the_academic_achievement": "التحصيل الدراسي",
     "college_achievement": "متابعة التحصيل الجامعي",
+    "the_vocational_training": "تحصيل التكوين المهني",
     "vocational_training_achievement": "متابعة التكوين المهني",
     "institute": "المعهد",
     "speciality": "التخصص",
@@ -376,5 +379,7 @@
     "general_information_of_association": "معلومات عن الجمعية",
     "unemployed": "بطال",
     "handicapped": "معاق",
-    "calculate_the_income_rate": "حساب معدل الدخل"
+    "calculate_the_income_rate": "حساب معدل الدخل",
+    "the_income": "الدخل",
+    "the_expense": "المصروف"
 }

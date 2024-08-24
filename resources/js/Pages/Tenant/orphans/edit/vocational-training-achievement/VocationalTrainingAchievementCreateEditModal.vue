@@ -80,8 +80,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the school id
 const modalTitle = computed(() => {
     return vocationalTrainingAchievementStore.vocationalTrainingAchievement.id
-        ? __('update school')
-        : n__('add new', 0, { attribute: __('school') })
+        ? __('modal_update_title', { attribute: __('the_vocational_training') })
+        : n__('add new', 1, { attribute: __('the_vocational_training') })
 })
 
 // Initialize a ref for the first input element

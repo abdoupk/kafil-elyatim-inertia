@@ -92,7 +92,9 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the school id
 const modalTitle = computed(() => {
-    return schoolsStore.school.id ? __('update school') : n__('add new', 0, { attribute: __('school') })
+    return schoolsStore.school.id
+        ? __('modal_update_title', { attribute: __('the_school') })
+        : n__('add new', 0, { attribute: __('school') })
 })
 
 // Initialize a ref for the first input element

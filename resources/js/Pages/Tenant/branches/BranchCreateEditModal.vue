@@ -97,7 +97,9 @@ const notificationTitle = computed(() => {
 
 // Compute the slideover title based on the branch id
 const modalTitle = computed(() => {
-    return branchesStore.branch.id ? __('update branch') : n__('add new', 1, { attribute: __('branch') })
+    return branchesStore.branch.id
+        ? __('modal_update_title', { attribute: __('the_branch') })
+        : n__('add new', 1, { attribute: __('branch') })
 })
 
 // Initialize a ref for the first input element

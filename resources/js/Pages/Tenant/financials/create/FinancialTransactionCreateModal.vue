@@ -99,9 +99,15 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the financialTransaction id
 const modalTitle = computed(() => {
-    return financialTransactionsStore.financialTransaction.id
-        ? __('update financialTransaction')
-        : n__('add new', 0, { attribute: __('financialTransaction') })
+    if (financialTransactionsStore.financialTransaction.id) {
+        return financialTransactionsStore.financialTransaction.type == 'income'
+            ? __('modal_update_title', { attribute: __('the_income') })
+            : __('modal_update_title', { attribute: __('the_expense') })
+    }
+
+    return financialTransactionsStore.financialTransaction.type == 'income'
+        ? n__('add new', 1, { attribute: __('income') })
+        : n__('add new', 1, { attribute: __('expense') })
 })
 
 // Initialize a ref for the first input element

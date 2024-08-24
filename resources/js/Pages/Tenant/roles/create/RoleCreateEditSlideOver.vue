@@ -81,7 +81,9 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the role id
 const modalTitle = computed(() => {
-    return rolesStore.role.uuid ? __('update role') : n__('add new', 1, { attribute: __('role') })
+    return rolesStore.role.uuid
+        ? __('modal_update_title', { attribute: __('the_role') })
+        : n__('add new', 1, { attribute: __('role') })
 })
 
 // Initialize a ref for the first input element
