@@ -76,11 +76,11 @@ watch(
 
 watch(() => [params.value.fields, params.value.directions], getData)
 
-const handleExport = (value) => {
+const handleExport = (params: IndexParams) => {
     if (props.exportable) {
-        exportPdfUrl.value = route(props.exportPdfUrl, formatParams(value))
+        exportPdfUrl.value = route(props.exportPdfUrl, formatParams(params))
 
-        exportXlsxUrl.value = route(props.exportXlsxUrl, formatParams(value))
+        exportXlsxUrl.value = route(props.exportXlsxUrl, formatParams(params))
     }
 }
 </script>
