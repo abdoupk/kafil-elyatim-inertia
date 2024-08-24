@@ -4,6 +4,7 @@ import type {
     FamiliesByOrphansCountType,
     FamiliesByZoneType,
     FamiliesGroupByDateType,
+    FamiliesHousingType,
     FamiliesSponsorShipsType
 } from '@/types/statistics'
 
@@ -11,6 +12,8 @@ import { Head } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
+
+import FamiliesByHousing from '@/Pages/Tenant/families/statistics/FamiliesByHousing.vue'
 
 import TheStatisticBox from '@/Components/Global/TheStatisticBox.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
@@ -41,6 +44,7 @@ defineProps<{
     familiesByOrphansCount: FamiliesByOrphansCountType
     familiesSponsorShips: FamiliesSponsorShipsType
     familiesGroupByDate: FamiliesGroupByDateType
+    familiesHousing: FamiliesHousingType
 }>()
 </script>
 
@@ -128,7 +132,7 @@ defineProps<{
 
                     <template #chart>
                         <suspense suspensible>
-                            <families-by-sponsor-ship :familiesSponsorShips></families-by-sponsor-ship>
+                            <families-by-housing :familiesHousing></families-by-housing>
                         </suspense>
                     </template>
                 </the-statistic-box>

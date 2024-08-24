@@ -22,6 +22,11 @@ export type FamiliesSponsorShipsType = {
     eid_al_adha_count: number
 }
 
+export type FamiliesHousingType = {
+    data: number[]
+    labels: string[]
+}
+
 export type FamiliesGroupByDateType = number[]
 
 export type OrphansByFamilyStatusType = {

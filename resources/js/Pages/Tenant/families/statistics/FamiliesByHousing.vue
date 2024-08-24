@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { FamiliesSponsorShipsType } from '@/types/statistics'
+import type { FamiliesHousingType } from '@/types/statistics'
 
 import { useSettingsStore } from '@/stores/settings'
 import type { ChartData, ChartOptions } from 'chart.js/auto'
@@ -11,25 +11,18 @@ import { getColor } from '@/utils/colors'
 import { __ } from '@/utils/i18n'
 
 const props = defineProps<{
-    familiesSponsorShips: FamiliesSponsorShipsType
+    familiesHousing: FamiliesHousingType
 }>()
-
-const labels = [
-    __('sponsorships.ramadan_basket'),
-    __('sponsorships.zakat'),
-    __('sponsorships.housing_assistance'),
-    __('sponsorships.eid_al_adha')
-]
 
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
 const data = computed<ChartData>(() => {
     return {
-        labels,
+        labels: props.familiesHousing.labels,
         datasets: [
             {
                 label: __('statistics.families.titles.families_by_sponsorships'),
-                data: Object.values(props.familiesSponsorShips)
+                data: props.familiesHousing.data
             }
         ]
     }
