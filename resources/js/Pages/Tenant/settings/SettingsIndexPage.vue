@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { CalculationTableType } from '@/types/settings'
 import type { SiteSettingsType } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
@@ -14,6 +15,7 @@ defineOptions({
 
 defineProps<{
     settings: SiteSettingsType
+    calculation: CalculationTableType
 }>()
 </script>
 
@@ -24,6 +26,6 @@ defineProps<{
     <div class="intro-y mt-5 grid grid-cols-12 gap-6">
         <the-tenant-infos-update-form :settings></the-tenant-infos-update-form>
 
-        <the-calculation-table></the-calculation-table>
+        <the-calculation-table :calculation></the-calculation-table>
     </div>
 </template>

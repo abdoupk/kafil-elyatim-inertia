@@ -44,7 +44,7 @@ const updateDomainName = (event: Event) => {
     form.domain = str.replace(/-(?=\d+)/g, '')
 }
 
-const form = useForm<SiteSettingsType>('put', route('tenant.site-settings.update-infos'), {
+const form = useForm<SiteSettingsType>('patch', route('tenant.site-settings.update-infos'), {
     association: props.settings.association,
     address: props.settings.address,
     domain: props.settings.domain,

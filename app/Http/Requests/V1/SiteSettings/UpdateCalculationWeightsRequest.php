@@ -9,9 +9,10 @@ class UpdateCalculationWeightsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'association' => 'required|string|max:255',
-            'super_admin' => 'required|uuid|exists:users,id',
-            'city_id' => 'required|integer|exists:city,id',
+            'weights' => 'required',
+            'percentage_of_contribution' => 'required',
+            'unemployed_contribution' => 'required',
+            'handicapped_contribution' => 'required',
         ];
     }
 

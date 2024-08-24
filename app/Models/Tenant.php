@@ -92,6 +92,10 @@ class Tenant extends BaseTenant implements TenantWithDatabase
                 ]),
             ]);
         });
+
+        static::creating(function ($tenant) {
+            $tenant->calculation = json_encode(CALCULATION);
+        });
     }
 
     public function families(): HasMany
