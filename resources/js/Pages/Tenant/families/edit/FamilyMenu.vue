@@ -5,7 +5,7 @@ import { useNeedsStore } from '@/stores/needs'
 import { ref } from 'vue'
 
 import MenuLink from '@/Pages/Tenant/families/edit/MenuLink.vue'
-import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/create/NeedCreateUpdateModal.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 

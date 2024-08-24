@@ -177,8 +177,6 @@ const modalType = computed(() => {
                     @update:needable="
                         (value) => {
                             form.needable_id = value.id
-
-                            form.validate('needable_id')
                         }
                     "
                 ></the-needable>

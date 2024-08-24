@@ -5,7 +5,7 @@ import { useNeedsStore } from '@/stores/needs'
 import { Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
-import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/create/NeedCreateUpdateModal.vue'
 import MenuLink from '@/Pages/Tenant/orphans/details/MenuLink.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -49,7 +49,7 @@ const showNeedCreateModal = () => {
             </div>
 
             <div class="border-t border-slate-200/60 p-5 dark:border-darkmode-400">
-                <menu-link icon="icon-books" class="!mt-0" view-name="academic_achievement"></menu-link>
+                <menu-link class="!mt-0" icon="icon-books" view-name="academic_achievement"></menu-link>
 
                 <menu-link icon="icon-diploma" view-name="college_achievement"></menu-link>
 

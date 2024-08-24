@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { useNeedsStore } from '@/stores/needs'
-import { onMounted, ref, watch } from 'vue'
+import OrphanSelector from '@/Pages/Tenant/needs/create/OrphanSelector.vue'
+import SponsorSelector from '@/Pages/Tenant/needs/create/SponsorSelector.vue'
 
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
@@ -12,30 +12,7 @@ const needableType = defineModel('needableType', { default: 'orphan' })
 
 const needable = defineModel('needable', { default: '' })
 
-const needStore = useNeedsStore()
-
-const people = ref([])
-
 defineProps<{ errorMessage?: string | string[] }>()
-
-watch(
-    () => needableType.value,
-    (needableType) => {
-        needable.value = ''
-
-        people.value = []
-
-        if (needableType === 'orphan') {
-            needStore.getOrphans().then((res) => {
-                people.value = res.data
-            })
-        } else {
-            needStore.getSponsors().then((res) => {
-                people.value = res.data
-            })
-        }
-    }
-)
 
 const needableTypes = [
     {
@@ -51,12 +28,6 @@ const needableTypes = [
 const needableTypesLabels = ({ label }: { label: string }) => {
     return __(label)
 }
-
-onMounted(() => {
-    needStore.getOrphans().then((res) => {
-        people.value = res.data
-    })
-})
 </script>
 
 <template>
@@ -67,6 +38,7 @@ onMounted(() => {
             </base-form-label>
 
             <div>
+                <!-- @vue-ignore -->
                 <base-vue-select
                     id="needable_type"
                     :custom-label="needableTypesLabels"
@@ -78,6 +50,8 @@ onMounted(() => {
                     @update:value="
                         (type) => {
                             needableType = type.value
+
+                            needable = ''
                         }
                     "
                 >
@@ -89,19 +63,21 @@ onMounted(() => {
             <base-form-label for="needable">{{ $t('the_requester') }}</base-form-label>
 
             <div>
-                <base-vue-select
-                    id="needable"
-                    v-model:value="needable"
-                    :options="people"
-                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_requester') })"
-                    class="tom-select w-full"
-                    label="name"
-                    track-by="id"
-                ></base-vue-select>
+                <orphan-selector
+                    v-if="needableType === 'orphan'"
+                    v-model:orphan="needable"
+                    @update:selected-orphan="(orphan) => (needable = orphan)"
+                ></orphan-selector>
+
+                <sponsor-selector
+                    v-else
+                    v-model:sponsor="needable"
+                    @update:selected-sponsor="(sponsor) => (needable = sponsor)"
+                ></sponsor-selector>
             </div>
 
             <base-form-input-error>
-                <div v-if="errorMessage" class="mt-2 text-danger">
+                <div v-if="errorMessage" class="mt-2 text-red-600">
                     {{ $t('validation.required', { attribute: $t('the_requester') }) }}
                 </div>
             </base-form-input-error>

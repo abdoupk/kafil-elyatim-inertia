@@ -5,7 +5,7 @@ import { useNeedsStore } from '@/stores/needs'
 import { Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
-import NeedCreateUpdateModal from '@/Pages/Tenant/needs/NeedCreateUpdateModal.vue'
+import NeedCreateUpdateModal from '@/Pages/Tenant/needs/create/NeedCreateUpdateModal.vue'
 import MenuLink from '@/Pages/Tenant/sponsors/details/MenuLink.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
