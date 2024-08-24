@@ -2,7 +2,7 @@
 
 namespace App\Jobs\V1\Lesson;
 
-use App\Models\Lesson;
+use App\Models\Event;
 use App\Models\User;
 use App\Notifications\Lesson\UpdateLessonNotification;
 use Illuminate\Bus\Queueable;
@@ -16,7 +16,7 @@ class LessonUpdatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Lesson $lesson, public User $user) {}
+    public function __construct(public Event $event, public User $user) {}
 
     public function handle(): void
     {

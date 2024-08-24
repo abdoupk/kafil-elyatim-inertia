@@ -80,7 +80,6 @@ onMounted(() => {
                 hide-time-header
                 is24hr
                 mode="time"
-                timezone="Africa/Algiers"
             ></base-v-calendar>
 
             <base-form-input-error>
@@ -162,6 +161,7 @@ onMounted(() => {
             v-model:date="until"
             :disabled="!disabled"
             :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.until') })"
+            mode="date"
             type="text"
         ></base-v-calendar>
 

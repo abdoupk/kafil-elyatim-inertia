@@ -4,13 +4,21 @@ namespace App\Http\Controllers\V1\Lessons;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Lessons\LessonUpdateRequest;
+use App\Jobs\V1\Lesson\LessonUpdatedJob;
 use App\Models\EventOccurrence;
 use Carbon\Carbon;
+use Recurr\Exception\InvalidArgument;
+use Recurr\Exception\InvalidWeekday;
 
 class LessonUpdateController extends Controller
 {
+    /**
+     * @throws InvalidWeekday
+     * @throws InvalidArgument
+     */
     public function __invoke(LessonUpdateRequest $request, EventOccurrence $eventOccurrence)
     {
+        //TODO: remove add hour
         if (! $request->update_this_and_all_coming) {
             $eventOccurrence->update([
                 'start_date' => Carbon::parse($request->start_date)->addHour(),
@@ -22,20 +30,17 @@ class LessonUpdateController extends Controller
 
             $eventOccurrence->orphans()->attach($request->orphans, ['lesson_id' => $eventOccurrence->lesson_id]);
 
-            // TODO update coming events and generate occurrences
             $eventOccurrence->event()->update([
                 ...$request->only(['color', 'until', 'frequency', 'title', 'interval']),
                 'start_date' => Carbon::parse($request->start_date)->addHour(),
                 'end_date' => Carbon::parse($request->start_date)->addHour(),
             ]);
 
-            $eventOccurrence->event->occurrences()->each(fn (EventOccurrence $eventOccurrence) => $eventOccurrence->update([
-                'start_date' => Carbon::parse($request->start_date)->addHour(),
-                'end_date' => Carbon::parse($request->start_date)->addHour(),
-            ]));
-            //FIXME Update job
+            $eventOccurrence->event->occurrences()->where('start_date', '>=', $eventOccurrence->start_date)->delete();
 
-            //dispatch(new LessonUpdatedJob($branch, auth()->user()));
+            generateOccurrences($eventOccurrence->event, $eventOccurrence->lesson_id, $request->orphans);
+
+            dispatch(new LessonUpdatedJob($eventOccurrence->event, auth()->user()));
         }
     }
 }
