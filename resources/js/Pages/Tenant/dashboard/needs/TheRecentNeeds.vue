@@ -31,6 +31,7 @@ defineProps<{
     <div class="intro-x mt-5">
         <div class="box">
             <Swiper
+                v-if="recentNeeds.length < 0"
                 :autoplay="{
                     delay: 3000
                 }"
@@ -51,6 +52,10 @@ defineProps<{
                     </div>
                 </SwiperSlide>
             </Swiper>
+
+            <div v-else class="box flex min-h-72 items-center justify-center p-5 text-lg text-slate-500">
+                {{ $t('no_recent_notes') }}
+            </div>
         </div>
     </div>
 </template>
