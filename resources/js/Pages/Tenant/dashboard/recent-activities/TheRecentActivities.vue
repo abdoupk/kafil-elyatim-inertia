@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { formatDate } from '../../../../utils/helper'
-
 import type { RecentActivitiesType } from '@/types/dashboard'
 
 import { Link } from '@inertiajs/vue3'
 import dayjs from 'dayjs'
 import { defineAsyncComponent } from 'vue'
+
+import { formatDate } from '@/utils/helper'
 
 const TheAvatar = defineAsyncComponent(() => import('@/Components/Global/TheAvatar.vue'))
 
@@ -23,7 +23,7 @@ const isCurrentDay = (date: Date) => {
         <div
             class="relative mt-5 before:absolute before:ms-5 before:mt-5 before:block before:h-[85%] before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
         >
-            <template v-if="recentActivities.length >= 0">
+            <template v-if="recentActivities.length > 0">
                 <div v-for="activity in recentActivities" :key="activity.id">
                     <div v-if="!isCurrentDay(activity.date)" class="intro-x my-4 text-center text-xs text-slate-500">
                         {{ formatDate(activity.date, 'long') }}
