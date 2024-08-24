@@ -26,15 +26,17 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
         <div class="col-span-12 overflow-x-auto p-5 lg:overflow-x-hidden">
             <base-table bordered>
                 <base-thead-table>
-                    <base-th-table>أفراد الأسرة</base-th-table>
-                    <base-th-table>المعامل</base-th-table>
-                    <base-th-table>الدخل الحقيقي للأجير و لمن يتقاضى منحة</base-th-table>
-                    <base-th-table>نسبة المساهمة في الدخل العائلي</base-th-table>
-                    <base-th-table>المساهمة الإفتراضية في الدخل إن كان بطال</base-th-table>
-                    <base-th-table>مساهمة الدخل</base-th-table>
+                    <base-th-table>{{ $t('settings.family_members') }}</base-th-table>
+                    <base-th-table>{{ $t('settings.weight') }}</base-th-table>
+                    <base-th-table
+                        >{{ $t('settings.the_real_income_of_the_employee_and_those_receiving_a_grant') }}
+                    </base-th-table>
+                    <base-th-table>{{ $t('settings.percentage_of_contribution_to_family_income') }}</base-th-table>
+                    <base-th-table> {{ $t('settings.default_contribution_to_income_if_unemployment') }}</base-th-table>
+                    <base-th-table>{{ $t('settings.contribution_to_income') }}</base-th-table>
                 </base-thead-table>
                 <base-tr-table>
-                    <base-td-table>المتكفل الرئيسي</base-td-table>
+                    <base-td-table>{{ $t('settings.main_sponsor') }}</base-td-table>
                     <base-td-table></base-td-table>
                     <base-td-table rowspan="7"></base-td-table>
                     <base-td-table>
@@ -54,7 +56,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>الأرمل</base-td-table>
+                    <base-td-table>{{ $t('sponsor_types.widower') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0.75"></base-form-input>
                     </base-td-table>
@@ -76,7 +78,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>الأرملة</base-td-table>
+                    <base-td-table>{{ $t('sponsor_types.widow') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -98,7 +100,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>زوج الأرملة</base-td-table>
+                    <base-td-table>{{ $t('sponsor_types.widows_husband') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0"></base-form-input>
                     </base-td-table>
@@ -120,7 +122,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>زوجة الأرمل</base-td-table>
+                    <base-td-table>{{ $t('sponsor_types.widowers_wife') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0.75"></base-form-input>
                     </base-td-table>
@@ -142,7 +144,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>الجد / الجدة / آخر</base-td-table>
+                    <base-td-table>{{ $t('sponsor_types.other') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -164,7 +166,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>أم طفولة مسعفة</base-td-table>
+                    <base-td-table>{{ $t('sponsor_types.mother_of_a_supported_childhood') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0.75"></base-form-input>
                     </base-td-table>
@@ -186,13 +188,15 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-thead-table>
-                    <base-th-table>الأولاد أقل من 18 سنة أو المتمدرسين فوق 18 سنة</base-th-table>
-                    <base-th-table>المعامل خارج الموسم الدراسي</base-th-table>
-                    <base-th-table>المعامل خلال الموسم الدراسي</base-th-table>
-                    <base-th-table colspan="3">بدون دخل</base-th-table>
+                    <base-th-table
+                        >{{ $t('settings.children_under_18_years_old_or_students_over_18_years_old') }}
+                    </base-th-table>
+                    <base-th-table>{{ $t('settings.weight_outside_the_academic_season') }}</base-th-table>
+                    <base-th-table>{{ $t('settings.weight_during_the_academic_season') }}</base-th-table>
+                    <base-th-table colspan="3">{{ $t('settings.without_income') }}</base-th-table>
                 </base-thead-table>
                 <base-tr-table>
-                    <base-td-table>رضيع</base-td-table>
+                    <base-td-table>{{ $t('settings.baby') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -202,7 +206,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>أقل من سن التمدرس</base-td-table>
+                    <base-td-table>{{ $t('settings.below_school_age') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -212,7 +216,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>الإبتدائي</base-td-table>
+                    <base-td-table>{{ $t('settings.elementary_school') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -222,7 +226,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>المتوسط</base-td-table>
+                    <base-td-table>{{ $t('settings.middle_school') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -235,7 +239,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>الثانوي</base-td-table>
+                    <base-td-table>{{ $t('settings.high_school') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -245,7 +249,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>متمهن</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.professional_boy') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -255,7 +259,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>خارج من الدراسة</base-td-table>
+                    <base-td-table>{{ $t('settings.dismissed') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -264,16 +268,18 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                     <base-td-table class="border-0 border-e" colspan="3"></base-td-table>
                 </base-tr-table>
-                <base-tr-table>
-                    <base-td-table>الإناث فوق 18 سنة</base-td-table>
-                    <base-td-table>المعامل</base-td-table>
-                    <base-td-table>الدخل الحقيقي منحة +تقاعد+راتب</base-td-table>
-                    <base-td-table>نسبة المساهمة في الدخـــــل</base-td-table>
-                    <base-td-table>المساهمة الإفتراضية للبطالة</base-td-table>
-                    <base-td-table>المساهمة في الدخل</base-td-table>
+                <base-tr-table class="text-center">
+                    <base-td-table>{{ $t('settings.females_over_18_years_old') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.weight') }}</base-td-table>
+                    <base-td-table
+                        >{{ $t('settings.real_income_is_a_grant_plus_retirement_plus_salary') }}
+                    </base-td-table>
+                    <base-td-table>{{ $t('settings.percentage_of_contribution_to_income') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.default_unemployment_female_contribution') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.contribution_to_income') }}</base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>جامعية</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.college_girl') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -288,7 +294,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table colspan="2" rowspan="2"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>متمهنة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.professional_girl') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -301,7 +307,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>ماكثة في البيت بلا دخل</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.at_home_with_no_income') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -326,7 +332,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>ماكثة في البيت بمنحة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.at_home_with_income') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -340,7 +346,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table colspan="2" rowspan="4"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>عاملة / موظفة عزباء</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.single_female_employee') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -353,7 +359,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>متزوجة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.married') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0"></base-form-input>
                     </base-td-table>
@@ -366,7 +372,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>مطلقة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.divorced') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0"></base-form-input>
                     </base-td-table>
@@ -378,16 +384,16 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                         </base-input-group>
                     </base-td-table>
                 </base-tr-table>
-                <base-tr-table>
-                    <base-td-table>الذكور فوق 18 سنة</base-td-table>
-                    <base-td-table>المعامل</base-td-table>
-                    <base-td-table>الدخل الحقيقي منحة +راتب</base-td-table>
-                    <base-td-table>نسبة المساهمة في الدخـــــل</base-td-table>
-                    <base-td-table>المساهمة الإفتراضية للبطال</base-td-table>
-                    <base-td-table>المساهمة في الدخل</base-td-table>
+                <base-tr-table class="text-center">
+                    <base-td-table>{{ $t('settings.males_over_18_years_old') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.weight') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.real_income_grant_plus_salary') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.percentage_of_contribution_to_income') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.default_unemployment_male_contribution') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.contribution_to_income') }}</base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>جامعي</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.college_boy') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -403,7 +409,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table rowspan="7"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>متمهن</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.professional_boy') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -419,7 +425,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>بطال</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.unemployed') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -435,7 +441,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>عامل يسكن مع العائلة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.worker_with_family') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -449,7 +455,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table rowspan="2"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>عامل يسكن خارج العائلة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.worker_outside_family') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0"></base-form-input>
                     </base-td-table>
@@ -462,7 +468,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>متزوج مع العائلة + أسرته</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.married_with_family') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
@@ -484,7 +490,7 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     </base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>متزوج خارج العائلة</base-td-table>
+                    <base-td-table>{{ $t('family_statuses.married_outside_family') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="0"></base-form-input>
                     </base-td-table>
@@ -498,13 +504,13 @@ const form = useForm('put', route('tenant.site-settings.update-calculation-weigh
                     <base-td-table></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>حالات خاصة</base-td-table>
-                    <base-td-table>المعامل</base-td-table>
-                    <base-td-table>الدخل الحقيقي</base-td-table>
+                    <base-td-table>{{ $t('settings.special_cases') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.weight') }}</base-td-table>
+                    <base-td-table>{{ $t('settings.real_income') }}</base-td-table>
                     <base-td-table colspan="3"></base-td-table>
                 </base-tr-table>
                 <base-tr-table>
-                    <base-td-table>معاق (ة)</base-td-table>
+                    <base-td-table>{{ $t('settings.handicapped') }}</base-td-table>
                     <base-td-table>
                         <base-form-input value="1"></base-form-input>
                     </base-td-table>
