@@ -3,23 +3,32 @@ import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/
 
 import { useMembersStore } from '@/stores/members'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import MemberCreateModal from '@/Pages/Tenant/members/MemberCreateModal.vue'
-import MemberShowModal from '@/Pages/Tenant/members/MemberShowModal.vue'
-import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
-
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import TheNoResultsTable from '@/Components/Global/DataTable/TheNoResultsTable.vue'
-import TheTableFooter from '@/Components/Global/DataTable/TheTableFooter.vue'
-import TheTableHeader from '@/Components/Global/DataTable/TheTableHeader.vue'
-import DeleteModal from '@/Components/Global/DeleteModal.vue'
-import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
+
+const MemberCreateModal = defineAsyncComponent(() => import('@/Pages/Tenant/members/MemberCreateModal.vue'))
+
+const MemberShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/members/MemberShowModal.vue'))
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/members/index/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -136,60 +145,72 @@ watchEffect(async () => {
 <template>
     <Head :title="$t('the_members')"></Head>
 
-    <the-table-header
-        :filters="[]"
-        :pagination-data="members"
-        :params="params"
-        :title="$t('list', { attribute: $t('the_members') })"
-        :url="route('tenant.members.index')"
-        entries="members"
-        export-pdf-url=""
-        export-xlsx-url=""
-        searchable
-        @change-filters="params.filters = $event"
-    >
-        <template #ExtraButtons>
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                {{ n__('add new', 1, { attribute: $t('member') }) }}
-            </base-button>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="[]"
+                :pagination-data="members"
+                :params="params"
+                :title="$t('list', { attribute: $t('the_members') })"
+                :url="route('tenant.members.index')"
+                entries="members"
+                export-pdf-url=""
+                export-xlsx-url=""
+                searchable
+                @change-filters="params.filters = $event"
+            >
+                <template #ExtraButtons>
+                    <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                        {{ n__('add new', 1, { attribute: $t('member') }) }}
+                    </base-button>
+                </template>
+            </the-table-header>
+
+            <template v-if="members.data.length > 0">
+                <data-table
+                    :members
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-edit-modal="showEditModal"
+                    @show-details-modal="showDetailsModal"
+                ></data-table>
+
+                <the-table-footer
+                    :pagination-data="members"
+                    :params
+                    :url="route('tenant.members.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteMember"
+            ></delete-modal>
+
+            <member-create-modal
+                :open="createUpdateSlideoverStatus"
+                @close="createUpdateSlideoverStatus = false"
+            ></member-create-modal>
+
+            <member-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_member') })"
+                @close="showModalStatus = false"
+            ></member-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="n__('successfully_trashed', 1, { attribute: $t('the_member') })"
+            ></success-notification>
+        </div>
+
+        <template #fallback>
+            <the-content-loader></the-content-loader>
         </template>
-    </the-table-header>
-
-    <template v-if="members.data.length > 0">
-        <data-table
-            :members
-            :params
-            @showDeleteModal="showDeleteModal"
-            @sort="sort"
-            @show-edit-modal="showEditModal"
-            @show-details-modal="showDetailsModal"
-        ></data-table>
-
-        <the-table-footer :pagination-data="members" :params :url="route('tenant.members.index')"></the-table-footer>
-    </template>
-
-    <the-no-results-table v-else></the-no-results-table>
-
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteMember"
-    ></delete-modal>
-
-    <member-create-modal
-        :open="createUpdateSlideoverStatus"
-        @close="createUpdateSlideoverStatus = false"
-    ></member-create-modal>
-
-    <member-show-modal
-        :open="showModalStatus"
-        :title="$t('modal_show_title', { attribute: $t('the_member') })"
-        @close="showModalStatus = false"
-    ></member-show-modal>
-
-    <success-notification
-        :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 1, { attribute: $t('the_member') })"
-    ></success-notification>
+    </suspense>
 </template>
