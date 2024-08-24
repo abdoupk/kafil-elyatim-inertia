@@ -120,6 +120,20 @@ defineProps<{
                 </the-statistic-box>
             </div>
             <!-- End: Sponsorships -->
+
+            <!-- Begin: Housing Type -->
+            <div class="col-span-12 lg:col-span-6">
+                <the-statistic-box>
+                    <template #title> {{ $t('statistics.families.titles.families_by_housing') }}</template>
+
+                    <template #chart>
+                        <suspense suspensible>
+                            <families-by-sponsor-ship :familiesSponsorShips></families-by-sponsor-ship>
+                        </suspense>
+                    </template>
+                </the-statistic-box>
+            </div>
+            <!-- End: Housing Type -->
         </div>
 
         <template #fallback>

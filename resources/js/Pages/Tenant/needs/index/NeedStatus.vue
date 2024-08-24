@@ -1,7 +1,9 @@
 <script lang="ts" setup>
+import type { NeedStatusType } from '@/types/types'
+
 import { twMerge } from 'tailwind-merge'
 
-defineProps<{ status: 'pending' | 'in_progress' | 'completed' | 'rejected' }>()
+defineProps<{ status: NeedStatusType }>()
 </script>
 
 <template>

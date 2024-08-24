@@ -5,6 +5,8 @@ import 'swiper/css'
 import { Autoplay, Navigation } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 
+import NeedStatus from '@/Pages/Tenant/needs/index/NeedStatus.vue'
+
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
@@ -31,7 +33,7 @@ defineProps<{
     <div class="intro-x mt-5">
         <div class="box">
             <Swiper
-                v-if="recentNeeds.length < 0"
+                v-if="recentNeeds.length > 0"
                 :autoplay="{
                     delay: 3000
                 }"
@@ -45,8 +47,15 @@ defineProps<{
                 :speed="1000"
             >
                 <SwiperSlide v-for="need in recentNeeds" :key="need.id" class="p-5">
-                    <div class="truncate text-base font-medium">{{ need.subject }}</div>
-                    <div class="mt-1 text-slate-400">{{ need.date }}</div>
+                    <div class="flex justify-between">
+                        <div class="">
+                            <div class="truncate text-base font-medium">{{ need.subject }}</div>
+
+                            <div class="mt-1 text-slate-400">{{ need.date }}</div>
+                        </div>
+
+                        <need-status :status="need.status" class="h-fit w-fit"></need-status>
+                    </div>
                     <div class="mt-1 text-justify text-slate-500">
                         {{ need.demand }}
                     </div>

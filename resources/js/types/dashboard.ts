@@ -1,4 +1,4 @@
-import type { Branch, Zone } from '@/types/types'
+import type { Branch, NeedStatusType, Zone } from '@/types/types'
 
 interface Stats {
     total: number
@@ -63,5 +63,5 @@ export type RecentNeedsType = {
         name: string
         type: string
     }
-    status: string
+    status: NeedStatusType
 }[]

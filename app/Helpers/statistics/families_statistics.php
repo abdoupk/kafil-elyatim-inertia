@@ -2,6 +2,7 @@
 
 use App\Models\Family;
 use App\Models\FamilySponsorship;
+use App\Models\Housing;
 
 function getFamiliesGroupedByZone(): array
 {
@@ -79,4 +80,16 @@ function getFamiliesGroupByDate(): array
         ->groupBy('month')
         ->pluck('families_count', 'month')
         ->toArray());
+}
+
+function getFamiliesHousingTypes(): array
+{
+    $orphans = Housing::select('name', DB::raw('count(*) as total'))->groupBy('name')->get();
+
+    return [
+        'labels' => $orphans->pluck('name')->map(function (string $familyStatus) {
+            return __('housing.label.'.$familyStatus);
+        })->toArray(),
+        'data' => $orphans->pluck('total')->toArray(),
+    ];
 }

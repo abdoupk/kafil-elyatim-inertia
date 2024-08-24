@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\V1\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\EventOccurrence;
 use App\Models\Family;
 use App\Models\Finance;
 use App\Models\Need;
@@ -59,7 +60,13 @@ class DashboardController extends Controller
 
     private function getComingEvents(): array
     {
-        return [];
+        return EventOccurrence::with('event')->whereMonth('start_date', '=', date('m'))->take(3)->get()->map(function (EventOccurrence $eventOccurrence) {
+            return [
+                'id' => $eventOccurrence->id,
+                'name' => $eventOccurrence->event->title,
+                'date' => $eventOccurrence->start_date,
+            ];
+        });
     }
 
     private function getRecentFamilies(): array
