@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { ArchiveOccasionType, EidAlAdhaFamiliesResource, IndexParams, PaginationData } from '@/types/types'
 
-import { eidAlAdhaFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
@@ -39,7 +38,7 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
-        :filters="eidAlAdhaFilters"
+        :filters="[]"
         :pagination-data="families"
         :params="params"
         :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
@@ -48,7 +47,6 @@ const params = reactive<IndexParams>({
         export-pdf-url="tenant.archive.export.eid-al-adha.pdf"
         export-xlsx-url="tenant.archive.export.eid-al-adha.xlsx"
         exportable
-        @change-filters="params.filters = $event"
     >
     </the-table-header>
 

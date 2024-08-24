@@ -94,14 +94,14 @@ const showDeleteModal = (familyId: string) => {
     <Head :title="$t('the_families')"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.families.export.pdf', params)"
-        :export-xlsx-url="route('tenant.families.export.xlsx', params)"
         :filters="familiesFilters"
         :pagination-data="families"
         :params="params"
         :title="$t('list', { attribute: $t('the_families') })"
         :url="route('tenant.families.index')"
         entries="families"
+        export-pdf-url="tenant.families.export.pdf"
+        export-xlsx-url="tenant.families.export.xlsx"
         exportable
         filterable
         searchable

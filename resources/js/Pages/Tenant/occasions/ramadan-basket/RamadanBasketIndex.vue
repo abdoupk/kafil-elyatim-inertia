@@ -76,8 +76,6 @@ const handleSave = () => {
     <Head :title="$t('the_families_ramadan_basket')"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.ramadan-basket.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.ramadan-basket.export.xlsx', params)"
         :exportable
         :filters="ramadanBasketFilters"
         :pagination-data="families"
@@ -85,6 +83,8 @@ const handleSave = () => {
         :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
         :url="route('tenant.occasions.ramadan-basket.index')"
         entries="families"
+        export-pdf-url="tenant.occasions.ramadan-basket.export.pdf"
+        export-xlsx-url="tenant.occasions.ramadan-basket.export.xlsx"
         filterable
         searchable
         @change-filters="params.filters = $event"

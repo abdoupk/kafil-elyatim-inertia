@@ -28,7 +28,8 @@ const params = reactive<IndexParams>({
     directions: props.params.directions,
     fields: props.params.fields,
     filters: props.params.filters,
-    search: props.params.search
+    search: props.params.search,
+    archive: props.archive.id
 })
 </script>
 
@@ -36,14 +37,14 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.archive.export.eid-suit.pdf', { ...params, archive: archive.id })"
-        :export-xlsx-url="route('tenant.archive.export.eid-suit.xlsx', { ...params, archive: archive.id })"
         :filters="[]"
         :pagination-data="orphans"
         :params="params"
         :title="$t('list', { attribute: $t('the_orphans_eid_suit') })"
         :url="route('tenant.archive.details.eid-suit', archive.id)"
         entries="orphans"
+        export-pdf-url="tenant.archive.export.eid-suit.pdf"
+        export-xlsx-url="tenant.archive.export.eid-suit.xlsx"
         exportable
     >
     </the-table-header>

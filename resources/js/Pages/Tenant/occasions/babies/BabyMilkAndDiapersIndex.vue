@@ -76,8 +76,6 @@ const handleSave = () => {
     <Head :title="$t('the_babies_milk_and_diapers')"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.occasions.babies-milk-and-diapers.export.pdf', params)"
-        :export-xlsx-url="route('tenant.occasions.babies-milk-and-diapers.export.xlsx', params)"
         :exportable
         :filters="babiesMilkAndDiapersFilters"
         :pagination-data="orphans"
@@ -85,6 +83,8 @@ const handleSave = () => {
         :title="$t('list', { attribute: $t('the_babies_milk_and_diapers') })"
         :url="route('tenant.occasions.babies-milk-and-diapers.index')"
         entries="orphans"
+        export-pdf-url="tenant.occasions.babies-milk-and-diapers.export.pdf"
+        export-xlsx-url="tenant.occasions.babies-milk-and-diapers.export.xlsx"
         filterable
         searchable
         @change-filters="params = $event"

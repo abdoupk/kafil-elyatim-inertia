@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { ArchiveOccasionType, BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
 
-import { babiesMilkAndDiapersFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
@@ -31,7 +30,8 @@ const params = reactive<IndexParams>({
     directions: props.params.directions,
     fields: props.params.fields,
     filters: props.params.filters,
-    search: props.params.search
+    search: props.params.search,
+    archive: props.archive.id
 })
 
 const sort = (field: string) => handleSort(field, params)
@@ -41,19 +41,15 @@ const sort = (field: string) => handleSort(field, params)
     <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.archive.export.babies-milk-and-diapers.pdf', { ...params, archive: archive.id })"
-        :export-xlsx-url="
-            route('tenant.archive.export.babies-milk-and-diapers.xlsx', { ...params, archive: archive.id })
-        "
-        :filters="babiesMilkAndDiapersFilters"
+        :filters="[]"
         :pagination-data="orphans"
         :params="params"
         :title="$t('list', { attribute: $t('the_babies_milk_and_diapers') })"
         :url="$page.url"
         entries="orphans"
+        export-pdf-url="tenant.archive.export.babies-milk-and-diapers"
+        export-xlsx-url="tenant.archive.export.babies-milk-and-diapers.xlsx"
         exportable
-        searchable
-        @change-filters="params = $event"
     >
     </the-table-header>
 

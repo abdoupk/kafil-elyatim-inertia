@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { ArchiveOccasionType, IndexParams, PaginationData, RamadanBasketFamiliesResource } from '@/types/types'
 
-import { ramadanBasketFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
@@ -29,7 +28,8 @@ const params = reactive<IndexParams>({
     directions: props.params.directions,
     fields: props.params.fields,
     filters: props.params.filters,
-    search: props.params.search
+    search: props.params.search,
+    archive: props.archive.id
 })
 </script>
 
@@ -37,18 +37,15 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.archive.export.ramadan-basket.pdf', { ...params, archive: archive.id })"
-        :export-xlsx-url="route('tenant.archive.export.ramadan-basket.xlsx', { ...params, archive: archive.id })"
-        :filters="ramadanBasketFilters"
+        :filters="[]"
         :pagination-data="families"
         :params="params"
         :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
         :url="route('tenant.occasions.ramadan-basket.index')"
         entries="families"
+        export-pdf-url="tenant.archive.export.ramadan-basket.pdf"
+        export-xlsx-url="tenant.archive.export.ramadan-basket.xlsx"
         exportable
-        filterable
-        searchable
-        @change-filters="params.filters = $event"
     >
     </the-table-header>
 

@@ -94,14 +94,14 @@ const showDeleteModal = (sponsorId: string) => {
     <Head :title="$t('the_sponsors')"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.sponsors.export.pdf', params)"
-        :export-xlsx-url="route('tenant.sponsors.export.xlsx', params)"
         :filters="sponsorsFilters"
         :pagination-data="sponsors"
         :params="params"
         :title="$t('list', { attribute: $t('the_sponsors') })"
         :url="route('tenant.sponsors.index')"
         entries="sponsors"
+        export-pdf-url="tenant.sponsors.export.pdf"
+        export-xlsx-url="tenant.sponsors.export.xlsx"
         exportable
         filterable
         searchable

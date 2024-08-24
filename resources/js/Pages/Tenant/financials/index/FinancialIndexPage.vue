@@ -160,14 +160,14 @@ watchEffect(async () => {
 
     <!--TODO add Export routes and exportable-->
     <the-table-header
-        :export-pdf-url="route('tenant.financial.export.pdf')"
-        :export-xlsx-url="route('tenant.financial.export.xlsx')"
         :filters="[]"
         :pagination-data="finances"
         :params="params"
         :title="$t('the_financial_transactions')"
         :url="route('tenant.financial.index')"
         entries="finances"
+        export-pdf-url="tenant.financial.export.pdf"
+        export-xlsx-url="tenant.financial.export.xlsx"
         exportable
         searchable
         @change-filters="params.filters = $event"

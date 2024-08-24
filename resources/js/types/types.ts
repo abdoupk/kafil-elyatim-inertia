@@ -533,6 +533,7 @@ export interface IndexParams {
         value: string
         operator: string
     }[]
+    archive?: string
 }
 
 type SponsorType = {

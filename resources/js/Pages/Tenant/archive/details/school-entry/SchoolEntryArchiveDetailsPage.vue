@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { ArchiveOccasionType, IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
 
-import { schoolEntryFilters } from '@/constants/filters'
 import { Head } from '@inertiajs/vue3'
 import { reactive } from 'vue'
 
@@ -29,7 +28,8 @@ const params = reactive<IndexParams>({
     directions: props.params.directions,
     fields: props.params.fields,
     filters: props.params.filters,
-    search: props.params.search
+    search: props.params.search,
+    archive: props.archive.id
 })
 </script>
 
@@ -37,18 +37,15 @@ const params = reactive<IndexParams>({
     <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.archive.export.school-entry.pdf', { ...params, archive: archive.id })"
-        :export-xlsx-url="route('tenant.archive.export.school-entry.xlsx', { ...params, archive: archive.id })"
-        :filters="schoolEntryFilters"
+        :filters="[]"
         :pagination-data="orphans"
         :params="params"
         :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
         :url="route('tenant.occasions.school-entry.index')"
         entries="orphans"
+        export-pdf-url="tenant.archive.export.school-entry.pdf"
+        export-xlsx-url="tenant.archive.export.school-entry.xlsx"
         exportable
-        filterable
-        searchable
-        @change-filters="params = $event"
     >
     </the-table-header>
 

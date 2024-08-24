@@ -94,14 +94,14 @@ const sort = (field: string) => handleSort(field, params)
     <Head :title="$t('the_orphans')"></Head>
 
     <the-table-header
-        :export-pdf-url="route('tenant.orphans.export.pdf', params)"
-        :export-xlsx-url="route('tenant.orphans.export.xlsx', params)"
         :filters="orphansFilters"
         :pagination-data="orphans"
         :params="params"
         :title="$t('list', { attribute: $t('the_orphans') })"
         :url="route('tenant.orphans.index')"
         entries="orphans"
+        export-pdf-url="tenant.orphans.export.pdf"
+        export-xlsx-url="tenant.orphans.export.xlsx"
         exportable
         filterable
         searchable
