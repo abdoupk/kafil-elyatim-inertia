@@ -250,7 +250,15 @@ const formatDate = (date: string | Date, dateStyle: 'full' | 'long' | 'medium' |
 }
 
 const formatDateAndTime = (date: string | Date) => {
-    return dayjs(date).locale(getLocale()).format('DD MMMM YYYY hh:mm A')
+    return dayjs(date)
+        .locale(getLocale() + '-DZ')
+        .format('DD MMMM YYYY hh:mm A')
+}
+
+const formatDateAndTimeShort = (date: string | Date) => {
+    return dayjs(date)
+        .locale(getLocale() + '-DZ')
+        .format('DD MMMM hh:mm A')
 }
 
 const formatCurrency = (amount) => {
@@ -508,5 +516,6 @@ export {
     formatDateAndTime,
     checkErrors,
     pathNameOfCurrentPage,
-    formatParams
+    formatParams,
+    formatDateAndTimeShort
 }

@@ -42,7 +42,12 @@ export type RecentTransactionsType = {
     amount: number
 }[]
 
-export type ComingEventsType = unknown
+export type ComingEventsType = {
+    id: string
+    title: string
+    date: string | Date
+    color: string
+}[]
 
 export type RecentFamiliesType = {
     id: string

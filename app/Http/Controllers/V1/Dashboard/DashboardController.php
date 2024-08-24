@@ -14,6 +14,8 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
+        ray($this->getComingEvents());
+
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),
@@ -23,6 +25,18 @@ class DashboardController extends Controller
             'recentFamilies' => fn () => $this->getRecentFamilies(),
             'recentNeeds' => fn () => $this->getRecentNeeds(),
         ]);
+    }
+
+    private function getComingEvents(): array
+    {
+        return EventOccurrence::with('event')->whereMonth('start_date', '=', date('m'))->take(3)->get()->map(function (EventOccurrence $eventOccurrence) {
+            return [
+                'id' => $eventOccurrence->id,
+                'title' => $eventOccurrence->event->title,
+                'date' => $eventOccurrence->start_date,
+                'color' => $eventOccurrence->event->color,
+            ];
+        })->toArray();
     }
 
     private function getRecentActivities()
@@ -56,17 +70,6 @@ class DashboardController extends Controller
                 'date' => $finance->date->translatedFormat('j F Y'),
             ];
         })->toArray();
-    }
-
-    private function getComingEvents(): array
-    {
-        return EventOccurrence::with('event')->whereMonth('start_date', '=', date('m'))->take(3)->get()->map(function (EventOccurrence $eventOccurrence) {
-            return [
-                'id' => $eventOccurrence->id,
-                'name' => $eventOccurrence->event->title,
-                'date' => $eventOccurrence->start_date,
-            ];
-        });
     }
 
     private function getRecentFamilies(): array
