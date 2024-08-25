@@ -201,6 +201,8 @@ class Orphan extends Model
             'pants_size' => $this->pantsSize->label,
             'income' => (float) $this->income,
             'gender' => $this->gender,
+            'is_handicapped' => $this->is_handicapped,
+            'is_unemployed' => $this->is_unemployed,
             'note' => $this->note,
             'academic_level' => [
                 'id' => $this->academic_level_id,

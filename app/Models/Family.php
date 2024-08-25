@@ -254,6 +254,7 @@ class Family extends Model
                 'housing_assistance' => boolval($this->sponsorships?->housing_assistance),
                 'eid_el_adha' => boolval($this->sponsorships?->eid_al_adha),
             ],
+            'income_rate' => $this->income_rate,
         ];
     }
 
