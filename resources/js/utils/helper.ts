@@ -10,6 +10,7 @@ import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
 
+
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
@@ -269,11 +270,11 @@ const formatCurrency = (amount) => {
 }
 
 const handleSponsorship = (sponsorshipValue: string) => {
-    if (sponsorshipValue === '0') {
+    if (sponsorshipValue === '0' || sponsorshipValue === false) {
         return __('no')
     }
 
-    if (sponsorshipValue === '1') {
+    if (sponsorshipValue === '1' || sponsorshipValue === true) {
         return __('yes')
     }
 
