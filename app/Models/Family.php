@@ -121,15 +121,6 @@ class Family extends Model
                 $family->deleted_by = auth()->id();
 
                 $family->save();
-
-                $family->orphans()->delete();
-
-                $family->babies()->delete();
-
-                $family->sponsor()->delete();
-
-                $family->sponsorships()->unsearchable();
-
             }
         });
     }
@@ -197,6 +188,16 @@ class Family extends Model
     public function orphansSponsorships(): HasManyThrough
     {
         return $this->hasManyThrough(OrphanSponsorship::class, Orphan::class);
+    }
+
+    public function orphansNeeds(): HasManyThrough
+    {
+        return $this->hasManyThrough(Need::class, Orphan::class, 'id', 'needable_id', 'id', 'id');
+    }
+
+    public function sponsorsNeeds(): HasManyThrough
+    {
+        return $this->hasManyThrough(Need::class, Sponsor::class, 'id', 'needable_id', 'id', 'id');
     }
 
     public function zone(): BelongsTo
