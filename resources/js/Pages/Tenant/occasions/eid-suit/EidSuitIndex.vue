@@ -100,6 +100,7 @@ const handleSave = () => {
             >
                 <template #Hints>
                     <the-occasion-hint
+                        v-if="useSettingsStore().hints.eid_suit"
                         :on-hidden="
                             () => {
                                 useSettingsStore().setHintToHidden('eid_suit')

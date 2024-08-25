@@ -9,7 +9,14 @@ import { createPinia } from 'pinia'
 import { type DefineComponent, createApp, h } from 'vue'
 import { ZiggyVue } from 'ziggy-js'
 
+import { usePersistStore } from '@/utils/s'
+
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
+
+const pinia = createPinia()
+
+pinia.use(usePersistStore)
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -19,7 +26,7 @@ createInertiaApp({
         const app = createApp({ render: () => h(App, props) })
             .use(i18n)
             .use(plugin)
-            .use(createPinia())
+            .use(pinia)
             .use(ZiggyVue)
 
         app.mount(el)

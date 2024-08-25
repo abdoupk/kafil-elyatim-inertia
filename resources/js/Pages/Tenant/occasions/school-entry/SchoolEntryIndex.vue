@@ -83,7 +83,7 @@ const handleSave = () => {
     <Head :title="$t('the_orphans_school_entry')"></Head>
 
     <suspense>
-        <div class="">
+        <div>
             <the-table-header
                 :exportable
                 :filters="schoolEntryFilters"
@@ -100,6 +100,7 @@ const handleSave = () => {
             >
                 <template #Hints>
                     <the-occasion-hint
+                        v-if="useSettingsStore().hints.school_entry"
                         :on-hidden="
                             () => {
                                 useSettingsStore().setHintToHidden('school_entry')

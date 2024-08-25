@@ -100,6 +100,7 @@ const handleSave = () => {
             >
                 <template #Hints>
                     <the-occasion-hint
+                        v-if="useSettingsStore().hints.monthly_basket"
                         :on-hidden="
                             () => {
                                 useSettingsStore().setHintToHidden('monthly_basket')

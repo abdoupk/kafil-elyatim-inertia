@@ -100,6 +100,7 @@ const handleSave = () => {
             >
                 <template #Hints>
                     <the-occasion-hint
+                        v-if="useSettingsStore().hints.babies_milk_and_diapers"
                         :on-hidden="
                             () => {
                                 useSettingsStore().setHintToHidden('babies_milk_and_diapers')

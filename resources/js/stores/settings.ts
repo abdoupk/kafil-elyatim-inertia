@@ -3,6 +3,7 @@ import type { AppearanceType, ColorSchemesType, ISettingState, LayoutsType, Them
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
+
 export const useSettingsStore = defineStore('settings', {
     state: (): ISettingState => ({
         appearance: 'light',
@@ -10,7 +11,12 @@ export const useSettingsStore = defineStore('settings', {
         theme: 'tinker',
         layout: 'side-menu',
         hints: {
-            ramadan_basket: true
+            ramadan_basket: true,
+            monthly_basket: true,
+            eid_suit: true,
+            school_entry: true,
+            babies_milk_and_diapers: true,
+            eid_al_adha: true
         }
     }),
     getters: {},
