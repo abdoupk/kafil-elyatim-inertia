@@ -1,21 +1,19 @@
 <?php
 
-/** @noinspection UnknownInspectionInspection */
-
-/** @noinspection StaticClosureCanBeUsedInspection */
+declare(strict_types=1);
 
 use App\Http\Controllers\V1\RegisteredTenantController;
-use App\Models\Family;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Support\Facades\Route;
 
 foreach (config('tenancy.central_domains') as $domain) {
     Route::domain($domain)->middleware('guest')->group(function () {
         Route::get('/', function () {
-            return view('pdf.families', ['families' => Family::all()]);
-        })->name('dashboard');
+            return view('landing');
+        })->name('home');
     });
 }
+
 Route::get('/register', [RegisteredTenantController::class, 'create']);
 
 Route::post(
