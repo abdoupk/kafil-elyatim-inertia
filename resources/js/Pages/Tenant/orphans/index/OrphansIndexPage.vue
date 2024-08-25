@@ -113,7 +113,7 @@ const sort = (field: string) => handleSort(field, params)
                 exportable
                 filterable
                 searchable
-                @change-filters="params = $event"
+                @change-filters="params.filters = $event"
             ></the-table-header>
 
             <template v-if="orphans.data.length > 0">

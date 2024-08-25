@@ -96,7 +96,7 @@ const handleSave = () => {
                 export-xlsx-url="tenant.occasions.monthly-basket.export.xlsx"
                 filterable
                 searchable
-                @change-filters="params = $event"
+                @change-filters="params.filters = $event"
             >
                 <template #Hints>
                     <the-occasion-hint
