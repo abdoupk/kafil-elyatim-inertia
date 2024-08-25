@@ -1,3 +1,20 @@
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue'
 
-<template>rubick top menu loader</template>
+const ready = ref(false)
+
+onMounted(() => {
+    setTimeout(() => {
+        ready.value = true
+    }, 300)
+})
+</script>
+
+<template>
+    <Suspense v-if="ready">
+        <div class="">rubick top menu loader</div>
+        <template #fallback>
+            <slot name="fallback"></slot>
+        </template>
+    </Suspense>
+</template>
