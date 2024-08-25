@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\V1\Occasions\SchoolEntry;
 
-use App\Exports\FamiliesEidAlAdhaIndexExport;
+use App\Exports\OrphansSchoolEntryIndexExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -16,6 +16,6 @@ class ExportOrphansSchoolEntryXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new FamiliesEidAlAdhaIndexExport, 'exports.eid_al_adha_families_'.now()->year.'.xlsx');
+        return Excel::download(new OrphansSchoolEntryIndexExport, __('exports.school_entry', ['date' => now()->year]).'.xlsx');
     }
 }

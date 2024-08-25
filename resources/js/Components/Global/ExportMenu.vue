@@ -12,6 +12,8 @@ import BaseMenuItems from '@/Components/Base/headless/Menu/BaseMenuItems.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { formatUrl } from '@/utils/helper'
+
 const props = defineProps<{
     exportPdfUrl: string
     exportXlsxUrl: string
@@ -20,27 +22,9 @@ const props = defineProps<{
 
 const printStarting = ref<boolean>(false)
 
-// Watch(
-//     () => props.params,
-//     (value) => {
-//         Let a = new URL(props.exportPdfUrl)
-//
-//         A.search = ''
-//
-//         Let b = formatParams(value)
-//
-//         Console.log(b)
-//
-//         Console.log(a.pathname)
-//
-//         Console.log(value)
-//     },
-//     { immediate: true }
-// )
-
 const printPdf = () => {
     print({
-        printable: exportPdfUrl.value,
+        printable: formatUrl(props.exportPdfUrl),
         type: 'pdf',
         onLoadingStart: () => {
             printStarting.value = true
@@ -74,13 +58,13 @@ const printPdf = () => {
                 <spinner-button-loader :show="printStarting" class="ms-auto fill-current"></spinner-button-loader>
             </base-menu-item>
 
-            <base-menu-item :href="exportXlsxUrl" as="a">
+            <base-menu-item :href="formatUrl(exportXlsxUrl)" as="a">
                 <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-excel"></svg-loader>
 
                 {{ $t('export', { type: 'excel' }) }}
             </base-menu-item>
 
-            <base-menu-item :href="exportPdfUrl" as="a">
+            <base-menu-item :href="formatUrl(exportPdfUrl)" as="a">
                 <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-file-pdf"></svg-loader>
 
                 {{ $t('export', { type: 'pdf' }) }}

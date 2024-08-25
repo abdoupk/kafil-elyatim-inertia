@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\V1\Occasions\RamadanBasket;
 
-use App\Exports\FamiliesEidAlAdhaIndexExport;
+use App\Exports\FamiliesRamadanBasketIndexExport;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -16,6 +16,6 @@ class ExportFamiliesRamadanBasketXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new FamiliesEidAlAdhaIndexExport, 'exports.ramadan_basket_'.now()->year.'.xlsx');
+        return Excel::download(new FamiliesRamadanBasketIndexExport, 'exports.ramadan_basket_'.now()->year.'.xlsx');
     }
 }

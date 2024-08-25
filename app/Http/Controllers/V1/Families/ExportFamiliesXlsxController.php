@@ -16,6 +16,6 @@ class ExportFamiliesXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new FamiliesIndexExport, 'exports.families.xlsx');
+        return Excel::download(new FamiliesIndexExport, __('exports.families').'.xlsx');
     }
 }

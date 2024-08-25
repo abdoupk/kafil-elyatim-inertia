@@ -16,6 +16,6 @@ class ExportFamiliesEidAlAdhaXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new FamiliesEidAlAdhaIndexExport, 'exports.eid_al_adha_families_'.now()->year.'.xlsx');
+        return Excel::download(new FamiliesEidAlAdhaIndexExport, __('exports.eid_al_adha_families', ['date' => now()->year]).'.xlsx');
     }
 }

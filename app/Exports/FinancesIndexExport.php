@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class OrphansSchoolEntryIndexExport implements FromView, WithEvents
+class FinancesIndexExport implements FromView, WithEvents
 {
     public function registerEvents(): array
     {
@@ -20,8 +20,8 @@ class OrphansSchoolEntryIndexExport implements FromView, WithEvents
 
     public function view(): View
     {
-        return view('pdf.occasions.school-entry', [
-            'sponsorships' => listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport(),
+        return view('pdf.financial-transactions', [
+            'transactions' => getFinancesForExport(),
         ]);
     }
 }

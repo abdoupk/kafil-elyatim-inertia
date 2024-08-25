@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\V1\Archive\Exports;
 
-use App\Exports\FamiliesEidAlAdhaIndexExport;
+use App\Exports\OrphansEidSuitIndexExport;
 use App\Http\Controllers\Controller;
 use App\Models\Archive;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,7 +16,7 @@ class ExportArchiveOrphansEidSuitXlsxController extends Controller
      */
     public function __invoke(Archive $archive)
     {
-        return Excel::download(new FamiliesEidAlAdhaIndexExport,
+        return Excel::download(new OrphansEidSuitIndexExport,
             __('exports.archive.eid_suit', ['date' => $archive->created_at->year]).'.xlsx');
     }
 }

@@ -16,6 +16,8 @@ class ExportBabiesXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new BabiesIndexExport, 'exports.babies-milk-and-diapers.xlsx');
+        return Excel::download(new BabiesIndexExport, __('exports.babies_milk_and_diapers', [
+            'date' => now()->translatedFormat('F Y'),
+        ]).'.xlsx');
     }
 }

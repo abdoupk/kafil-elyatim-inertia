@@ -16,6 +16,6 @@ class ExportOrphansXlsxController extends Controller
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new OrphansIndexExport, 'exports.orphans.xlsx');
+        return Excel::download(new OrphansIndexExport, __('exports.orphans').'.xlsx');
     }
 }
