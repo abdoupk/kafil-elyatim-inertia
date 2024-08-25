@@ -24,8 +24,10 @@ function getOrphansByAcademicLevel(): array
     $result = $orphans->groupBy(function ($orphan) {
         return $orphan->academicLevel->phase;
     })->map(function ($group) {
+        ray($group);
+
         return [
-            'total' => $group->count(),
+            'total' => $group->first()->total,
             'phase' => $group->first()->academicLevel->phase,
         ];
     })->values()->toArray();
@@ -171,7 +173,7 @@ function getOrphansByVocationalTraining(): array
         return $orphan->vocationalTraining->division;
     })->map(function ($group) {
         return [
-            'total' => $group->count(),
+            'total' => $group->first()->total,
             'division' => $group->first()->vocationalTraining->division,
         ];
     })->values()->toArray();

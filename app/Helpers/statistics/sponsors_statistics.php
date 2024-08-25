@@ -25,7 +25,7 @@ function getSponsorsByAcademicLevel(): array
         return $orphan->academicLevel->phase;
     })->map(function ($group) {
         return [
-            'total' => $group->count(),
+            'total' => $group->first()->total,
             'phase' => $group->first()->academicLevel->phase,
         ];
     })->values()->toArray();
