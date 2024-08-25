@@ -62,12 +62,12 @@ const handleEventChange = (event: EventApi) => {
 
 const selectedEvent = ref<EventApi | null>(null)
 
-const HandleEventClick = (event: EventApi) => {
+const HandleEventClick = async (event: EventApi) => {
+    await lessonsStore.getLesson(event.id)
+
     actionsModalStatus.value = true
 
     selectedEvent.value = event
-
-    lessonsStore.getLesson(event.id)
 }
 
 const deleteLesson = () => {

@@ -101,7 +101,9 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the lesson id
 const modalTitle = computed(() => {
-    return lessonsStore.lesson.id ? __('update lesson') : n__('add new', 1, { attribute: __('lesson') })
+    return lessonsStore.lesson.id
+        ? __('modal_update_title', { attribute: __('the_lesson') })
+        : n__('add new', 1, { attribute: __('lesson') })
 })
 
 const date = computed(() => {
