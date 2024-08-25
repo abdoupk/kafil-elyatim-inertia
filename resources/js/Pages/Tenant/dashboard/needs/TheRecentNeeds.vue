@@ -48,7 +48,7 @@ defineProps<{
             >
                 <SwiperSlide v-for="need in recentNeeds" :key="need.id" class="p-5">
                     <div class="flex justify-between">
-                        <div class="">
+                        <div>
                             <div class="truncate text-base font-medium">{{ need.subject }}</div>
 
                             <div class="mt-1 text-slate-400">{{ need.date }}</div>

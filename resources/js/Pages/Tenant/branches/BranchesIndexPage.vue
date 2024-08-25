@@ -147,7 +147,7 @@ watchEffect(async () => {
     <Head :title="$t('branches')"></Head>
 
     <suspense>
-        <div class="">
+        <div>
             <the-table-header
                 :filters="branchedFilters"
                 :pagination-data="branches"

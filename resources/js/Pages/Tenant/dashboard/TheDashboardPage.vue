@@ -15,6 +15,9 @@ import { defineAsyncComponent } from 'vue'
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheGeneralReports from '@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue'
+import TheFamiliesOverview from '@/Pages/Tenant/dashboard/overview/families/TheFamiliesOverview.vue'
+import TheNeedsOverview from '@/Pages/Tenant/dashboard/overview/needs/TheNeesdsOverview.vue'
+import TheOrphansOverview from '@/Pages/Tenant/dashboard/overview/orphans/TheOrphansOverview.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
@@ -58,14 +61,14 @@ defineProps<{
 
     <suspense>
         <template #default>
-            <div class="">
+            <div>
                 <!--Begin: General Reports-->
                 <the-general-reports :reports></the-general-reports>
                 <!--End: General Reports-->
 
                 <!--Begin: Financial Reports-->
-                <div class="grid grid-cols-12">
-                    <div class="col-span-12 mt-8 lg:col-span-8">
+                <div class="grid grid-cols-12 gap-x-2">
+                    <div class="col-span-12 mt-8 lg:col-span-6">
                         <div class="intro-y block h-10 items-center sm:flex">
                             <h2 class="me-5 truncate font-medium rtl:text-xl rtl:font-semibold">
                                 {{ $t('statistics.dashboard.financial_report') }}
@@ -79,7 +82,7 @@ defineProps<{
                         </div>
                     </div>
 
-                    <!--        weekly radar financial-->
+                    <the-families-overview></the-families-overview>
                 </div>
                 <!--End: Financial Reports-->
 
@@ -94,6 +97,15 @@ defineProps<{
                     </suspense>
                 </div>
                 <!--End: Recent Families-->
+
+                <!--Begin: Overview-->
+                <div class="col-span-12 mt-8 grid grid-cols-12 gap-6">
+                    <the-needs-overview></the-needs-overview>
+
+                    <the-orphans-overview></the-orphans-overview>
+                </div>
+
+                <!--End: Overview -->
 
                 <div class="col-span-12 2xl:col-span-3">
                     <div class="-mb-10 pb-10 2xl:border-s">

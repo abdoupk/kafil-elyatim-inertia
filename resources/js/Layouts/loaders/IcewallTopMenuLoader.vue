@@ -12,7 +12,7 @@ onMounted(() => {
 
 <template>
     <Suspense v-if="ready">
-        <div class="">icewall top menu loader</div>
+        <div>icewall top menu loader</div>
         <template #fallback>
             <slot name="fallback"></slot>
         </template>

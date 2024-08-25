@@ -122,7 +122,7 @@ const submit = () => {
                 </base-button>
             </div>
         </form>
-        <div class="">
+        <div>
             <!-- BEGIN: The Report -->
             <!-- END: The Report -->
 

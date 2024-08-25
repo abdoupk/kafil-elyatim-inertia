@@ -40,7 +40,7 @@ const params = reactive<IndexParams>({
 <template>
     <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
     <suspense>
-        <div class="">
+        <div>
             <the-table-header
                 :filters="[]"
                 :pagination-data="orphans"

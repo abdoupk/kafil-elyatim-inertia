@@ -40,7 +40,7 @@ onMounted(() => {
 
 <template>
     <suspense v-if="ready">
-        <div class="">
+        <div>
             <base-slideover :open="slideoverStatus" class="dialog" @close="changeStatus(false)">
                 <base-slideover-panel>
                     <base-button

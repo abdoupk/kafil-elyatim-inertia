@@ -134,7 +134,7 @@ const modalType = computed(() => {
 
                     <div class="grid grid-cols-4 gap-3">
                         <div v-for="permission in permissionMaps" :key="permission">
-                            <div class="">
+                            <div>
                                 <base-form-switch>
                                     <base-form-switch-input
                                         :id="`${permission}_${key}`"

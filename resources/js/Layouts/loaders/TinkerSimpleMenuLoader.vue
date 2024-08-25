@@ -12,7 +12,7 @@ onMounted(() => {
 
 <template>
     <Suspense v-if="ready">
-        <div class="">tinker simple menu loader</div>
+        <div>tinker simple menu loader</div>
         <template #fallback>
             <slot name="fallback"></slot>
         </template>

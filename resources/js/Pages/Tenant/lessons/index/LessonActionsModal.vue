@@ -41,7 +41,7 @@ const lessonsStore = useLessonsStore()
         <base-dialog-panel>
             <suspense suspensible>
                 <template #default>
-                    <div class="">
+                    <div>
                         <div class="p-5 text-center text-2xl leading-8">
                             {{ eventInfo?.title }}
                         </div>
