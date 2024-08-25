@@ -8,6 +8,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 
 import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
 import TopMenuLink from '@/Layouts/enigma/top-menu/TopMenuLink.vue'
+import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { nestedMenu } from '@/Layouts/menu'
 
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
@@ -42,8 +43,13 @@ onMounted(() => {
     <div
         class="enigma px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8 md:bg-slate-200 md:px-0 md:py-0 md:before:bg-none md:dark:bg-darkmode-800"
     >
-        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
+        <suspense v-if="width < 768">
+            <the-mobile-menu></the-mobile-menu>
 
+            <template #fallback>
+                <mobile-menu-loader></mobile-menu-loader>
+            </template>
+        </suspense>
         <the-top-bar></the-top-bar>
 
         <nav class="top-nav relative z-50 -mt-4 hidden pt-32 opacity-0 md:block">

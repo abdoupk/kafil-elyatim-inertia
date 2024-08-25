@@ -4,7 +4,6 @@ import { router, usePage } from '@inertiajs/vue3'
 
 import { pathNameOfCurrentPage, slideDown, slideUp } from '@/utils/helper'
 
-
 const findActiveMenu = (subMenu: IMenu[], route: ILocation) => {
     let match = false
 

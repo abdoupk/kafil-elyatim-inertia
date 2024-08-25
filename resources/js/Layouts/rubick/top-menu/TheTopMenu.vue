@@ -6,6 +6,7 @@ import { Link, usePage } from '@inertiajs/vue3'
 import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
+import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { nestedMenu } from '@/Layouts/menu'
 import TopMenuLink from '@/Layouts/rubick/top-menu/TopMenuLink.vue'
 
@@ -45,7 +46,13 @@ onMounted(() => {
     <div
         class="rubick px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8"
     >
-        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
+        <suspense v-if="width < 768">
+            <the-mobile-menu></the-mobile-menu>
+
+            <template #fallback>
+                <mobile-menu-loader></mobile-menu-loader>
+            </template>
+        </suspense>
 
         <div class="-mx-3 mb-10 mt-[2.2rem] border-b border-white/[0.08] px-3 pt-3 sm:-mx-8 sm:px-8 md:-mt-5 md:pt-0">
             <div class="relative z-[51] flex h-[70px] items-center">

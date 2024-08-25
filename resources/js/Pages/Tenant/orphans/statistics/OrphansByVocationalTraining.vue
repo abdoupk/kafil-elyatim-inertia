@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import type { OrphansByVocationalTrainingType } from '@/types/statistics'
 
-import BaseVerticalBarChart from '@/Components/Base/chart/BaseVerticalBarChart.vue'
+import { defineAsyncComponent } from 'vue'
+
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { __ } from '@/utils/i18n'
+
+const BaseVerticalBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseVerticalBarChart.vue'))
 
 defineProps<{
     orphansByVocationalTraining: OrphansByVocationalTrainingType
@@ -11,14 +15,18 @@ defineProps<{
 </script>
 
 <template>
-    <base-vertical-bar-chart
-        :datasets="[
-            {
-                data: orphansByVocationalTraining.data,
-                label: __('orphans_count')
-            }
-        ]"
-        :height="300"
-        :labels="orphansByVocationalTraining.labels"
-    ></base-vertical-bar-chart>
+    <suspense v-if="orphansByVocationalTraining.data.length" suspensible>
+        <base-vertical-bar-chart
+            :datasets="[
+                {
+                    data: orphansByVocationalTraining.data,
+                    label: __('orphans_count')
+                }
+            ]"
+            :height="300"
+            :labels="orphansByVocationalTraining.labels"
+        ></base-vertical-bar-chart>
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
 import type { ChartData, ChartOptions } from 'chart.js/auto'
-import { computed } from 'vue'
-
-import BaseChart from '@/Components/Base/chart/BaseChart.vue'
+import { computed, defineAsyncComponent } from 'vue'
 
 import { getColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
 import { addOpacityToHexColors } from '@/utils/helper'
+
+const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
 const props = defineProps<{
     width?: number

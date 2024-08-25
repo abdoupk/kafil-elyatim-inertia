@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
 import type { ChartData, ChartOptions } from 'chart.js/auto'
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 
-import BaseChart from '@/Components/Base/chart/BaseChart.vue'
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { getLocale } from '@/utils/i18n'
+
+const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
 const props = defineProps<{
     width?: number
@@ -96,5 +98,9 @@ const options = computed<ChartOptions>(() => {
 </script>
 
 <template>
-    <base-chart :data :height :options :width type="line" />
+    <suspense v-if="data.datasets[0].data.length" suspensible>
+        <base-chart :data :height :options :width type="line" />
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

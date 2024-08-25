@@ -3,12 +3,14 @@ import type { FamiliesSponsorShipsType } from '@/types/statistics'
 
 import { useSettingsStore } from '@/stores/settings'
 import type { ChartData, ChartOptions } from 'chart.js/auto'
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 
-import BaseChart from '@/Components/Base/chart/BaseChart.vue'
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { __ } from '@/utils/i18n'
+
+const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
 const props = defineProps<{
     familiesSponsorShips: FamiliesSponsorShipsType
@@ -63,9 +65,11 @@ const options = computed<ChartOptions>(() => {
 </script>
 
 <template>
-    <suspense>
+    <suspense v-if="data.datasets[0].data.length" suspensible>
         <div class="flex items-center justify-center">
             <base-chart :data :height="400" :options :width="400" type="radar" />
         </div>
     </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

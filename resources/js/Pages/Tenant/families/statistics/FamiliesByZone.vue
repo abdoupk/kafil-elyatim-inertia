@@ -13,13 +13,9 @@ defineProps<{
 </script>
 
 <template>
-    <suspense>
-        <base-pie-chart
-            v-if="familiesByZone.data?.length"
-            :chart-data="familiesByZone.data"
-            :labels="familiesByZone.labels"
-        ></base-pie-chart>
-
-        <the-no-data-chart v-else></the-no-data-chart>
+    <suspense v-if="familiesByZone.data?.length" suspensible>
+        <base-pie-chart :chart-data="familiesByZone.data" :labels="familiesByZone.labels"></base-pie-chart>
     </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import type { OrphansByZoneType } from '@/types/statistics'
 
-import BasePolarBarChart from '@/Components/Base/chart/BasePolarBarChart.vue'
+import { defineAsyncComponent } from 'vue'
+
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
+
+const BasePolarBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BasePolarBarChart.vue'))
 
 defineProps<{
     orphansByZone: OrphansByZoneType
@@ -9,5 +13,9 @@ defineProps<{
 </script>
 
 <template>
-    <base-polar-bar-chart :chart-data="orphansByZone.data" :labels="orphansByZone.labels"></base-polar-bar-chart>
+    <suspense v-if="orphansByZone.data.length" suspensible>
+        <base-polar-bar-chart :chart-data="orphansByZone.data" :labels="orphansByZone.labels"></base-polar-bar-chart>
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

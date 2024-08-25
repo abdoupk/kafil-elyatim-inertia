@@ -35,7 +35,7 @@ defineProps<{
         {{ $t('statistics.header', { attribute: $t('the_financial_transactions') }) }}
     </h2>
 
-    <suspense suspensible>
+    <suspense>
         <div class="intro-y mt-5 grid grid-cols-12 gap-6">
             <!-- Begin: financesByMonth -->
             <div class="col-span-12 lg:col-span-6">

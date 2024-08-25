@@ -6,6 +6,7 @@ import { Link, usePage } from '@inertiajs/vue3'
 import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
+import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 import TheTopBar from '@/Layouts/tinker/TheTopBar.vue'
 import MenuDivider from '@/Layouts/tinker/side-menu/MenuDivider.vue'
@@ -43,7 +44,13 @@ onMounted(() => {
     <div
         class="tinker relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:bg-transparent dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8 md:bg-black/[0.15] md:px-0 md:py-0"
     >
-        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
+        <suspense v-if="width < 768">
+            <the-mobile-menu></the-mobile-menu>
+
+            <template #fallback>
+                <mobile-menu-loader></mobile-menu-loader>
+            </template>
+        </suspense>
 
         <div class="mt-[4.7rem] flex overflow-hidden md:mt-0">
             <nav class="side-nav z-10 hidden overflow-x-hidden px-5 pb-16 md:block md:w-[100px] xl:w-[250px]">

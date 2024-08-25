@@ -85,7 +85,7 @@ defineProps<{
 
     <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('statistics.header', { attribute: $t('the_orphans') }) }}</h2>
 
-    <suspense suspensible>
+    <suspense>
         <div class="intro-y mt-5 grid grid-cols-12 gap-6">
             <!-- Begin: orphansByFamilyStatus -->
             <div class="col-span-12 lg:col-span-6">

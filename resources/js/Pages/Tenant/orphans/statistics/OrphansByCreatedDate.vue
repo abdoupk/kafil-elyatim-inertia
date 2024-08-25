@@ -1,29 +1,35 @@
 <script lang="ts" setup>
 import type { OrphansByCreatedDateType } from '@/types/statistics'
 
-import BaseLineChart from '@/Components/Base/chart/BaseLineChart.vue'
+import { defineAsyncComponent } from 'vue'
+
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { abbreviationMonths } from '@/utils/constants'
 import { __, getLocale } from '@/utils/i18n'
 
-const props = defineProps<{
+const BaseLineChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseLineChart.vue'))
+
+defineProps<{
     orphansByCreatedDate: OrphansByCreatedDateType
 }>()
-
-console.log(props.orphansByCreatedDate)
 </script>
 
 <template>
-    <base-line-chart
-        :datasets="[
-            {
-                data: props.orphansByCreatedDate,
-                label: __('statistics.orphans.titles.orphans_by_created_date'),
-                borderColor: () => getColor('primary')
-            }
-        ]"
-        :height="300"
-        :labels="abbreviationMonths[getLocale()]"
-    ></base-line-chart>
+    <suspense v-if="orphansByCreatedDate.length" suspensible>
+        <base-line-chart
+            :datasets="[
+                {
+                    data: orphansByCreatedDate,
+                    label: __('statistics.orphans.titles.orphans_by_created_date'),
+                    borderColor: () => getColor('primary')
+                }
+            ]"
+            :height="300"
+            :labels="abbreviationMonths[getLocale()]"
+        ></base-line-chart>
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

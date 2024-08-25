@@ -1,18 +1,26 @@
 <script lang="ts" setup>
 import type { SponsorsBySponsorshipType } from '@/types/statistics'
 
-import BasePolarBarChart from '@/Components/Base/chart/BasePolarBarChart.vue'
+import { defineAsyncComponent } from 'vue'
+
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { __ } from '@/utils/i18n'
 
-const props = defineProps<{
+const BasePolarBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BasePolarBarChart.vue'))
+
+defineProps<{
     sponsorsBySponsorship: SponsorsBySponsorshipType
 }>()
 </script>
 
 <template>
-    <base-polar-bar-chart
-        :chart-data="Object.values(sponsorsBySponsorship)"
-        :labels="Object.keys(sponsorsBySponsorship).map((key) => __(key))"
-    ></base-polar-bar-chart>
+    <suspense v-if="Object.values(sponsorsBySponsorship).length" suspensible>
+        <base-polar-bar-chart
+            :chart-data="Object.values(sponsorsBySponsorship)"
+            :labels="Object.keys(sponsorsBySponsorship).map((key) => __(key))"
+        ></base-polar-bar-chart>
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

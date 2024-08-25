@@ -3,12 +3,14 @@ import type { FamiliesByOrphansCountType } from '@/types/statistics'
 
 import { useSettingsStore } from '@/stores/settings'
 import type { ChartData, ChartOptions } from 'chart.js/auto'
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 
-import BaseChart from '@/Components/Base/chart/BaseChart.vue'
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { __, n__ } from '@/utils/i18n'
+
+const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
 const props = defineProps<{
     familiesByOrphansCount: FamiliesByOrphansCountType
@@ -79,5 +81,9 @@ const options = computed<ChartOptions>(() => {
 </script>
 
 <template>
-    <base-chart :data :height="270" :options type="bar" />
+    <suspense v-if="data.datasets[0].data.length" suspensible>
+        <base-chart :data :height="270" :options type="bar" />
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

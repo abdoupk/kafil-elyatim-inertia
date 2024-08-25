@@ -10,6 +10,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
 import MenuDivider from '@/Layouts/enigma/side-menu/MenuDivider.vue'
 import SimpleMenuLink from '@/Layouts/enigma/simple-menu/SimpleMenuLink.vue'
+import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
@@ -49,8 +50,13 @@ onMounted(() => {
             ])
         "
     >
-        <the-mobile-menu v-if="width < 768"></the-mobile-menu>
+        <suspense v-if="width < 768">
+            <the-mobile-menu></the-mobile-menu>
 
+            <template #fallback>
+                <mobile-menu-loader></mobile-menu-loader>
+            </template>
+        </suspense>
         <the-top-bar></the-top-bar>
 
         <div class="flex overflow-hidden">

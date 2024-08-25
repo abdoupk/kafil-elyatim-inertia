@@ -13,10 +13,10 @@ import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import FamiliesByHousing from '@/Pages/Tenant/families/statistics/FamiliesByHousing.vue'
-
 import TheStatisticBox from '@/Components/Global/TheStatisticBox.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+const FamiliesByHousing = defineAsyncComponent(() => import('@/Pages/Tenant/families/statistics/FamiliesByHousing.vue'))
 
 const FamiliesByBranch = defineAsyncComponent(() => import('@/Pages/Tenant/families/statistics/FamiliesByBranch.vue'))
 
@@ -53,7 +53,7 @@ defineProps<{
 
     <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('statistics.header', { attribute: $t('the_families') }) }}</h2>
 
-    <suspense suspensible>
+    <suspense>
         <div class="intro-y mt-5 grid grid-cols-12 gap-6">
             <!-- Begin: familiesByZone -->
             <div class="col-span-12 lg:col-span-6">

@@ -1,15 +1,21 @@
 <script lang="ts" setup>
 import type { OrphansByBranchType } from '@/types/statistics'
 
-import BasePieChart from '@/Components/Base/chart/BasePieChart.vue'
+import { defineAsyncComponent } from 'vue'
 
-const props = defineProps<{
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
+
+const BasePieChart = defineAsyncComponent(() => import('@/Components/Base/chart/BasePieChart.vue'))
+
+defineProps<{
     orphansByBranch: OrphansByBranchType
 }>()
-
-console.log(props.orphansByBranch)
 </script>
 
 <template>
-    <base-pie-chart :chart-data="orphansByBranch.data" :labels="orphansByBranch.label"></base-pie-chart>
+    <suspense v-if="orphansByBranch.data.length" suspensible>
+        <base-pie-chart :chart-data="orphansByBranch.data" :labels="orphansByBranch.labels"></base-pie-chart>
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>

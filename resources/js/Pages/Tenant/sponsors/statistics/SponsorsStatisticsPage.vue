@@ -7,16 +7,26 @@ import type {
 } from '@/types/statistics'
 
 import { Head } from '@inertiajs/vue3'
+import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import SponsorsByAcademicLevel from '@/Pages/Tenant/sponsors/statistics/SponsorsByAcademicLevel.vue'
-import SponsorsByDiploma from '@/Pages/Tenant/sponsors/statistics/SponsorsByDiploma.vue'
-import SponsorsBySponsorType from '@/Pages/Tenant/sponsors/statistics/SponsorsBySponsorType.vue'
-import SponsorsBySponsorship from '@/Pages/Tenant/sponsors/statistics/SponsorsBySponsorship.vue'
-
 import TheStatisticBox from '@/Components/Global/TheStatisticBox.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+const SponsorsByAcademicLevel = defineAsyncComponent(
+    () => import('@/Pages/Tenant/sponsors/statistics/SponsorsByAcademicLevel.vue')
+)
+
+const SponsorsByDiploma = defineAsyncComponent(() => import('@/Pages/Tenant/sponsors/statistics/SponsorsByDiploma.vue'))
+
+const SponsorsBySponsorType = defineAsyncComponent(
+    () => import('@/Pages/Tenant/sponsors/statistics/SponsorsBySponsorType.vue')
+)
+
+const SponsorsBySponsorship = defineAsyncComponent(
+    () => import('@/Pages/Tenant/sponsors/statistics/SponsorsBySponsorship.vue')
+)
 
 defineOptions({
     layout: TheLayout
@@ -35,7 +45,7 @@ defineProps<{
 
     <h2 class="intro-y mt-10 text-lg font-medium">{{ $t('statistics.header', { attribute: $t('the_sponsors') }) }}</h2>
 
-    <suspense suspensible>
+    <suspense>
         <div class="intro-y mt-5 grid grid-cols-12 gap-6">
             <!-- Begin: sponsorsBySponsorType -->
             <div class="col-span-12 lg:col-span-6">

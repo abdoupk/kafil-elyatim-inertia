@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import type { OrphansByPantsAndShirtSizeType } from '@/types/statistics'
 
-import BaseVerticalBarChart from '@/Components/Base/chart/BaseVerticalBarChart.vue'
+import { defineAsyncComponent } from 'vue'
+
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { __ } from '@/utils/i18n'
+
+const BaseVerticalBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseVerticalBarChart.vue'))
 
 defineProps<{
     orphansByPantsAndShirtSize: OrphansByPantsAndShirtSizeType
@@ -11,18 +15,22 @@ defineProps<{
 </script>
 
 <template>
-    <base-vertical-bar-chart
-        :datasets="[
-            {
-                data: orphansByPantsAndShirtSize.shirts_data,
-                label: __('orphans_count')
-            },
-            {
-                data: orphansByPantsAndShirtSize.pants_data,
-                label: __('orphans_count')
-            }
-        ]"
-        :height="300"
-        :labels="Object.values(orphansByPantsAndShirtSize.labels)"
-    ></base-vertical-bar-chart>
+    <suspense v-if="orphansByPantsAndShirtSize.shirts_data.length" suspensible>
+        <base-vertical-bar-chart
+            :datasets="[
+                {
+                    data: orphansByPantsAndShirtSize.shirts_data,
+                    label: __('orphans_count')
+                },
+                {
+                    data: orphansByPantsAndShirtSize.pants_data,
+                    label: __('orphans_count')
+                }
+            ]"
+            :height="300"
+            :labels="Object.values(orphansByPantsAndShirtSize.labels)"
+        ></base-vertical-bar-chart>
+    </suspense>
+
+    <the-no-data-chart v-else></the-no-data-chart>
 </template>
