@@ -19,6 +19,8 @@ return new class extends Migration
             $table->text('address');
             $table->text('file_number');
             $table->date('start_date');
+            $table->float('income_rate')->nullable();
+            $table->float('total_income')->nullable();
             $table->text('tenant_id')->index('idx_families_tenant_id');
             $table->uuid('created_by')->nullable();
             $table->uuid('deleted_by')->nullable();

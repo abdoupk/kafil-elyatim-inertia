@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('baby_milk_quantity')->nullable();
             $table->uuid('baby_milk_type')->nullable();
             $table->integer('diapers_quantity')->nullable();
-            $table->text('diapers_type')->nullable();
+            $table->uuid('diapers_type')->nullable();
             $table->uuid('orphan_id');
             $table->uuid('family_id');
             $table->text('tenant_id');

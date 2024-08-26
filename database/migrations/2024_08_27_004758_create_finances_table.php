@@ -17,7 +17,7 @@ return new class extends Migration
             $table->float('amount');
             $table->text('description')->nullable();
             $table->timestamp('date');
-            $table->uuid('tenant_id');
+            $table->text('tenant_id');
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by');

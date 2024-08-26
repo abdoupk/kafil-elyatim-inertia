@@ -19,6 +19,7 @@ class FamilyFactory extends Factory
             'file_number' => fake()->randomNumber(),
             'start_date' => now()->subDays(fake()->numberBetween(1, 10000)),
             'income_rate' => fake()->randomFloat(2, 0, 100),
+            'total_income' => fake()->randomFloat(2, 0, 100000),
             'tenant_id' => fake()->uuid,
             'created_by' => User::inRandomOrder()->first()->id,
             'deleted_by' => User::inRandomOrder()->first()->id,

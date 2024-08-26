@@ -23,6 +23,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
             $table->uuid('created_by')->nullable();
+            $table->uuid('deleted_by')->nullable();
 
             $table->index(['needable_type', 'needable_id']);
         });
