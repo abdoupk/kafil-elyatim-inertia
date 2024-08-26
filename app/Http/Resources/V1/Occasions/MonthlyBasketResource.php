@@ -13,8 +13,8 @@ class MonthlyBasketResource extends JsonResource
             'id' => $this->id,
             'address' => $this->family->address,
             'zone' => [
-                'id' => $this->family->zone->id,
-                'name' => $this->family->zone->name,
+                'id' => $this->family->zone?->id,
+                'name' => $this->family->zone?->name,
             ],
             'branch' => [
                 'id' => $this->family->branch->id,

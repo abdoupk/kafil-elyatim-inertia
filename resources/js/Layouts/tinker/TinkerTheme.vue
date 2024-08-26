@@ -1,8 +1,6 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { defineAsyncComponent, defineProps } from 'vue'
-
-defineProps<{ showLoader: boolean }>()
+import { defineAsyncComponent } from 'vue'
 
 const sideMenu = defineAsyncComponent({
     loader: () => import('./side-menu/TheSideMenu.vue')
@@ -20,21 +18,21 @@ const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <Suspense v-if="settingsStore.layout === 'simple_menu'">
+    <suspense v-if="settingsStore.layout === 'simple_menu'">
         <component :is="simpleMenu">
             <slot></slot>
         </component>
-    </Suspense>
+    </suspense>
 
-    <Suspense v-if="settingsStore.layout === 'side_menu'">
+    <suspense v-if="settingsStore.layout === 'side_menu'">
         <component :is="sideMenu">
             <slot></slot>
         </component>
-    </Suspense>
+    </suspense>
 
-    <Suspense v-if="settingsStore.layout === 'top_menu'">
+    <suspense v-if="settingsStore.layout === 'top_menu'">
         <component :is="topMenu">
             <slot></slot>
         </component>
-    </Suspense>
+    </suspense>
 </template>

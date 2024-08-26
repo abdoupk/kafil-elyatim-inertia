@@ -1,56 +1,38 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { defineAsyncComponent, defineProps } from 'vue'
-
-import RubickSideMenuLoader from '@/Layouts/loaders/RubickSideMenuLoader.vue'
-import RubickSimpleMenuLoader from '@/Layouts/loaders/RubickSimpleMenuLoader.vue'
-import RubickTopMenuLoader from '@/Layouts/loaders/RubickTopMenuLoader.vue'
-
-defineProps<{ showLoader: boolean }>()
+import { defineAsyncComponent } from 'vue'
 
 const sideMenu = defineAsyncComponent({
-    loader: () => import('./side-menu/TheSideMenu.vue'),
-    loadingComponent: RubickSideMenuLoader
+    loader: () => import('./side-menu/TheSideMenu.vue')
 })
 
 const simpleMenu = defineAsyncComponent({
-    loader: () => import('./simple-menu/TheSimpleMenu.vue'),
-    loadingComponent: RubickSimpleMenuLoader
+    loader: () => import('./simple-menu/TheSimpleMenu.vue')
 })
 
 const topMenu = defineAsyncComponent({
-    loader: () => import('./top-menu/TheTopMenu.vue'),
-    loadingComponent: RubickTopMenuLoader
+    loader: () => import('./top-menu/TheTopMenu.vue')
 })
 
 const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <Suspense v-if="settingsStore.layout === 'simple_menu'">
+    <suspense v-if="settingsStore.layout === 'simple_menu'">
         <component :is="simpleMenu">
             <slot></slot>
         </component>
-        <template v-if="showLoader" #fallback>
-            <rubick-simple-menu-loader></rubick-simple-menu-loader>
-        </template>
-    </Suspense>
+    </suspense>
 
-    <Suspense v-if="settingsStore.layout === 'side_menu'">
+    <suspense v-if="settingsStore.layout === 'side_menu'">
         <component :is="sideMenu">
             <slot></slot>
         </component>
-        <template v-if="showLoader" #fallback>
-            <rubick-side-menu-loader></rubick-side-menu-loader>
-        </template>
-    </Suspense>
+    </suspense>
 
-    <Suspense v-if="settingsStore.layout === 'top_menu'">
+    <suspense v-if="settingsStore.layout === 'top_menu'">
         <component :is="topMenu">
             <slot></slot>
         </component>
-        <template v-if="showLoader" #fallback>
-            <rubick-top-menu-loader></rubick-top-menu-loader>
-        </template>
-    </Suspense>
+    </suspense>
 </template>
