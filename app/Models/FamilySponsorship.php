@@ -81,7 +81,7 @@ class FamilySponsorship extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('family.sponsor.incomes', 'family.zone', 'family.orphans', 'family.branch');
+        return $models->load('family.sponsor.incomes', 'family.zone', 'family.orphans', 'family.secondSponsor', 'family.branch');
     }
 
     public function toSearchableArray(): array
@@ -103,6 +103,7 @@ class FamilySponsorship extends Model
                     'name' => $this->family->branch->name,
                 ],
                 'orphans_count' => $this->family->orphans->count(),
+                'income_rate' => (float) $this->family->income_rate,
                 'total_income' => $this->family->totalIncomes(),
             ],
             'sponsor' => [

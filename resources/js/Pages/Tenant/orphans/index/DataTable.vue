@@ -100,6 +100,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <the-table-td class="max-w-40 truncate text-center">
                             {{ orphan.academic_level }}
+
+                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                                {{ orphan.academic_level_phase }}
+                            </div>
                         </the-table-td>
 
                         <the-table-td class="text-center">

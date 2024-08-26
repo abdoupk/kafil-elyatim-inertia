@@ -110,9 +110,8 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate">
                             {{ orphan.family.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
                             <Link
-                                :href="route('tenant.zones.index')"
+                                :href="route('tenant.zones.index') + `?show=${orphan.family.zone?.id}`"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                             >
                                 {{ orphan.family.zone?.name }}
@@ -128,7 +127,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ orphan.name }}
+                            {{ orphan.orphan.name }}
                         </div>
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"

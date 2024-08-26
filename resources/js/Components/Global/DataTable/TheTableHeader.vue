@@ -107,7 +107,10 @@ const handleExport = (params: IndexParams) => {
                 @reset-filter="handleFilterReset"
             ></advanced-filter>
 
-            <div class="mx-auto hidden text-slate-500 md:block">
+            <!--TODO remove if has filters-->
+            remove pre filters
+
+            <div class="ms-auto text-slate-500 md:mx-auto">
                 <span v-if="paginationData.meta.total > 0">
                     {{
                         $t('showing_results', {

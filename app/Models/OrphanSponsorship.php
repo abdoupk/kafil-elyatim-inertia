@@ -102,8 +102,8 @@ class OrphanSponsorship extends Model
             'private_lessons' => $this->private_lessons,
             'school_bag' => $this->school_bag,
             'family' => [
-                'address' => $this->orphan->family->address,
-                'zone' => $this->orphan->family->zone->name,
+                'address' => $this->orphan->family?->address,
+                'zone' => $this->orphan->family?->zone->name,
             ],
             'orphan' => [
                 'id' => $this->orphan->id,
@@ -121,8 +121,8 @@ class OrphanSponsorship extends Model
                 'shoes_size' => $this->orphan->shoes_size,
             ],
             'sponsor' => [
-                'name' => $this->orphan->sponsor->getName(),
-                'phone_number' => $this->orphan->sponsor->formattedPhoneNumber(),
+                'name' => $this->orphan->sponsor?->getName(),
+                'phone_number' => $this->orphan->sponsor?->formattedPhoneNumber(),
             ],
             'tenant_id' => $this->orphan->tenant_id,
         ];

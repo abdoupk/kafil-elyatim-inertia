@@ -295,7 +295,7 @@ return [
                     'diploma',
                     'ccp',
                 ],
-                'sortableAttributes' => ['name', 'created_at'],
+                'sortableAttributes' => ['name', 'birth_date', 'academic_level.id', 'health_status', 'created_at'],
             ],
             'families' => [
                 'rankingRules' => [
@@ -434,7 +434,8 @@ return [
                     'sponsor.name',
                     'sponsor.phone_number',
                     'family.orphans_count',
-                    'total_income',
+                    'family.total_income',
+                    'family.income_rate',
                 ],
                 'sortableAttributes' => [
                     'created_at',
@@ -442,7 +443,8 @@ return [
                     'family.zone',
                     'family.branch',
                     'sponsor.name',
-                    'total_income',
+                    'family.total_income',
+                    'family.income_rate',
                 ],
             ],
             'orphan_sponsorships' => [

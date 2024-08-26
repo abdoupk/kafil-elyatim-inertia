@@ -110,9 +110,9 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate">
                             {{ orphan.family.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
+
                             <Link
-                                :href="route('tenant.zones.index')"
+                                :href="route('tenant.zones.index') + `?show=${orphan.family.zone?.id}`"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                             >
                                 {{ orphan.family.zone?.name }}
@@ -128,39 +128,32 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ orphan.name }}
+                            {{ orphan.orphan.name }}
                         </div>
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ orphan.file_number }}
+                            {{ orphan.orphan.last_year_average }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ orphan.address }}</p>
+                            <p class="truncate">
+                                {{ orphan.sponsor.name }}
+
+                                <span v-if="orphan.sponsor.phone_number" dir="ltr"
+                                    >({{ orphan.sponsor.phone_number }})</span
+                                >
+                            </p>
+
                             <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ orphan.zone?.name }}
+                                {{ orphan.family.address }}
                             </div>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ orphan.start_date }}
+                                {{ orphan.orphan.academic_level }} ({{ orphan.orphan.academic_phase }})
                             </div>
-                        </div>
-                        <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.orphans.show', orphan.id)"
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
-                            </Link>
-                            <a
-                                class="font-semibold text-danger"
-                                href="javascript:void(0)"
-                                @click="emit('showDeleteModal', orphan.id)"
-                            >
-                                {{ $t('delete') }}
-                            </a>
                         </div>
                     </div>
                 </div>

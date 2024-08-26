@@ -50,36 +50,12 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.academic_level"
+                            :direction="params.directions && params.directions['academic_level.id']"
                             class="text-center"
                             sortable
-                            @click="emit('sort', 'academic_level')"
+                            @click="emit('sort', 'academic_level.id')"
                             >{{ $t('validation.attributes.sponsor.academic_level') }}
                         </the-table-th>
-
-                        <!--                        <the-table-th-->
-                        <!--                            :direction="params.directions?.shoes_size"-->
-                        <!--                            class="whitespace-nowrap border-b-0 font-semibold text-center"-->
-                        <!--                            sortable-->
-                        <!--                            @click="emit('sort', 'shoes_size')"-->
-                        <!--                            >{{ $t('shoes_size') }}-->
-                        <!--                        </the-table-th>-->
-
-                        <!--                        <the-table-th-->
-                        <!--                            :direction="params.directions?.pants_size"-->
-                        <!--                            class="whitespace-nowrap border-b-0 font-semibold text-center"-->
-                        <!--                            sortable-->
-                        <!--                            @click="emit('sort', 'pants_size')"-->
-                        <!--                            >{{ $t('pants_size') }}-->
-                        <!--                        </the-table-th>-->
-
-                        <!--                        <the-table-th-->
-                        <!--                            :direction="params.directions?.shirt_size"-->
-                        <!--                            class="whitespace-nowrap border-b-0 font-semibold text-center"-->
-                        <!--                            sortable-->
-                        <!--                            @click="emit('sort', 'shirt_size')"-->
-                        <!--                            >{{ $t('shirt_size') }}-->
-                        <!--                        </the-table-th>-->
 
                         <the-table-th
                             :direction="params.directions?.birth_date"
@@ -117,25 +93,11 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
 
                         <the-table-td class="max-w-40 truncate text-center">
                             {{ sponsor.academic_level }}
+
+                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                                {{ sponsor.academic_level_phase }}
+                            </div>
                         </the-table-td>
-
-                        <!--                        <the-table-td-->
-                        <!--                            class= text-center"-->
-                        <!--                        >-->
-                        <!--                            {{ sponsor.shoes_size }}-->
-                        <!--                        </the-table-td>-->
-
-                        <!--                        <the-table-td-->
-                        <!--                            class= text-center"-->
-                        <!--                        >-->
-                        <!--                            {{ sponsor.pants_size }}-->
-                        <!--                        </the-table-td>-->
-
-                        <!--                        <the-table-td-->
-                        <!--                            class= text-center"-->
-                        <!--                        >-->
-                        <!--                            {{ sponsor.shirt_size }}-->
-                        <!--                        </the-table-td>-->
 
                         <the-table-td class="text-center">
                             {{ formatDate(sponsor.birth_date, 'long') }}
@@ -172,28 +134,28 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ sponsor.phone }}
+                            {{ $t(`sponsor_types.${sponsor.sponsor_type}`) }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ sponsor.email }}</p>
+                            <p class="truncate">{{ sponsor.health_status }}</p>
+
                             <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ sponsor.zone?.name }}
+                                {{ sponsor.function }}
                             </div>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ sponsor.start_date }}
+                                {{ sponsor.phone_number }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <a
+                            <Link
+                                :href="route('tenant.sponsors.show', sponsor.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                href="javascript:void(0)"
-                                @click.prevent="emit('showEditModal', sponsor.id)"
                                 >{{ $t('edit') }}
-                            </a>
+                            </Link>
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"

@@ -14,14 +14,14 @@ class EidSuitArchiveIndexResource extends JsonResource
         return [
             'id' => $this->id,
             'sponsor' => [
-                'id' => $this->sponsor->id,
-                'name' => $this->sponsor->getName(),
-                'phone_number' => $this->sponsor->formattedPhoneNumber(),
+                'id' => $this->sponsor?->id,
+                'name' => $this->sponsor?->getName(),
+                'phone_number' => $this->sponsor?->formattedPhoneNumber(),
             ],
             'family' => [
                 'zone' => [
-                    'id' => $this->family->zone->id,
-                    'name' => $this->family->zone->name,
+                    'id' => $this->family?->zone->id,
+                    'name' => $this->family?->zone->name,
                 ],
                 'address' => $this->family->address,
             ],

@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources\V1\Occasions;
 
+use App\Models\FamilySponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/* @mixin FamilySponsorship  */
 class EidAlAdhaResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -13,20 +15,21 @@ class EidAlAdhaResource extends JsonResource
             'id' => $this->id,
             'address' => $this->family->address,
             'zone' => [
-                'id' => $this->family->zone->id,
-                'name' => $this->family->zone->name,
+                'id' => $this->family->zone?->id,
+                'name' => $this->family->zone?->name,
             ],
             'branch' => [
-                'id' => $this->family->branch->id,
-                'name' => $this->family->branch->name,
+                'id' => $this->family->branch?->id,
+                'name' => $this->family->branch?->name,
             ],
             'sponsor' => [
-                'id' => $this->family->sponsor->id,
-                'name' => $this->family->sponsor->getName(),
-                'phone_number' => $this->family->sponsor->formattedPhoneNumber(),
+                'id' => $this->family->sponsor?->id,
+                'name' => $this->family->sponsor?->getName(),
+                'phone_number' => $this->family->sponsor?->formattedPhoneNumber(),
             ],
             'orphans_count' => $this->family->orphans->count(),
             'total_income' => $this->family->totalIncomes(),
+            'income_rate' => $this->family->income_rate,
         ];
     }
 }

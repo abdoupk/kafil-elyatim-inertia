@@ -18,6 +18,7 @@ class OrphansIndexResource extends JsonResource
             'family_status' => $this->family_status,
             'health_status' => $this->health_status,
             'academic_level' => $this->academicLevel?->level,
+            'academic_level_phase' => $this->academicLevel?->phase,
             'shoes_size' => $this->shoes_size,
             'pants_size' => $this->pants_size,
             'shirt_size' => $this->shirt_size,

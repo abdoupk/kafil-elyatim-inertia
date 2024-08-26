@@ -102,14 +102,14 @@ class Baby extends Model
                 'name' => $this->orphan->family->name,
             ],
             'sponsor' => [
-                'id' => $this->orphan->sponsor->id,
-                'name' => $this->orphan->sponsor->getName(),
+                'id' => $this->orphan->sponsor?->id,
+                'name' => $this->orphan->sponsor?->getName(),
             ],
             'address' => [
                 'address' => $this->orphan->family->address,
                 'zone' => [
-                    'id' => $this->orphan->family->zone->id,
-                    'name' => $this->orphan->family->zone->name,
+                    'id' => $this->orphan->family->zone?->id,
+                    'name' => $this->orphan->family->zone?->name,
                 ],
             ],
             'created_at' => strtotime($this->created_at),

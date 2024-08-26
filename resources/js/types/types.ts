@@ -392,6 +392,7 @@ export interface EidAlAdhaFamiliesResource {
     }
     orphans_count: number
     total_income: number
+    income_rate: number
 }
 
 export interface RamadanBasketFamiliesResource {
@@ -494,6 +495,7 @@ export interface OrphansIndexResource {
     family_status: string
     health_status: string
     academic_level: string
+    academic_level_phase: string
     shoes_size: string
     pants_size: string
     shirt_size: string
@@ -507,6 +509,7 @@ export interface SponsorsIndexResource {
     phone_number: string
     birth_date: string
     academic_level: string
+    academic_level_phase: string
     function: string
     health_status: string
     sponsor_type: string

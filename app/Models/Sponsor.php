@@ -181,7 +181,7 @@ class Sponsor extends Model
             'name' => $this->getName(),
             'phone_number' => $this->phone_number,
             'sponsor_type' => $this->sponsor_type,
-            'birth_date' => strtotime($this->birth_date),
+            'birth_date' => (int) strtotime($this->birth_date),
             'father_name' => $this->father_name,
             'mother_name' => $this->mother_name,
             'birth_certificate_number' => $this->birth_certificate_number,

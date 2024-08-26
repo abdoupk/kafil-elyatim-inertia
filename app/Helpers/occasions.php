@@ -11,7 +11,7 @@ function listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship(): LengthAwarePagin
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_EID_AL_ADHA)
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor:id,family_id,income']))
+            ->with(['family:id,address,zone_id,branch_id,income_rate', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor:id,family_id,income']))
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
 

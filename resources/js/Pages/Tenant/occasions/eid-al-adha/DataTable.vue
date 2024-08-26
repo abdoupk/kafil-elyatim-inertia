@@ -64,12 +64,21 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.total_income"
+                            :direction="params.directions && params.directions['family.total_income']"
                             class="!w-32 text-center"
                             sortable
-                            @click="emit('sort', 'total_income')"
+                            @click="emit('sort', 'family.total_income')"
                         >
                             {{ $t('incomes.label.total_income') }}
+                        </the-table-th>
+
+                        <the-table-th
+                            :direction="params.directions && params.directions['family.income_rate']"
+                            class="!w-32 text-center"
+                            sortable
+                            @click="emit('sort', 'family.income_rate')"
+                        >
+                            {{ $t('income_rate') }}
                         </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
@@ -81,9 +90,15 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-24 !max-w-24 truncate">
-                            <Link :href="route('tenant.sponsors.show', family.sponsor.id)" class="font-medium">
+                            <Link
+                                v-if="family.sponsor.id"
+                                :href="route('tenant.sponsors.show', family.sponsor.id)"
+                                class="font-medium"
+                            >
                                 {{ family.sponsor.name }}
                             </Link>
+
+                            <p v-else class="font-medium">{{ family.sponsor.name }}</p>
                         </the-table-td>
 
                         <the-table-td class="text-center">
@@ -92,9 +107,9 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate">
                             {{ family.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
+
                             <Link
-                                :href="route('tenant.zones.index')"
+                                :href="route('tenant.zones.index') + `?show=${family.zone.id}`"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                             >
                                 {{ family.zone?.name }}
@@ -121,6 +136,12 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                                 {{ formatCurrency(family.total_income) }}
                             </div>
                         </the-table-td>
+
+                        <the-table-td class="text-center">
+                            <div class="whitespace-nowrap">
+                                {{ family.income_rate }}
+                            </div>
+                        </the-table-td>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>
@@ -131,39 +152,34 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ family.name }}
+                            <Link v-if="family.sponsor.id" :href="route('tenant.sponsors.show', family.sponsor.id)">
+                                {{ family.sponsor.name }}
+                            </Link>
                         </div>
                         <div
+                            v-if="family.sponsor.phone_number"
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ family.file_number }}
+                            {{ family.sponsor.phone_number }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
                             <p class="truncate">{{ family.address }}</p>
+
                             <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ family.zone?.name }}
+                                <Link
+                                    :href="route('tenant.zones.index') + `?show=${family.zone.id}`"
+                                    class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
+                                >
+                                    {{ family.zone?.name }}
+                                </Link>
                             </div>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ family.start_date }}
+                                {{ formatCurrency(family.total_income) }}
                             </div>
-                        </div>
-                        <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.families.show', family.id)"
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
-                            </Link>
-                            <a
-                                class="font-semibold text-danger"
-                                href="javascript:void(0)"
-                                @click="emit('showDeleteModal', family.id)"
-                            >
-                                {{ $t('delete') }}
-                            </a>
                         </div>
                     </div>
                 </div>

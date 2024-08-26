@@ -2,7 +2,7 @@
 import { useSettingsStore } from '@/stores/settings'
 import type { PageProps } from '@/types'
 import { usePage } from '@inertiajs/vue3'
-import { defineAsyncComponent, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import EnigmaTheme from '@/Layouts/enigma/EnigmaTheme.vue'
 import IcewallTheme from '@/Layouts/icewall/IcewallTheme.vue'
@@ -12,8 +12,6 @@ import TinkerTheme from '@/Layouts/tinker/TinkerTheme.vue'
 import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
 
 const settingsStore = useSettingsStore()
-
-const theThemeSwitcher = defineAsyncComponent(() => import('@/Components/theme-switcher/TheThemeSwitcher.vue'))
 
 const showLoader = ref(false)
 
@@ -62,8 +60,6 @@ onMounted(() => {
             <tinker-theme v-if="settingsStore.theme === 'tinker'" :show-loader="showLoader">
                 <slot></slot>
             </tinker-theme>
-
-            <the-theme-switcher></the-theme-switcher>
         </div>
     </suspense>
 </template>

@@ -16,14 +16,14 @@ class SchoolEntryResource extends JsonResource
         return [
             'id' => $this->id,
             'sponsor' => [
-                'id' => $this->orphan->sponsor->id,
-                'name' => $this->orphan->sponsor->getName(),
-                'phone_number' => $this->orphan->sponsor->formattedPhoneNumber(),
+                'id' => $this->orphan->sponsor?->id,
+                'name' => $this->orphan->sponsor?->getName(),
+                'phone_number' => $this->orphan->sponsor?->formattedPhoneNumber(),
             ],
             'family' => [
                 'zone' => [
-                    'id' => $this->orphan->family->zone->id,
-                    'name' => $this->orphan->family->zone->name,
+                    'id' => $this->orphan->family->zone?->id,
+                    'name' => $this->orphan->family->zone?->name,
                 ],
                 'address' => $this->orphan->family->address,
             ],
