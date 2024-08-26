@@ -74,6 +74,14 @@ const isStillBaby = computed(() => {
     return birthDate.value && dayjs().diff(dayjs(birthDate.value), 'year') < 2
 })
 
+const isShouldHasIncome = computed(() => {
+    return (
+        (birthDate.value && dayjs().diff(dayjs(birthDate.value), 'year') <= 18) ||
+        isHandicapped.value ||
+        isUnemployed.value
+    )
+})
+
 const academicLevelsStore = useAcademicLevelsStore()
 
 const academicLevels = ref<AcademicLevelType[]>([])
@@ -696,8 +704,42 @@ const handleUpdateVocationalTraining = () => {
         </template>
         <!-- End: if orphan is adult-->
 
+        <div class="col-span-12 grid grid-cols-12 gap-4 sm:col-span-6 sm:mt-8">
+            <!--Begin: Handicapped-->
+            <div class="col-span-6 sm:col-span-3">
+                <base-form-switch class="text-lg">
+                    <base-form-switch-input
+                        id="is_handicapped"
+                        v-model="isHandicapped"
+                        type="checkbox"
+                    ></base-form-switch-input>
+
+                    <base-form-switch-label htmlFor="is_handicapped">
+                        {{ $t('handicapped') }}
+                    </base-form-switch-label>
+                </base-form-switch>
+            </div>
+            <!--END: Handicapped-->
+
+            <!--Begin: Handicapped-->
+            <div class="col-span-6 sm:col-span-3">
+                <base-form-switch class="text-lg">
+                    <base-form-switch-input
+                        id="is_unemployed"
+                        v-model="isUnemployed"
+                        type="checkbox"
+                    ></base-form-switch-input>
+
+                    <base-form-switch-label htmlFor="is_unemployed">
+                        {{ $t('unemployed') }}
+                    </base-form-switch-label>
+                </base-form-switch>
+            </div>
+            <!--END: Handicapped-->
+        </div>
+
         <!-- Begin: Income-->
-        <div class="col-span-12 sm:col-span-6">
+        <div v-if="!isShouldHasIncome" class="col-span-12 sm:col-span-6">
             <base-form-label for="income">
                 {{ $t('validation.attributes.income') }}
             </base-form-label>
@@ -739,40 +781,6 @@ const handleUpdateVocationalTraining = () => {
             </base-form-input-error>
         </div>
         <!-- End: Income-->
-
-        <div class="col-span-12 grid grid-cols-12 gap-4 sm:col-span-6 sm:mt-8">
-            <!--Begin: Handicapped-->
-            <div class="col-span-6 sm:col-span-3">
-                <base-form-switch class="text-lg">
-                    <base-form-switch-input
-                        id="is_handicapped"
-                        v-model="isHandicapped"
-                        type="checkbox"
-                    ></base-form-switch-input>
-
-                    <base-form-switch-label htmlFor="is_handicapped">
-                        {{ $t('handicapped') }}
-                    </base-form-switch-label>
-                </base-form-switch>
-            </div>
-            <!--END: Handicapped-->
-
-            <!--Begin: Handicapped-->
-            <div class="col-span-6 sm:col-span-3">
-                <base-form-switch class="text-lg">
-                    <base-form-switch-input
-                        id="is_unemployed"
-                        v-model="isUnemployed"
-                        type="checkbox"
-                    ></base-form-switch-input>
-
-                    <base-form-switch-label htmlFor="is_unemployed">
-                        {{ $t('unemployed') }}
-                    </base-form-switch-label>
-                </base-form-switch>
-            </div>
-            <!--END: Handicapped-->
-        </div>
 
         <!-- Begin: Note -->
         <div class="col-span-8">
