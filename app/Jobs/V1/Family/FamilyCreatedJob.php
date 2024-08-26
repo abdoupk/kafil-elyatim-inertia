@@ -20,6 +20,10 @@ class FamilyCreatedJob implements ShouldQueue
 
     public function handle(): void
     {
+        $this->family->update([
+            'total_income' => calculateTotalIncomes($this->family),
+        ]);
+
         Notification::send(
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->families_changes', true);

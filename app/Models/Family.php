@@ -266,7 +266,7 @@ class Family extends Model
 
     public function totalIncomes(): float
     {
-        return calculateTotalIncomes($this);
+        return $this->total_income ?? 0;
     }
 
     public function creator(): BelongsTo
