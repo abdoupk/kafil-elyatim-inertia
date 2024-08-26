@@ -11,7 +11,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { __, n__ } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/zones/index/DataTable.vue'))
 
@@ -144,7 +144,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <Head :title="$t('the_zones')"></Head>
+    <Head :title="__('the_zones')"></Head>
 
     <suspense>
         <div>
@@ -152,7 +152,7 @@ watchEffect(async () => {
                 :filters="zonesFilters"
                 :pagination-data="zones"
                 :params="params"
-                :title="$t('list', { attribute: $t('the_zones') })"
+                :title="__('list', { attribute: __('the_zones') })"
                 :url="route('tenant.zones.index')"
                 entries="zones"
                 export-pdf-url=""
@@ -163,7 +163,7 @@ watchEffect(async () => {
             >
                 <template #ExtraButtons>
                     <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                        {{ n__('add new', 0, { attribute: $t('zone') }) }}
+                        {{ n__('add new', 0, { attribute: __('zone') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -201,13 +201,13 @@ watchEffect(async () => {
 
             <zone-show-modal
                 :open="showModalStatus"
-                :title="$t('modal_show_title', { attribute: $t('the_zone') })"
+                :title="__('modal_show_title', { attribute: __('the_zone') })"
                 @close="showModalStatus = false"
             ></zone-show-modal>
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_zone') })"
+                :title="n__('successfully_trashed', 0, { attribute: __('the_zone') })"
             ></success-notification>
         </div>
 

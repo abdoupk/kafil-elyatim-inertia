@@ -266,7 +266,7 @@ class Family extends Model
 
     public function totalIncomes(): float
     {
-        return (float) $this->sponsor?->incomes->total_income + (float) $this->orphans?->sum('income') + $this->secondSponsor?->income;
+        return calculateTotalIncomes($this);
     }
 
     public function creator(): BelongsTo

@@ -1068,5 +1068,9 @@
     "the_expense": "المصروف",
     "no_recent_notes": "لا توجد احتياجات.",
     "the_lesson": "دروس الدعم",
-    "income_rate": "معدل الدخل"
+    "income_rate": "معدل الدخل",
+    "the_type": "النوع",
+    "diapers": "حفاظات الأطفال",
+    "baby_milk": "حليب الأطفال",
+    "low_than_one_year": "اقل من سنة"
 }

@@ -23,3 +23,7 @@ function searchFamilies(): \Illuminate\Database\Eloquent\Collection
 {
     return search(Family::getModel(), limit: LIMIT)->get();
 }
+function calculateTotalIncomes(Family $family): float
+{
+    return (float) $family->sponsor?->incomes->total_income + (float) $family->orphans?->sum('income') + $family->secondSponsor?->income;
+}

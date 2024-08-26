@@ -14,7 +14,7 @@ class ArchiveDetailsEidAlAdhaController extends Controller
     {
         return Inertia::render('Tenant/archive/details/eid-al-adha/EidAlAdhaIndexArchiveDetailsPage', [
             'archive' => ['id' => $archive->id],
-            'families' => EidAlAdhaArchiveIndexResource::collection($archive->listFamilies()->paginate(request()->integer('perPage', 10))),
+            'families' => EidAlAdhaArchiveIndexResource::collection($archive->listFamilies()->with(['zone:id,name', 'branch:id,name', 'sponsor.incomes', 'secondSponsor:id,family_id,income', 'orphans'])->withCount('orphans')->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
     }

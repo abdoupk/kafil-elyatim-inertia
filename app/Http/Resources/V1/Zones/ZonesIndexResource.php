@@ -2,15 +2,13 @@
 
 namespace App\Http\Resources\V1\Zones;
 
+use App\Models\Zone;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property string $created_at
- * @property string $name
- * @property string $id
- * @property string $description
+ * @mixin Zone
  */
 class ZonesIndexResource extends JsonResource
 {
@@ -20,6 +18,7 @@ class ZonesIndexResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
+            'families_count' => $this->families_count,
             'created_at' => Carbon::createFromTimeString($this->created_at)->diffForHumans(),
         ];
     }

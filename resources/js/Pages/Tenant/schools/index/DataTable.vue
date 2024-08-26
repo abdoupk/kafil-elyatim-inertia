@@ -5,12 +5,14 @@ import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate } from '@/utils/helper'
+import { __ } from '@/utils/i18n'
 
 defineProps<{ schools: PaginationData<SchoolsIndexResource>; params: IndexParams }>()
 
@@ -113,19 +115,17 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ school.phone }}
+                            <base-tippy :content="__('quota_total')">
+                                {{ school.quota }}
+                            </base-tippy>
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ school.email }}</p>
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ school.zone?.name }}
-                            </div>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ school.start_date }}
+                                {{ formatDate(school.created_at, 'full') }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">

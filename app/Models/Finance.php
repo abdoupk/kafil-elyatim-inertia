@@ -94,7 +94,7 @@ class Finance extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('creator');
+        return $models->load(['creator', 'receiver']);
     }
 
     public function toSearchableArray(): array
@@ -102,14 +102,22 @@ class Finance extends Model
         return [
             'amount' => $this->amount,
             'description' => $this->description,
-            'date' => $this->date,
+            'date' => strtotime($this->date),
             'specification' => [
                 'ar' => __($this->specification, locale: 'ar'),
                 'en' => __($this->specification, locale: 'en'),
                 'fr' => __($this->specification, locale: 'fr'),
             ],
-            'creator' => $this->creator->getName(),
+            'creator' => [
+                'id' => $this->creator?->id,
+                'name' => $this->creator?->getName(),
+            ],
+            'receiver' => [
+                'id' => $this->receiver?->id,
+                'name' => $this->receiver?->getName(),
+            ],
             'tenant_id' => $this->tenant_id,
+            'created_at' => strtotime($this->created_at),
         ];
     }
 

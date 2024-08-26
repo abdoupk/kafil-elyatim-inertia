@@ -21,7 +21,7 @@ function listOfFamiliesBenefitingFromTheMonthlyBasket(): LengthAwarePaginator
     //    $filters = ['monthly_allowance', '=', true];
 
     return search(FamilySponsorship::getModel())
-        ->query(fn ($query) => $query->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
+        ->query(fn ($query) => $query->with(['family:id,address,income_rate,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
 
@@ -38,7 +38,7 @@ function listOfFamiliesBenefitingFromTheRamadanBasketSponsorship(): LengthAwareP
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_RAMADAN_BASKET)
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
+            ->with(['family:id,address,zone_id,branch_id,income_rate', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
 
@@ -46,7 +46,7 @@ function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginato
 {
     return search(OrphanSponsorship::getModel(), FILTER_EID_SUIT)
         ->query(fn ($query) => $query
-            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name', 'orphan.shoesSize', 'orphan.pantsSize', 'orphan.shirtSize'])
+            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size,birth_date', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name', 'orphan.shoesSize', 'orphan.pantsSize', 'orphan.shirtSize'])
         )
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
@@ -55,7 +55,7 @@ function listOfBabies(): LengthAwarePaginator
 {
     return search(Baby::getModel(), 'AND orphan.birth_date > '.strtotime('now - 2 years'))
         ->query(fn ($query) => $query
-            ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
+            ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id', 'orphan.sponsor:id,first_name,last_name,phone_number', 'babyMilk:id,name', 'diapers:id,name', 'orphan.family.zone:id,name'])
         )
         ->paginate(perPage: request()?->integer('perPage', 10));
 }

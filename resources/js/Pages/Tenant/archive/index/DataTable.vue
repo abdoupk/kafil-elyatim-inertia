@@ -7,10 +7,12 @@ import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
 import { formatDate } from '@/utils/helper'
+import { __ } from '@/utils/i18n'
 
 defineProps<{ items: PaginationData<ArchiveIndexResource>; params: IndexParams }>()
 
@@ -53,15 +55,23 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                             </Link>
                         </the-table-td>
 
-                        <the-table-td class="max-w-40 truncate">
-                            {{ item.savedBy.name }}
+                        <the-table-td class="max-w-40 truncate text-center">
+                            <Link
+                                v-if="item.savedBy.id"
+                                :href="route('tenant.members.index') + `?show=${item.savedBy.id}`"
+                                class="font-medium"
+                            >
+                                {{ item.savedBy.name }}
+                            </Link>
+
+                            <span v-else> — </span>
                         </the-table-td>
 
                         <the-table-td class="text-center">
                             {{ formatDate(item.created_at, 'long') }}
                         </the-table-td>
 
-                        <the-table-td class="w-40">
+                        <the-table-td class="w-40 text-center">
                             {{ item.families_count }}
                         </the-table-td>
                     </base-tr-table>
@@ -74,32 +84,30 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ item.name }}
+                            <Link :href="item.url">{{ item.name }}</Link>
                         </div>
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ formatDate(item.deleted_at, 'full') }}
+                            <base-tippy :content="__('archive.families_count')">
+                                {{ item.families_count }}
+                            </base-tippy>
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ item.user_name }}</p>
-                        </div>
-                        <div class="flex w-1/4 items-center justify-end">
-                            <a
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                href="javascript:void(0)"
-                                @click.prevent="emit('restore', item.id)"
-                                >{{ $t('edit') }}
-                            </a>
-                            <a
-                                class="font-semibold text-danger"
-                                href="javascript:void(0)"
-                                @click="emit('showDeleteModal', item.id)"
+                            <Link
+                                :href="route('tenant.members.index') + `?show=${item.savedBy.id}`"
+                                class="truncate font-medium"
                             >
-                                {{ $t('delete') }}
-                            </a>
+                                {{ item.savedBy.name }}
+                            </Link>
+
+                            <div
+                                class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                            >
+                                {{ item.readable_created_at }}
+                            </div>
                         </div>
                     </div>
                 </div>

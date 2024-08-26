@@ -61,6 +61,24 @@ class Archive extends Model
         return 'archive';
     }
 
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'occasion' => [
+                'ar' => __($this->occasion, locale: 'ar'),
+                'en' => __($this->occasion, locale: 'en'),
+                'fr' => __($this->occasion, locale: 'fr'),
+            ],
+            'saved_by' => [
+                'id' => $this->savedBy?->id,
+                'name' => $this->savedBy?->getName(),
+            ],
+            'tenant_id' => $this->tenant_id,
+            'created_at' => strtotime($this->created_at),
+        ];
+    }
+
     protected function casts(): array
     {
         return [

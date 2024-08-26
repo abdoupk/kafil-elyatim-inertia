@@ -7,10 +7,12 @@ import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
 import { formatCurrency } from '@/utils/helper'
+import { __ } from '@/utils/i18n'
 
 defineProps<{ families: PaginationData<RamadanBasketFamiliesResource>; params: IndexParams }>()
 
@@ -31,11 +33,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'sponsor.name')"
                         >
-                            {{ $t('the_sponsor') }}
+                            {{ __('the_sponsor') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.sponsor.phone_number') }}
+                            {{ __('validation.attributes.sponsor.phone_number') }}
                         </the-table-th>
 
                         <the-table-th
@@ -43,7 +45,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="text-start"
                             sortable
                             @click="emit('sort', 'family.zone')"
-                            >{{ $t('validation.attributes.address') }}
+                            >{{ __('validation.attributes.address') }}
                         </the-table-th>
 
                         <the-table-th
@@ -51,7 +53,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="text-start"
                             sortable
                             @click="emit('sort', 'family.branch')"
-                            >{{ $t('the_branch') }}
+                            >{{ __('the_branch') }}
                         </the-table-th>
 
                         <the-table-th
@@ -60,7 +62,16 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'family.orphans_count')"
                         >
-                            {{ $t('children_count') }}
+                            {{ __('children_count') }}
+                        </the-table-th>
+
+                        <the-table-th
+                            :direction="params.directions && params.directions['family.income_rate']"
+                            class="!w-32 text-center"
+                            sortable
+                            @click="emit('sort', 'family.income_rate')"
+                        >
+                            {{ __('income_rate') }}
                         </the-table-th>
 
                         <the-table-th
@@ -69,7 +80,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'total_income')"
                         >
-                            {{ $t('incomes.label.total_income') }}
+                            {{ __('incomes.label.total_income') }}
                         </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
@@ -118,6 +129,12 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="text-center">
                             <div class="whitespace-nowrap">
+                                {{ family.income_rate }}
+                            </div>
+                        </the-table-td>
+
+                        <the-table-td class="text-center">
+                            <div class="whitespace-nowrap">
                                 {{ formatCurrency(family.total_income) }}
                             </div>
                         </the-table-td>
@@ -131,39 +148,41 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ family.name }}
+                            <Link
+                                v-if="family.sponsor.id"
+                                :href="route('tenant.sponsors.show', family.sponsor.id)"
+                                class="font-medium"
+                            >
+                                {{ family.sponsor.name }}
+                            </Link>
+                            <p class="mt-0.5 text-sm text-slate-500">{{ family.sponsor.phone_number }}</p>
                         </div>
                         <div
-                            class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
+                            class="ms-auto flex h-fit w-fit cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ family.file_number }}
+                            <base-tippy :content="__('income_rate')">
+                                {{ family.income_rate }}
+                            </base-tippy>
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
                             <p class="truncate">{{ family.address }}</p>
                             <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ family.zone?.name }}
+                                <Link
+                                    :href="route('tenant.zones.index') + `?show=${family.zone.id}`"
+                                    class="whitespace-nowrap text-slate-500"
+                                >
+                                    {{ family.zone?.name }}
+                                </Link>
                             </div>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ family.start_date }}
+                                <base-tippy :content="__('incomes.label.total_income')">
+                                    {{ formatCurrency(family.total_income) }}
+                                </base-tippy>
                             </div>
-                        </div>
-                        <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.families.show', family.id)"
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
-                            </Link>
-                            <a
-                                class="font-semibold text-danger"
-                                href="javascript:void(0)"
-                                @click="emit('showDeleteModal', family.id)"
-                            >
-                                {{ $t('delete') }}
-                            </a>
                         </div>
                     </div>
                 </div>

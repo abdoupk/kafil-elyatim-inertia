@@ -7,8 +7,11 @@ import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
+
+import { __, n__ } from '@/utils/i18n'
 
 defineProps<{ orphans: PaginationData<EidSuitOrphansResource>; params: IndexParams }>()
 
@@ -29,7 +32,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'orphan.name')"
                         >
-                            {{ $t('the_child') }}
+                            {{ __('the_child') }}
                         </the-table-th>
 
                         <the-table-th
@@ -38,7 +41,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'orphan.pants_size')"
                         >
-                            {{ $t('pants_size') }}
+                            {{ __('pants_size') }}
                         </the-table-th>
 
                         <the-table-th
@@ -47,7 +50,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'orphan.shoes_size')"
                         >
-                            {{ $t('shoes_size') }}
+                            {{ __('shoes_size') }}
                         </the-table-th>
 
                         <the-table-th
@@ -56,7 +59,16 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'orphan.shirt_size')"
                         >
-                            {{ $t('shirt_size') }}
+                            {{ __('shirt_size') }}
+                        </the-table-th>
+
+                        <the-table-th
+                            :direction="params.directions && params.directions['orphan.age']"
+                            class="text-center"
+                            sortable
+                            @click="emit('sort', 'orphan.age')"
+                        >
+                            {{ __('age') }}
                         </the-table-th>
 
                         <the-table-th
@@ -65,14 +77,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'sponsor.name')"
                         >
-                            {{ $t('the_sponsor') }}
+                            {{ __('the_sponsor') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.sponsor.phone_number') }}
+                            {{ __('validation.attributes.sponsor.phone_number') }}
                         </the-table-th>
 
-                        <the-table-th class="text-start">{{ $t('validation.attributes.address') }}</the-table-th>
+                        <the-table-th class="text-start">{{ __('validation.attributes.address') }}</the-table-th>
                     </base-tr-table>
                 </base-thead-table>
 
@@ -98,6 +110,14 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate text-center">
                             {{ orphan.orphan.shirt_size }}
+                        </the-table-td>
+
+                        <the-table-td class="max-w-40 truncate text-center">
+                            <span v-if="orphan.orphan.age > 0">{{
+                                n__('age_years', orphan.orphan.age, { count: String(orphan.orphan.age) })
+                            }}</span>
+
+                            <span v-else> {{ __('low_than_one_year') }}</span>
                         </the-table-td>
 
                         <the-table-td class="!min-w-24 !max-w-24 truncate">
@@ -130,28 +150,62 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ orphan.orphan.name }}
+                            <Link :href="route('tenant.orphans.show', orphan.orphan.id)" class="font-medium">
+                                {{ orphan.orphan.name }}
+                            </Link>
                         </div>
-
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ orphan.sponsor.phone_number }}
+                            <span v-if="orphan.orphan.age > 0">{{
+                                n__('age_years', orphan.orphan.age, { count: String(orphan.orphan.age) })
+                            }}</span>
+
+                            <span v-else> {{ __('low_than_one_year') }}</span>
                         </div>
                     </div>
-                    <div class="mt-6 flex">
-                        <div class="w-3/4">
-                            <p class="truncate">{{ orphan.orphan.shirt_size }}</p>
-
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ orphan.zone?.name }}
-                            </div>
-
-                            <div
-                                class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                    <div class="mt-6 grid grid-cols-12 gap-2">
+                        <p class="col-span-12 text-base">
+                            <Link
+                                v-if="orphan.sponsor.id"
+                                :href="route('tenant.sponsors.show', orphan.sponsor.id)"
+                                class="font-medium rtl:font-semibold"
                             >
-                                {{ orphan.start_date }}
+                                {{ orphan.sponsor?.name }}
+                            </Link>
+                        </p>
+
+                        <div class="col-span-12 mt-2 grid grid-cols-12 gap-2">
+                            <div class="col-span-12 grid grid-cols-12 gap-2">
+                                <p class="col-span-4 rtl:font-semibold">{{ __('shoes_size') }}</p>
+
+                                <p class="col-span-8">
+                                    {{ orphan.orphan.shoes_size }}
+                                </p>
                             </div>
+
+                            <div class="col-span-12 grid grid-cols-12 gap-2">
+                                <p class="col-span-4 rtl:font-semibold">{{ __('shirt_size') }}</p>
+
+                                <p class="col-span-8">
+                                    {{ orphan.orphan.shirt_size }}
+                                </p>
+                            </div>
+
+                            <div class="col-span-12 grid grid-cols-12 gap-2">
+                                <p class="col-span-4 rtl:font-semibold">{{ __('pants_size') }}</p>
+
+                                <p class="col-span-8">
+                                    {{ orphan.orphan.pants_size }}
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-2 flex h-fit w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                        >
+                            <base-tippy :content="__('sponsor_phone_number')">
+                                {{ orphan.sponsor?.phone_number }}
+                            </base-tippy>
                         </div>
                     </div>
                 </div>

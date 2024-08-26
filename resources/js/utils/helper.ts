@@ -10,7 +10,6 @@ import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
 
-
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }

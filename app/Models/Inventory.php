@@ -83,6 +83,24 @@ class Inventory extends Model
         return 'inventory';
     }
 
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'qty' => $this->qty,
+            'unit' => $this->unit,
+            'note' => $this->note,
+            'tenant_id' => $this->tenant_id,
+            'created_by' => [
+                'id' => $this->creator?->id,
+                'name' => $this->creator?->getName(),
+            ],
+            'created_at' => strtotime($this->created_at),
+            'type' => $this->type,
+        ];
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

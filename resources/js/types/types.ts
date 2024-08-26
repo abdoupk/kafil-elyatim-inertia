@@ -413,6 +413,7 @@ export interface RamadanBasketFamiliesResource {
     }
     orphans_count: number
     total_income: number
+    income_rate: number
 }
 
 export interface SchoolEntryOrphansResource {
@@ -476,6 +477,7 @@ export interface EidSuitOrphansResource {
         shoes_size: string
         pants_size: string
         shirt_size: string
+        age: number
     }
 }
 
@@ -715,6 +717,10 @@ export interface FinancialTransactionsIndexResource {
         id: string
         name: string
     }
+    receiver: {
+        id: string
+        name: string
+    }
 }
 
 export interface BranchesIndexResource {
@@ -732,6 +738,7 @@ export interface BranchesIndexResource {
 export interface ZonesIndexResource extends Zone {
     created_at: string
     description: string
+    families_count?: number
 }
 
 export interface ListBoxFilter {

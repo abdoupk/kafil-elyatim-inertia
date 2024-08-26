@@ -1,16 +1,17 @@
 <script lang="ts" setup>
 import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/types'
 
-import { Link } from '@inertiajs/vue3'
-
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { __ } from '@/utils/i18n'
 
 defineProps<{ zones: PaginationData<ZonesIndexResource>; params: IndexParams }>()
 
@@ -35,12 +36,26 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             {{ $t('the_zone') }}
                         </the-table-th>
 
-                        <the-table-th class="text-start">
+                        <the-table-th class="text-center">
                             {{ $t('validation.attributes.description') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
-                            {{ $t('validation.attributes.created_at') }}
+                        <the-table-th
+                            :direction="params.directions?.families_count"
+                            class="text-center"
+                            sortable
+                            @click.prevent="emit('sort', 'families_count')"
+                        >
+                            {{ $t('families_count') }}
+                        </the-table-th>
+
+                        <the-table-th
+                            :direction="params.directions?.created_at"
+                            class="text-center"
+                            sortable
+                            @click.prevent="emit('sort', 'created_at')"
+                        >
+                            {{ $t('added_at') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
@@ -63,6 +78,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
 
                         <the-table-td class="max-w-40 truncate text-start">
                             {{ zone.description }}
+                        </the-table-td>
+
+                        <the-table-td class="text-center">
+                            {{ zone.families_count }}
                         </the-table-td>
 
                         <the-table-td class="text-center">
@@ -101,28 +120,41 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         <div class="me-3 truncate text-lg font-medium">
                             {{ zone.name }}
                         </div>
+
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ zone.phone }}
+                            <base-tippy :content="__('families_count')">
+                                {{ zone.families_count }}
+                            </base-tippy>
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ zone.email }}</p>
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ zone.zone?.name }}
-                            </div>
+                            <p class="truncate">
+                                {{ zone.description }}
+                            </p>
+
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ zone.start_date }}
+                                {{ zone.created_at }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <Link class="me-2 font-semibold text-slate-500 dark:text-slate-400" href="#"
+                            <a
+                                class="me-2 flex items-center"
+                                href="javascript:void(0)"
+                                @click="emit('showDetailsModal', zone.id)"
+                            >
+                                {{ $t('show') }}
+                            </a>
+                            <a
+                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                                href="javascript:void(0)"
+                                @click="emit('showEditModal', zone.id)"
                                 >{{ $t('edit') }}
-                            </Link>
+                            </a>
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"

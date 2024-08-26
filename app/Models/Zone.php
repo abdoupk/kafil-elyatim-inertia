@@ -91,11 +91,17 @@ class Zone extends Model
         return $this->hasMany(User::class);
     }
 
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->loadCount('families');
+    }
+
     public function toSearchableArray(): array
     {
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'families_count' => $this->families_count,
             'tenant_id' => $this->tenant_id,
             'description' => $this->description,
             'created_at' => $this->created_at,

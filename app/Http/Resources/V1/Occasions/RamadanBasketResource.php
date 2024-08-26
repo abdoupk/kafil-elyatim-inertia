@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources\V1\Occasions;
 
+use App\Models\FamilySponsorship;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/* @mixin FamilySponsorship*/
 class RamadanBasketResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -27,6 +29,7 @@ class RamadanBasketResource extends JsonResource
             ],
             'orphans_count' => $this->family->orphans->count(),
             'total_income' => $this->family->totalIncomes(),
+            'income_rate' => $this->family->income_rate,
         ];
     }
 }

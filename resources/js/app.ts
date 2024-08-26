@@ -11,7 +11,6 @@ import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/s'
 
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 const pinia = createPinia()

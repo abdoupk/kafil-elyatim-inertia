@@ -14,6 +14,7 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatCurrency, formatDate } from '@/utils/helper'
+import { __, getLocale } from '@/utils/i18n'
 
 defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
 
@@ -44,14 +45,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                             sortable
                             @click="emit('sort', 'amount')"
                         >
-                            {{ $t('validation.attributes.amount') }}
+                            {{ $t('the_amount') }}
                         </the-table-th>
 
                         <the-table-th
-                            :direction="params.directions?.specification"
+                            :direction="params.directions && params.directions[`specification.${getLocale()}`]"
                             class="text-center"
                             sortable
-                            @click="emit('sort', 'specification')"
+                            @click="emit('sort', `specification.${getLocale()}`)"
                         >
                             {{ $t('validation.attributes.specification') }}
                         </the-table-th>
@@ -66,7 +67,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ $t('validation.attributes.note') }}
+                            {{ $t('validation.attributes.description') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
@@ -82,22 +83,26 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link :href="route('tenant.members.show', finance.creator.id)" class="font-medium">
-                                {{ finance.creator.name }}
+                            <Link
+                                v-if="finance.receiver"
+                                :href="route('tenant.members.show', finance.receiver.id)"
+                                class="font-medium"
+                            >
+                                {{ finance.receiver.name }}
                             </Link>
                         </the-table-td>
 
-                        <the-table-td class="max-w-40 truncate">
+                        <the-table-td class="max-w-40 truncate text-center">
                             <div :class="finance.amount < 0 ? 'text-danger' : 'text-success'">
                                 {{ formatCurrency(Math.abs(finance.amount)) }}
                             </div>
                         </the-table-td>
 
-                        <the-table-td class="max-w-40 truncate">
+                        <the-table-td class="max-w-40 truncate text-center">
                             {{ $t(finance.specification) }}
                         </the-table-td>
 
-                        <the-table-td class="max-w-40 truncate">
+                        <the-table-td class="max-w-40 truncate text-center">
                             {{ formatDate(finance.date, 'long') }}
                         </the-table-td>
 
@@ -147,29 +152,54 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ finance.name }}
+                            {{ __(finance.specification) }}
                         </div>
+
                         <div
-                            class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
+                            :class="
+                                finance.amount < 0
+                                    ? 'text-danger  dark:bg-danger/20'
+                                    : 'text-success dark:bg-success/20'
+                            "
+                            class="ms-auto flex items-center rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold"
                         >
-                            {{ finance.file_number }}
+                            {{ formatCurrency(finance.amount) }}
                         </div>
                     </div>
 
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ finance.address }}</p>
+                            <p class="truncate">{{ finance.description }}</p>
+
                             <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ finance.zone?.name }}
+                                <Link :href="route('tenant.members.index') + `?show=${finance.receiver?.id}`">
+                                    {{ finance.receiver?.name }}
+                                </Link>
                             </div>
+
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ finance.start_date }}
+                                {{ formatDate(finance.date, 'long') }}
                             </div>
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
-                            <p class="me-2 font-semibold text-slate-500 dark:text-slate-400">{{ $t('edit') }}</p>
+                            <a
+                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                                href="javascript:void(0)"
+                                @click="emit('showDetailsModal', finance.id)"
+                            >
+                                {{ $t('show') }}
+                            </a>
+
+                            <a
+                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
+                                href="javascript:void(0)"
+                                @click="emit('showEditModal', finance.id)"
+                            >
+                                {{ $t('edit') }}
+                            </a>
+
                             <a
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
