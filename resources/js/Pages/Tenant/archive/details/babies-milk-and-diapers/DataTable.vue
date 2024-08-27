@@ -65,7 +65,11 @@ defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: Ind
                         </the-table-td>
 
                         <the-table-td class="!min-w-24 !max-w-24 truncate">
-                            <Link :href="route('tenant.orphans.show', orphan.orphan.id)" class="font-medium">
+                            <Link
+                                v-if="orphan.orphan.id"
+                                :href="route('tenant.orphans.show', orphan.orphan.id)"
+                                class="font-medium"
+                            >
                                 {{ orphan.orphan.name }}
                             </Link>
                         </the-table-td>
@@ -91,7 +95,11 @@ defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: Ind
                         </the-table-td>
 
                         <the-table-td class="!min-w-24 !max-w-24 truncate">
-                            <Link :href="route('tenant.sponsors.show', orphan.sponsor.id)" class="font-medium">
+                            <Link
+                                v-if="orphan.sponsor.id"
+                                :href="route('tenant.sponsors.show', orphan.sponsor.id)"
+                                class="font-medium"
+                            >
                                 {{ orphan.sponsor.name }}
                             </Link>
                         </the-table-td>
@@ -109,7 +117,11 @@ defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: Ind
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            <Link :href="route('tenant.orphans.show', orphan.orphan.id)" class="font-medium">
+                            <Link
+                                v-if="orphan.orphan.id"
+                                :href="route('tenant.orphans.show', orphan.orphan.id)"
+                                class="font-medium"
+                            >
                                 {{ orphan.orphan.name }}
                             </Link>
                         </div>

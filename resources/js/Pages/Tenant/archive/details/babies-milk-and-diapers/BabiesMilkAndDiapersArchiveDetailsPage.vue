@@ -55,7 +55,7 @@ const sort = (field: string) => handleSort(field, params)
                 :title="$t('list', { attribute: $t('the_babies_milk_and_diapers') })"
                 :url="$page.url"
                 entries="orphans"
-                export-pdf-url="tenant.archive.export.babies-milk-and-diapers"
+                export-pdf-url="tenant.archive.export.babies-milk-and-diapers.pdf"
                 export-xlsx-url="tenant.archive.export.babies-milk-and-diapers.xlsx"
                 exportable
             >

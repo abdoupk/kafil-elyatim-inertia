@@ -15,8 +15,6 @@ import { formatDate } from '@/utils/helper'
 import { __ } from '@/utils/i18n'
 
 defineProps<{ items: PaginationData<ArchiveIndexResource>; params: IndexParams }>()
-
-const emit = defineEmits(['showDeleteModal', 'restore'])
 </script>
 
 <template>
