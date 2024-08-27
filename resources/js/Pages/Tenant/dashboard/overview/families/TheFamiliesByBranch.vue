@@ -1,4 +1,12 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { FamiliesByBranchType } from '@/types/dashboard'
+
+import BasePieChart from '@/Components/Base/chart/BasePieChart.vue'
+
+defineProps<{
+    familiesByBranch: FamiliesByBranchType
+}>()
+</script>
 
 <template>
     <div class="col-span-12 mt-8 sm:col-span-6 lg:col-span-3">
@@ -9,9 +17,11 @@
         </div>
         <div class="intro-y box mt-5 p-5">
             <div class="mt-3">
-                <!--                <ReportPieChart :height="213" />-->
-
-                chart here
+                <base-pie-chart
+                    :chart-data="familiesByBranch.data"
+                    :height="336"
+                    :labels="familiesByBranch.labels"
+                ></base-pie-chart>
             </div>
         </div>
     </div>

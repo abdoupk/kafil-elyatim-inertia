@@ -71,9 +71,21 @@ export type RecentNeedsType = {
     status: NeedStatusType
 }[]
 
-export type OrphansByGenderType = {}
-export type FamiliesByZoneType = {}
-export type FamiliesByBranchType = {}
+export type OrphansByGenderType = {
+    labels: string[]
+    data: number[]
+}
+export type FamiliesByZoneType = {
+    labels: string[]
+    data: number[]
+}
+export type FamiliesByBranchType = {
+    labels: string[]
+    data: number[]
+}
 export type OrphansGroupByCreatedDateType = {}
-export type NeedsByNeedableTypeType = {}
-export type NeedsByCreatedDateType = {}
+export type NeedsByNeedableTypeType = {
+    data: number[]
+    labels: string[]
+}
+export type NeedsByCreatedDateType = number[]

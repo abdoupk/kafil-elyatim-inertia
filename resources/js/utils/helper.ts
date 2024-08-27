@@ -469,10 +469,15 @@ function addOpacityToHexColors(hexColors, opacity) {
     return hexColors.map((color) => hexToRgba(color, opacity))
 }
 
+function sumObjectValues(obj): number {
+    return Object.values(obj).reduce((sum, value) => sum + value, 0)
+}
+
 export {
     isEqual,
     hasPermission,
     addOpacityToHexColors,
+    sumObjectValues,
     formatFilters,
     getDataForIndexPages,
     handleFilterValue,

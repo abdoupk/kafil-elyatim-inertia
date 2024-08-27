@@ -59,7 +59,8 @@ defineProps<{
 
                             <need-status :status="need.status" class="h-fit w-fit"></need-status>
                         </div>
-                        <div class="mt-1 text-justify text-slate-500">
+                        
+                        <div class="prose mt-1 !max-w-none text-justify text-slate-500">
                             {{ need.demand }}
                         </div>
                     </SwiperSlide>

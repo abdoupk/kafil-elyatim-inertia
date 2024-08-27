@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ config('app.name', 'Laravel') }} </title>
 
     <link rel="icon" href="/favicon.png">
 
@@ -16,7 +16,7 @@
 </head>
 
 <body class="font-roboto overflow-x-hidden dark:bg-darkmode-700 scroll-smooth">
-    @inertia
+@inertia
 </body>
 
 </html>

@@ -12,9 +12,16 @@ function getNeeds(): LengthAwarePaginator
 }
 function getNeedsGroupByType(): array
 {
-    return [];
+    $needs = Need::whereYear('created_at', date('Y'))->groupBy('needable_type')->selectRaw('count(*) as count, needable_type')->get();
+
+    return [
+        'labels' => $needs->pluck('needable_type')->toArray(),
+        'data' => $needs->pluck('count')->toArray(),
+    ];
 }
 function getNeedsGroupByCreatedDate(): array
 {
-    return [];
+    return array_replace(array_fill(0, 12, 0), Need::whereYear('created_at', date('Y'))->selectRaw('count(*) as count, EXTRACT(MONTH FROM created_at) as month')->groupBy('month')
+        ->pluck('count', 'month')
+        ->toArray());
 }

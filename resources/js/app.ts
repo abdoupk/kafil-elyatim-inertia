@@ -11,6 +11,7 @@ import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/s'
 
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 const pinia = createPinia()
@@ -18,7 +19,7 @@ const pinia = createPinia()
 pinia.use(usePersistStore)
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => (title ? `${title} - ${appName}` : `${appName}`),
     resolve: (name) =>
         resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob<DefineComponent>('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {

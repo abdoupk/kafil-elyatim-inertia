@@ -20,12 +20,23 @@ import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import TheGeneralReports from '@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue'
-import TheFamiliesOverview from '@/Pages/Tenant/dashboard/overview/families/TheFamiliesOverview.vue'
-import TheNeedsOverview from '@/Pages/Tenant/dashboard/overview/needs/TheNeesdsOverview.vue'
-import TheOrphansOverview from '@/Pages/Tenant/dashboard/overview/orphans/TheOrphansOverview.vue'
-
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+const TheGeneralReports = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue')
+)
+
+const TheFamiliesOverview = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/overview/families/TheFamiliesOverview.vue')
+)
+
+const TheNeedsOverview = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/overview/needs/TheNeesdsOverview.vue')
+)
+
+const TheOrphansOverview = defineAsyncComponent(
+    () => import('@/Pages/Tenant/dashboard/overview/orphans/TheOrphansOverview.vue')
+)
 
 const TheRecentNeeds = defineAsyncComponent(() => import('@/Pages/Tenant/dashboard/needs/TheRecentNeeds.vue'))
 
@@ -84,7 +95,7 @@ defineProps<{
                 </suspense>
 
                 <suspense suspensible>
-                    <the-families-overview></the-families-overview>
+                    <the-families-overview :familiesByBranch :familiesByZone></the-families-overview>
                 </suspense>
             </div>
             <!--End: Financial Reports-->

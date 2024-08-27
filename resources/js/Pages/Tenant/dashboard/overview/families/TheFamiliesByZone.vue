@@ -1,4 +1,12 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import type { FamiliesByZoneType } from '@/types/dashboard'
+
+import BasePolarBarChart from '@/Components/Base/chart/BasePolarBarChart.vue'
+
+defineProps<{
+    familiesByZone: FamiliesByZoneType
+}>()
+</script>
 
 <template>
     <div class="col-span-12 mt-8 sm:col-span-6 lg:col-span-3">
@@ -9,8 +17,11 @@
         </div>
         <div class="intro-y box mt-5 p-5">
             <div class="mt-3">
-                chart here
-                <!--                <ReportDonutChart :height="213" />-->
+                <base-polar-bar-chart
+                    :chart-data="familiesByZone.data"
+                    :height="336"
+                    :labels="familiesByZone.labels"
+                ></base-polar-bar-chart>
             </div>
         </div>
     </div>

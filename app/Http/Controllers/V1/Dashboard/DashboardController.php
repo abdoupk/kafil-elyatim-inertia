@@ -14,6 +14,8 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
+        ray(getOrphansGroupByCreatedDate());
+
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),
@@ -26,21 +28,9 @@ class DashboardController extends Controller
             'familiesByBranch' => fn () => getFamiliesGroupedByBranch(),
             'orphansByGender' => fn () => getOrphansByGender(),
             'orphansGroupByCreatedDate' => fn () => getOrphansGroupByCreatedDate(),
-            'needsByType' => fn () => getNeedsGroupByType(),
+            'needsByNeedableType' => fn () => getNeedsGroupByType(),
             'needsByCreatedDate' => fn () => getNeedsGroupByCreatedDate(),
         ]);
-    }
-
-    private function getComingEvents(): array
-    {
-        return EventOccurrence::with('event')->whereMonth('start_date', '=', date('m'))->take(3)->get()->map(function (EventOccurrence $eventOccurrence) {
-            return [
-                'id' => $eventOccurrence->id,
-                'title' => $eventOccurrence->event->title,
-                'date' => $eventOccurrence->start_date,
-                'color' => $eventOccurrence->event->color,
-            ];
-        })->toArray();
     }
 
     private function getRecentActivities()
@@ -72,6 +62,18 @@ class DashboardController extends Controller
                     'gender' => $finance->receiver->gender,
                 ],
                 'date' => $finance->date->translatedFormat('j F Y'),
+            ];
+        })->toArray();
+    }
+
+    private function getComingEvents(): array
+    {
+        return EventOccurrence::with('event')->whereMonth('start_date', '=', date('m'))->take(3)->get()->map(function (EventOccurrence $eventOccurrence) {
+            return [
+                'id' => $eventOccurrence->id,
+                'title' => $eventOccurrence->event->title,
+                'date' => $eventOccurrence->start_date,
+                'color' => $eventOccurrence->event->color,
             ];
         })->toArray();
     }
