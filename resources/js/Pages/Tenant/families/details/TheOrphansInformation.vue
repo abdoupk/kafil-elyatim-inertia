@@ -34,7 +34,7 @@ defineProps<{ orphans: OrphanType[] }>()
                 <h2 class="text-lg font-semibold">{{ $t('family_status') }}</h2>
 
                 <h3 class="text-base font-medium">
-                    {{ orphan.family_status }}
+                    {{ $t(`family_statuses.${orphan.family_status}`) }}
                 </h3>
             </div>
 

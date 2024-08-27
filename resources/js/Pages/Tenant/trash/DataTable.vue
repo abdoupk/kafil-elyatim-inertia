@@ -69,14 +69,14 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
 
                         <the-table-td-actions>
                             <div class="flex items-center justify-center">
-                                <Link
-                                    :href="route(item.restore_url, item.id)"
+                                <a
                                     class="me-3 flex items-center"
-                                    method="post"
+                                    href="javascript:void(0)"
+                                    @click.prevent="emit('restore', route(item.restore_url, item.id))"
                                 >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-undo" />
                                     {{ $t('restore') }}
-                                </Link>
+                                </a>
                                 <a
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"

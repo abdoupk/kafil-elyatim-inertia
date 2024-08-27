@@ -15,7 +15,7 @@ defineProps<{ sponsor: SponsorShowType }>()
             <div
                 class="mt-2 flex w-fit items-center truncate rounded-full bg-success/30 px-2 py-1 text-sm font-semibold text-success dark:bg-darkmode-400"
             >
-                {{ $t(sponsor.sponsor_type) }}
+                {{ $t(`sponsor_types.${sponsor.sponsor_type}`) }}
             </div>
         </div>
 
@@ -73,12 +73,7 @@ defineProps<{ sponsor: SponsorShowType }>()
                 </h2>
                 <h3 class="text-base font-medium">{{ sponsor.birth_certificate_number }}</h3>
             </div>
-
-            <div class="col-span-12 @xl:col-span-6">
-                <h2 class="text-lg font-semibold">{{ $t('validation.attributes.sponsor.card_number') }}</h2>
-                <h3 class="text-base font-medium">{{ sponsor.card_number }}</h3>
-            </div>
-
+            
             <div class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('ccp') }}</h2>
                 <h3 class="text-base font-medium">{{ sponsor.ccp }}</h3>

@@ -6,7 +6,10 @@ import { defineAsyncComponent, reactive, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+import { __ } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/trash/DataTable.vue'))
 
@@ -27,6 +30,10 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
+const showSuccessNotification = ref<boolean>(false)
+
+const successNotificationMessage = ref<string>('')
+
 const params = reactive<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page
@@ -36,10 +43,41 @@ const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
+const restore = (url: string) => {
+    router.post(
+        url,
+        {},
+        {
+            preserveScroll: true,
+            onSuccess: () => {
+                if (props.items.meta.last_page < params.page) {
+                    params.page = params.page - 1
+                }
+
+                showSuccessNotification.value = true
+
+                successNotificationMessage.value = __('successfully_restored')
+
+                setTimeout(() => {
+                    showSuccessNotification.value = false
+                }, 1000)
+            }
+        }
+    )
+}
+
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
 
     deleteProgress.value = false
+
+    showSuccessNotification.value = true
+
+    successNotificationMessage.value = __('successfully_force_deleted')
+
+    setTimeout(() => {
+        showSuccessNotification.value = false
+    }, 1000)
 }
 
 const selectedItem = ref()
@@ -85,7 +123,7 @@ const deleteItem = () => {
             </the-table-header>
 
             <template v-if="items.data.length > 0">
-                <data-table :items :params @showDeleteModal="showDeleteModal"></data-table>
+                <data-table :items :params @restore="restore" @showDeleteModal="showDeleteModal"></data-table>
 
                 <the-table-footer :pagination-data="items" :params :url="route('tenant.trash')"></the-table-footer>
             </template>
@@ -98,6 +136,11 @@ const deleteItem = () => {
                 @close="closeDeleteModal"
                 @delete="deleteItem"
             ></delete-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="successNotificationMessage"
+            ></success-notification>
         </div>
 
         <template #fallback>

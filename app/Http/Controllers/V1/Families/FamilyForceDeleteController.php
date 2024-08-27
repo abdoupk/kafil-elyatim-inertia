@@ -9,6 +9,8 @@ class FamilyForceDeleteController extends Controller
 {
     public function __invoke(Family $family)
     {
+        $family->forceDelete();
+
         return redirect()->back();
     }
 }

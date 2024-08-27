@@ -19,8 +19,9 @@ defineProps<{
         <div class="grid grid-cols-12 gap-4 p-5">
             <div class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('housing.label.type') }}</h2>
+
                 <p class="text-base font-medium">
-                    {{ housing.name }}
+                    {{ $t(`housing.label.${housing.name}`) }}
                 </p>
             </div>
 

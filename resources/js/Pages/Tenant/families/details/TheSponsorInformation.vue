@@ -15,7 +15,7 @@ defineProps<{ sponsor: SponsorType }>()
             <div
                 class="mt-2 flex w-fit items-center truncate rounded-full bg-success/30 px-2 py-1 text-sm font-semibold text-success dark:bg-darkmode-400"
             >
-                {{ $t(sponsor.sponsor_type) }}
+                {{ $t(`sponsor_types.${sponsor.sponsor_type}`) }}
             </div>
         </div>
 
