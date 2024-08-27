@@ -27,8 +27,8 @@ class MonthlyBasketResource extends JsonResource
                 'name' => $this->family->sponsor->getName(),
                 'phone_number' => $this->family->sponsor->formattedPhoneNumber(),
             ],
-            'orphans_count' => $this->family->orphans->count(),
-            'total_income' => $this->family->totalIncomes(),
+            'orphans_count' => $this->orphans_count,
+            'total_income' => $this->family->total_income,
             'income_rate' => $this->family->income_rate,
         ];
     }

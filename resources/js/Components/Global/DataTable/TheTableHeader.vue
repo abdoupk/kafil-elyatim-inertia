@@ -108,7 +108,7 @@ const handleExport = (params: IndexParams) => {
             ></advanced-filter>
 
             <!--TODO remove if has filters-->
-            remove pre filters
+            <div v-if="filterable" class="">remove pre filters</div>
 
             <div class="ms-auto text-slate-500 md:mx-auto">
                 <span v-if="paginationData.meta.total > 0">

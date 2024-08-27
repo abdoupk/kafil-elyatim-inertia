@@ -847,6 +847,7 @@ export type ArchiveOccasionType = {
     }
     created_at: string | Date
     id: string
+    date?: number | string
 }
 
 export type Diaper = {

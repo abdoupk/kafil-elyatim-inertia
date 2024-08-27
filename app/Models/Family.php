@@ -264,11 +264,6 @@ class Family extends Model
         return $this->name;
     }
 
-    public function totalIncomes(): float
-    {
-        return $this->total_income ?? 0;
-    }
-
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

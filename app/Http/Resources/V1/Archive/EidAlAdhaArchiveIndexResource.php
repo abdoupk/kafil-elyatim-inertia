@@ -28,7 +28,7 @@ class EidAlAdhaArchiveIndexResource extends JsonResource
                 'phone_number' => $this->sponsor?->formattedPhoneNumber(),
             ],
             'orphans_count' => $this->orphans_count,
-            'total_income' => $this->totalIncomes(),
+            'total_income' => $this->total_income,
             'income_rate' => $this->income_rate,
         ];
     }

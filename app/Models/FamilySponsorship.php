@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -74,6 +75,11 @@ class FamilySponsorship extends Model
         return $this->belongsTo(Family::class);
     }
 
+    public function orphans(): HasManyThrough
+    {
+        return $this->hasManyThrough(Orphan::class, Family::class, 'id', 'family_id', 'family_id', 'id');
+    }
+
     public function searchableAs(): string
     {
         return 'family_sponsorships';
@@ -104,11 +110,11 @@ class FamilySponsorship extends Model
                 ],
                 'orphans_count' => $this->family->orphans->count(),
                 'income_rate' => (float) $this->family->income_rate,
-                'total_income' => $this->family->totalIncomes(),
+                'total_income' => $this->family->total_income,
             ],
             'sponsor' => [
-                'name' => $this->family->sponsor->getName(),
-                'phone_number' => $this->family->sponsor->phone_number,
+                'name' => $this->family->sponsor?->getName(),
+                'phone_number' => $this->family->sponsor?->phone_number,
             ],
             'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at,

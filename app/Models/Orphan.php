@@ -276,7 +276,7 @@ class Orphan extends Model
 
     public function lastAcademicYearAchievement(): HasOne
     {
-        return $this->hasOne(AcademicAchievement::class, 'orphan_id')
+        return $this->hasOne(AcademicAchievement::class, 'orphan_id')->with('academicLevel')
             ->where(function ($query) {
                 $query->whereRaw('academic_achievements.academic_year = ?', now()->year)
                     ->orWhereRaw('academic_achievements.academic_year = ? ', now()->year - 1);

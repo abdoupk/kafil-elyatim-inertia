@@ -13,8 +13,8 @@ class ArchiveDetailsSchoolEntryController extends Controller
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/school-entry/SchoolEntryArchiveDetailsPage', [
-            'archive' => ['id' => $archive->id],
-            'orphans' => SchoolEntryArchiveIndexResource::collection($archive->listOrphans()->paginate(request()->integer('perPage', 10))),
+            'archive' => ['id' => $archive->id, 'date' => $archive->created_at->year],
+            'orphans' => SchoolEntryArchiveIndexResource::collection($archive->listOrphans()->with(['academicLevel', 'lastAcademicYearAchievement', 'family:id,address,zone_id', 'academicAchievements', 'family.zone:id,name'])->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
     }

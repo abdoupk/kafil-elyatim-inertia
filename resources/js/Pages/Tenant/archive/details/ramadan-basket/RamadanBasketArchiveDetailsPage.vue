@@ -8,9 +8,11 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
+import { __ } from '@/utils/i18n'
+
 const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
 
-const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/ramadan-basket/DataTable.vue'))
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/archive/details/ramadan-basket/DataTable.vue'))
 
 const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
 
@@ -38,7 +40,7 @@ const params = reactive<IndexParams>({
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="__('exports.archive.ramadan_basket', { date: String(archive.date) })"></Head>
 
     <suspense>
         <div>
@@ -46,7 +48,7 @@ const params = reactive<IndexParams>({
                 :filters="[]"
                 :pagination-data="families"
                 :params="params"
-                :title="$t('list', { attribute: $t('the_families_ramadan_basket') })"
+                :title="__('exports.archive.ramadan_basket', { date: String(archive.date) })"
                 :url="route('tenant.occasions.ramadan-basket.index')"
                 entries="families"
                 export-pdf-url="tenant.archive.export.ramadan-basket.pdf"

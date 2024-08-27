@@ -15,20 +15,21 @@ class RamadanBasketArchiveIndexResource extends JsonResource
             'id' => $this->id,
             'address' => $this->address,
             'zone' => [
-                'id' => $this->zone->id,
-                'name' => $this->zone->name,
+                'id' => $this->zone?->id,
+                'name' => $this->zone?->name,
             ],
             'branch' => [
-                'id' => $this->branch->id,
-                'name' => $this->branch->name,
+                'id' => $this->branch?->id,
+                'name' => $this->branch?->name,
             ],
             'sponsor' => [
-                'id' => $this->sponsor->id,
-                'name' => $this->sponsor->getName(),
-                'phone_number' => $this->sponsor->formattedPhoneNumber(),
+                'id' => $this->sponsor?->id,
+                'name' => $this->sponsor?->getName(),
+                'phone_number' => $this->sponsor?->formattedPhoneNumber(),
             ],
-            'orphans_count' => $this->orphans->count(),
-            'total_income' => $this->totalIncomes(),
+            'orphans_count' => $this->orphans_count,
+            'total_income' => $this->total_income,
+            'income_rate' => $this->income_rate,
         ];
     }
 }

@@ -113,7 +113,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ orphan.orphan.diapers_quantity }}
                         </the-table-td>
 
-                        <the-table-td class="text-center">
+                        <the-table-td class="whitespace-nowrap text-center">
                             {{ orphan.orphan.age }}
                         </the-table-td>
 
@@ -123,7 +123,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             </Link>
                         </the-table-td>
 
-                        <the-table-td class="text-center">
+                        <the-table-td class="whitespace-nowrap text-center">
                             {{ orphan.sponsor.phone_number }}
                         </the-table-td>
                     </base-tr-table>

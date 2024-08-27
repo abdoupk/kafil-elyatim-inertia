@@ -12,6 +12,8 @@ class RamadanBasketIndexController extends Controller
 {
     public function __invoke(): Response
     {
+        ray(listOfFamiliesBenefitingFromTheRamadanBasketSponsorship());
+
         return Inertia::render('Tenant/occasions/ramadan-basket/RamadanBasketIndex', [
             'families' => RamadanBasketResource::collection(listOfFamiliesBenefitingFromTheRamadanBasketSponsorship()),
             'params' => getParams(),

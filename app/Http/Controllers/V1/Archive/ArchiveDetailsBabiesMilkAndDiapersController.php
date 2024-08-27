@@ -13,8 +13,8 @@ class ArchiveDetailsBabiesMilkAndDiapersController extends Controller
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/babies-milk-and-diapers/BabiesMilkAndDiapersArchiveDetailsPage', [
-            'archive' => ['id' => $archive->id],
-            'orphans' => BabyMilkAndDiapersResource::collection($archive->listBabies()->paginate(request()->integer('perPage', 10))),
+            'archive' => ['id' => $archive->id, 'date' => $archive->created_at->translatedFormat('F Y')],
+            'orphans' => BabyMilkAndDiapersResource::collection($archive->listBabies()->with(['babyMilk:id,name', 'diapers:id,name'])->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
     }

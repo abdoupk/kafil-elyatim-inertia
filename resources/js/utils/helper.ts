@@ -10,6 +10,7 @@ import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
 
+
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
@@ -115,15 +116,6 @@ const setDarkModeClass = (appearance: AppearanceType) => {
         : document.documentElement.classList.remove('dark')
 }
 
-function getDateSuffix(date) {
-    const options = { day: 'numeric', locale: 'en-US' }
-    const formatter = new Intl.DateTimeFormat(`${getLocale()}-DZ`, options)
-    const formattedDate = formatter.format(date)
-
-    // Extract the date suffix from the formatted string
-    return formattedDate.match(/\D+$/)[0]
-}
-
 const setColorSchemeClass = (colorScheme: ColorSchemesType, appearance: AppearanceType) => {
     const el = document.querySelectorAll('html')[0]
 
@@ -184,10 +176,6 @@ const debounce = (func, delay, { leading } = {}) => {
 
         timerId = setTimeout(() => func(...args), delay)
     }
-}
-
-const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 const checkErrors = (pattern: string, errors?: Record<string, string>) => {
@@ -262,6 +250,8 @@ const formatDateAndTimeShort = (date: string | Date) => {
 
 const formatCurrency = (amount) => {
     try {
+        if (isNaN(amount)) amount = 0
+
         return new Intl.NumberFormat(`${getLocale()}-DZ`, { style: 'currency', currency: 'DZD' }).format(amount)
     } catch ($e) {
         return ''
@@ -493,7 +483,6 @@ export {
     getVocationalTrainingSpecialityFromId,
     setDateToCurrentTime,
     formatNumber,
-    getDateSuffix,
     isAssociationNameLatin,
     groupByKey,
     handleSponsorship,
@@ -511,7 +500,6 @@ export {
     getResultsSize,
     setColorSchemeClass,
     allowOnlyNumbersOnKeyDown,
-    capitalizeFirstLetter,
     formatDateAndTime,
     checkErrors,
     pathNameOfCurrentPage,

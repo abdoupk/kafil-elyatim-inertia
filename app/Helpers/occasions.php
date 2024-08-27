@@ -11,17 +11,15 @@ function listOfFamiliesBenefitingFromTheEidAlAdhaSponsorship(): LengthAwarePagin
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_EID_AL_ADHA)
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id,income_rate', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor:id,family_id,income']))
+            ->with(['family:id,address,zone_id,branch_id,income_rate,total_income', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name'])->withCount('orphans'))
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
 
 // TODO Optimize remove sponsors incomes and second sponsor and in all get incomes
 function listOfFamiliesBenefitingFromTheMonthlyBasket(): LengthAwarePaginator
 {
-    //    $filters = ['monthly_allowance', '=', true];
-
     return search(FamilySponsorship::getModel())
-        ->query(fn ($query) => $query->with(['family:id,address,income_rate,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
+        ->query(fn ($query) => $query->with(['family:id,address,income_rate,zone_id,branch_id,total_income', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name'])->withCount('orphans'))
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
 
@@ -38,7 +36,7 @@ function listOfFamiliesBenefitingFromTheRamadanBasketSponsorship(): LengthAwareP
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_RAMADAN_BASKET)
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id,income_rate', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
+            ->with(['family:id,address,zone_id,branch_id,total_income,income_rate', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name'])->withCount('orphans'))
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
 

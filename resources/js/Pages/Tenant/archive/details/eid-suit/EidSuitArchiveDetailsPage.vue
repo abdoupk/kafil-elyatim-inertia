@@ -8,6 +8,8 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
+import { __ } from '@/utils/i18n'
+
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/eid-suit/DataTable.vue'))
 
 const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
@@ -38,14 +40,15 @@ const params = reactive<IndexParams>({
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_orphans') })"></Head>
+    <Head :title="__('exports.archive.eid_suit', { date: String(archive.date) })"></Head>
+
     <suspense>
         <div>
             <the-table-header
                 :filters="[]"
                 :pagination-data="orphans"
                 :params="params"
-                :title="$t('list', { attribute: $t('the_orphans_eid_suit') })"
+                :title="__('exports.archive.eid_suit', { date: String(archive.date) })"
                 :url="route('tenant.archive.details.eid-suit', archive.id)"
                 entries="orphans"
                 export-pdf-url="tenant.archive.export.eid-suit.pdf"

@@ -27,8 +27,9 @@ class MonthlyBasketArchiveIndexResource extends JsonResource
                 'name' => $this->sponsor->getName(),
                 'phone_number' => $this->sponsor->formattedPhoneNumber(),
             ],
-            'orphans_count' => $this->orphans->count(),
-            'total_income' => $this->totalIncomes(),
+            'orphans_count' => $this->orphans_count,
+            'total_income' => $this->total_income,
+            'income_rate' => $this->income_rate,
         ];
     }
 }

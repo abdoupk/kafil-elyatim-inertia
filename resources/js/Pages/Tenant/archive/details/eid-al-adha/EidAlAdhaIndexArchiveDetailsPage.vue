@@ -8,7 +8,9 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/eid-al-adha/DataTable.vue'))
+import { __ } from '@/utils/i18n'
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/archive/details/eid-al-adha/DataTable.vue'))
 
 const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
 
@@ -38,8 +40,7 @@ const params = reactive<IndexParams>({
 </script>
 
 <template>
-    <!--    TODO change title in all heads-->
-    <Head :title="$t('list', { attribute: $t('the_families') })"></Head>
+    <Head :title="__('exports.archive.eid_al_adha_families', { date: String(archive.date) })"></Head>
 
     <suspense>
         <div>
@@ -47,7 +48,7 @@ const params = reactive<IndexParams>({
                 :filters="[]"
                 :pagination-data="families"
                 :params="params"
-                :title="$t('list', { attribute: $t('the_families_eid_al_adha') })"
+                :title="__('exports.archive.eid_al_adha_families', { date: String(archive.date) })"
                 :url="route('tenant.occasions.eid-al-adha.index')"
                 entries="families"
                 export-pdf-url="tenant.archive.export.eid-al-adha.pdf"
