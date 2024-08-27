@@ -70,3 +70,10 @@ export type RecentNeedsType = {
     }
     status: NeedStatusType
 }[]
+
+export type OrphansByGenderType = {}
+export type FamiliesByZoneType = {}
+export type FamiliesByBranchType = {}
+export type OrphansGroupByCreatedDateType = {}
+export type NeedsByNeedableTypeType = {}
+export type NeedsByCreatedDateType = {}

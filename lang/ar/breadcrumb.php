@@ -13,7 +13,7 @@ return [
     'branches' => 'الفروع',
     'statistics' => 'الاحصائيات',
     'zones' => 'المناطق',
-    'financial' => 'الماليات',
+    'financial' => 'المالية',
     'show' => 'تفاصيل',
     'users' => 'الأعضاء',
     'inventory' => 'المخزن',
@@ -29,4 +29,6 @@ return [
     'school-entry' => 'الدخول المدرسي',
     'archive' => 'الأرشيف',
     'details' => 'تفاصيل',
+    'trash' => 'المحذوفات',
+    'babies-milk-and-diapers' => 'الاستفادة من الحليب والحفاضات',
 ];

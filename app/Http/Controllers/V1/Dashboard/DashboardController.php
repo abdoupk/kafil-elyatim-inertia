@@ -14,8 +14,6 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
-        ray($this->getComingEvents());
-
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),
@@ -24,6 +22,12 @@ class DashboardController extends Controller
             'comingEvents' => fn () => $this->getComingEvents(),
             'recentFamilies' => fn () => $this->getRecentFamilies(),
             'recentNeeds' => fn () => $this->getRecentNeeds(),
+            'familiesByZone' => fn () => getFamiliesGroupedByZone(),
+            'familiesByBranch' => fn () => getFamiliesGroupedByBranch(),
+            'orphansByGender' => fn () => getOrphansByGender(),
+            'orphansGroupByCreatedDate' => fn () => getOrphansGroupByCreatedDate(),
+            'needsByType' => fn () => getNeedsGroupByType(),
+            'needsByCreatedDate' => fn () => getNeedsGroupByCreatedDate(),
         ]);
     }
 
@@ -102,8 +106,8 @@ class DashboardController extends Controller
                 'demand' => $need->demand,
                 'date' => $need->created_at->diffForHumans(),
                 'needable' => [
-                    'id' => $need->needable->id,
-                    'name' => $need->needable->getName(),
+                    'id' => $need->needable?->id,
+                    'name' => $need->needable?->getName(),
                     'type' => $need->needable_type,
                 ],
             ];

@@ -10,3 +10,11 @@ function getNeeds(): LengthAwarePaginator
             ->with(['needable']))
         ->paginate(perPage: request()?->input('perPage', 10));
 }
+function getNeedsGroupByType(): array
+{
+    return [];
+}
+function getNeedsGroupByCreatedDate(): array
+{
+    return [];
+}
