@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
@@ -59,7 +60,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  */
 class OrphanSponsorship extends Model
 {
-    use BelongsToTenant, HasFactory, HasUuids, Searchable;
+    use BelongsToTenant, HasFactory, HasUuids, Searchable,SoftDeletes;
 
     public $timestamps = false;
 

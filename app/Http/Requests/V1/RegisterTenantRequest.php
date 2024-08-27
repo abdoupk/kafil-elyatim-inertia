@@ -28,24 +28,10 @@ class RegisterTenantRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'phone' => ['required', 'regex:/^(06|07|05)\d{8}$/', 'unique:users,phone'],
             'email' => 'required|email|max:255|unique:users,email',
             'password' => ['required', 'confirmed', Password::defaults()],
             'association' => 'required|string|max:255',
-            'association_email' => 'sometimes|email',
-            'domain' => ['required', 'string', 'max:255', new RegistrationDomainRequiredRule, 'unique:domains,domain'],
-            'address' => 'required|string|max:255',
-            'landline' => 'sometimes|nullable|regex:/^(0)\d{8}$/',
-            'phones' => 'required|array|min:1',
-            'phones.0' => ['required', 'regex:/^(06|07|05)\d{8}$/'],
-            'phones.1' => ['sometimes', 'nullable', 'regex:/^(06|07|05)\d{8}$/'],
-            'phones.2' => ['sometimes', 'nullable', 'regex:/^(06|07|05)\d{8}$/'],
-            'links' => 'sometimes|array',
-            'links.facebook' => ['sometimes', 'nullable', 'url', "regex:/^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9.]*$/i"],
-            'city' => 'required|integer',
-            'links.instagram' => ['sometimes', 'nullable', 'url', "regex:/^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9._-]*$/i"],
-            'cpa' => 'sometimes|string',
-            'ccp' => 'sometimes|string',
+            'domain' => [new RegistrationDomainRequiredRule,  'string', 'max:255'],
         ];
     }
 

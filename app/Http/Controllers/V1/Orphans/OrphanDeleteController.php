@@ -10,7 +10,7 @@ class OrphanDeleteController extends Controller
 {
     public function __invoke(Orphan $orphan)
     {
-        $orphan->sponsorships()->unsearchable();
+        $orphan->unsearchable();
 
         $orphan->delete();
 

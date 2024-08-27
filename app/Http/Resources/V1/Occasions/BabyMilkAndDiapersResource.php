@@ -16,9 +16,9 @@ class BabyMilkAndDiapersResource extends JsonResource
         return [
             'id' => $this->id,
             'sponsor' => [
-                'id' => $this->orphan->sponsor->id,
-                'name' => $this->orphan->sponsor->getName(),
-                'phone_number' => $this->orphan->sponsor->formattedPhoneNumber(),
+                'id' => $this->orphan->sponsor?->id,
+                'name' => $this->orphan->sponsor?->getName(),
+                'phone_number' => $this->orphan->sponsor?->formattedPhoneNumber(),
             ],
             'orphan' => [
                 'id' => $this->orphan->id,

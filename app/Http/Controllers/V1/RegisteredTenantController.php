@@ -14,7 +14,18 @@ class RegisteredTenantController extends Controller
 {
     public function store(RegisterTenantRequest $request): JsonResponse
     {
-        $tenant = Tenant::create($request->validated());
+        $tenant = Tenant::create([
+            'infos' => [
+                'super_admin' => [
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'password' => $request->password,
+                    'email' => $request->email,
+                ],
+                'domain' => $request->domain,
+                'association' => $request->association,
+            ],
+        ]);
 
         Domain::create([
             'domain' => $request->domain,
@@ -24,7 +35,7 @@ class RegisteredTenantController extends Controller
         /** @var Domain $domain */
         $domain = $tenant->domains->first();
 
-        return response()->json(['url' => tenant_route($domain->domain, 'tenant.login')]);
+        return response()->json(['url' => tenant_route($domain->domain, 'tenant.dashboard')]);
     }
 
     public function create(): Response

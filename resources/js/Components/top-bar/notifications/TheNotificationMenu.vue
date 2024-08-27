@@ -61,7 +61,7 @@ useIntersectionObserver(last, ([{ isIntersecting }]) => {
     </div>
 
     <div v-if="!loading && !notificationsStore.notifications?.data?.length" class="flex items-center justify-center">
-        no no
+        {{ $t('no_notifications') }}
     </div>
 
     <notification-loader v-if="loading"></notification-loader>

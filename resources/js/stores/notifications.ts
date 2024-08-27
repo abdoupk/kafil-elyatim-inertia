@@ -28,8 +28,6 @@ export const useNotificationsStore = defineStore('notifications', {
             )
 
             this.notifications = notifications
-
-            console.log(this.notifications)
         },
 
         async loadMoreNotifications() {
@@ -47,11 +45,11 @@ export const useNotificationsStore = defineStore('notifications', {
         },
 
         addNotification(notification: DatabaseNotification) {
-            console.log(this.notifications?.data?.length)
-
             this.notifications.data.unshift(notification)
+        },
 
-            console.log(this.notifications?.data?.length)
+        async markAsRead(id: string) {
+            await axios.post(route('tenant.notifications.mark-as-read', id))
         }
     }
 })

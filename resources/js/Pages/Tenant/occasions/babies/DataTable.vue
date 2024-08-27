@@ -118,7 +118,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-24 !max-w-24 truncate">
-                            <Link :href="route('tenant.sponsors.show', orphan.sponsor.id)" class="font-medium">
+                            <Link
+                                v-if="orphan.sponsor.id"
+                                :href="route('tenant.sponsors.show', orphan.sponsor.id)"
+                                class="font-medium"
+                            >
                                 {{ orphan.sponsor.name }}
                             </Link>
                         </the-table-td>

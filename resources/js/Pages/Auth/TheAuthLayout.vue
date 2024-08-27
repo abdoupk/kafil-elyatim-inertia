@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { twMerge } from 'tailwind-merge'
+
+import { __ } from '@/utils/i18n'
 </script>
 
 <template>
@@ -16,18 +18,19 @@ import { twMerge } from 'tailwind-merge'
             <div class="block grid-cols-2 gap-4 xl:grid">
                 <!-- BEGIN: Login Info -->
                 <div class="hidden min-h-screen flex-col xl:flex">
-                    <a class="-intro-x flex items-center pt-5" href="">
+                    <a class="-intro-x flex items-center pt-5" href="#">
                         <img alt="Tinker Starter" class="w-6" src="/images/logo.svg" />
+
                         <span class="ms-3 text-lg text-white"> Kafil el yatim </span>
                     </a>
                     <div class="my-auto">
                         <img alt="Tinker Starter" class="-intro-x -mt-16 w-1/2" src="/images/man-illustration.svg" />
                         <div
                             class="-intro-x mt-10 text-4xl font-medium leading-tight text-white"
-                            v-html="$t('auth.hints.leading')"
+                            v-html="__('auth.hints.leading')"
                         ></div>
                         <div class="-intro-x mt-5 text-lg text-white text-opacity-70 dark:text-slate-400">
-                            {{ $t('auth.hints.second') }}
+                            {{ __('auth.hints.second') }}
                         </div>
                     </div>
                 </div>
