@@ -60,7 +60,9 @@ class FamilyTrashedJob implements ShouldQueue
 
         $this->family->sponsorsNeeds->unsearchable();
 
-        $this->family->sponsor->unsearchable();
+        $this->family->sponsor()->unsearchable();
+
+        $this->family->sponsorships->unsearchable();
     }
 
     private function deleteRelationships(): void

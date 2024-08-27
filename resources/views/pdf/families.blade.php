@@ -1,155 +1,89 @@
-<!doctype html>
-<html lang="en" dir="rtl">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        .w-full {
-            width: 100%
-        }
-
-        .table {
-            border-collapse: collapse
-        }
-
-        .border {
-            border: 1px solid
-        }
-
-        .border-black {
-            border-color: black
-        }
-
-        .text-black {
-            color: black
-        }
-
-        .font-medium {
-            font-weight: 500
-        }
-
-        .px-2 {
-            padding-left: .5rem;
-            padding-right: .5rem
-        }
-
-        .px-3 {
-            padding-left: .75rem;
-            padding-right: .75rem
-        }
-
-        .py-1 {
-            padding-top: .25rem;
-            padding-bottom: .25rem
-        }
-
-        .text-center {
-            text-align: center
-        }
-
-        .whitespace-nowrap {
-            white-space: nowrap
-        }
-    </style>
-</head>
-
-<body>
-<table class="w-full table border-black text-black">
-    <thead>
-    <tr>
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+<x-table>
+    <x-slot name="thead">
+        <x-th>
             <span> #</span>
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('the_sponsor') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('validation.attributes.address') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('orphans_count') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('incomes.label.total_income') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('income_rate') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('the_branch') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('the_zone') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('file_number') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('validation.attributes.starting_sponsorship_date') }}
-        </th>
-    </tr>
-    </thead>
+        </x-th>
+    </x-slot>
 
-    <tbody>
+    <x-slot name="tbody">
+        @foreach ($families as $family)
+            <tr>
+                <x-td class="text-center">
+                    {{ $loop->iteration }}
+                </x-td>
 
-    @foreach ($families as $family)
-        <tr>
-            <td class="px-2 py-1 border border-black text-center">
-                {{ $loop->iteration }}
-            </td>
+                <x-td>
+                    {{ $family->sponsor->getName() }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black">
-                {{ $family->sponsor->getName() }}
-            </td>
+                <x-td>
+                    {{ $family->address }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black">
-                {{ $family->address }}
-            </td>
+                <x-td class="text-center">
+                    {{ $family->orphans_count }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black text-center">
-                {{ $family->orphans_count }}
-            </td>
+                <x-td class="whitespace-nowrap text-center">
+                    {{ formatCurrency($family->total_income) }}
+                </x-td>
 
-            <td class="px-2 py-1 whitespace-nowrap border border-black text-center">
-                {{ formatCurrency($family->total_income) }}
-            </td>
+                <x-td class="whitespace-nowrap text-center">
+                    {{ $family->income_rate }}
+                </x-td>
 
-            <td class="px-2 py-1 whitespace-nowrap border border-black text-center">
-                {{ $family->income_rate }}
-            </td>
+                <x-td>
+                    {{ $family->branch->name }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black">
-                {{ $family->branch->name }}
-            </td>
+                <x-td class="whitespace-nowrap">
+                    {{ $family->zone->name }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black whitespace-nowrap">
-                {{ $family->zone->name }}
-            </td>
+                <x-td class="text-center">
+                    {{ $family->file_number }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black text-center">
-                {{ $family->file_number }}
-            </td>
-
-            <td class="px-2 py-1 border border-black">
-                {{ $family->start_date->format('Y/m/d') }}
-            </td>
-        </tr>
-    @endforeach
-    </tbody>
-</table>
-</body>
-
-</html>
+                <x-td>
+                    {{ $family->start_date->format('Y/m/d') }}
+                </x-td>
+            </tr>
+        @endforeach
+    </x-slot>
+</x-table>

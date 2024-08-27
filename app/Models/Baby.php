@@ -81,6 +81,11 @@ class Baby extends Model
         return $this->belongsTo(Inventory::class, 'baby_milk_type', 'id');
     }
 
+    public function shouldBeSearchable(): bool
+    {
+        return $this->orphan->birth_date->age < 2;
+    }
+
     public function toSearchableArray(): array
     {
         return [
@@ -132,16 +137,16 @@ class Baby extends Model
         return $models->load(['orphan.family.zone', 'orphan.sponsor']);
     }
 
+    public function archives(): MorphToMany
+    {
+        return $this->morphToMany(Archive::class, 'archiveable');
+    }
+
     protected function casts(): array
     {
         return [
             'tenant_id' => 'string',
             'orphan_id' => 'string',
         ];
-    }
-
-    public function archives(): MorphToMany
-    {
-        return $this->morphToMany(Archive::class, 'archiveable');
     }
 }
