@@ -3,7 +3,7 @@ import type { FamiliesIndexResource, IndexParams, PaginationData } from '@/types
 
 import { familiesFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -35,11 +35,12 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
     fields: props.params.fields,
+    filters: props.params.filters,
     search: props.params.search
 })
 
@@ -59,7 +60,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteFamily = () => {
     router.delete(route('tenant.families.destroy', selectedFamilyId.value), {
@@ -68,11 +69,11 @@ const deleteFamily = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.families.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.families.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.families.index'), params, {
+            getDataForIndexPages(route('tenant.families.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },
