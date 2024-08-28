@@ -23,7 +23,7 @@ const data = computed<ChartData>(() => {
         labels: props.familiesHousing.labels,
         datasets: [
             {
-                label: __('statistics.families.titles.families_by_sponsorships'),
+                label: __('housing.label.type'),
                 data: props.familiesHousing.data
             }
         ]

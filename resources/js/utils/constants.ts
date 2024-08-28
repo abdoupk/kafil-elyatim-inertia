@@ -354,23 +354,35 @@ export const abbreviationMonths = {
 
 export const colorPalette = {
     dark: [
-        '#264653', // Dark Gray
-        '#2a9d8f', // Gray
-        '#e9c46a', // Amber
-        '#f4a261', // Cyan
-        '#d9534f', // Red
-        '#e76f51', // Green
-        '#e3d5ca', // Blue
-        '#f7f7f7', // Light Gray
-        '#e7e7e7', // Silver
-        '#d9534f', // Coral
-        '#f0ad4e', // Gold
-        '#5bc0de', // Sky Blue
-        '#5cb85c', // Lime Green
-        '#d9534f', // Crimson
-        '#6f42c1' // Purple
+        'rgba(221, 229, 182, 1)',
+        'rgba(111, 158, 235, 1)',
+        'rgba(162, 210, 255, 1)',
+        'rgba(255, 165, 171, 1)',
+        'rgba(173, 193, 120, 1)',
+        'rgba(247, 227, 175, 1)',
+        'rgba(235, 235, 235, 1)',
+        'rgba(213, 189, 175, 1)',
+        'rgba(102, 155, 188, 1)',
+        'rgba(203, 192, 211, 1)',
+        'rgba(173, 181, 189, 1)',
+        'rgba(255, 179, 198, 1)',
+        'rgba(239, 207, 227, 1)',
+        'rgba(163, 177, 138, 1)',
+        'rgba(119, 141, 169, 1)',
+        'rgba(166, 138, 100, 1)'
     ],
-    light: ['#00202e', '#003f5c', '#2c4875', '#8a508f', '#bc5090', '#ff6361', '#ff8531', '#ffa600', '#ffd380']
+    light: [
+        'rgba(187, 62, 3, 1)',
+        'rgba(114, 61, 70, 1)',
+        'rgba(26, 101, 158, 1)',
+        'rgba(237, 174, 73, 1)',
+        'rgba(14, 79, 59, 1)',
+        'rgba(109, 104, 117, 1)',
+        'rgba(0, 109, 119, 1)',
+        'rgba(128, 15, 47, 1)',
+        'rgba(34, 34, 59, 1)',
+        'rgba(32, 77, 98, 1)'
+    ]
 }
 
 export const financialSpecifications = [

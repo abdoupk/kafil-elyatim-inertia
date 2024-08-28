@@ -23,7 +23,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $this->getAuthData(),
                 'settings' => auth()->user()?->settings,
             ],
-            'association' => tenant('association'),
+            'association' => tenant('infos')['association'] ?? null,
             'language' => 'ar', // TODO: change to get automatically app()->getLocale() and remove languages
             'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {

@@ -21,8 +21,8 @@ defineProps<{
             :datasets="[
                 {
                     data: orphansByAge.data,
-                    label: __('statistics.orphans.titles.orphans_by_age'),
-                    backgroundColor: () => getColor('primary', 0.8)
+                    label: __('orphans_count'),
+                    backgroundColor: () => getColor('primary', 0.9)
                 }
             ]"
             :height="300"

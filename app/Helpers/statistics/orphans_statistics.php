@@ -81,7 +81,7 @@ function getOrphansByAge(): array
 
     return [
         'age' => array_reverse($orphans->pluck('age')->map(function (int $age) {
-            return trans_choice('statistics.orphans.labels.years', $age, ['value' => $age]);
+            return trans_choice('age_years', $age, ['value' => $age]);
         })->toArray()),
         'data' => array_reverse($orphans->pluck('count')->toArray()),
     ];
@@ -186,7 +186,7 @@ function getOrphansByVocationalTraining(): array
 
 function getOrphansGroupByCreatedDate(): array
 {
-    return array_replace(array_fill(0, 12, 0), Orphan::selectRaw('EXTRACT(MONTH FROM created_at) as month, COUNT(*) as orphans_count')
+    return array_replace(array_fill(1, 13, 0), Orphan::selectRaw('EXTRACT(MONTH FROM created_at) as month, COUNT(*) as orphans_count')
         ->whereYear('created_at', date('Y'))
         ->groupBy('month')
         ->pluck('orphans_count', 'month')

@@ -30,7 +30,7 @@ const data = computed<ChartData>(() => {
         labels,
         datasets: [
             {
-                label: __('statistics.families.titles.families_by_sponsorships'),
+                label: __('sponsorship_type'),
                 data: Object.values(props.familiesSponsorShips)
             }
         ]

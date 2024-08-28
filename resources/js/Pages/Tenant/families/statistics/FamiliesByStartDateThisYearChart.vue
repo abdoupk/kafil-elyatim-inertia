@@ -43,6 +43,7 @@ const data = computed<ChartData>(() => {
 const options = computed<ChartOptions>(() => {
     return {
         maintainAspectRatio: false,
+
         plugins: {
             legend: {
                 display: false,
@@ -52,6 +53,7 @@ const options = computed<ChartOptions>(() => {
                 rtl: getLocale() === 'ar'
             }
         },
+
         scales: {
             x: {
                 reverse: getLocale() === 'ar',

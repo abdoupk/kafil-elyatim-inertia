@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
+import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
     width?: number
@@ -50,7 +51,9 @@ const options = computed<ChartOptions>(() => {
             line: {
                 borderWidth: 3
             }
-        }
+        },
+
+        locale: getLocale()
     }
 })
 </script>

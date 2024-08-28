@@ -8,6 +8,7 @@ import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 import { getColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
 import { addOpacityToHexColors } from '@/utils/helper'
+import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
     width?: number
@@ -35,7 +36,7 @@ const data = computed<ChartData>(() => {
                 data: props.chartData,
                 backgroundColor: colors.value.backgroundColor,
                 hoverBackgroundColor: colors.value.hoverBackgroundColor,
-                borderWidth: 3,
+                borderWidth: 0,
                 borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
             }
         ]
@@ -45,13 +46,22 @@ const data = computed<ChartData>(() => {
 const options = computed<ChartOptions>(() => {
     return {
         maintainAspectRatio: false,
+
         plugins: {
             legend: {
+                rtl: getLocale() === 'ar',
                 labels: {
                     color: getColor('slate.500', 0.8)
                 }
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
             }
-        }
+        },
+
+        cutout: '65%',
+
+        locale: getLocale()
     }
 })
 </script>

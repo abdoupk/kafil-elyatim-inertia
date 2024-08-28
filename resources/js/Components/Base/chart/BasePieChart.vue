@@ -5,7 +5,7 @@ import { computed, defineAsyncComponent } from 'vue'
 
 import { getColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
-import { addOpacityToHexColors } from '@/utils/helper'
+import { getLocale } from '@/utils/i18n'
 
 const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
@@ -18,12 +18,10 @@ const props = defineProps<{
 
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
-const palette = colorPalette[darkMode.value ? 'dark' : 'light'].sort(() => Math.random() - 0.5)
-
 const colors = computed(() => {
     return {
-        backgroundColor: palette,
-        hoverBackgroundColor: addOpacityToHexColors(palette, 0.7)
+        backgroundColor: colorPalette[darkMode.value ? 'dark' : 'light'],
+        hoverBackgroundColor: colorPalette[darkMode.value ? 'dark' : 'light']
     }
 })
 
@@ -45,13 +43,20 @@ const data = computed<ChartData>(() => {
 const options = computed<ChartOptions>(() => {
     return {
         maintainAspectRatio: false,
+
         plugins: {
             legend: {
                 labels: {
                     color: getColor('slate.500', 0.8)
-                }
+                },
+                rtl: getLocale() === 'ar'
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
             }
-        }
+        },
+
+        locale: getLocale()
     }
 })
 </script>

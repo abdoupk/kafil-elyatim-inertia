@@ -43,11 +43,16 @@ const options = computed<ChartOptions>(() => {
         maintainAspectRatio: false,
         plugins: {
             legend: {
-                display: false
+                display: false,
+                rtl: getLocale() === 'ar'
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
             }
         },
         scales: {
             x: {
+                reverse: getLocale() === 'ar',
                 display: false,
                 ticks: {
                     display: false
@@ -57,6 +62,7 @@ const options = computed<ChartOptions>(() => {
                 }
             },
             y: {
+                position: getLocale() === 'ar' ? 'right' : 'left',
                 display: false,
                 ticks: {
                     display: false
@@ -65,7 +71,8 @@ const options = computed<ChartOptions>(() => {
                     display: false
                 }
             }
-        }
+        },
+        locale: getLocale()
     }
 })
 </script>

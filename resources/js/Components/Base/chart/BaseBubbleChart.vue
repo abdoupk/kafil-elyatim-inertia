@@ -5,6 +5,8 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
+import { getLocale } from '@/utils/i18n'
+
 const props = defineProps<{
     width?: number
     height?: number
@@ -16,12 +18,10 @@ const props = defineProps<{
     }[]
 }>()
 
-const darkMode = computed(() => useSettingsStore().appearance === 'dark')
-
 const data = computed<ChartData>(() => {
     return {
         labels: props.labels,
-        datasets: props.datasets.map((dataset, index) => {
+        datasets: props.datasets.map((dataset) => {
             return {
                 label: dataset.label,
                 data: dataset.data
@@ -32,7 +32,53 @@ const data = computed<ChartData>(() => {
 
 const options = computed<ChartOptions>(() => {
     return {
-        maintainAspectRatio: false
+        maintainAspectRatio: false,
+
+        plugins: {
+            legend: {
+                rtl: getLocale() === 'ar'
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
+            }
+        },
+
+        scales: {
+            x: {
+                reverse: getLocale() === 'ar',
+                ticks: {
+                    font: {
+                        size: 12
+                    }
+                },
+                grid: {
+                    display: false,
+                    drawBorder: false
+                }
+            },
+            y: {
+                border: {
+                    display: false,
+                    dash: [2, 2]
+                },
+                position: getLocale() === 'ar' ? 'right' : 'left',
+                ticks: {
+                    callback(tickValue: number) {
+                        return tickValue % 1 === 0 ? tickValue : ''
+                    },
+                    font: {
+                        size: 12
+                    }
+                },
+                grid: {
+                    tickBorderDash: false,
+                    color:
+                        useSettingsStore().appearance === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'
+                }
+            }
+        },
+
+        locale: getLocale()
     }
 })
 </script>

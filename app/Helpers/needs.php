@@ -21,7 +21,7 @@ function getNeedsGroupByType(): array
 }
 function getNeedsGroupByCreatedDate(): array
 {
-    return array_replace(array_fill(0, 12, 0), Need::whereYear('created_at', date('Y'))->selectRaw('count(*) as count, EXTRACT(MONTH FROM created_at) as month')->groupBy('month')
+    return array_replace(array_fill(1, 13, 0), Need::whereYear('created_at', date('Y'))->selectRaw('count(*) as count, EXTRACT(MONTH FROM created_at) as month')->groupBy('month')
         ->pluck('count', 'month')
         ->toArray());
 }

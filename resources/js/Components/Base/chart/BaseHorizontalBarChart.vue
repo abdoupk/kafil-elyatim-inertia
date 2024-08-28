@@ -58,6 +58,10 @@ const options = computed<ChartOptions>(() => {
                 }
             },
             y: {
+                border: {
+                    display: false,
+                    dash: [2, 2]
+                },
                 ticks: {
                     font: {
                         size: 12

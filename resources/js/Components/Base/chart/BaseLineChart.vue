@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
+import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
     width?: number
@@ -41,15 +42,23 @@ const data = computed<ChartData>(() => {
 const options = computed<ChartOptions>(() => {
     return {
         maintainAspectRatio: false,
+
         plugins: {
             legend: {
+                rtl: getLocale() === 'ar',
+
                 labels: {
                     color: getColor('slate.500', 0.8)
                 }
+            },
+            tooltip: {
+                rtl: getLocale() === 'ar'
             }
         },
+
         scales: {
             x: {
+                reverse: getLocale() === 'ar',
                 ticks: {
                     font: {
                         size: 12
@@ -62,6 +71,11 @@ const options = computed<ChartOptions>(() => {
                 }
             },
             y: {
+                border: {
+                    display: false,
+                    dash: [2, 2]
+                },
+                position: getLocale() === 'ar' ? 'right' : 'left',
                 ticks: {
                     font: {
                         size: 12
@@ -74,7 +88,9 @@ const options = computed<ChartOptions>(() => {
                     drawBorder: false
                 }
             }
-        }
+        },
+
+        locale: getLocale()
     }
 })
 </script>

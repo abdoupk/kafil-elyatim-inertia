@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { OrphansByCreatedDateType } from '@/types/statistics'
 
+import { useSettingsStore } from '@/stores/settings'
 import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
@@ -17,13 +18,14 @@ defineProps<{
 </script>
 
 <template>
-    <suspense v-if="orphansByCreatedDate.length" suspensible>
+    <suspense v-if="Object.values(orphansByCreatedDate).length" suspensible>
         <base-line-chart
             :datasets="[
                 {
-                    data: orphansByCreatedDate,
-                    label: __('statistics.orphans.titles.orphans_by_created_date'),
-                    borderColor: () => getColor('primary')
+                    data: Object.values(orphansByCreatedDate),
+                    label: __('orphans_count'),
+                    borderColor: () =>
+                        useSettingsStore().appearance === 'dark' ? getColor('slate.300', 0.6) : getColor('primary', 0.8)
                 }
             ]"
             :height="300"

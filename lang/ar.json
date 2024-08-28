@@ -238,7 +238,7 @@
     "therapy": "العلاج",
     "expense": "مصروف",
     "income": "دخل",
-    "orphans_count": "عدد الأولاد",
+    "orphans_count": "عدد الأيتام",
     "display information": "عرض المعلومات",
     "save": "حفظ",
     "need": "احتياج",
@@ -393,5 +393,6 @@
     "no_recent_activities": "لا توجد نشاطات حديثة.",
     "No upcoming lessons": "لا يوجد دروس دعم مقبلة",
     "no_financial_transactions": "لا توجد معاملات مالية مضافة.",
-    "no_notifications": "لا توجد إشعارات."
+    "no_notifications": "لا توجد إشعارات.",
+    "sponsorship_type": "نوع الكفالة"
 }

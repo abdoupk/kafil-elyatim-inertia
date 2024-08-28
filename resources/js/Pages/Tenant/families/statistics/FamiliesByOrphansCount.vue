@@ -8,7 +8,7 @@ import { computed, defineAsyncComponent } from 'vue'
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
-import { __, n__ } from '@/utils/i18n'
+import { __, getLocale, n__ } from '@/utils/i18n'
 
 const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
@@ -22,7 +22,7 @@ const data = computed<ChartData>(() => {
     return {
         labels: props.familiesByOrphansCount.orphans_count.map((orphan) =>
             n__('statistics.families.labels.orphans_count', orphan, {
-                value: orphan
+                value: String(orphan)
             })
         ),
         datasets: [
@@ -37,6 +37,7 @@ const data = computed<ChartData>(() => {
 const options = computed<ChartOptions>(() => {
     return {
         maintainAspectRatio: false,
+
         plugins: {
             legend: {
                 labels: {
@@ -44,8 +45,10 @@ const options = computed<ChartOptions>(() => {
                 }
             }
         },
+
         scales: {
             x: {
+                reverse: getLocale() === 'ar',
                 ticks: {
                     font: {
                         size: 12
@@ -58,6 +61,11 @@ const options = computed<ChartOptions>(() => {
                 }
             },
             y: {
+                border: {
+                    display: false,
+                    dash: [2, 2]
+                },
+                position: getLocale() === 'ar' ? 'right' : 'left',
                 ticks: {
                     font: {
                         size: 12
@@ -75,7 +83,9 @@ const options = computed<ChartOptions>(() => {
                     drawBorder: false
                 }
             }
-        }
+        },
+
+        locale: getLocale()
     }
 })
 </script>

@@ -16,11 +16,11 @@ defineProps<{
 </script>
 
 <template>
-    <suspense v-if="familiesGroupByDate.length" suspensible>
+    <suspense v-if="Object.values(familiesGroupByDate).length" suspensible>
         <families-by-start-date-this-year-chart
             :datasets="[
                 {
-                    data: familiesGroupByDate,
+                    data: Object.values(familiesGroupByDate),
                     label: __('families_count')
                 }
             ]"

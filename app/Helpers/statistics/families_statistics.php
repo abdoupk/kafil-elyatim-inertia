@@ -75,7 +75,7 @@ function getFamiliesSponsorShips(): array
 
 function getFamiliesGroupByDate(): array
 {
-    return array_replace(array_fill(0, 12, 0), Family::selectRaw('EXTRACT(MONTH FROM start_date) as month, COUNT(*) as families_count')
+    return array_replace(array_fill(1, 12, 0), Family::selectRaw('EXTRACT(MONTH FROM start_date) as month, COUNT(*) as families_count')
         ->whereYear('start_date', date('Y'))
         ->groupBy('month')
         ->pluck('families_count', 'month')
