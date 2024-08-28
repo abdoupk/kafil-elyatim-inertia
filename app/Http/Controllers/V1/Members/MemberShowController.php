@@ -12,7 +12,7 @@ class MemberShowController extends Controller
     public function __invoke(User $member): JsonResponse
     {
         return response()->json([
-            'member' => MemberUpdateResource::make($member->load(['zone', 'branch'])),
+            'member' => MemberUpdateResource::make($member->load(['zone', 'branch', 'roles.permissions'])),
         ]);
     }
 }

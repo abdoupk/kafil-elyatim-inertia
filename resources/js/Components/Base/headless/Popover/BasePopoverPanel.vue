@@ -58,8 +58,8 @@ const computedClass = computed(() =>
                 { 'bottom-0 end-[100%]': placement == 'left-end' }
             ]"
         >
-            <headless-popover-panel :as="as" :class="computedClass" v-bind="attrs.attrs">
-                <slot></slot>
+            <headless-popover-panel v-slot="{ close }" :as="as" :class="computedClass" v-bind="attrs.attrs">
+                <slot :close="close"></slot>
             </headless-popover-panel>
         </div>
     </transition-root>

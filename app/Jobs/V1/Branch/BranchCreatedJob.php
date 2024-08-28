@@ -21,9 +21,10 @@ class BranchCreatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
+            User::with(['roles', 'permissions'])->whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
+            })->where('users.id', '!=', $this->user->id)
+                ->get(),
             new CreateBranchNotification(branch: $this->branch, user: $this->user));
     }
 }

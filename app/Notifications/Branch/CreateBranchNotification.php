@@ -34,7 +34,7 @@ class CreateBranchNotification extends Notification implements ShouldQueue
             ],
             'metadata' => [
                 'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show=', $this->branch->id,
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.branches.index').'?show='.$this->branch->id,
             ],
         ];
     }
@@ -50,10 +50,6 @@ class CreateBranchNotification extends Notification implements ShouldQueue
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
             ],
         ]);
     }

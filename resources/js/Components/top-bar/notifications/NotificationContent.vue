@@ -2,39 +2,47 @@
 import type { DatabaseNotification } from '@/types/types'
 
 import { useNotificationsStore } from '@/stores/notifications'
-import { Link, router } from '@inertiajs/vue3'
+import { router } from '@inertiajs/vue3'
 
 import { formatDate } from '@/utils/helper'
 import { n__ } from '@/utils/i18n'
 
-defineProps<{
+const props = defineProps<{
     notification: DatabaseNotification
+    close: () => void
 }>()
 
 const notificationsStore = useNotificationsStore()
 
 const redirect = (url: string) => {
     if (url) {
+        props.close()
+
         router.visit(url)
     }
 }
 
 const markAsRead = (notification: DatabaseNotification) => {
-    notificationsStore.markAsRead(notification.id).then(() => {
-        redirect(notification.data.metadata.url)
-    })
+    notificationsStore.markAsRead(notification.id)
+
+    redirect(notification.data.metadata.url)
+}
+
+const handleShowMember = (url: string) => {
+    redirect(url)
 }
 </script>
 
 <template>
-    <div class="ms-2 overflow-hidden">
-        <div class="flex items-center">
-            <Link
-                :href="route('tenant.members.index') + '?show=' + notification.data.user.id"
+    <div class="z-10 ms-2 overflow-hidden" @click.prevent="markAsRead(notification)">
+        <div class="z-[51] flex items-center">
+            <a
                 class="me-5 truncate font-medium rtl:font-semibold"
+                href="javascript:void(0)"
+                @click.stop="handleShowMember(route('tenant.members.index') + '?show=' + notification.data.user.id)"
             >
                 {{ notification.data.user.name }}
-            </Link>
+            </a>
 
             <div class="ms-auto whitespace-nowrap text-xs text-slate-400">
                 {{ formatDate(notification.data.metadata.created_at, 'medium') }}
@@ -48,7 +56,6 @@ const markAsRead = (notification: DatabaseNotification) => {
                     ...notification.data.data
                 })
             "
-            @click.prevent="markAsRead(notification)"
         ></div>
     </div>
 </template>

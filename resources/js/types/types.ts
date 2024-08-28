@@ -792,6 +792,7 @@ export interface DatabaseNotification {
     }
     type: string
     id: string
+    read_at: string
 }
 
 export interface RealTimeNotification {

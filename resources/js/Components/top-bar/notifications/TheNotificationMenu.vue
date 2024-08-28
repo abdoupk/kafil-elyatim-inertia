@@ -13,6 +13,10 @@ const NotificationContent = defineAsyncComponent(
     () => import('@/Components/top-bar/notifications/NotificationContent.vue')
 )
 
+defineProps<{
+    close: () => void
+}>()
+
 const last = ref()
 
 const loading = ref(false)
@@ -49,14 +53,18 @@ useIntersectionObserver(last, ([{ isIntersecting }]) => {
         <div
             v-for="notification in notificationsStore.notifications?.data"
             :key="notification.id"
-            :class="['relative flex cursor-pointer items-center', { 'mt-5': notification.id }]"
+            :class="[
+                'relative -mx-2 -my-2 flex cursor-pointer  items-center rounded-lg  px-2 py-1',
+                { 'mt-5': notification.id },
+                { 'bg-slate-100 dark:bg-darkmode-400': !notification.read_at }
+            ]"
         >
             <notification-avatar
                 :gender="notification.data.user?.gender"
                 :name="notification.data.user?.name"
             ></notification-avatar>
 
-            <notification-content :notification="notification"></notification-content>
+            <notification-content :close :notification="notification"></notification-content>
         </div>
     </div>
 

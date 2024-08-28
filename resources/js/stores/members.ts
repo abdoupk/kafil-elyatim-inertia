@@ -59,11 +59,11 @@ export const useMembersStore = defineStore('members', {
 
             this.member.roles = member.roles.map((role: Role) => role.uuid)
 
-            this.member.branch_id = member.branch.id
+            this.member.branch_id = member.branch?.id
 
             this.member.branch = { ...member.branch }
 
-            this.member.zone_id = member.zone.id
+            this.member.zone_id = member.zone?.id
 
             this.member.zone = { ...member.zone }
         },

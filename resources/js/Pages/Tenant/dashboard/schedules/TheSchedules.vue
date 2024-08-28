@@ -61,8 +61,8 @@ const attributes = computed(() => [
                         </div>
                     </template>
 
-                    <div v-else class="mt-5 text-center">
-                        {{ __('No upcoming events') }}
+                    <div v-else class="mt-5 text-center text-slate-500 rtl:font-semibold">
+                        {{ __('No upcoming lessons') }}
                     </div>
                 </div>
             </div>
