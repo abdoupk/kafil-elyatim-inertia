@@ -12,20 +12,29 @@ class PermissionSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->setPermissionsTeamId(tenant('id'));
 
-        $models = ['members', 'families', 'roles', 'needs', 'zones', 'financial_transactions', 'branches', 'inventory', 'schools', 'lessons'];
+        $permissions = [
+            'roles' => ['create', 'delete', 'list', 'update'],
+            'members' => ['create', 'delete', 'list', 'update', 'view'],
+            'branches' => ['create', 'delete', 'list', 'update', 'view'],
+            'families' => ['create', 'delete', 'export', 'list', 'update', 'view'],
+            'orphans' => ['delete', 'export', 'list', 'update', 'view'],
+            'sponsors' => ['delete', 'export', 'list', 'update', 'view'],
+            'zones' => ['create', 'delete', 'list', 'update', 'view'],
+            'financial_transactions' => ['create', 'delete', 'export', 'list', 'update', 'view'],
+            'inventory' => ['create', 'delete', 'list', 'update', 'view'],
+            'settings' => ['update', 'view'],
+            'needs' => ['create', 'delete', 'list', 'update', 'view'],
+            'schools' => ['create', 'delete', 'list', 'update', 'view'],
+            'lessons' => ['create', 'delete', 'list', 'update', 'view'],
+            'archive' => ['export', 'list', 'view'],
+            'trash' => ['destroy', 'list', 'restore'],
+            'occasions' => ['save', 'view', 'export'],
+        ];
 
-        $permissionsMap = ['create', 'read', 'update', 'delete'];
-
-        array_map(function ($model) use ($permissionsMap) {
-            foreach ($permissionsMap as $permission) {
-                Permission::create(['name' => $permission.'_'.$model]);
+        foreach ($permissions as $key => $value) {
+            foreach ($value as $permission) {
+                Permission::create(['name' => $permission.'_'.$key, 'guard_name' => 'web']);
             }
-        }, $models);
-
-        $permissions = ['settings_update', 'settings_read', 'orphan_edit', 'orphan_read', 'sponsor_read', 'orphan_delete', 'sponsor_edit', 'sponsor_delete', 'occasions_save', 'occasions_export', 'occasions_read', 'orphans_export', 'financial_transactions_export', 'families_export', 'sponsors_export', 'trash_restore', 'trash_delete', 'archive_read'];
-
-        foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
         }
     }
 }

@@ -309,17 +309,22 @@ export const financialTransactionSpecifications = [
 ]
 
 export const permissions = {
-    members: ['create', 'read', 'update', 'delete'],
-    families: ['create', 'read', 'update', 'delete'],
-    orphans: ['create', 'read', 'update', 'delete'],
-    zones: ['create', 'read', 'update', 'delete'],
-    financial_transactions: ['create', 'read', 'update', 'delete'],
-    branches: ['create', 'read', 'update', 'delete'],
-    settings: ['read', 'update', 'create', 'delete'],
-    needs: ['create', 'read', 'update', 'delete'],
-    inventory: ['create', 'read', 'update', 'delete'],
-    schools: ['create', 'read', 'update', 'delete'],
-    lessons: ['create', 'read', 'update', 'delete']
+    roles: ['create', 'delete', 'list', 'update'],
+    members: ['create', 'delete', 'list', 'update', 'view'],
+    branches: ['create', 'delete', 'list', 'update', 'view'],
+    families: ['create', 'delete', 'export', 'list', 'update', 'view'],
+    orphans: ['delete', 'export', 'list', 'update', 'view'],
+    sponsors: ['delete', 'export', 'list', 'update', 'view'],
+    zones: ['create', 'delete', 'list', 'update', 'view'],
+    financial_transactions: ['create', 'delete', 'export', 'list', 'update', 'view'],
+    inventory: ['create', 'delete', 'list', 'update', 'view'],
+    settings: ['update', 'view'],
+    occasions: ['save', 'view', 'export'],
+    needs: ['create', 'delete', 'list', 'update', 'view'],
+    schools: ['create', 'delete', 'list', 'update', 'view'],
+    lessons: ['create', 'delete', 'list', 'update', 'view'],
+    archive: ['export', 'list', 'view'],
+    trash: ['destroy', 'list', 'restore']
 }
 
 const monthAbbreviationsFrench = ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec']

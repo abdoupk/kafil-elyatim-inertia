@@ -7,6 +7,7 @@ import { computed, ref } from 'vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
+import BaseFormCheckInput from '@/Components/Base/form/form-check/BaseFormCheckInput.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
@@ -93,6 +94,18 @@ const firstInputRef = ref<HTMLElement>()
 const modalType = computed(() => {
     return rolesStore.role.uuid ? 'update' : 'create'
 })
+
+const checkAll = (model: string, checked: boolean) => {
+    if (checked) {
+        permissions[model].forEach((permission: string) => {
+            form.value.permissions[`${permission}_${model}`] = true
+        })
+    } else {
+        permissions[model].forEach((permission: string) => {
+            delete form.value.permissions[`${permission}_${model}`]
+        })
+    }
+}
 </script>
 
 <template>
@@ -128,25 +141,41 @@ const modalType = computed(() => {
 
             <div class="col-span-12 mt-6">
                 <div v-for="(permissionMaps, key, index) in permissions" :key="index">
-                    <h2 class="mb-2 mt-2 text-base/relaxed ltr:font-medium rtl:font-bold">
-                        {{ $t(`the_${key}`) }}
-                    </h2>
+                    <div class="my-2 flex justify-between">
+                        <h2 class="mb-2 mt-2 text-base/relaxed ltr:font-medium rtl:font-bold">
+                            {{ $t(`the_${key}`) }}
+                        </h2>
+
+                        <base-form-check-input
+                            :id="key"
+                            class="mt-3"
+                            type="checkbox"
+                            @change="checkAll(key, $event.target.checked)"
+                        ></base-form-check-input>
+                    </div>
 
                     <div class="grid grid-cols-4 gap-3">
                         <div v-for="permission in permissionMaps" :key="permission">
-                            <div>
-                                <base-form-switch>
-                                    <base-form-switch-input
-                                        :id="`${permission}_${key}`"
-                                        v-model="form.permissions[`${permission}_${key}`]"
-                                        type="checkbox"
-                                    ></base-form-switch-input>
+                            <base-form-switch>
+                                <base-form-switch-input
+                                    :id="`${permission}_${key}`"
+                                    v-model="form.permissions[`${permission}_${key}`]"
+                                    type="checkbox"
+                                ></base-form-switch-input>
 
-                                    <base-form-switch-label :for="`${permission}_${key}`">
+                                <base-form-switch-label :for="`${permission}_${key}`">
+                                    <template v-if="permission === 'list'">
+                                        {{
+                                            $t('permissions.list', {
+                                                attribute: $t(`the_${key}`)
+                                            })
+                                        }}
+                                    </template>
+                                    <template v-else>
                                         {{ `${$t(`permissions.${permission}`)}` }}
-                                    </base-form-switch-label>
-                                </base-form-switch>
-                            </div>
+                                    </template>
+                                </base-form-switch-label>
+                            </base-form-switch>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ import { createPinia } from 'pinia'
 import { type DefineComponent, createApp, h } from 'vue'
 import { ZiggyVue } from 'ziggy-js'
 
-import { usePersistStore } from '@/utils/s'
+import { usePersistStore } from '@/utils/pinia'
 
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
