@@ -25,17 +25,11 @@ class DeleteOrphanNotification extends Notification implements ShouldQueue
         return [
             'data' => [
                 'name' => $this->orphan->getName(),
-                'zone' => $this->orphan->family->zone->name,
-                'branch' => $this->orphan->family->branch->name,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'deleted_at' => $this->orphan->deleted_at,
-                'url' => route('tenant.orphans.show', $this->orphan->id),
             ],
         ];
     }
@@ -45,17 +39,11 @@ class DeleteOrphanNotification extends Notification implements ShouldQueue
         return new BroadcastMessage([
             'data' => [
                 'name' => $this->orphan->getName(),
-                'zone' => $this->orphan->family->zone->name,
-                'branch' => $this->orphan->family->branch->name,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'deleted_at' => $this->orphan->deleted_at,
-                'url' => route('tenant.orphans.show', $this->orphan->id),
             ],
         ]);
     }

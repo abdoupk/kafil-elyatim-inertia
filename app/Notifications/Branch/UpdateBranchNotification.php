@@ -25,7 +25,6 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
         return [
             'data' => [
                 'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -34,7 +33,7 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
             ],
             'metadata' => [
                 'updated_at' => $this->branch->updated_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.branches.index').'?show='.$this->branch->id,
             ],
         ];
     }
@@ -44,16 +43,11 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
         return new BroadcastMessage([
             'data' => [
                 'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'updated_at' => $this->branch->updated_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
             ],
         ]);
     }

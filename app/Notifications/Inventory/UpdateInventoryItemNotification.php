@@ -13,7 +13,7 @@ class UpdateInventoryItemNotification extends Notification implements ShouldQueu
 {
     use Queueable;
 
-    public function __construct(public Inventory $inventory, public User $user) {}
+    public function __construct(public Inventory $item, public User $user) {}
 
     public function via(): array
     {
@@ -24,8 +24,7 @@ class UpdateInventoryItemNotification extends Notification implements ShouldQueu
     {
         return [
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->item->name,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -33,8 +32,7 @@ class UpdateInventoryItemNotification extends Notification implements ShouldQueu
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.inventory.index').'?show='.$this->item->id,
             ],
         ];
     }
@@ -43,23 +41,18 @@ class UpdateInventoryItemNotification extends Notification implements ShouldQueu
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->item->name,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
             ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
-            ],
         ]);
     }
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'update_item_from_inventory';
     }
 }

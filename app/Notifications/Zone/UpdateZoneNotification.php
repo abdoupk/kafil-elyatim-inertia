@@ -24,8 +24,7 @@ class UpdateZoneNotification extends Notification implements ShouldQueue
     {
         return [
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->zone->name,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -33,8 +32,7 @@ class UpdateZoneNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.zones.index').'?show='.$this->zone->id,
             ],
         ];
     }
@@ -43,23 +41,18 @@ class UpdateZoneNotification extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->zone->name,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
             ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
-            ],
         ]);
     }
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'zone.updated';
     }
 }

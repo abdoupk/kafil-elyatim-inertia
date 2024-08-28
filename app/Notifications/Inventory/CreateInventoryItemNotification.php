@@ -24,8 +24,9 @@ class CreateInventoryItemNotification extends Notification implements ShouldQueu
     {
         return [
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->item->name,
+                'qty' => $this->item->qty,
+                'unit' => $this->item->unit,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -33,8 +34,7 @@ class CreateInventoryItemNotification extends Notification implements ShouldQueu
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.inventory.index').'?show='.$this->item->id,
             ],
         ];
     }
@@ -43,23 +43,20 @@ class CreateInventoryItemNotification extends Notification implements ShouldQueu
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->item->name,
+                'qty' => $this->item->qty,
+                'unit' => $this->item->unit,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
             ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
-            ],
         ]);
     }
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'add_item_to_inventory';
     }
 }

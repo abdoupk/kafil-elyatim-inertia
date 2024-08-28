@@ -35,7 +35,7 @@ class UpdateFamilyNotification extends Notification implements ShouldQueue
             ],
             'metadata' => [
                 'updated_at' => $this->family->updated_at,
-                'url' => route('tenant.families.show', $this->family->id),
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.families.show', $this->family->id),
             ],
         ];
     }
@@ -52,10 +52,6 @@ class UpdateFamilyNotification extends Notification implements ShouldQueue
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'updated_at' => $this->family->updated_at,
-                'url' => route('tenant.families.show', $this->family->id),
             ],
         ]);
     }

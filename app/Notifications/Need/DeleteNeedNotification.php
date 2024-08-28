@@ -24,17 +24,13 @@ class DeleteNeedNotification extends Notification implements ShouldQueue
     {
         return [
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'needable_type' => $this->need->needable_type,
+                'name' => $this->need->needable?->getName(),
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
             ],
         ];
     }
@@ -43,23 +39,19 @@ class DeleteNeedNotification extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'needable_type' => $this->need->needable_type,
+                'name' => $this->need->needable?->getName(),
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
             ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
-            ],
         ]);
     }
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'need.deleted';
     }
 }

@@ -24,17 +24,12 @@ class DeleteInventoryItemNotification extends Notification implements ShouldQueu
     {
         return [
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->item->name,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
-            ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.show', $this->branch->id),
             ],
         ];
     }
@@ -43,23 +38,18 @@ class DeleteInventoryItemNotification extends Notification implements ShouldQueu
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->branch->name,
-                'city' => $this->branch->city->getFullName(),
+                'name' => $this->item->name,
             ],
             'user' => [
                 'id' => $this->user->id,
                 'name' => $this->user->getName(),
                 'gender' => $this->user->gender,
             ],
-            'metadata' => [
-                'created_at' => $this->branch->created_at,
-                'url' => route('tenant.branches.index').'?show='.$this->branch->id,
-            ],
         ]);
     }
 
     public function databaseType(): string
     {
-        return 'branch.created';
+        return 'delete_item_from_inventory';
     }
 }
