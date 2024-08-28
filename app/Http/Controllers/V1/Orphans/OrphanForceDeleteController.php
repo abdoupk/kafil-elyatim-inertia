@@ -7,5 +7,10 @@ use App\Models\Orphan;
 
 class OrphanForceDeleteController extends Controller
 {
-    public function __invoke(Orphan $orphan) {}
+    public function __invoke(Orphan $orphan)
+    {
+        $orphan->forceDeleteWithRelations();
+
+        return redirect()->back();
+    }
 }

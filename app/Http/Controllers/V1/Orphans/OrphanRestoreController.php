@@ -9,9 +9,7 @@ class OrphanRestoreController extends Controller
 {
     public function __invoke(Orphan $orphan)
     {
-        $orphan->restore();
-
-        $orphan->sponsorships()->searchable();
+        $orphan->restoreWithRelations();
 
         return redirect()->back();
     }

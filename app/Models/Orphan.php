@@ -164,11 +164,6 @@ class Orphan extends Model
         return $this->belongsTo(Sponsor::class);
     }
 
-    public function sponsorships(): HasOne
-    {
-        return $this->hasOne(OrphanSponsorship::class);
-    }
-
     public function shoesSize(): BelongsTo
     {
         return $this->belongsTo(ShoeSize::class, 'shoes_size', 'id');
@@ -289,16 +284,6 @@ class Orphan extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function needs(): MorphMany
-    {
-        return $this->morphMany(Need::class, 'needable');
-    }
-
-    public function babyNeeds(): HasOne
-    {
-        return $this->hasOne(Baby::class);
-    }
-
     public function lessons(): BelongsToMany
     {
         return $this->belongsToMany(EventOccurrence::class, 'event_occurrences', 'lesson_id', 'id')->using(LessonOrphan::class);
@@ -342,6 +327,91 @@ class Orphan extends Model
     public function archives(): MorphToMany
     {
         return $this->morphToMany(Archive::class, 'archiveable');
+    }
+
+    public function deleteWithRelations(): void
+    {
+        $this->unsearchable();
+
+        $needs = $this->needs();
+
+        $sponsorships = $this->sponsorships();
+
+        $this->babyNeeds()->unsearchable();
+
+        $needs->unsearchable();
+
+        $sponsorships->unsearchable();
+
+        $sponsorships->delete();
+
+        $needs->update([
+            'deleted_by' => auth()->id(),
+            'deleted_at' => now(),
+        ]);
+
+        $this->delete();
+    }
+
+    public function needs(): MorphMany
+    {
+        return $this->morphMany(Need::class, 'needable');
+    }
+
+    public function sponsorships(): HasOne
+    {
+        return $this->hasOne(OrphanSponsorship::class);
+    }
+
+    public function babyNeeds(): HasOne
+    {
+        return $this->hasOne(Baby::class);
+    }
+
+    public function forceDeleteWithRelations(): void
+    {
+        $this->unsearchable();
+
+        $needs = $this->needs();
+
+        $sponsorships = $this->sponsorships();
+
+        $this->babyNeeds()->unsearchable();
+
+        $needs->unsearchable();
+
+        $sponsorships->unsearchable();
+
+        $sponsorships->forceDelete();
+
+        $needs->forceDelete();
+
+        $this->forceDelete();
+    }
+
+    public function restoreWithRelations(): void
+    {
+        $this->searchable();
+
+        $this->restore();
+
+        $baby = $this->babyNeeds()->withTrashed();
+
+        $needs = $this->needs()->withTrashed();
+
+        $sponsorships = $this->sponsorships()->withTrashed();
+
+        $baby->searchable();
+
+        $needs->searchable();
+
+        $sponsorships->searchable();
+
+        $needs->restore();
+
+        $baby->restore();
+
+        $sponsorships->restore();
     }
 
     protected function casts(): array

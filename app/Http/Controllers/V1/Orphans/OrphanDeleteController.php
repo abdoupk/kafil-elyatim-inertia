@@ -10,9 +10,7 @@ class OrphanDeleteController extends Controller
 {
     public function __invoke(Orphan $orphan)
     {
-        $orphan->unsearchable();
-
-        $orphan->delete();
+        $orphan->deleteWithRelations();
 
         dispatch(new OrphanTrashedJob($orphan, auth()->user()));
 

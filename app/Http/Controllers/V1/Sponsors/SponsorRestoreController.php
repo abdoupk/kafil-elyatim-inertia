@@ -9,7 +9,7 @@ class SponsorRestoreController extends Controller
 {
     public function __invoke(Sponsor $sponsor)
     {
-        $sponsor->restore();
+        $sponsor->restoreWithRelations();
 
         return redirect()->back();
     }

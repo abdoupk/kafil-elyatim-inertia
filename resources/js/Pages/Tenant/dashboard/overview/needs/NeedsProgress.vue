@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { sumObjectValues } from '../../../../../utils/helper'
-
 import type { NeedsByCreatedDateType } from '@/types/dashboard'
 
 import TheSimpleLineChart from '@/Components/Global/theSimpleLineChart.vue'
+
+import { sumObjectValues } from '@/utils/helper'
 
 defineProps<{
     needsByCreatedDate: NeedsByCreatedDateType
@@ -27,7 +27,7 @@ defineProps<{
                 <the-simple-line-chart
                     :data="Object.values(needsByCreatedDate)"
                     :height="58"
-                    :label="$t('statistics.dashboard.total_needs')"
+                    :label="$t('needs')"
                     class="-ms-1"
                 ></the-simple-line-chart>
             </div>

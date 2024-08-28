@@ -5,14 +5,21 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Jobs\V1\Family\FamilyTrashedJob;
 use App\Models\Family;
+use DB;
+use Throwable;
 
 class FamilyDeleteController extends Controller
 {
+    /**
+     * @throws Throwable
+     */
     public function __invoke(Family $family)
     {
-        $family->unsearchable();
+        DB::transaction(function () use ($family) {
+            $family->unSearchWithRelations();
 
-        $family->delete();
+            $family->deleteWithRelationships();
+        });
 
         dispatch(new FamilyTrashedJob($family, auth()->user()));
 

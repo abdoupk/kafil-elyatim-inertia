@@ -7,5 +7,10 @@ use App\Models\Sponsor;
 
 class SponsorForceDeleteController extends Controller
 {
-    public function __invoke(Sponsor $sponsor) {}
+    public function __invoke(Sponsor $sponsor)
+    {
+        $sponsor->forceDeleteWithRelations();
+
+        return redirect()->back();
+    }
 }

@@ -165,11 +165,6 @@ class Sponsor extends Model
         return $this->hasOne(Income::class);
     }
 
-    public function sponsorships(): HasOne
-    {
-        return $this->hasOne(SponsorSponsorship::class);
-    }
-
     public function makeSearchableUsing(Collection $models): Collection
     {
         return $models->load(['incomes', 'academicLevel', 'sponsorships', 'orphans']);
@@ -223,11 +218,6 @@ class Sponsor extends Model
         return $this->belongsTo(Family::class);
     }
 
-    public function needs(): MorphMany
-    {
-        return $this->morphMany(Need::class, 'needable');
-    }
-
     public function orphans(): HasMany
     {
         return $this->hasMany(Orphan::class);
@@ -241,6 +231,76 @@ class Sponsor extends Model
     public function formattedPhoneNumber(): string
     {
         return formatPhoneNumber($this->phone_number);
+    }
+
+    public function deleteWithRelations(): void
+    {
+        $this->unsearchable();
+
+        $needs = $this->needs();
+
+        $needs->unsearchable();
+
+        $sponsorships = $this->sponsorships();
+
+        $sponsorships->unsearchable();
+
+        $sponsorships->delete();
+
+        $needs->update([
+            'deleted_by' => auth()->id(),
+            'deleted_at' => now(),
+        ]);
+
+        $this->delete();
+    }
+
+    public function forceDeleteWithRelations(): void
+    {
+        $this->unsearchable();
+
+        $needs = $this->needs();
+
+        $needs->unsearchable();
+
+        $sponsorships = $this->sponsorships();
+
+        $sponsorships->unsearchable();
+
+        $sponsorships->forceDelete();
+
+        $needs->forceDelete();
+
+        $this->forceDelete();
+    }
+
+    public function needs(): MorphMany
+    {
+        return $this->morphMany(Need::class, 'needable');
+    }
+
+    public function sponsorships(): HasOne
+    {
+        return $this->hasOne(SponsorSponsorship::class);
+    }
+
+    public function restoreWithRelations(): void
+    {
+        $this->searchable();
+
+        $this->restore();
+
+        $needs = $this->needs()->withTrashed();
+
+        $sponsorships = $this->sponsorships()->withTrashed();
+
+        $needs->searchable();
+
+        $sponsorships->searchable();
+
+        $needs->restore();
+
+        $sponsorships->restore();
     }
 
     protected function casts(): array

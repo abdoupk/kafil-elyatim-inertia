@@ -27,7 +27,7 @@ defineProps<{
                 <the-simple-line-chart
                     :data="Object.values(orphansGroupByCreatedDate)"
                     :height="58"
-                    :label="$t('statistics.dashboard.total_orphans')"
+                    :label="$t('orphans_count')"
                     class="-ms-1"
                 ></the-simple-line-chart>
             </div>

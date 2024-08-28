@@ -11,7 +11,7 @@ class SponsorDeleteController extends Controller
 {
     public function __invoke(Sponsor $sponsor): RedirectResponse
     {
-        $sponsor->delete();
+        $sponsor->deleteWithRelations();
 
         dispatch(new SponsorTrashedJob($sponsor, auth()->user()));
 

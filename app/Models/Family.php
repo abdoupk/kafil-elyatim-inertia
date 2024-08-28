@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\FamilyFactory;
+use DB;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -125,14 +126,25 @@ class Family extends Model
         });
     }
 
-    public function orphans(): HasMany
+    public function unSearchWithRelations(): void
     {
-        return $this->hasMany(Orphan::class);
-    }
+        $this->unsearchable();
 
-    public function babies(): HasMany
-    {
-        return $this->hasMany(Baby::class);
+        $this->orphansSponsorships->unsearchable();
+
+        $this->sponsorSponsorships->unsearchable();
+
+        $this->orphans->unsearchable();
+
+        $this->babies->unsearchable();
+
+        $this->orphansNeeds->unsearchable();
+
+        $this->sponsorsNeeds->unsearchable();
+
+        $this->sponsor()->unsearchable();
+
+        $this->sponsorships->unsearchable();
     }
 
     public function sponsor(): HasOne
@@ -272,6 +284,52 @@ class Family extends Model
     public function archives(): MorphToMany
     {
         return $this->morphToMany(Archive::class, 'archiveable');
+    }
+
+    public function deleteWithRelationships(): void
+    {
+        $this->delete();
+
+        $this->babies()->delete();
+
+        DB::table('needs')->where('needable_id', $this->sponsor->id)
+            ->orWhereIn('needable_id', $this->orphans->pluck('id'))
+            ->update(['deleted_at' => now(), 'deleted_by' => auth()->user()->id]);
+
+        $this->sponsor()->update([
+            'deleted_at' => now(),
+            'deleted_by' => auth()->user()->id,
+        ]);
+
+        $this->orphans()->update([
+            'deleted_at' => now(),
+            'deleted_by' => auth()->user()->id,
+        ]);
+    }
+
+    public function babies(): HasMany
+    {
+        return $this->hasMany(Baby::class);
+    }
+
+    public function orphans(): HasMany
+    {
+        return $this->hasMany(Orphan::class);
+    }
+
+    public function forceDeleteWithRelationships(): void
+    {
+        $this->forceDelete();
+
+        $this->babies()->forceDelete();
+
+        DB::table('needs')->where('needable_id', $this->sponsor->id)
+            ->orWhereIn('needable_id', $this->orphans->pluck('id'))
+            ->forceDelete();
+
+        $this->sponsor()->forceDelete();
+
+        $this->orphans()->forceDelete();
     }
 
     protected function casts(): array

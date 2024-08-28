@@ -2,7 +2,7 @@
 import type { IndexParams, PaginationData, TrashIndexResource } from '@/types/types'
 
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -34,7 +34,7 @@ const showSuccessNotification = ref<boolean>(false)
 
 const successNotificationMessage = ref<string>('')
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page
 })
@@ -49,18 +49,31 @@ const restore = (url: string) => {
         {},
         {
             preserveScroll: true,
+            preserveState: true,
             onSuccess: () => {
-                if (props.items.meta.last_page < params.page) {
-                    params.page = params.page - 1
-                }
+                router.get(
+                    route('tenant.trash'),
+                    {},
+                    {
+                        only: ['items'],
+                        onSuccess: () => {
+                            if (props.items.meta.last_page < params.value.page) {
+                                params.value.page = params.value.page - 1
+                            }
 
-                showSuccessNotification.value = true
+                            showSuccessNotification.value = true
 
-                successNotificationMessage.value = __('successfully_restored')
+                            successNotificationMessage.value = __('successfully_restored')
 
-                setTimeout(() => {
-                    showSuccessNotification.value = false
-                }, 1000)
+                            setTimeout(() => {
+                                showSuccessNotification.value = false
+                            }, 1000)
+                        },
+                        replace: true,
+                        preserveState: true,
+                        preserveScroll: true
+                    }
+                )
             }
         }
     )
@@ -91,15 +104,28 @@ const showDeleteModal = ({ id, url }: { id: string; url: string }) => {
 const deleteItem = () => {
     router.delete(route(selectedItem.value.url, selectedItem.value.id), {
         preserveScroll: true,
+        preserveState: true,
         onStart: () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.items.meta.last_page < params.page) {
-                params.page = params.page - 1
-            }
+            router.get(
+                route('tenant.trash'),
+                {},
+                {
+                    only: ['items'],
+                    onSuccess: () => {
+                        if (props.items.meta.last_page < params.value.page) {
+                            params.value.page = params.value.page - 1
+                        }
 
-            closeDeleteModal()
+                        closeDeleteModal()
+                    },
+                    replace: true,
+                    preserveState: true,
+                    preserveScroll: true
+                }
+            )
         }
     })
 }
