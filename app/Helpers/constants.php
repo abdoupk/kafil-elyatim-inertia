@@ -4,7 +4,8 @@ const LIMIT = 5000;
 
 const DONATION_SPECIFICATION = ['drilling_wells', 'monthly_sponsorship',
     'eid_el_adha', 'eid_el_fitr', 'other', 'school_entry', 'analysis',
-    'therapy', 'ramadan_basket'];
+    'therapy', 'ramadan_basket',
+];
 
 const FILTER_RAMADAN_BASKET = 'AND ramadan_basket != false AND ramadan_basket IS NOT NULL';
 
@@ -16,7 +17,7 @@ const FILTER_EID_AL_ADHA = 'AND eid_al_adha != false AND eid_al_adha IS NOT NULL
 
 $last_academic_year = (now()->year) - 1;
 
-define('FILTER_SCHOOL_ENTRY', "AND school_bag = true AND school_bag IS NOT NULL AND orphan.academic_achievement.academic_year IS NOT EMPTY AND orphan.academic_achievement.academic_year >= $last_academic_year");
+define('FILTER_SCHOOL_ENTRY', "AND school_bag = true AND school_bag IS NOT NULL AND orphan.academic_achievement.academic_year IS NOT EMPTY AND orphan.academic_achievement.academic_year >= {$last_academic_year}");
 
 const CALCULATION = [
     'weights' => [

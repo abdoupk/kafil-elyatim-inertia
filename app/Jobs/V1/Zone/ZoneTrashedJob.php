@@ -24,6 +24,7 @@ class ZoneTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteZoneNotification(zone: $this->zone, user: $this->user));
+            new DeleteZoneNotification(zone: $this->zone, user: $this->user)
+        );
     }
 }

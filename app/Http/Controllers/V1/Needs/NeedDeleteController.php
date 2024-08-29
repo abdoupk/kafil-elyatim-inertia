@@ -5,8 +5,9 @@ namespace App\Http\Controllers\V1\Needs;
 use App\Http\Controllers\Controller;
 use App\Jobs\V1\Need\NeedTrashedJob;
 use App\Models\Need;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class NeedDeleteController extends Controller
+class NeedDeleteController extends Controller implements HasMiddleware
 {
     public function __invoke(Need $need)
     {
@@ -15,5 +16,10 @@ class NeedDeleteController extends Controller
         dispatch(new NeedTrashedJob($need, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

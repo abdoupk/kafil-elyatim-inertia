@@ -24,6 +24,7 @@ class LessonCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->schools_and_lessons_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateLessonNotification(event: $this->event, user: $this->user));
+            new CreateLessonNotification(event: $this->event, user: $this->user)
+        );
     }
 }

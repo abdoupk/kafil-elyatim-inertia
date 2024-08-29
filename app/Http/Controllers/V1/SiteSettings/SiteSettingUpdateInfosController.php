@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\SiteSettings\UpdateSiteInfosRequest;
 use App\Models\Tenant;
 use App\Models\User;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class SiteSettingUpdateInfosController extends Controller
+class SiteSettingUpdateInfosController extends Controller implements HasMiddleware
 {
     public function __invoke(UpdateSiteInfosRequest $request)
     {
@@ -29,5 +30,10 @@ class SiteSettingUpdateInfosController extends Controller
         Tenant::whereId(tenant('id'))->update([
             'data->infos' => $data,
         ]);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

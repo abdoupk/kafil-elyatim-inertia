@@ -13,7 +13,7 @@ class FamiliesEidAlAdhaIndexExport implements FromView, WithEvents
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() == 'ar');
+                $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() === 'ar');
             },
         ];
     }

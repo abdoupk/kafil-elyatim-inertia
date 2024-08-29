@@ -24,6 +24,7 @@ class EidAlAdhaFamiliesListSavedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->occasions_saves', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new SaveEidAlAdhaFamiliesListNotification(archive: $this->archive, user: $this->user));
+            new SaveEidAlAdhaFamiliesListNotification(archive: $this->archive, user: $this->user)
+        );
     }
 }

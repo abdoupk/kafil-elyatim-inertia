@@ -16,7 +16,9 @@ class ExportArchiveFamiliesMonthlyBasketXlsxController extends Controller
      */
     public function __invoke(Archive $archive)
     {
-        return Excel::download(new FamiliesMonthlyBasketIndexExport,
-            __('exports.archive.monthly_basket_families', ['date' => $archive->created_at->translatedFormat('F Y')]).'.xlsx');
+        return Excel::download(
+            new FamiliesMonthlyBasketIndexExport,
+            __('exports.archive.monthly_basket_families', ['date' => $archive->created_at->translatedFormat('F Y')]).'.xlsx'
+        );
     }
 }

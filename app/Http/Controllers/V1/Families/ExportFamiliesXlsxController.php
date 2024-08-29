@@ -4,11 +4,12 @@ namespace App\Http\Controllers\V1\Families;
 
 use App\Exports\FamiliesIndexExport;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Exception;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ExportFamiliesXlsxController extends Controller
+class ExportFamiliesXlsxController extends Controller implements HasMiddleware
 {
     /**
      * @throws Exception
@@ -17,5 +18,10 @@ class ExportFamiliesXlsxController extends Controller
     public function __invoke(): BinaryFileResponse
     {
         return Excel::download(new FamiliesIndexExport, __('exports.families').'.xlsx');
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

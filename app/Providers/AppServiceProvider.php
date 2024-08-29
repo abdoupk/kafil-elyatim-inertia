@@ -66,11 +66,11 @@ class AppServiceProvider extends ServiceProvider
 
         Model::handleLazyLoadingViolationUsing(
             static function ($model, $relation): void {
-                $class = get_class($model);
+                $class = $model::class;
 
                 /* @phpstan-ignore-next-line */
                 ray()->notify(
-                    "Attempted to lazy load [$relation] on model [$class]."
+                    "Attempted to lazy load [{$relation}] on model [{$class}]."
                 );
             }
         );

@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Schools\SchoolUpdateRequest;
 use App\Jobs\V1\School\SchoolUpdatedJob;
 use App\Models\PrivateSchool;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class SchoolUpdateController extends Controller
+class SchoolUpdateController extends Controller implements HasMiddleware
 {
     public function __invoke(SchoolUpdateRequest $request, PrivateSchool $school)
     {
@@ -22,5 +23,10 @@ class SchoolUpdateController extends Controller
         dispatch(new SchoolUpdatedJob($school, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

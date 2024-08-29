@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\V1\Members;
+namespace App\Http\Controllers\V1\List;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inventory;

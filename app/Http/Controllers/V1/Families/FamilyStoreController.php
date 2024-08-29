@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Jobs\V1\Family\FamilyCreatedJob;
 use App\Models\Family;
-use App\Models\Orphan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class FamilyStoreController extends Controller
+class FamilyStoreController extends Controller implements HasMiddleware
 {
     public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
@@ -33,7 +33,7 @@ class FamilyStoreController extends Controller
 
         $preview->inspectors()->sync($request->validated('inspectors_members'));
 
-        /* @var Orphan[] $orphans */
+        /** @var array<Orphan> $orphans */
         $validatedOrphans = $request->orphans;
         $babiesToCreate = [];
 
@@ -95,5 +95,10 @@ class FamilyStoreController extends Controller
         dispatch(new FamilyCreatedJob($family, auth()->user()));
 
         return response(['family' => $family->id], 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

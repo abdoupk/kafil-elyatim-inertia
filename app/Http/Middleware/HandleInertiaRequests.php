@@ -48,7 +48,6 @@ class HandleInertiaRequests extends Middleware
 
                 return $value;
             }) + ['permissions' => auth()->user()->permissions->toArray()];
-
         }
 
         return null;

@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Jobs\V1\Zone\ZoneTrashedJob;
 use App\Models\Zone;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ZoneDeleteController extends Controller
+class ZoneDeleteController extends Controller implements HasMiddleware
 {
     public function __invoke(Zone $zone): RedirectResponse
     {
@@ -16,5 +17,10 @@ class ZoneDeleteController extends Controller
         dispatch(new ZoneTrashedJob($zone, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

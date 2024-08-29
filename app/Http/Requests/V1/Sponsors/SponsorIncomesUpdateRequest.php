@@ -19,15 +19,15 @@ class SponsorIncomesUpdateRequest extends FormRequest
         ];
     }
 
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     protected function prepareForValidation(): void
     {
         $this->merge(array_map(function ($value) {
             return $value === null ? false : $value;
         }, $this->all()));
-    }
-
-    public function authorize(): bool
-    {
-        return true;
     }
 }

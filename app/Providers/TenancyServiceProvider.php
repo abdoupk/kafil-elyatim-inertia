@@ -29,19 +29,6 @@ class TenancyServiceProvider extends ServiceProvider
         $this->makeTenancyMiddlewareHighestPriority();
     }
 
-    protected function bootEvents(): void
-    {
-        foreach ($this->events() as $event => $listeners) {
-            foreach ($listeners as $listener) {
-                if ($listener instanceof JobPipeline) {
-                    $listener = $listener->toListener();
-                }
-
-                Event::listen($event, $listener);
-            }
-        }
-    }
-
     public function events(): array
     {
         return [
@@ -129,6 +116,19 @@ class TenancyServiceProvider extends ServiceProvider
             // (to avoid infinite loops)
             Events\SyncedResourceChangedInForeignDatabase::class => [],
         ];
+    }
+
+    protected function bootEvents(): void
+    {
+        foreach ($this->events() as $event => $listeners) {
+            foreach ($listeners as $listener) {
+                if ($listener instanceof JobPipeline) {
+                    $listener = $listener->toListener();
+                }
+
+                Event::listen($event, $listener);
+            }
+        }
     }
 
     protected function mapRoutes(): void

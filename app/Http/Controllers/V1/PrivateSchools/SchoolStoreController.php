@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Schools\SchoolCreateRequest;
 use App\Jobs\V1\School\SchoolCreatedJob;
 use App\Models\PrivateSchool;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class SchoolStoreController extends Controller
+class SchoolStoreController extends Controller implements HasMiddleware
 {
     public function __invoke(SchoolCreateRequest $request)
     {
@@ -18,5 +19,10 @@ class SchoolStoreController extends Controller
         dispatch(new SchoolCreatedJob($school, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

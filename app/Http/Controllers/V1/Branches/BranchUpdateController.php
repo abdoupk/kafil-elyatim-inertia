@@ -9,8 +9,9 @@ use App\Models\Branch;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class BranchUpdateController extends Controller
+class BranchUpdateController extends Controller implements HasMiddleware
 {
     public function __invoke(BranchCreateUpdateRequest $request, Branch $branch): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
@@ -21,5 +22,10 @@ class BranchUpdateController extends Controller
         dispatch(new BranchUpdatedJob($branch, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

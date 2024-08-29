@@ -3,13 +3,15 @@ import './bootstrap'
 import './echo'
 import i18n from './utils/i18n'
 
-import { createInertiaApp } from '@inertiajs/vue3'
+import { createInertiaApp, router } from '@inertiajs/vue3'
+import { isAxiosError } from 'axios'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
 import { type DefineComponent, createApp, h } from 'vue'
 import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/pinia'
+
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
@@ -27,6 +29,26 @@ createInertiaApp({
             .use(plugin)
             .use(pinia)
             .use(ZiggyVue)
+
+        app.config.errorHandler = (err) => {
+            if (isAxiosError(err)) {
+                switch (err.response?.status) {
+                    case 401:
+                    case 419:
+                        router.post(route('tenant.logout'))
+                        break
+                    case 403:
+                        console.log('403')
+                        break
+                    case 404:
+                        console.log('404')
+                        break
+                    case 500:
+                        console.log('500')
+                        break
+                }
+            }
+        }
 
         app.mount(el)
 

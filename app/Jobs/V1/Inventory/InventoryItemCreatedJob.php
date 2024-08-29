@@ -24,6 +24,7 @@ class InventoryItemCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->association_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateInventoryItemNotification(item: $this->item, user: $this->user));
+            new CreateInventoryItemNotification(item: $this->item, user: $this->user)
+        );
     }
 }

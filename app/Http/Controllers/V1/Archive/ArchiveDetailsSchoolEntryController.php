@@ -5,10 +5,11 @@ namespace App\Http\Controllers\V1\Archive;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Archive\SchoolEntryArchiveIndexResource;
 use App\Models\Archive;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class ArchiveDetailsSchoolEntryController extends Controller
+class ArchiveDetailsSchoolEntryController extends Controller implements HasMiddleware
 {
     public function __invoke(Archive $archive): Response
     {
@@ -17,5 +18,10 @@ class ArchiveDetailsSchoolEntryController extends Controller
             'orphans' => SchoolEntryArchiveIndexResource::collection($archive->listOrphans()->with(['academicLevel', 'lastAcademicYearAchievement', 'family:id,address,zone_id', 'academicAchievements', 'family.zone:id,name'])->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

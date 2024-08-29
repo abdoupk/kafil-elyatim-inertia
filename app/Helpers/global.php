@@ -23,13 +23,13 @@ function saveToPDF(string $directory, string $variableName, callable $function):
         $disk->makeDirectory($directory);
     }
 
-    $pdfName = __('exports.'.Str::replace('-', '_', explode('/', "$directory/$variableName")[1]));
+    $pdfName = __('exports.'.Str::replace('-', '_', explode('/', "{$directory}/{$variableName}")[1]));
 
-    $pdfFile = "$directory/$pdfName".'_'.now()->format('y-m-d').'.pdf';
+    $pdfFile = "{$directory}/{$pdfName}".'_'.now()->format('y-m-d').'.pdf';
 
     $pdfPath = $disk->path($pdfFile);
 
-    Browsershot::html(view("pdf.$directory", [$variableName => $function()])
+    Browsershot::html(view("pdf.{$directory}", [$variableName => $function()])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()
@@ -50,17 +50,17 @@ function saveArchiveToPDF(string $directory, callable $function, string $date, ?
 {
     $disk = Storage::disk('public');
 
-    if (! $disk->directoryExists("archives/$directory")) {
+    if (! $disk->directoryExists("archives/{$directory}")) {
         $disk->makeDirectory($directory);
     }
 
-    $pdfName = __('exports.archive.'.Str::replace('-', '_', explode('/', "archives/$directory/sponsorships")[1]), ['date' => $date]);
+    $pdfName = __('exports.archive.'.Str::replace('-', '_', explode('/', "archives/{$directory}/sponsorships")[1]), ['date' => $date]);
 
-    $pdfFile = "$directory/$pdfName".'.pdf';
+    $pdfFile = "{$directory}/{$pdfName}".'.pdf';
 
     $pdfPath = $disk->path($pdfFile);
 
-    Browsershot::html(view("pdf.occasions.$directory", [$variableName => $function()])
+    Browsershot::html(view("pdf.occasions.{$directory}", [$variableName => $function()])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()
@@ -95,7 +95,7 @@ function generateFormatedConditions(): array
         return array_map(static function (array $condition) {
             ray($condition);
 
-            return [$condition['field'], $condition['operator'], (str_contains($condition['value'], ' ')) ? '"'.$condition['value'].'"' : $condition['value']];
+            return [$condition['field'], $condition['operator'], str_contains($condition['value'], ' ') ? '"'.$condition['value'].'"' : $condition['value']];
         }, $filters);
     }
 
@@ -123,10 +123,10 @@ function generateFormattedSort(): array
         /** @phpstan-ignore-next-line */
         return array_map(static function (string $value, string $key) {
             if ($key === 'orphan.birth_date') {
-                return $value === 'desc' ? "$key:asc" : "$key:desc";
+                return $value === 'desc' ? "{$key}:asc" : "{$key}:desc";
             }
 
-            return "$key:$value";
+            return "{$key}:{$value}";
         }, array_values($directions), array_keys($directions));
     }
 

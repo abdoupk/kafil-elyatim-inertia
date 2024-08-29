@@ -24,6 +24,7 @@ class FinanceCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->financial_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateFinanceTransactionNotification(finance: $this->finance, user: $this->user));
+            new CreateFinanceTransactionNotification(finance: $this->finance, user: $this->user)
+        );
     }
 }

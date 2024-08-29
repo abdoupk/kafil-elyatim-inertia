@@ -9,8 +9,9 @@ use App\Models\Zone;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ZoneStoreController extends Controller
+class ZoneStoreController extends Controller implements HasMiddleware
 {
     public function __invoke(ZoneCreateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
@@ -19,5 +20,10 @@ class ZoneStoreController extends Controller
         dispatch(new ZoneCreatedJob($zone, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

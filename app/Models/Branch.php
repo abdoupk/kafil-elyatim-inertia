@@ -59,25 +59,6 @@ class Branch extends Model
 
     protected $fillable = ['name', 'president_id', 'city_id', 'created_at', 'created_by', 'deleted_by'];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function president(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -126,6 +107,25 @@ class Branch extends Model
                 'name' => $this->president->getName(),
             ],
         ];
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 
     protected function casts(): array

@@ -5,8 +5,9 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Models\Family;
 use DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class FamilyRestoreController extends Controller
+class FamilyRestoreController extends Controller implements HasMiddleware
 {
     public function __invoke(Family $family)
     {
@@ -19,6 +20,11 @@ class FamilyRestoreController extends Controller
         $this->makeSearchable($family);
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 
     private function restore(Family $family): void

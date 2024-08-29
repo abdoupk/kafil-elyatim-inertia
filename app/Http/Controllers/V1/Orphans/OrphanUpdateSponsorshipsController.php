@@ -9,8 +9,9 @@ use App\Models\Orphan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class OrphanUpdateSponsorshipsController extends Controller
+class OrphanUpdateSponsorshipsController extends Controller implements HasMiddleware
 {
     public function __invoke(OrphanSponsorshipsUpdateRequest $request, Orphan $orphan): ResponseFactory|Application|Response
     {
@@ -19,5 +20,10 @@ class OrphanUpdateSponsorshipsController extends Controller
         dispatch(new OrphanUpdatedJob($orphan, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

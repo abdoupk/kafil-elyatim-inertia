@@ -5,8 +5,9 @@ namespace App\Http\Controllers\V1\Families;
 use App\Http\Controllers\Controller;
 use App\Models\Family;
 use DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class FamilyForceDeleteController extends Controller
+class FamilyForceDeleteController extends Controller implements HasMiddleware
 {
     /**
      * @throws \Throwable
@@ -20,5 +21,10 @@ class FamilyForceDeleteController extends Controller
         });
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

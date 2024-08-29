@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Sponsors\SponsorIncomesUpdateRequest;
 use App\Jobs\V1\Sponsor\SponsorUpdatedJob;
 use App\Models\Sponsor;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class SponsorUpdateIncomesController extends Controller
+class SponsorUpdateIncomesController extends Controller implements HasMiddleware
 {
     public function __invoke(SponsorIncomesUpdateRequest $request, Sponsor $sponsor)
     {
@@ -16,5 +17,10 @@ class SponsorUpdateIncomesController extends Controller
         dispatch(new SponsorUpdatedJob($sponsor, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

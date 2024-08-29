@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Needs\NeedCreateRequest;
 use App\Jobs\V1\Need\NeedCreatedJob;
 use App\Models\Need;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class NeedStoreController extends Controller
+class NeedStoreController extends Controller implements HasMiddleware
 {
     public function __invoke(NeedCreateRequest $request)
     {
@@ -16,5 +17,10 @@ class NeedStoreController extends Controller
         dispatch(new NeedCreatedJob($need, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

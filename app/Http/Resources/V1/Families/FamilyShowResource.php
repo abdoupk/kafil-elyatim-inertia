@@ -25,7 +25,7 @@ class FamilyShowResource extends JsonResource
             'spouse' => new SpouseResource($this->whenLoaded('deceased')),
             'sponsor' => new SponsorResource($this->whenLoaded('sponsor')),
             'second_sponsor' => new SecondSponsorResource($this->whenLoaded('secondSponsor')),
-            //
+
             'furnishings' => new FurnishingResource($this->whenLoaded('furnishings')),
             'housing' => new HousingResource($this->whenLoaded('housing')),
 

@@ -138,23 +138,6 @@ class Sponsor extends Model
         'deleted_by',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-            }
-        });
-    }
-
     public function searchableAs(): string
     {
         return 'sponsors';
@@ -301,6 +284,23 @@ class Sponsor extends Model
         $needs->restore();
 
         $sponsorships->restore();
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
     }
 
     protected function casts(): array

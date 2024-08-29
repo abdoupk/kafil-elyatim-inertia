@@ -24,6 +24,7 @@ class LessonTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->schools_and_lessons_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteLessonNotification(eventOccurrence: $this->eventOccurrence, user: $this->user));
+            new DeleteLessonNotification(eventOccurrence: $this->eventOccurrence, user: $this->user)
+        );
     }
 }

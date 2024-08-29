@@ -30,7 +30,8 @@ function getLessons(): Collection
     return Event::select(['id', 'title', 'color'])
         ->with(['occurrences' => function ($query) {
             $query->select('id', 'event_id', 'start_date', 'end_date');
-        }])
+        },
+        ])
         ->get()
         ->map(function ($event) {
             return $event->occurrences->map(function ($occurrence) use ($event) {

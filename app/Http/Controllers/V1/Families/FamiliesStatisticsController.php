@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\V1\Families;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class FamiliesStatisticsController extends Controller
+class FamiliesStatisticsController extends Controller implements HasMiddleware
 {
     public function __invoke(): Response
     {
@@ -18,5 +19,10 @@ class FamiliesStatisticsController extends Controller
             'familiesHousing' => fn () => getFamiliesHousingTypes(),
             'familiesGroupByDate' => fn () => getFamiliesGroupByDate(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

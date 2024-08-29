@@ -28,6 +28,7 @@ class FamilyCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->families_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateFamilyNotification(family: $this->family, user: $this->user));
+            new CreateFamilyNotification(family: $this->family, user: $this->user)
+        );
     }
 }

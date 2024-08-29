@@ -24,6 +24,7 @@ class BranchTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteBranchNotification(branch: $this->branch, user: $this->user));
+            new DeleteBranchNotification(branch: $this->branch, user: $this->user)
+        );
     }
 }

@@ -78,25 +78,6 @@ class Event extends Model
         'color',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function school(): BelongsTo
     {
         return $this->belongsTo(PrivateSchool::class);
@@ -130,6 +111,25 @@ class Event extends Model
         );
 
         return $textTransformer->transform($rule);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 
     protected function casts(): array

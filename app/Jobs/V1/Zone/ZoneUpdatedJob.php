@@ -24,6 +24,7 @@ class ZoneUpdatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateZoneNotification(zone: $this->zone, user: $this->user));
+            new UpdateZoneNotification(zone: $this->zone, user: $this->user)
+        );
     }
 }

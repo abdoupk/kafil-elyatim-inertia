@@ -28,9 +28,10 @@ function listOfFamiliesBenefitingFromTheMonthlyBasket(): LengthAwarePaginator
 function listOfOrphansBenefitingFromTheSchoolEntrySponsorship(): LengthAwarePaginator
 {
     return search(OrphanSponsorship::getModel(), additional_filters: FILTER_SCHOOL_ENTRY)
-        ->query(fn ($query) => $query
-            ->whereHas('orphan.family')
-            ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.lastAcademicYearAchievement.academicLevel', 'orphan.family.zone:id,name'])
+        ->query(
+            fn ($query) => $query
+                ->whereHas('orphan.family')
+                ->with(['orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.lastAcademicYearAchievement.academicLevel', 'orphan.family.zone:id,name'])
         )
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
@@ -47,9 +48,10 @@ function listOfFamiliesBenefitingFromTheRamadanBasketSponsorship(): LengthAwareP
 function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginator
 {
     return search(OrphanSponsorship::getModel(), FILTER_EID_SUIT)
-        ->query(fn ($query) => $query
-            ->whereHas('orphan.family')
-            ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size,birth_date', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name', 'orphan.shoesSize', 'orphan.pantsSize', 'orphan.shirtSize'])
+        ->query(
+            fn ($query) => $query
+                ->whereHas('orphan.family')
+                ->with(['orphan:id,first_name,last_name,family_id,sponsor_id,shoes_size,pants_size,shirt_size,birth_date', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name', 'orphan.shoesSize', 'orphan.pantsSize', 'orphan.shirtSize'])
         )
         ->paginate(perPage: request()?->integer('perPage', 10));
 }
@@ -57,9 +59,10 @@ function listOfOrphansBenefitingFromTheEidSuitSponsorship(): LengthAwarePaginato
 function listOfBabies(): LengthAwarePaginator
 {
     return search(Baby::getModel(), 'AND orphan.birth_date > '.strtotime('now - 2 years'))
-        ->query(fn ($query) => $query
-            ->whereHas('orphan.family')
-            ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id', 'orphan.sponsor:id,first_name,last_name,phone_number', 'babyMilk:id,name', 'diapers:id,name', 'orphan.family.zone:id,name'])
+        ->query(
+            fn ($query) => $query
+                ->whereHas('orphan.family')
+                ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id', 'orphan.sponsor:id,first_name,last_name,phone_number', 'babyMilk:id,name', 'diapers:id,name', 'orphan.family.zone:id,name'])
         )
         ->paginate(perPage: request()?->integer('perPage', 10));
 }

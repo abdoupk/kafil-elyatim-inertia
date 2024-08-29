@@ -24,6 +24,7 @@ class InventoryItemTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->association_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteInventoryItemNotification(item: $this->item, user: $this->user));
+            new DeleteInventoryItemNotification(item: $this->item, user: $this->user)
+        );
     }
 }

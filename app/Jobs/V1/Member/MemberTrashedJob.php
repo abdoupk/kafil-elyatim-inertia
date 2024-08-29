@@ -23,6 +23,7 @@ class MemberTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->association_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteMemberNotification(member: $this->member, user: $this->user));
+            new DeleteMemberNotification(member: $this->member, user: $this->user)
+        );
     }
 }

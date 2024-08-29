@@ -24,6 +24,7 @@ class SchoolEntryOrphansListSavedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->occasions_saves', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new SaveSchoolEntryOrphansListNotification(archive: $this->archive, user: $this->user));
+            new SaveSchoolEntryOrphansListNotification(archive: $this->archive, user: $this->user)
+        );
     }
 }

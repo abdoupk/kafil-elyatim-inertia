@@ -4,9 +4,10 @@ namespace App\Http\Controllers\V1\Inventory;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Inventory\ItemsIndexResource;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 
-class InventoryIndexController extends Controller
+class InventoryIndexController extends Controller implements HasMiddleware
 {
     public function __invoke()
     {
@@ -14,5 +15,10 @@ class InventoryIndexController extends Controller
             'items' => ItemsIndexResource::collection(getInventoryItems()),
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

@@ -58,25 +58,6 @@ class Finance extends Model
         'deleted_by',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -119,6 +100,25 @@ class Finance extends Model
             'tenant_id' => $this->tenant_id,
             'created_at' => strtotime($this->created_at),
         ];
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 
     protected function casts(): array

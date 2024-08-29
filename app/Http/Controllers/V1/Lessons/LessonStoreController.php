@@ -8,10 +8,11 @@ use App\Jobs\V1\Lesson\LessonCreatedJob;
 use App\Models\Event;
 use App\Models\Lesson;
 use Carbon\Carbon;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Exception\InvalidWeekday;
 
-class LessonStoreController extends Controller
+class LessonStoreController extends Controller implements HasMiddleware
 {
     /**
      * @throws InvalidWeekday
@@ -34,5 +35,10 @@ class LessonStoreController extends Controller
         dispatch(new LessonCreatedJob($event, auth()->user()));
 
         generateOccurrences($event, $lesson->id, $request->orphans);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

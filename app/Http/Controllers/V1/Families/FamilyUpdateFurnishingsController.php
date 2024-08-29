@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\FamilyFurnishingsUpdateRequest;
 use App\Jobs\V1\Family\FamilyUpdatedJob;
 use App\Models\Family;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class FamilyUpdateFurnishingsController extends Controller
+class FamilyUpdateFurnishingsController extends Controller implements HasMiddleware
 {
     public function __invoke(FamilyFurnishingsUpdateRequest $request, Family $family)
     {
@@ -16,5 +17,10 @@ class FamilyUpdateFurnishingsController extends Controller
         dispatch(new FamilyUpdatedJob($family, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

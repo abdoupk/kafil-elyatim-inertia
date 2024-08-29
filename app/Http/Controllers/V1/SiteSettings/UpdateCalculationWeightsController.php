@@ -4,8 +4,9 @@ namespace App\Http\Controllers\V1\SiteSettings;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\SiteSettings\UpdateCalculationWeightsRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class UpdateCalculationWeightsController extends Controller
+class UpdateCalculationWeightsController extends Controller implements HasMiddleware
 {
     public function __invoke(UpdateCalculationWeightsRequest $request)
     {
@@ -16,5 +17,10 @@ class UpdateCalculationWeightsController extends Controller
         ]);
 
         return response('', 204);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

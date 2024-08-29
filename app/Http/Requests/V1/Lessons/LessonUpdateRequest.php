@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\V1\Lessons;
 
-use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 
 /* @mixin Event */

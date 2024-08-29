@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Jobs\V1\Member\MemberTrashedJob;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class MemberDeleteController extends Controller
+class MemberDeleteController extends Controller implements HasMiddleware
 {
     public function __invoke(User $member): RedirectResponse
     {
@@ -16,5 +17,10 @@ class MemberDeleteController extends Controller
         dispatch(new MemberTrashedJob($member, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

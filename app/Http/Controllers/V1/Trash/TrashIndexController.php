@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class TrashIndexController extends Controller
+class TrashIndexController extends Controller implements HasMiddleware
 {
     public function __invoke(): Response
     {
@@ -179,14 +180,14 @@ UNION ALL
       AND fin.tenant_id = :tenant_id
   )
 ";
-        $items = DB::table(DB::raw("($unionQuery) AS temp_table"))
+        $items = DB::table(DB::raw("({$unionQuery}) AS temp_table"))
             ->offset($startIndex)
             ->limit($perPage)
             ->orderByDesc('deleted_at')
             ->setBindings(['tenant_id' => tenant('id')])
             ->get();
 
-        $totalItems = DB::table(DB::raw("($unionQuery) AS temp_table"))
+        $totalItems = DB::table(DB::raw("({$unionQuery}) AS temp_table"))
             ->orderByDesc('deleted_at')
             ->setBindings(['tenant_id' => tenant('id')])
             ->count();
@@ -215,5 +216,10 @@ UNION ALL
             'items' => $data,
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

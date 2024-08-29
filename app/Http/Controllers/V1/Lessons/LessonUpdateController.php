@@ -7,10 +7,11 @@ use App\Http\Requests\V1\Lessons\LessonUpdateRequest;
 use App\Jobs\V1\Lesson\LessonUpdatedJob;
 use App\Models\EventOccurrence;
 use Carbon\Carbon;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Exception\InvalidWeekday;
 
-class LessonUpdateController extends Controller
+class LessonUpdateController extends Controller implements HasMiddleware
 {
     /**
      * @throws InvalidWeekday
@@ -24,7 +25,6 @@ class LessonUpdateController extends Controller
                 'start_date' => Carbon::parse($request->start_date)->addHour(),
                 'end_date' => Carbon::parse($request->start_date)->addHour(),
             ]);
-
         } else {
             $eventOccurrence->orphans()->detach();
 
@@ -42,5 +42,10 @@ class LessonUpdateController extends Controller
 
             dispatch(new LessonUpdatedJob($eventOccurrence->event, auth()->user()));
         }
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

@@ -23,6 +23,7 @@ class MemberCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->association_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateMemberNotification(member: $this->member, user: $this->user));
+            new CreateMemberNotification(member: $this->member, user: $this->user)
+        );
     }
 }

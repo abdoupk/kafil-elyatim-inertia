@@ -24,6 +24,7 @@ class MonthlyBasketFamiliesListSavedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->occasions_saves', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new SaveMonthlyBasketFamiliesListNotification(archive: $this->archive, user: $this->user));
+            new SaveMonthlyBasketFamiliesListNotification(archive: $this->archive, user: $this->user)
+        );
     }
 }

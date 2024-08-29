@@ -9,8 +9,9 @@ use App\Models\Inventory;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class ItemUpdateController extends Controller
+class ItemUpdateController extends Controller implements HasMiddleware
 {
     public function __invoke(ItemUpdateRequest $request, Inventory $item): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
@@ -19,5 +20,10 @@ class ItemUpdateController extends Controller
         dispatch(new InventoryItemUpdatedJob($item, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

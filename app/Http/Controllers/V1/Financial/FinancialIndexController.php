@@ -4,10 +4,11 @@ namespace App\Http\Controllers\V1\Financial;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Financial\FinancialIndexResource;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class FinancialIndexController extends Controller
+class FinancialIndexController extends Controller implements HasMiddleware
 {
     public function __invoke(): Response
     {
@@ -17,5 +18,10 @@ class FinancialIndexController extends Controller
             'finances' => FinancialIndexResource::collection(getFinances()),
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

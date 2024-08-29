@@ -24,6 +24,7 @@ class NeedCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->families_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateNeedNotification(need: $this->need, user: $this->user));
+            new CreateNeedNotification(need: $this->need, user: $this->user)
+        );
     }
 }

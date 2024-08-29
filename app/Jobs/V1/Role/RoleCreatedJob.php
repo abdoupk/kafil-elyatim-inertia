@@ -24,6 +24,7 @@ class RoleCreatedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->association_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateRoleNotification(role: $this->role, user: $this->user));
+            new CreateRoleNotification(role: $this->role, user: $this->user)
+        );
     }
 }

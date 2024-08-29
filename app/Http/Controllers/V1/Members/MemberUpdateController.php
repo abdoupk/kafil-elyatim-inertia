@@ -9,8 +9,9 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class MemberUpdateController extends Controller
+class MemberUpdateController extends Controller implements HasMiddleware
 {
     public function __invoke(MemberUpdateRequest $request, User $member): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
@@ -21,5 +22,10 @@ class MemberUpdateController extends Controller
         dispatch(new MemberUpdatedJob($member, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }

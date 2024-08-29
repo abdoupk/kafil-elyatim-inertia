@@ -25,6 +25,7 @@ class BranchCreatedJob implements ShouldQueue
                 return $query->where('notifications->branches_and_zones_changes', true);
             })->where('users.id', '!=', $this->user->id)
                 ->get(),
-            new CreateBranchNotification(branch: $this->branch, user: $this->user));
+            new CreateBranchNotification(branch: $this->branch, user: $this->user)
+        );
     }
 }

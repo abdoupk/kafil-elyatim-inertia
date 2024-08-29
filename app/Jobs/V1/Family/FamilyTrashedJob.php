@@ -24,6 +24,7 @@ class FamilyTrashedJob implements ShouldQueue
             User::whereHas('settings', function ($query) {
                 return $query->where('notifications->families_changes', true);
             })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteFamilyNotification(family: $this->family, user: $this->user));
+            new DeleteFamilyNotification(family: $this->family, user: $this->user)
+        );
     }
 }

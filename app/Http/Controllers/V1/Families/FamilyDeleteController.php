@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Jobs\V1\Family\FamilyTrashedJob;
 use App\Models\Family;
 use DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Throwable;
 
-class FamilyDeleteController extends Controller
+class FamilyDeleteController extends Controller implements HasMiddleware
 {
     /**
      * @throws Throwable
@@ -24,5 +25,10 @@ class FamilyDeleteController extends Controller
         dispatch(new FamilyTrashedJob($family, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
     }
 }
