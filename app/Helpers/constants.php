@@ -9,8 +9,6 @@ const DONATION_SPECIFICATION = ['drilling_wells', 'monthly_sponsorship',
 
 const FILTER_RAMADAN_BASKET = 'AND ramadan_basket != false AND ramadan_basket IS NOT NULL';
 
-const FILTER_MONTHLY_BASKET = 'AND ramadan_basket != false AND ramadan_basket IS NOT NULL';
-
 const FILTER_EID_SUIT = 'AND eid_suit = true AND eid_suit IS NOT NULL';
 
 const FILTER_EID_AL_ADHA = 'AND eid_al_adha != false AND eid_al_adha IS NOT NULL';

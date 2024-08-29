@@ -45,7 +45,7 @@
                 </x-td>
 
                 <x-td class="text-center">
-                    {{ $transaction->amount  >0 ? __('income') : __('expense')}}
+                    {{ $transaction->amount > 0 ? __('income') : __('expense') }}
                 </x-td>
 
                 <x-td class="   text-center">

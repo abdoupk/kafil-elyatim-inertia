@@ -28,7 +28,8 @@ function listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport(): Col
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_RAMADAN_BASKET, limit: 10000)
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))
+            ->whereHas('family')
+            ->with(['family:id,address,zone_id,branch_id,total_income,income_rate', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name'])->withCount('orphans'))
         ->get();
 }
 
@@ -45,16 +46,18 @@ function listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport(): Collect
 {
     return search(FamilySponsorship::getModel(), additional_filters: FILTER_EID_AL_ADHA, limit: LIMIT)
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor:id,family_id,income']))
+            ->whereHas('family')
+            ->with(['family:id,address,zone_id,branch_id,income_rate,total_income', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name'])
+            ->withCount('orphans'))
         ->get();
 }
 
-// TODO Optimize remove sponsors incomes and second sponsor and in all get incomes
 function listOfFamiliesBenefitingFromTheMonthlyBasketForExport(): Collection
 {
-    //    $filters = ['monthly_allowance', '=', true];
-
     return search(FamilySponsorship::getModel())
         ->query(fn ($query) => $query
-            ->with(['family:id,address,zone_id,branch_id', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name', 'family.orphans:id,family_id', 'family.sponsor.incomes', 'family.secondSponsor']))->get();
+            ->whereHas('family')
+            ->with(['family:id,address,income_rate,zone_id,branch_id,total_income', 'family.sponsor:id,first_name,last_name,family_id,phone_number', 'family.zone:id,name', 'family.branch:id,name'])
+            ->withCount('orphans'))
+        ->get();
 }

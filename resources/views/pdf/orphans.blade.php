@@ -61,7 +61,7 @@
                 </x-td>
 
                 <x-td class="   text-center ">
-                    {{ __('family_statuses.' . $orphan->family_status ) }}
+                    {{ __('family_statuses.' . $orphan->family_status) }}
                 </x-td>
 
                 <x-td class="    text-center">
