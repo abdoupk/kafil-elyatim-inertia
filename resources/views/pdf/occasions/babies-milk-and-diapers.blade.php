@@ -1,107 +1,88 @@
-<!doctype html>
-<html lang="en" dir="rtl">
+<x-table>
+    <x-slot name="thead">
+        <x-th>
+            <span> #</span>
+        </x-th>
+        <x-th>
+            {{ __('the_sponsor') }}
+        </x-th>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
-</head>
+        <x-th>
+            {{ __('sponsor_phone_number') }}
+        </x-th>
 
-<body>
-    <table class="w-full table table-bordered border-black text-black">
-        <thead>
+        <x-th>
+            {{ __('the_orphan') }}
+        </x-th>
+
+        <x-th>
+            {{ __('filters.gender') }}
+        </x-th>
+
+        <x-th>
+            {{ __('age') }}
+        </x-th>
+
+        <x-th>
+            {{ __('baby_milk_type') }}
+        </x-th>
+
+        <x-th>
+            {{ __('baby_milk_quantity') }}
+        </x-th>
+
+        <x-th>
+            {{ __('diapers_type') }}
+        </x-th>
+
+        <x-th>
+            {{ __('diapers_quantity') }}
+        </x-th>
+    </x-slot>
+
+    <x-slot name="tbody">
+        @foreach ($babies as $baby)
             <tr>
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    <span> #</span>
-                </th>
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('the_sponsor') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $loop->iteration }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('sponsor_phone_number') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $baby->orphan->sponsor->getName() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('the_orphan') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $baby->orphan->sponsor->formattedPhoneNumber() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('filters.gender') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $baby->getName() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('age') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ __($baby->orphan->gender) }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('baby_milk_type') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ calculateAge($baby->orphan->birth_date) }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('baby_milk_quantity') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $baby->babyMilk->name }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('diapers_type') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $baby->baby_milk_quantity }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('diapers_quantity') }}
-                </th>
+                <x-td class="   text-center ">
+                    {{ $baby->diapers->name }}
+                </x-td>
+
+                <x-td class="    text-center">
+                    {{ $baby->diapers_quantity }}
+                </x-td>
             </tr>
-        </thead>
-
-        <tbody>
-
-            @foreach ($babies as $baby)
-                <tr>
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $loop->iteration }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $baby->orphan->sponsor->getName() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $baby->orphan->sponsor->formattedPhoneNumber() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $baby->getName() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ __($baby->orphan->gender) }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ calculateAge($baby->orphan->birth_date) }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $baby->baby_milk_type }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $baby->baby_milk_quantity }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $baby->diapers_type }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border border-black text-center">
-                        {{ $baby->diapers_quantity }}
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-
-</html>
+        @endforeach
+    </x-slot>
+</x-table>

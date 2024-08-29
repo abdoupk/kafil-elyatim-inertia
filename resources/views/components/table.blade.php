@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="rtl">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 
 <head>
     <meta charset="UTF-8">
@@ -28,6 +28,38 @@
             color: black
         }
 
+        [dir="rtl"] .font-semibold {
+            font-weight: 600;
+        }
+
+        .mt-0\.5 {
+            margin-top: 0.125rem;
+            /* 0.5 * 0.25rem */
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            /* 14px */
+            line-height: 1.25rem;
+            /* 20px */
+        }
+
+        .max-w-28 {
+            max-width: 7rem;
+            /* 112px */
+        }
+
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .text-slate-500 {
+            --tw-text-opacity: 1;
+            color: rgb(100 116 139 / var(--tw-text-opacity));
+        }
+
         .font-medium {
             font-weight: 500
         }
@@ -45,6 +77,11 @@
         .py-1 {
             padding-top: .25rem;
             padding-bottom: .25rem
+        }
+
+        .py-0\.5 {
+            padding-top: .125rem;
+            padding-bottom: .125rem
         }
 
         .text-center {
@@ -65,7 +102,6 @@
         {{ $thead }}
     </tr>
     </thead>
-
 
     <tbody>
     {{ $tbody }}

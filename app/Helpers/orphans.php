@@ -20,5 +20,6 @@ function searchOrphans(): Collection
 
 function getOrphansForExport(): Collection
 {
-    return search(Orphan::getModel(), limit: 10000)->get();
+    return search(Orphan::getModel(), limit: 10000)->query(fn ($query) => $query->with(['academicLevel', 'pantsSize', 'shoesSize', 'shirtSize']))
+        ->get();
 }

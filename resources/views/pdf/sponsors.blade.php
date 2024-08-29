@@ -1,126 +1,105 @@
-<!doctype html>
-<html lang="en" dir="rtl">
+<x-table>
+    <x-slot name="thead">
+        <x-th class="text-center">
+            <span> #</span>
+        </x-th>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
-</head>
+        <x-th>
+            {{ __('the_sponsor') }}
+        </x-th>
 
-<body>
-    <table class="w-full table table-bordered border-black text-black">
-        <thead>
+        <x-th>
+            {{ __('phone_number') }}
+        </x-th>
+
+        <x-th>
+            {{ __('filters.sponsor_type') }}
+        </x-th>
+
+        <x-th>
+            {{ __('filters.gender') }}
+        </x-th>
+
+        <x-th>
+            {{ __('health_status') }}
+        </x-th>
+
+        <x-th>
+            {{ __('academic_level') }}
+        </x-th>
+
+        <x-th>
+            {{ __('filters.birth_date') }}
+        </x-th>
+
+        <x-th>
+            {{ __('orphans_count') }}
+        </x-th>
+
+        <x-th>
+            {{ __('diploma') }}
+        </x-th>
+
+        <x-th>
+            ccp
+        </x-th>
+
+        <x-th>
+            {{ __('income') }}
+        </x-th>
+    </x-slot>
+
+    <x-slot name="tbody">
+        @foreach ($sponsors as $sponsor)
             <tr>
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    <span> #</span>
-                </th>
+                <x-td class=" text-center">
+                    {{ $loop->iteration }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('the_sponsor') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->getName() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('phone_number') }}
-                </th>
+                <x-td>
+                    {{ $sponsor->formattedPhoneNumber() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('filters.sponsor_type') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ __('sponsor_types.' . $sponsor->sponsor_type) }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('filters.gender') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ __($sponsor->gender) }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('health_status') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->health_status }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('academic_level') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->academicLevel->level }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('filters.birth_date') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->birth_date->format('Y/m/d') }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('orphans_count') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->orphans_count }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('diploma') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->diploma }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    ccp
-                </th>
+                <x-td class=" text-center">
+                    {{ $sponsor->ccp }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('income') }}
-                </th>
+                <x-td class=" text-center">
+                    {{ formatCurrency($sponsor->incomes->total_income) }}
+                </x-td>
             </tr>
-        </thead>
-
-        <tbody>
-
-            @foreach ($sponsors as $sponsor)
-                <tr>
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $loop->iteration }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsor->getName() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 whitespace-nowrap border text-center border-black">
-                        {{ $sponsor->formattedPhoneNumber() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ __($sponsor->sponsor_type) }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ __($sponsor->gender) }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsor->health_status }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border border-black text-center">
-                        {{ $sponsor->academicLevel->level }}
-
-                        <p class="mt-0.5 text-sm text-slate-500">({{ $sponsor->academicLevel->phase }})</p>
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsor->birth_date->format('Y/m/d') }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsor->orphans_count }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsor->diploma }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsor->ccp }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ formatCurrency($sponsor->incomes->total_income) }}
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-
-</html>
+        @endforeach
+    </x-slot>
+</x-table>

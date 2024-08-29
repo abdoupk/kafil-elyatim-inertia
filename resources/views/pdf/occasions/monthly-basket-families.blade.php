@@ -1,92 +1,73 @@
-<!doctype html>
-<html lang="en" dir="rtl">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
-</head>
-
-<body>
-<table class="w-full table table-bordered border-black text-black">
-    <thead>
-    <tr>
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+<x-table>
+    <x-slot name="thead">
+        <x-th>
             <span> #</span>
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('the_sponsor') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('sponsor_phone_number') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('validation.attributes.address') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('orphans_count') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('incomes.label.total_income') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('the_branch') }}
-        </th>
+        </x-th>
 
-        <th class="whitespace-nowrap font-medium px-3 py-1 border border-black">
+        <x-th>
             {{ __('the_zone') }}
-        </th>
-    </tr>
-    </thead>
+        </x-th>
+    </x-slot>
 
-    <tbody>
+    <x-slot name="tbody">
+        @foreach ($sponsorships as $sponsorship)
+            <tr>
+                <x-td class="text-center">
+                    {{ $loop->iteration }}
+                </x-td>
 
-    @foreach ($sponsorships as $sponsorship)
-        <tr>
-            <td class="px-2 py-1 border border-black text-center">
-                {{ $loop->iteration }}
-            </td>
+                <x-td>
+                    {{ $sponsorship->family->sponsor->getName() }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black">
-                {{ $sponsorship->family->sponsor->getName() }}
-            </td>
+                <x-td class="text-center">
+                    {{ $sponsorship->family->sponsor->formattedPhoneNumber() }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black text-center">
-                {{ $sponsorship->family->sponsor->formattedPhoneNumber() }}
-            </td>
+                <x-td>
+                    {{ $sponsorship->family->address }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black">
-                {{ $sponsorship->family->address }}
-            </td>
+                <x-td class="text-center">
+                    {{ $sponsorship->family->orphans->count() }}
+                </x-td>
 
-            <td class="px-2 py-1 border border-black text-center">
-                {{ $sponsorship->family->orphans->count() }}
-            </td>
+                <x-td class="px-2 py-1 whitespace-nowrap border border-black text-center">
+                    {{ formatCurrency($sponsorship->family->total_income) }}
+                </x-td>
 
-            <td class="px-2 py-1 whitespace-nowrap border border-black text-center">
-                {{ formatCurrency($sponsorship->family->total_income) }}
-            </td>
+                <x-td class="px-2 py-1 max-w-28 truncate border border-black text-center">
+                    {{ $sponsorship->family->branch->name }}
+                </x-td>
 
-            <td class="px-2 py-1 max-w-28 truncate border border-black text-center">
-                {{ $sponsorship->family->branch->name }}
-            </td>
-
-            <td class="px-2 py-1 whitespace-nowrap border border-black text-center">
-                {{ $sponsorship->family->zone->name }}
-            </td>
-        </tr>
-    @endforeach
-    </tbody>
-</table>
-</body>
-
-</html>
+                <x-td class="px-2 py-1 whitespace-nowrap border border-black text-center">
+                    {{ $sponsorship->family->zone->name }}
+                </x-td>
+            </tr>
+        @endforeach
+    </x-slot>
+</x-table>

@@ -9,7 +9,7 @@ function getBabiesForExport(): Collection
 {
     return search(Baby::getModel(), 'AND orphan.birth_date >'.strtotime('now - 2 years'), limit: 10000)
         ->query(fn ($query) => $query
-            ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id,gender', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name'])
+            ->with(['orphan:id,first_name,last_name,family_id,birth_date,sponsor_id,gender', 'orphan.sponsor:id,first_name,last_name,phone_number', 'orphan.family.zone:id,name', 'babyMilk:id,name', 'diapers:id,name'])
         )->get();
 }
 

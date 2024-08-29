@@ -1,115 +1,97 @@
-<!doctype html>
-<html lang="en" dir="rtl">
+<x-table>
+    <x-slot name="thead">
+        <x-th class="  py-0.5 ">
+            <span> #</span>
+        </x-th>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
-</head>
+        <x-th class="  py-0.5 ">
+            {{ __('the_sponsor') }}
+        </x-th>
 
-<body>
-    <table class="w-full table table-bordered border-black text-black">
-        <thead>
+        <x-th class="  py-0.5 ">
+            {{ __('sponsor_phone_number') }}
+        </x-th>
+
+        <x-th class="  py-0.5 ">
+            {{ __('the_orphan') }}
+        </x-th>
+
+        <x-th class="  py-0.5 ">
+            {{ __('filters.gender') }}
+        </x-th>
+
+        <x-th class="  py-0.5 ">
+            {{ __('validation.attributes.age') }}
+        </x-th>
+
+        <x-th class="  py-0.5 ">
+            {{ __('shoes_size') }}
+        </x-th>
+
+        <x-th class="  py-0.5 ">
+            {{ __('pants_size') }}
+        </x-th>
+
+        <x-th class="  py-0.5 ">
+            {{ __('shirt_size') }}
+        </x-th>
+
+        <x-th class=" py-0.5  text-center">
+            {{ __('the_branch') }}
+        </x-th>
+
+        <x-th class="truncate  py-0.5  text-center">
+            {{ __('the_zone') }}
+        </x-th>
+    </x-slot>
+
+    <x-slot name="tbody">
+        @foreach ($sponsorships as $sponsorship)
             <tr>
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    <span> #</span>
-                </th>
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('the_sponsor') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ $loop->iteration }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('sponsor_phone_number') }}
-                </th>
+                <x-td class="py-0.5   ">
+                    {{ $sponsorship->orphan->sponsor->getName() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('the_orphan') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ $sponsorship->orphan->sponsor->formattedPhoneNumber() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('filters.gender') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ $sponsorship->orphan->getName() }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('validation.attributes.age') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ __($sponsorship->orphan->gender) }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('shoes_size') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ trans_choice('age_years', $sponsorship->orphan->birth_date->age) }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('pants_size') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ $sponsorship->orphan->shoesSize->label }}
+                </x-td>
 
-                <th class="whitespace-nowrap font-medium px-3 py-0.5 border border-black">
-                    {{ __('shirt_size') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ $sponsorship->orphan->pantsSize->label }}
+                </x-td>
 
-                <th class="font-medium px-3 py-0.5 border border-black text-center">
-                    {{ __('the_branch') }}
-                </th>
+                <x-td class="py-0.5  text-center ">
+                    {{ $sponsorship->orphan->shirtSize->label }}
+                </x-td>
 
-                <th class="truncate font-medium px-3 py-0.5 border border-black text-center">
-                    {{ __('the_zone') }}
-                </th>
+                <x-td class="py-0.5  truncate max-w-28 text-center ">
+                    {{ $sponsorship->orphan->family->branch->name }}
+                </x-td>
+
+                <x-td class="py-0.5  text-center ">
+                    {{ $sponsorship->orphan->family->zone->name }}
+                </x-td>
             </tr>
-        </thead>
-
-        <tbody>
-
-            @foreach ($sponsorships as $sponsorship)
-                <tr>
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $loop->iteration }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border  border-black">
-                        {{ $sponsorship->orphan->sponsor->getName() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsorship->orphan->sponsor->formattedPhoneNumber() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsorship->orphan->getName() }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ __($sponsorship->orphan->gender) }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ trans_choice('age_years', $sponsorship->orphan->birth_date->age) }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsorship->orphan->shoesSize->label }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsorship->orphan->pantsSize->label }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsorship->orphan->shirtSize->label }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border truncate max-w-28 text-center border-black">
-                        {{ $sponsorship->orphan->family->branch->name }}
-                    </td>
-
-                    <td class="px-2 py-0.5 border text-center border-black">
-                        {{ $sponsorship->orphan->family->zone->name }}
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</body>
-
-</html>
+        @endforeach
+    </x-slot>
+</x-table>

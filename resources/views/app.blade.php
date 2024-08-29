@@ -16,7 +16,7 @@
 </head>
 
 <body class="font-roboto overflow-x-hidden dark:bg-darkmode-700 scroll-smooth">
-@inertia
+    @inertia
 </body>
 
 </html>
