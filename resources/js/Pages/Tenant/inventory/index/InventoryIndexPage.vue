@@ -11,6 +11,7 @@ import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { $t, $tc } from '@/utils/i18n'
 
 const ItemCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/inventory/ItemCreateEditModal.vue'))
 
