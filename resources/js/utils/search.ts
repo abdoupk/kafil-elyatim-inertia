@@ -91,7 +91,14 @@ export const search = async (q: string) => {
                 sort: ['created_at:desc'],
                 filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
                 attributesToRetrieve: ['id', 'specification', 'amount'],
-                attributesToSearchOn: ['description', 'specification', 'creator']
+                attributesToSearchOn: [
+                    'description',
+                    'specification.fr',
+                    'specification.ar',
+                    'specification.en',
+                    'creator.name',
+                    'receiver.name'
+                ]
             },
             {
                 indexUid: 'families',
@@ -151,6 +158,15 @@ export const search = async (q: string) => {
                 attributesToSearchOn: ['subject', 'demand', 'needable.name', 'status', 'needable.type', 'note']
             },
             {
+                indexUid: 'previews',
+                q,
+                limit: 5,
+                sort: ['created_at:desc'],
+                filter: `tenant_id = ${usePage().props.auth.user.tenant_id} AND __soft_deleted = 0`,
+                attributesToRetrieve: ['id', 'family.name', 'family.id', 'preview_date'],
+                attributesToSearchOn: ['report', 'inspectors', 'family.name']
+            },
+            {
                 indexUid: 'schools',
                 q,
                 limit: 5,
@@ -171,7 +187,7 @@ export const search = async (q: string) => {
             hit.title = constructTitle(hit, result.indexUid)
         })
     })
-
+    console.log(a.results)
     return a.results
 }
 
@@ -199,6 +215,8 @@ function constructLink(hit: Hit, indexUid: string) {
             return route('tenant.financial.index', { show: hit.id })
         case 'babies':
             return route('tenant.orphans.show', hit.orphan.id)
+        case 'previews':
+            return route('tenant.families.show', hit.family.id)
         default:
             return ''
     }
@@ -212,6 +230,11 @@ const constructIcon = (indexUid: string): { icon: SVGType; color: string } => {
                 color: 'bg-success/20 text-success dark:bg-success/10'
             }
         case 'families':
+            return {
+                icon: 'icon-family',
+                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+            }
+        case 'previews':
             return {
                 icon: 'icon-family',
                 color: 'bg-pending/20 text-pending dark:bg-pending/10'
@@ -275,6 +298,8 @@ const constructHint = (hit: Hit, indexUid: string) => {
             return hit.email
         case 'families':
             return hit.address.zone?.name
+        case 'previews':
+            return hit.preview_date
         case 'orphans':
             return formatDate(hit.readable_birth_date, 'long')
         case 'sponsors':
@@ -304,6 +329,8 @@ const constructTitle = (hit: Hit, indexUid: string) => {
             return hit.name
         case 'families':
             return hit.name
+        case 'previews':
+            return hit.family.name
         case 'orphans':
             return hit.name
         case 'sponsors':

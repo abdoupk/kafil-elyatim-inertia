@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../utils/i18n'
+
 import { twMerge } from 'tailwind-merge'
 
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
@@ -20,6 +22,6 @@ const attrs = useComputedAttrs()
         "
         v-bind="attrs.attrs"
     >
-        No results found.
+        {{ $t('No results found.') }}
     </p>
 </template>

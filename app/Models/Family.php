@@ -107,6 +107,25 @@ class Family extends Model
         'branch_id',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($family) {
+            if (auth()->id()) {
+                $family->deleted_by = auth()->id();
+
+                $family->save();
+            }
+        });
+    }
+
     public function unSearchWithRelations(): void
     {
         $this->unsearchable();
@@ -126,6 +145,8 @@ class Family extends Model
         $this->sponsor()->unsearchable();
 
         $this->sponsorships->unsearchable();
+
+        $this->report->unsearchable();
     }
 
     public function sponsor(): HasOne
@@ -138,44 +159,14 @@ class Family extends Model
         return $this->hasOne(FamilySponsorship::class);
     }
 
-    public function furnishings(): HasOne
-    {
-        return $this->hasOne(Furnishing::class);
-    }
-
-    public function housing(): HasOne
-    {
-        return $this->hasOne(Housing::class);
-    }
-
-    public function deceased(): HasOne
-    {
-        return $this->hasOne(Spouse::class);
-    }
-
-    public function secondSponsor(): HasOne
-    {
-        return $this->hasOne(SecondSponsor::class);
-    }
-
     public function sponsorSponsorships(): HasOneThrough
     {
         return $this->hasOneThrough(SponsorSponsorship::class, Sponsor::class);
     }
 
-    public function preview(): HasOne
-    {
-        return $this->hasOne(Preview::class);
-    }
-
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class);
-    }
-
-    public function spouse(): HasOne
-    {
-        return $this->hasOne(Spouse::class);
     }
 
     public function orphansSponsorships(): HasManyThrough
@@ -321,25 +312,38 @@ class Family extends Model
         $this->furnishings()->delete();
 
         $this->secondSponsor()->delete();
+
+        $this->preview()->forceDelete();
     }
 
-    protected static function boot(): void
+    public function deceased(): HasOne
     {
-        parent::boot();
+        return $this->hasOne(Spouse::class);
+    }
 
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
+    public function housing(): HasOne
+    {
+        return $this->hasOne(Housing::class);
+    }
 
-        static::softDeleted(function ($family) {
-            if (auth()->id()) {
-                $family->deleted_by = auth()->id();
+    public function spouse(): HasOne
+    {
+        return $this->hasOne(Spouse::class);
+    }
 
-                $family->save();
-            }
-        });
+    public function furnishings(): HasOne
+    {
+        return $this->hasOne(Furnishing::class);
+    }
+
+    public function secondSponsor(): HasOne
+    {
+        return $this->hasOne(SecondSponsor::class);
+    }
+
+    public function preview(): HasOne
+    {
+        return $this->hasOne(Preview::class);
     }
 
     protected function casts(): array

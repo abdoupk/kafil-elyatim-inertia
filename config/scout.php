@@ -532,6 +532,8 @@ return [
             ],
             'previews' => [
                 'filterableAttributes' => ['__soft_deleted', 'id', 'tenant_id'],
+                'searchableAttributes' => ['report', 'inspectors', 'family.name'],
+                'sortableAttributes' => ['created_at', 'preview_date'],
             ],
         ],
     ],

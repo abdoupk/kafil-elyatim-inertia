@@ -72,6 +72,30 @@ class Preview extends Model
         return $this->belongsToMany(User::class, 'member_preview', 'preview_id', 'user_id')->using(MemberPreview::class);
     }
 
+    public function searchableAs(): string
+    {
+        return 'previews';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load(['family', 'inspectors']);
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'report' => $this->report,
+            'preview_date' => strtotime($this->preview_date),
+            'family' => [
+                'id' => $this->family_id,
+                'name' => $this->family->name,
+            ],
+            'inspectors' => $this->inspectors->pluck('name')->toArray(),
+            'tenant_id' => $this->tenant_id, ];
+    }
+
     protected function casts(): array
     {
         return [

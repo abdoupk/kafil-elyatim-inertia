@@ -78,6 +78,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
                         )
                     "
                     :placeholder="$t('Search...')"
+                    @blur="() => (querySearch = '')"
                     @keydown.esc.prevent="() => (querySearch = '')"
                 />
 
