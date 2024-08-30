@@ -18,21 +18,19 @@ const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <suspense v-if="settingsStore.layout === 'simple_menu'">
-        <component :is="simpleMenu">
-            <slot></slot>
-        </component>
-    </suspense>
+    <suspense>
+        <div>
+            <component :is="simpleMenu" v-if="settingsStore.layout === 'simple_menu'">
+                <slot></slot>
+            </component>
 
-    <suspense v-if="settingsStore.layout === 'side_menu'">
-        <component :is="sideMenu">
-            <slot></slot>
-        </component>
-    </suspense>
+            <component :is="sideMenu" v-if="settingsStore.layout === 'side_menu'">
+                <slot></slot>
+            </component>
 
-    <suspense v-if="settingsStore.layout === 'top_menu'">
-        <component :is="topMenu">
-            <slot></slot>
-        </component>
+            <component :is="topMenu" v-if="settingsStore.layout === 'top_menu'">
+                <slot></slot>
+            </component>
+        </div>
     </suspense>
 </template>
