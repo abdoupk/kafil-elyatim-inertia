@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { AppearanceType } from '@/types/types'
+
 import { useSettingsStore } from '@/stores/settings'
 import { twMerge } from 'tailwind-merge'
 
@@ -7,6 +9,12 @@ const settingsStore = useSettingsStore()
 const appearance = defineModel('appearance')
 
 appearance.value = settingsStore.appearance
+
+const changeAppearance = (value: AppearanceType) => {
+    appearance.value = value
+
+    settingsStore.appearance = value
+}
 </script>
 
 <template>
@@ -25,7 +33,7 @@ appearance.value = settingsStore.appearance
                         ])
                     "
                     class="cursor-pointer items-center rounded-md border-2 p-1"
-                    @click.prevent="appearance = 'light'"
+                    @click.prevent="changeAppearance('light')"
                 >
                     <div class="space-y-2 rounded-sm bg-[#ecedef] p-2">
                         <div class="space-y-2 rounded-md bg-white p-2 shadow-sm">
@@ -54,7 +62,7 @@ appearance.value = settingsStore.appearance
                         ])
                     "
                     class="cursor-pointer items-center rounded-md border-2 p-1"
-                    @click.prevent="appearance = 'dark'"
+                    @click.prevent="changeAppearance('dark')"
                 >
                     <div class="space-y-2 rounded-sm bg-slate-950 p-2">
                         <div class="space-y-2 rounded-md bg-slate-800 p-2 shadow-sm">

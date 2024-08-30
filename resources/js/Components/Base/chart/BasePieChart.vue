@@ -19,10 +19,7 @@ const props = defineProps<{
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
 const colors = computed(() => {
-    return {
-        backgroundColor: colorPalette[darkMode.value ? 'dark' : 'light'],
-        hoverBackgroundColor: colorPalette[darkMode.value ? 'dark' : 'light']
-    }
+    return colorPalette[darkMode.value ? 'dark' : 'light']
 })
 
 const data = computed<ChartData>(() => {
@@ -31,9 +28,8 @@ const data = computed<ChartData>(() => {
         datasets: [
             {
                 data: props.chartData,
-                backgroundColor: colors.value.backgroundColor,
-                hoverBackgroundColor: colors.value.hoverBackgroundColor,
-                borderWidth: 3,
+                backgroundColor: colors.value,
+                borderWidth: 2,
                 borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
             }
         ]
