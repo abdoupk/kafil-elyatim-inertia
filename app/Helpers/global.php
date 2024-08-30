@@ -4,9 +4,12 @@
 
 /** @noinspection NullPointerExceptionInspection */
 
+use App\Models\User;
 use App\Models\VocationalTraining;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder;
+use LaravelIdea\Helper\App\Models\_IH_User_C;
 use Spatie\Browsershot\Browsershot;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -210,4 +213,21 @@ function formatPhoneNumber($phone): string
         substr($phone, 4, 2).'-'.
         substr($phone, 6, 2).'-'.
         substr($phone, 8, 2);
+}
+function getUsersShouldBeNotified(array $permissions, User $userToExclude, string $notificationType): Collection|array|_IH_User_C
+{
+    return User::with(['roles.permissions'])
+        ->whereHas('settings', function ($query) use ($notificationType) {
+            return $query->where("notifications->$notificationType", true);
+        })
+        ->where(function ($query) use ($permissions) {
+            $query->whereHas('roles', function ($query) {
+                $query->where('name', 'super_admin');
+            })->orWhere(function ($query) use ($permissions) {
+                $query->whereHas('roles.permissions', function ($query) use ($permissions) {
+                    $query->whereIn('name', $permissions);
+                });
+            });
+        })->where('users.id', '!=', $userToExclude->id)
+        ->get();
 }

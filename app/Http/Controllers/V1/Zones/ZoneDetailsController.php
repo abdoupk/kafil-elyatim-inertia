@@ -19,6 +19,8 @@ class ZoneDetailsController extends Controller implements HasMiddleware
 
     public static function middleware()
     {
-        // TODO: Implement middleware() method.
+        return [
+            'can:view_zones',
+        ];
     }
 }

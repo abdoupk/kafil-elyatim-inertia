@@ -1,13 +1,14 @@
 import '../css/app.css'
 import './bootstrap'
 import './echo'
-import i18n from './utils/i18n'
+import i18n, { __ } from './utils/i18n'
 
 import { createInertiaApp, router } from '@inertiajs/vue3'
 import { isAxiosError } from 'axios'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
-import { type DefineComponent, createApp, h } from 'vue'
+import { type DefineComponent, createApp, defineComponent, h } from 'vue'
+import { toast } from 'vue-sonner'
 import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/pinia'
@@ -18,6 +19,15 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 const pinia = createPinia()
 
 pinia.use(usePersistStore)
+
+const CustomDiv = defineComponent({
+    setup() {
+        return () =>
+            h('div', {
+                innerHTML: 'A custom toast with unstyling'
+            })
+    }
+})
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : `${appName}`),
@@ -37,8 +47,8 @@ createInertiaApp({
                     case 419:
                         router.post(route('tenant.logout'))
                         break
-                    case 422:
-                        console.log('403')
+                    case 403:
+                        toast(__('not_authorized'))
                         break
                     case 404:
                         console.log('404')
