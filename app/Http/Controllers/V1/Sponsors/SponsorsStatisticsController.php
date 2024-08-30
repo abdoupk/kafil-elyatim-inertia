@@ -11,11 +11,6 @@ class SponsorsStatisticsController extends Controller implements HasMiddleware
 {
     public function __invoke(): Response
     {
-        ray(getSponsorsBySponsorType());
-        ray(getSponsorsByAcademicLevel());
-        ray(getSponsorsBySponsorship());
-        ray(getSponsorsByDiploma());
-
         return Inertia::render('Tenant/sponsors/statistics/SponsorsStatisticsPage', [
             'sponsorsBySponsorType' => getSponsorsBySponsorType(),
             'sponsorsByAcademicLevel' => getSponsorsByAcademicLevel(),

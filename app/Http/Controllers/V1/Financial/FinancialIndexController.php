@@ -10,18 +10,16 @@ use Inertia\Response;
 
 class FinancialIndexController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
+    }
+
     public function __invoke(): Response
     {
-        ray(FinancialIndexResource::collection(getFinances()));
-
         return Inertia::render('Tenant/financials/index/FinancialIndexPage', [
             'finances' => FinancialIndexResource::collection(getFinances()),
             'params' => getParams(),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

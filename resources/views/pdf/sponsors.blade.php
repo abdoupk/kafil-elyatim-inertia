@@ -97,7 +97,7 @@
                 </x-td>
 
                 <x-td class=" text-center">
-                    {{ formatCurrency($sponsor->incomes->total_income) }}
+                    {{ formatCurrency($sponsor->incomes->total_income ?? 0) }}
                 </x-td>
             </tr>
         @endforeach

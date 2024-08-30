@@ -10,8 +10,6 @@ class UpdateCalculationWeightsController extends Controller implements HasMiddle
 {
     public function __invoke(UpdateCalculationWeightsRequest $request)
     {
-        ray($request->validated());
-
         auth()->user()->tenant->update([
             'calculation' => json_encode($request->validated()),
         ]);

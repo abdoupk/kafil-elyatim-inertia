@@ -28,8 +28,7 @@ class FamilyStoreController extends Controller implements HasMiddleware
             ]
         );
 
-        $sponsor = $family->sponsor()->create([...$request->validated('sponsor'), 'created_by' => auth()->id()]);
-
+        $sponsor = $family->sponsor()->create([...$request->validated('sponsor'), 'total_income' => array_sum($request->validated('incomes'))]);
         $sponsor->incomes()->create($request->validated('incomes'));
 
         $preview = $family->preview()->create([

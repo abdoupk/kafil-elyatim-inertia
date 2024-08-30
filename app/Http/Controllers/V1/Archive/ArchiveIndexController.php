@@ -11,8 +11,6 @@ class ArchiveIndexController extends Controller implements HasMiddleware
 {
     public function __invoke()
     {
-        ray(getArchives());
-
         return Inertia::render('Tenant/archive/index/ArchiveIndexPage', [
             'items' => ArchiveIndexResource::collection(getArchives()),
             'params' => getParams(),
