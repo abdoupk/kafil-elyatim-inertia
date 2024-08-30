@@ -5,7 +5,6 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { getColor } from '@/utils/colors'
 import { __ } from '@/utils/i18n'
 
 const BaseHorizontalBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseHorizontalBarChart.vue'))
@@ -21,8 +20,7 @@ defineProps<{
             :datasets="[
                 {
                     data: orphansByAge.data,
-                    label: __('orphans_count'),
-                    backgroundColor: () => getColor('primary', 0.9)
+                    label: __('orphans_count')
                 }
             ]"
             :height="300"

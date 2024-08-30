@@ -12,6 +12,7 @@ import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/pinia'
 
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 const pinia = createPinia()
@@ -36,7 +37,7 @@ createInertiaApp({
                     case 419:
                         router.post(route('tenant.logout'))
                         break
-                    case 403:
+                    case 422:
                         console.log('403')
                         break
                     case 404:

@@ -21,14 +21,18 @@ function getSponsorsByAcademicLevel(): array
         ->groupBy('academic_level_id')
         ->get();
 
+    ray($sponsors->pluck('phase')->toArray());
+
     $result = $sponsors->groupBy(function ($orphan) {
         return $orphan->academicLevel->phase;
     })->map(function ($group) {
         return [
-            'total' => $group->first()->total,
+            'total' => $group->count(),
             'phase' => $group->first()->academicLevel->phase,
         ];
     })->values()->toArray();
+
+    ray($result);
 
     return [
         'labels' => array_column($result, 'phase'),

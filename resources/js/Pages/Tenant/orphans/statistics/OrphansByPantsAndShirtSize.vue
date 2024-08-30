@@ -20,11 +20,11 @@ defineProps<{
             :datasets="[
                 {
                     data: orphansByPantsAndShirtSize.shirts_data,
-                    label: __('orphans_count')
+                    label: __('shirt_size')
                 },
                 {
                     data: orphansByPantsAndShirtSize.pants_data,
-                    label: __('orphans_count')
+                    label: __('pants_size')
                 }
             ]"
             :height="300"

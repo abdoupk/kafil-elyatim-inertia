@@ -6,6 +6,8 @@ import { computed } from 'vue'
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
+import { colorPalette } from '@/utils/constants'
+import { addOpacityToHexColor, getRandomItemWithoutRepeat } from '@/utils/helper'
 
 const props = defineProps<{
     width?: number
@@ -14,11 +16,15 @@ const props = defineProps<{
     datasets: {
         label: string
         data: number[]
-        backgroundColor: () => string
+        backgroundColor?: () => string
     }[]
 }>()
 
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
+
+const generateRandomColor = () => {
+    return addOpacityToHexColor(getRandomItemWithoutRepeat(colorPalette[darkMode.value ? 'dark' : 'light']), 0.8)
+}
 
 const data = computed<ChartData>(() => {
     return {
@@ -27,7 +33,7 @@ const data = computed<ChartData>(() => {
             return {
                 label: dataset.label,
                 data: dataset.data,
-                backgroundColor: dataset.backgroundColor
+                backgroundColor: generateRandomColor()
             }
         })
     }

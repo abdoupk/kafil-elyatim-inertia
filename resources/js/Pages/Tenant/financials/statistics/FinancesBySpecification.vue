@@ -21,19 +21,17 @@ defineProps<{
             :datasets="[
                 {
                     data: Object.values(financesBySpecification.incomes),
-                    label: $t('incomes'),
-                    backgroundColor: () => getColor('primary', 0.5),
-                    borderColor: () => getColor('primary', 0.5),
+                    label: __('incomes'),
+                    backgroundColor: () => getColor('primary', 0.4),
                     pointBackgroundColor: () => getColor('primary', 0.5),
-                    pointHoverBorderColor: () => getColor('primary', 0.5)
+                    pointHoverBorderColor: () => getColor('primary', 0.7)
                 },
                 {
                     data: Object.values(financesBySpecification.expenses),
-                    label: $t('expense'),
-                    backgroundColor: () => getColor('primary', 0.5),
-                    borderColor: () => getColor('primary', 0.5),
-                    pointBackgroundColor: () => getColor('primary', 0.5),
-                    pointHoverBorderColor: () => getColor('primary', 0.5)
+                    label: __('expenses'),
+                    backgroundColor: () => getColor('slate.300', 0.4),
+                    pointBackgroundColor: () => getColor('slate.300', 0.5),
+                    pointHoverBorderColor: () => getColor('slate.300', 0.7)
                 }
             ]"
             :labels="Object.keys(financesBySpecification.incomes).map((key) => __(key))"

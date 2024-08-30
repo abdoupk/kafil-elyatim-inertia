@@ -85,8 +85,8 @@ class FamilyStoreController extends Controller implements HasMiddleware
         $family->deceased()->create($request->validated('spouse'));
 
         $family->housing()->create([
-            'name' => $request->validated('housing.housing_type.value'),
-            'value' => $request->validated('housing.housing_type.name'),
+            'name' => $request->validated('housing.housing_type.name'),
+            'value' => $request->validated('housing.housing_type.value'),
             'number_of_rooms' => $request->validated('housing.number_of_rooms'),
             'housing_receipt_number' => $request->validated('housing.housing_receipt_number'),
             'other_properties' => $request->validated('other_properties'),

@@ -465,6 +465,10 @@ function hexToRgba(hex, opacity) {
 }
 
 // Function to add opacity to an array of hex colors
+function addOpacityToHexColor(hexColor, opacity) {
+    return hexToRgba(hexColor, opacity)
+}
+
 function addOpacityToHexColors(hexColors, opacity) {
     return hexColors.map((color) => hexToRgba(color, opacity))
 }
@@ -477,10 +481,22 @@ const isOlderThan = (date: string, age: number) => {
     return dayjs().diff(dayjs(date), 'year') >= age
 }
 
+function getRandomItemWithoutRepeat(items) {
+    const itemsCopy = [...items]
+
+    if (itemsCopy.length === 0) return null
+
+    const randomIndex = Math.floor(Math.random() * itemsCopy.length)
+
+    return itemsCopy.splice(randomIndex, 1)[0]
+}
+
 export {
     isEqual,
     hasPermission,
+    getRandomItemWithoutRepeat,
     isOlderThan,
+    addOpacityToHexColor,
     addOpacityToHexColors,
     sumObjectValues,
     formatFilters,

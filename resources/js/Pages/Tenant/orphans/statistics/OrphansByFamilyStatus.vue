@@ -24,6 +24,10 @@ const data = computed<ChartData>(() => {
         datasets: [
             {
                 label: __('statistics.orphans.titles.orphans_by_family_status'),
+                backgroundColor: getColor('primary', 0.4),
+                pointBackgroundColor: getColor('primary', 0.5),
+                pointHoverBorderColor: getColor('primary', 0.7),
+                pointHoverBackgroundColor: getColor('white'),
                 data: props.orphansByFamilyStatus.data
             }
         ]

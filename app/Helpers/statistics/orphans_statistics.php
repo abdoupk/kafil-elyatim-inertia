@@ -17,15 +17,13 @@ function getOrphansByFamilyStatus(): array
 
 function getOrphansByAcademicLevel(): array
 {
-    $orphans = Orphan::select('academic_level_id', DB::raw('count(*) as total'))->with('academicLevel:id,phase')
+    $orphans = Orphan::whereNotNull('academic_level_id')->select('academic_level_id', DB::raw('count(*) as total'))->with('academicLevel:id,phase')
         ->groupBy('academic_level_id')
         ->get();
 
     $result = $orphans->groupBy(function ($orphan) {
         return $orphan->academicLevel->phase;
     })->map(function ($group) {
-        ray($group);
-
         return [
             'total' => $group->first()->total,
             'phase' => $group->first()->academicLevel->phase,
@@ -81,6 +79,8 @@ function getOrphansByAge(): array
 
     return [
         'age' => array_reverse($orphans->pluck('age')->map(function (int $age) {
+            ray($age);
+
             return trans_choice('age_years', $age, ['value' => $age]);
         })->toArray()),
         'data' => array_reverse($orphans->pluck('count')->toArray()),
@@ -117,7 +117,7 @@ function getOrphansByBranch(): array
 
 function getByPantsAndShirtSize(): array
 {
-    $shirt_sizes = Orphan::selectRaw('shirt_size, COUNT(*) as total')
+    $shirt_sizes = Orphan::whereNotNull('shirt_size')->selectRaw('shirt_size, COUNT(*) as total')
         ->with('shirtSize:id,label')
         ->groupBy('shirt_size')
         ->get()
@@ -125,7 +125,7 @@ function getByPantsAndShirtSize(): array
             return [$item->shirtSize->label => $item->total];
         });
 
-    $pants_sizes = Orphan::selectRaw('pants_size, COUNT(*) as total')
+    $pants_sizes = Orphan::whereNotNull('pants_size')->selectRaw('pants_size, COUNT(*) as total')
         ->with('pantsSize:id,label')
         ->groupBy('pants_size')
         ->get()
@@ -152,7 +152,7 @@ function getByPantsAndShirtSize(): array
 
 function getOrphansByShoeSize(): array
 {
-    $orphans = Orphan::select('shoes_size', DB::raw('count(*) as total'))->with('shoesSize:id,label')
+    $orphans = Orphan::whereNotNull('shoes_size')->select('shoes_size', DB::raw('count(*) as total'))->with('shoesSize:id,label')
         ->groupBy('shoes_size')
         ->orderBy('shoes_size')
         ->get();
@@ -165,7 +165,7 @@ function getOrphansByShoeSize(): array
 
 function getOrphansByVocationalTraining(): array
 {
-    $orphans = Orphan::select('vocational_training_id', DB::raw('count(*) as total'))->with('vocationalTraining:id,division')
+    $orphans = Orphan::whereNotNull('vocational_training_id')->select('vocational_training_id', DB::raw('count(*) as total'))->with('vocationalTraining:id,division')
         ->groupBy('vocational_training_id')
         ->get();
 

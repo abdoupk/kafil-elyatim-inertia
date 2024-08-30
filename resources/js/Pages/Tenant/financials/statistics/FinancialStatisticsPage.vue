@@ -15,8 +15,6 @@ const FinancesBySpecification = defineAsyncComponent(
     () => import('@/Pages/Tenant/financials/statistics/FinancesBySpecification.vue')
 )
 
-const FinancesByType = defineAsyncComponent(() => import('@/Pages/Tenant/financials/statistics/FinancesByType.vue'))
-
 defineOptions({
     layout: TheLayout
 })
@@ -52,17 +50,17 @@ defineProps<{
             <!-- End: financesByMonth -->
 
             <!-- Begin: financesByType -->
-            <div class="col-span-12 lg:col-span-6">
-                <the-statistic-box>
-                    <template #title> {{ $t('statistics.finances.titles.finances_by_type') }}</template>
+            <!--            <div class="col-span-12 lg:col-span-6">-->
+            <!--                <the-statistic-box>-->
+            <!--                    <template #title> {{ $t('statistics.finances.titles.finances_by_type') }}</template>-->
 
-                    <template #chart>
-                        <suspense suspensible>
-                            <finances-by-type :financesByType></finances-by-type>
-                        </suspense>
-                    </template>
-                </the-statistic-box>
-            </div>
+            <!--                    <template #chart>-->
+            <!--                        <suspense suspensible>-->
+            <!--                            <finances-by-type :financesByType></finances-by-type>-->
+            <!--                        </suspense>-->
+            <!--                    </template>-->
+            <!--                </the-statistic-box>-->
+            <!--            </div>-->
             <!-- End: financesByType -->
 
             <!-- Begin: financesBySpecification -->

@@ -311,6 +311,16 @@ class Family extends Model
         $this->sponsor()->forceDelete();
 
         $this->orphans()->forceDelete();
+
+        $this->deceased()->delete();
+
+        $this->housing()->delete();
+
+        $this->spouse()->delete();
+
+        $this->furnishings()->delete();
+
+        $this->secondSponsor()->delete();
     }
 
     protected static function boot(): void

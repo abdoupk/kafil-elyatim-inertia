@@ -992,7 +992,7 @@
     "sponsor_phone_number": "رقم هاتف المتكفل",
     "the_archive": "الأرشيف",
     "the_trash": "المحذوفات",
-    "age_years": "{1}سنة|{2} سنتين|[3,10] :count سنوات|[11,*] :count سنة",
+    "age_years": "{0}اقل من سنة|{1}سنة|{2} سنتين|[3,10] :count سنوات|[11,*] :count سنة",
     "age_months": "{1} شهر|{2} شهرين|[3,10] :value اشهر|[11,*] :value شهر",
     "age_days": "{1} يوم|{2} يومين|[3,10] :value أيام|[11,*] :value يوم",
     "and": "و",
@@ -1096,5 +1096,8 @@
     "no_financial_transactions": "لا توجد معاملات مالية مضافة.",
     "no_notifications": "لا توجد إشعارات.",
     "sponsorship_type": "نوع الكفالة",
-    "date_and_time": "التاريخ والوقت"
+    "date_and_time": "التاريخ والوقت",
+    "sponsors_count": "عدد المتكفلين",
+    "expenses": "المصاريف",
+    "incomes": "المداخيل"
 }

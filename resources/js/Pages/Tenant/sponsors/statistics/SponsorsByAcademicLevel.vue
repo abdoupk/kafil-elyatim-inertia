@@ -20,7 +20,7 @@ defineProps<{
             :datasets="[
                 {
                     data: sponsorsByAcademicLevel.data,
-                    label: __('orphans_count')
+                    label: __('sponsors_count')
                 }
             ]"
             :height="300"
