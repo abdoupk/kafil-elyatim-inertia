@@ -19,7 +19,6 @@ class EventDetailsResource extends JsonResource
             'frequency' => $this->whenLoaded('event', fn () => $this->event->frequency),
             'interval' => $this->whenLoaded('event', fn () => $this->event->interval),
             'until' => $this->whenLoaded('event', fn () => $this->event->until),
-            //            'human_readable' => $this->whenLoaded('event', fn () => $this->event->humanReadable()),
             'lesson' => new LessonResource($this->whenLoaded('lesson')),
             'school' => new SchoolResource($this->whenLoaded('lesson', fn () => $this->lesson->school)),
             'subject' => new SubjectResource($this->whenLoaded('lesson', fn () => $this->lesson->subject)),

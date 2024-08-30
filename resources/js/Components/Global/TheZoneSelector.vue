@@ -35,6 +35,7 @@ watch(
     <base-vue-select
         v-model:value="selectedZone"
         :options="zonesStore.zones"
+        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_zone') })"
         label="name"
         track-by="id"
         @update:value="handleUpdate"

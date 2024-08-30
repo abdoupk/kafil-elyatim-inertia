@@ -35,6 +35,7 @@ watch(
     <base-vue-select
         v-model:value="selectedBranch"
         :options="branchesStore.branches"
+        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_branch') })"
         label="name"
         track-by="id"
         @update:value="handleUpdate"

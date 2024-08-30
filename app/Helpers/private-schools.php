@@ -75,7 +75,7 @@ function getOrphansForAddLesson(): \Illuminate\Database\Eloquent\Collection
 
 function formatDateFromTo($dateFrom, $dateTo): string
 {
-    return Carbon::parse($dateFrom)->format('d M, g:i A').' - '.Carbon::parse($dateTo)->format('g:i A');
+    return Carbon::parse($dateFrom)->translatedFormat('d M'.__('glue').' g:i A').' - '.Carbon::parse($dateTo)->translatedFormat('g:i A');
 }
 
 /**

@@ -10,6 +10,7 @@ import { computed } from 'vue'
 
 import { __, getLocale } from '@/utils/i18n'
 
+
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
@@ -472,9 +473,14 @@ function sumObjectValues(obj): number {
     return Object.values(obj).reduce((sum, value) => sum + value, 0)
 }
 
+const isOlderThan = (date: string, age: number) => {
+    return dayjs().diff(dayjs(date), 'year') >= age
+}
+
 export {
     isEqual,
     hasPermission,
+    isOlderThan,
     addOpacityToHexColors,
     sumObjectValues,
     formatFilters,

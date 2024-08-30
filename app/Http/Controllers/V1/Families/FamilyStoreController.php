@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Jobs\V1\Family\FamilyCreatedJob;
 use App\Models\Family;
+use App\Models\Orphan;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
@@ -13,6 +14,11 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FamilyStoreController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        // TODO: Implement middleware() method.
+    }
+
     public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
         $family = Family::create(
@@ -37,8 +43,8 @@ class FamilyStoreController extends Controller implements HasMiddleware
         $validatedOrphans = $request->orphans;
         $babiesToCreate = [];
 
-        $orphans = $family->orphans()->createMany(array_map(static function ($orphan) {
-            $orphan['created_by'] = auth()->id();
+        $orphans = $family->orphans()->createMany(array_map(static function ($orphan) use ($sponsor) {
+            $orphan['sponsor_id'] = $sponsor->id;
 
             return array_filter($orphan, function ($key) {
                 return ! in_array($key, ['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type', 'vocational_training_id']);
@@ -95,10 +101,5 @@ class FamilyStoreController extends Controller implements HasMiddleware
         dispatch(new FamilyCreatedJob($family, auth()->user()));
 
         return response(['family' => $family->id], 201);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

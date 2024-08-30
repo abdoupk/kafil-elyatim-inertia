@@ -29,7 +29,9 @@ defineProps<{
     eventInfo: EventApi | null
 }>()
 
-const emit = defineEmits(['close', 'delete', 'edit'])
+const emit = defineEmits(['close',
+'delete',
+'edit'])
 
 const lessonsStore = useLessonsStore()
 </script>
@@ -47,6 +49,7 @@ const lessonsStore = useLessonsStore()
                         <div class="p-5">
                             <div class="grid grid-cols-12 gap-4">
                                 <h1 class="col-span-3">{{ $t('date_and_time') }}</h1>
+
                                 <p class="col-span-9">{{ lessonsStore.lesson?.formated_date }}</p>
                             </div>
 
@@ -61,7 +64,8 @@ const lessonsStore = useLessonsStore()
                             </div>
 
                             <div class="mt-4 grid grid-cols-12 gap-4">
-                                <h1 class="col-span-3">{{ $t('validation.attributes.subject') }}</h1>
+                                <h1 class="col-span-3">{{ $t('the_subject') }}</h1>
+
                                 <p class="col-span-9">{{ lessonsStore.lesson?.subject?.name }}</p>
                             </div>
 

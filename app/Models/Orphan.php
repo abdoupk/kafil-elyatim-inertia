@@ -172,9 +172,9 @@ class Orphan extends Model
                 'fr' => __('family_statuses.'.$this->family_status, locale: 'fr'),
                 'en' => __('family_statuses.'.$this->family_status, locale: 'en'),
             ],
-            'shoes_size' => $this->shoesSize->label,
-            'shirt_size' => $this->shirtSize->label,
-            'pants_size' => $this->pantsSize->label,
+            'shoes_size' => $this->shoesSize?->label,
+            'shirt_size' => $this->shirtSize?->label,
+            'pants_size' => $this->pantsSize?->label,
             'income' => (float) $this->income,
             'gender' => $this->gender,
             'is_handicapped' => $this->is_handicapped,
@@ -182,13 +182,13 @@ class Orphan extends Model
             'note' => $this->note,
             'academic_level' => [
                 'id' => $this->academic_level_id,
-                'level' => $this->academicLevel->level,
-                'phase' => $this->academicLevel->phase,
+                'level' => $this->academicLevel?->level,
+                'phase' => $this->academicLevel?->phase,
             ],
             'academic_achievements' => $this->academicAchievements->map(function (AcademicAchievement $academicAchievement) {
                 return [
                     'id' => $academicAchievement->id,
-                    'academic_level' => $academicAchievement->academicLevel->level,
+                    'academic_level' => $academicAchievement->academicLevel?->level,
                     'academic_year' => $academicAchievement->academic_year,
                     'first_trimester' => (float) number_format($academicAchievement->first_trimester, 2),
                     'second_trimester' => (float) number_format($academicAchievement->second_trimester, 2),
@@ -199,7 +199,7 @@ class Orphan extends Model
             'college_achievements' => $this->collegeAchievements->map(function (CollegeAchievement $collegeAchievement) {
                 return [
                     'id' => $collegeAchievement->id,
-                    'academic_level' => $collegeAchievement->academicLevel->level,
+                    'academic_level' => $collegeAchievement->academicLevel?->level,
                     'academic_year' => $collegeAchievement->year,
                     'first_semester' => (float) number_format($collegeAchievement->first_semester, 2),
                     'second_semester' => (float) number_format($collegeAchievement->second_semester, 2),
@@ -211,8 +211,8 @@ class Orphan extends Model
             'vocational_training_achievements' => $this->vocationalTrainingAchievements->map(function (VocationalTrainingAchievement $vocationalTrainingAchievement) {
                 return [
                     'id' => $vocationalTrainingAchievement->id,
-                    'vocational_training_speciality' => $vocationalTrainingAchievement->vocationalTraining->speciality,
-                    'vocational_training_division' => $vocationalTrainingAchievement->vocationalTraining->division,
+                    'vocational_training_speciality' => $vocationalTrainingAchievement->vocationalTraining?->speciality,
+                    'vocational_training_division' => $vocationalTrainingAchievement->vocationalTraining?->division,
                     'institute' => $vocationalTrainingAchievement->institute,
                 ];
             })->toArray(),

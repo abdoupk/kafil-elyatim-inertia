@@ -31,6 +31,7 @@ onMounted(async () => {
     <base-vue-select
         v-model:value="selectedSchool"
         :options="schoolsStore.schools"
+        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('the_school') })"
         label="name"
         track-by="id"
         @update:value="handleUpdate"

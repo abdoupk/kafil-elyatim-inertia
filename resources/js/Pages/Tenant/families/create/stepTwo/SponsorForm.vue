@@ -261,6 +261,7 @@ const birthDate = defineModel('birth_date', { default: '' })
                         attribute: $t('validation.attributes.phone')
                     })
                 "
+                maxlength="10"
                 type="text"
                 @change="
                     form?.validate(

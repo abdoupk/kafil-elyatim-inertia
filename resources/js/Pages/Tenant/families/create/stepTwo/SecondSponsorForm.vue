@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'
@@ -32,15 +32,15 @@ const address = defineModel('address')
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="firstName"
                 id="first_name"
-                type="text"
+                v-model="firstName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.first_name')
                     })
                 "
+                autofocus
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -51,14 +51,14 @@ const address = defineModel('address')
 
             <base-form-input-error>
                 <div
-                    data-test="error_first_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'second_sponsor.first_name'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_first_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -74,15 +74,15 @@ const address = defineModel('address')
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="lastName"
                 id="last_name"
-                type="text"
+                v-model="lastName"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.last_name')
                     })
                 "
+                autofocus
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -93,14 +93,14 @@ const address = defineModel('address')
 
             <base-form-input-error>
                 <div
-                    data-test="error_last_name_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'second_sponsor.last_name'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_last_name_message"
                 >
                     {{
                         //@ts-ignore
@@ -116,15 +116,15 @@ const address = defineModel('address')
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="degreeOfKinship"
                 id="degree_of_kinship"
-                type="text"
+                v-model="degreeOfKinship"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.degree_of_kinship')
                     })
                 "
+                autofocus
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -135,14 +135,14 @@ const address = defineModel('address')
 
             <base-form-input-error>
                 <div
-                    data-test="error_degree_of_kinship_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'second_sponsor.degree_of_kinship'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_degree_of_kinship_message"
                 >
                     {{
                         //@ts-ignore
@@ -158,34 +158,35 @@ const address = defineModel('address')
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="phone"
-                @keydown="allowOnlyNumbersOnKeyDown"
                 id="phone"
-                type="text"
+                v-model="phone"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.phone')
                     })
                 "
+                autofocus
+                maxlength="10"
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
                         'second_sponsor.phone_number'
                     )
                 "
+                @keydown="allowOnlyNumbersOnKeyDown"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    data-test="error_phone_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'second_sponsor.phone_number'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_phone_message"
                 >
                     {{
                         //@ts-ignore
@@ -201,15 +202,15 @@ const address = defineModel('address')
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="address"
                 id="address"
-                type="text"
+                v-model="address"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.address')
                     })
                 "
+                autofocus
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
@@ -220,14 +221,14 @@ const address = defineModel('address')
 
             <base-form-input-error>
                 <div
-                    data-test="error_address_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'second_sponsor.address'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_address_message"
                 >
                     {{
                         //@ts-ignore
@@ -243,34 +244,34 @@ const address = defineModel('address')
             </base-form-label>
 
             <base-form-input
-                autofocus
-                v-model="income"
-                @keydown="allowOnlyNumbersOnKeyDown"
                 id="income"
-                type="text"
+                v-model="income"
                 :placeholder="
                     $t('auth.placeholders.fill', {
                         attribute: $t('validation.attributes.income')
                     })
                 "
+                autofocus
+                type="text"
                 @change="
                     form?.validate(
                         //@ts-ignore
                         'second_sponsor.income'
                     )
                 "
+                @keydown="allowOnlyNumbersOnKeyDown"
             ></base-form-input>
 
             <base-form-input-error>
                 <div
-                    data-test="error_income_message"
-                    class="mt-2 text-danger"
                     v-if="
                         form?.invalid(
                             //@ts-ignore
                             'second_sponsor.income'
                         )
                     "
+                    class="mt-2 text-danger"
+                    data-test="error_income_message"
                 >
                     {{
                         //@ts-ignore

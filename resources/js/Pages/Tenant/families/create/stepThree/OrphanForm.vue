@@ -3,7 +3,6 @@ import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
-import dayjs from 'dayjs'
 import type { Form } from 'laravel-precognition-vue/dist/types'
 import { computed, onMounted, ref } from 'vue'
 
@@ -22,6 +21,8 @@ import TheDiapersSelector from '@/Components/Global/TheDiapersSelector.vue'
 import TheFamilyStatusSelector from '@/Components/Global/TheFamilyStatusSelector.vue'
 import TheShoesSizeSelector from '@/Components/Global/TheShoesSizeSelector.vue'
 import TheVocationalTrainingSelector from '@/Components/Global/TheVocationalTrainingSelector.vue'
+
+import { isOlderThan } from '@/utils/helper'
 
 const props = defineProps<{
     form: Form<CreateFamilyForm>
@@ -71,18 +72,24 @@ const diapersQuantity = defineModel('diapersQuantity')
 const birthDate = defineModel('birth_date', { default: '' })
 
 const isStillBaby = computed(() => {
-    return birthDate.value && dayjs().diff(dayjs(birthDate.value), 'year') < 2
+    return birthDate.value && !isOlderThan(birthDate.value, 2)
+})
+
+const isOlderThan18 = computed(() => {
+    return birthDate.value && isOlderThan(birthDate.value, 18)
 })
 
 const isShouldHasIncome = computed(() => {
-    return (
-        (birthDate.value && dayjs().diff(dayjs(birthDate.value), 'year') <= 18) ||
-        isHandicapped.value ||
-        isUnemployed.value
-    )
+    if (!isOlderThan18.value) return false
+
+    return !isHandicapped.value && !isUnemployed.value
 })
 
 const academicLevelsStore = useAcademicLevelsStore()
+
+const shouldBeInSchool = computed(() => {
+    return birthDate.value && isOlderThan(birthDate.value, 5)
+})
 
 const academicLevels = ref<AcademicLevelType[]>([])
 
@@ -244,6 +251,7 @@ const handleUpdateVocationalTraining = () => {
                 "
             >
                 <option value="male">{{ $t('male') }}</option>
+
                 <option value="female">{{ $t('female') }}</option>
             </base-form-select>
 
@@ -350,7 +358,7 @@ const handleUpdateVocationalTraining = () => {
         <!-- End: Family Status-->
 
         <!-- Begin: Academic Level-->
-        <div class="col-span-12 sm:col-span-6">
+        <div v-if="shouldBeInSchool" class="col-span-12 sm:col-span-6">
             <base-form-label for="academic_level">
                 {{ $t('validation.attributes.sponsor.academic_level') }}
             </base-form-label>
@@ -394,6 +402,7 @@ const handleUpdateVocationalTraining = () => {
                 <the-vocational-training-selector
                     :id="`vocational_training_id_${index}`"
                     v-model:vocational-training="vocationalTraining"
+                    @update:vocational-training="handleUpdateVocationalTraining"
                 ></the-vocational-training-selector>
             </div>
 
@@ -721,8 +730,8 @@ const handleUpdateVocationalTraining = () => {
             </div>
             <!--END: Handicapped-->
 
-            <!--Begin: Handicapped-->
-            <div class="col-span-6 sm:col-span-3">
+            <!--Begin: Unemployed-->
+            <div v-if="isOlderThan18" class="col-span-6 sm:col-span-3">
                 <base-form-switch class="text-lg">
                     <base-form-switch-input
                         id="is_unemployed"
@@ -735,11 +744,11 @@ const handleUpdateVocationalTraining = () => {
                     </base-form-switch-label>
                 </base-form-switch>
             </div>
-            <!--END: Handicapped-->
+            <!--END: Unemployed-->
         </div>
 
         <!-- Begin: Income-->
-        <div v-if="!isShouldHasIncome" class="col-span-12 sm:col-span-6">
+        <div v-if="isShouldHasIncome" class="col-span-12 sm:col-span-6">
             <base-form-label for="income">
                 {{ $t('validation.attributes.income') }}
             </base-form-label>

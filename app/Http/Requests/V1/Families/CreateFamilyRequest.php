@@ -39,7 +39,7 @@ class CreateFamilyRequest extends FormRequest
             'orphans.*.birth_date' => 'required|date',
             'orphans.*.family_status' => 'required|string',
             'orphans.*.health_status' => 'required|string',
-            'orphans.*.academic_level_id' => 'required|integer',
+            'orphans.*.academic_level_id' => 'nullable|integer',
             'orphans.*.vocational_training_id' => [new VocationalTrainingRule],
             'orphans.*.gender' => 'required|in:male,female',
             'sponsor.first_name' => 'required|string',
