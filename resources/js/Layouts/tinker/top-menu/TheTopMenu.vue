@@ -60,8 +60,8 @@ onMounted(() => {
                 class="relative z-[51] -mx-5 mb-10 mt-12 h-[70px] border-b border-white/[0.08] px-4 sm:-mx-8 sm:px-8 md:mx-0 md:mb-8 md:mt-0 md:px-6"
             >
                 <div class="flex h-full items-center">
-                    <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
-                        <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
+                    <Link :href="route('tenant.dashboard')" class="-intro-x hidden items-center md:flex">
+                        <img :alt="usePage().props.association" class="w-6" src="/images/logo.svg" />
                         <span
                             :class="isAssociationNameLatin ? 'text-sm' : 'text-base'"
                             class="ms-3 max-w-40 truncate font-semibold capitalize text-white"

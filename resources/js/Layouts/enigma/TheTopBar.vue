@@ -27,8 +27,8 @@ const settingsStore = useSettingsStore()
         "
     >
         <div class="flex h-full items-center">
-            <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
-                <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
+            <Link :href="route('tenant.dashboard')" class="-intro-x hidden items-center md:flex">
+                <img :alt="usePage().props.association" class="w-6" src="/images/logo.svg" />
 
                 <span
                     :class="

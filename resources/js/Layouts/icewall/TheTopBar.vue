@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
 import { defineAsyncComponent } from 'vue'
 
@@ -23,12 +23,12 @@ const settingsStore = useSettingsStore()
     >
         <div class="flex h-full items-center">
             <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
-                <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
+                <img :alt="usePage().props.association" class="w-6" src="/images/logo.svg" />
                 <span
                     :class="
                         twMerge([
-                            'ms-3 max-w-40 truncate font-semibold capitalize text-white',
-                            settingsStore.layout == 'side_menu' && 'hidden xl:block',
+                            'ms-3 flex max-w-40 items-center truncate font-semibold capitalize text-white',
+                            settingsStore.layout == 'side_menu' && 'hidden xl:flex',
                             settingsStore.layout == 'simple_menu' && 'hidden',
                             isAssociationNameLatin && 'text-sm',
                             !isAssociationNameLatin && 'text-base'

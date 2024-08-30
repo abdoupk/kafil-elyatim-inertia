@@ -57,7 +57,7 @@ onMounted(() => {
             <div class="mt-[4.7rem] flex overflow-hidden md:mt-0">
                 <nav class="side-nav z-10 hidden overflow-x-hidden px-5 pb-16 md:block md:w-[100px] xl:w-[250px]">
                     <Link :href="route('tenant.dashboard')" class="intro-x mt-3 flex items-center ps-5 pt-4">
-                        <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
+                        <img :alt="usePage().props.association" class="w-6" src="/images/logo.svg" />
                         <span
                             :class="isAssociationNameLatin ? 'text-sm' : 'text-base'"
                             class="ms-3 hidden text-white xl:block"
