@@ -5,35 +5,35 @@ import { ref } from 'vue'
 
 import FilterSponsorShipDropDown from '@/Components/Global/filters/FilterSponsorShipDropDown.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const value = defineModel<FilterValueSponsorshipType>('value', {
     default: {
         value: '',
-        label: __('filters.select_an_option')
+        label: $t('filters.select_an_option')
     }
 })
 
 // TODO change to ارمل ....
 const data = ref([
     {
-        label: __('father'),
+        label: $t('father'),
         value: 'father'
     },
     {
-        label: __('mother'),
+        label: $t('mother'),
         value: 'mother'
     },
     {
-        label: __('grand_father'),
+        label: $t('grand_father'),
         value: 'grand_father'
     },
     {
-        label: __('grand_mother'),
+        label: $t('grand_mother'),
         value: 'grand_mother'
     },
     {
-        label: __('other'),
+        label: $t('other'),
         value: 'other'
     }
 ])

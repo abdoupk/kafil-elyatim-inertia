@@ -12,7 +12,7 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ schools: PaginationData<SchoolsIndexResource>; params: IndexParams }>()
 
@@ -115,7 +115,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            <base-tippy :content="__('quota_total')">
+                            <base-tippy :content="$t('quota_total')">
                                 {{ school.quota }}
                             </base-tippy>
                         </div>

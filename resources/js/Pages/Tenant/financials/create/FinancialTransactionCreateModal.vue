@@ -4,7 +4,7 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
@@ -37,11 +37,11 @@ const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
     if (financialTransactionsStore.financialTransaction.id) {
-        return __('successfully_updated')
+        return $t('successfully_updated')
     } else {
         return financialTransactionsStore.financialTransaction.type == 'income'
-            ? __('successfully_created', { attribute: __('new income') })
-            : __('successfully_created', { attribute: __('new expense') })
+            ? $t('successfully_created', { attribute: $t('new income') })
+            : $t('successfully_created', { attribute: $t('new expense') })
     }
 })
 
@@ -101,13 +101,13 @@ const handleSubmit = async () => {
 const modalTitle = computed(() => {
     if (financialTransactionsStore.financialTransaction.id) {
         return financialTransactionsStore.financialTransaction.type == 'income'
-            ? __('modal_update_title', { attribute: __('the_income') })
-            : __('modal_update_title', { attribute: __('the_expense') })
+            ? $t('modal_update_title', { attribute: $t('the_income') })
+            : $t('modal_update_title', { attribute: $t('the_expense') })
     }
 
     return financialTransactionsStore.financialTransaction.type == 'income'
-        ? n__('add new', 1, { attribute: __('income') })
-        : n__('add new', 1, { attribute: __('expense') })
+        ? $tc('add new', 1, { attribute: $t('income') })
+        : $tc('add new', 1, { attribute: $t('expense') })
 })
 
 // Initialize a ref for the first input element

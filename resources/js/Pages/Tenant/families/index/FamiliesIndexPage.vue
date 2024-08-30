@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/families/index/DataTable.vue'))
 
@@ -123,7 +123,7 @@ const showDeleteModal = (familyId: string) => {
                         variant="primary"
                         @click.prevent="router.get(route('tenant.families.create'))"
                     >
-                        {{ n__('add new', 0, { attribute: $t('family') }) }}
+                        {{ $tc('add new', 0, { attribute: $t('family') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -149,7 +149,7 @@ const showDeleteModal = (familyId: string) => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_family') })"
+                :title="$tc('successfully_trashed', 0, { attribute: $t('the_family') })"
             ></success-notification>
         </div>
 

@@ -15,7 +15,7 @@ import CreateEditSlideOver from '@/Components/Global/CreateEditSlideOver.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { permissions } from '@/utils/constants'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
@@ -38,7 +38,7 @@ const form = computed(() => {
 const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
-    return rolesStore.role.uuid ? __('successfully_updated') : __('successfully_created', { attribute: __('the_role') })
+    return rolesStore.role.uuid ? $t('successfully_updated') : $t('successfully_created', { attribute: $t('the_role') })
 })
 
 // Define custom event emitter for 'close' event
@@ -83,8 +83,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the role id
 const modalTitle = computed(() => {
     return rolesStore.role.uuid
-        ? __('modal_update_title', { attribute: __('the_role') })
-        : n__('add new', 1, { attribute: __('role') })
+        ? $t('modal_update_title', { attribute: $t('the_role') })
+        : $tc('add new', 1, { attribute: $t('role') })
 })
 
 // Initialize a ref for the first input element

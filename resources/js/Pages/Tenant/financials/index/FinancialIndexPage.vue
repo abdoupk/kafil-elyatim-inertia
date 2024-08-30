@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const FinancialShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/financials/FinancialShowModal.vue'))
 
@@ -186,7 +186,7 @@ watchEffect(async () => {
             >
                 <template #ExtraButtons>
                     <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateIncomeModal">
-                        {{ n__('add new', 1, { attribute: $t('income') }) }}
+                        {{ $tc('add new', 1, { attribute: $t('income') }) }}
                     </base-button>
 
                     <base-button
@@ -194,7 +194,7 @@ watchEffect(async () => {
                         variant="outline-danger"
                         @click.prevent="showCreateExpenseModal"
                     >
-                        {{ n__('add new', 1, { attribute: $t('expense') }) }}
+                        {{ $tc('add new', 1, { attribute: $t('expense') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -238,7 +238,7 @@ watchEffect(async () => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_family') })"
+                :title="$tc('successfully_trashed', 0, { attribute: $t('the_family') })"
             ></success-notification>
         </div>
 

@@ -11,7 +11,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const SchoolShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/schools/SchoolShowModal.vue'))
 
@@ -164,7 +164,7 @@ watchEffect(async () => {
             >
                 <template #ExtraButtons>
                     <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                        {{ n__('add new', 0, { attribute: $t('school') }) }}
+                        {{ $tc('add new', 0, { attribute: $t('school') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -209,7 +209,7 @@ watchEffect(async () => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_school') })"
+                :title="$tc('successfully_trashed', 0, { attribute: $t('the_school') })"
             ></success-notification>
         </div>
 

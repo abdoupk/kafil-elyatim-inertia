@@ -4,7 +4,7 @@ import type { ComingEventsType } from '@/types/dashboard'
 import { computed, defineAsyncComponent } from 'vue'
 
 import { formatDateAndTimeShort } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const TheExpandedCalendar = defineAsyncComponent(
     () => import('@/Pages/Tenant/dashboard/schedules/TheExpandedCalendar.vue')
@@ -62,7 +62,7 @@ const attributes = computed(() => [
                     </template>
 
                     <div v-else class="mt-5 text-center text-slate-500 rtl:font-semibold">
-                        {{ __('No upcoming lessons') }}
+                        {{ $t('No upcoming lessons') }}
                     </div>
                 </div>
             </div>

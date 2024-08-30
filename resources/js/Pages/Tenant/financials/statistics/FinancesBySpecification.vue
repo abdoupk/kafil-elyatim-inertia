@@ -6,7 +6,7 @@ import { defineAsyncComponent } from 'vue'
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BaseRadarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseRadarChart.vue'))
 
@@ -21,20 +21,20 @@ defineProps<{
             :datasets="[
                 {
                     data: Object.values(financesBySpecification.incomes),
-                    label: __('incomes'),
+                    label: $t('incomes'),
                     backgroundColor: () => getColor('primary', 0.4),
                     pointBackgroundColor: () => getColor('primary', 0.5),
                     pointHoverBorderColor: () => getColor('primary', 0.7)
                 },
                 {
                     data: Object.values(financesBySpecification.expenses),
-                    label: __('expenses'),
+                    label: $t('expenses'),
                     backgroundColor: () => getColor('slate.300', 0.4),
                     pointBackgroundColor: () => getColor('slate.300', 0.5),
                     pointHoverBorderColor: () => getColor('slate.300', 0.7)
                 }
             ]"
-            :labels="Object.keys(financesBySpecification.incomes).map((key) => __(key))"
+            :labels="Object.keys(financesBySpecification.incomes).map((key) => $t(key))"
         ></base-radar-chart>
     </suspense>
 

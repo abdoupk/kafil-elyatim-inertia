@@ -4,7 +4,8 @@ import { usePage } from '@inertiajs/vue3'
 import { type Hit, MeiliSearch } from 'meilisearch'
 
 import { formatCurrency, formatDate, formatNumber } from '@/utils/helper'
-import { __, getLocale, n__ } from '@/utils/i18n'
+import { $t, $tc, getLocale } from '@/utils/i18n'
+
 
 const client = new MeiliSearch({
     host: 'http://127.0.0.1:7700',
@@ -279,11 +280,11 @@ const constructHint = (hit: Hit, indexUid: string) => {
         case 'sponsors':
             return hit.phone_number
         case 'needs':
-            return __(hit.status)
+            return $t(hit.status)
         case 'inventory':
-            return formatNumber(hit.qty) + '(' + __(hit.unit) + ')'
+            return formatNumber(hit.qty) + '(' + $t(hit.unit) + ')'
         case 'schools':
-            return n__('number_of_places', hit.quota, { value: hit.quota })
+            return $tc('number_of_places', hit.quota, { value: hit.quota })
         case 'zones':
             return formatDate(hit.created_at, 'long')
         case 'branches':

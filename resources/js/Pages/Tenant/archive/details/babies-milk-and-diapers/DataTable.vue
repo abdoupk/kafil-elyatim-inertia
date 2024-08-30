@@ -11,7 +11,7 @@ import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: IndexParams }>()
 </script>
@@ -25,35 +25,35 @@ defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: Ind
                         <the-table-th class="text-start"> #</the-table-th>
 
                         <the-table-th class="text-start">
-                            {{ __('the_child') }}
+                            {{ $t('the_child') }}
                         </the-table-th>
 
                         <the-table-th class="text-start">
-                            {{ __('baby_milk_type') }}
+                            {{ $t('baby_milk_type') }}
                         </the-table-th>
 
                         <the-table-th class="text-start">
-                            {{ __('baby_milk_quantity') }}
+                            {{ $t('baby_milk_quantity') }}
                         </the-table-th>
 
                         <the-table-th class="text-start">
-                            {{ __('diapers_type') }}
+                            {{ $t('diapers_type') }}
                         </the-table-th>
 
                         <the-table-th class="text-start">
-                            {{ __('diapers_quantity') }}
+                            {{ $t('diapers_quantity') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ __('validation.attributes.age') }}
+                            {{ $t('validation.attributes.age') }}
                         </the-table-th>
 
                         <the-table-th class="text-start">
-                            {{ __('the_sponsor') }}
+                            {{ $t('the_sponsor') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ __('validation.attributes.sponsor.phone_number') }}
+                            {{ $t('validation.attributes.sponsor.phone_number') }}
                         </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
@@ -144,14 +144,14 @@ defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: Ind
 
                         <div class="col-span-12 mt-2 grid grid-cols-12 gap-2">
                             <div class="col-span-12 grid grid-cols-12 gap-2">
-                                <p class="col-span-4 rtl:font-semibold">{{ __('baby_milk') }}</p>
+                                <p class="col-span-4 rtl:font-semibold">{{ $t('baby_milk') }}</p>
                                 <p class="col-span-8">
                                     {{ orphan.orphan.baby_milk_type }} ({{ orphan.orphan.baby_milk_quantity }})
                                 </p>
                             </div>
 
                             <div class="col-span-12 grid grid-cols-12 gap-2">
-                                <p class="col-span-4 rtl:font-semibold">{{ __('diapers') }}</p>
+                                <p class="col-span-4 rtl:font-semibold">{{ $t('diapers') }}</p>
                                 <p class="col-span-8">
                                     {{ orphan.orphan.diapers_type }} ({{ orphan.orphan.diapers_quantity }})
                                 </p>
@@ -160,7 +160,7 @@ defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: Ind
                         <div
                             class="mt-2 flex h-fit w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                         >
-                            <base-tippy :content="__('sponsor_phone_number')">
+                            <base-tippy :content="$t('sponsor_phone_number')">
                                 {{ orphan.sponsor?.phone_number }}
                             </base-tippy>
                         </div>

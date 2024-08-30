@@ -1,7 +1,7 @@
 import '../css/app.css'
 import './bootstrap'
 import './echo'
-import i18n, { __ } from './utils/i18n'
+import i18n, { $t } from './utils/i18n'
 
 import { createInertiaApp, router } from '@inertiajs/vue3'
 import { isAxiosError } from 'axios'
@@ -48,7 +48,7 @@ createInertiaApp({
                         router.post(route('tenant.logout'))
                         break
                     case 403:
-                        toast(__('not_authorized'))
+                        toast($t('not_authorized'))
                         break
                     case 404:
                         console.log('404')

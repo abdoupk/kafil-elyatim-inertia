@@ -5,7 +5,7 @@ import { useNotificationsStore } from '@/stores/notifications'
 import { router } from '@inertiajs/vue3'
 
 import { formatDate } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     notification: DatabaseNotification
@@ -52,7 +52,7 @@ const handleShowMember = (url: string) => {
         <div
             class="mt-0.5 line-clamp-2 w-full text-slate-500"
             v-html="
-                n__(`notifications.${notification.type}`, notification.data.user.gender === 'male' ? 1 : 0, {
+                $tc(`notifications.${notification.type}`, notification.data.user.gender === 'male' ? 1 : 0, {
                     ...notification.data.data
                 })
             "

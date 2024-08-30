@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/trash/DataTable.vue'))
 
@@ -63,7 +63,7 @@ const restore = (url: string) => {
 
                             showSuccessNotification.value = true
 
-                            successNotificationMessage.value = __('successfully_restored')
+                            successNotificationMessage.value = $t('successfully_restored')
 
                             setTimeout(() => {
                                 showSuccessNotification.value = false
@@ -86,7 +86,7 @@ const closeDeleteModal = () => {
 
     showSuccessNotification.value = true
 
-    successNotificationMessage.value = __('successfully_force_deleted')
+    successNotificationMessage.value = $t('successfully_force_deleted')
 
     setTimeout(() => {
         showSuccessNotification.value = false

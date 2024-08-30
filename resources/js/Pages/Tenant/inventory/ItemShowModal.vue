@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/vue3'
 
 import ShowModal from '@/Components/Global/ShowModal.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
@@ -22,7 +22,7 @@ const inventoryStore = useInventoryStore()
         <template #description>
             <!-- Begin: Name-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('item_name') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('item_name') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
                     {{ inventoryStore.item.name }}
@@ -32,25 +32,25 @@ const inventoryStore = useInventoryStore()
 
             <!-- Begin: Quantity-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('validation.attributes.amount') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.amount') }}</h2>
 
-                <h3 class="mt-1 rtl:font-medium">{{ inventoryStore.item.qty }} ({{ __(inventoryStore.item.unit) }})</h3>
+                <h3 class="mt-1 rtl:font-medium">{{ inventoryStore.item.qty }} ({{ $t(inventoryStore.item.unit) }})</h3>
             </div>
             <!-- End: Quantity-->
 
             <!-- Begin: Type-->
             <div v-if="['diapers', 'baby_milk'].includes(inventoryStore.item.type)" class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('the_type') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('the_type') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
-                    {{ __(inventoryStore.item.type) }}
+                    {{ $t(inventoryStore.item.type) }}
                 </h3>
             </div>
             <!-- End: Type-->
 
             <!-- Begin: Created At-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('validation.attributes.created_at') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.created_at') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
                     {{ inventoryStore.item.readable_created_at }}
@@ -60,7 +60,7 @@ const inventoryStore = useInventoryStore()
 
             <!-- Begin: Creator-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('created_by') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('created_by') }}</h2>
 
                 <Link
                     :href="route('tenant.members.index') + `?show=${inventoryStore.item.creator?.id}`"
@@ -73,7 +73,7 @@ const inventoryStore = useInventoryStore()
 
             <!-- Begin: Quantity For each Family-->
             <div v-if="!['diapers', 'baby_milk'].includes(inventoryStore.item.type)" class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('quantity_for_each_family') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('quantity_for_each_family') }}</h2>
 
                 <p class="mt-1 rtl:font-medium">{{ inventoryStore.item.qty_for_family }}</p>
             </div>
@@ -81,7 +81,7 @@ const inventoryStore = useInventoryStore()
 
             <!-- Begin: Note-->
             <div class="col-span-12">
-                <h2 class="rtl:font-semibold">{{ __('validation.attributes.note') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.note') }}</h2>
 
                 <p class="mt-1 rtl:font-medium">{{ inventoryStore.item.note }}</p>
             </div>

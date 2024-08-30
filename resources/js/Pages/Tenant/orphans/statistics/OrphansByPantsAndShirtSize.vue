@@ -5,7 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BaseVerticalBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseVerticalBarChart.vue'))
 
@@ -20,11 +20,11 @@ defineProps<{
             :datasets="[
                 {
                     data: orphansByPantsAndShirtSize.shirts_data,
-                    label: __('shirt_size')
+                    label: $t('shirt_size')
                 },
                 {
                     data: orphansByPantsAndShirtSize.pants_data,
-                    label: __('pants_size')
+                    label: $t('pants_size')
                 }
             ]"
             :height="300"

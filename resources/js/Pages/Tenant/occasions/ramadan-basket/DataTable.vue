@@ -12,7 +12,7 @@ import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
 import { formatCurrency } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ families: PaginationData<RamadanBasketFamiliesResource>; params: IndexParams }>()
 
@@ -33,11 +33,11 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'sponsor.name')"
                         >
-                            {{ __('the_sponsor') }}
+                            {{ $t('the_sponsor') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ __('validation.attributes.sponsor.phone_number') }}
+                            {{ $t('validation.attributes.sponsor.phone_number') }}
                         </the-table-th>
 
                         <the-table-th
@@ -45,7 +45,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="text-start"
                             sortable
                             @click="emit('sort', 'family.zone')"
-                            >{{ __('validation.attributes.address') }}
+                            >{{ $t('validation.attributes.address') }}
                         </the-table-th>
 
                         <the-table-th
@@ -53,7 +53,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             class="text-start"
                             sortable
                             @click="emit('sort', 'family.branch')"
-                            >{{ __('the_branch') }}
+                            >{{ $t('the_branch') }}
                         </the-table-th>
 
                         <the-table-th
@@ -62,7 +62,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'family.orphans_count')"
                         >
-                            {{ __('children_count') }}
+                            {{ $t('children_count') }}
                         </the-table-th>
 
                         <the-table-th
@@ -71,7 +71,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'family.income_rate')"
                         >
-                            {{ __('income_rate') }}
+                            {{ $t('income_rate') }}
                         </the-table-th>
 
                         <the-table-th
@@ -80,7 +80,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'family.total_income')"
                         >
-                            {{ __('incomes.label.total_income') }}
+                            {{ $t('incomes.label.total_income') }}
                         </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
@@ -160,7 +160,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <div
                             class="ms-auto flex h-fit w-fit cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            <base-tippy :content="__('income_rate')">
+                            <base-tippy :content="$t('income_rate')">
                                 {{ family.income_rate }}
                             </base-tippy>
                         </div>
@@ -179,7 +179,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                <base-tippy :content="__('incomes.label.total_income')">
+                                <base-tippy :content="$t('incomes.label.total_income')">
                                     {{ formatCurrency(family.total_income) }}
                                 </base-tippy>
                             </div>

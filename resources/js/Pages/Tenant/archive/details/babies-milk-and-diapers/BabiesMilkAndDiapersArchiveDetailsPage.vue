@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { handleSort } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(
     () => import('@/Pages/Tenant/archive/details/babies-milk-and-diapers/DataTable.vue')
@@ -45,7 +45,7 @@ const sort = (field: string) => handleSort(field, params)
 </script>
 
 <template>
-    <Head :title="__('exports.archive.babies_milk_and_diapers', { date: String(archive.date) })"></Head>
+    <Head :title="$t('exports.archive.babies_milk_and_diapers', { date: String(archive.date) })"></Head>
 
     <suspense>
         <div>
@@ -53,7 +53,7 @@ const sort = (field: string) => handleSort(field, params)
                 :filters="[]"
                 :pagination-data="orphans"
                 :params="params"
-                :title="__('exports.archive.babies_milk_and_diapers', { date: String(archive.date) })"
+                :title="$t('exports.archive.babies_milk_and_diapers', { date: String(archive.date) })"
                 :url="$page.url"
                 entries="orphans"
                 export-pdf-url="tenant.archive.export.babies-milk-and-diapers.pdf"

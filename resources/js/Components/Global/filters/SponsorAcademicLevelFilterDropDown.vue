@@ -6,12 +6,12 @@ import { onMounted, ref } from 'vue'
 
 import FilterValueDropDown from '@/Components/Global/filters/FilterValueDropDown.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const value = defineModel<FilterValueType>('value', {
     default: {
         id: '',
-        name: __('filters.select_an_option')
+        name: $t('filters.select_an_option')
     }
 })
 

@@ -11,7 +11,7 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ zones: PaginationData<ZonesIndexResource>; params: IndexParams }>()
 
@@ -124,7 +124,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            <base-tippy :content="__('families_count')">
+                            <base-tippy :content="$t('families_count')">
                                 {{ zone.families_count }}
                             </base-tippy>
                         </div>

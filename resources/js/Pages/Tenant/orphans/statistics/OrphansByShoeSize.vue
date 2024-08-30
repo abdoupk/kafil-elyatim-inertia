@@ -5,7 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BaseBubbleChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseBubbleChart.vue'))
 
@@ -17,7 +17,7 @@ defineProps<{
 <template>
     <suspense v-if="orphansByShoeSize.data.length" suspensible>
         <base-bubble-chart
-            :datasets="[{ data: orphansByShoeSize.data, label: __('orphans_count') }]"
+            :datasets="[{ data: orphansByShoeSize.data, label: $t('orphans_count') }]"
             :height="300"
             :labels="orphansByShoeSize.labels"
         ></base-bubble-chart>

@@ -5,7 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BaseDonutChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseDonutChart.vue'))
 
@@ -18,7 +18,7 @@ defineProps<{
     <suspense v-if="orphansByGender.data.length" suspensible>
         <base-donut-chart
             :chart-data="orphansByGender.data"
-            :labels="orphansByGender.labels.map((key) => __(key))"
+            :labels="orphansByGender.labels.map((key) => $t(key))"
         ></base-donut-chart>
     </suspense>
 

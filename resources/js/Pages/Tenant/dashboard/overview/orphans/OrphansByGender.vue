@@ -4,7 +4,7 @@ import type { OrphansByGenderType } from '@/types/dashboard'
 import TheReportDonutChart from '@/Components/Global/TheReportDonutChart.vue'
 
 import { sumObjectValues } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     orphansByGender: OrphansByGenderType
@@ -23,14 +23,14 @@ const totalOrphans = sumObjectValues(props.orphansByGender.data)
                     </div>
 
                     <div class="mt-1 text-slate-500">
-                        {{ n__('statistics.dashboard.orphans_count', totalOrphans, { count: String(totalOrphans) }) }}
+                        {{ $tc('statistics.dashboard.orphans_count', totalOrphans, { count: String(totalOrphans) }) }}
                     </div>
                 </div>
                 <div class="relative ms-auto flex-none">
                     <the-report-donut-chart
                         :data="orphansByGender.data"
                         :height="90"
-                        :labels="orphansByGender.labels.map((key) => __(key))"
+                        :labels="orphansByGender.labels.map((key) => $t(key))"
                         :width="90"
                     />
                 </div>

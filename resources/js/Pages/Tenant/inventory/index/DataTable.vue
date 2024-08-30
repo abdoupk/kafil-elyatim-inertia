@@ -12,7 +12,7 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatDate, formatNumber } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ items: PaginationData<InventoryIndexResource>; params: IndexParams }>()
 
@@ -34,7 +34,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             sortable
                             @click="emit('sort', 'name')"
                         >
-                            {{ __('the_item') }}
+                            {{ $t('the_item') }}
                         </the-table-th>
 
                         <the-table-th
@@ -43,7 +43,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             sortable
                             @click="emit('sort', 'qty')"
                         >
-                            {{ __('validation.attributes.qty') }}
+                            {{ $t('validation.attributes.qty') }}
                         </the-table-th>
 
                         <the-table-th
@@ -52,15 +52,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             sortable
                             @click="emit('sort', 'created_at')"
                         >
-                            {{ __('validation.attributes.created_at') }}
+                            {{ $t('validation.attributes.created_at') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ __('validation.attributes.notes') }}
+                            {{ $t('validation.attributes.notes') }}
                         </the-table-th>
 
                         <the-table-th class="text-center">
-                            {{ __('actions') }}
+                            {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
@@ -78,7 +78,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         </the-table-td>
 
                         <the-table-td class="max-w-40 text-center">
-                            {{ formatNumber(item.qty) }} {{ __(item.unit) }}
+                            {{ formatNumber(item.qty) }} {{ $t(item.unit) }}
                         </the-table-td>
 
                         <the-table-td class="w-48 text-center">
@@ -99,7 +99,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                     @click.prevent="emit('showEditModal', item.id)"
                                 >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
-                                    {{ __('edit') }}
+                                    {{ $t('edit') }}
                                 </a>
                                 <a
                                     class="flex items-center text-danger"
@@ -107,7 +107,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                     @click="emit('showDeleteModal', item.id)"
                                 >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
-                                    {{ __('delete') }}
+                                    {{ $t('delete') }}
                                 </a>
                             </div>
                         </the-table-td-actions>
@@ -126,7 +126,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ item.qty }} {{ __(item.unit) }}
+                            {{ item.qty }} {{ $t(item.unit) }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
@@ -144,14 +144,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showDetailsModal', item.id)"
-                                >{{ __('show') }}
+                                >{{ $t('show') }}
                             </a>
 
                             <a
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showEditModal', item.id)"
-                                >{{ __('edit') }}
+                                >{{ $t('edit') }}
                             </a>
 
                             <a
@@ -159,7 +159,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', item.id)"
                             >
-                                {{ __('delete') }}
+                                {{ $t('delete') }}
                             </a>
                         </div>
                     </div>

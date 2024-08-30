@@ -11,7 +11,7 @@ import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
@@ -26,7 +26,7 @@ const loading = ref(false)
 const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
-    return zonesStore.zone.id ? __('successfully_updated') : __('successfully_created', { attribute: __('the_zone') })
+    return zonesStore.zone.id ? $t('successfully_updated') : $t('successfully_created', { attribute: $t('the_zone') })
 })
 
 const form = computed(() => {
@@ -79,10 +79,10 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the zone id
 const modalTitle = computed(() => {
     return zonesStore.zone.id
-        ? __('modal_update_title', {
-              attribute: __('the_zone')
+        ? $t('modal_update_title', {
+              attribute: $t('the_zone')
           })
-        : n__('add new', 0, { attribute: __('zone') })
+        : $tc('add new', 0, { attribute: $t('zone') })
 })
 
 // Initialize a ref for the first input element

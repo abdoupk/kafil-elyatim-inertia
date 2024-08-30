@@ -22,7 +22,7 @@ export function getLocale(): LangType {
     return locale.value
 }
 
-export function __(key: string, replacements: Record<string, string> = {}) {
+export function $t(key: string, replacements: Record<string, string> = {}) {
     let translation = langData.value[key] || key
 
     Object.keys(replacements).forEach((replacement) => {
@@ -43,16 +43,16 @@ const getInputPhrase = (count, rules) => {
     return '' // or some default phrase
 }
 
-export function n__(key: string, number: number, replacements: Record<string, string> = {}) {
+export function $tc(key: string, number: number, replacements: Record<string, string> = {}) {
     const rules = []
-    const parts = __(key).split('|')
+    const parts = $t(key).split('|')
     parts.forEach((part) => {
         const match = part.match(/\{.*?}|\[.*?]/)
         if (match === null) {
             return
         }
         const condition = part.match(/\{.*?}|\[.*?]/)[0]
-        const phrase = __(part.replace(condition, ''), replacements)
+        const phrase = $t(part.replace(condition, ''), replacements)
         let min, max
 
         if (condition.startsWith('{') && condition.endsWith('}')) {
@@ -79,10 +79,10 @@ export function n__(key: string, number: number, replacements: Record<string, st
 export default {
     install(app: App) {
         app.config.globalProperties.$t = (key: string, replacements: Record<string, string> = {}) =>
-            __(key, replacements)
+            $t(key, replacements)
 
         app.config.globalProperties.n__ = (key: string, number: number, replacements: Record<string, string> = {}) =>
-            n__(key, number, replacements)
+            $tc(key, number, replacements)
 
         app.provide('locale', locale)
 

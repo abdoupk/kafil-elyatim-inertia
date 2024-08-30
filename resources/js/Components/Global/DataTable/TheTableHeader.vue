@@ -10,7 +10,7 @@ import ExportMenu from '@/Components/Global/ExportMenu.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { debounce, formatFilters, formatParams, getDataForIndexPages, isEmpty } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     url: string
@@ -117,7 +117,7 @@ const handleExport = (params: IndexParams) => {
                             from: paginationData.meta.from?.toString(),
                             to: paginationData.meta.to?.toString(),
                             total: paginationData.meta.total?.toString(),
-                            entries: n__(`entries.${entries}`, paginationData.meta.total)
+                            entries: $tc(`entries.${entries}`, paginationData.meta.total)
                         })
                     }}
                 </span>

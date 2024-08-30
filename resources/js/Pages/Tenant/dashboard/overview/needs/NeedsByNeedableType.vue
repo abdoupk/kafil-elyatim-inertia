@@ -4,7 +4,7 @@ import type { NeedsByNeedableTypeType } from '@/types/dashboard'
 import TheReportDonutChart from '@/Components/Global/TheReportDonutChart.vue'
 
 import { sumObjectValues } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     needsByNeedableType: NeedsByNeedableTypeType
@@ -24,7 +24,7 @@ const totalNeeds = sumObjectValues(props.needsByNeedableType.data)
 
                     <div class="mt-1 text-slate-500">
                         {{
-                            n__('statistics.dashboard.needs_count', totalNeeds, {
+                            $tc('statistics.dashboard.needs_count', totalNeeds, {
                                 count: String(totalNeeds)
                             })
                         }}
@@ -34,7 +34,7 @@ const totalNeeds = sumObjectValues(props.needsByNeedableType.data)
                     <the-report-donut-chart
                         :data="needsByNeedableType.data"
                         :height="90"
-                        :labels="needsByNeedableType.labels.map((key) => __(`the_${key}s`))"
+                        :labels="needsByNeedableType.labels.map((key) => $t(`the_${key}s`))"
                         :width="90"
                     ></the-report-donut-chart>
                 </div>

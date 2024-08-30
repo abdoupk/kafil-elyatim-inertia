@@ -8,7 +8,7 @@ import { computed, defineAsyncComponent } from 'vue'
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BaseChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseChart.vue'))
 
@@ -23,7 +23,7 @@ const data = computed<ChartData>(() => {
         labels: props.orphansByFamilyStatus.labels,
         datasets: [
             {
-                label: __('statistics.orphans.titles.orphans_by_family_status'),
+                label: $t('statistics.orphans.titles.orphans_by_family_status'),
                 backgroundColor: getColor('primary', 0.4),
                 pointBackgroundColor: getColor('primary', 0.5),
                 pointHoverBorderColor: getColor('primary', 0.7),

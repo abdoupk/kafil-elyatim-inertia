@@ -2,8 +2,6 @@
 
 namespace App\Http\Middleware;
 
-use App\Enums\Lang;
-use App\Http\Resources\V1\LanguageResource;
 use Arr;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -25,7 +23,6 @@ class HandleInertiaRequests extends Middleware
             ],
             'association' => tenant('infos')['association'] ?? null,
             'language' => 'ar', // TODO: change to get automatically app()->getLocale() and remove languages
-            'languages' => LanguageResource::collection(Lang::cases()),
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

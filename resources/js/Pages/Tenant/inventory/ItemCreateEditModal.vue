@@ -7,7 +7,7 @@ import { computed, defineAsyncComponent, ref } from 'vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
 
@@ -39,8 +39,8 @@ const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
     return inventoryStore.item.id
-        ? __('successfully_updated')
-        : __('successfully_created', { attribute: __('the_item') })
+        ? $t('successfully_updated')
+        : $t('successfully_created', { attribute: $t('the_item') })
 })
 
 const form = computed(() => {
@@ -93,8 +93,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the item id
 const modalTitle = computed(() => {
     return inventoryStore.item.id
-        ? __('modal_update_title', { attribute: __('the_item') })
-        : n__('add new', 1, { attribute: __('item') })
+        ? $t('modal_update_title', { attribute: $t('the_item') })
+        : $tc('add new', 1, { attribute: $t('item') })
 })
 
 // Initialize a ref for the first input element

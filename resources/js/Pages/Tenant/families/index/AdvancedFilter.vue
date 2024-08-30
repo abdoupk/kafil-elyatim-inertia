@@ -11,7 +11,7 @@ import FilterRule from '@/Components/Global/filters/FilterRule.vue'
 import FilterValue from '@/Components/Global/filters/FilterValue.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const { placement = 'bottom-start' } = defineProps<{
     filters: ListBoxFilter[]
@@ -87,12 +87,12 @@ const handleFieldChange = (index: number) => {
         ) {
             filterRules.value[index].value = {
                 value: '',
-                label: __('filters.select_an_option')
+                label: $t('filters.select_an_option')
             }
         } else
             filterRules.value[index].value = {
                 id: '',
-                name: __('filters.select_an_option')
+                name: $t('filters.select_an_option')
             }
     }
 

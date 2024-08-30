@@ -3,7 +3,8 @@ import type { IFormattedMenu } from '@/types/types'
 import { defineStore } from 'pinia'
 
 import { hasPermission } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
+
 
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({
@@ -12,7 +13,7 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-house',
                 routeName: 'tenant.dashboard',
                 url: '/dashboard',
-                title: __('dashboard')
+                title: $t('dashboard')
             },
             'divider',
             {
@@ -20,19 +21,19 @@ export const useMenuStore = defineStore('menu', {
                 ignore: hasPermission('read_roles'),
                 routeName: 'tenant.roles.index',
                 url: '/dashboard/roles',
-                title: __('roles')
+                title: $t('roles')
             },
             {
                 icon: 'icon-users-gear',
                 ignore: hasPermission('read_members'),
-                title: __('the_members'),
+                title: $t('the_members'),
                 routeName: 'tenant.members.index',
                 url: '/dashboard/members'
             },
             {
                 icon: 'icon-branches',
                 ignore: hasPermission('read_branches'),
-                title: __('branches'),
+                title: $t('branches'),
                 routeName: 'tenant.branches.index',
                 url: '/dashboard/branches'
             },
@@ -41,25 +42,25 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-family',
                 ignore: hasPermission('read_families') || hasPermission('create_families'),
                 routeName: '',
-                title: __('the_families'),
+                title: $t('the_families'),
                 subMenu: [
                     {
                         icon: 'icon-users',
                         ignore: hasPermission('read_families'),
-                        title: __('list', { attribute: __('the_families') }),
+                        title: $t('list', { attribute: $t('the_families') }),
                         routeName: 'tenant.families.index',
                         url: '/dashboard/families'
                     },
                     {
                         icon: 'icon-users-plus',
                         ignore: hasPermission('create_families'),
-                        title: n__(__('add new'), 0, { attribute: __('family') }),
+                        title: $tc($t('add new'), 0, { attribute: $t('family') }),
                         routeName: 'tenant.families.create',
                         url: '/dashboard/families/create'
                     },
                     {
                         icon: 'icon-chart-pie-simple',
-                        title: __('statistics'),
+                        title: $t('statistics'),
                         routeName: 'tenant.families.statistics',
                         url: '/dashboard/families/statistics'
                     }
@@ -68,19 +69,19 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-children',
                 ignore: hasPermission('read_orphans'),
-                title: __('orphans'),
+                title: $t('orphans'),
                 routeName: '',
                 subMenu: [
                     {
                         icon: 'icon-children',
                         ignore: hasPermission('read_orphans'),
-                        title: __('list', { attribute: __('orphans') }),
+                        title: $t('list', { attribute: $t('orphans') }),
                         routeName: 'tenant.orphans.index',
                         url: '/dashboard/orphans'
                     },
                     {
                         icon: 'icon-chart-pie-simple',
-                        title: __('statistics'),
+                        title: $t('statistics'),
                         routeName: 'tenant.orphans.statistics',
                         url: '/dashboard/orphans/statistics'
                     }
@@ -89,20 +90,20 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-hands-holding-child',
                 ignore: hasPermission('read_sponsors'),
-                title: __('the_sponsors'),
+                title: $t('the_sponsors'),
                 routeName: '',
                 url: '',
                 subMenu: [
                     {
                         icon: 'icon-hands-holding-child',
                         ignore: hasPermission('read_sponsors'),
-                        title: __('list', { attribute: __('sponsors') }),
+                        title: $t('list', { attribute: $t('sponsors') }),
                         routeName: 'tenant.sponsors.index',
                         url: '/dashboard/sponsors'
                     },
                     {
                         icon: 'icon-chart-pie-simple',
-                        title: __('statistics'),
+                        title: $t('statistics'),
                         routeName: 'tenant.sponsors.statistics',
                         url: '/dashboard/sponsors/statistics'
                     }
@@ -112,47 +113,47 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-calendar-star',
                 // TODO check how to handle it ignore: hasPermission('read_permission'),
                 routeName: '',
-                title: __('occasions'),
+                title: $t('occasions'),
                 subMenu: [
                     {
                         icon: 'icon-ram',
                         // Ignore: hasPermission('read_permission'),
-                        title: __('eid_el_adha'),
+                        title: $t('eid_el_adha'),
                         routeName: 'tenant.occasions.eid-al-adha.index',
                         url: '/dashboard/occasions/eid-al-adha'
                     },
                     {
                         icon: 'icon-backpack',
                         // Ignore: hasPermission('read_permission'),
-                        title: __('school_entry'),
+                        title: $t('school_entry'),
                         routeName: 'tenant.occasions.school-entry.index',
                         url: '/dashboard/occasions/school-entry'
                     },
                     {
                         icon: 'icon-moon-stars',
                         // Ignore: hasPermission('read_permission'),
-                        title: __('eid_el_fitr'),
+                        title: $t('eid_el_fitr'),
                         routeName: 'tenant.occasions.eid-suit.index',
                         url: '/dashboard/occasions/eid-suit'
                     },
                     {
                         icon: 'icon-moon',
                         // Ignore: hasPermission('read_permission'),
-                        title: __('ramadan basket'),
+                        title: $t('ramadan basket'),
                         routeName: 'tenant.occasions.ramadan-basket.index',
                         url: '/dashboard/occasions/ramadan-basket'
                     },
                     {
                         icon: 'icon-basket-shopping',
                         // Ignore: hasPermission('read_permission'),
-                        title: __('monthly basket'),
+                        title: $t('monthly basket'),
                         routeName: 'tenant.occasions.monthly-basket.index',
                         url: '/dashboard/occasions/monthly-basket'
                     },
                     {
                         icon: 'icon-baby-carriage',
                         // Ignore: hasPermission('read_permission'),
-                        title: __('milk and diapers'),
+                        title: $t('milk and diapers'),
                         routeName: 'tenant.occasions.babies-milk-and-diapers.index',
                         url: '/dashboard/occasions/babies-milk-and-diapers'
                     }
@@ -162,25 +163,25 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-map-location-dot',
                 ignore: hasPermission('read_zones'),
-                title: __('the_zones'),
+                title: $t('the_zones'),
                 routeName: 'tenant.zones.index',
                 url: '/dashboard/zones'
             },
             {
                 icon: 'icon-hands-holding-dollar',
-                title: __('financial'),
+                title: $t('financial'),
                 routeName: '',
                 subMenu: [
                     {
                         icon: 'icon-hands-holding-dollar',
                         ignore: hasPermission('read_financial'),
-                        title: __('financial'),
+                        title: $t('financial'),
                         routeName: 'tenant.financial.index',
                         url: '/dashboard/financial'
                     },
                     {
                         icon: 'icon-chart-pie-simple',
-                        title: __('statistics'),
+                        title: $t('statistics'),
                         routeName: 'tenant.financial.statistics',
                         url: '/dashboard/financial/statistics'
                     }
@@ -189,14 +190,14 @@ export const useMenuStore = defineStore('menu', {
             {
                 icon: 'icon-shelves',
                 ignore: hasPermission('read_inventory'),
-                title: __('the_inventory'),
+                title: $t('the_inventory'),
                 routeName: 'tenant.inventory.index',
                 url: '/dashboard/inventory'
             },
             {
                 icon: 'icon-handshake-angle',
                 ignore: hasPermission('read_needs'),
-                title: __('the_needs'),
+                title: $t('the_needs'),
                 routeName: 'tenant.needs.index',
                 url: '/dashboard/needs'
             },
@@ -204,35 +205,35 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-gear',
                 ignore: hasPermission('read_settings'),
                 routeName: 'tenant.settings.index',
-                title: __('settings'),
+                title: $t('settings'),
                 url: '/dashboard/settings'
             },
             {
                 icon: 'icon-graduation-cap',
                 ignore: hasPermission('read_lessons'),
                 routeName: 'tenant.lessons.index',
-                title: __('private_lessons'),
+                title: $t('private_lessons'),
                 url: '/dashboard/lessons'
             },
             {
                 icon: 'icon-school-lock',
                 ignore: hasPermission('read_schools'),
                 routeName: 'tenant.schools.index',
-                title: __('private_schools'),
+                title: $t('private_schools'),
                 url: '/dashboard/schools'
             },
             {
                 icon: 'icon-trash-list',
                 ignore: hasPermission('read_permission'),
                 routeName: 'tenant.trash',
-                title: __('the_trash'),
+                title: $t('the_trash'),
                 url: '/dashboard/trash'
             },
             {
                 icon: 'icon-box-archive',
                 ignore: hasPermission('read_archive'),
                 routeName: 'tenant.archive.index',
-                title: __('the_archive'),
+                title: $t('the_archive'),
                 url: '/dashboard/archive'
             }
         ]

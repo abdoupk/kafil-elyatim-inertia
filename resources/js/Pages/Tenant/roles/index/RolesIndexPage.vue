@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const RoleCreateEditSlideOver = defineAsyncComponent(
     () => import('@/Pages/Tenant/roles/create/RoleCreateEditSlideOver.vue')
@@ -139,7 +139,7 @@ const showEditModal = async (roleId: string) => {
             >
                 <template #ExtraButtons>
                     <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                        {{ n__('add new', 1, { attribute: $t('role') }) }}
+                        {{ $tc('add new', 1, { attribute: $t('role') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -176,7 +176,7 @@ const showEditModal = async (roleId: string) => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_family') })"
+                :title="$tc('successfully_trashed', 0, { attribute: $t('the_family') })"
             ></success-notification>
         </div>
 

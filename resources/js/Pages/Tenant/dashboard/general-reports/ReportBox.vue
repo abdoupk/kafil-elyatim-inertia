@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { SVGType } from '@/types/types'
 
 import { twMerge } from 'tailwind-merge'
@@ -7,7 +7,7 @@ import { computed } from 'vue'
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 interface Props {
     icon: SVGType
@@ -20,9 +20,9 @@ interface Props {
 const props = defineProps<Props>()
 
 const tippyContent = computed(() => {
-    return __('reportTooltip', {
+    return $t('reportTooltip', {
         percentage: Math.abs(props?.percentageDifference).toString(),
-        range: props?.percentageDifference > 0 ? __('higher') : __('lower')
+        range: props?.percentageDifference > 0 ? $t('higher') : $t('lower')
     })
 })
 </script>
@@ -38,8 +38,6 @@ const tippyContent = computed(() => {
             <div class="box p-5">
                 <div class="flex">
                     <svg-loader
-                        :name="icon"
-                        class="h-[38px] w-[38px]"
                         :class="
                             twMerge([
                                 iconColor === 'primary' && 'fill-primary dark:fill-current',
@@ -51,23 +49,25 @@ const tippyContent = computed(() => {
                                 iconColor === 'dark' && 'fill-dark dark:fill-slate-400'
                             ])
                         "
+                        :name="icon"
+                        class="h-[38px] w-[38px]"
                     ></svg-loader>
 
-                    <div class="ms-auto" v-if="percentageDifference">
+                    <div v-if="percentageDifference" class="ms-auto">
                         <base-tippy
-                            as="div"
-                            class="flex cursor-pointer items-center rounded-full py-[3px] pe-1 ps-2 text-xs font-medium text-white"
                             :class="[percentageDifference > 0 && 'bg-success', percentageDifference < 0 && 'bg-danger']"
                             :content="tippyContent"
+                            as="div"
+                            class="flex cursor-pointer items-center rounded-full py-[3px] pe-1 ps-2 text-xs font-medium text-white"
                         >
                             {{ Math.abs(percentageDifference) }}%
                             <svg-loader
+                                v-if="percentageDifference > 0"
                                 class="ms-0.5 h-4 w-4 rotate-180"
                                 name="icon-chevron-down"
-                                v-if="percentageDifference > 0"
                             ></svg-loader>
 
-                            <svg-loader class="ms-0.5 h-4 w-4" name="icon-chevron-down" v-else></svg-loader>
+                            <svg-loader v-else class="ms-0.5 h-4 w-4" name="icon-chevron-down"></svg-loader>
                         </base-tippy>
                     </div>
                 </div>

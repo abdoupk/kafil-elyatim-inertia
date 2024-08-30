@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/sponsors/index/DataTable.vue'))
 
@@ -137,7 +137,7 @@ const showDeleteModal = (sponsorId: string) => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_sponsor') })"
+                :title="$tc('successfully_trashed', 0, { attribute: $t('the_sponsor') })"
             ></success-notification>
         </div>
 

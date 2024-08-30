@@ -11,7 +11,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const BranchCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/branches/BranchCreateEditModal.vue'))
 
@@ -163,7 +163,7 @@ watchEffect(async () => {
             >
                 <template #ExtraButtons>
                     <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                        {{ n__('add new', 1, { attribute: $t('branch') }) }}
+                        {{ $tc('add new', 1, { attribute: $t('branch') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -207,7 +207,7 @@ watchEffect(async () => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 1, { attribute: $t('the_branch') })"
+                :title="$tc('successfully_trashed', 1, { attribute: $t('the_branch') })"
             ></success-notification>
         </div>
 

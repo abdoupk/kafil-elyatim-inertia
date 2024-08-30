@@ -5,7 +5,7 @@ import { watch } from 'vue'
 import FilterValueDropDownListOption from '@/Components/Global/filters/FilterValueDropDownListOption.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ data: { id: string; name: string }[] }>()
 
@@ -17,7 +17,7 @@ watch(
         if (newValue === '')
             value.value = {
                 id: '',
-                name: __('filters.select_an_option')
+                name: $t('filters.select_an_option')
             }
     }
 )
@@ -51,12 +51,12 @@ watch(
                     <listbox-option
                         key="none"
                         v-slot="{ active, selected }"
-                        :value="{ id: '', name: __('empty') }"
+                        :value="{ id: '', name: $t('empty') }"
                         as="template"
                     >
                         <filter-value-drop-down-list-option
                             :active
-                            :label="__('empty')"
+                            :label="$t('empty')"
                             :selected
                         ></filter-value-drop-down-list-option>
                     </listbox-option>

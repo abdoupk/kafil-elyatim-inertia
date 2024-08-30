@@ -9,7 +9,7 @@ import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, ref } from 'vue'
 
 import { omit } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const BaseFormSwitch = defineAsyncComponent(() => import('@/Components/Base/form/form-switch/BaseFormSwitch.vue'))
 
@@ -102,8 +102,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the lesson id
 const modalTitle = computed(() => {
     return lessonsStore.lesson.id
-        ? __('modal_update_title', { attribute: __('the_lesson') })
-        : n__('add new', 1, { attribute: __('lesson') })
+        ? $t('modal_update_title', { attribute: $t('the_lesson') })
+        : $tc('add new', 1, { attribute: $t('lesson') })
 })
 
 const date = computed(() => {

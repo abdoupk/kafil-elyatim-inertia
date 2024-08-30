@@ -8,7 +8,7 @@ import { computed, defineAsyncComponent, ref } from 'vue'
 
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const TheSubjectAndQuota = defineAsyncComponent(() => import('@/Pages/Tenant/schools/create/TheSubjectAndQuota.vue'))
 
@@ -39,8 +39,8 @@ const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
     return schoolsStore.school.id
-        ? __('successfully_updated')
-        : __('successfully_created', { attribute: __('the_school') })
+        ? $t('successfully_updated')
+        : $t('successfully_created', { attribute: $t('the_school') })
 })
 
 const form = computed(() => {
@@ -93,8 +93,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the school id
 const modalTitle = computed(() => {
     return schoolsStore.school.id
-        ? __('modal_update_title', { attribute: __('the_school') })
-        : n__('add new', 0, { attribute: __('school') })
+        ? $t('modal_update_title', { attribute: $t('the_school') })
+        : $tc('add new', 0, { attribute: $t('school') })
 })
 
 // Initialize a ref for the first input element

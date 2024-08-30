@@ -14,7 +14,7 @@ import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
@@ -126,6 +126,6 @@ const showEditModal = (id: string) => {
 
     <success-notification
         :open="showSuccessNotification"
-        :title="n__('successfully_trashed', 0, { attribute: $t('academic_achievement') })"
+        :title="$tc('successfully_trashed', 0, { attribute: $t('academic_achievement') })"
     ></success-notification>
 </template>

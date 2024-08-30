@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+import { $tc } from '@/utils/i18n'
 
 const NeedShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/needs/NeedShowModal.vue'))
 
@@ -169,7 +169,7 @@ watchEffect(async () => {
             >
                 <template #ExtraButtons>
                     <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                        {{ n__('add new', 1, { attribute: $t('demand') }) }}
+                        {{ $tc('add new', 1, { attribute: $t('demand') }) }}
                     </base-button>
                 </template>
             </the-table-header>
@@ -214,7 +214,7 @@ watchEffect(async () => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 0, { attribute: $t('the_demand') })"
+                :title="$tc('successfully_trashed', 0, { attribute: $t('the_demand') })"
             ></success-notification>
         </div>
 

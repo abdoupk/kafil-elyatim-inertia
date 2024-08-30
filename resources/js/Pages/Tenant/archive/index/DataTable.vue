@@ -12,7 +12,7 @@ import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
 import { formatDate } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ items: PaginationData<ArchiveIndexResource>; params: IndexParams }>()
 </script>
@@ -87,7 +87,7 @@ defineProps<{ items: PaginationData<ArchiveIndexResource>; params: IndexParams }
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            <base-tippy :content="__('archive.families_count')">
+                            <base-tippy :content="$t('archive.families_count')">
                                 {{ item.families_count }}
                             </base-tippy>
                         </div>

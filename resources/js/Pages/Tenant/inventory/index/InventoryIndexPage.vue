@@ -251,7 +251,7 @@ watchEffect(async () => {
 
             <success-notification
                 :open="showSuccessNotification"
-                :title="n__('successfully_trashed', 1, { attribute: $t('the_item') })"
+                :title="$tc('successfully_trashed', 1, { attribute: $t('the_item') })"
             ></success-notification>
         </div>
 

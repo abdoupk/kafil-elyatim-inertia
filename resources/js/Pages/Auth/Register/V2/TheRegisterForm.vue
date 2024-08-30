@@ -9,7 +9,7 @@ import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue
 import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const hostname = '.' + new URL(import.meta.env.VITE_APP_URL).hostname
 
@@ -65,17 +65,17 @@ const submit = () => {
             class="mx-auto my-auto w-full rounded-md bg-white px-5 py-8 shadow-md dark:bg-darkmode-600 sm:w-3/4 sm:px-8 lg:w-2/4 xl:ms-20 xl:w-auto xl:bg-transparent xl:p-0 xl:shadow-none"
         >
             <h2 class="intro-x text-center text-2xl font-bold xl:text-start xl:text-3xl">
-                {{ __('the_register') }}
+                {{ $t('the_register') }}
             </h2>
             <div class="intro-x mt-2 text-center text-slate-400 xl:hidden">
-                {{ __('auth.hints.small') }}
+                {{ $t('auth.hints.small') }}
             </div>
 
             <div class="intro-x mt-8">
                 <!-- BEGIN: FIRST Name Field -->
                 <base-form-input
                     v-model="form.first_name"
-                    :placeholder="__('validation.attributes.first_name')"
+                    :placeholder="$t('validation.attributes.first_name')"
                     autofocus
                     class="intro-x block min-w-full px-4 py-3 xl:min-w-[350px]"
                     type="text"
@@ -87,7 +87,7 @@ const submit = () => {
                 <!-- BEGIN: Last Name Field -->
                 <base-form-input
                     v-model="form.last_name"
-                    :placeholder="__('validation.attributes.last_name')"
+                    :placeholder="$t('validation.attributes.last_name')"
                     autofocus
                     class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]"
                     type="text"
@@ -99,7 +99,7 @@ const submit = () => {
                 <!-- BEGIN: Email Field -->
                 <base-form-input
                     v-model="form.email"
-                    :placeholder="__('validation.attributes.email')"
+                    :placeholder="$t('validation.attributes.email')"
                     autofocus
                     class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]"
                     type="text"
@@ -111,7 +111,7 @@ const submit = () => {
                 <!-- BEGIN: Password Field -->
                 <base-form-input
                     v-model="form.password"
-                    :placeholder="__('validation.attributes.password')"
+                    :placeholder="$t('validation.attributes.password')"
                     class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]"
                     type="password"
                 />
@@ -122,7 +122,7 @@ const submit = () => {
                 <!-- BEGIN: Password Confirmation Field -->
                 <base-form-input
                     v-model="form.password_confirmation"
-                    :placeholder="__('validation.attributes.password_confirmation')"
+                    :placeholder="$t('validation.attributes.password_confirmation')"
                     class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]"
                     type="password"
                 />
@@ -133,7 +133,7 @@ const submit = () => {
                 <!-- BEGIN: Association Name Field -->
                 <base-form-input
                     v-model="form.association"
-                    :placeholder="__('validation.attributes.association')"
+                    :placeholder="$t('validation.attributes.association')"
                     autofocus
                     class="intro-x mt-4 block min-w-full px-4 py-3 xl:min-w-[350px]"
                     type="text"
@@ -181,7 +181,7 @@ const submit = () => {
                 >
                     <spinner-button-loader :show="form.processing" class="me-1"></spinner-button-loader>
 
-                    {{ __('Register') }}
+                    {{ $t('Register') }}
                 </base-button>
             </div>
         </div>

@@ -6,7 +6,7 @@ import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const needableType = defineModel('needableType', { default: 'orphan' })
 
@@ -26,7 +26,7 @@ const needableTypes = [
 ]
 
 const needableTypesLabels = ({ label }: { label: string }) => {
-    return __(label)
+    return $t(label)
 }
 </script>
 
@@ -34,7 +34,7 @@ const needableTypesLabels = ({ label }: { label: string }) => {
     <div class="grid w-full flex-1 grid-cols-1 gap-4 gap-y-5 lg:grid-cols-2">
         <div>
             <base-form-label for="needable_type">
-                {{ __('needable_type') }}
+                {{ $t('needable_type') }}
             </base-form-label>
 
             <div>
@@ -43,7 +43,7 @@ const needableTypesLabels = ({ label }: { label: string }) => {
                     id="needable_type"
                     :custom-label="needableTypesLabels"
                     :options="needableTypes"
-                    :placeholder="__('auth.placeholders.tomselect', { attribute: __('needable_type') })"
+                    :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('needable_type') })"
                     class="h-full w-full"
                     label="label"
                     track_by="value"
@@ -60,7 +60,7 @@ const needableTypesLabels = ({ label }: { label: string }) => {
         </div>
 
         <div>
-            <base-form-label for="needable">{{ __('the_requester') }}</base-form-label>
+            <base-form-label for="needable">{{ $t('the_requester') }}</base-form-label>
 
             <div>
                 <orphan-selector
@@ -78,7 +78,7 @@ const needableTypesLabels = ({ label }: { label: string }) => {
 
             <base-form-input-error>
                 <div v-if="errorMessage" class="mt-2 text-red-600">
-                    {{ __('validation.required', { attribute: __('the_requester') }) }}
+                    {{ $t('validation.required', { attribute: $t('the_requester') }) }}
                 </div>
             </base-form-input-error>
         </div>

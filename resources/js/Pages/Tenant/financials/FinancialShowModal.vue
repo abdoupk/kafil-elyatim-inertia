@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/vue3'
 import ShowModal from '@/Components/Global/ShowModal.vue'
 
 import { formatCurrency } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
@@ -23,7 +23,7 @@ const financialTransactionsStore = useFinancialTransactionsStore()
         <template #description>
             <!-- Begin: Receiving Member-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('receiving_member') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('receiving_member') }}</h2>
 
                 <Link
                     :href="
@@ -39,7 +39,7 @@ const financialTransactionsStore = useFinancialTransactionsStore()
 
             <!-- Begin: Amount-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('the_amount') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('the_amount') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
                     {{ formatCurrency(financialTransactionsStore.financialTransaction.amount) }}
@@ -49,7 +49,7 @@ const financialTransactionsStore = useFinancialTransactionsStore()
 
             <!-- Begin: Date-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('the date') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('the date') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
                     {{ financialTransactionsStore.financialTransaction.readable_date }}
@@ -59,7 +59,7 @@ const financialTransactionsStore = useFinancialTransactionsStore()
 
             <!-- Begin: Created At-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('validation.attributes.created_at') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.created_at') }}</h2>
 
                 <h3 class="mt-1 rtl:font-medium">
                     {{ financialTransactionsStore.financialTransaction.readable_created_at }}
@@ -69,7 +69,7 @@ const financialTransactionsStore = useFinancialTransactionsStore()
 
             <!-- Begin: Creator-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('created_by') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('created_by') }}</h2>
 
                 <Link
                     :href="
@@ -85,17 +85,17 @@ const financialTransactionsStore = useFinancialTransactionsStore()
 
             <!-- Begin: Specification-->
             <div class="col-span-6">
-                <h2 class="rtl:font-semibold">{{ __('validation.attributes.specification') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.specification') }}</h2>
 
                 <p class="mt-1 rtl:font-medium">
-                    {{ __(financialTransactionsStore.financialTransaction.specification) }}
+                    {{ $t(financialTransactionsStore.financialTransaction.specification) }}
                 </p>
             </div>
             <!-- End: Specification-->
 
             <!-- Begin: Description-->
             <div class="col-span-12">
-                <h2 class="rtl:font-semibold">{{ __('validation.attributes.description') }}</h2>
+                <h2 class="rtl:font-semibold">{{ $t('validation.attributes.description') }}</h2>
 
                 <p class="mt-1 rtl:font-medium">{{ financialTransactionsStore.financialTransaction.description }}</p>
             </div>

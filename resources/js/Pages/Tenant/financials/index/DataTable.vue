@@ -14,7 +14,7 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { formatCurrency, formatDate } from '@/utils/helper'
-import { __, getLocale } from '@/utils/i18n'
+import { $t, getLocale } from '@/utils/i18n'
 
 defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
 
@@ -152,7 +152,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ __(finance.specification) }}
+                            {{ $t(finance.specification) }}
                         </div>
 
                         <div

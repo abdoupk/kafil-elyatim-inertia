@@ -7,7 +7,7 @@ import { router } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
 
@@ -87,8 +87,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the school id
 const modalTitle = computed(() => {
     return academicAchievementStore.academicAchievement.id
-        ? __('modal_update_title', { attribute: __('the_academic_achievement') })
-        : n__('add new', 1, { attribute: __('the_academic_achievement') })
+        ? $t('modal_update_title', { attribute: $t('the_academic_achievement') })
+        : $tc('add new', 1, { attribute: $t('the_academic_achievement') })
 })
 
 // Initialize a ref for the first input element

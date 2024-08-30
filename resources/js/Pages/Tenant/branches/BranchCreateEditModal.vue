@@ -7,7 +7,7 @@ import { computed, defineAsyncComponent, ref } from 'vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { omit } from '@/utils/helper'
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const BaseVCalendar = defineAsyncComponent(() => import('@/Components/Base/VCalendar/BaseVCalendar.vue'))
 
@@ -91,15 +91,15 @@ const handleSubmit = async () => {
 
 const notificationTitle = computed(() => {
     return branchesStore.branch.id
-        ? __('successfully_updated')
-        : __('successfully_created', { attribute: __('the_branch') })
+        ? $t('successfully_updated')
+        : $t('successfully_created', { attribute: $t('the_branch') })
 })
 
 // Compute the slideover title based on the branch id
 const modalTitle = computed(() => {
     return branchesStore.branch.id
-        ? __('modal_update_title', { attribute: __('the_branch') })
-        : n__('add new', 1, { attribute: __('branch') })
+        ? $t('modal_update_title', { attribute: $t('the_branch') })
+        : $tc('add new', 1, { attribute: $t('branch') })
 })
 
 // Initialize a ref for the first input element

@@ -5,7 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BasePolarBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BasePolarBarChart.vue'))
 
@@ -18,7 +18,7 @@ defineProps<{
     <suspense v-if="Object.values(sponsorsBySponsorship).length" suspensible>
         <base-polar-bar-chart
             :chart-data="Object.values(sponsorsBySponsorship)"
-            :labels="Object.keys(sponsorsBySponsorship).map((key) => __(key))"
+            :labels="Object.keys(sponsorsBySponsorship).map((key) => $t(key))"
         ></base-polar-bar-chart>
     </suspense>
 

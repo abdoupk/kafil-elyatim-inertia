@@ -5,7 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const BaseRadarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseRadarChart.vue'))
 
@@ -14,15 +14,15 @@ const props = defineProps<{
 }>()
 
 const labels = [
-    __('sponsorships.ramadan_basket'),
-    __('sponsorships.zakat'),
-    __('sponsorships.housing_assistance'),
-    __('sponsorships.eid_al_adha')
+    $t('sponsorships.ramadan_basket'),
+    $t('sponsorships.zakat'),
+    $t('sponsorships.housing_assistance'),
+    $t('sponsorships.eid_al_adha')
 ]
 
 const datasets = [
     {
-        label: __('sponsorship_type'),
+        label: $t('sponsorship_type'),
         data: Object.values(props.familiesSponsorShips)
     }
 ]

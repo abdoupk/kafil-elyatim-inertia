@@ -8,7 +8,7 @@ import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { abbreviationMonths } from '@/utils/constants'
-import { __, getLocale } from '@/utils/i18n'
+import { $t, getLocale } from '@/utils/i18n'
 
 const BaseLineChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseLineChart.vue'))
 
@@ -23,7 +23,7 @@ defineProps<{
             :datasets="[
                 {
                     data: Object.values(orphansByCreatedDate),
-                    label: __('orphans_count'),
+                    label: $t('orphans_count'),
                     borderColor: () =>
                         useSettingsStore().appearance === 'dark' ? getColor('slate.300', 0.6) : getColor('primary', 0.8)
                 }

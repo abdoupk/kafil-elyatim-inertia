@@ -5,34 +5,34 @@ import { ref } from 'vue'
 
 import FilterSponsorShipDropDown from '@/Components/Global/filters/FilterSponsorShipDropDown.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const value = defineModel<FilterValueSponsorshipType>('value', {
     default: {
         value: '',
-        label: __('filters.select_an_option')
+        label: $t('filters.select_an_option')
     }
 })
 
 const data = ref([
     {
-        label: __('monthly_allowance'),
+        label: $t('monthly_allowance'),
         value: 'monthly_allowance'
     },
     {
-        label: __('ramadan_basket'),
+        label: $t('ramadan_basket'),
         value: 'ramadan_basket'
     },
     {
-        label: __('zakat'),
+        label: $t('zakat'),
         value: 'zakat'
     },
     {
-        label: __('housing_assistance'),
+        label: $t('housing_assistance'),
         value: 'housing_assistance'
     },
     {
-        label: __('eid_el_adha'),
+        label: $t('eid_el_adha'),
         value: 'eid_el_adha'
     }
 ])

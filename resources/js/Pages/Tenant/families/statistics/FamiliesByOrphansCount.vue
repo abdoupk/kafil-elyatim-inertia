@@ -5,7 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const BaseVerticalBarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseVerticalBarChart.vue'))
 
@@ -14,14 +14,14 @@ const props = defineProps<{
 }>()
 
 const labels = props.familiesByOrphansCount.orphans_count.map((orphan) =>
-    n__('statistics.families.labels.orphans_count', orphan, {
+    $tc('statistics.families.labels.orphans_count', orphan, {
         value: String(orphan)
     })
 )
 
 const datasets = [
     {
-        label: __('families_count'),
+        label: $t('families_count'),
         data: props.familiesByOrphansCount.total_families
     }
 ]

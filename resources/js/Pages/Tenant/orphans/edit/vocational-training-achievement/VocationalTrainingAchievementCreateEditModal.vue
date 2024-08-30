@@ -13,7 +13,7 @@ import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import CreateEditModal from '@/Components/Global/CreateEditModal.vue'
 import TheVocationalTrainingSelector from '@/Components/Global/TheVocationalTrainingSelector.vue'
 
-import { __, n__ } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 defineProps<{
     open: boolean
@@ -80,8 +80,8 @@ const handleSubmit = async () => {
 // Compute the slideover title based on the school id
 const modalTitle = computed(() => {
     return vocationalTrainingAchievementStore.vocationalTrainingAchievement.id
-        ? __('modal_update_title', { attribute: __('the_vocational_training') })
-        : n__('add new', 1, { attribute: __('the_vocational_training') })
+        ? $t('modal_update_title', { attribute: $t('the_vocational_training') })
+        : $tc('add new', 1, { attribute: $t('the_vocational_training') })
 })
 
 // Initialize a ref for the first input element

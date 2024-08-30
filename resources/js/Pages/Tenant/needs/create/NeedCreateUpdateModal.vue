@@ -16,7 +16,7 @@ import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { needStatuses } from '@/utils/constants'
 import { omit } from '@/utils/helper'
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const props = defineProps<{
     open: boolean
@@ -28,7 +28,7 @@ const props = defineProps<{
 const needsStore = useNeedsStore()
 
 const needStatusesLabels = ({ label }: { label: string }) => {
-    return __(label)
+    return $t(label)
 }
 
 // Initialize a ref for loading state
@@ -37,7 +37,7 @@ const loading = ref(false)
 const showSuccessNotification = ref(false)
 
 const notificationTitle = computed(() => {
-    return needsStore.need.id ? __('successfully_updated') : __('successfully_created', { attribute: __('the_need') })
+    return needsStore.need.id ? $t('successfully_updated') : $t('successfully_created', { attribute: $t('the_need') })
 })
 
 const form = computed(() => {
@@ -91,7 +91,7 @@ const handleSubmit = async () => {
 
 // Compute the slideover title based on the need id
 const modalTitle = computed(() => {
-    return needsStore.need.id ? __('modal_update_title', { attribute: __('the_demand') }) : __('new need')
+    return needsStore.need.id ? $t('modal_update_title', { attribute: $t('the_demand') }) : $t('new need')
 })
 
 // Initialize a ref for the first input element

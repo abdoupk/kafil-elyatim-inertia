@@ -8,7 +8,7 @@ import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vu
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const props = defineProps<{ index: number; form: Form<CreateFamilyForm> }>()
 
@@ -31,7 +31,7 @@ const toggle = (key: OrphanSponsorship) => {
 }
 
 const childName = computed(() => {
-    return __('the_child :', {
+    return $t('the_child :', {
         name: `${props.form.data().orphans[props.index]?.first_name} ${props.form.data().orphans[props.index]?.last_name}`
     })
 })

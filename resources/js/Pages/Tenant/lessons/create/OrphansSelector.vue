@@ -6,7 +6,7 @@ import { onMounted, ref } from 'vue'
 
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const loadingSearchOrphans = ref(false)
 
@@ -23,7 +23,7 @@ const orphans = ref(props.orphans)
 const selectedOrphans = defineModel('selectedOrphans')
 
 const limitText = (count: string) => {
-    return __('vue_select_limit_text', { count })
+    return $t('vue_select_limit_text', { count })
 }
 
 const asyncFind = (search: string) => {

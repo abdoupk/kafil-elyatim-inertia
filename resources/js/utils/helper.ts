@@ -8,7 +8,7 @@ import type { Hit } from 'meilisearch'
 import { parseColor } from 'tailwindcss/lib/util/color'
 import { computed } from 'vue'
 
-import { __, getLocale } from '@/utils/i18n'
+import { $t, getLocale } from '@/utils/i18n'
 
 
 const toRaw = (obj: object) => {
@@ -260,11 +260,11 @@ const formatCurrency = (amount) => {
 
 const handleSponsorship = (sponsorshipValue: string) => {
     if (sponsorshipValue === '0' || sponsorshipValue === false) {
-        return __('no')
+        return $t('no')
     }
 
     if (sponsorshipValue === '1' || sponsorshipValue === true) {
-        return __('yes')
+        return $t('yes')
     }
 
     const parsedValue = parseFloat(sponsorshipValue)
@@ -278,11 +278,11 @@ const handleSponsorship = (sponsorshipValue: string) => {
 
 const handleFurnishings = (sponsorshipValue) => {
     if (sponsorshipValue === '0') {
-        return __('no')
+        return $t('no')
     }
 
     if (sponsorshipValue === '1') {
-        return __('yes')
+        return $t('yes')
     }
 
     return sponsorshipValue

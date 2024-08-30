@@ -8,7 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { __ } from '@/utils/i18n'
+import { $t } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/school-entry/DataTable.vue'))
 
@@ -40,7 +40,7 @@ const params = reactive<IndexParams>({
 </script>
 
 <template>
-    <Head :title="__('exports.archive.school_entry', { date: String(archive.date) })"></Head>
+    <Head :title="$t('exports.archive.school_entry', { date: String(archive.date) })"></Head>
 
     <suspense>
         <div>
@@ -48,7 +48,7 @@ const params = reactive<IndexParams>({
                 :filters="[]"
                 :pagination-data="orphans"
                 :params="params"
-                :title="__('exports.archive.school_entry', { date: String(archive.date) })"
+                :title="$t('exports.archive.school_entry', { date: String(archive.date) })"
                 :url="route('tenant.occasions.school-entry.index')"
                 entries="orphans"
                 export-pdf-url="tenant.archive.export.school-entry.pdf"
