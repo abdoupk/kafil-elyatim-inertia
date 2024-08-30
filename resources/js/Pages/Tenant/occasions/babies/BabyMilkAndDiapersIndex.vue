@@ -45,7 +45,7 @@ const params = reactive<IndexParams>({
     search: props.params.search
 })
 
-const exportable = ref(false)
+const exportable = ref(!!props.archive?.created_at)
 
 const loading = ref(false)
 
@@ -140,7 +140,7 @@ const handleSave = () => {
                 @accept="save"
                 @close="showWarningModalStatus = false"
             >
-                545454
+                {{ $t('exports.archive.warnings.babies_milk_and_diapers') }}
             </the-warning-modal>
         </div>
 

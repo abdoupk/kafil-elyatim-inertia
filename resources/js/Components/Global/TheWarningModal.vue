@@ -24,9 +24,12 @@ const acceptButtonRef = ref(null)
 
                 <div class="mt-2 text-slate-500">
                     <slot>
-                        {{ $t('Do you really want to delete this record?') }} <br />
-                        {{ $t('This process cannot be undone.') }}
+                        {{ $t('Do you really want to delete this record?') }}
                     </slot>
+
+                    <br />
+
+                    {{ $t('This process cannot be undone.') }}
                 </div>
             </div>
 

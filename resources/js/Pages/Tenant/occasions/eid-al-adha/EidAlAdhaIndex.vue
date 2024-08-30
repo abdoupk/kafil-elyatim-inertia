@@ -45,7 +45,7 @@ const params = reactive<IndexParams>({
     search: props.params.search
 })
 
-const exportable = ref(false)
+const exportable = ref(!!props.archive?.created_at)
 
 const loading = ref(false)
 
@@ -140,7 +140,9 @@ const handleSave = () => {
                 :open="showWarningModalStatus"
                 @accept="save"
                 @close="showWarningModalStatus = false"
-            ></the-warning-modal>
+            >
+                {{ $t('exports.archive.warnings.eid_al_adha') }}
+            </the-warning-modal>
         </div>
 
         <template #fallback>
