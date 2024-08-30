@@ -7,8 +7,10 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }} </title>
 
-    {{--    <link rel="icon" href="/favicon.png">--}}
-    <link rel="icon" href="/logo.png">
+    <link rel="icon" href="{{asset('logo.png')}}">
+
+    {{Vite::useBuildDirectory('build/dashboard')}}
+
     <!-- Scripts -->
     @routes
     @vite(['resources/js/app.ts', "resources/js/Pages/{$page['component']}.vue"])

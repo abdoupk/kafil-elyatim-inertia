@@ -1,10 +1,11 @@
-import { defineConfig } from 'vite'
-import istanbul from 'vite-plugin-istanbul'
+import vue from '@vitejs/plugin-vue'
 import laravel from 'laravel-vite-plugin'
 import path from 'path'
-import svgLoader from 'vite-svg-loader'
 import { visualizer } from 'rollup-plugin-visualizer'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
+import istanbul from 'vite-plugin-istanbul'
+import svgLoader from 'vite-svg-loader'
+
 
 export default defineConfig({
     optimizeDeps: {
@@ -15,7 +16,9 @@ export default defineConfig({
         laravel({
             input: 'resources/js/app.ts',
             ssr: 'resources/js/ssr.ts',
-            refresh: true
+            refresh: true,
+            buildDirectory: 'build/dashboard',
+            ssrOutputDirectory: 'bootstrap/ssr/dashboard'
         }),
         vue({
             script: {
@@ -35,18 +38,17 @@ export default defineConfig({
         istanbul({
             include: ['resources/js/*'], // List of all directories/files you want to track coverage for
             exclude: ['node_modules'], // List of all directories/files you do not want to track coverage for
-            extension: ['.js',
-                '.ts',
-                '.vue'], // List of all file extensions you would like to track coverage for
+            extension: ['.js', '.ts', '.vue'], // List of all file extensions you would like to track coverage for
             requireEnv: false // If set to true, more config is needed
         }),
         svgLoader(),
-        visualizer(),
+        visualizer()
     ],
     build: {
         commonjsOptions: {
             include: ['tailwind.config.js', 'node_modules/**']
         },
+        ssrManifest: true,
         sourcemap: true,
         minify: 'esbuild'
     },
@@ -58,8 +60,8 @@ export default defineConfig({
     }
 })
 
-function removeDataTest(node) {
+function removeDataTest(node: any) {
     if (node.type === 1 /* NodeTypes.ELEMENT */) {
-        node.props = node.props.filter(prop => prop.type === 6 ? prop.name !== 'data-test' : true)
+        node.props = node.props.filter((prop: any) => (prop.type === 6 ? prop.name !== 'data-test' : true))
     }
 }
