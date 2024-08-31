@@ -3,6 +3,7 @@
 namespace App\Jobs\V1\Branch;
 
 use App\Models\Branch;
+use App\Models\Family;
 use App\Models\User;
 use App\Notifications\Branch\UpdateBranchNotification;
 use Illuminate\Bus\Queueable;
@@ -20,6 +21,8 @@ class BranchUpdatedJob implements ShouldQueue
 
     public function handle(): void
     {
+        $this->branch->families()->each(fn (Family $family) => $family->searchable());
+
         Notification::send(
             getUsersShouldBeNotified(
                 permissions: ['list_branches', 'view_branches'],

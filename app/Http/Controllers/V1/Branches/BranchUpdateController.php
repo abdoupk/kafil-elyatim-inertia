@@ -13,19 +13,17 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class BranchUpdateController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:update_branches'];
+    }
+
     public function __invoke(BranchCreateUpdateRequest $request, Branch $branch): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
         $branch->update($request->validated());
 
-        $branch->families->searchable();
-
         dispatch(new BranchUpdatedJob($branch, auth()->user()));
 
         return response('', 201);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

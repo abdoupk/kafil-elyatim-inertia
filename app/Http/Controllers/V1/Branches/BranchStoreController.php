@@ -13,6 +13,13 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class BranchStoreController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            'can:create_branches',
+        ];
+    }
+
     public function __invoke(BranchCreateUpdateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
         $branch = Branch::create($request->validated());
@@ -20,10 +27,5 @@ class BranchStoreController extends Controller implements HasMiddleware
         dispatch(new BranchCreatedJob($branch, auth()->user()));
 
         return response('', 201);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

@@ -8,6 +8,8 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import DeleteModal from '@/Components/Global/DeleteModal.vue'
 
+import { $t } from '@/utils/i18n'
+
 const confirmingUserDeletion = ref(false)
 
 const passwordInput = ref<HTMLInputElement | null>(null)
@@ -43,7 +45,7 @@ const closeModal = () => {
 <template>
     <div class="mt-5 border-t">
         <div class="mt-5 px-2">
-            <h2 class="text-base/relaxed">{{ $t('profile.delete_account') }}</h2>
+            <h2 class="text-base/relaxed rtl:text-xl rtl:font-semibold">{{ $t('profile.delete_account') }}</h2>
 
             <h2 class="mt-0.5 text-sm/4 text-slate-500">
                 {{ $t('profile.delete_account_hint') }}

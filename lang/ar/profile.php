@@ -9,9 +9,8 @@ return [
     'delete_account_hint' => 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. قبل حذف حسابك، يرجى تنزيل أي بيانات أو معلومات ترغب في الاحتفاظ بها.',
     'delete_account_confirm' => 'بمجرد حذف حسابك، سيتم حذف جميع موارده وبياناته بشكل نهائي. يُرجى إدخال كلمة المرور الخاصة بك لتأكيد رغبتك في حذف حسابك نهائياً.',
     'notifications' => [
+        'hint' => 'تخصيص تفضيلات الإشعارات.',
         'Notify me about' => 'تحب إشعارك عندما يكون',
-        'hint' => '',
-        // suggest title for settings notification when family created or updated or deleted
         'families_changes' => 'تغيرات في العائلات',
         'families_changes_description' => 'تلقى إشعارات عند إنشاء، تعديل أو حذف عائلة، المتكفل، اليتيم او الاحتياج.',
         'branches_and_zones_changes' => 'تغيرات في الفروع والمناطق',
@@ -22,5 +21,7 @@ return [
         'schools_and_lessons_changes_description' => 'تلقى أشعارات عند أنشاء، تعديل أو حذف مدرسة خاصة او درس من دروس الدعم.',
         'occasions_saves' => 'حفظ او تعديل قائمات المستفيدين',
         'occasions_saves_description' => 'تلقى إشعارات عند حفظ او تعديل قائمة المستفيدين من بدلة العيد، الأضحية، القفة الشهرية، قفة رمضان، الدخول المدرسي او حفاضات و حليب للأطفال.',
+        'association_changes' => 'تغيرات في الجمعية',
+        'association_changes_description' => 'تلقى أشعارات عند أنشاء، تعديل أو حذف عضو، دروس الدعم، المدارس الخاصة او الوظائف.',
     ],
 ];

@@ -11,6 +11,7 @@ import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 const props = defineProps<{
     data: AuthInformation
@@ -21,7 +22,7 @@ const form = useForm('patch', route('tenant.profile.update'), { ...props.data })
 
 <template>
     <div class="px-2">
-        <h2 class="text-base/relaxed">{{ $t('profile.profile_information') }}</h2>
+        <h2 class="text-base/relaxed rtl:text-xl rtl:font-semibold">{{ $t('profile.profile_information') }}</h2>
 
         <h2 class="mt-0.5 text-sm/4 text-slate-500">{{ $t('profile.profile_information_hint') }}</h2>
 

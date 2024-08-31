@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { ArchiveOccasionType, IndexParams, PaginationData, SchoolEntryOrphansResource } from '@/types/types'
 
 import { schoolEntryFilters } from '@/constants/filters'

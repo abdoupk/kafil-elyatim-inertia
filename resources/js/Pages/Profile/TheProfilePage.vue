@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { AuthInformation } from '@/types/types'
 
+import { Head } from '@inertiajs/vue3'
+
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheAccountForm from '@/Pages/Profile/account/TheAccountForm.vue'
@@ -15,6 +17,8 @@ import BaseTabPanel from '@/Components/Base/headless/Tab/BaseTabPanel.vue'
 import BaseTabPanels from '@/Components/Base/headless/Tab/BaseTabPanels.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { $t } from '@/utils/i18n'
+
 defineOptions({
     layout: TheLayout
 })
@@ -25,6 +29,8 @@ defineProps<{
 </script>
 
 <template>
+    <Head :title="$t('breadcrumb.profile')"></Head>
+    
     <div class="intro-y mt-8 flex items-center">
         <h2 class="me-auto text-lg font-medium ltr:capitalize">{{ $t('breadcrumb.profile') }}</h2>
     </div>
