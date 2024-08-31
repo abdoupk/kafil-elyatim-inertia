@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { AcademicLevelType } from '@/types/lessons'
 import type { SponsorUpdateFormType } from '@/types/sponsors'
 
@@ -14,6 +16,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheSponsorTypeSelector from '@/Components/Global/TheSponsorTypeSelector.vue'
 
 import { omit } from '@/utils/helper'
 
@@ -354,21 +357,14 @@ onMounted(async () => {
                 <!-- BEGIN: Sponsor Type -->
                 <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="sponsor_type">
-                        {{ $t('validation.attributes.sponsor.sponsor_type') }}
+                        {{ $t('filters.sponsor_type') }}
                     </base-form-label>
 
-                    <base-form-input
+                    <the-sponsor-type-selector
                         id="sponsor_type"
-                        v-model="form.sponsor_type"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.sponsor.sponsor_type')
-                            })
-                        "
-                        data-test="sponsor_sponsor_type"
-                        type="text"
-                        @change="form?.validate('sponsor_type')"
-                    ></base-form-input>
+                        v-model:type="form.sponsor_type"
+                        @update:type="form?.validate('sponsor_type')"
+                    ></the-sponsor-type-selector>
 
                     <base-form-input-error>
                         <div

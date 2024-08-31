@@ -245,6 +245,7 @@ return [
         'sponsor.diploma' => 'الدبلوم',
         'sponsor.card_number' => 'رقم بطاقة التعريف',
         'degree_of_kinship' => 'درجة القرابة',
+        'phone_number' => 'رقم الهاتف',
         'income' => 'الدخل',
         'other_properties' => 'ممتلكات اخرى',
         'zone_id' => 'المنطقة',

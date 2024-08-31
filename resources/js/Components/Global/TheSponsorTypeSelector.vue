@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
@@ -36,9 +36,18 @@ const handleUpdate = (sponsorType: { label: string; value: string }) => {
     type.value = sponsorType.value
 }
 
-const type = defineModel('type')
+const type = defineModel<string>('type')
 
-const selectedType = ref('')
+const selectedType = ref<string | { label: string; value: string }>('')
+
+onMounted(() => {
+    if (type.value) {
+        selectedType.value = {
+            value: type.value,
+            label: $t(`sponsor_types.${type.value}`)
+        }
+    }
+})
 </script>
 
 <template>

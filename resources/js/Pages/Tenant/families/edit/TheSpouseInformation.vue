@@ -9,10 +9,13 @@ import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
+import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { omit } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 const props = defineProps<{ spouse: SpouseType }>()
 
@@ -187,19 +190,26 @@ const submit = () => {
                         {{ $t('validation.attributes.income') }}
                     </base-form-label>
 
-                    <base-form-input
-                        id="income"
-                        v-model="form.income"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.income')
-                            })
-                        "
-                        data-test="spouse_income"
-                        step="0.01"
-                        type="number"
-                        @change="form?.validate('income')"
-                    ></base-form-input>
+                    <base-input-group>
+                        <base-form-input
+                            id="income"
+                            v-model="form.income"
+                            :placeholder="
+                                $t('auth.placeholders.fill', {
+                                    attribute: $t('validation.attributes.income')
+                                })
+                            "
+                            data-test="spouse_income"
+                            maxlength="10"
+                            step="0.01"
+                            type="number"
+                            @change="form?.validate('income')"
+                        ></base-form-input>
+
+                        <base-input-group-text>
+                            {{ $t('DA') }}
+                        </base-input-group-text>
+                    </base-input-group>
 
                     <base-form-input-error>
                         <div v-if="form?.invalid('income')" class="mt-2 text-danger" data-test="error_income_message">

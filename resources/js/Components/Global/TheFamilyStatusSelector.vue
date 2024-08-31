@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import BaseVueSelect from '@/Components/Base/vue-select/BaseVueSelect.vue'
 
@@ -68,9 +68,18 @@ const handleUpdate = (status: { label: string; value: string }) => {
     familyStatus.value = status.value
 }
 
-const familyStatus = defineModel('familyStatus')
+const familyStatus = defineModel<string>('familyStatus')
 
-const selectedStatus = ref('')
+const selectedStatus = ref<string | { label: string; value: string }>('')
+
+onMounted(() => {
+    if (familyStatus.value) {
+        selectedStatus.value = {
+            label: $t(`family_statuses.${familyStatus.value}`),
+            value: familyStatus.value
+        }
+    }
+})
 </script>
 
 <template>

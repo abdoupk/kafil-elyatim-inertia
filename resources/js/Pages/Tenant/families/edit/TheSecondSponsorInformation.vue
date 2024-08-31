@@ -8,10 +8,13 @@ import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
+import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { allowOnlyNumbersOnKeyDown, omit } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 const props = defineProps<{ secondSponsor: SecondSponsorType }>()
 
@@ -121,7 +124,7 @@ const submit = () => {
                 <!-- BEGIN: Degree of Kinship -->
                 <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="degree_of_kinship">
-                        {{ $t('filters.spouse.degree_of_kinship') }}
+                        {{ $t('validation.attributes.degree_of_kinship') }}
                     </base-form-label>
 
                     <base-form-input
@@ -129,7 +132,7 @@ const submit = () => {
                         v-model="form.degree_of_kinship"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('filters.spouse.degree_of_kinship')
+                                attribute: $t('validation.attributes.degree_of_kinship')
                             })
                         "
                         data-test="spouse_degree_of_kinship"
@@ -155,19 +158,26 @@ const submit = () => {
                         {{ $t('validation.attributes.income') }}
                     </base-form-label>
 
-                    <base-form-input
-                        id="income"
-                        v-model="form.income"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.income')
-                            })
-                        "
-                        data-test="spouse_income"
-                        step="0.01"
-                        type="number"
-                        @change="form?.validate('income')"
-                    ></base-form-input>
+                    <base-input-group>
+                        <base-form-input
+                            id="income"
+                            v-model="form.income"
+                            :placeholder="
+                                $t('auth.placeholders.fill', {
+                                    attribute: $t('validation.attributes.income')
+                                })
+                            "
+                            data-test="spouse_income"
+                            maxlength="10"
+                            step="0.01"
+                            type="number"
+                            @change="form?.validate('income')"
+                        ></base-form-input>
+
+                        <base-input-group-text>
+                            {{ $t('DA') }}
+                        </base-input-group-text>
+                    </base-input-group>
 
                     <base-form-input-error>
                         <div v-if="form?.invalid('income')" class="mt-2 text-danger" data-test="error_income_message">
@@ -207,7 +217,7 @@ const submit = () => {
                 <!-- BEGIN: Phone Number -->
                 <div class="col-span-12 @xl:col-span-6">
                     <base-form-label for="phone_number">
-                        {{ $t('validation.attributes.phone_number') }}
+                        {{ $t('validation.attributes.sponsor.phone_number') }}
                     </base-form-label>
 
                     <base-form-input
@@ -215,13 +225,13 @@ const submit = () => {
                         v-model="form.phone_number"
                         :placeholder="
                             $t('auth.placeholders.fill', {
-                                attribute: $t('validation.attributes.phone_number')
+                                attribute: $t('validation.attributes.sponsor.phone_number')
                             })
                         "
                         data-test="spouse_phone_number"
                         type="text"
                         @change="form?.validate('phone_number')"
-                        @keydown.prevent="allowOnlyNumbersOnKeyDown"
+                        @keydown="allowOnlyNumbersOnKeyDown"
                     ></base-form-input>
 
                     <base-form-input-error>

@@ -18,6 +18,7 @@ import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
 import TheClothesSizeSelector from '@/Components/Global/TheClothesSizeSelector.vue'
+import TheFamilyStatusSelector from '@/Components/Global/TheFamilyStatusSelector.vue'
 import TheShoesSizeSelector from '@/Components/Global/TheShoesSizeSelector.vue'
 
 import { omit } from '@/utils/helper'
@@ -172,18 +173,12 @@ onMounted(async () => {
                         {{ $t('family_status') }}
                     </base-form-label>
 
-                    <base-form-input
+                    <the-family-status-selector
                         id="family_status"
-                        v-model="form.family_status"
-                        :placeholder="
-                            $t('auth.placeholders.fill', {
-                                attribute: $t('family_status')
-                            })
-                        "
-                        data-test="orphan_family_status"
-                        type="text"
-                        @change="form?.validate('family_status')"
-                    ></base-form-input>
+                        v-model:family-status="form.family_status"
+                        @update:family-status="form?.validate(`family_status`)"
+                    >
+                    </the-family-status-selector>
 
                     <base-form-input-error>
                         <div

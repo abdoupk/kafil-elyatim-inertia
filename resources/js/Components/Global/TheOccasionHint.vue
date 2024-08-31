@@ -3,6 +3,8 @@ import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import TheAlertDismissButton from '@/Components/Base/Alert/TheAlertDismissButton.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { $t } from '@/utils/i18n'
+
 defineProps<{
     hintType: string
     onHidden: () => void
@@ -24,7 +26,7 @@ defineProps<{
                 </span>
 
                 <span class="text-slate-800 dark:text-slate-500">
-                    {{ $t('hints.ramadan_basket') }}
+                    {{ $t(`hints.${hintType}`) }}
                 </span>
 
                 <the-alert-dismiss-button @click="dismiss">
