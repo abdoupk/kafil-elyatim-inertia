@@ -21,10 +21,15 @@ class SponsorUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->families_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateSponsorNotification(sponsor: $this->sponsor, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['view_sponsors'],
+                userToExclude: $this->user,
+                notificationType: 'families_changes'
+            ),
+            new UpdateSponsorNotification(
+                sponsor: $this->sponsor,
+                user: $this->user
+            )
         );
     }
 }

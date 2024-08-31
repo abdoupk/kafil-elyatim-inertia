@@ -4,7 +4,7 @@ namespace App\Jobs\V1\Inventory;
 
 use App\Models\Inventory;
 use App\Models\User;
-use App\Notifications\Inventory\DeleteInventoryItemNotification;
+use App\Notifications\Inventory\UpdateInventoryItemNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,10 +21,15 @@ class InventoryItemUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->association_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteInventoryItemNotification(item: $this->item, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_items', 'view_item'],
+                userToExclude: $this->user,
+                notificationType: 'association_changes'
+            ),
+            new UpdateInventoryItemNotification(
+                item: $this->item,
+                user: $this->user
+            )
         );
     }
 }

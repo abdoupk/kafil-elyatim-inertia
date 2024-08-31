@@ -21,10 +21,15 @@ class ZoneCreatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->branches_and_zones_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateZoneNotification(zone: $this->zone, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_zones', 'view_zones'],
+                userToExclude: $this->user,
+                notificationType: 'branches_and_zones_changes'
+            ),
+            new CreateZoneNotification(
+                zone: $this->zone,
+                user: $this->user
+            )
         );
     }
 }

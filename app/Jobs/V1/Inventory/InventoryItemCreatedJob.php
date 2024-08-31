@@ -21,10 +21,15 @@ class InventoryItemCreatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->association_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateInventoryItemNotification(item: $this->item, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_items', 'view_item'],
+                userToExclude: $this->user,
+                notificationType: 'association_changes'
+            ),
+            new CreateInventoryItemNotification(
+                item: $this->item,
+                user: $this->user
+            )
         );
     }
 }

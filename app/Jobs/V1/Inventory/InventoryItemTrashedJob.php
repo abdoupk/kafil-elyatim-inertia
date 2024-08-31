@@ -21,10 +21,15 @@ class InventoryItemTrashedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->association_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteInventoryItemNotification(item: $this->item, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_trash'],
+                userToExclude: $this->user,
+                notificationType: 'association_changes'
+            ),
+            new DeleteInventoryItemNotification(
+                item: $this->item,
+                user: $this->user
+            )
         );
     }
 }

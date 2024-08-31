@@ -21,10 +21,15 @@ class LessonTrashedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->schools_and_lessons_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteLessonNotification(eventOccurrence: $this->eventOccurrence, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_trash'],
+                userToExclude: $this->user,
+                notificationType: 'schools_and_lessons_changes'
+            ),
+            new DeleteLessonNotification(
+                eventOccurrence: $this->eventOccurrence,
+                user: $this->user
+            )
         );
     }
 }

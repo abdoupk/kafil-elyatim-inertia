@@ -21,10 +21,15 @@ class OrphanTrashedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->families_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteOrphanNotification(orphan: $this->orphan, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_trash'],
+                userToExclude: $this->user,
+                notificationType: 'families_changes'
+            ),
+            new DeleteOrphanNotification(
+                orphan: $this->orphan,
+                user: $this->user
+            )
         );
     }
 }

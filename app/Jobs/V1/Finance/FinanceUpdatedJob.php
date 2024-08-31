@@ -21,10 +21,15 @@ class FinanceUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->financial_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateFinanceTransactionNotification(finance: $this->finance, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_financial_transactions', 'view_financial_transactions'],
+                userToExclude: $this->user,
+                notificationType: 'financial_changes'
+            ),
+            new UpdateFinanceTransactionNotification(
+                finance: $this->finance,
+                user: $this->user
+            )
         );
     }
 }

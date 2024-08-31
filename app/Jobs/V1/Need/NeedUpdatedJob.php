@@ -21,10 +21,15 @@ class NeedUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->families_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateNeedNotification(need: $this->need, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_needs', 'view_needs'],
+                userToExclude: $this->user,
+                notificationType: 'families_changes'
+            ),
+            new UpdateNeedNotification(
+                need: $this->need,
+                user: $this->user
+            )
         );
     }
 }

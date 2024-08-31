@@ -21,10 +21,15 @@ class FamilyUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->families_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateFamilyNotification(family: $this->family, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['view_families'],
+                userToExclude: $this->user,
+                notificationType: 'families_changes'
+            ),
+            new UpdateFamilyNotification(
+                family: $this->family,
+                user: $this->user
+            )
         );
     }
 }

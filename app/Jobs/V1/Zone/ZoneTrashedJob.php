@@ -21,10 +21,15 @@ class ZoneTrashedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->branches_and_zones_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteZoneNotification(zone: $this->zone, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_trash'],
+                userToExclude: $this->user,
+                notificationType: 'branches_and_zones_changes'
+            ),
+            new DeleteZoneNotification(
+                zone: $this->zone,
+                user: $this->user
+            )
         );
     }
 }

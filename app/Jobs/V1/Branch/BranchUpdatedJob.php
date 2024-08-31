@@ -21,10 +21,15 @@ class BranchUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->branches_and_zones_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateBranchNotification(branch: $this->branch, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_branches', 'view_branches'],
+                userToExclude: $this->user,
+                notificationType: 'branches_and_zones_changes'
+            ),
+            new UpdateBranchNotification(
+                branch: $this->branch,
+                user: $this->user
+            )
         );
     }
 }

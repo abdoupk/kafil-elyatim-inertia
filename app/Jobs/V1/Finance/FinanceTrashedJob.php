@@ -21,10 +21,15 @@ class FinanceTrashedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->financial_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteFinanceTransactionNotification(finance: $this->finance, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_trash'],
+                userToExclude: $this->user,
+                notificationType: 'financial_changes'
+            ),
+            new DeleteFinanceTransactionNotification(
+                finance: $this->finance,
+                user: $this->user
+            )
         );
     }
 }

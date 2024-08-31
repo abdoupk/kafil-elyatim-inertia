@@ -22,13 +22,19 @@ class FamilyCreatedJob implements ShouldQueue
     {
         $this->family->update([
             'total_income' => calculateTotalIncomes($this->family),
+            'income_rate' => calculateIncomeRate($this->family),
         ]);
 
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->families_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateFamilyNotification(family: $this->family, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['view_families'],
+                userToExclude: $this->user,
+                notificationType: 'families_changes'
+            ),
+            new CreateFamilyNotification(
+                family: $this->family,
+                user: $this->user
+            )
         );
     }
 }

@@ -4,7 +4,7 @@ namespace App\Jobs\V1\Orphan;
 
 use App\Models\Orphan;
 use App\Models\User;
-use App\Notifications\Orphan\DeleteOrphanNotification;
+use App\Notifications\Orphan\UpdateOrphanNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,10 +21,15 @@ class OrphanUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->families_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new DeleteOrphanNotification(orphan: $this->orphan, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['view_orphans'],
+                userToExclude: $this->user,
+                notificationType: 'families_changes'
+            ),
+            new UpdateOrphanNotification(
+                orphan: $this->orphan,
+                user: $this->user
+            )
         );
     }
 }

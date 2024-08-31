@@ -21,10 +21,15 @@ class RoleUpdatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->association_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new UpdateRoleNotification(role: $this->role, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_roles'],
+                userToExclude: $this->user,
+                notificationType: 'association_changes'
+            ),
+            new UpdateRoleNotification(
+                role: $this->role,
+                user: $this->user
+            )
         );
     }
 }

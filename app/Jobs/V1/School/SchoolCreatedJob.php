@@ -21,10 +21,15 @@ class SchoolCreatedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->schools_and_lessons_changes', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new CreateSchoolNotification(school: $this->school, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['list_schools', 'view_schools'],
+                userToExclude: $this->user,
+                notificationType: 'schools_and_lessons_changes'
+            ),
+            new CreateSchoolNotification(
+                school: $this->school,
+                user: $this->user
+            )
         );
     }
 }
