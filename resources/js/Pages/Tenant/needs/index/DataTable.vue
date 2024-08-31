@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { formatDate } from '../../../../utils/helper'
-
 import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/types'
 
 import NeedStatus from '@/Pages/Tenant/needs/index/NeedStatus.vue'
@@ -14,6 +12,9 @@ import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { formatDate, hasPermission } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ needs: PaginationData<NeedsIndexResource>; params: IndexParams }>()
 
@@ -57,7 +58,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             {{ $t('validation.attributes.note') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th
+                            v-if="hasPermission(['delete_needs', 'update_needs', 'view_needs'])"
+                            class="text-center"
+                        >
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -102,9 +106,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             <span v-else class="mx-auto block text-center">-</span>
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['delete_needs', 'update_needs', 'view_needs'])">
                             <div class="flex items-center justify-center">
                                 <a
+                                    v-if="hasPermission('view_needs')"
                                     class="me-3 flex items-center"
                                     href="#"
                                     @click.prevent="emit('showDetailsModal', need.id)"
@@ -114,6 +119,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                 </a>
 
                                 <a
+                                    v-if="hasPermission('update_needs')"
                                     class="me-3 flex items-center"
                                     href="#"
                                     @click.prevent="emit('showEditModal', need.id)"
@@ -122,6 +128,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                     {{ $t('edit') }}
                                 </a>
                                 <a
+                                    v-if="hasPermission('delete_needs')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', need.id)"
@@ -164,6 +171,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <a
+                                v-if="hasPermission('view_needs')"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="#"
                                 @click.prevent="emit('showDetailsModal', need.id)"
@@ -171,12 +179,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             >
 
                             <a
+                                v-if="hasPermission('update_needs')"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="#"
                                 @click.prevent="emit('showEditModal', need.id)"
                                 >{{ $t('edit') }}</a
                             >
                             <a
+                                v-if="hasPermission('delete_needs')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', need.id)"

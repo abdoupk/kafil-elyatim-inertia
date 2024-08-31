@@ -4,6 +4,11 @@ import type { RecentFamiliesType } from '@/types/dashboard'
 import { Link } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
+
+import { hasPermission } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
+
 const BaseTable = defineAsyncComponent(() => import('@/Components/Base/table/BaseTable.vue'))
 
 const BaseTbodyTable = defineAsyncComponent(() => import('@/Components/Base/table/BaseTbodyTable.vue'))
@@ -68,9 +73,8 @@ defineProps<{
 
                                 <the-table-td class="max-w-40 truncate">
                                     {{ family.address }}
-                                    <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
                                     <Link
-                                        :href="route('tenant.zones.index')"
+                                        :href="route('tenant.zones.index') + '?show=' + family.zone?.id"
                                         class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                                     >
                                         {{ family.zone?.name }}
@@ -88,6 +92,7 @@ defineProps<{
                                 <the-table-td-actions>
                                     <div class="flex items-center justify-center">
                                         <Link
+                                            v-if="hasPermission('edit_families')"
                                             :href="route('tenant.families.edit', family.id)"
                                             class="me-3 flex items-center"
                                         >
@@ -95,6 +100,7 @@ defineProps<{
                                             {{ $t('edit') }}
                                         </Link>
                                         <Link
+                                            v-if="hasPermission('delete_families')"
                                             :href="route('tenant.families.destroy', family.id)"
                                             :only="['recentFamilies']"
                                             class="flex items-center text-danger"
@@ -121,7 +127,9 @@ defineProps<{
                                 <div
                                     class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                                 >
-                                    {{ family.file_number }}
+                                    <base-tippy :content="$t('orphans_count')">
+                                        {{ family.orphans_count }}
+                                    </base-tippy>
                                 </div>
                             </div>
                             <div class="mt-6 flex">
@@ -130,11 +138,6 @@ defineProps<{
                                     <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
                                         {{ family.zone?.name }}
                                     </div>
-                                    <div
-                                        class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
-                                    >
-                                        {{ family.start_date }}
-                                    </div>
                                 </div>
                                 <div class="flex w-1/4 items-center justify-end">
                                     <Link
@@ -142,13 +145,15 @@ defineProps<{
                                         class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                         >{{ $t('edit') }}
                                     </Link>
-                                    <a
+                                    <Link
+                                        v-if="hasPermission('delete_families')"
+                                        :href="route('tenant.families.destroy', family.id)"
                                         class="font-semibold text-danger"
-                                        href="javascript:void(0)"
-                                        @click="emit('showDeleteModal', family.id)"
+                                        method="delete"
+                                        preserve-scroll
                                     >
                                         {{ $t('delete') }}
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

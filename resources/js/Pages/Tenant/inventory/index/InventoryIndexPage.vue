@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
 import { $t, $tc } from '@/utils/i18n'
 
 const ItemCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/inventory/ItemCreateEditModal.vue'))
@@ -185,13 +185,13 @@ watchEffect(async () => {
                 @change-filters="params.filters = $event"
             >
                 <template #ExtraButtons>
-                    <base-tippy :content="$t('add_new_item')">
+                    <base-tippy v-if="hasPermission('add_to_inventory')" :content="$t('add_new_item')">
                         <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
                             <svg-loader name="icon-plus"></svg-loader>
                         </base-button>
                     </base-tippy>
 
-                    <base-tippy :content="$t('add_baby_milk')">
+                    <base-tippy v-if="hasPermission('add_to_inventory')" :content="$t('add_baby_milk')">
                         <base-button
                             class="me-2 shadow-md"
                             variant="secondary"
@@ -201,7 +201,7 @@ watchEffect(async () => {
                         </base-button>
                     </base-tippy>
 
-                    <base-tippy :content="$t('add_diapers')">
+                    <base-tippy v-if="hasPermission('add_to_inventory')" :content="$t('add_diapers')">
                         <base-button
                             class="me-2 shadow-md"
                             variant="secondary"

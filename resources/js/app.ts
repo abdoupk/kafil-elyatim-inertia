@@ -7,27 +7,17 @@ import { createInertiaApp, router } from '@inertiajs/vue3'
 import { isAxiosError } from 'axios'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
-import { type DefineComponent, createApp, defineComponent, h } from 'vue'
+import { type DefineComponent, createApp, h } from 'vue'
 import { toast } from 'vue-sonner'
 import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/pinia'
-
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 const pinia = createPinia()
 
 pinia.use(usePersistStore)
-
-const CustomDiv = defineComponent({
-    setup() {
-        return () =>
-            h('div', {
-                innerHTML: 'A custom toast with unstyling'
-            })
-    }
-})
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : `${appName}`),
@@ -40,7 +30,8 @@ createInertiaApp({
             .use(pinia)
             .use(ZiggyVue)
 
-        app.config.errorHandler = (err) => {
+        app.config.errorHandler = (err, instance, info) => {
+            console.log(err, instance, info)
             if (isAxiosError(err)) {
                 switch (err.response?.status) {
                     case 401:

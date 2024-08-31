@@ -51,7 +51,7 @@ const options = computed<ChartOptions>(() => {
                 rtl: getLocale() === 'ar'
             }
         },
-        
+
         scales: {
             r: {
                 suggestedMin: 0,

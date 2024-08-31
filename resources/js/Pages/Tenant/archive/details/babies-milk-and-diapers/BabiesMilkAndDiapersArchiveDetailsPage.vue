@@ -8,7 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { handleSort } from '@/utils/helper'
+import { handleSort, hasPermission } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(
@@ -50,6 +50,7 @@ const sort = (field: string) => handleSort(field, params)
     <suspense>
         <div>
             <the-table-header
+                :exportable="hasPermission('export_occasions')"
                 :filters="[]"
                 :pagination-data="orphans"
                 :params="params"
@@ -58,7 +59,6 @@ const sort = (field: string) => handleSort(field, params)
                 entries="orphans"
                 export-pdf-url="tenant.archive.export.babies-milk-and-diapers.pdf"
                 export-xlsx-url="tenant.archive.export.babies-milk-and-diapers.xlsx"
-                exportable
             >
             </the-table-header>
 

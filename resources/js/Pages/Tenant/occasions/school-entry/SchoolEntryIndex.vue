@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/school-entry/DataTable.vue'))
 
@@ -45,7 +45,7 @@ const params = reactive<IndexParams>({
     search: props.params.search
 })
 
-const exportable = ref(!!props.archive?.created_at)
+const exportable = ref(!!props.archive?.created_at && hasPermission('export_occasions'))
 
 const loading = ref(false)
 
@@ -112,6 +112,7 @@ const handleSave = () => {
 
                 <template #ExtraButtons>
                     <base-button
+                        v-if="hasPermission('save_occasions')"
                         :disabled="loading"
                         class="me-2 shadow-md"
                         variant="primary"

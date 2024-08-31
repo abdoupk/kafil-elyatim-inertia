@@ -7,9 +7,9 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }} </title>
 
-    <link rel="icon" href="{{asset('logo.png')}}">
+    <link rel="icon" href="{{ asset('logo.png') }}">
 
-    {{Vite::useBuildDirectory('build/dashboard')}}
+    {{ Vite::useBuildDirectory('build/dashboard') }}
 
     <!-- Scripts -->
     @routes
@@ -18,7 +18,7 @@
 </head>
 
 <body class="font-roboto overflow-x-hidden dark:bg-darkmode-700 scroll-smooth">
-@inertia
+    @inertia
 </body>
 
 </html>

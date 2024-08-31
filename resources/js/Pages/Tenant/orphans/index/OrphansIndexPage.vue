@@ -9,8 +9,8 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
-import { $tc } from '@/utils/i18n'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
+import { $t, $tc } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/index/DataTable.vue'))
 
@@ -102,6 +102,7 @@ const sort = (field: string) => handleSort(field, params)
     <suspense>
         <div>
             <the-table-header
+                :exportable="hasPermission('export_orphans')"
                 :filters="orphansFilters"
                 :pagination-data="orphans"
                 :params="params"
@@ -110,7 +111,6 @@ const sort = (field: string) => handleSort(field, params)
                 entries="orphans"
                 export-pdf-url="tenant.orphans.export.pdf"
                 export-xlsx-url="tenant.orphans.export.xlsx"
-                exportable
                 filterable
                 searchable
                 @change-filters="params.filters = $event"

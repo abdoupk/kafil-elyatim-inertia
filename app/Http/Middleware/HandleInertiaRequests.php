@@ -44,7 +44,7 @@ class HandleInertiaRequests extends Middleware
                 }
 
                 return $value;
-            }) + ['permissions' => auth()->user()->permissions->toArray()];
+            }) + ['permissions' => auth()->user()->getPermissionsViaRoles()->pluck('name')->toArray()];
         }
 
         return null;

@@ -13,8 +13,8 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate } from '@/utils/helper'
-import { getLocale } from '@/utils/i18n'
+import { formatDate, hasPermission } from '@/utils/helper'
+import { $t, getLocale } from '@/utils/i18n'
 
 const familyStatusFilter = computed(() => {
     return `family_status.${getLocale()}`
@@ -72,7 +72,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             >{{ $t('validation.attributes.date_of_birth') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['update_orphans', 'delete_orphans'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -85,9 +85,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link :href="route('tenant.orphans.show', orphan.id)" class="font-medium">
+                            <Link
+                                v-if="hasPermission('view_orphans')"
+                                :href="route('tenant.orphans.show', orphan.id)"
+                                class="font-medium"
+                            >
                                 {{ orphan.name }}
                             </Link>
+
+                            <span v-else> {{ orphan.name }}</span>
                         </the-table-td>
 
                         <the-table-td class="max-w-40 truncate text-center">
@@ -110,9 +116,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ formatDate(orphan.birth_date, 'long') }}
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['update_orphans', 'delete_orphans'])">
                             <div class="flex items-center justify-center">
                                 <Link
+                                    v-if="hasPermission('update_orphans')"
                                     :href="route('tenant.orphans.edit', orphan.id)"
                                     class="me-3 flex items-center"
                                     @click.prevent="emit('showEditModal', orphan.id)"
@@ -121,6 +128,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                                     {{ $t('edit') }}
                                 </Link>
                                 <a
+                                    v-if="hasPermission('delete_orphans')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', orphan.id)"
@@ -159,11 +167,13 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <Link
+                                v-if="hasPermission('edit_orphans')"
                                 :href="route('tenant.orphans.edit', orphan.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 >{{ $t('edit') }}
                             </Link>
                             <a
+                                v-if="hasPermission('delete_orphans')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', orphan.id)"

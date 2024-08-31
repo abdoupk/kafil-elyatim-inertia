@@ -12,7 +12,8 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate } from '@/utils/helper'
+import { formatDate, hasPermission } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ families: PaginationData<FamiliesIndexResource>; params: IndexParams }>()
 
@@ -56,7 +57,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             {{ $t('validation.attributes.starting_sponsorship_date') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['update_families', 'delete_families'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -69,9 +70,15 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link :href="route('tenant.families.show', family.id)" class="font-medium">
+                            <Link
+                                v-if="hasPermission('view_families')"
+                                :href="route('tenant.families.show', family.id)"
+                                class="font-medium"
+                            >
                                 {{ family.name }}
                             </Link>
+
+                            <span v-else> {{ family.name }}</span>
                         </the-table-td>
 
                         <the-table-td class="max-w-40 truncate">
@@ -94,13 +101,18 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             </div>
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['update_families', 'delete_families'])">
                             <div class="flex items-center justify-center">
-                                <Link :href="route('tenant.families.edit', family.id)" class="me-3 flex items-center">
+                                <Link
+                                    v-if="hasPermission('update_families')"
+                                    :href="route('tenant.families.edit', family.id)"
+                                    class="me-3 flex items-center"
+                                >
                                     <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
                                 </Link>
                                 <a
+                                    v-if="hasPermission('delete_families')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', family.id)"
@@ -142,11 +154,13 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <Link
+                                v-if="hasPermission('update_families')"
                                 :href="route('tenant.families.show', family.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 >{{ $t('edit') }}
                             </Link>
                             <a
+                                v-if="hasPermission('delete_families')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', family.id)"

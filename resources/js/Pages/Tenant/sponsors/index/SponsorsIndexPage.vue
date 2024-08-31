@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
 import { $tc } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/sponsors/index/DataTable.vue'))
@@ -102,6 +102,7 @@ const showDeleteModal = (sponsorId: string) => {
     <suspense>
         <div>
             <the-table-header
+                :exportable="hasPermission('export_orphans')"
                 :filters="sponsorsFilters"
                 :pagination-data="sponsors"
                 :params="params"
@@ -110,7 +111,6 @@ const showDeleteModal = (sponsorId: string) => {
                 entries="sponsors"
                 export-pdf-url="tenant.sponsors.export.pdf"
                 export-xlsx-url="tenant.sponsors.export.xlsx"
-                exportable
                 filterable
                 searchable
                 @change-filters="params.filters = $event"

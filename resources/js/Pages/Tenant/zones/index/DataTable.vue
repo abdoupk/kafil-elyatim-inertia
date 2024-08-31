@@ -11,6 +11,7 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { hasPermission } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
 
 defineProps<{ zones: PaginationData<ZonesIndexResource>; params: IndexParams }>()
@@ -58,7 +59,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             {{ $t('added_at') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['update_zones', 'delete_zones'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -88,9 +89,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             {{ zone.created_at }}
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['update_zones', 'delete_zones'])">
                             <div class="flex items-center justify-center">
                                 <a
+                                    v-if="hasPermission('update_zones')"
                                     class="me-3 flex items-center"
                                     href="javascript:void(0)"
                                     @click="emit('showEditModal', zone.id)"
@@ -99,6 +101,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                     {{ $t('edit') }}
                                 </a>
                                 <a
+                                    v-if="hasPermission('delete_zones')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', zone.id)"
@@ -143,6 +146,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <a
+                                v-if="hasPermission('view_zones')"
                                 class="me-2 flex items-center"
                                 href="javascript:void(0)"
                                 @click="emit('showDetailsModal', zone.id)"
@@ -150,12 +154,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                 {{ $t('show') }}
                             </a>
                             <a
+                                v-if="hasPermission('update_zones')"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click="emit('showEditModal', zone.id)"
                                 >{{ $t('edit') }}
                             </a>
                             <a
+                                v-if="hasPermission('delete_zones')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', zone.id)"

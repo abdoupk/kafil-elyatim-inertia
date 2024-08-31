@@ -13,7 +13,7 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatCurrency, formatDate } from '@/utils/helper'
+import { formatCurrency, formatDate, hasPermission } from '@/utils/helper'
 import { $t, getLocale } from '@/utils/i18n'
 
 defineProps<{ finances: PaginationData<FinancialTransactionsIndexResource>; params: IndexParams }>()
@@ -70,7 +70,16 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                             {{ $t('validation.attributes.description') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th
+                            v-if="
+                                hasPermission([
+                                    'delete_financial_transactions',
+                                    'update_financial_transactions',
+                                    'view_financial_transactions'
+                                ])
+                            "
+                            class="text-center"
+                        >
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -112,9 +121,18 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                             </base-tippy>
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions
+                            v-if="
+                                hasPermission([
+                                    'delete_financial_transactions',
+                                    'update_financial_transactions',
+                                    'view_financial_transactions'
+                                ])
+                            "
+                        >
                             <div class="flex items-center justify-center">
                                 <a
+                                    v-if="hasPermission(['view_financial_transactions'])"
                                     class="me-3 flex items-center"
                                     href="#"
                                     @click.prevent="emit('showDetailsModal', finance.id)"
@@ -124,6 +142,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                                 </a>
 
                                 <a
+                                    v-if="hasPermission(['update_financial_transactions'])"
                                     class="me-3 flex items-center"
                                     href="#"
                                     @click.prevent="emit('showEditModal', finance.id)"
@@ -133,6 +152,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                                 </a>
 
                                 <a
+                                    v-if="hasPermission(['delete_financial_transactions'])"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', finance.id)"
@@ -185,6 +205,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <a
+                                v-if="hasPermission(['view_financial_transactions'])"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click="emit('showDetailsModal', finance.id)"
@@ -193,6 +214,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                             </a>
 
                             <a
+                                v-if="hasPermission(['update_financial_transactions'])"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click="emit('showEditModal', finance.id)"
@@ -201,6 +223,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                             </a>
 
                             <a
+                                v-if="hasPermission(['delete_financial_transactions'])"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', finance.id)"

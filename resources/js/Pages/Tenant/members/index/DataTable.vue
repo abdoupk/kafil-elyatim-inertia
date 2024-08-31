@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { formatDate } from '../../../../utils/helper'
-
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
@@ -11,6 +9,9 @@ import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { formatDate, hasPermission } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ members: PaginationData<MembersIndexResource>; params: IndexParams }>()
 
@@ -50,7 +51,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             {{ $t('validation.attributes.zone') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['update_members', 'delete_members'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -82,9 +83,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             </div>
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['update_members', 'delete_members'])">
                             <div class="flex items-center justify-center">
                                 <a
+                                    v-if="hasPermission('update_members')"
                                     class="me-3 flex items-center"
                                     href="javascript:void(0)"
                                     @click.prevent="emit('showEditModal', member.id)"
@@ -93,6 +95,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                     {{ $t('edit') }}
                                 </a>
                                 <a
+                                    v-if="hasPermission('delete_members')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', member.id)"
@@ -134,12 +137,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <a
+                                v-if="hasPermission('update_members')"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('showEditModal', member.id)"
                                 >{{ $t('edit') }}
                             </a>
+
                             <a
+                                v-if="hasPermission('delete_members')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', member.id)"

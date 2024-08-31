@@ -10,7 +10,6 @@ import { computed } from 'vue'
 
 import { $t, getLocale } from '@/utils/i18n'
 
-
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
@@ -438,12 +437,12 @@ const formatParams = (params: IndexParams) => {
 function hasPermission(permission) {
     if (typeof permission === 'string') {
         return (
-            !usePage().props.auth.user.roles.includes('super_admin') ||
+            usePage().props.auth.user.roles.includes('super_admin') ||
             usePage().props.auth.user.permissions.includes(permission.toString())
         )
     } else if (Array.isArray(permission)) {
         return (
-            !usePage().props.auth.user.roles.includes('super_admin') ||
+            usePage().props.auth.user.roles.includes('super_admin') ||
             usePage().props.auth.user.permissions.some((item) => permission.includes(item))
         )
     } else {

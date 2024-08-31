@@ -12,7 +12,8 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate, formatDateAndTime } from '@/utils/helper'
+import { formatDate, formatDateAndTime, hasPermission } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ items: PaginationData<TrashIndexResource>; params: IndexParams }>()
 
@@ -37,7 +38,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
 
                         <the-table-th class="text-center">{{ $t('validation.attributes.deleted_at') }}</the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['restore_trash', 'destroy_trash'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -67,9 +68,10 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                             {{ formatDate(item.deleted_at, 'full') }}
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['restore_trash', 'destroy_trash'])">
                             <div class="flex items-center justify-center">
                                 <a
+                                    v-if="hasPermission('restore_trash')"
                                     class="me-3 flex items-center"
                                     href="javascript:void(0)"
                                     @click.prevent="emit('restore', route(item.restore_url, item.id))"
@@ -78,6 +80,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                                     {{ $t('restore') }}
                                 </a>
                                 <a
+                                    v-if="hasPermission('destroy_trash')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="
@@ -116,12 +119,14 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <a
+                                v-if="hasPermission('restore_trash')"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="javascript:void(0)"
                                 @click.prevent="emit('restore', item.id)"
                                 >{{ $t('restore') }}
                             </a>
                             <a
+                                v-if="hasPermission('destroy_trash')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', item.id)"

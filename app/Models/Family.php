@@ -146,7 +146,7 @@ class Family extends Model
 
         $this->sponsorships->unsearchable();
 
-        $this->report->unsearchable();
+        $this->preview->unsearchable();
     }
 
     public function sponsor(): HasOne

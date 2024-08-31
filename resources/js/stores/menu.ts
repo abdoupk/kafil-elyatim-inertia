@@ -5,7 +5,6 @@ import { defineStore } from 'pinia'
 import { hasPermission } from '@/utils/helper'
 import { $t, $tc } from '@/utils/i18n'
 
-
 export const useMenuStore = defineStore('menu', {
     state: (): { menu: Array<IFormattedMenu | 'divider'> } => ({
         menu: [
@@ -18,21 +17,21 @@ export const useMenuStore = defineStore('menu', {
             'divider',
             {
                 icon: 'icon-user-lock',
-                ignore: hasPermission('read_roles'),
+                ignore: !hasPermission('list_roles'),
                 routeName: 'tenant.roles.index',
                 url: '/dashboard/roles',
                 title: $t('roles')
             },
             {
                 icon: 'icon-users-gear',
-                ignore: hasPermission('read_members'),
+                ignore: !hasPermission('list_members'),
                 title: $t('the_members'),
                 routeName: 'tenant.members.index',
                 url: '/dashboard/members'
             },
             {
                 icon: 'icon-branches',
-                ignore: hasPermission('read_branches'),
+                ignore: !hasPermission('list_branches'),
                 title: $t('branches'),
                 routeName: 'tenant.branches.index',
                 url: '/dashboard/branches'
@@ -40,20 +39,20 @@ export const useMenuStore = defineStore('menu', {
             'divider',
             {
                 icon: 'icon-family',
-                ignore: hasPermission('read_families') || hasPermission('create_families'),
+                ignore: !hasPermission('list_families') || hasPermission('create_families'),
                 routeName: '',
                 title: $t('the_families'),
                 subMenu: [
                     {
                         icon: 'icon-users',
-                        ignore: hasPermission('read_families'),
+                        ignore: !hasPermission('list_families'),
                         title: $t('list', { attribute: $t('the_families') }),
                         routeName: 'tenant.families.index',
                         url: '/dashboard/families'
                     },
                     {
                         icon: 'icon-users-plus',
-                        ignore: hasPermission('create_families'),
+                        ignore: !hasPermission('create_families'),
                         title: $tc($t('add new'), 0, { attribute: $t('family') }),
                         routeName: 'tenant.families.create',
                         url: '/dashboard/families/create'
@@ -68,13 +67,13 @@ export const useMenuStore = defineStore('menu', {
             },
             {
                 icon: 'icon-children',
-                ignore: hasPermission('read_orphans'),
+                ignore: !hasPermission('list_orphans'),
                 title: $t('orphans'),
                 routeName: '',
                 subMenu: [
                     {
                         icon: 'icon-children',
-                        ignore: hasPermission('read_orphans'),
+                        ignore: !hasPermission('list_orphans'),
                         title: $t('list', { attribute: $t('orphans') }),
                         routeName: 'tenant.orphans.index',
                         url: '/dashboard/orphans'
@@ -89,14 +88,14 @@ export const useMenuStore = defineStore('menu', {
             },
             {
                 icon: 'icon-hands-holding-child',
-                ignore: hasPermission('read_sponsors'),
+                ignore: !hasPermission('list_sponsors'),
                 title: $t('the_sponsors'),
                 routeName: '',
                 url: '',
                 subMenu: [
                     {
                         icon: 'icon-hands-holding-child',
-                        ignore: hasPermission('read_sponsors'),
+                        ignore: !hasPermission('list_sponsors'),
                         title: $t('list', { attribute: $t('sponsors') }),
                         routeName: 'tenant.sponsors.index',
                         url: '/dashboard/sponsors'
@@ -111,48 +110,48 @@ export const useMenuStore = defineStore('menu', {
             },
             {
                 icon: 'icon-calendar-star',
-                // TODO check how to handle it ignore: hasPermission('read_permission'),
+                // TODO check how to handle it ignore: !hasPermission('list_permission'),
                 routeName: '',
                 title: $t('occasions'),
                 subMenu: [
                     {
                         icon: 'icon-ram',
-                        // Ignore: hasPermission('read_permission'),
+                        // Ignore: !hasPermission('list_permission'),
                         title: $t('eid_el_adha'),
                         routeName: 'tenant.occasions.eid-al-adha.index',
                         url: '/dashboard/occasions/eid-al-adha'
                     },
                     {
                         icon: 'icon-backpack',
-                        // Ignore: hasPermission('read_permission'),
+                        // Ignore: !hasPermission('list_permission'),
                         title: $t('school_entry'),
                         routeName: 'tenant.occasions.school-entry.index',
                         url: '/dashboard/occasions/school-entry'
                     },
                     {
                         icon: 'icon-moon-stars',
-                        // Ignore: hasPermission('read_permission'),
+                        // Ignore: !hasPermission('list_permission'),
                         title: $t('eid_el_fitr'),
                         routeName: 'tenant.occasions.eid-suit.index',
                         url: '/dashboard/occasions/eid-suit'
                     },
                     {
                         icon: 'icon-moon',
-                        // Ignore: hasPermission('read_permission'),
+                        // Ignore: !hasPermission('list_permission'),
                         title: $t('ramadan basket'),
                         routeName: 'tenant.occasions.ramadan-basket.index',
                         url: '/dashboard/occasions/ramadan-basket'
                     },
                     {
                         icon: 'icon-basket-shopping',
-                        // Ignore: hasPermission('read_permission'),
+                        // Ignore: !hasPermission('list_permission'),
                         title: $t('monthly basket'),
                         routeName: 'tenant.occasions.monthly-basket.index',
                         url: '/dashboard/occasions/monthly-basket'
                     },
                     {
                         icon: 'icon-baby-carriage',
-                        // Ignore: hasPermission('read_permission'),
+                        // Ignore: !hasPermission('list_permission'),
                         title: $t('milk and diapers'),
                         routeName: 'tenant.occasions.babies-milk-and-diapers.index',
                         url: '/dashboard/occasions/babies-milk-and-diapers'
@@ -162,7 +161,7 @@ export const useMenuStore = defineStore('menu', {
             'divider',
             {
                 icon: 'icon-map-location-dot',
-                ignore: hasPermission('read_zones'),
+                ignore: !hasPermission('list_zones'),
                 title: $t('the_zones'),
                 routeName: 'tenant.zones.index',
                 url: '/dashboard/zones'
@@ -174,7 +173,7 @@ export const useMenuStore = defineStore('menu', {
                 subMenu: [
                     {
                         icon: 'icon-hands-holding-dollar',
-                        ignore: hasPermission('read_financial'),
+                        ignore: !hasPermission('list_financial'),
                         title: $t('financial'),
                         routeName: 'tenant.financial.index',
                         url: '/dashboard/financial'
@@ -189,49 +188,49 @@ export const useMenuStore = defineStore('menu', {
             },
             {
                 icon: 'icon-shelves',
-                ignore: hasPermission('read_inventory'),
+                ignore: !hasPermission('list_inventory'),
                 title: $t('the_inventory'),
                 routeName: 'tenant.inventory.index',
                 url: '/dashboard/inventory'
             },
             {
                 icon: 'icon-handshake-angle',
-                ignore: hasPermission('read_needs'),
+                ignore: !hasPermission('list_needs'),
                 title: $t('the_needs'),
                 routeName: 'tenant.needs.index',
                 url: '/dashboard/needs'
             },
             {
                 icon: 'icon-gear',
-                ignore: hasPermission('read_settings'),
+                ignore: !hasPermission('list_settings'),
                 routeName: 'tenant.settings.index',
                 title: $t('settings'),
                 url: '/dashboard/settings'
             },
             {
                 icon: 'icon-graduation-cap',
-                ignore: hasPermission('read_lessons'),
+                ignore: !hasPermission('list_lessons'),
                 routeName: 'tenant.lessons.index',
                 title: $t('private_lessons'),
                 url: '/dashboard/lessons'
             },
             {
                 icon: 'icon-school-lock',
-                ignore: hasPermission('read_schools'),
+                ignore: !hasPermission('list_schools'),
                 routeName: 'tenant.schools.index',
                 title: $t('private_schools'),
                 url: '/dashboard/schools'
             },
             {
                 icon: 'icon-trash-list',
-                ignore: hasPermission('read_permission'),
+                ignore: !hasPermission('list_permission'),
                 routeName: 'tenant.trash',
                 title: $t('the_trash'),
                 url: '/dashboard/trash'
             },
             {
                 icon: 'icon-box-archive',
-                ignore: hasPermission('read_archive'),
+                ignore: !hasPermission('list_archive'),
                 routeName: 'tenant.archive.index',
                 title: $t('the_archive'),
                 url: '/dashboard/archive'

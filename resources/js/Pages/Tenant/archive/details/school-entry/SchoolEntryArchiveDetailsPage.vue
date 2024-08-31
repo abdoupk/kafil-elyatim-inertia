@@ -8,6 +8,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
+import { hasPermission } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/occasions/school-entry/DataTable.vue'))
@@ -45,6 +46,7 @@ const params = reactive<IndexParams>({
     <suspense>
         <div>
             <the-table-header
+                :exportable="hasPermission('export_occasions')"
                 :filters="[]"
                 :pagination-data="orphans"
                 :params="params"
@@ -53,7 +55,6 @@ const params = reactive<IndexParams>({
                 entries="orphans"
                 export-pdf-url="tenant.archive.export.school-entry.pdf"
                 export-xlsx-url="tenant.archive.export.school-entry.xlsx"
-                exportable
             >
             </the-table-header>
 

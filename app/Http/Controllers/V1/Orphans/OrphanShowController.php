@@ -11,15 +11,17 @@ use Inertia\Response;
 
 class OrphanShowController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            'can:view_orphans',
+        ];
+    }
+
     public function __invoke(Orphan $orphan): Response
     {
         return Inertia::render('Tenant/orphans/details/OrphanDetailPage', [
             'orphan' => new OrphanShowResource($orphan->load('sponsorships', 'academicAchievements.academicLevel', 'babyNeeds.diapers', 'babyNeeds.babyMilk', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining')),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../utils/i18n'
+
 import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -13,6 +15,8 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
+
+import { hasPermission } from '@/utils/helper'
 
 defineProps<{ branches: PaginationData<BranchesIndexResource>; params: IndexParams }>()
 
@@ -72,7 +76,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             {{ $t('validation.attributes.created_at') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['update_branches', 'delete_branches'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -112,9 +116,10 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                             </div>
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['update_branches', 'delete_branches'])">
                             <div class="flex items-center justify-center">
                                 <a
+                                    v-if="hasPermission('update_branches')"
                                     class="me-3 flex items-center"
                                     href="#"
                                     @click.prevent="emit('showEditModal', branch.id)"
@@ -123,6 +128,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                                     {{ $t('edit') }}
                                 </a>
                                 <a
+                                    v-if="hasPermission('delete_branches')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', branch.id)"
@@ -166,12 +172,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal', 'showDetai
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <a
+                                v-if="hasPermission('update_branches')"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 href="#"
                                 @click.prevent="emit('showEditModal', branch.id)"
                                 >{{ $t('edit') }}
                             </a>
                             <a
+                                v-if="hasPermission('delete_branches')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', branch.id)"

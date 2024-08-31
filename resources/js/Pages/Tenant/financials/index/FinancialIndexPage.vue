@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
 import { $tc } from '@/utils/i18n'
 
 const FinancialShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/financials/FinancialShowModal.vue'))
@@ -172,6 +172,7 @@ watchEffect(async () => {
     <suspense>
         <div>
             <the-table-header
+                :exportable="hasPermission('export_financial_transactions')"
                 :filters="[]"
                 :pagination-data="finances"
                 :params="params"
@@ -180,16 +181,21 @@ watchEffect(async () => {
                 entries="finances"
                 export-pdf-url="tenant.financial.export.pdf"
                 export-xlsx-url="tenant.financial.export.xlsx"
-                exportable
                 searchable
                 @change-filters="params.filters = $event"
             >
                 <template #ExtraButtons>
-                    <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateIncomeModal">
+                    <base-button
+                        v-if="hasPermission('create_financial_transactions')"
+                        class="me-2 shadow-md"
+                        variant="primary"
+                        @click.prevent="showCreateIncomeModal"
+                    >
                         {{ $tc('add new', 1, { attribute: $t('income') }) }}
                     </base-button>
 
                     <base-button
+                        v-if="hasPermission('create_financial_transactions')"
                         class="me-2 shadow-md"
                         variant="outline-danger"
                         @click.prevent="showCreateExpenseModal"

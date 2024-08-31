@@ -6,7 +6,6 @@ import { type Hit, MeiliSearch } from 'meilisearch'
 import { formatCurrency, formatDate, formatNumber } from '@/utils/helper'
 import { $t, $tc, getLocale } from '@/utils/i18n'
 
-
 const client = new MeiliSearch({
     host: 'http://127.0.0.1:7700',
     apiKey: 'masterKey'

@@ -10,7 +10,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
 import { $t, $tc } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/zones/index/DataTable.vue'))
@@ -162,7 +162,12 @@ watchEffect(async () => {
                 @change-filters="params.filters = $event"
             >
                 <template #ExtraButtons>
-                    <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
+                    <base-button
+                        v-if="hasPermission('create_zones')"
+                        class="me-2 shadow-md"
+                        variant="primary"
+                        @click.prevent="showCreateModal"
+                    >
                         {{ $tc('add new', 0, { attribute: $t('zone') }) }}
                     </base-button>
                 </template>

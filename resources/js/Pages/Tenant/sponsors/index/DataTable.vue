@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { IndexParams, PaginationData, SponsorsIndexResource } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
@@ -12,7 +14,7 @@ import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.v
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-import { formatDate } from '@/utils/helper'
+import { formatDate, hasPermission } from '@/utils/helper'
 
 defineProps<{ sponsors: PaginationData<SponsorsIndexResource>; params: IndexParams }>()
 
@@ -65,7 +67,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             >{{ $t('validation.attributes.date_of_birth') }}
                         </the-table-th>
 
-                        <the-table-th class="text-center">
+                        <the-table-th v-if="hasPermission(['delete_sponsors', 'update_sponsors'])" class="text-center">
                             {{ $t('actions') }}
                         </the-table-th>
                     </base-tr-table>
@@ -78,9 +80,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </the-table-td>
 
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
-                            <Link :href="route('tenant.sponsors.show', sponsor.id)" class="font-medium">
+                            <Link
+                                v-if="hasPermission('view_sponsors')"
+                                :href="route('tenant.sponsors.show', sponsor.id)"
+                                class="font-medium"
+                            >
                                 {{ sponsor.name }}
                             </Link>
+
+                            <span v-else class="font-medium">{{ sponsor.name }}</span>
                         </the-table-td>
 
                         <the-table-td class="max-w-40 truncate">
@@ -103,13 +111,18 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                             {{ formatDate(sponsor.birth_date, 'long') }}
                         </the-table-td>
 
-                        <the-table-td-actions>
+                        <the-table-td-actions v-if="hasPermission(['delete_sponsors', 'update_sponsors'])">
                             <div class="flex items-center justify-center">
                                 <Link :href="route('tenant.sponsors.edit', sponsor.id)" class="me-3 flex items-center">
-                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
+                                    <svg-loader
+                                        v-if="hasPermission('update_sponsors')"
+                                        class="me-1 h-4 w-4 fill-current"
+                                        name="icon-pen"
+                                    />
                                     {{ $t('edit') }}
                                 </Link>
                                 <a
+                                    v-if="hasPermission('delete_sponsors')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', sponsor.id)"
@@ -129,7 +142,15 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ sponsor.name }}
+                            <Link
+                                v-if="hasPermission('view_sponsors')"
+                                :href="route('tenant.sponsors.show', sponsor.id)"
+                                class="font-medium rtl:font-semibold"
+                            >
+                                {{ sponsor.name }}
+                            </Link>
+
+                            <span v-else class="font-medium rtl:font-semibold">{{ sponsor.name }}</span>
                         </div>
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
@@ -152,11 +173,14 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showEditModal'])
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <Link
+                                v-if="hasPermission('update_sponsors')"
                                 :href="route('tenant.sponsors.show', sponsor.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 >{{ $t('edit') }}
                             </Link>
+
                             <a
+                                v-if="hasPermission('delete_sponsors')"
                                 class="font-semibold text-danger"
                                 href="javascript:void(0)"
                                 @click="emit('showDeleteModal', sponsor.id)"

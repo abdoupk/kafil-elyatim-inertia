@@ -22,6 +22,8 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
+import { hasPermission } from '@/utils/helper'
+
 const TheGeneralReports = defineAsyncComponent(
     () => import('@/Pages/Tenant/dashboard/general-reports/TheGeneralReports.vue')
 )
@@ -31,7 +33,7 @@ const TheFamiliesOverview = defineAsyncComponent(
 )
 
 const TheNeedsOverview = defineAsyncComponent(
-    () => import('@/Pages/Tenant/dashboard/overview/needs/TheNeesdsOverview.vue')
+    () => import('@/Pages/Tenant/dashboard/overview/needs/TheNeedsOverview.vue')
 )
 
 const TheOrphansOverview = defineAsyncComponent(
@@ -90,7 +92,7 @@ defineProps<{
 
             <!--Begin: Financial Reports-->
             <div class="grid grid-cols-12 gap-x-2">
-                <suspense suspensible>
+                <suspense v-if="hasPermission('view_financial_transactions')" suspensible>
                     <the-financial-report :financialReports></the-financial-report>
                 </suspense>
 
@@ -101,18 +103,18 @@ defineProps<{
             <!--End: Financial Reports-->
 
             <!--Begin: Recent Families-->
-            <suspense suspensible>
+            <suspense v-if="hasPermission('list_families')" suspensible>
                 <the-recent-families :recentFamilies></the-recent-families>
             </suspense>
             <!--End: Recent Families-->
 
             <!--Begin: Overview-->
             <div class="col-span-12 mt-8 grid grid-cols-12 gap-6">
-                <suspense suspensible>
+                <suspense v-if="hasPermission('list_needs')" suspensible>
                     <the-needs-overview :needsByCreatedDate :needsByNeedableType></the-needs-overview>
                 </suspense>
 
-                <suspense suspensible>
+                <suspense v-if="hasPermission('list_orphans')" suspensible>
                     <the-orphans-overview :orphansByGender :orphansGroupByCreatedDate></the-orphans-overview>
                 </suspense>
             </div>
@@ -122,7 +124,7 @@ defineProps<{
                 <div class="-mb-10 pb-10 2xl:border-s">
                     <div class="grid grid-cols-12 gap-x-6 gap-y-6 2xl:gap-x-0 2xl:ps-6">
                         <!--Begin: Recent Financial Transaction-->
-                        <suspense suspensible>
+                        <suspense v-if="hasPermission('list_financial_transactions')" suspensible>
                             <the-recent-financial-transactions :recentTransactions></the-recent-financial-transactions>
                         </suspense>
                         <!--End: Recent Financial Transaction-->
@@ -135,13 +137,13 @@ defineProps<{
                         <!--End: Recent Activities-->
 
                         <!--Begin: Schedules-->
-                        <suspense suspensible>
+                        <suspense v-if="hasPermission(['list_lessons', 'view_lessons'])" suspensible>
                             <the-schedules :comingEvents></the-schedules>
                         </suspense>
                         <!--End: Schedules-->
 
                         <!--Begin: Recent Needs-->
-                        <suspense suspensible>
+                        <suspense v-if="hasPermission('list_needs')" suspensible>
                             <the-recent-needs :recentNeeds></the-recent-needs>
                         </suspense>
                         <!--End: Recent Needs-->
