@@ -353,10 +353,9 @@ export const abbreviationMonths = {
 }
 
 export const colorPalette = {
-    dark: ['#54bebe', '#76c8c8', '#98d1d1', '#badbdb', '#dedad2', '#e4bcad', '#df979e', '#d7658b', '#c80064'],
+    dark: ['#d7e1ee', '#cbd6e4', '#bfcbdb', '#b3bfd1', '#a4a2a8', '#df8879', '#c86558', '#b04238', '#991f17'],
     light: ['#54bebe', '#76c8c8', '#98d1d1', '#badbdb', '#dedad2', '#e4bcad', '#df979e', '#d7658b', '#c80064']
 }
-
 export const financialSpecifications = [
     'drilling_wells',
     'monthly_sponsorship',

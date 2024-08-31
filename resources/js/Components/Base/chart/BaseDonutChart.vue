@@ -7,7 +7,6 @@ import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
-import { getRandomItemWithoutRepeat } from '@/utils/helper'
 import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -19,9 +18,9 @@ const props = defineProps<{
 
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
-const generateRandomColor = () => {
-    return getRandomItemWithoutRepeat(colorPalette[darkMode.value ? 'dark' : 'light'])
-}
+const colors = computed(() => {
+    return colorPalette[darkMode.value ? 'dark' : 'light'].sort(() => Math.random() - 0.5)
+})
 
 const data = computed<ChartData>(() => {
     return {
@@ -29,7 +28,7 @@ const data = computed<ChartData>(() => {
         datasets: [
             {
                 data: props.chartData,
-                backgroundColor: generateRandomColor(),
+                backgroundColor: colors.value,
                 borderWidth: 3,
                 borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
             }
