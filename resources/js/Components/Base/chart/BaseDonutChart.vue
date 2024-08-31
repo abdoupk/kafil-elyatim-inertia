@@ -7,7 +7,7 @@ import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
-import { addOpacityToHexColors } from '@/utils/helper'
+import { getRandomItemWithoutRepeat } from '@/utils/helper'
 import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -19,14 +19,9 @@ const props = defineProps<{
 
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
-const palette = colorPalette[darkMode.value ? 'dark' : 'light'].sort(() => Math.random() - 0.5)
-
-const colors = computed(() => {
-    return {
-        backgroundColor: palette,
-        hoverBackgroundColor: addOpacityToHexColors(palette, 0.7)
-    }
-})
+const generateRandomColor = () => {
+    return getRandomItemWithoutRepeat(colorPalette[darkMode.value ? 'dark' : 'light'])
+}
 
 const data = computed<ChartData>(() => {
     return {
@@ -34,8 +29,7 @@ const data = computed<ChartData>(() => {
         datasets: [
             {
                 data: props.chartData,
-                backgroundColor: colors.value.backgroundColor,
-                hoverBackgroundColor: colors.value.hoverBackgroundColor,
+                backgroundColor: generateRandomColor(),
                 borderWidth: 3,
                 borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
             }

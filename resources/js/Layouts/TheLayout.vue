@@ -4,6 +4,8 @@ import type { PageProps } from '@/types'
 import { usePage } from '@inertiajs/vue3'
 import { defineAsyncComponent, onMounted } from 'vue'
 
+import TheThemeSwitcher from '@/Components/theme-switcher/TheThemeSwitcher.vue'
+
 import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
 
 const EnigmaTheme = defineAsyncComponent(() => import('@/Layouts/enigma/EnigmaTheme.vue'))
@@ -49,6 +51,8 @@ onMounted(() => {
             <tinker-theme v-if="settingsStore.theme === 'tinker'">
                 <slot></slot>
             </tinker-theme>
+
+            <the-theme-switcher></the-theme-switcher>
         </div>
     </suspense>
 </template>

@@ -7,7 +7,7 @@ import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { abbreviationMonths } from '@/utils/constants'
-import { getLocale } from '@/utils/i18n'
+import { $t, getLocale } from '@/utils/i18n'
 
 const BaseLineChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseLineChart.vue'))
 
