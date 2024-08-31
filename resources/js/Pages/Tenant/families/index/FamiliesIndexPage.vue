@@ -9,7 +9,7 @@ import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import { getDataForIndexPages, handleSort } from '@/utils/helper'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
 import { $tc } from '@/utils/i18n'
 
 const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/families/index/DataTable.vue'))
@@ -104,6 +104,7 @@ const showDeleteModal = (familyId: string) => {
     <suspense>
         <div>
             <the-table-header
+                :exportable="hasPermission('export_families')"
                 :filters="familiesFilters"
                 :pagination-data="families"
                 :params="params"
@@ -112,13 +113,13 @@ const showDeleteModal = (familyId: string) => {
                 entries="families"
                 export-pdf-url="tenant.families.export.pdf"
                 export-xlsx-url="tenant.families.export.xlsx"
-                exportable
                 filterable
                 searchable
                 @change-filters="params.filters = $event"
             >
                 <template #ExtraButtons>
                     <base-button
+                        v-if="hasPermission('create_families')"
                         class="me-2 shadow-md"
                         variant="primary"
                         @click.prevent="router.get(route('tenant.families.create'))"

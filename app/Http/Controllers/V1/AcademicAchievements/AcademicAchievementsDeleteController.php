@@ -8,15 +8,17 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class AcademicAchievementsDeleteController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return [
+            'can:update_orphans',
+        ];
+    }
+
     public function __invoke(AcademicAchievement $academicAchievement)
     {
         $academicAchievement->delete();
 
         return redirect()->back();
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

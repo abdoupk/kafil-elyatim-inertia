@@ -95,7 +95,7 @@ const modalType = computed(() => {
     return rolesStore.role.uuid ? 'update' : 'create'
 })
 
-const checkAll = (model: string, checked: boolean) => {
+const checkAll = (model: keyof typeof permissions, checked: boolean) => {
     if (checked) {
         permissions[model].forEach((permission: string) => {
             form.value.permissions[`${permission}_${model}`] = true
@@ -145,12 +145,13 @@ const checkAll = (model: string, checked: boolean) => {
                         <h2 class="mb-2 mt-2 text-base/relaxed ltr:font-medium rtl:font-bold">
                             {{ $t(`the_${key}`) }}
                         </h2>
-
+                        
+                        <!--@vue-ignore-->
                         <base-form-check-input
                             :id="key"
                             class="mt-3"
                             type="checkbox"
-                            @change="checkAll(key, $event.target.checked)"
+                            @change="checkAll(key, $event.target?.checked)"
                         ></base-form-check-input>
                     </div>
 

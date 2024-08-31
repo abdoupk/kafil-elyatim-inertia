@@ -317,7 +317,7 @@ export const permissions = {
     sponsors: ['delete', 'export', 'list', 'update', 'view'],
     zones: ['create', 'delete', 'list', 'update', 'view'],
     financial_transactions: ['create', 'delete', 'export', 'list', 'update', 'view'],
-    inventory: ['create', 'delete', 'list', 'update', 'view'],
+    inventory: ['add_to_inventory', 'delete_from_inventory', 'list_items', 'update_inventory', 'view_item'],
     settings: ['update', 'view'],
     occasions: ['save', 'view', 'export'],
     needs: ['create', 'delete', 'list', 'update', 'view'],

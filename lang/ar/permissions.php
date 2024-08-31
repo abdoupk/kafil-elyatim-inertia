@@ -12,4 +12,9 @@ return [
     'restore' => 'استعادة',
     'save' => 'حفظ',
     'destroy' => 'حذف',
+    'add_to_inventory' => 'اضافة للمخزن',
+    'delete_from_inventory' => 'حذف من المخزن',
+    'list_items' => 'عرض العناصر',
+    'update_inventory' => 'تعديل  عناصر المخزن',
+    'view_item' => 'عرض التفاصيل',
 ];

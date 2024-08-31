@@ -21,7 +21,6 @@ class PermissionSeeder extends Seeder
             'sponsors' => ['delete', 'export', 'list', 'update', 'view'],
             'zones' => ['create', 'delete', 'list', 'update', 'view'],
             'financial_transactions' => ['create', 'delete', 'export', 'list', 'update', 'view'],
-            'inventory' => ['create', 'delete', 'list', 'update', 'view'],
             'settings' => ['update', 'view'],
             'needs' => ['create', 'delete', 'list', 'update', 'view'],
             'schools' => ['create', 'delete', 'list', 'update', 'view'],
@@ -31,10 +30,16 @@ class PermissionSeeder extends Seeder
             'occasions' => ['save', 'view', 'export'],
         ];
 
+        $inventoryPermissions = ['add_to_inventory', 'delete_from_inventory', 'list_items', 'update_inventory', 'view_item'];
+
         foreach ($permissions as $key => $value) {
             foreach ($value as $permission) {
                 Permission::create(['name' => $permission.'_'.$key, 'guard_name' => 'web']);
             }
+        }
+
+        foreach ($inventoryPermissions as $item) {
+            Permission::create(['name' => $item, 'guard_name' => 'web']);
         }
     }
 }
