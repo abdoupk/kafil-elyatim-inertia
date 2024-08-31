@@ -10,6 +10,7 @@ import { computed } from 'vue'
 
 import { $t, getLocale } from '@/utils/i18n'
 
+
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
@@ -490,8 +491,20 @@ function getRandomItemWithoutRepeat(items) {
     return itemsCopy.splice(randomIndex, 1)[0]
 }
 
+const groupRecentActivitiesByDate = (activities) => {
+    return activities.reduce((acc, item) => {
+        const date = dayjs(item.dateTime).format('YYYY-MM-DD')
+        if (!acc[date]) {
+            acc[date] = []
+        }
+        acc[date].push(item)
+        return acc
+    }, {})
+}
+
 export {
     isEqual,
+    groupRecentActivitiesByDate,
     hasPermission,
     getRandomItemWithoutRepeat,
     isOlderThan,
