@@ -13,6 +13,7 @@ import { ZiggyVue } from 'ziggy-js'
 
 import { usePersistStore } from '@/utils/pinia'
 
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 const pinia = createPinia()
@@ -31,7 +32,6 @@ createInertiaApp({
             .use(ZiggyVue)
 
         app.config.errorHandler = (err, instance, info) => {
-            console.log(err, instance, info)
             if (isAxiosError(err)) {
                 switch (err.response?.status) {
                     case 401:
