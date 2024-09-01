@@ -103,6 +103,7 @@ class Family extends Model
         'deleted_by',
         'file_number',
         'income_rate',
+        'total_income',
         'start_date',
         'branch_id',
     ];

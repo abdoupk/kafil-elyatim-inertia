@@ -7,10 +7,14 @@ use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Jobs\V1\Family\FamilyCreatedJob;
 use App\Models\Family;
 use App\Models\Orphan;
+use App\Models\Sponsor;
+use DB;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Throwable;
 
 class FamilyStoreController extends Controller implements HasMiddleware
 {
@@ -19,25 +23,63 @@ class FamilyStoreController extends Controller implements HasMiddleware
         return ['can:create_families'];
     }
 
+    /**
+     * @throws Throwable
+     */
     public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
-        $family = Family::create(
-            [
-                ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
-                'name' => $request->validated('spouse.first_name').'  '.$request->validated('spouse.last_name'),
-            ]
-        );
+        DB::transaction(function () use ($request) {
+            $family = Family::create(
+                [
+                    ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
+                    'name' => $request->validated('spouse.first_name').'  '.$request->validated('spouse.last_name'),
+                ]
+            );
 
-        $sponsor = $family->sponsor()->create([...$request->validated('sponsor'), 'total_income' => array_sum($request->validated('incomes'))]);
-        $sponsor->incomes()->create($request->validated('incomes'));
+            $sponsor = $this->storeSponsor($request, $family);
 
+            $this->storePreview($request, $family);
+
+            $this->storeOrphans($request, $family, $sponsor);
+
+            $family->secondSponsor()->create($request->validated('second_sponsor'));
+
+            $family->deceased()->create($request->validated('spouse'));
+
+            $this->storeHousingInformations($family, $request);
+
+            $this->storeSponsorships($family, $request, $sponsor);
+
+            dispatch(new FamilyCreatedJob($family, auth()->user()));
+        });
+
+        return response('', 201);
+    }
+
+    private function storeSponsor(CreateFamilyRequest $request, Model|Family $family): Sponsor
+    {
+        $sponsor = $family->sponsor()->create([...$request->validated('sponsor')]);
+
+        $sponsor->incomes()->create([
+            ...$request->validated('incomes'),
+            'total_income' => array_sum($request->validated('incomes')),
+        ]);
+
+        return $sponsor;
+    }
+
+    private function storePreview(CreateFamilyRequest $request, Model|Family $family): void
+    {
         $preview = $family->preview()->create([
             'preview_date' => $request->validated('preview_date'),
             'report' => $request->validated('report'),
         ]);
 
         $preview->inspectors()->sync($request->validated('inspectors_members'));
+    }
 
+    public function storeOrphans(CreateFamilyRequest $request, Model|Family $family, Sponsor $sponsor): void
+    {
         /** @var array<Orphan> $orphans */
         $validatedOrphans = $request->orphans;
         $babiesToCreate = [];
@@ -78,11 +120,17 @@ class FamilyStoreController extends Controller implements HasMiddleware
         if (! empty($babiesToCreate)) {
             $family->babies()->createMany($babiesToCreate);
         }
+    }
 
-        $family->secondSponsor()->create($request->validated('second_sponsor'));
+    public function storeSponsorships(Model|Family $family, CreateFamilyRequest $request, Sponsor $sponsor): void
+    {
+        $family->sponsorships()->create($request->validated('family_sponsorship'));
 
-        $family->deceased()->create($request->validated('spouse'));
+        $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
+    }
 
+    public function storeHousingInformations(Model|Family $family, CreateFamilyRequest $request): void
+    {
         $family->housing()->create([
             'name' => $request->validated('housing.housing_type.name'),
             'value' => $request->validated('housing.housing_type.value'),
@@ -92,13 +140,5 @@ class FamilyStoreController extends Controller implements HasMiddleware
         ]);
 
         $family->furnishings()->create($request->validated('furnishings'));
-
-        $family->sponsorships()->create($request->validated('family_sponsorship'));
-
-        $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
-
-        dispatch(new FamilyCreatedJob($family, auth()->user()));
-
-        return response(['family' => $family->id], 201);
     }
 }

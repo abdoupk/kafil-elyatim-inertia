@@ -674,6 +674,7 @@
     "validation.attributes.sponsor.academic_level": "المستوى الدراسي",
     "validation.attributes.sponsor.function": "الوظيفة",
     "validation.attributes.sponsor.academic_level_id": "المستوى الدراسي",
+    "validation.attributes.sponsor.ccp": "رقم الحساب البريدي الجاري",
     "validation.attributes.academic_level_id": "المستوى الدراسي",
     "validation.attributes.spouse.function": "الوظيفة قبل الوفاة",
     "validation.attributes.sponsor.health_status": "الحالة الصحية",

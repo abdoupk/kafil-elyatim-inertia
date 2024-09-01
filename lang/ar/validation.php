@@ -238,6 +238,7 @@ return [
         'sponsor.academic_level' => 'المستوى الدراسي',
         'sponsor.function' => 'الوظيفة',
         'sponsor.academic_level_id' => 'المستوى الدراسي',
+        'sponsor.ccp' => 'رقم الحساب البريدي الجاري',
         'academic_level_id' => 'المستوى الدراسي',
         'spouse.function' => 'الوظيفة قبل الوفاة',
         'sponsor.health_status' => 'الحالة الصحية',

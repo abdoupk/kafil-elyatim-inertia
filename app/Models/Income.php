@@ -66,6 +66,7 @@ class Income extends Model
         'pension',
         'account',
         'other_income',
+        'total_income',
         'sponsor_id',
     ];
 

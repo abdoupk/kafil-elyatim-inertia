@@ -4,7 +4,7 @@ create table if not exists orphans
     "first_name"             text                           not null,
     "last_name"              text                           not null,
     "birth_date"             date                           not null,
-    "family_status"          text                           not null,
+    "family_status"          text                           null,
     "health_status"          text                           not null,
     "academic_level_id"      integer                        null,
     "vocational_training_id" integer                        null,
