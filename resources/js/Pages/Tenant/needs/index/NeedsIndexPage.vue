@@ -3,7 +3,7 @@ import type { IndexParams, NeedsIndexResource, PaginationData } from '@/types/ty
 
 import { useNeedsStore } from '@/stores/needs'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -41,7 +41,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -84,7 +84,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteNeed = () => {
     router.delete(route('tenant.needs.destroy', selectedNeedId.value), {
@@ -93,11 +93,11 @@ const deleteNeed = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.needs.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.needs.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.needs.index'), params, {
+            getDataForIndexPages(route('tenant.needs.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

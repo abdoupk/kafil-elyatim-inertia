@@ -3,7 +3,7 @@ import type { IndexParams, OrphansIndexResource, PaginationData } from '@/types/
 
 import { orphansFilters } from '@/constants/filters'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -33,7 +33,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -65,11 +65,11 @@ const deleteOrphan = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.orphans.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.orphans.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.orphans.index'), params, {
+            getDataForIndexPages(route('tenant.orphans.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },
@@ -93,7 +93,7 @@ const showDeleteModal = (orphanId: string) => {
     deleteModalStatus.value = true
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 </script>
 
 <template>

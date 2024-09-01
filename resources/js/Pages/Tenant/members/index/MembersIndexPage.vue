@@ -3,7 +3,7 @@ import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/
 
 import { useMembersStore } from '@/stores/members'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -39,7 +39,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -70,7 +70,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteMember = () => {
     router.delete(route('tenant.members.destroy', selectedMemberId.value), {
@@ -79,11 +79,11 @@ const deleteMember = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.members.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.members.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.members.index'), params, {
+            getDataForIndexPages(route('tenant.members.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

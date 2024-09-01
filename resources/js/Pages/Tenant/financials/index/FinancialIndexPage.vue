@@ -3,7 +3,7 @@ import type { FinancialTransactionsIndexResource, IndexParams, PaginationData } 
 
 import { useFinancialTransactionsStore } from '@/stores/financial-transactions'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -41,7 +41,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -82,7 +82,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteFinancialTransaction = () => {
     router.delete(route('tenant.financial.destroy', selectedFinancialTransactionId.value), {
@@ -91,11 +91,11 @@ const deleteFinancialTransaction = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.finances.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.finances.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.financial.index'), params, {
+            getDataForIndexPages(route('tenant.financial.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

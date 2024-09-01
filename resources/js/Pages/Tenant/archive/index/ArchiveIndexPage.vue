@@ -2,7 +2,7 @@
 import type { ArchiveIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -25,7 +25,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page
 })

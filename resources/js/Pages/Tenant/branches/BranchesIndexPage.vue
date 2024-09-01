@@ -4,7 +4,7 @@ import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types
 import { branchedFilters } from '@/constants/filters'
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -40,7 +40,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -71,7 +71,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteBranch = () => {
     router.delete(route('tenant.branches.destroy', selectedBranchId.value), {
@@ -80,11 +80,11 @@ const deleteBranch = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.branches.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.branches.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.branches.index'), params, {
+            getDataForIndexPages(route('tenant.branches.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

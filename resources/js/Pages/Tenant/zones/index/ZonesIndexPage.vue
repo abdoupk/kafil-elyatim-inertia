@@ -4,7 +4,7 @@ import type { IndexParams, PaginationData, ZonesIndexResource } from '@/types/ty
 import { zonesFilters } from '@/constants/filters'
 import { useZonesStore } from '@/stores/zones'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -36,7 +36,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -71,7 +71,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteZone = () => {
     router.delete(route('tenant.zones.destroy', selectedZoneId.value), {
@@ -80,11 +80,11 @@ const deleteZone = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.zones.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.zones.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.zones.index'), params, {
+            getDataForIndexPages(route('tenant.zones.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

@@ -2,7 +2,7 @@
 import type { ArchiveOccasionType, BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -31,7 +31,7 @@ const props = defineProps<{
     archive: ArchiveOccasionType
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -41,7 +41,7 @@ const params = reactive<IndexParams>({
     archive: props.archive.id
 })
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 </script>
 
 <template>

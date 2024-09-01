@@ -3,7 +3,7 @@ import type { IndexParams, InventoryIndexResource, PaginationData } from '@/type
 
 import { useInventoryStore } from '@/stores/inventory'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -42,7 +42,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -83,7 +83,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteItem = () => {
     router.delete(route('tenant.inventory.destroy', selectedItemId.value), {
@@ -92,11 +92,11 @@ const deleteItem = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.items.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.items.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.financial.index'), params, {
+            getDataForIndexPages(route('tenant.financial.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

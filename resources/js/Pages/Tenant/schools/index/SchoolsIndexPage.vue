@@ -4,7 +4,7 @@ import type { IndexParams, PaginationData, SchoolsIndexResource } from '@/types/
 
 import { useSchoolsStore } from '@/stores/schools'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref, watchEffect } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -41,7 +41,7 @@ const props = defineProps<{
     subjects: SubjectType[]
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -72,7 +72,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteSchool = () => {
     router.delete(route('tenant.schools.destroy', selectedSchoolId.value), {
@@ -81,11 +81,11 @@ const deleteSchool = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.schools.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.schools.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.schools.index'), params, {
+            getDataForIndexPages(route('tenant.schools.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },

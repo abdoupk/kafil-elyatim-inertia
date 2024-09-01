@@ -10,7 +10,7 @@ import ExportMenu from '@/Components/Global/ExportMenu.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { debounce, formatFilters, formatParams, getDataForIndexPages, isEmpty } from '@/utils/helper'
-import { $tc } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     url: string
@@ -107,8 +107,18 @@ const handleExport = (params: IndexParams) => {
                 @reset-filter="handleFilterReset"
             ></advanced-filter>
 
-            <!--TODO remove if has filters-->
-            <div v-if="params.filters?.length" class="">remove pre filters {{ params.filters?.length }}</div>
+            <div
+                v-if="params.filters?.length"
+                class="ms-2 rounded-full bg-primary/20 px-2 py-1 text-primary dark:bg-darkmode-100/20 dark:text-slate-400"
+            >
+                <span> {{ $t('filters.active', { count: String(params.filters.length) }) }}</span>
+
+                <svg-loader
+                    class="ms-1 inline h-4 w-4 fill-slate-400 hover:cursor-pointer"
+                    name="icon-x-mark"
+                    @click.prevent="handleFilterReset"
+                ></svg-loader>
+            </div>
 
             <div class="ms-auto text-slate-500 md:mx-auto">
                 <span v-if="paginationData.meta.total > 0">

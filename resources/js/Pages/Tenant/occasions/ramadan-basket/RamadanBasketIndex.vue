@@ -4,7 +4,7 @@ import type { ArchiveOccasionType, IndexParams, PaginationData, RamadanBasketFam
 import { ramadanBasketFilters } from '@/constants/filters'
 import { useSettingsStore } from '@/stores/settings'
 import { Head } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -37,7 +37,7 @@ const props = defineProps<{
     archive: ArchiveOccasionType
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -52,10 +52,10 @@ const loading = ref(false)
 
 const showWarningModalStatus = ref(false)
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const save = () => {
-    getDataForIndexPages(route('tenant.occasions.ramadan-basket.save-to-archive'), params, {
+    getDataForIndexPages(route('tenant.occasions.ramadan-basket.save-to-archive'), params.value, {
         onStart: () => {
             loading.value = true
         },

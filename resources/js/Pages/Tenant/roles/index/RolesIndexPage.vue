@@ -3,7 +3,7 @@ import type { IndexParams, PaginationData, RolesIndexResource } from '@/types/ty
 
 import { useRolesStore } from '@/stores/roles'
 import { Head, router } from '@inertiajs/vue3'
-import { defineAsyncComponent, reactive, ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -39,7 +39,7 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
@@ -68,7 +68,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const sort = (field: string) => handleSort(field, params)
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteRole = () => {
     router.delete(route('tenant.roles.destroy', selectedRoleId.value), {
@@ -77,11 +77,11 @@ const deleteRole = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.roles.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.roles.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            getDataForIndexPages(route('tenant.roles.index'), params, {
+            getDataForIndexPages(route('tenant.roles.index'), params.value, {
                 onStart: () => {
                     closeDeleteModal()
                 },
