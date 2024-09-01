@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { RecentActivitiesType } from '@/types/dashboard'
 
 import { Link } from '@inertiajs/vue3'
@@ -30,7 +32,7 @@ const isCurrentDay = (date: Date) => {
                 v-if="recentActivities.length > 0"
                 class="relative mt-5 before:absolute before:ms-5 before:mt-5 before:block before:h-[85%] before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
             >
-                <template v-for="(b, key, index) in a">
+                <template v-for="(b, key) in a">
                     <div v-if="!isCurrentDay(key)" class="intro-x my-4 text-center text-xs text-slate-500">
                         {{ formatDate(key, 'long') }}
                     </div>

@@ -4,6 +4,7 @@ import { router, usePage } from '@inertiajs/vue3'
 
 import { pathNameOfCurrentPage, slideDown, slideUp } from '@/utils/helper'
 
+
 const findActiveMenu = (subMenu: IMenu[], route: ILocation) => {
     let match = false
 
@@ -49,7 +50,7 @@ const nestedMenu = (menu: Array<IMenu | 'divider'>, route: ILocation) => {
 
             formattedMenu.push(menuItem)
         } else {
-            formattedMenu.push(item)
+            if (item === 'divider') formattedMenu.push(item)
         }
     })
 
