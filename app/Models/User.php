@@ -134,64 +134,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function settings(): HasOne
-    {
-        return $this->hasOne(Settings::class);
-    }
-
-    public function zone(): BelongsTo
-    {
-        return $this->belongsTo(Zone::class);
-    }
-
-    public function branch(): BelongsTo
-    {
-        return $this->belongsTo(Branch::class);
-    }
-
-    public function searchableAs(): string
-    {
-        return 'users';
-    }
-
-    public function makeSearchableUsing(Collection $models): Collection
-    {
-        return $models->load('roles');
-    }
-
-    public function shouldBeSearchable(): bool
-    {
-        return ! $this->roles()->pluck('name')->contains('super_admin');
-    }
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->getName(),
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'gender' => $this->gender,
-            'tenant_id' => $this->tenant_id,
-            'created_at' => $this->created_at,
-        ];
-    }
-
-    public function getName(): string
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
-    public function previews(): BelongsToMany
-    {
-        return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
-    }
-
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
     protected static function boot(): void
     {
         parent::boot();
@@ -227,6 +169,64 @@ class User extends Authenticatable
                 $model->save();
             }
         });
+    }
+
+    public function settings(): HasOne
+    {
+        return $this->hasOne(Settings::class);
+    }
+
+    public function zone(): BelongsTo
+    {
+        return $this->belongsTo(Zone::class);
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'users';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load('roles');
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ! $this->roles->pluck('name')->contains('super_admin');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->getName(),
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'gender' => $this->gender,
+            'tenant_id' => $this->tenant_id,
+            'created_at' => $this->created_at,
+        ];
+    }
+
+    public function getName(): string
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function previews(): BelongsToMany
+    {
+        return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     /**
