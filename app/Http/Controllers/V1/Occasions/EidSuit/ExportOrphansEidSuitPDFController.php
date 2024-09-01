@@ -22,6 +22,6 @@ class ExportOrphansEidSuitPDFController extends Controller implements HasMiddlew
     {
         return saveToPDF('occasions/eid-suit', 'sponsorships', function () {
             return listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport();
-        });
+        }, now()->year);
     }
 }

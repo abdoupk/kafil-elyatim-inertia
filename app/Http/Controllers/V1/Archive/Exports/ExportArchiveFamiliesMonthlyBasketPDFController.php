@@ -24,6 +24,6 @@ class ExportArchiveFamiliesMonthlyBasketPDFController extends Controller impleme
     {
         return saveArchiveToPDF('monthly-basket-families', function () {
             return listOfFamiliesBenefitingFromTheMonthlyBasketForExport();
-        }, $archive->created_at->format('m-Y'));
+        }, $archive->created_at->translatedFormat('F Y'));
     }
 }

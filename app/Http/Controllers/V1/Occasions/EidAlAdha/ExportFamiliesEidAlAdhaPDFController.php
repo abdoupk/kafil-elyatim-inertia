@@ -23,6 +23,6 @@ class ExportFamiliesEidAlAdhaPDFController extends Controller implements HasMidd
     {
         return saveToPDF('occasions/eid-al-adha-families', 'sponsorships', function () {
             return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport();
-        });
+        }, now()->year);
     }
 }

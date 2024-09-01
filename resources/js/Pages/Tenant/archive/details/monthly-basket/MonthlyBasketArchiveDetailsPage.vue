@@ -41,7 +41,7 @@ const params = ref<IndexParams>({
 </script>
 
 <template>
-    <Head :title="$t('exports.archive.monthly_basket', { date: String(archive.date) })"></Head>
+    <Head :title="$t('exports.archive.monthly_basket_families', { date: String(archive.date) })"></Head>
 
     <suspense>
         <div>
@@ -50,7 +50,7 @@ const params = ref<IndexParams>({
                 :filters="[]"
                 :pagination-data="families"
                 :params="params"
-                :title="$t('exports.archive.monthly_basket', { date: String(archive.date) })"
+                :title="$t('exports.archive.monthly_basket_families', { date: String(archive.date) })"
                 :url="route('tenant.occasions.monthly-basket.index')"
                 entries="families"
                 export-pdf-url="tenant.archive.export.monthly-basket.pdf"

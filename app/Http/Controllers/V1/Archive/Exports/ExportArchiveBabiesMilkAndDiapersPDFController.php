@@ -24,6 +24,6 @@ class ExportArchiveBabiesMilkAndDiapersPDFController extends Controller implemen
     {
         return saveArchiveToPDF('babies-milk-and-diapers', function () {
             return getBabiesForExport();
-        }, $archive->created_at->format('m-Y'), 'babies');
+        }, $archive->created_at->translatedFormat('F Y'), 'babies');
     }
 }

@@ -22,6 +22,6 @@ class ExportOrphansSchoolEntryPDFController extends Controller implements HasMid
     {
         return saveToPDF('occasions/school-entry', 'sponsorships', function () {
             return listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport();
-        });
+        }, now()->year);
     }
 }

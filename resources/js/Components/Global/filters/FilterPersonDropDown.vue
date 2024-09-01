@@ -7,6 +7,8 @@ import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
 import FilterValueDropDownListOption from '@/Components/Global/filters/FilterValueDropDownListOption.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
+import { $t } from '@/utils/i18n'
+
 const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
@@ -109,7 +111,7 @@ function handleUpdateModelValue(selected) {
                         v-if="filteredOptions.length === 0 && !isLoading && !queryOption && !props.createOption"
                         class="relative cursor-default select-none px-4 py-2 text-gray-700"
                     >
-                        Nothing found.
+                        {{ $t('No results found.') }}
                     </div>
 
                     <div

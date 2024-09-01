@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
  * @throws Throwable
  * @throws CouldNotTakeBrowsershot
  */
-function saveToPDF(string $directory, string $variableName, callable $function): StreamedResponse
+function saveToPDF(string $directory, string $variableName, callable $function, $date = null): StreamedResponse
 {
     $disk = Storage::disk('public');
 
@@ -26,13 +26,20 @@ function saveToPDF(string $directory, string $variableName, callable $function):
         $disk->makeDirectory($directory);
     }
 
-    $pdfName = __('exports.'.Str::replace('-', '_', explode('/', "{$directory}/{$variableName}")[1]));
+    $pdfName = Str::replace('-', '_', explode('/', "{$directory}/{$variableName}")[1]);
 
-    $pdfFile = "{$directory}/{$pdfName}".'_'.now()->format('y-m-d').'.pdf';
+    $pdfName = __('exports.'.$pdfName, [
+        'date' => $date,
+    ]);
+
+    $pdfFile = "{$directory}/{$pdfName}".'.pdf';
 
     $pdfPath = $disk->path($pdfFile);
 
-    Browsershot::html(view("pdf.{$directory}", [$variableName => $function()])
+    Browsershot::html(view("pdf.{$directory}", [
+        $variableName => $function(),
+        'title' => $pdfName,
+    ])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()
@@ -63,7 +70,10 @@ function saveArchiveToPDF(string $directory, callable $function, string $date, ?
 
     $pdfPath = $disk->path($pdfFile);
 
-    Browsershot::html(view("pdf.occasions.{$directory}", [$variableName => $function()])
+    Browsershot::html(view("pdf.occasions.{$directory}", [
+        $variableName => $function(),
+        'title' => $pdfName,
+    ])
         ->render())
         ->ignoreHttpsErrors()
         ->noSandbox()

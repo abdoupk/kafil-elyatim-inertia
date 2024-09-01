@@ -1,4 +1,8 @@
 <x-table>
+    <x-slot name="title">
+        {{ $title ?? '' }}
+    </x-slot>
+
     <x-slot name="thead">
         <x-th class="">
             <span> #</span>

@@ -2,7 +2,7 @@
 import type { ArchiveOccasionType, BabiesMilkAndDiapersResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Head } from '@inertiajs/vue3'
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 

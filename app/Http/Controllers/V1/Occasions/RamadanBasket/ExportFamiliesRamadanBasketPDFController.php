@@ -21,6 +21,6 @@ class ExportFamiliesRamadanBasketPDFController extends Controller
     {
         return saveToPDF('occasions/ramadan-basket-families', 'sponsorships', function () {
             return listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport();
-        });
+        }, now()->year);
     }
 }

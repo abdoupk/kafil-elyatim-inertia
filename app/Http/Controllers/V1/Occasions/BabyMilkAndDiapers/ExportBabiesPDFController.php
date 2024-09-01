@@ -23,6 +23,6 @@ class ExportBabiesPDFController extends Controller implements HasMiddleware
     {
         return saveToPDF('occasions/babies-milk-and-diapers', 'babies', function () {
             return getBabiesForExport();
-        });
+        }, now()->translatedFormat('F Y'));
     }
 }
