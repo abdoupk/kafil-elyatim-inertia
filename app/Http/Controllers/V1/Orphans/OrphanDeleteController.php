@@ -9,11 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class OrphanDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_orphans'];
-    }
-
     public function __invoke(Orphan $orphan)
     {
         $orphan->deleteWithRelations();
@@ -21,5 +16,10 @@ class OrphanDeleteController extends Controller implements HasMiddleware
         dispatch(new OrphanTrashedJob($orphan, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_orphans'];
     }
 }

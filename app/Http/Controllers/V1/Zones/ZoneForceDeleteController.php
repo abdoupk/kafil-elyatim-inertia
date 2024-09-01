@@ -8,10 +8,10 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ZoneForceDeleteController extends Controller implements HasMiddleware
 {
+    public function __invoke(Zone $zone) {}
+
     public static function middleware()
     {
         return ['can:destroy_trash'];
     }
-
-    public function __invoke(Zone $zone) {}
 }

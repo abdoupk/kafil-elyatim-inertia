@@ -108,25 +108,6 @@ class Family extends Model
         'branch_id',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($family) {
-            if (auth()->id()) {
-                $family->deleted_by = auth()->id();
-
-                $family->save();
-            }
-        });
-    }
-
     public function unSearchWithRelations(): void
     {
         $this->unsearchable();
@@ -345,6 +326,25 @@ class Family extends Model
     public function preview(): HasOne
     {
         return $this->hasOne(Preview::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($family) {
+            if (auth()->id()) {
+                $family->deleted_by = auth()->id();
+
+                $family->save();
+            }
+        });
     }
 
     protected function casts(): array

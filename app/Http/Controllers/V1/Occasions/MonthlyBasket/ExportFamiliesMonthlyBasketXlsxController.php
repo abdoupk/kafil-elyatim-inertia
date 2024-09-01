@@ -10,11 +10,6 @@ use PhpOffice\PhpSpreadsheet\Exception;
 
 class ExportFamiliesMonthlyBasketXlsxController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_occasions'];
-    }
-
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
@@ -22,5 +17,10 @@ class ExportFamiliesMonthlyBasketXlsxController extends Controller implements Ha
     public function __invoke()
     {
         return Excel::download(new FamiliesMonthlyBasketIndexExport, __('exports.monthly_basket', ['date' => now()->translatedFormat('F Y')]).'.xlsx');
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
     }
 }

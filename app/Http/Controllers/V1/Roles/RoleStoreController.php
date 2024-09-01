@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class RoleStoreController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:create_roles'];
-    }
-
     public function __invoke(RoleCreateRequest $request)
     {
         $role = Role::create($request->only('name'));
@@ -28,5 +23,10 @@ class RoleStoreController extends Controller implements HasMiddleware
         dispatch(new RoleCreatedJob($role, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:create_roles'];
     }
 }

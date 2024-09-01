@@ -11,11 +11,6 @@ use Throwable;
 
 class ExportArchiveFamiliesMonthlyBasketPDFController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_archive'];
-    }
-
     /**
      * @throws Throwable
      * @throws CouldNotTakeBrowsershot
@@ -25,5 +20,10 @@ class ExportArchiveFamiliesMonthlyBasketPDFController extends Controller impleme
         return saveArchiveToPDF('monthly-basket-families', function () {
             return listOfFamiliesBenefitingFromTheMonthlyBasketForExport();
         }, $archive->created_at->translatedFormat('F Y'));
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_archive'];
     }
 }

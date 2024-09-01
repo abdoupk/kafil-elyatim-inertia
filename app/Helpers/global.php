@@ -228,7 +228,7 @@ function getUsersShouldBeNotified(array $permissions, User $userToExclude, strin
 {
     return User::with(['roles.permissions'])
         ->whereHas('settings', function ($query) use ($notificationType) {
-            return $query->where("notifications->$notificationType", true);
+            return $query->where("notifications->{$notificationType}", true);
         })
         ->where(function ($query) use ($permissions) {
             $query->whereHas('roles', function ($query) {

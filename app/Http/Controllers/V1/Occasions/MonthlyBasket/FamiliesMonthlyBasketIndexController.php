@@ -10,11 +10,6 @@ use Inertia\Inertia;
 
 class FamiliesMonthlyBasketIndexController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:view_occasions'];
-    }
-
     public function __invoke()
     {
         return Inertia::render('Tenant/occasions/monthly-basket/MonthlyBasketIndex', [
@@ -23,5 +18,10 @@ class FamiliesMonthlyBasketIndexController extends Controller implements HasMidd
             'archive' => fn () => Archive::with('savedBy:id,first_name,last_name')->whereOccasion('monthly_basket')
                 ->whereMonth('created_at', now()->month)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        return ['can:view_occasions'];
     }
 }

@@ -10,11 +10,6 @@ use Throwable;
 
 class ExportFamiliesEidAlAdhaPDFController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_occasions'];
-    }
-
     /**
      * @throws Throwable
      * @throws CouldNotTakeBrowsershot
@@ -24,5 +19,10 @@ class ExportFamiliesEidAlAdhaPDFController extends Controller implements HasMidd
         return saveToPDF('occasions/eid-al-adha-families', 'sponsorships', function () {
             return listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport();
         }, now()->year);
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
     }
 }

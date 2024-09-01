@@ -11,11 +11,6 @@ use Throwable;
 
 class ExportArchiveBabiesMilkAndDiapersPDFController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_archive'];
-    }
-
     /**
      * @throws Throwable
      * @throws CouldNotTakeBrowsershot
@@ -25,5 +20,10 @@ class ExportArchiveBabiesMilkAndDiapersPDFController extends Controller implemen
         return saveArchiveToPDF('babies-milk-and-diapers', function () {
             return getBabiesForExport();
         }, $archive->created_at->translatedFormat('F Y'), 'babies');
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_archive'];
     }
 }

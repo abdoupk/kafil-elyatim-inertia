@@ -11,11 +11,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportSponsorsXlsxController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_sponsors'];
-    }
-
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
@@ -23,5 +18,10 @@ class ExportSponsorsXlsxController extends Controller implements HasMiddleware
     public function __invoke(): BinaryFileResponse
     {
         return Excel::download(new SponsorsIndexExport, __('exports.sponsors').'.xlsx');
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_sponsors'];
     }
 }

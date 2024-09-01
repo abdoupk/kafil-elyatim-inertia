@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SponsorDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_sponsors'];
-    }
-
     public function __invoke(Sponsor $sponsor): RedirectResponse
     {
         $sponsor->deleteWithRelations();
@@ -22,5 +17,10 @@ class SponsorDeleteController extends Controller implements HasMiddleware
         dispatch(new SponsorTrashedJob($sponsor, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_sponsors'];
     }
 }

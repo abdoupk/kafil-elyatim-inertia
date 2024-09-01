@@ -9,11 +9,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExportOrphansSchoolEntryPDFController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_occasions'];
-    }
-
     /**
      * @throws \Throwable
      * @throws CouldNotTakeBrowsershot
@@ -23,5 +18,10 @@ class ExportOrphansSchoolEntryPDFController extends Controller implements HasMid
         return saveToPDF('occasions/school-entry', 'sponsorships', function () {
             return listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport();
         }, now()->year);
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
     }
 }

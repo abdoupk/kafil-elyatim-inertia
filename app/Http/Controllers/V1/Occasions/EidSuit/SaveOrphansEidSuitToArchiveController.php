@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SaveOrphansEidSuitToArchiveController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:save_occasions'];
-    }
-
     public function __invoke()
     {
         $archive = Archive::where('occasion', '=', 'eid_suit')
@@ -29,5 +24,10 @@ class SaveOrphansEidSuitToArchiveController extends Controller implements HasMid
             }), ['tenant_id' => tenant('id')]);
 
         dispatch(new EidSuitOrphansListSavedJob($archive, auth()->user()));
+    }
+
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
     }
 }

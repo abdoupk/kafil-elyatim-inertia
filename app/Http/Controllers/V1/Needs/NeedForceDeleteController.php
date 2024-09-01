@@ -8,10 +8,10 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class NeedForceDeleteController extends Controller implements HasMiddleware
 {
+    public function __invoke(Need $need) {}
+
     public static function middleware()
     {
         return ['can:destroy_trash'];
     }
-
-    public function __invoke(Need $need) {}
 }

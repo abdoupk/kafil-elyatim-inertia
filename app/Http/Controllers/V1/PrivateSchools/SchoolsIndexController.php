@@ -11,11 +11,6 @@ use Inertia\Inertia;
 
 class SchoolsIndexController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:list_schools'];
-    }
-
     public function __invoke()
     {
         return Inertia::render('Tenant/schools/index/SchoolsIndexPage', [
@@ -23,5 +18,10 @@ class SchoolsIndexController extends Controller implements HasMiddleware
             'subjects' => SubjectResource::collection(Subject::all()),
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        return ['can:list_schools'];
     }
 }

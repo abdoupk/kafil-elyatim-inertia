@@ -9,11 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class NeedDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_needs'];
-    }
-
     public function __invoke(Need $need)
     {
         $need->delete();
@@ -21,5 +16,10 @@ class NeedDeleteController extends Controller implements HasMiddleware
         dispatch(new NeedTrashedJob($need, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_needs'];
     }
 }

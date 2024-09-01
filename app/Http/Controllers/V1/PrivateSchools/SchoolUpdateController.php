@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SchoolUpdateController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:update_schools'];
-    }
-
     public function __invoke(SchoolUpdateRequest $request, PrivateSchool $school)
     {
         $school->update($request->only('name'));
@@ -28,5 +23,10 @@ class SchoolUpdateController extends Controller implements HasMiddleware
         dispatch(new SchoolUpdatedJob($school, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:update_schools'];
     }
 }

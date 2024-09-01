@@ -12,11 +12,6 @@ use Throwable;
 
 class SaveBabiesToArchiveController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:save_occasions'];
-    }
-
     /**
      * @throws Throwable
      */
@@ -33,6 +28,11 @@ class SaveBabiesToArchiveController extends Controller implements HasMiddleware
 
             $this->dispatchJob($archive);
         });
+    }
+
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
     }
 
     private function getOrCreateArchive()

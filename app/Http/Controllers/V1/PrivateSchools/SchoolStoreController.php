@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SchoolStoreController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:create_schools'];
-    }
-
     public function __invoke(SchoolCreateRequest $request)
     {
         $school = PrivateSchool::create($request->only('name'));
@@ -24,5 +19,10 @@ class SchoolStoreController extends Controller implements HasMiddleware
         dispatch(new SchoolCreatedJob($school, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:create_schools'];
     }
 }

@@ -93,7 +93,8 @@ class Preview extends Model
                 'name' => $this->family->name,
             ],
             'inspectors' => $this->inspectors->pluck('name')->toArray(),
-            'tenant_id' => $this->tenant_id, ];
+            'tenant_id' => $this->tenant_id,
+        ];
     }
 
     protected function casts(): array

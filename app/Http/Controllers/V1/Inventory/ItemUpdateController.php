@@ -13,11 +13,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ItemUpdateController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:update_inventory'];
-    }
-
     public function __invoke(ItemUpdateRequest $request, Inventory $item): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
         $item->update($request->validated());
@@ -25,5 +20,10 @@ class ItemUpdateController extends Controller implements HasMiddleware
         dispatch(new InventoryItemUpdatedJob($item, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:update_inventory'];
     }
 }

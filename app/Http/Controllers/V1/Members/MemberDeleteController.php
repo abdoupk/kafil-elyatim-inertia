@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class MemberDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_members'];
-    }
-
     public function __invoke(User $member): RedirectResponse
     {
         $member->delete();
@@ -22,5 +17,10 @@ class MemberDeleteController extends Controller implements HasMiddleware
         dispatch(new MemberTrashedJob($member, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_members'];
     }
 }

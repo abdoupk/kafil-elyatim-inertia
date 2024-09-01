@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FinancialStoreController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:create_financial_transactions'];
-    }
-
     public function __invoke(FinancialCreateRequest $request)
     {
         $finance = Finance::create([
@@ -26,5 +21,10 @@ class FinancialStoreController extends Controller implements HasMiddleware
         dispatch(new FinanceCreatedJob($finance, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:create_financial_transactions'];
     }
 }

@@ -13,11 +13,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ZoneStoreController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:create_zones'];
-    }
-
     public function __invoke(ZoneCreateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
         $zone = Zone::create($request->validated());
@@ -25,5 +20,10 @@ class ZoneStoreController extends Controller implements HasMiddleware
         dispatch(new ZoneCreatedJob($zone, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:create_zones'];
     }
 }

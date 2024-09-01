@@ -9,11 +9,6 @@ use App\Models\FamilySponsorship;
 
 class SaveFamiliesRamadanBasketToArchiveController extends Controller
 {
-    public static function middleware()
-    {
-        return ['can:save_occasions'];
-    }
-
     public function __invoke()
     {
         $archive = Archive::where('occasion', '=', 'ramadan_basket')
@@ -28,5 +23,10 @@ class SaveFamiliesRamadanBasketToArchiveController extends Controller
             }), ['tenant_id' => tenant('id')]);
 
         dispatch(new RamadanBasketFamiliesListSavedJob($archive, auth()->user()));
+    }
+
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
     }
 }

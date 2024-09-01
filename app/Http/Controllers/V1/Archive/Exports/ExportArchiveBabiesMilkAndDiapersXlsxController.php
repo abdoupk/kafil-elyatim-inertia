@@ -11,11 +11,6 @@ use PhpOffice\PhpSpreadsheet\Exception;
 
 class ExportArchiveBabiesMilkAndDiapersXlsxController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_archive'];
-    }
-
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
@@ -26,5 +21,10 @@ class ExportArchiveBabiesMilkAndDiapersXlsxController extends Controller impleme
             new BabiesIndexExport,
             __('exports.archive.babies_milk_and_diapers', ['date' => $archive->created_at->translatedFormat('F Y')]).'.xlsx'
         );
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_archive'];
     }
 }

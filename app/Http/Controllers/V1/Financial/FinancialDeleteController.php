@@ -9,11 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FinancialDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_financial_transactions'];
-    }
-
     public function __invoke(Finance $finance)
     {
         $finance->delete();
@@ -21,5 +16,10 @@ class FinancialDeleteController extends Controller implements HasMiddleware
         dispatch(new FinanceTrashedJob($finance, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_financial_transactions'];
     }
 }

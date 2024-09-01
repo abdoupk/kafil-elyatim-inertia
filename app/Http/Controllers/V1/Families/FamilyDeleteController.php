@@ -11,11 +11,6 @@ use Throwable;
 
 class FamilyDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_families'];
-    }
-
     /**
      * @throws Throwable
      */
@@ -30,5 +25,10 @@ class FamilyDeleteController extends Controller implements HasMiddleware
         dispatch(new FamilyTrashedJob($family, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_families'];
     }
 }

@@ -8,11 +8,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class UpdateCalculationWeightsController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:update_settings'];
-    }
-
     public function __invoke(UpdateCalculationWeightsRequest $request)
     {
         auth()->user()->tenant->update([
@@ -20,5 +15,10 @@ class UpdateCalculationWeightsController extends Controller implements HasMiddle
         ]);
 
         return response('', 204);
+    }
+
+    public static function middleware()
+    {
+        return ['can:update_settings'];
     }
 }

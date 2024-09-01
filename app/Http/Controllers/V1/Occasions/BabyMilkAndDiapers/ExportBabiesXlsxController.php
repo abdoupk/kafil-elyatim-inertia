@@ -11,11 +11,6 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportBabiesXlsxController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_occasions'];
-    }
-
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
@@ -25,5 +20,10 @@ class ExportBabiesXlsxController extends Controller implements HasMiddleware
         return Excel::download(new BabiesIndexExport, __('exports.babies_milk_and_diapers', [
             'date' => now()->translatedFormat('F Y'),
         ]).'.xlsx');
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
     }
 }

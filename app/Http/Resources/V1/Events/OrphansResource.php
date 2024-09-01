@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\V1\Events;
 
-use App\Models\Orphan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

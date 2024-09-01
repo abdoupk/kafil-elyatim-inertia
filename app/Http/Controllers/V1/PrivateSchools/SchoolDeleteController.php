@@ -9,11 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SchoolDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:delete_schools'];
-    }
-
     public function __invoke(PrivateSchool $school)
     {
         $school->delete();
@@ -21,5 +16,10 @@ class SchoolDeleteController extends Controller implements HasMiddleware
         dispatch(new SchoolTrashedJob($school, auth()->user()));
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:delete_schools'];
     }
 }

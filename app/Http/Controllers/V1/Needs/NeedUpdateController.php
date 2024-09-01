@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class NeedUpdateController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:update_needs'];
-    }
-
     public function __invoke(NeedUpdateRequest $request, Need $need)
     {
         $need->update($request->only(['status', 'subject', 'demand', 'note']));
@@ -22,5 +17,10 @@ class NeedUpdateController extends Controller implements HasMiddleware
         dispatch(new NeedUpdatedJob($need, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:update_needs'];
     }
 }

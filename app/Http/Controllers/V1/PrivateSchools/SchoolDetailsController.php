@@ -9,15 +9,15 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SchoolDetailsController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:view_schools'];
-    }
-
     public function __invoke(PrivateSchool $school)
     {
         return response()->json([
             'school' => SchoolShowResource::make($school->load(['creator:id,first_name,last_name'])->loadCount('lessons')),
         ]);
+    }
+
+    public static function middleware()
+    {
+        return ['can:view_schools'];
     }
 }

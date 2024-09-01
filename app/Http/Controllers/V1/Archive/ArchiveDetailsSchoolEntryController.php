@@ -11,11 +11,6 @@ use Inertia\Response;
 
 class ArchiveDetailsSchoolEntryController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:view_archive'];
-    }
-
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/school-entry/SchoolEntryArchiveDetailsPage', [
@@ -23,5 +18,10 @@ class ArchiveDetailsSchoolEntryController extends Controller implements HasMiddl
             'orphans' => SchoolEntryArchiveIndexResource::collection($archive->listOrphans()->with(['academicLevel', 'lastAcademicYearAchievement', 'family:id,address,zone_id', 'academicAchievements', 'family.zone:id,name'])->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        return ['can:view_archive'];
     }
 }

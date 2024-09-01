@@ -10,11 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SponsorUpdateIncomesController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:update_sponsors'];
-    }
-
     public function __invoke(SponsorIncomesUpdateRequest $request, Sponsor $sponsor)
     {
         $sponsor->incomes()->update($request->validated());
@@ -22,5 +17,10 @@ class SponsorUpdateIncomesController extends Controller implements HasMiddleware
         dispatch(new SponsorUpdatedJob($sponsor, auth()->user()));
 
         return response('', 201);
+    }
+
+    public static function middleware()
+    {
+        return ['can:update_sponsors'];
     }
 }

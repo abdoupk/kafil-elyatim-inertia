@@ -11,11 +11,6 @@ use Throwable;
 
 class ExportSponsorsPDFController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_sponsors'];
-    }
-
     /**
      * @throws Throwable
      * @throws CouldNotTakeBrowsershot
@@ -25,5 +20,10 @@ class ExportSponsorsPDFController extends Controller implements HasMiddleware
         return saveToPDF('sponsors', 'sponsors', function () {
             return getSponsorsForExport();
         });
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_sponsors'];
     }
 }

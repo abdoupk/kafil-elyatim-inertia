@@ -11,11 +11,6 @@ use Inertia\Response;
 
 class ArchiveDetailsEidSuitController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:view_archive'];
-    }
-
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/eid-suit/EidSuitArchiveDetailsPage', [
@@ -23,5 +18,10 @@ class ArchiveDetailsEidSuitController extends Controller implements HasMiddlewar
             'orphans' => EidSuitArchiveIndexResource::collection($archive->listOrphans()->with(['shirtSize', 'pantsSize', 'shoesSize', 'family:id,address,zone_id', 'family.zone:id,name'])->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
+    }
+
+    public static function middleware()
+    {
+        return ['can:view_archive'];
     }
 }

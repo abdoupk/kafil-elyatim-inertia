@@ -8,11 +8,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExportFamiliesRamadanBasketPDFController extends Controller
 {
-    public static function middleware()
-    {
-        return ['can:export_occasions'];
-    }
-
     /**
      * @throws \Throwable
      * @throws CouldNotTakeBrowsershot
@@ -22,5 +17,10 @@ class ExportFamiliesRamadanBasketPDFController extends Controller
         return saveToPDF('occasions/ramadan-basket-families', 'sponsorships', function () {
             return listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport();
         }, now()->year);
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
     }
 }

@@ -9,11 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FamilyForceDeleteController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:destroy_trash'];
-    }
-
     /**
      * @throws \Throwable
      */
@@ -26,5 +21,10 @@ class FamilyForceDeleteController extends Controller implements HasMiddleware
         });
 
         return redirect()->back();
+    }
+
+    public static function middleware()
+    {
+        return ['can:destroy_trash'];
     }
 }

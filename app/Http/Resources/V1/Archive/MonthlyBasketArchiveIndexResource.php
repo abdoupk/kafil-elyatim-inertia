@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources\V1\Archive;
 
-use App\Models\Family;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

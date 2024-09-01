@@ -10,11 +10,6 @@ use PhpOffice\PhpSpreadsheet\Exception;
 
 class ExportFinancialTransactionsXlsxController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:export_financial_transactions'];
-    }
-
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
@@ -22,5 +17,10 @@ class ExportFinancialTransactionsXlsxController extends Controller implements Ha
     public function __invoke()
     {
         return Excel::download(new FinancesIndexExport, __('exports.transactions').'.xlsx');
+    }
+
+    public static function middleware()
+    {
+        return ['can:export_financial_transactions'];
     }
 }
