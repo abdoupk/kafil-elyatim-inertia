@@ -21,10 +21,15 @@ class RamadanBasketFamiliesListSavedJob implements ShouldQueue
     public function handle(): void
     {
         Notification::send(
-            User::whereHas('settings', function ($query) {
-                return $query->where('notifications->occasions_saves', true);
-            })->where('users.id', '!=', $this->user->id)->get(),
-            new SaveRamadanBasketFamiliesListNotification(archive: $this->archive, user: $this->user)
+            getUsersShouldBeNotified(
+                permissions: ['view_occasions'],
+                userToExclude: $this->user,
+                notificationType: 'occasions_saves'
+            ),
+            new SaveRamadanBasketFamiliesListNotification(
+                archive: $this->archive,
+                user: $this->user
+            )
         );
     }
 }

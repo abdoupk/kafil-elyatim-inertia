@@ -226,6 +226,8 @@ function formatPhoneNumber($phone): string
 }
 function getUsersShouldBeNotified(array $permissions, User $userToExclude, string $notificationType): Collection|array|_IH_User_C
 {
+    setPermissionsTeamId($userToExclude->tenant_id);
+
     return User::with(['roles.permissions'])
         ->whereHas('settings', function ($query) use ($notificationType) {
             return $query->where("notifications->{$notificationType}", true);
