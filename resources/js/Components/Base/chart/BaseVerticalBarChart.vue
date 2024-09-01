@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { gridDarkColor, labelColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
 import { addOpacityToHexColor, getRandomItemWithoutRepeat } from '@/utils/helper'
 import { getLocale } from '@/utils/i18n'
@@ -46,7 +46,7 @@ const options = computed<ChartOptions>(() => {
         plugins: {
             legend: {
                 labels: {
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 rtl: getLocale() === 'ar'
             },
@@ -62,7 +62,7 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 grid: {
                     display: false,
@@ -79,10 +79,10 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 grid: {
-                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
+                    color: darkMode.value ? gridDarkColor : gridDarkColor,
                     borderDash: [2, 2],
                     drawBorder: false
                 }

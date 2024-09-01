@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { borderColor, getColor, labelColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
 import { getLocale } from '@/utils/i18n'
 
@@ -30,7 +30,7 @@ const data = computed<ChartData>(() => {
                 data: props.chartData,
                 backgroundColor: colors.value,
                 borderWidth: 0,
-                borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
+                borderColor: darkMode.value ? borderColor : '#fff'
             }
         ]
     }
@@ -44,7 +44,7 @@ const options = computed<ChartOptions>(() => {
             legend: {
                 rtl: getLocale() === 'ar',
                 labels: {
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 }
             },
             tooltip: {

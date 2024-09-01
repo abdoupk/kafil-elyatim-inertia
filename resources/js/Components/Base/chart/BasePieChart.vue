@@ -3,7 +3,7 @@ import { useSettingsStore } from '@/stores/settings'
 import type { ChartData, ChartOptions } from 'chart.js/auto'
 import { computed, defineAsyncComponent } from 'vue'
 
-import { getColor } from '@/utils/colors'
+import { borderColor, labelColor } from '@/utils/colors'
 import { colorPalette } from '@/utils/constants'
 import { getLocale } from '@/utils/i18n'
 
@@ -30,7 +30,7 @@ const data = computed<ChartData>(() => {
                 data: props.chartData,
                 backgroundColor: colors.value,
                 borderWidth: 2,
-                borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
+                borderColor: darkMode.value ? borderColor : '#fff'
             }
         ]
     }
@@ -43,7 +43,7 @@ const options = computed<ChartOptions>(() => {
         plugins: {
             legend: {
                 labels: {
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 rtl: getLocale() === 'ar'
             },

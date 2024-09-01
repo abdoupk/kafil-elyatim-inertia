@@ -5,6 +5,7 @@ import { flatten } from 'flat'
 import tailwindColors from 'tailwindcss/colors'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
+
 const twConfig = resolveConfig(tailwindConfig)
 const colors = twConfig.theme?.colors
 
@@ -52,4 +53,12 @@ const getColor = (colorKey: DotNestedKeys<Colors>, opacity: number = 1) => {
     }
 }
 
-export { getColor }
+const labelColor = 'rgba(100,116,139,0.8)'
+
+const borderColor = 'rgb(35,45,69)'
+
+const gridDarkColor = 'rgba(100,116,139,0.3)'
+
+const gridLightColor = 'rgb(203,213,225)'
+
+export { getColor, labelColor, borderColor, gridDarkColor, gridLightColor }

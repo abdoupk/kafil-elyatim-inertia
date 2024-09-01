@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { gridDarkColor, gridLightColor, labelColor } from '@/utils/colors'
 import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -48,7 +48,7 @@ const options = computed<ChartOptions>(() => {
                 rtl: getLocale() === 'ar',
 
                 labels: {
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 }
             },
             tooltip: {
@@ -63,7 +63,7 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 grid: {
                     display: false,
@@ -80,10 +80,10 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 grid: {
-                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
+                    color: darkMode.value ? gridDarkColor : gridLightColor,
                     borderDash: [2, 2],
                     drawBorder: false
                 }
