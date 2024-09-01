@@ -96,15 +96,11 @@ const modalType = computed(() => {
 })
 
 const checkAll = (model: keyof typeof permissions, checked: boolean) => {
-    if (checked) {
-        permissions[model].forEach((permission: string) => {
-            form.value.permissions[`${permission}_${model}`] = true
-        })
-    } else {
-        permissions[model].forEach((permission: string) => {
-            delete form.value.permissions[`${permission}_${model}`]
-        })
-    }
+    const suffix = model === 'inventory' ? '' : `_${model}`
+
+    permissions[model].forEach((permission: string) => {
+        form.value.permissions[`${permission}${suffix}`] = checked
+    })
 }
 </script>
 
@@ -145,7 +141,7 @@ const checkAll = (model: keyof typeof permissions, checked: boolean) => {
                         <h2 class="mb-2 mt-2 text-base/relaxed ltr:font-medium rtl:font-bold">
                             {{ $t(`the_${key}`) }}
                         </h2>
-                        
+
                         <!--@vue-ignore-->
                         <base-form-check-input
                             :id="key"
@@ -159,8 +155,16 @@ const checkAll = (model: keyof typeof permissions, checked: boolean) => {
                         <div v-for="permission in permissionMaps" :key="permission">
                             <base-form-switch>
                                 <base-form-switch-input
+                                    v-if="key !== 'inventory'"
                                     :id="`${permission}_${key}`"
                                     v-model="form.permissions[`${permission}_${key}`]"
+                                    type="checkbox"
+                                ></base-form-switch-input>
+
+                                <base-form-switch-input
+                                    v-else
+                                    :id="`${permission}_${key}`"
+                                    v-model="form.permissions[permission]"
                                     type="checkbox"
                                 ></base-form-switch-input>
 
