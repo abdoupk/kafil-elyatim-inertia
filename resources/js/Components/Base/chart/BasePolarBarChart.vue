@@ -22,6 +22,8 @@ const colors = computed(() => {
     return colorPalette[darkMode.value ? 'dark' : 'light']
 })
 
+console.log(getColor('#475569', 0.8))
+
 const data = computed<ChartData>(() => {
     return {
         labels: props.labels,
@@ -57,13 +59,13 @@ const options = computed<ChartOptions>(() => {
                 suggestedMin: 0,
                 grid: {
                     tickColor: 'rgba(255, 255, 255, 0.0)',
-                    color: !darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.400', 0.8)
+                    color: !darkMode.value ? getColor('#64748b', 0.3) : getColor('#94a3b8', 0.8)
                 },
                 ticks: {
                     font: {
                         size: 12
                     },
-                    color: darkMode.value ? getColor('slate.300', 0.8) : getColor('slate.600', 0.8),
+                    color: darkMode.value ? getColor('#cbd5e1', 0.8) : getColor('#475569', 0.8),
                     backdropColor: 'rgba(255, 255, 255, 0.0)',
                     callback(tickValue: number) {
                         if (tickValue % 1 === 0) {

@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { borderColor, extractColor } from '@/utils/colors'
 
 const props = defineProps<{
     width?: number
@@ -18,7 +18,7 @@ const colorScheme = computed(() => useSettingsStore().colorScheme)
 
 const darkMode = computed(() => useSettingsStore().appearance === 'dark')
 
-const chartColors = () => [getColor('primary', 0.9), getColor('warning', 0.9)]
+const chartColors = () => [extractColor('primary', 0.9), extractColor('warning', 0.9)]
 
 const data = computed<ChartData>(() => {
     return {
@@ -29,7 +29,7 @@ const data = computed<ChartData>(() => {
                 backgroundColor: colorScheme.value ? chartColors() : '',
                 hoverBackgroundColor: colorScheme.value ? chartColors() : '',
                 borderWidth: 2,
-                borderColor: darkMode.value ? getColor('darkmode.700') : getColor('white')
+                borderColor: darkMode.value ? borderColor : '#ffffff'
             }
         ]
     }

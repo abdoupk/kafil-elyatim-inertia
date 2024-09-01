@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { extractColor, getColor } from '@/utils/colors'
 import { getLocale } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -33,12 +33,12 @@ const data = computed<ChartData>(() => {
                 data: dataset.data,
                 label: dataset.label,
                 fill: true,
-                backgroundColor: dataset.backgroundColor?.() ?? getColor('primary', 0.1),
-                borderColor: dataset.borderColor?.() ?? getColor('primary', 0.5),
-                pointBackgroundColor: dataset.pointBackgroundColor?.() ?? getColor('primary', 0.5),
-                pointBorderColor: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
-                pointHoverBackgroundColor: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300'),
-                pointHoverBorderColor: dataset.pointHoverBorderColor?.() ?? getColor('primary', 0.5)
+                backgroundColor: dataset.backgroundColor?.() ?? extractColor('primary', 0.1),
+                borderColor: dataset.borderColor?.() ?? extractColor('primary', 0.5),
+                pointBackgroundColor: dataset.pointBackgroundColor?.() ?? extractColor('primary', 0.5),
+                pointBorderColor: darkMode.value ? getColor('#64748b', 0.3) : getColor('#cbd5e1'),
+                pointHoverBackgroundColor: darkMode.value ? getColor('#64748b', 0.3) : getColor('#cbd5e1'),
+                pointHoverBorderColor: dataset.pointHoverBorderColor?.() ?? extractColor('primary', 0.5)
             }
         })
     }
@@ -61,13 +61,13 @@ const options = computed<ChartOptions>(() => {
                 suggestedMin: 0,
                 grid: {
                     tickColor: 'rgba(255, 255, 255, 0.0)',
-                    color: !darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.400', 0.8)
+                    color: !darkMode.value ? getColor('#64748b', 0.3) : getColor('#94a3b8', 0.8)
                 },
                 ticks: {
                     font: {
                         size: 12
                     },
-                    color: darkMode.value ? getColor('slate.300', 0.8) : getColor('slate.600', 0.8),
+                    color: darkMode.value ? getColor('#cbd5e1', 0.8) : getColor('#475569', 0.8),
                     backdropColor: 'rgba(255, 255, 255, 0.0)',
                     callback(tickValue: number) {
                         if (tickValue % 1 === 0) {

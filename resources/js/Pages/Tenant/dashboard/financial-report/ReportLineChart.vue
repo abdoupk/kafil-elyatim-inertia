@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { extractColor, getColor, labelColor } from '@/utils/colors'
 import { abbreviationMonths } from '@/utils/constants'
 import { formatCurrency } from '@/utils/helper'
 import { getLocale } from '@/utils/i18n'
@@ -31,7 +31,7 @@ const data = computed<ChartData>(() => {
                 label: '# of Votes',
                 data: props.financialReports.incomes,
                 borderWidth: 2,
-                borderColor: colorScheme.value ? getColor('primary', 0.8) : '',
+                borderColor: colorScheme.value ? extractColor('primary', 0.8) : '',
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4
@@ -41,7 +41,7 @@ const data = computed<ChartData>(() => {
                 data: props.financialReports.expenses,
                 borderWidth: 2,
                 borderDash: [2, 2],
-                borderColor: darkMode.value ? getColor('slate.400', 0.6) : getColor('slate.400'),
+                borderColor: darkMode.value ? getColor('#94a3b8', 0.6) : getColor('#94a3b8'),
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4
@@ -72,7 +72,7 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: labelColor
                 },
                 grid: {
                     display: false
@@ -88,14 +88,14 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8),
+                    color: labelColor,
                     callback: function (value) {
                         return formatCurrency(value)
                     }
                 },
                 grid: {
                     drawTicks: false,
-                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300')
+                    color: darkMode.value ? getColor('#64748b', 0.3) : getColor('#cbd5e1')
                 }
             }
         },

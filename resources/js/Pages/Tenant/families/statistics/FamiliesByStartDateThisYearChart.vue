@@ -31,7 +31,7 @@ const data = computed<ChartData>(() => {
                 label: dataset.label,
                 data: dataset.data,
                 borderWidth: 2,
-                borderColor: !darkMode.value ? getColor('primary', 0.8) : getColor('slate.400', 0.8),
+                borderColor: !darkMode.value ? getColor('primary', 0.8) : getColor('#94a3b8', 0.8),
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4
@@ -64,7 +64,7 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8)
+                    color: getColor('#64748b', 0.8)
                 },
                 grid: {
                     display: false
@@ -80,7 +80,7 @@ const options = computed<ChartOptions>(() => {
                     font: {
                         size: 12
                     },
-                    color: getColor('slate.500', 0.8),
+                    color: getColor('#64748b', 0.8),
                     callback: function (value: number) {
                         if (value % 1 === 0) {
                             return value
@@ -89,7 +89,7 @@ const options = computed<ChartOptions>(() => {
                 },
                 grid: {
                     drawTicks: false,
-                    color: darkMode.value ? getColor('slate.500', 0.3) : getColor('slate.300')
+                    color: darkMode.value ? getColor('#64748b', 0.3) : getColor('#cbd5e1')
                 }
             }
         },

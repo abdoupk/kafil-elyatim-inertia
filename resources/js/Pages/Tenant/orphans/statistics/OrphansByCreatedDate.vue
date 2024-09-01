@@ -25,7 +25,7 @@ defineProps<{
                     data: Object.values(orphansByCreatedDate),
                     label: $t('orphans_count'),
                     borderColor: () =>
-                        useSettingsStore().appearance === 'dark' ? getColor('slate.300', 0.6) : getColor('primary', 0.8)
+                        useSettingsStore().appearance === 'dark' ? getColor('#cbd5e1', 0.6) : getColor('primary', 0.8)
                 }
             ]"
             :height="300"

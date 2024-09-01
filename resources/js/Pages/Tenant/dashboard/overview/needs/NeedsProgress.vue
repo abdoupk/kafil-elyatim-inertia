@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { NeedsByCreatedDateType } from '@/types/dashboard'
 
-import TheSimpleLineChart from '@/Components/Global/theSimpleLineChart.vue'
+import TheSimpleLineChart from '@/Components/Global/TheSimpleLineChart.vue'
 
 import { sumObjectValues } from '@/utils/helper'
 

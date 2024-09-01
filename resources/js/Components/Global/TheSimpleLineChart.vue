@@ -5,7 +5,7 @@ import { computed } from 'vue'
 
 import BaseChart from '@/Components/Base/chart/BaseChart.vue'
 
-import { getColor } from '@/utils/colors'
+import { extractColor } from '@/utils/colors'
 import { abbreviationMonths } from '@/utils/constants'
 import { getLocale } from '@/utils/i18n'
 
@@ -29,7 +29,8 @@ const data = computed<ChartData>(() => {
                 // eslint-disable-next-line array-element-newline
                 data: props.data,
                 borderWidth: 2,
-                borderColor: colorScheme.value && props.lineColor?.length ? props.lineColor : getColor('primary', 0.8),
+                borderColor:
+                    colorScheme.value && props.lineColor?.length ? props.lineColor : extractColor('primary', 0.8),
                 backgroundColor: 'transparent',
                 pointBorderColor: 'transparent',
                 tension: 0.4
