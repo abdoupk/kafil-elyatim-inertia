@@ -11,16 +11,16 @@ use Inertia\Response;
 
 class FamiliesIndexController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:listt_families'];
+    }
+
     public function __invoke(FamiliesIndexRequest $request): Response
     {
         return Inertia::render('Tenant/families/index/FamiliesIndexPage', [
             'families' => FamiliesIndexResource::collection(getFamilies()),
             'params' => getParams(),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

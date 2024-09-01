@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\V1\Occasions\MonthlyBasket;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Spatie\Browsershot\Exceptions\CouldNotTakeBrowsershot;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ExportFamiliesMonthlyBasketPDFController extends Controller
+class ExportFamiliesMonthlyBasketPDFController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
+    }
+
     /**
      * @throws \Throwable
      * @throws CouldNotTakeBrowsershot

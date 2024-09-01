@@ -9,6 +9,11 @@ use App\Models\FamilySponsorship;
 
 class SaveFamiliesRamadanBasketToArchiveController extends Controller
 {
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
+    }
+
     public function __invoke()
     {
         $archive = Archive::where('occasion', '=', 'ramadan_basket')

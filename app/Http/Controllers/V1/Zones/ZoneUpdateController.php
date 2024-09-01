@@ -13,6 +13,11 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ZoneUpdateController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:update_zones'];
+    }
+
     public function __invoke(ZoneUpdateRequest $request, Zone $zone): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
         $zone->update($request->validated());
@@ -20,10 +25,5 @@ class ZoneUpdateController extends Controller implements HasMiddleware
         dispatch(new ZoneUpdatedJob($zone, auth()->user()));
 
         return response('', 201);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

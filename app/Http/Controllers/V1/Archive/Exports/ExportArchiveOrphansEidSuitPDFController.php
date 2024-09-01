@@ -10,6 +10,11 @@ use Throwable;
 
 class ExportArchiveOrphansEidSuitPDFController extends Controller
 {
+    public static function middleware()
+    {
+        return ['can:export_archive'];
+    }
+
     /**
      * @throws Throwable
      * @throws CouldNotTakeBrowsershot

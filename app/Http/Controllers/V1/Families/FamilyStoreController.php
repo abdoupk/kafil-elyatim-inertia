@@ -16,7 +16,7 @@ class FamilyStoreController extends Controller implements HasMiddleware
 {
     public static function middleware()
     {
-        // TODO: Implement middleware() method.
+        return ['can:create_families'];
     }
 
     public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response

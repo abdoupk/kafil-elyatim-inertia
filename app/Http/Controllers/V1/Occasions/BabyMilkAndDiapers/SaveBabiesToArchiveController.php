@@ -7,10 +7,16 @@ use App\Jobs\V1\Occasion\BabiesMilkAndDiapersListSavedJob;
 use App\Models\Archive;
 use App\Models\Baby;
 use DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Throwable;
 
-class SaveBabiesToArchiveController extends Controller
+class SaveBabiesToArchiveController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
+    }
+
     /**
      * @throws Throwable
      */

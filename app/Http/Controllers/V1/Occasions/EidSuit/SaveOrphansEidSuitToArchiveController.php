@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Jobs\V1\Occasion\EidSuitOrphansListSavedJob;
 use App\Models\Archive;
 use App\Models\OrphanSponsorship;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class SaveOrphansEidSuitToArchiveController extends Controller
+class SaveOrphansEidSuitToArchiveController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
+    }
+
     public function __invoke()
     {
         $archive = Archive::where('occasion', '=', 'eid_suit')

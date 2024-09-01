@@ -11,6 +11,11 @@ use Throwable;
 
 class ExportFamiliesPDFController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:export_families'];
+    }
+
     /**
      * @throws CouldNotTakeBrowsershot
      * @throws Throwable
@@ -20,10 +25,5 @@ class ExportFamiliesPDFController extends Controller implements HasMiddleware
         return saveToPDF('families', 'families', function () {
             return getFamiliesForExport();
         });
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Jobs\V1\Occasion\EidAlAdhaFamiliesListSavedJob;
 use App\Models\Archive;
 use App\Models\FamilySponsorship;
+use Illuminate\Routing\Controllers\HasMiddleware;
 
-class SaveFamiliesEidAlAdhaToArchiveController extends Controller
+class SaveFamiliesEidAlAdhaToArchiveController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
+    }
+
     public function __invoke()
     {
         $archive = Archive::where('occasion', '=', 'eid_al_adha')

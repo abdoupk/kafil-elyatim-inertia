@@ -17,6 +17,6 @@ class CollegeAchievementsDeleteController extends Controller implements HasMiddl
 
     public static function middleware()
     {
-        // TODO: Implement middleware() method.
+        return ['can:update_orphans'];
     }
 }

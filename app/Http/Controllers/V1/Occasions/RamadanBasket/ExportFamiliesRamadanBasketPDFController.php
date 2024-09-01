@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExportFamiliesRamadanBasketPDFController extends Controller
 {
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
+    }
+
     /**
      * @throws \Throwable
      * @throws CouldNotTakeBrowsershot

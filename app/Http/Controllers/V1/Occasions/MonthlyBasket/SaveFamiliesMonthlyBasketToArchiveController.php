@@ -8,10 +8,16 @@ use App\Models\Archive;
 use App\Models\FamilySponsorship;
 use App\Models\Inventory;
 use DB;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Throwable;
 
-class SaveFamiliesMonthlyBasketToArchiveController extends Controller
+class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
+    }
+
     /**
      * @throws Throwable
      */

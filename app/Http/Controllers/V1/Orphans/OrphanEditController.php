@@ -11,15 +11,15 @@ use Inertia\Response;
 
 class OrphanEditController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:update_orphans'];
+    }
+
     public function __invoke(Orphan $orphan): Response
     {
         return Inertia::render('Tenant/orphans/edit/OrphanEditPage', [
             'orphan' => new OrphanEditResource($orphan->load('babyNeeds', 'academicAchievements.academicLevel', 'sponsorships', 'creator', 'shoesSize', 'pantsSize', 'shirtSize', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining', 'lastAcademicYearAchievement.academicLevel')),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

@@ -5,10 +5,16 @@ namespace App\Http\Controllers\V1\Occasions\MonthlyBasket;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\Occasions\MonthlyBasketResource;
 use App\Models\Archive;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 
-class FamiliesMonthlyBasketIndexController extends Controller
+class FamiliesMonthlyBasketIndexController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:view_occasions'];
+    }
+
     public function __invoke()
     {
         return Inertia::render('Tenant/occasions/monthly-basket/MonthlyBasketIndex', [

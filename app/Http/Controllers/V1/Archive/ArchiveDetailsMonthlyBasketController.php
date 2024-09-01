@@ -11,6 +11,11 @@ use Inertia\Response;
 
 class ArchiveDetailsMonthlyBasketController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:view_archive'];
+    }
+
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/monthly-basket/MonthlyBasketArchiveDetailsPage', [
@@ -18,10 +23,5 @@ class ArchiveDetailsMonthlyBasketController extends Controller implements HasMid
             'families' => MonthlyBasketArchiveIndexResource::collection($archive->listFamilies()->with(['zone:id,name', 'branch:id,name', 'sponsor:id,phone_number,family_id,first_name,last_name'])->withCount('orphans')->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

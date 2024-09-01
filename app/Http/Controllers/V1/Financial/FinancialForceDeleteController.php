@@ -8,10 +8,15 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FinancialForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(Finance $finance) {}
-
     public static function middleware()
     {
-        // TODO: Implement middleware() method.
+        return ['can:destroy_trash'];
+    }
+
+    public function __invoke(Finance $finance)
+    {
+        $finance->forceDelete();
+
+        return redirect()->back();
     }
 }

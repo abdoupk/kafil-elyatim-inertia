@@ -10,6 +10,11 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SiteSettingUpdateInfosController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:update_settings'];
+    }
+
     public function __invoke(UpdateSiteInfosRequest $request)
     {
         $data = $request->except('super_admin');
@@ -30,10 +35,5 @@ class SiteSettingUpdateInfosController extends Controller implements HasMiddlewa
         Tenant::whereId(tenant('id'))->update([
             'data->infos' => $data,
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

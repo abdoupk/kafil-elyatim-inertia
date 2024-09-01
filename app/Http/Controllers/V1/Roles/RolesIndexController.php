@@ -13,7 +13,7 @@ class RolesIndexController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            'can:read_roles',
+            'can:list_roles',
         ];
     }
 

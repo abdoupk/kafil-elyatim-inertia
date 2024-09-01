@@ -13,6 +13,11 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class MemberUpdateController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:update_members'];
+    }
+
     public function __invoke(MemberUpdateRequest $request, User $member): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
         $member->update($request->except(['roles', 'formatted_roles', 'zone', 'branch', 'id']));
@@ -22,10 +27,5 @@ class MemberUpdateController extends Controller implements HasMiddleware
         dispatch(new MemberUpdatedJob($member, auth()->user()));
 
         return response('', 201);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

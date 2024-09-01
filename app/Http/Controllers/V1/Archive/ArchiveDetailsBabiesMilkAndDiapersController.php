@@ -11,6 +11,11 @@ use Inertia\Response;
 
 class ArchiveDetailsBabiesMilkAndDiapersController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:view_archive'];
+    }
+
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/babies-milk-and-diapers/BabiesMilkAndDiapersArchiveDetailsPage', [
@@ -18,10 +23,5 @@ class ArchiveDetailsBabiesMilkAndDiapersController extends Controller implements
             'orphans' => BabyMilkAndDiapersResource::collection($archive->listBabies()->with(['babyMilk:id,name', 'diapers:id,name'])->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

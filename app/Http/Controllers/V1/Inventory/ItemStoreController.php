@@ -13,6 +13,11 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ItemStoreController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:delete_from_inventory'];
+    }
+
     public function __invoke(ItemCreateRequest $request): Application|ResponseFactory|\Illuminate\Foundation\Application|Response
     {
         $item = Inventory::create($request->validated());
@@ -20,10 +25,5 @@ class ItemStoreController extends Controller implements HasMiddleware
         dispatch(new InventoryItemCreatedJob($item, auth()->user()));
 
         return response('', 201);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

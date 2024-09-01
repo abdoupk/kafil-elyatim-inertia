@@ -12,7 +12,7 @@ class FinancialIndexController extends Controller implements HasMiddleware
 {
     public static function middleware()
     {
-        // TODO: Implement middleware() method.
+        return ['can:list_financial_transactions'];
     }
 
     public function __invoke(): Response

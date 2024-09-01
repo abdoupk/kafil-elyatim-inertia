@@ -4,12 +4,18 @@ namespace App\Http\Controllers\V1\Occasions\SchoolEntry;
 
 use App\Exports\OrphansSchoolEntryIndexExport;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Exception;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
-class ExportOrphansSchoolEntryXlsxController extends Controller
+class ExportOrphansSchoolEntryXlsxController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
+    }
+
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception

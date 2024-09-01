@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ExportFamiliesRamadanBasketXlsxController extends Controller
 {
+    public static function middleware()
+    {
+        return ['can:export_occasions'];
+    }
+
     /**
      * @throws Exception
      * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception

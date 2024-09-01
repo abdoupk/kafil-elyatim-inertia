@@ -9,6 +9,11 @@ use Inertia\Inertia;
 
 class LessonsIndexController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:list_lessons'];
+    }
+
     public function __invoke()
     {
         //TODO: use search with filter orphan has private lessons sponsorship
@@ -22,10 +27,5 @@ class LessonsIndexController extends Controller implements HasMiddleware
             'schools' => SchoolsResource::collection(getSchoolsForAddLesson()),
             'events' => getLessons(),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }
