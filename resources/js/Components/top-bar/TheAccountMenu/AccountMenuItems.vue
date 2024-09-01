@@ -2,6 +2,8 @@
 import { router } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
+import { $t } from '@/utils/i18n'
+
 const BaseMenuItem = defineAsyncComponent(() => import('@/Components/Base/headless/Menu/BaseMenuItem.vue'))
 
 const BaseMenuDivider = defineAsyncComponent(() => import('@/Components/Base/headless/Menu/BaseMenuDivider.vue'))
@@ -31,23 +33,6 @@ const SvgLoader = defineAsyncComponent(() => import('@/Components/SvgLoader.vue'
             <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-user"></svg-loader>
             {{ $t('Profile') }}
         </base-menu-item>
-
-        <base-menu-item class="hover:bg-white/5">
-            <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-bell"></svg-loader>
-            Add Account
-        </base-menu-item>
-
-        <base-menu-item class="hover:bg-white/5">
-            <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-bell"></svg-loader>
-            Reset Password
-        </base-menu-item>
-
-        <base-menu-item class="hover:bg-white/5">
-            <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-bell"></svg-loader>
-            Help
-        </base-menu-item>
-
-        <base-menu-divider class="bg-white/[0.08]" />
 
         <base-menu-item class="ms-1 hover:bg-white/5" @click="router.post(route('tenant.logout'))">
             <svg-loader class="me-2 h-4 w-4 fill-current" name="icon-left-from-bracket"></svg-loader>
