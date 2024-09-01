@@ -192,7 +192,6 @@ const quota = ref<number>()
                 :form
                 @update:frequency="form.validate('frequency')"
                 @update:interval="form.validate('interval')"
-                @update:until="form.validate('until')"
             ></date-selector>
             <!-- End: Date Options-->
 
@@ -255,8 +254,6 @@ const quota = ref<number>()
                         @update:selected-orphans="
                             (value) => {
                                 form.orphans = value.map((orphan) => orphan.id)
-
-                                form?.validate('orphans')
                             }
                         "
                     ></orphans-selector>
