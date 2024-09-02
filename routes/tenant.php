@@ -18,6 +18,8 @@ Route::middleware([
         ->name('login')
         ->middleware('guest');
 
+    Route::get('/', fn () => redirect()->route('tenant.dashboard'));
+
     Route::name('tenant.')->prefix('/dashboard/')->group(function () {
         Route::middleware('guest')->group(function () {
             Route::post(
@@ -34,51 +36,51 @@ Route::middleware([
         });
 
         Route::middleware('auth')->group(function () {
-            require_once __DIR__.'/v1/academic-achievements.php';
+            require __DIR__.'/v1/academic-achievements.php';
 
-            require_once __DIR__.'/v1/archive.php';
+            require __DIR__.'/v1/archive.php';
 
-            require_once __DIR__.'/v1/branches.php';
+            require __DIR__.'/v1/branches.php';
 
-            require_once __DIR__.'/v1/college-achievements.php';
+            require __DIR__.'/v1/college-achievements.php';
 
-            require_once __DIR__.'/v1/dashboard.php';
+            require __DIR__.'/v1/dashboard.php';
 
-            require_once __DIR__.'/v1/families.php';
+            require __DIR__.'/v1/families.php';
 
-            require_once __DIR__.'/v1/financial.php';
+            require __DIR__.'/v1/financial.php';
 
-            require_once __DIR__.'/v1/inventory.php';
+            require __DIR__.'/v1/inventory.php';
 
-            require_once __DIR__.'/v1/lessons.php';
+            require __DIR__.'/v1/lessons.php';
 
-            require_once __DIR__.'/v1/list.php';
+            require __DIR__.'/v1/list.php';
 
-            require_once __DIR__.'/v1/members.php';
+            require __DIR__.'/v1/members.php';
 
-            require_once __DIR__.'/v1/needs.php';
+            require __DIR__.'/v1/needs.php';
 
-            require_once __DIR__.'/v1/notifications.php';
+            require __DIR__.'/v1/notifications.php';
 
-            require_once __DIR__.'/v1/occasions.php';
+            require __DIR__.'/v1/occasions.php';
 
-            require_once __DIR__.'/v1/orphans.php';
+            require __DIR__.'/v1/orphans.php';
 
-            require_once __DIR__.'/v1/profile.php';
+            require __DIR__.'/v1/profile.php';
 
-            require_once __DIR__.'/v1/roles.php';
+            require __DIR__.'/v1/roles.php';
 
-            require_once __DIR__.'/v1/schools.php';
+            require __DIR__.'/v1/schools.php';
 
-            require_once __DIR__.'/v1/settings.php';
+            require __DIR__.'/v1/settings.php';
 
-            require_once __DIR__.'/v1/site-settings.php';
+            require __DIR__.'/v1/site-settings.php';
 
-            require_once __DIR__.'/v1/sponsors.php';
+            require __DIR__.'/v1/sponsors.php';
 
-            require_once __DIR__.'/v1/vocational-training-achievements.php';
+            require __DIR__.'/v1/vocational-training-achievements.php';
 
-            require_once __DIR__.'/v1/zones.php';
+            require __DIR__.'/v1/zones.php';
 
             Route::get('trash', TrashIndexController::class)->name('trash');
 
