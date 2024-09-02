@@ -18,11 +18,12 @@ import { $t } from '@/utils/i18n'
             <div class="block grid-cols-2 gap-4 xl:grid">
                 <!-- BEGIN: Login Info -->
                 <div class="hidden min-h-screen flex-col xl:flex">
-                    <a class="-intro-x flex items-center pt-5" href="#">
+                    <a class="-intro-x flex items-center pt-5" href="/">
                         <img alt="Tinker Starter" class="w-6" src="/images/logo.svg" />
 
                         <span class="ms-3 text-lg text-white"> Kafil el yatim </span>
                     </a>
+
                     <div class="my-auto">
                         <img alt="Tinker Starter" class="-intro-x -mt-16 w-1/2" src="/images/man-illustration.svg" />
                         <div

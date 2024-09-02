@@ -25,7 +25,7 @@ const currentStep = ref(1)
 
 const registeringCompleted = ref(false)
 
-const totalSteps = 3
+const totalSteps = 1
 
 const form = useForm('post', route('register'), registerFormAttributes)
 

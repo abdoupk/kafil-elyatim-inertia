@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\V1\RegisteredTenantController;
 use App\Http\Middleware\TeamsPermissionMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             Route::middleware('web')->group(base_path('routes/tenant.php'));
 
-            Route::get('/register', [RegisteredTenantController::class, 'create']);
-
-            Route::post(
-                '/register',
-                action: [RegisteredTenantController::class, 'store']
-            )->name('register')->middleware([HandlePrecognitiveRequests::class]);
+            Route::middleware('web')->group(base_path('routes/v1/registration.php'));
         },
         api: __DIR__.'/../routes/v1/api.php',
         commands: __DIR__.'/../routes/v1/console.php',
