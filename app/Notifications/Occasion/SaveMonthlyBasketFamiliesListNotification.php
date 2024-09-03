@@ -60,6 +60,6 @@ class SaveMonthlyBasketFamiliesListNotification extends Notification implements 
 
     public function broadcastType(): string
     {
-        return '';
+        return 'monthly_basket_families_list.saved';
     }
 }

@@ -62,6 +62,6 @@ class UpdateNeedNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'need.updated';
     }
 }

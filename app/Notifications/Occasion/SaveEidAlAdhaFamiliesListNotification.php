@@ -60,6 +60,6 @@ class SaveEidAlAdhaFamiliesListNotification extends Notification implements Shou
 
     public function broadcastType(): string
     {
-        return '';
+        return 'eid_al_adha_families_list.saved';
     }
 }

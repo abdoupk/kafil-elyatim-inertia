@@ -55,6 +55,6 @@ class DeleteOrphanNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'orphan.deleted';
     }
 }

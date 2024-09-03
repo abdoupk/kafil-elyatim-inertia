@@ -60,6 +60,6 @@ class SaveSchoolEntryOrphansListNotification extends Notification implements Sho
 
     public function broadcastType(): string
     {
-        return '';
+        return 'school_entry_orphans_list.saved';
     }
 }

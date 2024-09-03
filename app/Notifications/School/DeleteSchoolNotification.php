@@ -55,6 +55,6 @@ class DeleteSchoolNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'school.deleted';
     }
 }

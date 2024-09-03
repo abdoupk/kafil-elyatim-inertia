@@ -58,6 +58,6 @@ class CreateSchoolNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'school.created';
     }
 }

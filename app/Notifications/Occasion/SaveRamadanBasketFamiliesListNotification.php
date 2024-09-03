@@ -60,6 +60,6 @@ class SaveRamadanBasketFamiliesListNotification extends Notification implements 
 
     public function broadcastType(): string
     {
-        return '';
+        return 'ramadan_basket_families_list.saved';
     }
 }

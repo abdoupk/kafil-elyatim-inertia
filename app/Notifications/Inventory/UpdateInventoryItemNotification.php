@@ -58,6 +58,6 @@ class UpdateInventoryItemNotification extends Notification implements ShouldQueu
 
     public function broadcastType(): string
     {
-        return '';
+        return 'update_item_from_inventory';
     }
 }

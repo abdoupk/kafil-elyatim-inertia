@@ -55,6 +55,6 @@ class UpdateRoleNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'role.updated';
     }
 }

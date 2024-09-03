@@ -58,6 +58,6 @@ class UpdateLessonNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'lesson.updated';
     }
 }

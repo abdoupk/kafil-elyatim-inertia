@@ -55,6 +55,6 @@ class DeleteRoleNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'role.deleted';
     }
 }

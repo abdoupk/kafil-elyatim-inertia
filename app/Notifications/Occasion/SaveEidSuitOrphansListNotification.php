@@ -61,6 +61,6 @@ class SaveEidSuitOrphansListNotification extends Notification implements ShouldQ
 
     public function broadcastType(): string
     {
-        return '';
+        return 'eid_suit_orphans_list.saved';
     }
 }

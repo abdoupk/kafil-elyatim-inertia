@@ -57,6 +57,6 @@ class UpdateMemberNotification extends Notification implements ShouldQueue
 
     public function broadcastType(): string
     {
-        return '';
+        return 'member.updated';
     }
 }
