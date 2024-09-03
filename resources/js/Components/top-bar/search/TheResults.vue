@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { $t } from '../../../utils/i18n'
-
 import { ComboboxOption, ComboboxOptions } from '@headlessui/vue'
 import type { Hits } from 'meilisearch'
 
@@ -8,6 +6,7 @@ import SvgLoader from '@/Components/SvgLoader.vue'
 import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
 
 import { isEmpty } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{
     options: Hits
@@ -23,7 +22,7 @@ defineProps<{
 
         <template v-for="(group, groupName) in options" :key="groupName">
             <div v-if="group.length > 0" class="mb-2 font-medium ltr:capitalize rtl:font-semibold">
-                {{ $t(`breadcrumb.${options[groupName][0].index}`) }}
+                {{ $t(`search.${options[groupName][0].index}`) }}
             </div>
 
             <ComboboxOption v-for="option in group" :key="option.id" v-slot="{ active }" :value="option">

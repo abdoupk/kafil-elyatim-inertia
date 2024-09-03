@@ -48,6 +48,13 @@ export default defineConfig({
         commonjsOptions: {
             include: ['tailwind.config.js', 'node_modules/**']
         },
+        rollupOptions: {
+            output: {
+                entryFileNames: `[name].js`,
+                chunkFileNames: `assets/[hash].js`,
+                assetFileNames: `assets/[hash][extname]`
+            }
+        },
         ssrManifest: true,
         sourcemap: true,
         minify: 'esbuild'

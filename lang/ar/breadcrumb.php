@@ -15,7 +15,6 @@ return [
     'zones' => 'المناطق',
     'financial' => 'المالية',
     'finances' => 'المالية',
-    'previews' => 'العائلات', // FIXME is necessary for search localization
     'show' => 'تفاصيل',
     'users' => 'الأعضاء',
     'inventory' => 'المخزن',
