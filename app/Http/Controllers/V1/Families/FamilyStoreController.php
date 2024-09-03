@@ -18,6 +18,11 @@ use Throwable;
 
 class FamilyStoreController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:create_families'];
+    }
+
     /**
      * @throws Throwable
      */
@@ -27,7 +32,7 @@ class FamilyStoreController extends Controller implements HasMiddleware
             $family = Family::create(
                 [
                     ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
-                    'name' => $request->validated('spouse.first_name').'  '.$request->validated('spouse.last_name'),
+                    'name' => $request->validated('sponsor.first_name').'  '.$request->validated('sponsor.last_name'),
                 ]
             );
 
@@ -51,9 +56,26 @@ class FamilyStoreController extends Controller implements HasMiddleware
         return response('', 201);
     }
 
-    public static function middleware()
+    private function storeSponsor(CreateFamilyRequest $request, Model|Family $family): Sponsor
     {
-        return ['can:create_families'];
+        $sponsor = $family->sponsor()->create([...$request->validated('sponsor')]);
+
+        $sponsor->incomes()->create([
+            ...$request->validated('incomes'),
+            'total_income' => array_sum($request->validated('incomes')),
+        ]);
+
+        return $sponsor;
+    }
+
+    private function storePreview(CreateFamilyRequest $request, Model|Family $family): void
+    {
+        $preview = $family->preview()->create([
+            'preview_date' => $request->validated('preview_date'),
+            'report' => $request->validated('report'),
+        ]);
+
+        $preview->inspectors()->sync($request->validated('inspectors_members'));
     }
 
     public function storeOrphans(CreateFamilyRequest $request, Model|Family $family, Sponsor $sponsor): void
@@ -100,13 +122,6 @@ class FamilyStoreController extends Controller implements HasMiddleware
         }
     }
 
-    public function storeSponsorships(Model|Family $family, CreateFamilyRequest $request, Sponsor $sponsor): void
-    {
-        $family->sponsorships()->create($request->validated('family_sponsorship'));
-
-        $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
-    }
-
     public function storeHousingInformations(Model|Family $family, CreateFamilyRequest $request): void
     {
         $family->housing()->create([
@@ -120,25 +135,10 @@ class FamilyStoreController extends Controller implements HasMiddleware
         $family->furnishings()->create($request->validated('furnishings'));
     }
 
-    private function storeSponsor(CreateFamilyRequest $request, Model|Family $family): Sponsor
+    public function storeSponsorships(Model|Family $family, CreateFamilyRequest $request, Sponsor $sponsor): void
     {
-        $sponsor = $family->sponsor()->create([...$request->validated('sponsor')]);
+        $family->sponsorships()->create($request->validated('family_sponsorship'));
 
-        $sponsor->incomes()->create([
-            ...$request->validated('incomes'),
-            'total_income' => array_sum($request->validated('incomes')),
-        ]);
-
-        return $sponsor;
-    }
-
-    private function storePreview(CreateFamilyRequest $request, Model|Family $family): void
-    {
-        $preview = $family->preview()->create([
-            'preview_date' => $request->validated('preview_date'),
-            'report' => $request->validated('report'),
-        ]);
-
-        $preview->inspectors()->sync($request->validated('inspectors_members'));
+        $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
     }
 }

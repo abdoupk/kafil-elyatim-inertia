@@ -34,7 +34,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                             sortable
                             @click="emit('sort', 'name')"
                         >
-                            {{ $t('the_family') }}
+                            {{ $t('the_sponsor') }}
                         </the-table-th>
 
                         <the-table-th class="text-start">{{ $t('validation.attributes.address') }}</the-table-th>
