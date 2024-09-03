@@ -20,7 +20,9 @@ return new class extends Migration
             $table->text('housing_assistance')->nullable();
             $table->text('eid_al_adha')->nullable();
             $table->text('tenant_id')->index('idx_family_sponsorship_tenant_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->softDeletes();
+            $table->timestamp('updated_at')->nullable();
 
             $table->index(['id'], 'idx_family_sponsorship_id');
         });

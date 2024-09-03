@@ -16,15 +16,15 @@ return new class extends Migration
             $table->text('first_name');
             $table->text('last_name');
             $table->date('birth_date')->index('idx_orphans_birth_date');
-            $table->text('family_status')->index('idx_orphans_family_status');
+            $table->text('family_status')->nullable()->index('idx_orphans_family_status');
             $table->text('health_status')->index('idx_orphans_health_status');
-            $table->integer('academic_level_id')->index('idx_orphans_academic_level');
+            $table->integer('academic_level_id')->nullable()->index('idx_orphans_academic_level');
             $table->integer('vocational_training_id')->nullable();
             $table->text('shoes_size')->nullable()->index('idx_orphans_shoes_size');
             $table->text('pants_size')->nullable()->index('idx_orphans_pants_size');
             $table->text('shirt_size')->nullable()->index('idx_orphans_shirt_size');
             $table->text('gender');
-            $table->float('income');
+            $table->float('income')->nullable();
             $table->boolean('is_handicapped');
             $table->boolean('is_unemployed');
             $table->text('note')->nullable()->index('idx_orphans_note');

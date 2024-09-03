@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('function');
             $table->text('health_status');
             $table->text('diploma')->nullable();
+            $table->boolean('is_unemployed');
             $table->text('ccp')->nullable();
             $table->text('gender');
             $table->uuid('family_id');

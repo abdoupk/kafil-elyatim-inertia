@@ -1,7 +1,14 @@
 <script lang="ts" setup>
+import { useSettingsStore } from '@/stores/settings'
 import { twMerge } from 'tailwind-merge'
+import { onMounted } from 'vue'
 
+import { setDarkModeClass } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
+
+onMounted(() => {
+    setDarkModeClass(useSettingsStore().appearance)
+})
 </script>
 
 <template>

@@ -21,10 +21,10 @@ return new class extends Migration
 
             $table->index(['id'], 'idx_settings_id');
         });
-        DB::statement('alter table "settings" add column "theme" theme not null');
-        DB::statement('alter table "settings" add column "color_scheme" color_scheme not null');
-        DB::statement('alter table "settings" add column "layout" layout not null');
-        DB::statement('alter table "settings" add column "appearance" appearance not null');
+        DB::statement("alter table \"settings\" add column \"theme\" theme not null");
+        DB::statement("alter table \"settings\" add column \"color_scheme\" color_scheme not null");
+        DB::statement("alter table \"settings\" add column \"layout\" layout not null");
+        DB::statement("alter table \"settings\" add column \"appearance\" appearance not null");
     }
 
     /**

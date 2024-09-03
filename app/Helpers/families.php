@@ -29,9 +29,12 @@ function calculateTotalIncomes(Family $family): float
     return (float) $family->sponsor?->incomes->total_income + (float) $family->orphans?->sum('income') + $family->secondSponsor?->income;
 }
 
+/**
+ * @throws JsonException
+ */
 function calculateIncomeRate(Family $family): float
 {
-    return calculateIncomes($family) / calculateWeights($family);
+    return round(calculateIncomes($family) / calculateWeights($family), 2);
 }
 
 function calculateIncomes(Family $family)
@@ -236,6 +239,7 @@ function calculateContributionsForMaleOrphan(Orphan $orphan, array $calculations
             'professional_boy' => $calculations['professional_boy'],
             'unemployed' => $calculations['unemployed'],
             'married_with_family' => $calculations['married_with_family'],
+            default => 0
         };
     } else {
         $calculations = $calculations['percentage_of_contribution']['orphans']['male_gt_18'];
@@ -263,6 +267,7 @@ function calculateContributionsForFemaleOrphan(Orphan $orphan, array $calculatio
             'single_female_employee' => $calculations['single_female_employee'],
             'married' => $calculations['married'],
             'divorced' => $calculations['divorced'],
+            default => 0
         };
     }
 

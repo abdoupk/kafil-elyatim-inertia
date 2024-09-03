@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('second_sponsors', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('first_name');
-            $table->text('last_name');
-            $table->text('degree_of_kinship');
-            $table->text('phone_number')->index('idx_second_sponsors_phone_number');
-            $table->text('address')->index('idx_second_sponsors_address');
-            $table->float('income')->index('idx_second_sponsors_income');
-            $table->uuid('family_id')->index('idx_second_sponsors_family_id');
+            $table->text('first_name')->nullable();
+            $table->text('last_name')->nullable();
+            $table->text('degree_of_kinship')->nullable();
+            $table->text('phone_number')->nullable()->index('idx_second_sponsors_phone_number');
+            $table->text('address')->nullable()->index('idx_second_sponsors_address');
+            $table->float('income')->nullable()->index('idx_second_sponsors_income');
+            $table->uuid('family_id')->nullable()->index('idx_second_sponsors_family_id');
             $table->text('tenant_id')->index('idx_second_sponsors_tenant_id');
             $table->softDeletes();
             $table->timestamps();

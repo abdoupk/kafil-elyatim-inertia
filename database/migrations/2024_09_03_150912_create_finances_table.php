@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->index(['id'], 'idx_finances_id');
         });
-        DB::statement('alter table "finances" add column "specification" donation_specification not null');
+        DB::statement("alter table \"finances\" add column \"specification\" donation_specification not null");
     }
 
     /**

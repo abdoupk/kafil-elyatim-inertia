@@ -22,7 +22,9 @@ return new class extends Migration
             $table->boolean('private_lessons')->nullable();
             $table->boolean('school_bag')->nullable();
             $table->text('tenant_id')->index('idx_orphan_sponsorship_tenant_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->softDeletes();
+            $table->timestamp('updated_at')->nullable();
 
             $table->index(['id'], 'idx_orphan_sponsorship_id');
         });

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('pension');
             $table->text('account');
             $table->text('other_income');
-            $table->float('total_income');
+            $table->float('total_income')->nullable();
             $table->uuid('sponsor_id');
             $table->text('tenant_id');
 

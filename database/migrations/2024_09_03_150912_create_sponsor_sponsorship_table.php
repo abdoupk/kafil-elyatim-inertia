@@ -19,7 +19,9 @@ return new class extends Migration
             $table->float('direct_sponsorship')->nullable();
             $table->text('project_support')->nullable();
             $table->text('tenant_id')->index('idx_sponsor_sponsorship_tenant_id');
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable();
+            $table->softDeletes();
+            $table->timestamp('updated_at')->nullable();
 
             $table->index(['id'], 'idx_sponsor_sponsorship_id');
         });

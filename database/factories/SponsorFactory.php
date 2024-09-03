@@ -14,7 +14,6 @@ class SponsorFactory extends Factory
     public function definition(): array
     {
         return [
-            //            'card_number' => fake('ar_SA')->regexify('[1-9][0-9]{8}'),
             'first_name' => fake('ar_SA')->firstName,
             'last_name' => fake('ar_SA')->lastName,
             'deleted_by' => User::inRandomOrder()->first()->id,
@@ -33,6 +32,7 @@ class SponsorFactory extends Factory
             'created_by' => User::inRandomOrder()->first()->id,
             'ccp' => fake()->regexify('[1-9][0-9]{8}'),
             'gender' => fake()->randomElement(['male', 'female']),
+            'is_unemployed' => fake()->boolean,
             'created_at' => now(),
             'updated_at' => now(),
         ];
