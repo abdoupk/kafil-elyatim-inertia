@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { DatabaseNotification } from '@/types/types'
 
-import { useNotificationsStore } from '@/stores/notifications'
 import { router } from '@inertiajs/vue3'
 
 import { formatDate } from '@/utils/helper'
@@ -12,30 +11,18 @@ const props = defineProps<{
     close: () => void
 }>()
 
-const notificationsStore = useNotificationsStore()
-
-const redirect = (url: string) => {
+const handleShowMember = (url: string) => {
     if (url) {
         props.close()
 
         router.visit(url)
     }
 }
-
-const markAsRead = (notification: DatabaseNotification) => {
-    notificationsStore.markAsRead(notification.id)
-
-    redirect(notification.data.metadata.url)
-}
-
-const handleShowMember = (url: string) => {
-    redirect(url)
-}
 </script>
 
 <template>
-    <div class="z-10 ms-2 overflow-hidden" @click.prevent="markAsRead(notification)">
-        <div class="z-[51] flex items-center">
+    <div class="ms-2 overflow-hidden">
+        <div class="flex items-center">
             <a
                 class="me-5 truncate font-medium rtl:font-semibold"
                 href="javascript:void(0)"

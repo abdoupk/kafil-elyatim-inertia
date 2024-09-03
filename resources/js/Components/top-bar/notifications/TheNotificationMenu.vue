@@ -1,9 +1,14 @@
 <script lang="ts" setup>
+import type { DatabaseNotification } from '@/types/types'
+
 import { useNotificationsStore } from '@/stores/notifications'
+import { router } from '@inertiajs/vue3'
 import { useIntersectionObserver } from '@vueuse/core'
 import { defineAsyncComponent, onMounted, ref } from 'vue'
 
 import NotificationLoader from '@/Components/top-bar/notifications/NotificationLoader.vue'
+
+import { $t } from '@/utils/i18n'
 
 const NotificationAvatar = defineAsyncComponent(
     () => import('@/Components/top-bar/notifications/NotificationAvatar.vue')
@@ -13,7 +18,7 @@ const NotificationContent = defineAsyncComponent(
     () => import('@/Components/top-bar/notifications/NotificationContent.vue')
 )
 
-defineProps<{
+const props = defineProps<{
     close: () => void
 }>()
 
@@ -44,6 +49,20 @@ useIntersectionObserver(last, ([{ isIntersecting }]) => {
         })
     }
 })
+
+const redirect = (url: string) => {
+    if (url) {
+        props.close()
+
+        router.visit(url)
+    }
+}
+
+const markAsRead = (notification: DatabaseNotification) => {
+    notificationsStore.markAsRead(notification.id)
+
+    redirect(notification.data.metadata.url)
+}
 </script>
 
 <template>
@@ -58,6 +77,7 @@ useIntersectionObserver(last, ([{ isIntersecting }]) => {
                 { 'mt-5': notification.id },
                 { 'bg-slate-100 dark:bg-darkmode-400': !notification.read_at }
             ]"
+            @click.prevent="markAsRead(notification)"
         >
             <notification-avatar
                 :gender="notification.data.user?.gender"
