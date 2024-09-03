@@ -62,6 +62,8 @@ window.Echo?.private('App.Models.User.' + usePage().props.auth.user.id).notifica
         if (!stopShowNotification.value) {
             queue.value.push(notification)
 
+            console.log(notification)
+
             displayNextNotification()
         }
     }

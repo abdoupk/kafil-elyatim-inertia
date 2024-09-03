@@ -59,4 +59,9 @@ class CreateInventoryItemNotification extends Notification implements ShouldQueu
     {
         return 'add_item_to_inventory';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

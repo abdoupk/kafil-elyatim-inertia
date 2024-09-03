@@ -60,4 +60,9 @@ class CreateFamilyNotification extends Notification implements ShouldQueue
     {
         return 'family.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

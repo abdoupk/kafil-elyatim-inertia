@@ -55,4 +55,9 @@ class UpdateFinanceTransactionNotification extends Notification implements Shoul
     {
         return 'finance.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

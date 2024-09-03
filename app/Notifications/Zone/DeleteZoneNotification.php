@@ -52,4 +52,9 @@ class DeleteZoneNotification extends Notification implements ShouldQueue
     {
         return 'zone.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

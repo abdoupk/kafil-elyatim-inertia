@@ -52,4 +52,9 @@ class DeleteFinanceTransactionNotification extends Notification implements Shoul
     {
         return 'finance.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

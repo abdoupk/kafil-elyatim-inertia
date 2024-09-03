@@ -56,4 +56,9 @@ class CreateMemberNotification extends Notification implements ShouldQueue
     {
         return 'member.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

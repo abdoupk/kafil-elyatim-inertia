@@ -55,4 +55,9 @@ class UpdateZoneNotification extends Notification implements ShouldQueue
     {
         return 'zone.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

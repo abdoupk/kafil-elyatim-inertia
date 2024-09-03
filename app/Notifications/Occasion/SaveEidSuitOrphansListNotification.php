@@ -15,18 +15,52 @@ class SaveEidSuitOrphansListNotification extends Notification implements ShouldQ
 
     public function __construct(public Archive $archive, public User $user) {}
 
-    public function via($notifiable): array
+    public function via(): array
     {
-        return ['broadcast'];
+        return ['database', 'broadcast'];
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function toArray(): array
     {
-        return new BroadcastMessage([]);
+        return [
+            'data' => [
+                'occasion' => $this->archive->occasion,
+                'orphans_count' => $this->archive->orphans_count,
+                'date' => $this->archive->created_at->year,
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+            'metadata' => [
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.eid-suit.index'),
+            ],
+        ];
     }
 
-    public function toArray($notifiable): array
+    public function toBroadcast(): BroadcastMessage
     {
-        return [];
+        return new BroadcastMessage([
+            'data' => [
+                'occasion' => $this->archive->occasion,
+                'orphans_count' => $this->archive->orphans_count,
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+        ]);
+    }
+
+    public function databaseType(): string
+    {
+        return 'eid_suit_orphans_list.saved';
+    }
+
+    public function broadcastType(): string
+    {
+        return '';
     }
 }

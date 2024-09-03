@@ -55,4 +55,9 @@ class UpdateOrphanNotification extends Notification implements ShouldQueue
     {
         return 'orphan.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

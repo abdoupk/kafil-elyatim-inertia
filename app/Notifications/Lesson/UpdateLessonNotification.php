@@ -55,4 +55,9 @@ class UpdateLessonNotification extends Notification implements ShouldQueue
     {
         return 'lesson.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

@@ -15,18 +15,51 @@ class SaveMonthlyBasketFamiliesListNotification extends Notification implements 
 
     public function __construct(public Archive $archive, public User $user) {}
 
-    public function via($notifiable): array
+    public function via(): array
     {
-        return ['broadcast'];
+        return ['database', 'broadcast'];
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function toArray(): array
     {
-        return new BroadcastMessage([]);
+        return [
+            'data' => [
+                'occasion' => $this->archive->occasion,
+                'families_count' => $this->archive->families_count,
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+            'metadata' => [
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.monthly-basket.index'),
+            ],
+        ];
     }
 
-    public function toArray($notifiable): array
+    public function toBroadcast(): BroadcastMessage
     {
-        return [];
+        return new BroadcastMessage([
+            'data' => [
+                'occasion' => $this->archive->occasion,
+                'families_count' => $this->archive->families_count,
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+        ]);
+    }
+
+    public function databaseType(): string
+    {
+        return 'monthly_basket_families_list.saved';
+    }
+
+    public function broadcastType(): string
+    {
+        return '';
     }
 }

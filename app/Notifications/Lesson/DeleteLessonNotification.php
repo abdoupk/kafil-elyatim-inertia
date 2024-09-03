@@ -52,4 +52,9 @@ class DeleteLessonNotification extends Notification implements ShouldQueue
     {
         return 'lesson.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

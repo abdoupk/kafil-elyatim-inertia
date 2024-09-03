@@ -15,18 +15,51 @@ class SaveBabiesMilkAndDiapersListNotification extends Notification implements S
 
     public function __construct(public Archive $archive, public User $user) {}
 
-    public function via($notifiable): array
+    public function via(): array
     {
-        return ['broadcast'];
+        return ['database', 'broadcast'];
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function toArray(): array
     {
-        return new BroadcastMessage([]);
+        return [
+            'data' => [
+                'occasion' => $this->archive->occasion,
+                'orphans_count' => $this->archive->loadCount('listBabies')->list_babies_count,
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+            'metadata' => [
+                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.babies-milk-and-diapers.index'),
+            ],
+        ];
     }
 
-    public function toArray($notifiable): array
+    public function toBroadcast(): BroadcastMessage
     {
-        return [];
+        return new BroadcastMessage([
+            'data' => [
+                'occasion' => $this->archive->occasion,
+                'orphans_count' => $this->archive->loadCount('listBabies')->list_babies_count,
+            ],
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->getName(),
+                'gender' => $this->user->gender,
+            ],
+        ]);
+    }
+
+    public function databaseType(): string
+    {
+        return 'babies_milk_and_diapers_list.saved';
+    }
+
+    public function broadcastType(): string
+    {
+        return 'babies_milk_and_diapers_list.saved';
     }
 }

@@ -52,4 +52,9 @@ class DeleteSponsorNotification extends Notification implements ShouldQueue
     {
         return 'sponsor.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

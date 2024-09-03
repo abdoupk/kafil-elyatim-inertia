@@ -55,4 +55,9 @@ class CreateZoneNotification extends Notification implements ShouldQueue
     {
         return 'zone.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

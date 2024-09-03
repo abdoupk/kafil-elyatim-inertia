@@ -59,4 +59,9 @@ class CreateNeedNotification extends Notification implements ShouldQueue
     {
         return 'need.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

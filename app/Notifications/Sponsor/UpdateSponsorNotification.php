@@ -55,4 +55,9 @@ class UpdateSponsorNotification extends Notification implements ShouldQueue
     {
         return 'sponsor.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

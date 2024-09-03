@@ -55,4 +55,9 @@ class DeleteBranchNotification extends Notification implements ShouldQueue
     {
         return 'branch.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return 'branch.deleted';
+    }
 }

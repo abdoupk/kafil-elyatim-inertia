@@ -59,4 +59,9 @@ class DeleteFamilyNotification extends Notification implements ShouldQueue
     {
         return 'family.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

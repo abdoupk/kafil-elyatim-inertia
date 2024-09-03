@@ -52,4 +52,9 @@ class DeleteInventoryItemNotification extends Notification implements ShouldQueu
     {
         return 'delete_item_from_inventory';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

@@ -57,4 +57,9 @@ class CreateLessonNotification extends Notification implements ShouldQueue
     {
         return 'lesson.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

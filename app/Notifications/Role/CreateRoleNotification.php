@@ -52,4 +52,9 @@ class CreateRoleNotification extends Notification implements ShouldQueue
     {
         return 'role.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

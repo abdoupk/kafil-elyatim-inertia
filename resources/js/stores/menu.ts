@@ -178,6 +178,7 @@ export const useMenuStore = defineStore('menu', {
                 icon: 'icon-hands-holding-dollar',
                 title: $t('financial'),
                 routeName: '',
+                ignore: !hasPermission(['list_financial_transactions', 'view_financial_transactions']),
                 subMenu: [
                     {
                         icon: 'icon-hands-holding-dollar',

@@ -59,4 +59,9 @@ class CreateFinanceTransactionNotification extends Notification implements Shoul
     {
         return 'finance.created';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

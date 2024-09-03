@@ -86,7 +86,7 @@ const handleSubmit = async () => {
 const modalTitle = computed(() => {
     return membersStore.member.id
         ? $t('modal_update_title', { attribute: $t('the_member') })
-        : $tc('add new', 0, { attribute: $t('member') })
+        : $tc('add new', 1, { attribute: $t('member') })
 })
 
 const showSuccessNotification = ref(false)

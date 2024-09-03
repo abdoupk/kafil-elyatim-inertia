@@ -56,4 +56,9 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
     {
         return 'branch.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

@@ -60,4 +60,9 @@ class UpdateFamilyNotification extends Notification implements ShouldQueue
     {
         return 'family.updated';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

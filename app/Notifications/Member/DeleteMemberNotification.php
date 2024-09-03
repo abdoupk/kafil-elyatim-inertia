@@ -51,4 +51,9 @@ class DeleteMemberNotification extends Notification implements ShouldQueue
     {
         return 'member.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }

@@ -54,4 +54,9 @@ class DeleteNeedNotification extends Notification implements ShouldQueue
     {
         return 'need.deleted';
     }
+
+    public function broadcastType(): string
+    {
+        return '';
+    }
 }
