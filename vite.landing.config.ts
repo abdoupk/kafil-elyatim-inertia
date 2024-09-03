@@ -5,13 +5,18 @@ export default defineConfig({
     plugins: [
         laravel({
             input: 'resources/js/landing.ts',
-            refresh: true,
-            buildDirectory: 'build/landing'
+            refresh: true
         })
     ],
     build: {
-        minify: 'esbuild',
-        sourcemap: true,
-        manifest: true
+        ssr: false,
+        rollupOptions: {
+            output: {
+                entryFileNames: `[name].js`,
+                chunkFileNames: `assets/[hash].js`,
+                assetFileNames: `assets/[hash][extname]`
+            }
+        },
+        minify: 'esbuild'
     }
 })
