@@ -14,8 +14,6 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
-        ray(calculateIncomeRate(Family::first()));
-
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),
@@ -45,7 +43,7 @@ class DashboardController extends Controller
                 ],
                 'formatted_date' => $notification->created_at->translatedFormat('H:i A'),
                 'date' => $notification->created_at,
-                'message' => trans_choice('notifications.'.$notification->type, $notification->data['user']['gender'] === 'male' ? 1 : 0, $notification->data['data']),
+                'message' => substr(trans_choice('notifications.'.$notification->type, $notification->data['user']['gender'] === 'male' ? 1 : 0, $notification->data['data']), 5),
             ];
         })->toArray();
     }
