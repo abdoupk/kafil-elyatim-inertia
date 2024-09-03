@@ -1,9 +1,8 @@
 <?php
 
-/** @noinspection UnknownInspectionInspection */
-
 use App\Models\Family;
 use App\Models\Orphan;
+use App\Models\Sponsor;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -32,14 +31,52 @@ function calculateTotalIncomes(Family $family): float
 
 function calculateIncomeRate(Family $family): float
 {
-    return 0.00;
+    return calculateIncomes($family) / calculateWeights($family);
 }
 
-function calculateWeights() {}
+function calculateIncomes(Family $family)
+{
+    return $family->orphans->sum(function (Orphan $orphan) {
+        return calculateOrphanIncomes($orphan);
+    }) + calculateContributionsForSponsor($family->sponsor);
+}
 
+/**
+ * @throws JsonException
+ */
+function calculateOrphanIncomes(Orphan $orphan): float
+{
+    if ($orphan->is_handicapped) {
+        return calculateContributionsForHandicappedSponsor($orphan);
+    }
+
+    $calculation = json_decode($orphan->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR);
+
+    if ($orphan->gender === 'male') {
+        return calculateContributionsForMaleOrphan($orphan, $calculation);
+    } else {
+        return calculateContributionsForFemaleOrphan($orphan, $calculation);
+    }
+}
+
+/**
+ * @throws JsonException
+ */
+function calculateWeights(Family $family): float
+{
+    $calculationWeights = json_decode($family->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR)['weights']['orphans'];
+
+    return $family->orphans->sum(function (Orphan $orphan) use ($calculationWeights) {
+        return calculateOrphanWeights($orphan, $calculationWeights);
+    }) + calculateSponsorWeights($family);
+}
+
+/**
+ * @throws JsonException
+ */
 function calculateSponsorWeights(Family $family): float
 {
-    $weights = $family->tenant['calculation']['weights']['sponsor'];
+    $weights = json_decode($family->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR)['weights']['sponsor'];
 
     return match ($family->sponsor->sponsor_type) {
         'other' => $weights['other'],
@@ -51,10 +88,8 @@ function calculateSponsorWeights(Family $family): float
     };
 }
 
-function calculateOrphanWeights(Orphan $orphan): float
+function calculateOrphanWeights(Orphan $orphan, array $orphanWeights): float
 {
-    $orphanWeights = $orphan->tenant['calculation']['weights']['orphans'];
-
     if ($orphan->is_handicapped) {
         return $orphanWeights['handicapped'];
     }
@@ -149,4 +184,87 @@ function calculateWeightForOrphanBelow18(Orphan $orphan, $weights): float
             default => 1
         };
     }
+}
+
+/**
+ * @throws JsonException
+ */
+function calculateContributionsForSponsor(Sponsor $sponsor): float
+{
+    $calculation = json_decode($sponsor->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR);
+
+    $sponsorPercentages = $calculation['percentage_of_contribution']['sponsor'];
+
+    $sponsorContributions = $calculation['unemployed_contribution']['sponsor'];
+
+    if ($sponsor->is_unemployed) {
+        return match ($sponsor->sponsor_type) {
+            'other' => $sponsorPercentages['other'] * $sponsor->incomes->total_income,
+            'widower' => $sponsorPercentages['widower'] * $sponsor->incomes->total_income,
+            'widow' => $sponsorPercentages['widow'] * $sponsor->incomes->total_income,
+            'widows_husband' => $sponsorPercentages['widows_husband'] * $sponsor->incomes->total_income,
+            'widows_wife' => $sponsorPercentages['widows_wife'] * $sponsor->incomes->total_income,
+            'mother_of_a_supported_childhood' => $sponsorPercentages['mother_of_a_supported_childhood'] * $sponsor->incomes->total_income,
+        };
+    } else {
+        return match ($sponsor->sponsor_type) {
+            'other' => $sponsorContributions['other'],
+            'widower' => $sponsorContributions['widower'],
+            'widow' => $sponsorContributions['widow'],
+            'widows_husband' => $sponsorContributions['widows_husband'],
+            'widows_wife' => $sponsorContributions['widows_wife'],
+            'mother_of_a_supported_childhood' => $sponsorContributions['mother_of_a_supported_childhood'],
+            default => 0
+        };
+    }
+}
+
+/**
+ * @throws JsonException
+ */
+function calculateContributionsForHandicappedSponsor(Orphan $orphan): float
+{
+    return json_decode($orphan->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR)['handicapped_contribution']['contribution'];
+}
+
+function calculateContributionsForMaleOrphan(Orphan $orphan, array $calculations): float
+{
+    if ($orphan->is_unemployed) {
+        $calculations = $calculations['unemployed_contribution']['orphans']['male_gt_18'];
+
+        return match ($orphan->family_status) {
+            'professional_boy' => $calculations['professional_boy'],
+            'unemployed' => $calculations['unemployed'],
+            'married_with_family' => $calculations['married_with_family'],
+        };
+    } else {
+        $calculations = $calculations['percentage_of_contribution']['orphans']['male_gt_18'];
+
+        return match ($orphan->family_status) {
+            'college_boy' => $calculations['college_boy'] * $orphan->income,
+            'worker_with_family' => $calculations['worker_with_family'] * $orphan->income,
+            'worker_outside_family' => $calculations['worker_outside_family'] * $orphan->income,
+            'married_with_family' => $calculations['married_with_family'] * $orphan->income,
+            'married_outside_family' => $calculations['married_outside_family'] * $orphan->income,
+            default => 0
+        };
+    }
+}
+
+function calculateContributionsForFemaleOrphan(Orphan $orphan, array $calculations): float
+{
+    if (! $orphan->is_unemployed) {
+        $calculations = $calculations['percentage_of_contribution']['orphans']['female_gt_18'];
+
+        return match ($orphan->family_status) {
+            'college_girl' => $calculations['college_girl'],
+            'professional_girl' => $calculations['professional_girl'],
+            'at_home_with_income' => $calculations['at_home_with_income'],
+            'single_female_employee' => $calculations['single_female_employee'],
+            'married' => $calculations['married'],
+            'divorced' => $calculations['divorced'],
+        };
+    }
+
+    return $calculations['unemployed_contribution']['orphans']['female_gt_18']['at_home_with_no_income'];
 }

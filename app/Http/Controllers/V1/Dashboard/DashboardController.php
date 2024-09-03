@@ -14,6 +14,8 @@ class DashboardController extends Controller
 {
     public function __invoke(): Response
     {
+        ray(calculateIncomeRate(Family::first()));
+
         return Inertia::render('Tenant/dashboard/TheDashboardPage', [
             'reports' => fn () => generateGlobalDashBoardReportStatistics(),
             'financialReports' => fn () => generateFinancialReport(),

@@ -25,8 +25,7 @@ class SaveEidSuitOrphansListNotification extends Notification implements ShouldQ
         return [
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'orphans_count' => $this->archive->orphans_count,
-                'date' => $this->archive->created_at->year,
+                'orphans_count' => $this->archive->loadCount('listOrphans')->list_orphans_count,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -44,7 +43,7 @@ class SaveEidSuitOrphansListNotification extends Notification implements ShouldQ
         return new BroadcastMessage([
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'orphans_count' => $this->archive->orphans_count,
+                'orphans_count' => $this->archive->loadCount('listOrphans')->list_orphans_count,
             ],
             'user' => [
                 'id' => $this->user->id,

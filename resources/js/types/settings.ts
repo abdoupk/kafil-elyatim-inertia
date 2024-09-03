@@ -99,7 +99,7 @@ interface UnemployedContributionOrphans {
     }
 }
 
-export interface CalculationTableType {
+export type CalculationTableType = {
     weights: {
         sponsor: Sponsor
         orphans: Orphans

@@ -447,7 +447,7 @@ const submit = () =>
                         <base-td-table>
                             <base-input-group>
                                 <base-form-input
-                                    v-model="form.unemployed_contribution.orphans.female_gt_18.at_home_with_income"
+                                    v-model="form.percentage_of_contribution.orphans.female_gt_18.at_home_with_income"
                                     type="number"
                                 ></base-form-input>
 
@@ -466,7 +466,9 @@ const submit = () =>
                         <base-td-table>
                             <base-input-group>
                                 <base-form-input
-                                    v-model="form.unemployed_contribution.orphans.female_gt_18.single_female_employee"
+                                    v-model="
+                                        form.percentage_of_contribution.orphans.female_gt_18.single_female_employee
+                                    "
                                     type="number"
                                 ></base-form-input>
 

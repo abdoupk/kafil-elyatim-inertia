@@ -318,6 +318,7 @@ const submit = () => {
                                         v-model:first_name="form.sponsor.first_name"
                                         v-model:function="form.sponsor.function"
                                         v-model:health_status="form.sponsor.health_status"
+                                        v-model:is-unemployed="form.sponsor.is_unemployed"
                                         v-model:last_name="form.sponsor.last_name"
                                         v-model:mother_name="form.sponsor.mother_name"
                                         v-model:phone="form.sponsor.phone_number"

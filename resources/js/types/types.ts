@@ -557,6 +557,7 @@ type SponsorType = {
     diploma: string
     card_number: string
     sponsor_type: string
+    is_unemployed: boolean
     gender: 'male' | 'female'
     ccp: string
 }

@@ -25,7 +25,7 @@ class SaveRamadanBasketFamiliesListNotification extends Notification implements 
         return [
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'families_count' => $this->archive->families_count,
+                'families_count' => $this->archive->loadCount('listFamilies')->list_families_count,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -43,7 +43,7 @@ class SaveRamadanBasketFamiliesListNotification extends Notification implements 
         return new BroadcastMessage([
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'families_count' => $this->archive->families_count,
+                'families_count' => $this->archive->loadCount('listFamilies')->list_families_count,
             ],
             'user' => [
                 'id' => $this->user->id,

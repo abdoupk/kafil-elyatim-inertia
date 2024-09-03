@@ -25,7 +25,7 @@ class SaveEidAlAdhaFamiliesListNotification extends Notification implements Shou
         return [
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'families_count' => $this->archive->families_count,
+                'families_count' => $this->archive->loadCount('listFamilies')->list_families_count,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -43,7 +43,7 @@ class SaveEidAlAdhaFamiliesListNotification extends Notification implements Shou
         return new BroadcastMessage([
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'families_count' => $this->archive->families_count,
+                'families_count' => $this->archive->loadCount('listFamilies')->list_families_count,
             ],
             'user' => [
                 'id' => $this->user->id,

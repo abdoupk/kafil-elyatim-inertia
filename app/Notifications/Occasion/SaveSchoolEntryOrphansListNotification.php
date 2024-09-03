@@ -25,7 +25,7 @@ class SaveSchoolEntryOrphansListNotification extends Notification implements Sho
         return [
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'orphans_count' => $this->archive->orphans_count,
+                'orphans_count' => $this->archive->loadCount('listOrphans')->list_orphans_count,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -43,7 +43,7 @@ class SaveSchoolEntryOrphansListNotification extends Notification implements Sho
         return new BroadcastMessage([
             'data' => [
                 'occasion' => $this->archive->occasion,
-                'orphans_count' => $this->archive->orphans_count,
+                'orphans_count' => $this->archive->loadCount('listOrphans')->list_orphans_count,
             ],
             'user' => [
                 'id' => $this->user->id,

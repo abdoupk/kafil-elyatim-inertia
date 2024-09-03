@@ -83,6 +83,7 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
     start_date: new Date(),
     sponsor: {
         first_name: '',
+        is_unemployed: false,
         last_name: '',
         phone_number: '',
         birth_date: new Date(),

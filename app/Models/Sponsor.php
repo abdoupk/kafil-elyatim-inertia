@@ -130,6 +130,7 @@ class Sponsor extends Model
         'birth_certificate_number',
         'academic_level_id',
         'function',
+        'is_unemployed',
         'health_status',
         'diploma',
         'ccp',
@@ -137,6 +138,23 @@ class Sponsor extends Model
         'created_by',
         'deleted_by',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
 
     public function searchableAs(): string
     {
@@ -238,6 +256,16 @@ class Sponsor extends Model
         $this->delete();
     }
 
+    public function needs(): MorphMany
+    {
+        return $this->morphMany(Need::class, 'needable');
+    }
+
+    public function sponsorships(): HasOne
+    {
+        return $this->hasOne(SponsorSponsorship::class);
+    }
+
     public function forceDeleteWithRelations(): void
     {
         $this->unsearchable();
@@ -257,16 +285,6 @@ class Sponsor extends Model
         $this->forceDelete();
     }
 
-    public function needs(): MorphMany
-    {
-        return $this->morphMany(Need::class, 'needable');
-    }
-
-    public function sponsorships(): HasOne
-    {
-        return $this->hasOne(SponsorSponsorship::class);
-    }
-
     public function restoreWithRelations(): void
     {
         $this->searchable();
@@ -284,23 +302,6 @@ class Sponsor extends Model
         $needs->restore();
 
         $sponsorships->restore();
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-            }
-        });
     }
 
     protected function casts(): array

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../../utils/i18n'
+
 import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
@@ -10,6 +12,9 @@ import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
+import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
+import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
+import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
 import TheSponsorTypeSelector from '@/Components/Global/TheSponsorTypeSelector.vue'
 
@@ -54,6 +59,8 @@ const ccp = defineModel('ccp')
 const sponsorType = defineModel('sponsorType')
 
 const birthDate = defineModel('birth_date', { default: '' })
+
+const isUnemployed = defineModel('isUnemployed')
 </script>
 
 <template>
@@ -545,7 +552,7 @@ const birthDate = defineModel('birth_date', { default: '' })
         <!-- End: Health Status -->
 
         <!-- Begin: Diploma -->
-        <div class="col-span-12 sm:col-span-6">
+        <div class="col-span-9 sm:col-span-6">
             <base-form-label for="diploma">
                 {{ $t('validation.attributes.sponsor.diploma') }}
             </base-form-label>
@@ -586,6 +593,22 @@ const birthDate = defineModel('birth_date', { default: '' })
             </base-form-input-error>
         </div>
         <!-- End: Diploma -->
+
+        <!--Begin: Unemployed-->
+        <div class="col-span-3 mt-6 flex items-center sm:col-span-3">
+            <base-form-switch class="text-lg">
+                <base-form-switch-input
+                    id="is_unemployed"
+                    v-model="isUnemployed"
+                    type="checkbox"
+                ></base-form-switch-input>
+
+                <base-form-switch-label htmlFor="is_unemployed">
+                    {{ $t('unemployed') }}
+                </base-form-switch-label>
+            </base-form-switch>
+        </div>
+        <!--END: Unemployed-->
 
         <slot></slot>
     </div>

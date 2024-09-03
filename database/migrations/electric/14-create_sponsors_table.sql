@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS sponsors
     "function"                 text                           not null,
     "health_status"            text                           not null,
     "diploma"                  text                           null,
---     "card_number"              text                           null,
+    "is_unemployed"            boolean                        not null,
     "ccp"                      text                           null,
     "gender"                   text                           not null,
     "family_id"                uuid                           not null references families (id) on delete cascade,

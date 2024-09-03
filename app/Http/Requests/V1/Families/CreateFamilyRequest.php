@@ -47,6 +47,7 @@ class CreateFamilyRequest extends FormRequest
             'sponsor.sponsor_type' => 'required|string',
             'sponsor.gender' => 'required|in:male,female',
             'sponsor.birth_date' => 'required|string',
+            'sponsor.is_unemployed' => 'required|boolean',
             'sponsor.father_name' => 'required|string',
             'sponsor.mother_name' => 'required|string',
             'sponsor.birth_certificate_number' => 'required|string',
