@@ -5,6 +5,7 @@ import type { Hit } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
 import { defineAsyncComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 
+import { $t } from '@/utils/i18n'
 import { search } from '@/utils/search'
 
 const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
@@ -78,7 +79,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
                         )
                     "
                     :placeholder="$t('Search...')"
-                    @blur="() => (querySearch = '')"
+                    @blur="
+                        () => {
+                            querySearch = ''
+                            
+                            selectedOption = null
+                        }
+                    "
                     @keydown.esc.prevent="() => (querySearch = '')"
                 />
 

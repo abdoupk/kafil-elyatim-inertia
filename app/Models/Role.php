@@ -64,6 +64,7 @@ class Role extends SpatieRole
             'permissions_count' => (int) $this->permissions_count,
             'users_count' => (int) $this->users_count,
             'tenant_id' => $this->tenant_id,
+            'created_at' => strtotime($this->created_at),
         ];
     }
 }
