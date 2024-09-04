@@ -9,7 +9,6 @@ import { computed, onMounted, ref, watch } from 'vue'
 import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
 import MenuDivider from '@/Layouts/enigma/side-menu/MenuDivider.vue'
 import SideMenuLink from '@/Layouts/enigma/side-menu/SideMenuLink.vue'
-import EnigmaSideMenuLoader from '@/Layouts/loaders/EnigmaSideMenuLoader.vue'
 import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 
@@ -42,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <suspense>
+    <suspense suspensible>
         <div
             class="enigma px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8 md:bg-slate-200 md:px-0 md:py-0 md:before:bg-none md:dark:bg-darkmode-800"
         >
@@ -128,10 +127,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-
-        <template #fallback>
-            <enigma-side-menu-loader></enigma-side-menu-loader>
-        </template>
     </suspense>
 </template>
 

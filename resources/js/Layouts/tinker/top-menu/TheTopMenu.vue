@@ -7,7 +7,6 @@ import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
-import TinkerTopMenuLoader from '@/Layouts/loaders/TinkerTopMenuLoader.vue'
 import { nestedMenu } from '@/Layouts/menu'
 import TopMenuLink from '@/Layouts/tinker/top-menu/TopMenuLink.vue'
 
@@ -44,7 +43,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <suspense>
+    <suspense suspensible>
         <div
             class="tinker relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:bg-transparent dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8 md:bg-black/[0.15] md:px-0 md:py-0"
         >
@@ -139,10 +138,6 @@ onMounted(() => {
                 <slot></slot>
             </div>
         </div>
-
-        <template #fallback>
-            <tinker-top-menu-loader></tinker-top-menu-loader>
-        </template>
     </suspense>
 </template>
 

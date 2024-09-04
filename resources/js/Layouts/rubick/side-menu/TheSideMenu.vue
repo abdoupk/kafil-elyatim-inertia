@@ -7,7 +7,6 @@ import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
-import RubickSideMenuLoader from '@/Layouts/loaders/RubickSideMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 import TheTopBar from '@/Layouts/rubick/TheTopBar.vue'
 import MenuDivider from '@/Layouts/rubick/side-menu/MenuDivider.vue'
@@ -42,7 +41,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <suspense>
+    <suspense suspensible>
         <div
             class="rubick px-5 py-5 before:fixed before:inset-0 before:z-[-1] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:content-[''] dark:before:from-darkmode-800 dark:before:to-darkmode-800 sm:px-8"
         >
@@ -137,10 +136,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-
-        <template #fallback>
-            <rubick-side-menu-loader></rubick-side-menu-loader>
-        </template>
     </suspense>
 </template>
 

@@ -8,7 +8,6 @@ import { computed, onMounted, ref, watch } from 'vue'
 
 import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
 import TopMenuLink from '@/Layouts/icewall/top-menu/TopMenuLink.vue'
-import IcewallTopMenuLoader from '@/Layouts/loaders/IcewallTopMenuLoader.vue'
 import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { nestedMenu } from '@/Layouts/menu'
 
@@ -41,7 +40,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <suspense>
+    <suspense suspensible>
         <div
             class="icewall relative px-5 py-5 after:fixed after:inset-0 after:z-[-2] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 after:content-[''] dark:after:from-darkmode-800 dark:after:to-darkmode-800 sm:px-8"
         >
@@ -118,10 +117,6 @@ onMounted(() => {
                 </div>
             </div>
         </div>
-
-        <template #fallback>
-            <icewall-top-menu-loader></icewall-top-menu-loader>
-        </template>
     </suspense>
 </template>
 

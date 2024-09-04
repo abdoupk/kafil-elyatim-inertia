@@ -18,7 +18,7 @@ const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <suspense>
+    <suspense suspensible>
         <div>
             <component :is="simpleMenu" v-if="settingsStore.layout === 'simple_menu'">
                 <slot></slot>

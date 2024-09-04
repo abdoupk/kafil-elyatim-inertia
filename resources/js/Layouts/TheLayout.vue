@@ -4,6 +4,8 @@ import type { PageProps } from '@/types'
 import { usePage } from '@inertiajs/vue3'
 import { defineAsyncComponent, onMounted } from 'vue'
 
+import TheLayoutLoader from '@/Layouts/loaders/TheLayoutLoader.vue'
+
 import TheThemeSwitcher from '@/Components/theme-switcher/TheThemeSwitcher.vue'
 
 import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'
@@ -36,9 +38,15 @@ onMounted(() => {
 <template>
     <suspense>
         <div>
-            <enigma-theme v-if="settingsStore.theme === 'enigma'">
-                <slot></slot>
-            </enigma-theme>
+            <suspense v-if="settingsStore.theme === 'enigma'" suspensible>
+                <enigma-theme>
+                    <slot></slot>
+                </enigma-theme>
+
+                <template #fallback>
+                    <the-layout-loader></the-layout-loader>
+                </template>
+            </suspense>
 
             <icewall-theme v-if="settingsStore.theme === 'icewall'">
                 <slot></slot>
@@ -54,5 +62,9 @@ onMounted(() => {
 
             <the-theme-switcher></the-theme-switcher>
         </div>
+
+        <template #fallback>
+            <the-layout-loader></the-layout-loader>
+        </template>
     </suspense>
 </template>
