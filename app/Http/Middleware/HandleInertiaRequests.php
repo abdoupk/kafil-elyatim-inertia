@@ -9,11 +9,6 @@ use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
-    /**
-     * Define the props that are shared by default.
-     *
-     * @return array<string, mixed>
-     */
     public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
@@ -31,10 +26,6 @@ class HandleInertiaRequests extends Middleware
         ]);
     }
 
-    /**
-     * @noinspection StaticClosureCanBeUsedInspection
-     * @noinspection UnknownInspectionInspection
-     */
     protected function getAuthData(): ?array
     {
         if (auth()->user()) {

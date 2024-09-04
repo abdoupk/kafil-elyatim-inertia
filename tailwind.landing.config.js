@@ -5,7 +5,9 @@ import defaultTheme from 'tailwindcss/defaultTheme'
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/landing/*.blade.php', './storage/framework/views/*.php'
+        './vendor/laravel/framework/src/Illuminate/Pagination',
+        './resources/views/landing.blade.php',
+        './storage/framework/views/*.php'
     ],
 
     theme: {

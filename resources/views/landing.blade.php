@@ -9,13 +9,11 @@
     <link rel="icon" href="{{ asset('logo.png') }}">
     <title>sss</title>
 
-    {{--    {{ Vite::useBuildDirectory('build/landing/') }}--}}
-
     @vite('resources/js/landing.ts')
 </head>
 
 <body>
-<div class="text-center text-red-600">hello landing</div>
+<div class="text-center text-xl text-red-600">hello landing</div>
 </body>
 
 </html>
