@@ -6,10 +6,10 @@ import { Link, usePage } from '@inertiajs/vue3'
 import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
-import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { nestedMenu } from '@/Layouts/menu'
 import TopMenuLink from '@/Layouts/tinker/top-menu/TopMenuLink.vue'
 
+import MobileMenuLoader from '@/Components/Global/MobileMenuLoader.vue'
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
 import TheAccountMenu from '@/Components/top-bar/TheAccountMenu/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'

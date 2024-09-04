@@ -1,13 +1,31 @@
 <script lang="ts" setup>
 import { usePage } from '@inertiajs/vue3'
 import { useForm } from 'laravel-precognition-vue'
+import { ref } from 'vue'
 
 import TheNotificationItem from '@/Pages/Profile/notifications/TheNotificationItem.vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
+
+import { $t } from '@/utils/i18n'
 
 const form = useForm('put', route('tenant.profile.notifications.update'), usePage().props.auth.settings.notifications)
+
+const showSuccessNotification = ref(false)
+
+const submit = () => {
+    form.submit({
+        onSuccess: () => {
+            showSuccessNotification.value = true
+
+            setTimeout(() => {
+                showSuccessNotification.value = false
+            }, 1000)
+        }
+    })
+}
 </script>
 
 <template>
@@ -21,7 +39,7 @@ const form = useForm('put', route('tenant.profile.notifications.update'), usePag
 
     <p class="py-5 rtl:text-lg rtl:font-semibold">{{ $t('profile.notifications.Notify me about') }}</p>
 
-    <form @submit.prevent="form.submit()">
+    <form @submit.prevent="submit">
         <div class="space-y-4">
             <the-notification-item
                 v-model:status="form.families_changes"
@@ -66,4 +84,6 @@ const form = useForm('put', route('tenant.profile.notifications.update'), usePag
             <spinner-button-loader :show="form.processing" class="ms-auto"></spinner-button-loader>
         </base-button>
     </form>
+
+    <success-notification :open="showSuccessNotification" :title="$t('successfully_updated')"></success-notification>
 </template>

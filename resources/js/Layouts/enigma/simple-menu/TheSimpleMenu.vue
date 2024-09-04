@@ -10,9 +10,9 @@ import { computed, onMounted, ref, watch } from 'vue'
 import TheTopBar from '@/Layouts/enigma/TheTopBar.vue'
 import MenuDivider from '@/Layouts/enigma/side-menu/MenuDivider.vue'
 import SimpleMenuLink from '@/Layouts/enigma/simple-menu/SimpleMenuLink.vue'
-import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 
+import MobileMenuLoader from '@/Components/Global/MobileMenuLoader.vue'
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
 
 import { toRaw } from '@/utils/helper'

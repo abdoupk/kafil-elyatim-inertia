@@ -6,12 +6,12 @@ import { Link, usePage } from '@inertiajs/vue3'
 import { useWindowSize } from '@vueuse/core'
 import { computed, onMounted, ref, watch } from 'vue'
 
-import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 import TheTopBar from '@/Layouts/rubick/TheTopBar.vue'
 import MenuDivider from '@/Layouts/rubick/side-menu/MenuDivider.vue'
 import SideMenuLink from '@/Layouts/rubick/side-menu/SideMenuLink.vue'
 
+import MobileMenuLoader from '@/Components/Global/MobileMenuLoader.vue'
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
 
 import { isAssociationNameLatin, toRaw } from '@/utils/helper'

@@ -4,8 +4,7 @@ import type { PageProps } from '@/types'
 import { usePage } from '@inertiajs/vue3'
 import { defineAsyncComponent, onMounted } from 'vue'
 
-import TheLayoutLoader from '@/Layouts/loaders/TheLayoutLoader.vue'
-
+import TheLayoutLoader from '@/Components/Global/TheLayoutLoader.vue'
 import TheThemeSwitcher from '@/Components/theme-switcher/TheThemeSwitcher.vue'
 
 import { setColorSchemeClass, setDarkModeClass } from '@/utils/helper'

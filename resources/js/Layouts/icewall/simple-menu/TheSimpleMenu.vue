@@ -6,8 +6,9 @@ import { usePage } from '@inertiajs/vue3'
 import { useWindowSize } from '@vueuse/core'
 import { computed, defineAsyncComponent, onMounted, ref, watch } from 'vue'
 
-import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
+
+import MobileMenuLoader from '@/Components/Global/MobileMenuLoader.vue'
 
 import { toRaw } from '@/utils/helper'
 

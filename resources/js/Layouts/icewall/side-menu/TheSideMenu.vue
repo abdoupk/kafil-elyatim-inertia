@@ -9,9 +9,9 @@ import { computed, onMounted, ref, watch } from 'vue'
 import TheTopBar from '@/Layouts/icewall/TheTopBar.vue'
 import MenuDivider from '@/Layouts/icewall/side-menu/MenuDivider.vue'
 import SideMenuLink from '@/Layouts/icewall/side-menu/SideMenuLink.vue'
-import MobileMenuLoader from '@/Layouts/loaders/MobileMenuLoader.vue'
 import { enter, leave, nestedMenu } from '@/Layouts/menu'
 
+import MobileMenuLoader from '@/Components/Global/MobileMenuLoader.vue'
 import TheMobileMenu from '@/Components/mobile-menu/TheMobileMenu.vue'
 
 import { toRaw } from '@/utils/helper'
