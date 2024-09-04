@@ -60,8 +60,6 @@ export const useInventoryStore = defineStore('inventory', {
             const { data: babyMilk } = await axios.get(route('tenant.list.baby-milk'))
 
             this.babyMilk = babyMilk
-
-            console.log(babyMilk)
         },
 
         findBabyMilkById(id: string) {

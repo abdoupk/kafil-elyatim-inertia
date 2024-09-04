@@ -17,11 +17,14 @@ import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 import TheAcademicLevelSelector from '@/Components/Global/TheAcademicLevelSelector.vue'
+import TheBabyMilkSelector from '@/Components/Global/TheBabyMilkSelector.vue'
 import TheClothesSizeSelector from '@/Components/Global/TheClothesSizeSelector.vue'
+import TheDiapersSelector from '@/Components/Global/TheDiapersSelector.vue'
 import TheFamilyStatusSelector from '@/Components/Global/TheFamilyStatusSelector.vue'
 import TheShoesSizeSelector from '@/Components/Global/TheShoesSizeSelector.vue'
 
 import { omit } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 const props = defineProps<{
     orphan: OrphanUpdateFormType
@@ -336,18 +339,11 @@ onMounted(async () => {
                             {{ $t('diapers_type') }}
                         </base-form-label>
 
-                        <base-form-input
+                        <the-diapers-selector
                             id="diapers_type"
-                            v-model="form.diapers_type"
-                            :placeholder="
-                                $t('auth.placeholders.fill', {
-                                    attribute: $t('diapers_type')
-                                })
-                            "
-                            data-test="orphan_diapers_type"
-                            type="text"
-                            @change="form?.validate('diapers_type')"
-                        ></base-form-input>
+                            v-model:diaper="form.diapers_type"
+                            @update:diaper="form?.validate('diapers_type')"
+                        ></the-diapers-selector>
 
                         <base-form-input-error>
                             <div
@@ -398,18 +394,11 @@ onMounted(async () => {
                             {{ $t('baby_milk_type') }}
                         </base-form-label>
 
-                        <base-form-input
+                        <the-baby-milk-selector
                             id="baby_milk_type"
-                            v-model="form.baby_milk_type"
-                            :placeholder="
-                                $t('auth.placeholders.fill', {
-                                    attribute: $t('baby_milk_type')
-                                })
-                            "
-                            data-test="orphan_baby_milk_type"
-                            type="text"
-                            @change="form?.validate('baby_milk_type')"
-                        ></base-form-input>
+                            v-model:baby-milk="form.baby_milk_type"
+                            @update:baby-milk="form?.validate('baby_milk_type')"
+                        ></the-baby-milk-selector>
 
                         <base-form-input-error>
                             <div

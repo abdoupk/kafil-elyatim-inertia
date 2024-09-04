@@ -2,6 +2,7 @@
 import type { AuthInformation } from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
+import { nextTick, ref } from 'vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
@@ -9,6 +10,7 @@ import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseFormSelect from '@/Components/Base/form/BaseFormSelect.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
@@ -18,6 +20,20 @@ const props = defineProps<{
 }>()
 
 const form = useForm('patch', route('tenant.profile.update'), { ...props.data })
+
+const showSuccessNotification = ref(false)
+
+const submit = () => {
+    form.submit({
+        onSuccess: () => {
+            showSuccessNotification.value = true
+
+            nextTick(() => {
+                showSuccessNotification.value = false
+            })
+        }
+    })
+}
 </script>
 
 <template>
@@ -26,7 +42,7 @@ const form = useForm('patch', route('tenant.profile.update'), { ...props.data })
 
         <h2 class="mt-0.5 text-sm/4 text-slate-500">{{ $t('profile.profile_information_hint') }}</h2>
 
-        <form @submit.prevent="form.submit()">
+        <form @submit.prevent="submit">
             <div class="mt-5 grid grid-cols-12 gap-4 gap-y-3">
                 <!-- Begin: First name-->
                 <div class="col-span-12 sm:col-span-6">
@@ -197,5 +213,10 @@ const form = useForm('patch', route('tenant.profile.update'), { ...props.data })
                 </base-button>
             </div>
         </form>
+
+        <success-notification
+            :open="showSuccessNotification"
+            :title="$t('successfully_updated')"
+        ></success-notification>
     </div>
 </template>

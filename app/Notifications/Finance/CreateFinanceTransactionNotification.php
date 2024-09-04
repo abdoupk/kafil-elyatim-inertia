@@ -25,7 +25,7 @@ class CreateFinanceTransactionNotification extends Notification implements Shoul
         return [
             'data' => [
                 'specification' => $this->finance->specification,
-                'amount' => abs($this->finance->amount),
+                'amount' => formatCurrency(abs($this->finance->amount)),
                 'type' => $this->finance->amount > 0 ? 'income' : 'expense',
             ],
             'user' => [
@@ -44,7 +44,7 @@ class CreateFinanceTransactionNotification extends Notification implements Shoul
         return new BroadcastMessage([
             'data' => [
                 'specification' => $this->finance->specification,
-                'amount' => abs($this->finance->amount),
+                'amount' => formatCurrency(abs($this->finance->amount)),
                 'type' => $this->finance->amount > 0 ? 'income' : 'expense',
             ],
             'user' => [

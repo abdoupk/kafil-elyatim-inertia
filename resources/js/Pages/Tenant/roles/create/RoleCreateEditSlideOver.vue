@@ -60,7 +60,6 @@ const handleSuccess = () => {
     emit('close')
 }
 
-// Function to handle form submission
 const handleSubmit = async () => {
     loading.value = true
 
@@ -127,7 +126,6 @@ const checkAll = (model: keyof typeof permissions, checked: boolean) => {
                     v-model="form.name"
                     :placeholder="$t('auth.placeholders.fill', { attribute: $t('validation.attributes.role_name') })"
                     type="text"
-                    @change="form.validate('name')"
                 />
 
                 <div v-if="form.errors?.name" class="mt-2">

@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import { useForm } from 'laravel-precognition-vue'
+import { nextTick, ref } from 'vue'
 
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormLabel from '@/Components/Base/form/BaseFormLabel.vue'
 import BaseInputError from '@/Components/Base/form/BaseInputError.vue'
 import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
+import SuccessNotification from '@/Components/Global/SuccessNotification.vue'
 
 import { $t } from '@/utils/i18n'
 
@@ -14,6 +16,20 @@ const form = useForm('put', route('tenant.profile.password.update'), {
     password_confirmation: '',
     current_password: ''
 })
+
+const showSuccessNotification = ref(false)
+
+const submit = () => {
+    form.submit({
+        onSuccess: () => {
+            showSuccessNotification.value = true
+
+            nextTick(() => {
+                showSuccessNotification.value = false
+            })
+        }
+    })
+}
 </script>
 
 <template>
@@ -25,7 +41,7 @@ const form = useForm('put', route('tenant.profile.password.update'), {
                 {{ $t('profile.update_password_hint') }}
             </h2>
 
-            <form action="" @submit.prevent="form.submit()">
+            <form action="" @submit.prevent="submit">
                 <div class="mt-5 grid grid-cols-12 gap-4 gap-y-3">
                     <!-- Begin: Current Password-->
                     <div class="col-span-12 sm:col-span-6">
@@ -119,5 +135,10 @@ const form = useForm('put', route('tenant.profile.password.update'), {
                 </div>
             </form>
         </div>
+
+        <success-notification
+            :open="showSuccessNotification"
+            :title="$t('successfully_updated')"
+        ></success-notification>
     </div>
 </template>

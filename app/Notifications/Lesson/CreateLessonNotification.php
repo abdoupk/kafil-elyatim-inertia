@@ -24,8 +24,8 @@ class CreateLessonNotification extends Notification implements ShouldQueue
     {
         return [
             'data' => [
-                'name' => $this->event->title,
-                'school' => $this->event->school->name,
+                'title' => $this->event->title,
+                'school' => $this->event->load('school')->school->name,
             ],
             'user' => [
                 'id' => $this->user->id,
@@ -42,8 +42,8 @@ class CreateLessonNotification extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'data' => [
-                'name' => $this->event->title,
-                'school' => $this->event->school->name,
+                'title' => $this->event->title,
+                'school' => $this->event->load('school')->school->name,
             ],
             'user' => [
                 'id' => $this->user->id,
