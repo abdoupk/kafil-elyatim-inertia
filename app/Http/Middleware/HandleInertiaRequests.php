@@ -29,7 +29,7 @@ class HandleInertiaRequests extends Middleware
     protected function getAuthData(): ?array
     {
         if (auth()->user()) {
-            return Arr::map(auth()->user()->load(['roles'])->only(['roles', 'id', 'first_name', 'last_name', 'tenant_id']), function ($value, $key) {
+            return Arr::map(auth()->user()->load(['roles'])->only(['roles', 'id', 'first_name', 'gender', 'last_name', 'tenant_id']), function ($value, $key) {
                 if ($key === 'roles') {
                     return $value->pluck('name')->toArray();
                 }
