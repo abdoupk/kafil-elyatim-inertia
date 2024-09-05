@@ -201,6 +201,7 @@ class Sponsor extends Model
                 'direct_sponsorship' => boolval($this->sponsorships?->direct_sponsorship),
                 'project_support' => boolval($this->sponsorships?->project_support),
             ],
+            'created_at' => strtotime($this->created_at),
         ];
     }
 

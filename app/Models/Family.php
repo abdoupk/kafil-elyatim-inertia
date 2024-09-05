@@ -108,6 +108,25 @@ class Family extends Model
         'branch_id',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($family) {
+            if (auth()->id()) {
+                $family->deleted_by = auth()->id();
+
+                $family->save();
+            }
+        });
+    }
+
     public function unSearchWithRelations(): void
     {
         $this->unsearchable();
@@ -187,7 +206,6 @@ class Family extends Model
             'id' => $this->id,
             'name' => $this->name,
             'tenant_id' => $this->tenant_id,
-            'created_at' => $this->created_at,
             'start_date' => (int) strtotime($this->start_date),
             'file_number' => $this->file_number,
             'address' => [
@@ -222,6 +240,7 @@ class Family extends Model
                 'eid_el_adha' => boolval($this->sponsorships?->eid_al_adha),
             ],
             'income_rate' => $this->income_rate,
+            'created_at' => strtotime($this->created_at),
         ];
     }
 
@@ -326,25 +345,6 @@ class Family extends Model
     public function preview(): HasOne
     {
         return $this->hasOne(Preview::class);
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($family) {
-            if (auth()->id()) {
-                $family->deleted_by = auth()->id();
-
-                $family->save();
-            }
-        });
     }
 
     protected function casts(): array

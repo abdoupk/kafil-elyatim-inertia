@@ -53,41 +53,6 @@ class PrivateSchool extends Model
         'deleted_by',
     ];
 
-    public function searchableAs(): string
-    {
-        return 'schools';
-    }
-
-    public function makeSearchableUsing(Collection $models): Collection
-    {
-        return $models->load('lessons');
-    }
-
-    public function toSearchableArray(): array
-    {
-        return [
-            'tenant_id' => $this->tenant_id,
-            'name' => $this->name,
-            'quota' => $this->lessons->sum('quota'),
-            'created_at' => $this->created_at,
-        ];
-    }
-
-    public function subjects()
-    {
-        return $this->lessons()->with('subject');
-    }
-
-    public function lessons(): HasMany
-    {
-        return $this->hasMany(Lesson::class, 'private_school_id', 'id');
-    }
-
-    public function creator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
     protected static function boot(): void
     {
         parent::boot();
@@ -105,6 +70,41 @@ class PrivateSchool extends Model
                 $model->save();
             }
         });
+    }
+
+    public function searchableAs(): string
+    {
+        return 'schools';
+    }
+
+    public function makeSearchableUsing(Collection $models): Collection
+    {
+        return $models->load('lessons');
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'tenant_id' => $this->tenant_id,
+            'name' => $this->name,
+            'quota' => $this->lessons->sum('quota'),
+            'created_at' => strtotime($this->created_at),
+        ];
+    }
+
+    public function subjects()
+    {
+        return $this->lessons()->with('subject');
+    }
+
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(Lesson::class, 'private_school_id', 'id');
+    }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     protected function casts(): array

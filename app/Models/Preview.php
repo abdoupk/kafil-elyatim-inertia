@@ -87,13 +87,14 @@ class Preview extends Model
         return [
             'id' => $this->id,
             'report' => $this->report,
-            'preview_date' => strtotime($this->preview_date),
+            'preview_date' => $this->preview_date,
             'family' => [
                 'id' => $this->family_id,
                 'name' => $this->family->name,
             ],
             'inspectors' => $this->inspectors->pluck('name')->toArray(),
             'tenant_id' => $this->tenant_id,
+            'created_at' => strtotime($this->created_at),
         ];
     }
 
