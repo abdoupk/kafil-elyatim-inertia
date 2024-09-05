@@ -6,10 +6,8 @@ use App\Models\Archive;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class OccasionsExport implements FromCollection
+class BabiesMilkAndDiapersListExport implements FromCollection
 {
-    public function __construct(public string $occasion) {}
-
     public function collection(): Collection
     {
         return Archive::all();
