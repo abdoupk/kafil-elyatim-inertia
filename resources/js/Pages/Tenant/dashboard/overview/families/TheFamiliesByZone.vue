@@ -2,6 +2,7 @@
 import type { FamiliesByZoneType } from '@/types/dashboard'
 
 import BasePolarBarChart from '@/Components/Base/chart/BasePolarBarChart.vue'
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 defineProps<{
     familiesByZone: FamiliesByZoneType
@@ -18,10 +19,13 @@ defineProps<{
         <div class="intro-y box mt-5 p-5">
             <div class="mt-3">
                 <base-polar-bar-chart
+                    v-if="familiesByZone.data.length"
                     :chart-data="familiesByZone.data"
                     :height="336"
                     :labels="familiesByZone.labels"
                 ></base-polar-bar-chart>
+
+                <the-no-data-chart v-else class="h-[336px]"></the-no-data-chart>
             </div>
         </div>
     </div>

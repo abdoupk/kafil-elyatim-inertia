@@ -9,4 +9,4 @@ Route::get('/register',
 Route::post(
     '/register',
     action: [RegisteredTenantController::class, 'store']
-)->name('register')->middleware([HandlePrecognitiveRequests::class]);
+)->middleware([HandlePrecognitiveRequests::class]);

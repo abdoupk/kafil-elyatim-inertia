@@ -9,7 +9,7 @@ use App\Http\Controllers\V1\API\City\DairaController;
 use App\Http\Controllers\V1\API\City\WilayaController;
 use App\Http\Controllers\V1\API\RegisterTenantController;
 
-Route::name('api.')->group(function () {
+Route::name('api.')->prefix('/api')->group(function () {
     Route::post('/login', LoginController::class);
 
     Route::post('/register', RegisterTenantController::class)->name('register');

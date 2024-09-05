@@ -13,7 +13,7 @@ import { $t } from '@/utils/i18n'
 
 const hostname = '.' + new URL(import.meta.env.VITE_APP_URL).hostname
 
-const form = useForm('post', route('register'), {
+const form = useForm('post', '/register', {
     first_name: '',
     last_name: '',
     association: '',

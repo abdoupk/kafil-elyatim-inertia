@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 function getFinances(): LengthAwarePaginator
 {
     return search(Finance::getModel())
-        ->query(fn (Builder $query) => $query->with('creator'))
+        ->query(fn (Builder $query) => $query->with(['creator', 'receiver']))
         ->paginate(perPage: request()->integer('perPage', 10));
 }
 

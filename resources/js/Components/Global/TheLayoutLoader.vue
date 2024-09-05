@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import SpinnerLoader from '@/Components/Global/SpinnerLoader.vue'
-
-import { $t } from '@/utils/i18n'
 </script>
 
 <template>
@@ -9,7 +7,7 @@ import { $t } from '@/utils/i18n'
         <div class="flex h-screen w-screen flex-col items-center justify-center overflow-hidden">
             <spinner-loader class="h-10 w-10"></spinner-loader>
 
-            <h3 class="mt-6 text-lg font-medium rtl:font-semibold">{{ $t('loading...') }}</h3>
+            <!--            <h3 class="mt-6 text-lg font-medium rtl:font-semibold">{{ $t('loading...') }}</h3>-->
         </div>
 
         <template #fallback>

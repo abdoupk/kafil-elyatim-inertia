@@ -6,6 +6,8 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
+import { sumObjectValues } from '@/utils/helper'
+
 const ReportLineChart = defineAsyncComponent(
     () => import('@/Pages/Tenant/dashboard/financial-report/ReportLineChart.vue')
 )
@@ -30,7 +32,7 @@ const handleChange = (specification: string) => {
 </script>
 
 <template>
-    <suspense v-if="financesByMonth.incomes.length || financesByMonth.expenses.length" suspensible>
+    <suspense v-if="sumObjectValues(financesByMonth.incomes) || sumObjectValues(financesByMonth.expenses)" suspensible>
         <ReportLineChart :financialReports="financesByMonth" :height="300"></ReportLineChart>
     </suspense>
 

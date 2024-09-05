@@ -1,11 +1,15 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { FinancialReportsType } from '@/types/dashboard'
 
 import { router } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
+import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
+
 import { financialSpecifications } from '@/utils/constants'
-import { formatCurrency } from '@/utils/helper'
+import { formatCurrency, sumObjectValues } from '@/utils/helper'
 
 const BaseFormSelect = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormSelect.vue'))
 
@@ -33,7 +37,7 @@ const handleChange = (specification: string) => {
 </script>
 
 <template>
-    <suspense suspensible>
+    <suspense v-if="financialReports.incomes.length" suspensible>
         <div class="col-span-12 mt-8 lg:col-span-6">
             <div class="intro-y block h-10 items-center sm:flex">
                 <h2 class="me-5 truncate font-medium rtl:text-xl rtl:font-semibold">
@@ -42,7 +46,7 @@ const handleChange = (specification: string) => {
             </div>
 
             <div class="intro-y box mt-12 p-5 sm:mt-5">
-                <div>
+                <div v-if="sumObjectValues(financialReports.incomes) || sumObjectValues(financialReports.expenses)">
                     <div class="flex flex-col md:flex-row md:items-center">
                         <div class="flex">
                             <div>
@@ -80,6 +84,8 @@ const handleChange = (specification: string) => {
                         <ReportLineChart :financialReports :height="275" class="-mb-6 mt-6" />
                     </div>
                 </div>
+
+                <the-no-data-chart v-else class="h-[347px]"></the-no-data-chart>
             </div>
         </div>
     </suspense>

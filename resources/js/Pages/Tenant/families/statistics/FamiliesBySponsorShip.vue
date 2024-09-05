@@ -5,6 +5,7 @@ import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
+import { sumObjectValues } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
 
 const BaseRadarChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseRadarChart.vue'))
@@ -29,7 +30,7 @@ const datasets = [
 </script>
 
 <template>
-    <suspense v-if="datasets[0].data.length" suspensible>
+    <suspense v-if="sumObjectValues(Object.values(familiesSponsorShips))" suspensible>
         <div class="flex items-center justify-center">
             <base-radar-chart :datasets :height="400" :labels :width="400" />
         </div>

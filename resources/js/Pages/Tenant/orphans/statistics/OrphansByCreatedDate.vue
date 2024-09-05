@@ -8,6 +8,7 @@ import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { getColor } from '@/utils/colors'
 import { abbreviationMonths } from '@/utils/constants'
+import { sumObjectValues } from '@/utils/helper'
 import { $t, getLocale } from '@/utils/i18n'
 
 const BaseLineChart = defineAsyncComponent(() => import('@/Components/Base/chart/BaseLineChart.vue'))
@@ -18,7 +19,7 @@ defineProps<{
 </script>
 
 <template>
-    <suspense v-if="Object.values(orphansByCreatedDate).length" suspensible>
+    <suspense v-if="sumObjectValues(Object.values(orphansByCreatedDate))" suspensible>
         <base-line-chart
             :datasets="[
                 {

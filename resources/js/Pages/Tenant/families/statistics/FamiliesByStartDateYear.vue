@@ -4,6 +4,7 @@ import { defineAsyncComponent } from 'vue'
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
 
 import { abbreviationMonths } from '@/utils/constants'
+import { sumObjectValues } from '@/utils/helper'
 import { $t, getLocale } from '@/utils/i18n'
 
 const FamiliesByStartDateThisYearChart = defineAsyncComponent(
@@ -16,7 +17,7 @@ defineProps<{
 </script>
 
 <template>
-    <suspense v-if="Object.values(familiesGroupByDate).length" suspensible>
+    <suspense v-if="sumObjectValues(Object.values(familiesGroupByDate))" suspensible>
         <families-by-start-date-this-year-chart
             :datasets="[
                 {
@@ -24,7 +25,7 @@ defineProps<{
                     label: $t('families_count')
                 }
             ]"
-            :height="250"
+            :height="300"
             :labels="abbreviationMonths[getLocale()]"
         ></families-by-start-date-this-year-chart>
     </suspense>

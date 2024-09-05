@@ -16,10 +16,10 @@
         "db:psql": "electric-sql psql",
         "electric:start": "electric-sql start",
         "dev": "vite",
-        "build": "vue-tsc && vite build --config vite.landing.config.ts && vite build --config vite.config.ts&& vite build --config vite.config.ts --ssr",
+        "build": "vue-tsc && vite build --config vite.config.ts&& vite build --config vite.config.ts --ssr",
         "test:e2e": "cypress run --e2e",
         "test:component": "cypress run --component",
-        "build-only": "vite build --config vite.landing.config.ts && vite build --config vite.config.ts && vite build --config vite.config.ts --ssr",
+        "build-only": "vite build --config vite.config.ts && vite build --config vite.config.ts --ssr",
         "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
         "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
         "format": "prettier --write resources"
