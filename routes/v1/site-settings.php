@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\SiteSettings\DownloadExportedDataController;
 use App\Http\Controllers\V1\SiteSettings\ExportFullDataController;
 use App\Http\Controllers\V1\SiteSettings\SiteSettingUpdateInfosController;
 use App\Http\Controllers\V1\SiteSettings\UpdateCalculationWeightsController;
@@ -11,4 +12,6 @@ Route::prefix('site-settings')->name('site-settings.')->group(function () {
     Route::patch('update-calculation-weights', UpdateCalculationWeightsController::class)->name('update-calculation-weights');
 
     Route::post('export-data', ExportFullDataController::class)->name('export-data');
+
+    Route::post('download-data', DownloadExportedDataController::class)->name('download-data');
 });

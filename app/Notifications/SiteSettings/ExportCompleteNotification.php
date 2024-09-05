@@ -2,7 +2,7 @@
 
 namespace App\Notifications\SiteSettings;
 
-use App\Models\User;
+use App\Models\Tenant;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -12,21 +12,42 @@ class ExportCompleteNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public string $zipFilePath,
-        public User $user) {}
+    private array $metaData;
 
-    public function via($notifiable): array
+    public function __construct(public Tenant $tenant)
     {
-        return ['broadcast'];
+        $this->metaData = [
+            'created_at' => now(),
+            'url' => tenant_route($this->tenant->domains->first()->domain, 'tenant.site-settings.download-data'),
+        ];
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function via(): array
     {
-        return new BroadcastMessage([]);
+        return ['database', 'broadcast'];
     }
 
-    public function toArray($notifiable): array
+    public function toBroadcast(): BroadcastMessage
     {
-        return [];
+        return new BroadcastMessage([
+            'metadata' => $this->metaData,
+        ]);
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'metadata' => $this->metaData,
+        ];
+    }
+
+    public function databaseType(): string
+    {
+        return 'data_exported';
+    }
+
+    public function broadcastType(): string
+    {
+        return 'data_exported';
     }
 }

@@ -41,7 +41,7 @@ class ExportDataJob implements ShouldQueue
     public function handle(): void
     {
         $zipFilePath = "$this->tenant.zip";
-        ray($zipFilePath);
+
         $zip = new ZipArchive;
 
         $zip->open(Storage::path($zipFilePath), ZipArchive::CREATE | ZipArchive::OVERWRITE);
@@ -50,13 +50,14 @@ class ExportDataJob implements ShouldQueue
 
         $zip->close();
 
-        $superAdmin = User::find(Tenant::whereId($this->tenant)->first()->infos['super_admin']['id']);
+        $tenant = Tenant::whereId($this->tenant)->first();
+
+        $superAdmin = User::find($tenant->infos['super_admin']['id']);
 
         Notification::send(
             $superAdmin,
             new ExportCompleteNotification(
-                zipFilePath: $zipFilePath,
-                user: $superAdmin
+                tenant: $tenant
             )
         );
 
