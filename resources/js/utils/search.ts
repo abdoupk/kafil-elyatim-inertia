@@ -6,6 +6,7 @@ import { type Hit, MeiliSearch } from 'meilisearch'
 import { formatCurrency, formatDate, formatNumber } from '@/utils/helper'
 import { $t, $tc, getLocale } from '@/utils/i18n'
 
+
 const client = new MeiliSearch({
     host: 'http://127.0.0.1:7700',
     apiKey: 'masterKey'
@@ -226,62 +227,62 @@ const constructIcon = (indexUid: string): { icon: SVGType; color: string } => {
         case 'users':
             return {
                 icon: 'icon-users-gear',
-                color: 'bg-success/20 text-success dark:bg-success/10'
+                color: 'bg-success/20 text-success'
             }
         case 'families':
             return {
                 icon: 'icon-family',
-                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+                color: 'bg-[#34A85A]/20 text-[#34A85A]'
             }
         case 'previews':
             return {
                 icon: 'icon-family',
-                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+                color: 'bg-[#FFC107]/20 text-[#FFC107]'
             }
         case 'orphans':
             return {
                 icon: 'icon-children',
-                color: 'bg-indigo-500/20 text-indigo-600 dark:bg-indigo-200/30 dark:text-indigo-900'
+                color: 'bg-[#8E24AA]/20 text-[#8E24AA]'
             }
         case 'sponsors':
             return {
                 icon: 'icon-hands-holding-child',
-                color: 'bg-danger/20 text-danger dark:bg-danger/10'
+                color: 'bg-[#4CAF50]/20 text-[#4CAF50]'
             }
         case 'needs':
             return {
                 icon: 'icon-handshake-angle',
-                color: 'bg-warning/30 text-white dark:bg-warning/10'
+                color: 'bg-[#03A9F4]/20 text-[#03A9F4]'
             }
         case 'inventory':
             return {
                 icon: 'icon-shelves',
-                color: 'bg-theme-1/20 text-theme-1 dark:bg-theme-1/10'
+                color: 'bg-[#FF9800]/20 text-[#FF9800]'
             }
         case 'schools':
             return {
                 icon: 'icon-school-lock',
-                color: 'bg-theme-2/20 text-theme-2 dark:bg-theme-2/10'
+                color: 'bg-[#FF69B4]/20 text-[#FF69B4]'
             }
         case 'zones':
             return {
                 icon: 'icon-map-location-dot',
-                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+                color: 'bg-[#3F51B5]/20 text-[#3F51B5]'
             }
         case 'branches':
             return {
                 icon: 'icon-branches',
-                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+                color: 'bg-[#2196F3]/20 text-[#2196F3]'
             }
         case 'finances':
             return {
                 icon: 'icon-dollar-sign',
-                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+                color: 'bg-[#F44336]/20 text-[#F44336]'
             }
         case 'babies':
             return {
                 icon: 'icon-dollar-sign',
-                color: 'bg-pending/20 text-pending dark:bg-pending/10'
+                color: 'bg-[#009688]/20 text-[#009688]'
             }
         default:
             return {
