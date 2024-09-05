@@ -374,7 +374,7 @@
     "search.inventory": "المخزن",
     "search.babies": "الرضع",
     "search.needs": "الاحتياجات",
-    "search.previews": "العائلات",
+    "search.previews": "التقارير",
     "search.schools": "المدارس الخاصة",
     "settings.family_members": "أفراد الأسرة",
     "settings.weight": "المعامل",
@@ -1145,5 +1145,6 @@
     "expenses": "المصاريف",
     "incomes": "المداخيل",
     "not_authorized": "عذرًا، ليس لديك الصلاحيات اللازمة.",
-    "loading...": "جاري التحميل ..."
+    "loading...": "جاري التحميل ...",
+    "institute_name": "اسم المعهد"
 }

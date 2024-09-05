@@ -134,7 +134,7 @@ const modalType = computed(() => {
                     id="institute"
                     ref="firstInputRef"
                     v-model="form.institute"
-                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('branch institute') })"
+                    :placeholder="$t('auth.placeholders.fill', { attribute: $t('institute_name') })"
                     type="text"
                     @change="form.validate('institute')"
                 />

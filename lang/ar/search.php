@@ -11,6 +11,6 @@ return [
     'inventory' => 'المخزن',
     'babies' => 'الرضع',
     'needs' => 'الاحتياجات',
-    'previews' => 'العائلات',
+    'previews' => 'التقارير',
     'schools' => 'المدارس الخاصة',
 ];
