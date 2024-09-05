@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
+import { Head } from '@inertiajs/vue3'
 import { defineAsyncComponent, provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+import { $t } from '@/utils/i18n'
 
 const GeneralInformation = defineAsyncComponent(() => import('@/Pages/Tenant/orphans/edit/GeneralInformation.vue'))
 
@@ -47,6 +50,8 @@ provide('orphanDetailView', { view, updateView })
 </script>
 
 <template>
+    <Head :title="$t('orphan profile')"></Head>
+
     <suspense>
         <div>
             <div class="intro-y mt-8 flex items-center">
