@@ -38,9 +38,8 @@ class ExportDataJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $date = date('Y-m-d');
-
-        $zipFilePath = "exports/{$date}_$this->tenant.zip";
+        ray('Exported 0');
+        $zipFilePath = "exports/$this->tenant.zip";
 
         $zip = new ZipArchive;
 
@@ -59,6 +58,8 @@ class ExportDataJob implements ShouldQueue
                 user: $superAdmin
             )
         );
+
+        ray('Exported');
     }
 
     /**

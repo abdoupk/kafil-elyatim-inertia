@@ -9,7 +9,7 @@ class ExportFullDataController extends Controller
 {
     public function __invoke()
     {
-        new ExportDataJob(tenant('id'));
+        dispatch(new ExportDataJob(tenant('id')));
 
         return response('', 200);
     }
