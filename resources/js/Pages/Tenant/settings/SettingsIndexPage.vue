@@ -7,6 +7,8 @@ import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
+import TheExportData from '@/Pages/Tenant/settings/TheExportData.vue'
+
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
 const TheCalculationTable = defineAsyncComponent(() => import('@/Pages/Tenant/settings/TheCalculationTable.vue'))
@@ -34,6 +36,8 @@ defineProps<{
 
             <div class="intro-y mt-5 grid grid-cols-12 gap-6">
                 <the-tenant-infos-update-form :settings></the-tenant-infos-update-form>
+
+                <the-export-data></the-export-data>
 
                 <the-calculation-table :calculation></the-calculation-table>
             </div>
