@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 return [
-    'monthly_allowance' => 'المصروف الشهري',
-    'ramadan_basket' => 'قفة رمضان',
+    'monthly_allowance' => 'الاستفادة من المصروف الشهري',
+    'ramadan_basket' => 'الاستفادة من قفة رمضان',
     'zakat' => 'الاستفادة من الزكاة',
     'housing_assistance' => 'المساعدة في السكن',
-    'eid_al_adha' => 'عيد الاضحى',
+    'eid_al_adha' => 'الاستفادة من الأضحية',
     'medical_sponsorship' => 'كفالة طبية',
-    'literacy_lessons' => 'دروس محو الامية',
+    'literacy_lessons' => 'دروس محو الأمية',
     'direct_sponsorship' => 'كفالة مباشرة',
     'project_support' => 'دعم مشروع منتج',
     'university_scholarship' => 'منحة جامعية',

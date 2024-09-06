@@ -379,8 +379,8 @@
     "direct_sponsorship": "كفالة مباشرة (في الحساب البريدي)",
     "project_support": "دعم مشروع منتج",
     "general_information_of_association": "معلومات عن الجمعية",
-    "unemployed": "بطال",
-    "handicapped": "معاق",
+    "unemployed": "بطال (ة)",
+    "handicapped": "معاق (ة)",
     "calculate_the_income_rate": "حساب معدل الدخل",
     "the_income": "الدخل",
     "the_expense": "المصروف",
@@ -414,5 +414,12 @@
     "m2": "متر مربع",
     "second_sponsor.not_found": "المتكفل الثاني غير موجود.",
     "orphans_sponsorship_not_found": "لم يتم التكفل باي يتيم بعد.",
-    "sponsor_sponsorship_not_found": "لم يتم التكفل بالمتكفل الرئيسي بعد."
+    "sponsor_sponsorship_not_found": "لم يتم التكفل بالمتكفل الرئيسي بعد.",
+    "spouse_name": "اسم المتوفى",
+    "second_sponsor_address": "عنوان المتكفل الثاني",
+    "second_sponsor_phone_number": "رقم هاتف المتكفل الثاني",
+    "second_sponsor_income": "دخل المتكفل الثاني",
+    "first_and_last_name": "الاسم و اللقب",
+    "subjects_count": "عدد المواد",
+    "the_subjects": "المواد"
 }

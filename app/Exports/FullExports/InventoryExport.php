@@ -2,7 +2,7 @@
 
 namespace App\Exports\FullExports;
 
-use App\Models\Finance;
+use App\Models\Inventory;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -10,11 +10,11 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class FinanceTransactionsExport implements FromCollection, WithEvents, WithHeadings, WithMapping
+class InventoryExport implements FromCollection, WithEvents, WithHeadings, WithMapping
 {
     public function collection(): Collection
     {
-        return Finance::with(['receiver', 'creator'])->get();
+        return Inventory::all();
     }
 
     public function registerEvents(): array
@@ -29,27 +29,22 @@ class FinanceTransactionsExport implements FromCollection, WithEvents, WithHeadi
     public function headings(): array
     {
         return [
-            __('amount'),
-            __('validation.attributes.specification'),
-            __('validation.attributes.description'),
-            __('the date'),
-            __('receiving_member'),
+            __('item_name'),
+            __('validation.attributes.qty'),
+            __('validation.attributes.qty_for_family'),
             __('created_by'),
-            __('added_at'),
+            __('created_at'),
         ];
     }
 
     public function map($row): array
     {
         return [
-            formatCurrency(abs($row->amount)),
-            $row->specification,
-            $row->description,
-            $row->amount > 0 ? __('income') : __('expense'),
-            $row->date->translatedFormat('j F Y'),
-            $row->receiver?->getName(),
+            $row->name,
+            $row->qty.'('.__($row->unit).')',
+            ! in_array(['diapers', 'baby_milk'], $row->type) ? $row->qty_for_family : null,
             $row->creator?->getName(),
-            $row->created_at->translatedFormat('j F Y'),
+            $row->created_at->format('Y-m-d'),
         ];
     }
 }
