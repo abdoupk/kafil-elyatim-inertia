@@ -28,7 +28,7 @@ const emit = defineEmits(['close', 'handleSubmit'])
 
             <form @submit.prevent="emit('handleSubmit')">
                 <base-slideover-title>
-                    <h2 class="me-auto text-base font-medium">
+                    <h2 class="me-auto text-base font-medium rtl:font-semibold">
                         {{ title }}
                     </h2>
                 </base-slideover-title>
