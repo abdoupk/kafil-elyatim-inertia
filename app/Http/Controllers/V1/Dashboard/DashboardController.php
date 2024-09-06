@@ -55,9 +55,9 @@ class DashboardController extends Controller
                 'id' => $finance->id,
                 'amount' => $finance->amount,
                 'receiver' => [
-                    'id' => $finance->receiver->id,
-                    'name' => $finance->receiver->getName(),
-                    'gender' => $finance->receiver->gender,
+                    'id' => $finance->receiver?->id,
+                    'name' => $finance->receiver?->getName(),
+                    'gender' => $finance->receiver?->gender,
                 ],
                 'date' => $finance->date->translatedFormat('j F Y'),
             ];

@@ -14,7 +14,7 @@ class UnSearchOrphansOlderThanTwoYearsCommand extends Command
 
     public function handle(): void
     {
-        Baby::with('orphan')->where('orphan.birth_date', '>', now()->subYears(2))->chunk(1000, function (Collection $babies) {
+        Baby::whereHas('orphan', fn ($query) => $query->where('birth_date', '>', now()->subYears(2)))->chunk(1000, function (Collection $babies) {
             $babies->each(function (Baby $baby) {
                 $baby->unsearchable();
 

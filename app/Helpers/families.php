@@ -37,6 +37,9 @@ function calculateIncomeRate(Family $family): float
     return round(calculateIncomes($family) / calculateWeights($family), 2);
 }
 
+/**
+ * @throws JsonException
+ */
 function calculateIncomes(Family $family)
 {
     return $family->orphans->sum(function (Orphan $orphan) {
@@ -91,10 +94,13 @@ function calculateSponsorWeights(Family $family): float
     };
 }
 
+/**
+ * @throws JsonException
+ */
 function calculateOrphanWeights(Orphan $orphan, array $orphanWeights): float
 {
     if ($orphan->is_handicapped) {
-        return $orphanWeights['handicapped'];
+        return json_decode($orphan->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR)['weights']['handicapped'];
     }
 
     if ($orphan->birth_date->age < 18) {
@@ -206,7 +212,7 @@ function calculateContributionsForSponsor(Sponsor $sponsor): float
             'widower' => $sponsorPercentages['widower'] * $sponsor->incomes->total_income,
             'widow' => $sponsorPercentages['widow'] * $sponsor->incomes->total_income,
             'widows_husband' => $sponsorPercentages['widows_husband'] * $sponsor->incomes->total_income,
-            'widows_wife' => $sponsorPercentages['widows_wife'] * $sponsor->incomes->total_income,
+            'widowers_wife' => $sponsorPercentages['widowers_wife'] * $sponsor->incomes->total_income,
             'mother_of_a_supported_childhood' => $sponsorPercentages['mother_of_a_supported_childhood'] * $sponsor->incomes->total_income,
         };
     } else {

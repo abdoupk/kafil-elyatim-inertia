@@ -13,6 +13,6 @@ class CalculateFamiliesIncomeRateCommand extends Command
 
     public function handle(): void
     {
-        Family::chunk(1000, fn (Family $family) => $family->update(['income_rate' => calculateIncomeRate($family)]));
+        Family::each(fn (Family $family) => $family->update(['income_rate' => calculateIncomeRate($family)]));
     }
 }
