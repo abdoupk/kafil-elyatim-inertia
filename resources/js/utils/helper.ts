@@ -11,6 +11,20 @@ import { computed } from 'vue'
 import { $t, getLocale } from '@/utils/i18n'
 
 
+const downloadFile = (url: string, filename: string) => {
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename || '' // Set the filename if provided
+
+    // Append the anchor to the body (required for Firefox)
+    document.body.appendChild(a)
+
+    // Programmatically click the anchor to trigger the download
+    a.click()
+
+    // Remove the anchor from the document
+    document.body.removeChild(a)
+}
 const toRaw = (obj: object) => {
     return JSON.parse(JSON.stringify(obj))
 }
@@ -492,8 +506,9 @@ function getRandomItemWithoutRepeat(items) {
 }
 
 const groupRecentActivitiesByDate = (activities) => {
+    console.log(activities)
     return activities.reduce((acc, item) => {
-        const date = dayjs(item.dateTime).format('YYYY-MM-DD')
+        const date = dayjs(item.date).format('YYYY-MM-DD')
         if (!acc[date]) {
             acc[date] = []
         }
@@ -542,5 +557,6 @@ export {
     checkErrors,
     pathNameOfCurrentPage,
     formatParams,
-    formatDateAndTimeShort
+    formatDateAndTimeShort,
+    downloadFile
 }

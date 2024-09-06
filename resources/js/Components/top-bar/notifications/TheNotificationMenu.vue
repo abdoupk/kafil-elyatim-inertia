@@ -8,6 +8,7 @@ import { defineAsyncComponent, onMounted, ref } from 'vue'
 
 import NotificationLoader from '@/Components/top-bar/notifications/NotificationLoader.vue'
 
+import { downloadFile } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
 
 const NotificationAvatar = defineAsyncComponent(
@@ -61,7 +62,13 @@ const redirect = (url: string) => {
 const markAsRead = (notification: DatabaseNotification) => {
     notificationsStore.markAsRead(notification.id)
 
-    redirect(notification.data.metadata.url)
+    if (notification.data.metadata?.subject === 'data_exported') {
+        props.close()
+
+        downloadFile(notification.data.metadata.url, '')
+    } else {
+        redirect(notification.data.metadata.url)
+    }
 }
 </script>
 

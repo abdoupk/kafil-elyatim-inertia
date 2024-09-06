@@ -788,6 +788,7 @@ export interface DatabaseNotification {
         metadata: {
             created_at: string
             url: string
+            [key: string]: string
         }
         data: object
     }
