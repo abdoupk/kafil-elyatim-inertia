@@ -87,7 +87,7 @@ onMounted(() => {
     <base-vue-select
         v-model:value="selectedStatus"
         :options="familyStatuses"
-        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('filters.sponsor_type') })"
+        :placeholder="$t('auth.placeholders.tomselect', { attribute: $t('family_status') })"
         label="label"
         track_by="value"
         @update:value="handleUpdate"

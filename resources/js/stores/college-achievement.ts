@@ -14,7 +14,7 @@ export const useCollegeAchievementsStore = defineStore('college-achievements', {
         collegeAchievement: {
             id: '',
             academic_level_id: null,
-            year: '',
+            year: new Date().getFullYear(),
             first_semester: null,
             second_semester: null,
             average: null,

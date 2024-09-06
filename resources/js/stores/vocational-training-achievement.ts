@@ -16,7 +16,7 @@ export const useVocationalTrainingAchievementsStore = defineStore('vocational-tr
             orphan_id: '',
             note: '',
             institute: null,
-            year: null,
+            year: new Date().getFullYear(),
             vocational_training_id: null
         }
     }),

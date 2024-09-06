@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { OrphanShowType } from '@/types/orphans'
 
 import { computed } from 'vue'
@@ -36,7 +38,7 @@ const isStillBaby = computed(() => {
                 </h3>
             </div>
 
-            <div class="col-span-12 @xl:col-span-6">
+            <div v-if="orphan.family_status" class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('family_status') }}</h2>
 
                 <h3 class="text-base font-medium">
@@ -44,7 +46,7 @@ const isStillBaby = computed(() => {
                 </h3>
             </div>
 
-            <div class="col-span-12 @xl:col-span-6">
+            <div v-if="orphan.academic_level" class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('academic_level') }}</h2>
 
                 <h3 class="text-base font-medium">
@@ -120,7 +122,7 @@ const isStillBaby = computed(() => {
                 </div>
             </template>
 
-            <div class="col-span-12">
+            <div v-if="orphan.note" class="col-span-12">
                 <h2 class="text-lg font-semibold">{{ $t('notes') }}</h2>
 
                 <div class="text-base font-normal" v-html="orphan.note"></div>

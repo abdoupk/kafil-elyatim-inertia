@@ -14,7 +14,7 @@ export const useAcademicAchievementsStore = defineStore('academic-achievements',
         academicAchievement: {
             id: '',
             academic_level_id: null,
-            academic_year: '',
+            academic_year: new Date().getFullYear(),
             first_trimester: null,
             second_trimester: null,
             third_trimester: null,

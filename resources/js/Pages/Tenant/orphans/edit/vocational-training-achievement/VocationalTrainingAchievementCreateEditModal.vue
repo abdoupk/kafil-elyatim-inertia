@@ -148,7 +148,7 @@ const modalType = computed(() => {
             <!-- Begin: Year-->
             <div class="col-span-12 sm:col-span-6">
                 <base-form-label htmlFor="year">
-                    {{ $t('year') }}
+                    {{ $t('vocational_training_year') }}
                 </base-form-label>
 
                 <base-form-select id="year" v-model="form.year" @change="form.validate('year')">
