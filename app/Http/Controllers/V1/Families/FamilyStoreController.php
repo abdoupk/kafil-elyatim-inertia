@@ -28,34 +28,38 @@ class FamilyStoreController extends Controller implements HasMiddleware
      */
     public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
-        DB::transaction(function () use ($request) {
-            $family = Family::create(
-                [
-                    ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
-                    'name' => $request->validated('sponsor.first_name').'  '.$request->validated('sponsor.last_name'),
-                ]
-            );
+        if ($request->validated('submitted')) {
+            DB::transaction(function () use ($request) {
+                $family = Family::create(
+                    [
+                        ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
+                        'name' => $request->validated('sponsor.first_name').'  '.$request->validated('sponsor.last_name'),
+                    ]
+                );
 
-            $sponsor = $this->storeSponsor($request, $family);
+                $sponsor = $this->storeSponsor($request, $family);
 
-            $this->storePreview($request, $family);
+                $this->storePreview($request, $family);
 
-            $this->storeOrphans($request, $family, $sponsor);
+                $this->storeOrphans($request, $family, $sponsor);
 
-            if (! empty(array_filter($request->validated('second_sponsor')))) {
-                $family->secondSponsor()->create($request->validated('second_sponsor'));
-            }
+                if (! empty(array_filter($request->validated('second_sponsor')))) {
+                    $family->secondSponsor()->create($request->validated('second_sponsor'));
+                }
 
-            $family->deceased()->create($request->validated('spouse'));
+                $family->deceased()->create($request->validated('spouse'));
 
-            $this->storeHousingInformations($family, $request);
+                $this->storeHousingInformations($family, $request);
 
-            $this->storeSponsorships($family, $request, $sponsor);
+                $this->storeSponsorships($family, $request, $sponsor);
 
-            dispatch(new FamilyCreatedJob($family, auth()->user()));
-        });
+                dispatch(new FamilyCreatedJob($family, auth()->user()));
+            });
 
-        return response('', 201);
+            return response('', 201);
+        }
+
+        return response('', 422);
     }
 
     private function storeSponsor(CreateFamilyRequest $request, Model|Family $family): Sponsor

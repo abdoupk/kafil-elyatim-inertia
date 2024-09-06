@@ -194,7 +194,8 @@ export const createFamilyFormAttributes: CreateFamilyForm = {
             private_lessons: false,
             school_bag: false
         }
-    ]
+    ],
+    submitted: false
 }
 
 // eslint-disable-next-line array-element-newline

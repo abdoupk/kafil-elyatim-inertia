@@ -10,6 +10,7 @@ class CreateFamilyRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'housing.number_of_rooms.required' => __('validation.required', ['attribute' => __('housing.label.number_of_rooms')]),
             'orphans.*.first_name.required' => __('validation.required', ['attribute' => __('validation.attributes.first_name')]),
             'orphans.*.last_name.required' => __('validation.required', ['attribute' => __('validation.attributes.last_name')]),
             'orphans.*.birth_date.required' => __('validation.required', ['attribute' => __('validation.attributes.date_of_birth')]),
@@ -29,6 +30,7 @@ class CreateFamilyRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'submitted' => 'boolean',
             'address' => 'required|string',
             'zone_id' => 'required|string|exists:App\Models\Zone,id',
             'file_number' => 'required|numeric',

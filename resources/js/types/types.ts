@@ -658,6 +658,7 @@ export type CreateFamilyForm = {
     other_properties?: string
     furnishings: Record<FurnishingsType, any> & { notes: { [key in FurnishingsType]?: string } }
     report: string
+    submitted: boolean
     preview_date: string
     inspectors_members: string | string[]
     branch_id: string

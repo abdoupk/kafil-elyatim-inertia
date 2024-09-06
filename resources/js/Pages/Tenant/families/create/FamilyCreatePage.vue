@@ -7,7 +7,7 @@ import type {
 } from '@/types/types'
 
 import { useForm } from 'laravel-precognition-vue'
-import { defineAsyncComponent, type Ref, ref } from 'vue'
+import { defineAsyncComponent, type Ref, ref, watch } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
@@ -89,7 +89,7 @@ const StepSix = defineAsyncComponent({
     loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue')
 })
 
-const currentStep = ref(5)
+const currentStep = ref(6)
 
 const totalSteps = 6
 
@@ -252,6 +252,10 @@ const goTo = async (index: number) => {
         }
     }
 }
+
+watch(() => currentStep.value, () => {
+    form.submitted = currentStep.value === 6
+})
 
 const submit = () => {
     validating.value = true
