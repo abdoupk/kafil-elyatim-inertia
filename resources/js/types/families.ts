@@ -8,6 +8,12 @@ export interface OrphanType {
     shoes_size: string
     pants_size: string
     shirt_size: string
+    baby_needs?: {
+        baby_milk_type: string
+        baby_milk_quantity: number
+        diapers_type: string
+        diapers_quantity: number
+    }
     note: string
     gender: string
 }

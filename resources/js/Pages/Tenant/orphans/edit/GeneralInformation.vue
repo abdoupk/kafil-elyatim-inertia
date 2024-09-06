@@ -4,7 +4,7 @@ import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
 import { useForm } from 'laravel-precognition-vue'
-import { computed, onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 
 import BaseVCalendar from '@/Components/Base/VCalendar/BaseVCalendar.vue'
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
@@ -30,10 +30,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(['orphan-updated'])
-
-const isStillBaby = computed(() => {
-    return !isOlderThan(props.orphan.birth_date, 2)
-})
 
 // eslint-disable-next-line array-element-newline
 const inputs = reactive<OrphanUpdateFormType>(
@@ -249,7 +245,7 @@ onMounted(async () => {
                 </div>
                 <!-- END: Gender -->
 
-                <template v-if="!isStillBaby">
+                <template v-if="isOlderThan(form.birth_date, 2)">
                     <!-- BEGIN: Pants Size -->
                     <div class="col-span-12 @xl:col-span-6">
                         <base-form-label for="pants_size">

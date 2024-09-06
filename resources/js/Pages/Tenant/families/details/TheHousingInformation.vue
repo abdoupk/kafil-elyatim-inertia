@@ -1,12 +1,21 @@
 <script lang="ts" setup>
 import type { FurnishingType, HousingType } from '@/types/families'
 
-import { handleFurnishings, omit } from '@/utils/helper'
+import { formatCurrency, handleFurnishings, omit } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
-defineProps<{
+const props = defineProps<{
     housing: HousingType
     furnishings: FurnishingType
 }>()
+
+const HousingValue = () => {
+    if (props.housing.name === 'tenant') return formatCurrency(props.housing.value)
+
+    if (props.housing.name === 'inheritance') return props.housing.value + ' ' + $t('m2')
+
+    return props.housing.value
+}
 </script>
 
 <template>
@@ -28,7 +37,7 @@ defineProps<{
             <div class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('housing.label.info') }}</h2>
                 <p class="text-base font-medium">
-                    {{ housing.value }}
+                    {{ HousingValue() }}
                 </p>
             </div>
 

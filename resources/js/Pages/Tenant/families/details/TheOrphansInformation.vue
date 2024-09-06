@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { $t } from '../../../../utils/i18n'
-
 import type { OrphanType } from '@/types/families'
 
-import { formatDate } from '@/utils/helper'
+import { formatDate, isOlderThan } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ orphans: OrphanType[] }>()
 </script>
@@ -56,33 +55,93 @@ defineProps<{ orphans: OrphanType[] }>()
                 </h3>
             </div>
 
-            <!-- TODO: handle when the orphan still baby-->
+            <template v-if="isOlderThan(orphan.birth_date, 2)">
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>
 
-            <div class="col-span-12 @xl:col-span-6">
-                <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>
+                    <h3 class="text-base font-medium">
+                        {{ orphan.pants_size }}
+                    </h3>
+                </div>
 
-                <h3 class="text-base font-medium">
-                    {{ orphan.pants_size }}
-                </h3>
-            </div>
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('shirt_size') }}</h2>
 
-            <div class="col-span-12 @xl:col-span-6">
-                <h2 class="text-lg font-semibold">{{ $t('shirt_size') }}</h2>
+                    <h3 class="text-base font-medium">
+                        {{ orphan.shirt_size }}
+                    </h3>
+                </div>
 
-                <h3 class="text-base font-medium">
-                    {{ orphan.shirt_size }}
-                </h3>
-            </div>
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('shoes_size') }}</h2>
 
-            <div class="col-span-12 @xl:col-span-6">
-                <h2 class="text-lg font-semibold">{{ $t('shoes_size') }}</h2>
+                    <h3 class="text-base font-medium">
+                        {{ orphan.shoes_size }}
+                    </h3>
+                </div>
+            </template>
 
-                <h3 class="text-base font-medium">
-                    {{ orphan.shoes_size }}
-                </h3>
-            </div>
+            <template v-else>
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('diapers_type') }}</h2>
 
-            <div class="col-span-12">
+                    <h3 class="text-base font-medium">
+                        {{ orphan.baby_needs?.diapers_type }}
+                    </h3>
+                </div>
+
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('diapers_quantity') }}</h2>
+
+                    <h3 class="text-base font-medium">
+                        {{ orphan.baby_needs?.diapers_quantity }}
+                    </h3>
+                </div>
+
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('baby_milk_type') }}</h2>
+
+                    <h3 class="text-base font-medium">
+                        {{ orphan.baby_needs?.baby_milk_type }}
+                    </h3>
+                </div>
+
+                <div class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">{{ $t('baby_milk_quantity') }}</h2>
+
+                    <h3 class="text-base font-medium">
+                        {{ orphan.baby_needs?.baby_milk_quantity }}
+                    </h3>
+                </div>
+            </template>
+
+            <!--            &lt;!&ndash; TODO: handle when the orphan still baby&ndash;&gt;-->
+
+            <!--            <div class="col-span-12 @xl:col-span-6">-->
+            <!--                <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>-->
+
+            <!--                <h3 class="text-base font-medium">-->
+            <!--                    {{ orphan.pants_size }}-->
+            <!--                </h3>-->
+            <!--            </div>-->
+
+            <!--            <div class="col-span-12 @xl:col-span-6">-->
+            <!--                <h2 class="text-lg font-semibold">{{ $t('shirt_size') }}</h2>-->
+
+            <!--                <h3 class="text-base font-medium">-->
+            <!--                    {{ orphan.shirt_size }}-->
+            <!--                </h3>-->
+            <!--            </div>-->
+
+            <!--            <div class="col-span-12 @xl:col-span-6">-->
+            <!--                <h2 class="text-lg font-semibold">{{ $t('shoes_size') }}</h2>-->
+
+            <!--                <h3 class="text-base font-medium">-->
+            <!--                    {{ orphan.shoes_size }}-->
+            <!--                </h3>-->
+            <!--            </div>-->
+
+            <div v-if="orphan.note" class="col-span-12">
                 <h2 class="text-lg font-semibold">{{ $t('notes') }}</h2>
 
                 <div class="text-base font-normal" v-html="orphan.note"></div>

@@ -7,12 +7,15 @@ import { onMounted, ref } from 'vue'
 import BaseAlert from '@/Components/Base/Alert/BaseAlert.vue'
 import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
 import BaseFormInputError from '@/Components/Base/form/BaseFormInputError.vue'
+import BaseInputGroup from '@/Components/Base/form/InputGroup/BaseInputGroup.vue'
+import BaseInputGroupText from '@/Components/Base/form/InputGroup/BaseInputGroupText.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
 import { allowOnlyNumbersOnKeyDown } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 export type HousingType = 'independent' | 'with_family' | 'tenant' | 'inheritance' | 'other'
 
@@ -182,7 +185,7 @@ onMounted(() => {
                     :placeholder="$t('housing.placeholders.inheritance')"
                     :value="housingType?.name === 'inheritance' ? housingType?.value : null"
                     class="w-full md:w-3/4"
-                    type="text"
+                    type="number"
                     @input="setValue"
                 ></base-form-input>
             </div>
@@ -224,14 +227,22 @@ onMounted(() => {
             </base-form-switch>
 
             <div class="mt-2 w-full md:mt-0">
-                <base-form-input
-                    :disabled="housingType?.name !== 'tenant' || !items.tenant"
-                    :placeholder="$t('housing.placeholders.tenant')"
-                    :value="housingType?.name === 'tenant' ? housingType?.value : null"
-                    class="w-full md:w-3/4"
-                    type="text"
-                    @input="setValue"
-                ></base-form-input>
+                <base-input-group class="w-5/6">
+                    <!-- @vue-ignore -->
+                    <base-form-input
+                        :disabled="housingType?.name !== 'tenant' || !items.tenant"
+                        :placeholder="$t('housing.placeholders.tenant')"
+                        :value="housingType?.name === 'tenant' ? housingType?.value : null"
+                        class="w-full md:w-3/4"
+                        type="text"
+                        @input="setValue"
+                        @keydown="allowOnlyNumbersOnKeyDown"
+                    ></base-form-input>
+
+                    <base-input-group-text>
+                        {{ $t('DA') }}
+                    </base-input-group-text>
+                </base-input-group>
             </div>
         </div>
 

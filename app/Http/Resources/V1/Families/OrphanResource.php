@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Families;
 
+use App\Http\Resources\V1\Orphans\BabyResource;
 use App\Models\Orphan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -23,6 +24,7 @@ class OrphanResource extends JsonResource
             'shirt_size' => $this->shirtSize?->label,
             'note' => $this->note,
             'gender' => $this->gender,
+            'baby_needs' => new BabyResource($this->whenLoaded('babyNeeds')),
         ];
     }
 }

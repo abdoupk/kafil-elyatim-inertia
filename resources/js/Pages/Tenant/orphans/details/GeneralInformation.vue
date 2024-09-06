@@ -1,17 +1,10 @@
 <script lang="ts" setup>
-import { $t } from '../../../../utils/i18n'
-
 import type { OrphanShowType } from '@/types/orphans'
 
-import { computed } from 'vue'
-
 import { formatDate, isOlderThan } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
-const props = defineProps<{ orphan: OrphanShowType }>()
-
-const isStillBaby = computed(() => {
-    return !isOlderThan(props.orphan.birth_date, 2)
-})
+defineProps<{ orphan: OrphanShowType }>()
 </script>
 
 <template>
@@ -62,7 +55,7 @@ const isStillBaby = computed(() => {
                 </h3>
             </div>
 
-            <template v-if="!isStillBaby">
+            <template v-if="isOlderThan(orphan.birth_date, 2)">
                 <div class="col-span-12 @xl:col-span-6">
                     <h2 class="text-lg font-semibold">{{ $t('pants_size') }}</h2>
 
