@@ -63,9 +63,7 @@ const handleSuccess = () => {
             route('tenant.orphans.edit', collegeAchievementStore.collegeAchievement.orphan_id),
             {},
             {
-                only: ['orphan'],
-                preserveState: false,
-                preserveScroll: false
+                only: ['orphan']
             }
         )
     }, 200)
@@ -104,10 +102,9 @@ const academicLevels = ref([])
 const academicLevelsStore = useAcademicLevelsStore()
 
 onMounted(async () => {
-    await academicLevelsStore.getAcademicLevels()
-
-    // TODO: get academic levels for university
-    academicLevels.value = academicLevelsStore.academicLevels
+    await academicLevelsStore.getAcademicLevelsForOrphansForSelectCollege().then((res) => {
+        academicLevels.value = res
+    })
 })
 </script>
 
