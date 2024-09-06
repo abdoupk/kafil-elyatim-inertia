@@ -42,7 +42,9 @@ class FamilyStoreController extends Controller implements HasMiddleware
 
             $this->storeOrphans($request, $family, $sponsor);
 
-            $family->secondSponsor()->create($request->validated('second_sponsor'));
+            if (! empty(array_filter($request->validated('second_sponsor')))) {
+                $family->secondSponsor()->create($request->validated('second_sponsor'));
+            }
 
             $family->deceased()->create($request->validated('spouse'));
 

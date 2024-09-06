@@ -42,7 +42,7 @@ defineProps<{ preview: PreviewType }>()
                 <Link
                     v-for="member in preview.inspectors"
                     :key="member.id"
-                    :href="route('tenant.members.show', member.id)"
+                    :href="route('tenant.members.index') + '?show=' + member.id"
                     class="mt-2 flex items-center rounded-md px-5 first:mt-0 last:mb-3"
                 >
                     <div class="me-3 h-2 w-2 rounded-full bg-current"></div>

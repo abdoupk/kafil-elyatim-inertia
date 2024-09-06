@@ -6,7 +6,7 @@ create table if not exists spouses
     "birth_date" date                           not null,
     "death_date" date                           not null,
     "function"   text                           not null,
-    "income"     double precision               not null,
+    "income"     double precision               null,
     "family_id"  uuid                           not null references families (id) on delete cascade,
     "tenant_id"  text                           not null references tenants (id) on delete cascade,
     "created_at" timestamp(0) without time zone null,

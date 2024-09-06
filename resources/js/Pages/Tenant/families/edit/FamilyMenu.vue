@@ -2,6 +2,7 @@
 import type { FamilyEditType } from '@/types/families'
 
 import { useNeedsStore } from '@/stores/needs'
+import { Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
 
 import MenuLink from '@/Pages/Tenant/families/edit/MenuLink.vue'
@@ -29,12 +30,12 @@ const showNeedCreateModal = () => {
             <div class="relative flex items-center p-5">
                 <div class="me-auto ms-4">
                     <div class="text-base font-bold">{{ family.name }}</div>
-                    <!--                    <Link-->
-                    <!--                        :href="route('tenant.members.show', family.sponsor.creator?.id)"-->
-                    <!--                        class="text-slate-500 font-semibold"-->
-                    <!--                    >-->
-                    <!--                        {{ family.sponsor.creator?.name }}-->
-                    <!--                    </Link>-->
+                    <Link
+                        :href="route('tenant.members.index') + '?show=' + family.creator?.id"
+                        class="font-semibold text-slate-500"
+                    >
+                        {{ family.creator?.name }}
+                    </Link>
                 </div>
             </div>
 

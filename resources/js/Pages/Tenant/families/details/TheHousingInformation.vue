@@ -50,13 +50,15 @@ const HousingValue = () => {
                 "
                 class="col-span-12"
             >
-                <h2 class="text-lg font-semibold">
-                    {{ $t(`housing.label.${key}`) }}
-                </h2>
+                <template v-if="value">
+                    <h2 class="text-lg font-semibold">
+                        {{ $t(`housing.label.${key}`) }}
+                    </h2>
 
-                <p class="text-base font-medium">
-                    {{ value }}
-                </p>
+                    <p class="text-base font-medium">
+                        {{ value }}
+                    </p>
+                </template>
             </div>
         </div>
     </div>

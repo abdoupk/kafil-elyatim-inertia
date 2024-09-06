@@ -39,7 +39,10 @@ const showNeedCreateModal = () => {
                 <div class="me-auto ms-4">
                     <div class="text-base font-bold">{{ name }}</div>
 
-                    <Link :href="route('tenant.members.show', orphan.creator.id)" class="font-semibold text-slate-500">
+                    <Link
+                        :href="route('tenant.members.index') + '?show=' + orphan.creator?.id"
+                        class="font-semibold text-slate-500"
+                    >
                         {{ orphan.creator?.name }}
                     </Link>
                 </div>

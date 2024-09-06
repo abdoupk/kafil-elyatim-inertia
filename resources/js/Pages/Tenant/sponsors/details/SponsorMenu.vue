@@ -35,8 +35,10 @@ const showNeedCreateModal = () => {
                 <div class="me-auto ms-4">
                     <div class="text-base font-bold">{{ sponsor.name }}</div>
 
-                    <!-- TODO: change url     :href="route('tenant.members.show', sponsor.creator?.id)"-->
-                    <Link :href="route('tenant.members.show', 1)" class="font-semibold text-slate-500">
+                    <Link
+                        :href="route('tenant.members.index') + '?show=' + sponsor.creator?.id"
+                        class="font-semibold text-slate-500"
+                    >
                         {{ sponsor.creator?.name }}
                     </Link>
                 </div>

@@ -1,14 +1,17 @@
 <script lang="ts" setup>
 import type { SecondSponsorType } from '@/types/families'
 
-import { formatCurrency } from '@/utils/helper'
+import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
+
+import { formatCurrency, isEmpty } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
 
 defineProps<{ secondSponsor: SecondSponsorType }>()
 </script>
 
 <template>
     <!-- BEGIN: Second Sponsor Information -->
-    <div class="intro-y box col-span-12 @container 2xl:col-span-6">
+    <div v-if="!isEmpty(secondSponsor)" class="intro-y box col-span-12 @container 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ secondSponsor.name }}</h2>
 
@@ -35,6 +38,10 @@ defineProps<{ secondSponsor: SecondSponsorType }>()
                 <h3 class="text-base font-medium">{{ formatCurrency(secondSponsor.income) }}</h3>
             </div>
         </div>
+    </div>
+
+    <div v-else class="intro-x col-span-12 flex flex-col items-center justify-center @container 2xl:col-span-6">
+        <no-results-found> {{ $t('second_sponsor.not_found') }}</no-results-found>
     </div>
     <!-- END: Second Sponsor Information -->
 </template>

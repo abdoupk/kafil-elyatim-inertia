@@ -411,5 +411,8 @@
     "support_team": "فريق الدعم",
     "exported_data": "النسخة الاحتياطية",
     "vocational_training_year": "العام التكويني",
-    "m2": "متر مربع"
+    "m2": "متر مربع",
+    "second_sponsor.not_found": "المتكفل الثاني غير موجود.",
+    "orphans_sponsorship_not_found": "لم يتم التكفل باي يتيم بعد.",
+    "sponsor_sponsorship_not_found": "لم يتم التكفل بالمتكفل الرئيسي بعد."
 }

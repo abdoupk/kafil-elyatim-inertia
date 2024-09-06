@@ -94,7 +94,7 @@ const emit = defineEmits(['sort', 'showDeleteModal', 'showDetailsModal', 'showEd
                         <the-table-td class="!min-w-40 !max-w-40 truncate">
                             <Link
                                 v-if="finance.receiver"
-                                :href="route('tenant.members.show', finance.receiver.id)"
+                                :href="route('tenant.members.index') + `?show=${finance.receiver.id}`"
                                 class="font-medium"
                             >
                                 {{ finance.receiver.name }}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\V1\Families;
 
+use App\Http\Resources\V1\Members\MemberResource;
 use App\Models\Family;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -26,6 +27,8 @@ class FamilyEditResource extends JsonResource
             'second_sponsor' => new SecondSponsorResource($this->whenLoaded('secondSponsor')),
 
             'furnishings' => new FurnishingResource($this->whenLoaded('furnishings')),
+
+            'creator' => new MemberResource($this->whenLoaded('creator')),
 
             'housing' => new FamilyEditHousingResource($this->whenLoaded('housing')),
 

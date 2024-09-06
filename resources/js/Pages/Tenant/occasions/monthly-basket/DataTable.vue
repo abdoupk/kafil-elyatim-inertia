@@ -103,9 +103,9 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate">
                             {{ family.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
+
                             <Link
-                                :href="route('tenant.zones.index')"
+                                :href="route('tenant.zones.index') + `?show=${family.zone?.id}`"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
                             >
                                 {{ family.zone?.name }}
@@ -114,7 +114,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate">
                             <Link
-                                :href="route('tenant.branches.index')"
+                                :href="route('tenant.branches.index') + `?show=${family.branch?.id}`"
                                 class="mt-0.5 block truncate whitespace-nowrap"
                             >
                                 {{ family.branch?.name }}

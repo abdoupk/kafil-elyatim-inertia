@@ -191,6 +191,10 @@ export interface FamilyEditType {
     }
     family_sponsorships: FamilySponsorshipType
     preview: PreviewType
+    creator: {
+        id: string
+        name: string
+    }
 }
 
 export interface FamilyUpdateFormType {

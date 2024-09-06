@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../../utils/i18n'
+
 import type { CreateFamilyForm } from '@/types/types'
 
 import type { Form } from 'laravel-precognition-vue/dist/types'

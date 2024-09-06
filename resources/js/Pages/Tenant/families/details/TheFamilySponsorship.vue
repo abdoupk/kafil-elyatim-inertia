@@ -14,15 +14,17 @@ defineProps<{ sponsorships: FamilySponsorshipType }>()
         </div>
 
         <div class="grid grid-cols-12 gap-4 p-5">
-            <div v-for="(sponsorship, key) in omit(sponsorships, ['id'])" :key class="col-span-12 @xl:col-span-6">
-                <h2 class="text-lg font-semibold">
-                    {{ $t(`sponsorships.${key}`) }}
-                </h2>
+            <template v-for="(sponsorship, key) in omit(sponsorships, ['id'])" :key="key">
+                <div v-if="sponsorship" class="col-span-12 @xl:col-span-6">
+                    <h2 class="text-lg font-semibold">
+                        {{ $t(`sponsorships.${key}`) }}
+                    </h2>
 
-                <p class="text-base font-medium">
-                    {{ handleSponsorship(sponsorship) }}
-                </p>
-            </div>
+                    <p class="text-base font-medium">
+                        {{ handleSponsorship(sponsorship) }}
+                    </p>
+                </div>
+            </template>
         </div>
     </div>
     <!-- END: Family SponsorShip -->

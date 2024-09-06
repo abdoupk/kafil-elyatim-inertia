@@ -1,7 +1,11 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { OrphanSponsorshipType } from '@/types/families'
 
 import { Link } from '@inertiajs/vue3'
+
+import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
 
 import { groupByKey } from '@/utils/helper'
 
@@ -43,7 +47,7 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
     <!-- END: Orphans Sponsorships (School Bags) -->
 
     <!-- BEGIN: Orphans Sponsorships (Private lessons) -->
-    <div v-if="privateLessonsBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
+    <div v-else-if="privateLessonsBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('sponsorships.private_lessons') }}</h2>
         </div>
@@ -62,7 +66,7 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
     <!-- END: Orphans Sponsorships (Private lessons) -->
 
     <!-- BEGIN: Orphans Sponsorships (Medical Sponsorship) -->
-    <div v-if="medicalSponsorshipBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
+    <div v-else-if="medicalSponsorshipBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('sponsorships.medical_sponsorship') }}</h2>
         </div>
@@ -81,7 +85,7 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
     <!-- END: Orphans Sponsorships (Medical Sponsorship) -->
 
     <!-- BEGIN: Orphans Sponsorships (Eid Suits) -->
-    <div v-if="eidSuitBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
+    <div v-else-if="eidSuitBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('sponsorships.eid_suit') }}</h2>
         </div>
@@ -100,7 +104,7 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
     <!-- END: Orphans Sponsorships (Eid Suits) -->
 
     <!-- BEGIN: Orphans Sponsorships (association Trips) -->
-    <div v-if="associationTripsBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
+    <div v-else-if="associationTripsBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('sponsorships.association_trips') }}</h2>
         </div>
@@ -119,7 +123,7 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
     <!-- END: Orphans Sponsorships (association Trips) -->
 
     <!-- BEGIN: Orphans Sponsorships (summer Camp) -->
-    <div v-if="summerCampBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
+    <div v-else-if="summerCampBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">{{ $t('sponsorships.summer_camp') }}</h2>
         </div>
@@ -138,7 +142,7 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
     <!-- END: Orphans Sponsorships (summer Camp) -->
 
     <!-- BEGIN: Orphans Sponsorships (university Scholarship) -->
-    <div v-if="universityScholarshipBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
+    <div v-else-if="universityScholarshipBeneficiaries?.length" class="intro-y box col-span-12 2xl:col-span-6">
         <div class="flex items-center border-b border-slate-200/60 px-5 py-5 dark:border-darkmode-400 sm:py-3">
             <h2 class="me-auto text-xl font-bold">
                 {{ $t('sponsorships.university_scholarship') }}
@@ -157,4 +161,10 @@ const universityScholarshipBeneficiaries = groupByKey(props.sponsorShips, 'unive
         </Link>
     </div>
     <!-- END: Orphans Sponsorships (university Scholarship) -->
+
+    <div v-else class="intro-y col-span-12 flex flex-col items-center justify-center">
+        <no-results-found>
+            {{ $t('orphans_sponsorship_not_found') }}
+        </no-results-found>
+    </div>
 </template>
