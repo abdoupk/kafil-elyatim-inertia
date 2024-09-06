@@ -9,8 +9,6 @@ class DownloadExportedDataController extends Controller
 {
     public function __invoke()
     {
-        //        ray(('exported_data.zip'));
-
-        return response()->download(Storage::path('exported_data.zip'));
+        return Storage::download('exported_data.zip', now()->format('Y-m-d').'-'.__('exported_data').'.zip');
     }
 }

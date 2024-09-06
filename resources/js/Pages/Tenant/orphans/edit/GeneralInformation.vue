@@ -3,7 +3,6 @@ import type { AcademicLevelType } from '@/types/lessons'
 import type { OrphanUpdateFormType } from '@/types/orphans'
 
 import { useAcademicLevelsStore } from '@/stores/academic-level'
-import dayjs from 'dayjs'
 import { useForm } from 'laravel-precognition-vue'
 import { computed, onMounted, reactive, ref } from 'vue'
 
@@ -23,7 +22,7 @@ import TheDiapersSelector from '@/Components/Global/TheDiapersSelector.vue'
 import TheFamilyStatusSelector from '@/Components/Global/TheFamilyStatusSelector.vue'
 import TheShoesSizeSelector from '@/Components/Global/TheShoesSizeSelector.vue'
 
-import { omit } from '@/utils/helper'
+import { isOlderThan, omit } from '@/utils/helper'
 import { $t } from '@/utils/i18n'
 
 const props = defineProps<{
@@ -33,7 +32,7 @@ const props = defineProps<{
 const emit = defineEmits(['orphan-updated'])
 
 const isStillBaby = computed(() => {
-    return dayjs().diff(dayjs(form.birth_date), 'year') < 2
+    return !isOlderThan(props.orphan.birth_date, 2)
 })
 
 // eslint-disable-next-line array-element-newline

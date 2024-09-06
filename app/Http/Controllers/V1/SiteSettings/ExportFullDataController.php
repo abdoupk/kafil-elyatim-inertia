@@ -10,7 +10,7 @@ class ExportFullDataController extends Controller
 {
     public function __invoke()
     {
-        $path = Storage::path(__('exported_data').'.zip');
+        $path = Storage::path('exported_data.zip');
 
         dispatch(new ExportDataJob($path, tenant('id')));
 

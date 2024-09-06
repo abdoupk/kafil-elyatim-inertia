@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import type { OrphanShowType } from '@/types/orphans'
 
-import dayjs from 'dayjs'
 import { computed } from 'vue'
 
-import { formatDate } from '@/utils/helper'
+import { formatDate, isOlderThan } from '@/utils/helper'
 
 const props = defineProps<{ orphan: OrphanShowType }>()
 
 const isStillBaby = computed(() => {
-    return dayjs().diff(dayjs(props.orphan.birth_date), 'year') < 2
+    return !isOlderThan(props.orphan.birth_date, 2)
 })
 </script>
 

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../utils/i18n'
+
 import type { OrphanType } from '@/types/families'
 
 import { formatDate } from '@/utils/helper'
@@ -30,7 +32,7 @@ defineProps<{ orphans: OrphanType[] }>()
                 </h3>
             </div>
 
-            <div class="col-span-12 @xl:col-span-6">
+            <div v-if="orphan.family_status" class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('family_status') }}</h2>
 
                 <h3 class="text-base font-medium">
@@ -38,7 +40,7 @@ defineProps<{ orphans: OrphanType[] }>()
                 </h3>
             </div>
 
-            <div class="col-span-12 @xl:col-span-6">
+            <div v-if="orphan.family_status" class="col-span-12 @xl:col-span-6">
                 <h2 class="text-lg font-semibold">{{ $t('academic_level') }}</h2>
 
                 <h3 class="text-base font-medium">

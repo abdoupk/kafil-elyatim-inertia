@@ -45,8 +45,6 @@ class ExportDataJob implements ShouldQueue
                 tenant: $tenant
             )
         );
-
-        ray('Exported');
     }
 
     /**
