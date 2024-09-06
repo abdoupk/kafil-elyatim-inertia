@@ -22,7 +22,7 @@ class NeedsExport implements FromCollection, WithEvents, WithHeadings, WithMappi
         return [
             $row->subject,
             $row->demand,
-            $row->status,
+            __($row->status),
             $row->note,
             $row->needable?->getName(),
             $row->creator?->getName(),

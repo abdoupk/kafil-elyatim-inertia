@@ -40,6 +40,7 @@ class ExportDataJob implements ShouldQueue
      */
     public function handle(): void
     {
+        sleep(50);
         $zip = new ZipArchive;
 
         $zip->open($this->path, ZipArchive::CREATE | ZipArchive::OVERWRITE);

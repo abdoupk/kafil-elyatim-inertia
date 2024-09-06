@@ -45,8 +45,8 @@ class SchoolsExport implements FromCollection, WithEvents, WithHeadings, WithMap
             $row->lessons_count,
             $row->subjects_count,
             $row->subjects->pluck('name')->implode(', '),
-            $row->creator?->getName(),
             $row->created_at->format('Y-m-d'),
+            $row->creator?->getName(),
         ];
     }
 }

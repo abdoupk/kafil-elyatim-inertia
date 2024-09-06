@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { $t } from '../../../../../utils/i18n'
+
 import type { AcademicLevelType } from '@/types/lessons'
 import type { CreateFamilyForm } from '@/types/types'
 
@@ -723,7 +725,7 @@ const handleUpdateVocationalTraining = () => {
                         type="checkbox"
                     ></base-form-switch-input>
 
-                    <base-form-switch-label htmlFor="is_handicapped">
+                    <base-form-switch-label class="whitespace-nowrap text-nowrap" htmlFor="is_handicapped">
                         {{ $t('handicapped') }}
                     </base-form-switch-label>
                 </base-form-switch>
@@ -739,7 +741,7 @@ const handleUpdateVocationalTraining = () => {
                         type="checkbox"
                     ></base-form-switch-input>
 
-                    <base-form-switch-label htmlFor="is_unemployed">
+                    <base-form-switch-label class="whitespace-nowrap text-nowrap" htmlFor="is_unemployed">
                         {{ $t('unemployed') }}
                     </base-form-switch-label>
                 </base-form-switch>

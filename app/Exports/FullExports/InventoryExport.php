@@ -42,7 +42,7 @@ class InventoryExport implements FromCollection, WithEvents, WithHeadings, WithM
         return [
             $row->name,
             $row->qty.'('.__($row->unit).')',
-            ! in_array(['diapers', 'baby_milk'], $row->type) ? $row->qty_for_family : null,
+            $row->type === null ?? $row->qty_for_family,
             $row->creator?->getName(),
             $row->created_at->format('Y-m-d'),
         ];

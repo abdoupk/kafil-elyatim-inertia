@@ -199,6 +199,7 @@
     "spouse_information": "معلومات عن الزوج (ة)",
     "sponsor_information": "معلومات عن المتكفل",
     "second_sponsor_information": "معلومات عن المتكفل الثاني",
+    "second_sponsor": "المتكفل الثاني",
     "orphans_information": "معلومات عن الايتام",
     "family_sponsorship": "التكفل بالعائلة",
     "sponsor_sponsorship": "التكفل بالمتكفل",
@@ -421,5 +422,8 @@
     "second_sponsor_income": "دخل المتكفل الثاني",
     "first_and_last_name": "الاسم و اللقب",
     "subjects_count": "عدد المواد",
-    "the_subjects": "المواد"
+    "the_subjects": "المواد",
+    "diploma": "الدبلوم",
+    "father_name": "اسم الاب",
+    "mother_name": "اسم ولقب الام"
 }

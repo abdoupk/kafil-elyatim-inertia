@@ -29,7 +29,7 @@ class FinanceTransactionsExport implements FromCollection, WithEvents, WithHeadi
     public function headings(): array
     {
         return [
-            __('amount'),
+            __('the_amount'),
             __('validation.attributes.specification'),
             __('validation.attributes.description'),
             __('the date'),
