@@ -11,7 +11,7 @@ import { Toaster, toast } from 'vue-sonner'
 import NotificationLoader from '@/Components/top-bar/notifications/NotificationLoader.vue'
 
 import { debounce } from '@/utils/helper'
-import { $tc, getLocale } from '@/utils/i18n'
+import { $t, $tc, getLocale } from '@/utils/i18n'
 import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 const BasePopover = defineAsyncComponent(() => import('@/Components/Base/headless/Popover/BasePopover.vue'))
@@ -44,8 +44,14 @@ const displayNextNotification = debounce(() => {
     if (queue.value.length === 0) return
 
     for (const notification of queue.value) {
+        let notifier = notification.user.name
+
+        if (notifier === 'support_team') {
+            notifier = $t('support_team')
+        }
+
         setTimeout(() => {
-            toast(notification.user.name, {
+            toast(notifier, {
                 onDismiss: () => (stopShowNotification.value = true),
                 description: $tc(`notifications.${notification.type}`, notification.user.gender === 'male' ? 1 : 0, {
                     ...notification.data

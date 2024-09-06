@@ -4,18 +4,18 @@ import type { DatabaseNotification } from '@/types/types'
 import { router } from '@inertiajs/vue3'
 
 import { formatDate } from '@/utils/helper'
-import { $tc } from '@/utils/i18n'
+import { $t, $tc } from '@/utils/i18n'
 
 const props = defineProps<{
     notification: DatabaseNotification
     close: () => void
 }>()
 
-const handleShowMember = (url: string) => {
-    if (url) {
+const handleShowMember = (id: string) => {
+    if (id) {
         props.close()
 
-        router.visit(url)
+        router.visit(route('tenant.members.index') + '?show=' + id)
     }
 }
 </script>
@@ -26,9 +26,9 @@ const handleShowMember = (url: string) => {
             <a
                 class="me-5 truncate font-medium rtl:font-semibold"
                 href="javascript:void(0)"
-                @click.stop="handleShowMember(route('tenant.members.index') + '?show=' + notification.data.user.id)"
+                @click.stop="handleShowMember(notification.data.user.id)"
             >
-                {{ notification.data.user.name }}
+                {{ notification.data.user.name === 'support_team' ? $t('support_team') : notification.data.user.name }}
             </a>
 
             <div class="ms-auto whitespace-nowrap text-xs text-slate-400">

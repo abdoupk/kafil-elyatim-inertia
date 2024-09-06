@@ -31,6 +31,12 @@ class ExportCompleteNotification extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'metadata' => $this->metaData,
+            'user' => [
+                'id' => '',
+                'name' => 'support_team',
+                'gender' => 'male',
+            ],
+            'data' => [],
         ]);
     }
 
@@ -38,6 +44,12 @@ class ExportCompleteNotification extends Notification implements ShouldQueue
     {
         return [
             'metadata' => $this->metaData,
+            'user' => [
+                'id' => '',
+                'name' => 'support_team',
+                'gender' => 'male',
+            ],
+            'data' => [],
         ];
     }
 

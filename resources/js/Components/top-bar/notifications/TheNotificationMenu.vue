@@ -73,8 +73,7 @@ const markAsRead = (notification: DatabaseNotification) => {
             v-for="notification in notificationsStore.notifications?.data"
             :key="notification.id"
             :class="[
-                'relative -mx-2 -my-2 flex cursor-pointer  items-center rounded-lg  px-2 py-1',
-                { 'mt-5': notification.id },
+                'relative -mx-2 -my-2 mt-5 flex  cursor-pointer items-center rounded-lg px-2 py-1',
                 { 'bg-slate-100 dark:bg-darkmode-400': !notification.read_at }
             ]"
             @click.prevent="markAsRead(notification)"
