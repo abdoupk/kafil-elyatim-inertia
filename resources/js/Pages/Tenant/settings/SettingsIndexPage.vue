@@ -7,9 +7,9 @@ import { defineAsyncComponent } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import TheExportData from '@/Pages/Tenant/settings/TheExportData.vue'
-
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+const TheExportData = defineAsyncComponent(() => import('@/Pages/Tenant/settings/TheExportData.vue'))
 
 const TheCalculationTable = defineAsyncComponent(() => import('@/Pages/Tenant/settings/TheCalculationTable.vue'))
 
