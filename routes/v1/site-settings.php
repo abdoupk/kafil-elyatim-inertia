@@ -13,5 +13,5 @@ Route::prefix('site-settings')->name('site-settings.')->group(function () {
 
     Route::post('export-data', ExportFullDataController::class)->name('export-data');
 
-    Route::post('download-data', DownloadExportedDataController::class)->name('download-data');
+    Route::get('download-data', DownloadExportedDataController::class)->name('download-data');
 });
