@@ -22,7 +22,7 @@ function saveToPDF(string $directory, string $variableName, callable $function, 
 {
     $disk = Storage::disk('public');
 
-    if (!$disk->directoryExists($directory)) {
+    if (! $disk->directoryExists($directory)) {
         $disk->makeDirectory($directory);
     }
 
@@ -47,7 +47,7 @@ function saveToPDF(string $directory, string $variableName, callable $function, 
         ->margins(2, 4, 2, 4)
         ->landscape()
         ->save($pdfPath);
-    
+
     return $disk->download($pdfFile);
 }
 
@@ -59,7 +59,7 @@ function saveArchiveToPDF(string $directory, callable $function, string $date, ?
 {
     $disk = Storage::disk('public');
 
-    if (!$disk->directoryExists("archives/{$directory}")) {
+    if (! $disk->directoryExists("archives/{$directory}")) {
         $disk->makeDirectory($directory);
     }
 
@@ -88,7 +88,7 @@ function getParams(): array
 {
     return [
         /* @phpstan-ignore-next-line */
-        'page' => (int)request()->input('page', 1),
+        'page' => (int) request()->input('page', 1),
         'search' => request()->input('search', ''),
         'perPage' => request()->integer('perPage', 10),
         'fields' => request()->input('fields'),
@@ -99,7 +99,7 @@ function getParams(): array
 
 function generateFormatedConditions(): array
 {
-    $filters = (array)request()->input('filters', []);
+    $filters = (array) request()->input('filters', []);
 
     if ($filters) {
         /** @phpstan-ignore-next-line */
@@ -117,7 +117,7 @@ function generateFilterConditions(?string $additional_filters = ''): string
 {
     $filters = array_merge(generateFormatedConditions());
 
-    if (!$filters) {
+    if (! $filters) {
         return 'tenant_id = ' . tenant('id') . ' ' . $additional_filters;
     }
 
@@ -128,7 +128,7 @@ function generateFilterConditions(?string $additional_filters = ''): string
 
 function generateFormattedSort(): array
 {
-    $directions = (array)request()->input('directions', []);
+    $directions = (array) request()->input('directions', []);
 
     if ($directions) {
         /** @phpstan-ignore-next-line */
@@ -146,7 +146,7 @@ function generateFormattedSort(): array
 
 function search(Model $model, ?string $additional_filters = '', ?int $limit = null): Builder
 {
-    if (!$limit) {
+    if (! $limit) {
         $limit = request()->integer('perPage', 10);
     }
 
