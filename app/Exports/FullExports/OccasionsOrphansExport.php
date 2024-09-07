@@ -12,7 +12,9 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class OccasionsOrphansExport implements FromCollection, WithEvents, WithHeadings, WithMapping
 {
-    public function __construct(public string $occasion) {}
+    public function __construct(public string $occasion)
+    {
+    }
 
     public function collection(): Collection
     {

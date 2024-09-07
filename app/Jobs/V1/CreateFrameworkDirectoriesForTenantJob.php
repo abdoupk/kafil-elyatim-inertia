@@ -13,14 +13,16 @@ class CreateFrameworkDirectoriesForTenantJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private readonly Tenant $tenant) {}
+    public function __construct(private readonly Tenant $tenant)
+    {
+    }
 
     public function handle(): void
     {
         $this->tenant->run(function ($tenant) {
             $storage_path = storage_path();
 
-            mkdir("$storage_path/framework/cache", 0777, true);
+            mkdir("{$storage_path}/framework/cache", 0777, true);
         });
     }
 }

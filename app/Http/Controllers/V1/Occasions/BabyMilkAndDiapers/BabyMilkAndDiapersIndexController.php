@@ -10,10 +10,6 @@ use Inertia\Inertia;
 
 class BabyMilkAndDiapersIndexController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:view_occasions'];
-    }
 
     public function __invoke()
     {
@@ -24,5 +20,9 @@ class BabyMilkAndDiapersIndexController extends Controller implements HasMiddlew
                 ->whereYear('created_at', now()->year)
                 ->whereMonth('created_at', now()->month)->select(['id', 'saved_by', 'created_at'])->first(),
         ]);
+    }
+    public static function middleware()
+    {
+        return ['can:view_occasions'];
     }
 }

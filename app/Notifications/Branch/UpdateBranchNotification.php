@@ -13,7 +13,9 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Branch $branch, public User $user) {}
+    public function __construct(public Branch $branch, public User $user)
+    {
+    }
 
     public function via(): array
     {

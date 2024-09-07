@@ -12,7 +12,9 @@ class DeleteMemberNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public User $member, public User $user) {}
+    public function __construct(public User $member, public User $user)
+    {
+    }
 
     public function via(): array
     {

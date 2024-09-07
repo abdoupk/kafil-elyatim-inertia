@@ -60,9 +60,8 @@ function calculateOrphanIncomes(Orphan $orphan): float
 
     if ($orphan->gender === 'male') {
         return calculateContributionsForMaleOrphan($orphan, $calculation);
-    } else {
-        return calculateContributionsForFemaleOrphan($orphan, $calculation);
     }
+    return calculateContributionsForFemaleOrphan($orphan, $calculation);
 }
 
 /**
@@ -105,13 +104,11 @@ function calculateOrphanWeights(Orphan $orphan, array $orphanWeights): float
 
     if ($orphan->birth_date->age < 18) {
         return calculateWeightForOrphanBelow18($orphan, $orphanWeights);
-    } else {
-        if ($orphan->gender == 'male') {
-            return calculateWeightForOrphanMaleOlderThan18($orphan, $orphanWeights);
-        } else {
-            return calculateWeightForOrphanFemaleOlderThan18($orphan, $orphanWeights);
-        }
     }
+    if ($orphan->gender === 'male') {
+        return calculateWeightForOrphanMaleOlderThan18($orphan, $orphanWeights);
+    }
+    return calculateWeightForOrphanFemaleOlderThan18($orphan, $orphanWeights);
 }
 
 function calculateWeightForOrphanFemaleOlderThan18(Orphan $orphan, array $weights): float
@@ -169,30 +166,29 @@ function calculateWeightForOrphanBelow18(Orphan $orphan, $weights): float
             'الطور الثانوي' => $weights['lt_18']['outside_academic_season']['high_school'],
             default => 1
         };
-    } else {
-        if ($orphan->birth_date->age < 2) {
-            return $weights['lt_18']['during_academic_season']['baby'];
-        }
-
-        if ($orphan->birth_date->age <= 5 && $orphan->birth_date->age > 2) {
-            return $weights['lt_18']['during_academic_season']['below_school_age'];
-        }
-
-        if ($orphan->academicLevel->level === 'مفصول') {
-            return $weights['lt_18']['during_academic_season']['dismissed'];
-        }
-
-        if ($orphan->family_status === 'professional_girl' || $orphan->family_status === 'professional_boy') {
-            return $weights['lt_18']['during_academic_season']['professionals'];
-        }
-
-        return match ($orphan->academicLevel->phase) {
-            'الطور الابتدائي' => $weights['lt_18']['during_academic_season']['elementary_school'],
-            'الطور المتوسط' => $weights['lt_18']['during_academic_season']['middle_school'],
-            'الطور الثانوي' => $weights['lt_18']['during_academic_season']['high_school'],
-            default => 1
-        };
     }
+    if ($orphan->birth_date->age < 2) {
+        return $weights['lt_18']['during_academic_season']['baby'];
+    }
+
+    if ($orphan->birth_date->age <= 5 && $orphan->birth_date->age > 2) {
+        return $weights['lt_18']['during_academic_season']['below_school_age'];
+    }
+
+    if ($orphan->academicLevel->level === 'مفصول') {
+        return $weights['lt_18']['during_academic_season']['dismissed'];
+    }
+
+    if ($orphan->family_status === 'professional_girl' || $orphan->family_status === 'professional_boy') {
+        return $weights['lt_18']['during_academic_season']['professionals'];
+    }
+
+    return match ($orphan->academicLevel->phase) {
+        'الطور الابتدائي' => $weights['lt_18']['during_academic_season']['elementary_school'],
+        'الطور المتوسط' => $weights['lt_18']['during_academic_season']['middle_school'],
+        'الطور الثانوي' => $weights['lt_18']['during_academic_season']['high_school'],
+        default => 1
+    };
 }
 
 /**
@@ -215,17 +211,16 @@ function calculateContributionsForSponsor(Sponsor $sponsor): float
             'widowers_wife' => $sponsorPercentages['widowers_wife'] * $sponsor->incomes->total_income,
             'mother_of_a_supported_childhood' => $sponsorPercentages['mother_of_a_supported_childhood'] * $sponsor->incomes->total_income,
         };
-    } else {
-        return match ($sponsor->sponsor_type) {
-            'other' => $sponsorContributions['other'],
-            'widower' => $sponsorContributions['widower'],
-            'widow' => $sponsorContributions['widow'],
-            'widows_husband' => $sponsorContributions['widows_husband'],
-            'widows_wife' => $sponsorContributions['widows_wife'],
-            'mother_of_a_supported_childhood' => $sponsorContributions['mother_of_a_supported_childhood'],
-            default => 0
-        };
     }
+    return match ($sponsor->sponsor_type) {
+        'other' => $sponsorContributions['other'],
+        'widower' => $sponsorContributions['widower'],
+        'widow' => $sponsorContributions['widow'],
+        'widows_husband' => $sponsorContributions['widows_husband'],
+        'widows_wife' => $sponsorContributions['widows_wife'],
+        'mother_of_a_supported_childhood' => $sponsorContributions['mother_of_a_supported_childhood'],
+        default => 0
+    };
 }
 
 /**
@@ -247,18 +242,17 @@ function calculateContributionsForMaleOrphan(Orphan $orphan, array $calculations
             'married_with_family' => $calculations['married_with_family'],
             default => 0
         };
-    } else {
-        $calculations = $calculations['percentage_of_contribution']['orphans']['male_gt_18'];
-
-        return match ($orphan->family_status) {
-            'college_boy' => $calculations['college_boy'] * $orphan->income,
-            'worker_with_family' => $calculations['worker_with_family'] * $orphan->income,
-            'worker_outside_family' => $calculations['worker_outside_family'] * $orphan->income,
-            'married_with_family' => $calculations['married_with_family'] * $orphan->income,
-            'married_outside_family' => $calculations['married_outside_family'] * $orphan->income,
-            default => 0
-        };
     }
+    $calculations = $calculations['percentage_of_contribution']['orphans']['male_gt_18'];
+
+    return match ($orphan->family_status) {
+        'college_boy' => $calculations['college_boy'] * $orphan->income,
+        'worker_with_family' => $calculations['worker_with_family'] * $orphan->income,
+        'worker_outside_family' => $calculations['worker_outside_family'] * $orphan->income,
+        'married_with_family' => $calculations['married_with_family'] * $orphan->income,
+        'married_outside_family' => $calculations['married_outside_family'] * $orphan->income,
+        default => 0
+    };
 }
 
 function calculateContributionsForFemaleOrphan(Orphan $orphan, array $calculations): float

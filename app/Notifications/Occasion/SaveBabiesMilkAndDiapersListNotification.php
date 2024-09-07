@@ -13,7 +13,9 @@ class SaveBabiesMilkAndDiapersListNotification extends Notification implements S
 {
     use Queueable;
 
-    public function __construct(public Archive $archive, public User $user) {}
+    public function __construct(public Archive $archive, public User $user)
+    {
+    }
 
     public function via(): array
     {

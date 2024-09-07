@@ -24,25 +24,6 @@ class Inventory extends Model
         'created_by',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function searchableAs(): string
     {
         return 'inventory';
@@ -69,6 +50,25 @@ class Inventory extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 
     protected function casts(): array

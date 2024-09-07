@@ -17,7 +17,7 @@ class ExportOrphansEidSuitXlsxController extends Controller implements HasMiddle
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new OrphansEidSuitIndexExport, __('exports.eid_suit', ['date' => now()->year]).'.xlsx');
+        return Excel::download(new OrphansEidSuitIndexExport(), __('exports.eid_suit', ['date' => now()->year]).'.xlsx');
     }
 
     public static function middleware()

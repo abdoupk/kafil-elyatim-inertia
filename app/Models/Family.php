@@ -56,6 +56,7 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property string $address
  * @property int $file_number
  * @property string $start_date
+ *
  * @property-read Zone|null $zone
  *
  * @method static Builder|Family whereAddress($value)
@@ -84,7 +85,9 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read Collection<int, SponsorSponsorship> $sponsorSponsorships
  * @property-read int|null $sponsor_sponsorships_count
  * @property-read Branch|null $branch
+ *
  * @property string|null $created_by
+ *
  * @property-read User|null $creator
  *
  * @method static Builder|Family whereCreatedBy($value)
@@ -107,25 +110,6 @@ class Family extends Model
         'start_date',
         'branch_id',
     ];
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($family) {
-            if (auth()->id()) {
-                $family->deleted_by = auth()->id();
-
-                $family->save();
-            }
-        });
-    }
 
     public function unSearchWithRelations(): void
     {
@@ -345,6 +329,25 @@ class Family extends Model
     public function preview(): HasOne
     {
         return $this->hasOne(Preview::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($family) {
+            if (auth()->id()) {
+                $family->deleted_by = auth()->id();
+
+                $family->save();
+            }
+        });
     }
 
     protected function casts(): array

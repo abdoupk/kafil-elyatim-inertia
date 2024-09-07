@@ -13,7 +13,9 @@ class UpdateNeedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Need $need, public User $user) {}
+    public function __construct(public Need $need, public User $user)
+    {
+    }
 
     public function via(): array
     {

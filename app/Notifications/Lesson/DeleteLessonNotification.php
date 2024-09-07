@@ -13,7 +13,9 @@ class DeleteLessonNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public EventOccurrence $eventOccurrence, public User $user) {}
+    public function __construct(public EventOccurrence $eventOccurrence, public User $user)
+    {
+    }
 
     public function via(): array
     {

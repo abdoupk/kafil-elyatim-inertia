@@ -13,7 +13,9 @@ class SaveSchoolEntryOrphansListNotification extends Notification implements Sho
 {
     use Queueable;
 
-    public function __construct(public Archive $archive, public User $user) {}
+    public function __construct(public Archive $archive, public User $user)
+    {
+    }
 
     public function via(): array
     {

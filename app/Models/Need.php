@@ -27,25 +27,6 @@ class Need extends Model
         'needable_type',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function needable(): MorphTo
     {
         return $this->morphTo();
@@ -82,5 +63,24 @@ class Need extends Model
             'tenant_id' => $this->tenant_id,
             'created_at' => strtotime($this->created_at),
         ];
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 }

@@ -52,43 +52,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::created(static function (User $user) {
-            $user->settings()->create([
-                'theme' => 'enigma',
-                'color_scheme' => 'default',
-                'layout' => 'side_menu',
-                'appearance' => 'light',
-                'tenant_id' => $user->tenant_id,
-                'notifications' => [
-                    'families_changes' => true,
-                    'branches_and_zones_changes' => true,
-                    'schools_and_lessons_changes' => true,
-                    'occasions_saves' => true,
-                    'financial_changes' => true,
-                    'association_changes' => true,
-                ],
-            ]);
-        });
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function settings(): HasOne
     {
         return $this->hasOne(Settings::class);
@@ -145,6 +108,43 @@ class User extends Authenticatable
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(static function (User $user) {
+            $user->settings()->create([
+                'theme' => 'enigma',
+                'color_scheme' => 'default',
+                'layout' => 'side_menu',
+                'appearance' => 'light',
+                'tenant_id' => $user->tenant_id,
+                'notifications' => [
+                    'families_changes' => true,
+                    'branches_and_zones_changes' => true,
+                    'schools_and_lessons_changes' => true,
+                    'occasions_saves' => true,
+                    'financial_changes' => true,
+                    'association_changes' => true,
+                ],
+            ]);
+        });
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 
     /**

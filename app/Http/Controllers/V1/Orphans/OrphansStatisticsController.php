@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\V1\Orphans;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Routing\Controllers\HasMiddleware;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class OrphansStatisticsController extends Controller implements HasMiddleware
+class OrphansStatisticsController extends Controller
 {
     public function __invoke(): Response
     {
@@ -25,10 +24,5 @@ class OrphansStatisticsController extends Controller implements HasMiddleware
             'orphansByCreatedDate' => getOrphansGroupByCreatedDate(),
             'orphansGroupHealthStatus' => getOrphansGroupHealthStatus(),
         ]);
-    }
-
-    public static function middleware()
-    {
-        // TODO: Implement middleware() method.
     }
 }

@@ -13,7 +13,9 @@ class CreateZoneNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Zone $zone, public User $user) {}
+    public function __construct(public Zone $zone, public User $user)
+    {
+    }
 
     public function via(): array
     {

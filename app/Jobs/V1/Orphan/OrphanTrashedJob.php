@@ -16,7 +16,9 @@ class OrphanTrashedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(public Orphan $orphan, public User $user) {}
+    public function __construct(public Orphan $orphan, public User $user)
+    {
+    }
 
     public function handle(): void
     {

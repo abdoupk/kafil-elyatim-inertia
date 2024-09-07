@@ -18,10 +18,6 @@ use Throwable;
 
 class FamilyStoreController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:create_families'];
-    }
 
     /**
      * @throws Throwable
@@ -61,27 +57,9 @@ class FamilyStoreController extends Controller implements HasMiddleware
 
         return response('', 422);
     }
-
-    private function storeSponsor(CreateFamilyRequest $request, Model|Family $family): Sponsor
+    public static function middleware()
     {
-        $sponsor = $family->sponsor()->create([...$request->validated('sponsor')]);
-
-        $sponsor->incomes()->create([
-            ...$request->validated('incomes'),
-            'total_income' => array_sum($request->validated('incomes')),
-        ]);
-
-        return $sponsor;
-    }
-
-    private function storePreview(CreateFamilyRequest $request, Model|Family $family): void
-    {
-        $preview = $family->preview()->create([
-            'preview_date' => $request->validated('preview_date'),
-            'report' => $request->validated('report'),
-        ]);
-
-        $preview->inspectors()->sync($request->validated('inspectors_members'));
+        return ['can:create_families'];
     }
 
     public function storeOrphans(CreateFamilyRequest $request, Model|Family $family, Sponsor $sponsor): void
@@ -146,5 +124,27 @@ class FamilyStoreController extends Controller implements HasMiddleware
         $family->sponsorships()->create($request->validated('family_sponsorship'));
 
         $sponsor->sponsorships()->create($request->validated('sponsor_sponsorship'));
+    }
+
+    private function storeSponsor(CreateFamilyRequest $request, Model|Family $family): Sponsor
+    {
+        $sponsor = $family->sponsor()->create([...$request->validated('sponsor')]);
+
+        $sponsor->incomes()->create([
+            ...$request->validated('incomes'),
+            'total_income' => array_sum($request->validated('incomes')),
+        ]);
+
+        return $sponsor;
+    }
+
+    private function storePreview(CreateFamilyRequest $request, Model|Family $family): void
+    {
+        $preview = $family->preview()->create([
+            'preview_date' => $request->validated('preview_date'),
+            'report' => $request->validated('report'),
+        ]);
+
+        $preview->inspectors()->sync($request->validated('inspectors_members'));
     }
 }

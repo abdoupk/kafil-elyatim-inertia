@@ -8,7 +8,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class ZoneForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(Zone $zone) {}
+    public function __invoke(Zone $zone)
+    {
+    }
 
     public static function middleware()
     {

@@ -13,7 +13,9 @@ class DeleteInventoryItemNotification extends Notification implements ShouldQueu
 {
     use Queueable;
 
-    public function __construct(public Inventory $item, public User $user) {}
+    public function __construct(public Inventory $item, public User $user)
+    {
+    }
 
     public function via(): array
     {

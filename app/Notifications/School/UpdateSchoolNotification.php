@@ -13,7 +13,9 @@ class UpdateSchoolNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public PrivateSchool $school, public User $user) {}
+    public function __construct(public PrivateSchool $school, public User $user)
+    {
+    }
 
     public function via(): array
     {

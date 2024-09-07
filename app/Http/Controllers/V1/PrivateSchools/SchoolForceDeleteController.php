@@ -8,7 +8,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SchoolForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(PrivateSchool $school) {}
+    public function __invoke(PrivateSchool $school)
+    {
+    }
 
     public static function middleware()
     {

@@ -8,7 +8,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class EventForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(Event $event) {}
+    public function __invoke(Event $event)
+    {
+    }
 
     public static function middleware()
     {

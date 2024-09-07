@@ -11,10 +11,6 @@ use Inertia\Response;
 
 class FamiliesIndexController extends Controller implements HasMiddleware
 {
-    public static function middleware()
-    {
-        return ['can:list_families'];
-    }
 
     public function __invoke(FamiliesIndexRequest $request): Response
     {
@@ -22,5 +18,9 @@ class FamiliesIndexController extends Controller implements HasMiddleware
             'families' => FamiliesIndexResource::collection(getFamilies()),
             'params' => getParams(),
         ]);
+    }
+    public static function middleware()
+    {
+        return ['can:list_families'];
     }
 }

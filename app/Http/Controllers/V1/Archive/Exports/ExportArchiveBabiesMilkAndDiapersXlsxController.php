@@ -18,7 +18,7 @@ class ExportArchiveBabiesMilkAndDiapersXlsxController extends Controller impleme
     public function __invoke(Archive $archive)
     {
         return Excel::download(
-            new BabiesIndexExport,
+            new BabiesIndexExport(),
             __('exports.archive.babies_milk_and_diapers', ['date' => $archive->created_at->translatedFormat('F Y')]).'.xlsx'
         );
     }

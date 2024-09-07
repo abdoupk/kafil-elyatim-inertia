@@ -11,7 +11,9 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class MonthlyBasketFamiliesExport implements FromCollection, WithEvents, WithMultipleSheets
 {
-    public function __construct(public int $year) {}
+    public function __construct(public int $year)
+    {
+    }
 
     public function collection(): Collection
     {

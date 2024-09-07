@@ -31,25 +31,6 @@ class Event extends Model
         'color',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model) {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
-    }
-
     public function school(): BelongsTo
     {
         return $this->belongsTo(PrivateSchool::class);
@@ -70,7 +51,7 @@ class Event extends Model
      */
     public function humanReadable()
     {
-        $rule = new Rule;
+        $rule = new Rule();
         $rule->setStartDate($this->start_date);
         $rule->setEndDate($this->end_date);
         $rule->setFreq(Str::upper($this->frequency));
@@ -88,6 +69,25 @@ class Event extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model) {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
     }
 
     protected function casts(): array
