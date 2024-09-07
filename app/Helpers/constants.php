@@ -13,9 +13,9 @@ const FILTER_EID_SUIT = 'AND eid_suit = true AND eid_suit IS NOT NULL';
 
 const FILTER_EID_AL_ADHA = 'AND eid_al_adha != false AND eid_al_adha IS NOT NULL';
 
-$last_academic_year = (date('Y') - 1);
+$last_academic_year = date('Y') - 1;
 
-define("FILTER_SCHOOL_ENTRY", "
+define('FILTER_SCHOOL_ENTRY', "
     school_bag = true
     AND school_bag IS NOT NULL
     AND orphan.academic_achievement.academic_year IS NOT EMPTY

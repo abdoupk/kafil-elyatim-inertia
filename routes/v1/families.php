@@ -24,53 +24,122 @@ use App\Http\Controllers\V1\Families\SearchFamiliesController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('families')->name('families.')->group(function (): void {
-    Route::get('', FamiliesIndexController::class)
+    Route::get(
+        '',
+        FamiliesIndexController::class
+    )
         ->name('index');
 
-    Route::get('/create', FamilyCreateController::class)
+    Route::get(
+        '/create',
+        FamilyCreateController::class
+    )
         ->name('create');
 
-    Route::post('', FamilyStoreController::class)
-        ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        FamilyStoreController::class
+    )
+        ->name('store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::get('edit/{family}', FamilyEditController::class)
+    Route::get(
+        'edit/{family}',
+        FamilyEditController::class
+    )
         ->name('edit');
 
-    Route::get('show/{family}', FamilyShowController::class)
+    Route::get(
+        'show/{family}',
+        FamilyShowController::class
+    )
         ->name('show');
 
-    Route::delete('{family}', FamilyDeleteController::class)
+    Route::delete(
+        '{family}',
+        FamilyDeleteController::class
+    )
         ->name('destroy');
 
-    Route::get('export-pdf', ExportFamiliesPDFController::class)
+    Route::get(
+        'export-pdf',
+        ExportFamiliesPDFController::class
+    )
         ->name('export.pdf');
 
-    Route::get('export-xlsx', ExportFamiliesXlsxController::class)
+    Route::get(
+        'export-xlsx',
+        ExportFamiliesXlsxController::class
+    )
         ->name('export.xlsx');
 
-    Route::get('search', SearchFamiliesController::class)
+    Route::get(
+        'search',
+        SearchFamiliesController::class
+    )
         ->name('search');
 
-    Route::put('infos/{family}', FamilyUpdateInfoController::class)->name('infos-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'infos/{family}',
+        FamilyUpdateInfoController::class
+    )
+        ->name('infos-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('spouse/{family}', FamilyUpdateSpouseController::class)->name('spouse-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'spouse/{family}',
+        FamilyUpdateSpouseController::class
+    )
+        ->name('spouse-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('report/{family}', FamilyUpdateReportController::class)->name('report-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'report/{family}',
+        FamilyUpdateReportController::class
+    )
+        ->name('report-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('second-sponsor/{family}', FamilyUpdateSecondSponsorController::class)->name('second-sponsor-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'second-sponsor/{family}',
+        FamilyUpdateSecondSponsorController::class
+    )
+        ->name('second-sponsor-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
     Route::put('housing/{family}', FamilyUpdateHousingController::class)->name('housing-update')->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('furnishings/{family}', FamilyUpdateFurnishingsController::class)->name('furnishings-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'furnishings/{family}',
+        FamilyUpdateFurnishingsController::class
+    )
+        ->name('furnishings-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('sponsorships/{family}', FamilyUpdateSponsorShipsController::class)->name('sponsorships-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'sponsorships/{family}',
+        FamilyUpdateSponsorShipsController::class
+    )
+        ->name('sponsorships-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::post('{family}/restore', FamilyRestoreController::class)
-        ->name('restore')->withTrashed();
+    Route::post(
+        '{family}/restore',
+        FamilyRestoreController::class
+    )
+        ->name('restore')
+        ->withTrashed();
 
-    Route::delete('{family}/force-delete', FamilyForceDeleteController::class)
-        ->name('force-delete')->withTrashed();
+    Route::delete(
+        '{family}/force-delete',
+        FamilyForceDeleteController::class
+    )
+        ->name('force-delete')
+        ->withTrashed();
 
-    Route::get('statistics', FamiliesStatisticsController::class)
+    Route::get(
+        'statistics',
+        FamiliesStatisticsController::class
+    )
         ->name('statistics');
 });

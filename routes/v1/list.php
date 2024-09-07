@@ -16,27 +16,64 @@ use App\Http\Controllers\V1\VocationalTraining\VocationalTrainingIndexController
 use App\Http\Controllers\V1\Zones\ListZonesController;
 
 Route::prefix('list')->name('list.')->group(function (): void {
-    Route::get('shoes-sizes', ListShoesSizesController::class)->name('shoes-sizes');
+    Route::get(
+        'shoes-sizes',
+        ListShoesSizesController::class
+    )->name('shoes-sizes');
 
-    Route::get('clothes-sizes', ListClothesSizesController::class)->name('clothes-sizes');
+    Route::get(
+        'clothes-sizes',
+        ListClothesSizesController::class
+    )->name('clothes-sizes');
 
-    Route::get('roles', ListRolesController::class)->name('roles');
+    Route::get(
+        'roles',
+        ListRolesController::class
+    )->name('roles');
 
-    Route::get('members', ListMembersController::class)->name('members');
+    Route::get(
+        'members',
+        ListMembersController::class
+    )->name('members');
 
-    Route::get('subjects', ListSubjectsController::class)->name('subjects');
+    Route::get(
+        'subjects',
+        ListSubjectsController::class
+    )->name('subjects');
 
-    Route::get('schools', ListSchoolsController::class)->name('schools');
+    Route::get(
+        'schools',
+        ListSchoolsController::class
+    )->name('schools');
 
-    Route::get('list-branches', ListBranchesController::class)->name('branches');
+    Route::get(
+        'list-branches',
+        ListBranchesController::class
+    )->name('branches');
 
-    Route::get('list-zones', ListZonesController::class)->name('zones');
+    Route::get(
+        'list-zones',
+        ListZonesController::class
+    )->name('zones');
 
-    Route::get('baby-milk', ListBabyMilkController::class)->name('baby-milk');
+    Route::get(
+        'baby-milk',
+        ListBabyMilkController::class
+    )->name('baby-milk');
 
-    Route::get('diapers', ListDiapersController::class)->name('diapers');
+    Route::get(
+        'diapers',
+        ListDiapersController::class
+    )->name('diapers');
 
-    Route::get('academic-levels', AcademicLevelIndexController::class)->name('academic-levels');
+    Route::get(
+        'academic-levels',
+        AcademicLevelIndexController::class
+    )
+        ->name('academic-levels');
 
-    Route::get('vocational-training', VocationalTrainingIndexController::class)->name('vocational-trainings-specialities');
+    Route::get(
+        'vocational-training',
+        VocationalTrainingIndexController::class
+    )->name('vocational-trainings-specialities');
 });

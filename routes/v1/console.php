@@ -6,8 +6,13 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function (): void {
     ray(Inspiring::quote());
     $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->everyMinute();
+})->purpose('Display an inspiring quote')
+    ->everyMinute();
 
-Schedule::command('calculate:families-income-rate')->name('Calculate families income rate')->everyMinute();
+Schedule::command('calculate:families-income-rate')
+    ->name('Calculate families income rate')
+    ->everyMinute();
 
-Schedule::command('unSearch:orphans-older-than-two-years')->name('UnSearch orphans older than two years')->everyMinute();
+Schedule::command('unSearch:orphans-older-than-two-years')
+    ->name('UnSearch orphans older than two years')
+    ->everyMinute();

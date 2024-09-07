@@ -11,9 +11,12 @@ use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 Route::prefix('profile')->name('profile.')->group(function (): void {
     Route::get('/', [ProfileController::class, 'edit'])->name('edit');
 
-    Route::patch('/', [ProfileController::class, 'update'])->name('update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::patch('/', [ProfileController::class, 'update'])
+        ->name('update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::delete('/', [ProfileController::class, 'destroy'])->name('destroy');
+    Route::delete('/', [ProfileController::class, 'destroy'])
+        ->name('destroy');
 
     Route::put('password', [PasswordController::class, 'update'])->name('password.update')->middleware([
         HandlePrecognitiveRequests::class,
