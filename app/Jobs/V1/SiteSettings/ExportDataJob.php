@@ -5,6 +5,8 @@ namespace App\Jobs\V1\SiteSettings;
 use App\Exports\FullExports\BabiesExport;
 use App\Exports\FullExports\BabiesMilkAndDiapersListExport;
 use App\Exports\FullExports\BranchesExport;
+use App\Exports\FullExports\EidAlAdhaFamiliesListExport;
+use App\Exports\FullExports\EidSuitOrphansListExport;
 use App\Exports\FullExports\FamiliesExport;
 use App\Exports\FullExports\FinanceTransactionsExport;
 use App\Exports\FullExports\InventoryExport;
@@ -12,6 +14,8 @@ use App\Exports\FullExports\LessonsExport;
 use App\Exports\FullExports\MonthlyBasketFamiliesExport;
 use App\Exports\FullExports\NeedsExport;
 use App\Exports\FullExports\OrphansExport;
+use App\Exports\FullExports\RamadanBasketFamiliesListExport;
+use App\Exports\FullExports\SchoolEntryOrphansListExport;
 use App\Exports\FullExports\SchoolsExport;
 use App\Exports\FullExports\SponsorsExport;
 use App\Exports\FullExports\UsersExport;
@@ -27,7 +31,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
 use Notification;
-use PhpOffice\PhpSpreadsheet\Exception;
 use Storage;
 use ZipArchive;
 
@@ -39,10 +42,6 @@ class ExportDataJob implements ShouldQueue
     {
     }
 
-    /**
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
     public function handle(): void
     {
         $zip = new ZipArchive();
@@ -56,6 +55,8 @@ class ExportDataJob implements ShouldQueue
         $this->exportBabiesMilkAndDiapers($zip);
 
         $this->exportMonthlyBasketFamiliesList($zip);
+
+        $this->exportOccasions($zip);
 
         $this->cleanup();
 
@@ -71,10 +72,6 @@ class ExportDataJob implements ShouldQueue
         );
     }
 
-    /**
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
     private function exportToExcel(ZipArchive $zipArchive): void
     {
         $files = [
@@ -111,10 +108,6 @@ class ExportDataJob implements ShouldQueue
         }
     }
 
-    /**
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
     private function exportBabiesMilkAndDiapers(ZipArchive $zip): void
     {
         $years = Archive::whereOccasion('babies_milk_and_diapers')
@@ -130,10 +123,6 @@ class ExportDataJob implements ShouldQueue
         }
     }
 
-    /**
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
     private function exportMonthlyBasketFamiliesList(ZipArchive $zipArchive): void
     {
         $years = Archive::whereOccasion('monthly_basket')
@@ -149,11 +138,24 @@ class ExportDataJob implements ShouldQueue
         }
     }
 
-    private function cleanup(): void
+    private function exportOccasions(ZipArchive $zipArchive): void
     {
+        $files = [
+            __('the_orphans_eid_suit') . '.xlsx' => new EidSuitOrphansListExport(),
+            __('the_families_eid_al_adha') . '.xlsx' => new EidAlAdhaFamiliesListExport(),
+            __('the_families_ramadan_basket') . '.xlsx' => new RamadanBasketFamiliesListExport(),
+            __('the_orphans_school_entry') . '.xlsx' => new SchoolEntryOrphansListExport(),
+        ];
+
+        foreach ($files as $fileName => $export) {
+            Excel::store($export, $fileName);
+
+            $zipArchive->addFile(Storage::path($fileName), $fileName);
+        }
     }
 
-    //    private function exportRamadanBasketFamiliesToExcel(ZipArchive $zip): void
-    //    {
-    //    }
+    private function cleanup(): void
+    {
+        ray('45454');
+    }
 }
