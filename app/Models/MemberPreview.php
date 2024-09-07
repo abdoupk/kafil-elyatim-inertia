@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 class MemberPreview extends Pivot
 {
-    use HasFactory, HasUuids;
+    use HasFactory, BelongsToTenant, HasUuids;
 
     public $timestamps = false;
 
