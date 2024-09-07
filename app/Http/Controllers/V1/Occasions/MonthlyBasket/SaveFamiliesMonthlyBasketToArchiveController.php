@@ -13,6 +13,11 @@ use Throwable;
 
 class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:save_occasions'];
+    }
+
     /**
      * @throws Throwable
      */
@@ -31,16 +36,12 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements
         });
     }
 
-    public static function middleware()
-    {
-        return ['can:save_occasions'];
-    }
-
     private function getOrCreateArchive()
     {
         return Archive::query()
-            ->where('occasion', 'monthly_basket')
+            ->whereOccasion('monthly_basket')
             ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
             ->first() ?? Archive::create([
                 'occasion' => 'monthly_basket',
                 'saved_by' => auth()->user()->id,
