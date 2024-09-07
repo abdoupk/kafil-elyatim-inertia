@@ -35,7 +35,10 @@ class SaveSchoolEntryOrphansListNotification extends Notification implements Sho
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.school-entry.index'),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.occasions.school-entry.index'
+                ),
             ],
         ];
     }

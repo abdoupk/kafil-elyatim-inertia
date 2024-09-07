@@ -19,13 +19,16 @@ class SaveOrphansEidSuitToArchiveController extends Controller implements HasMid
             ]);
 
         $archive->orphans()
-            ->syncWithPivotValues(listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport()->map(function (OrphanSponsorship $sponsorship) {
-                return $sponsorship->orphan->id;
-            }), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(
+                listOfOrphansBenefitingFromTheEidSuitSponsorshipForExport()
+                    ->map(function (OrphanSponsorship $sponsorship) {
+                        return $sponsorship->orphan->id;
+                    }),
+                ['tenant_id' => tenant('id')]
+            );
 
         dispatch(new EidSuitOrphansListSavedJob($archive, auth()->user()));
     }
-
     public static function middleware()
     {
         return ['can:save_occasions'];

@@ -28,12 +28,20 @@ class OrphanShowResource extends JsonResource
             'creator' => new MemberResource($this->whenLoaded('creator')),
             'gender' => $this->gender,
 
-            'academic_achievements' => AcademicAchievementResource::collection($this->whenLoaded('academicAchievements')),
+            'academic_achievements' => AcademicAchievementResource::collection(
+                $this->whenLoaded('academicAchievements')
+            ),
 
-            'sponsorships' => new OrphanSponsorshipResource($this->whenLoaded('sponsorships')),
+            'sponsorships' => new OrphanSponsorshipResource(
+                $this->whenLoaded('sponsorships')
+            ),
 
-            'vocational_training_achievements' => VocationalTrainingAchievementResource::collection($this->whenLoaded('vocationalTrainingAchievements')),
-            'college_achievements' => CollegeAchievementResource::collection($this->whenLoaded('collegeAchievements')),
+            'vocational_training_achievements' => VocationalTrainingAchievementResource::collection(
+                $this->whenLoaded('vocationalTrainingAchievements')
+            ),
+            'college_achievements' => CollegeAchievementResource::collection(
+                $this->whenLoaded('collegeAchievements')
+            ),
         ];
     }
 }

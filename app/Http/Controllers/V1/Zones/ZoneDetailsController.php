@@ -13,10 +13,11 @@ class ZoneDetailsController extends Controller implements HasMiddleware
     public function __invoke(Zone $zone): JsonResponse
     {
         return response()->json([
-            'zone' => ZoneShowResource::make($zone->load(['creator:id,first_name,last_name'])->loadCount(['families', 'members'])),
+            'zone' => ZoneShowResource::make($zone->load(
+                ['creator:id,first_name,last_name']
+            )->loadCount(['families', 'members'])),
         ]);
     }
-
     public static function middleware()
     {
         return [

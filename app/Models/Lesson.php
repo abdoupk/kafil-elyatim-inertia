@@ -40,12 +40,17 @@ class Lesson extends Model
 
     public function orphans(): BelongsToMany
     {
-        return $this->belongsToMany(Orphan::class, 'lesson_orphan', 'lesson_id', 'orphan_id')->using(LessonOrphan::class);
+        return $this->belongsToMany(
+            Orphan::class,
+            'lesson_orphan',
+            'lesson_id',
+            'orphan_id'
+        )->using(LessonOrphan::class);
     }
 
     public function getName(): string
     {
-        return $this->subject->getName().' - '.$this->academicLevel->level;
+        return $this->subject->getName() . ' - ' . $this->academicLevel->level;
     }
 
     protected function casts(): array

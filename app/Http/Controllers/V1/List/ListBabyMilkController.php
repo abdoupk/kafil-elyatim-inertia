@@ -10,6 +10,10 @@ class ListBabyMilkController extends Controller
 {
     public function __invoke()
     {
-        return response()->json(JsonResource::collection(Inventory::where('type', 'baby_milk')->select(['id', 'name'])->get()));
+        return response()->json(JsonResource::collection(
+            Inventory::where('type', 'baby_milk')
+                ->select(['id', 'name'])
+                ->get()
+        ));
     }
 }

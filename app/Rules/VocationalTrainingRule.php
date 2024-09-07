@@ -22,7 +22,10 @@ class VocationalTrainingRule implements ValidationRule
                     );
                 }
             } else {
-                $fail('validation.required')->translate(['attribute' => 'validation.attributes.vocational_training'], app()->getLocale());
+                $fail('validation.required')->translate(
+                    ['attribute' => 'validation.attributes.vocational_training'],
+                    app()->getLocale()
+                );
             }
         }
     }

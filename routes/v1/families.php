@@ -107,7 +107,12 @@ Route::prefix('families')->name('families.')->group(function (): void {
         ->name('second-sponsor-update')
         ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('housing/{family}', FamilyUpdateHousingController::class)->name('housing-update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        'housing/{family}',
+        FamilyUpdateHousingController::class
+    )
+        ->name('housing-update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
     Route::put(
         'furnishings/{family}',

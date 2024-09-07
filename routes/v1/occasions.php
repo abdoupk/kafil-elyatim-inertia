@@ -29,80 +29,162 @@ use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 
 Route::prefix('occasions')->name('occasions.')->group(function (): void {
     Route::prefix('eid-al-adha')->name('eid-al-adha.')->group(function (): void {
-        Route::get('', EidAlAdhaIndexController::class)
+        Route::get(
+            '',
+            EidAlAdhaIndexController::class
+        )
             ->name('index');
 
-        Route::get('export-pdf', ExportFamiliesEidAlAdhaPDFController::class)
+        Route::get(
+            'export-pdf',
+            ExportFamiliesEidAlAdhaPDFController::class
+        )
             ->name('export.pdf');
 
-        Route::get('export-xlsx', ExportFamiliesEidAlAdhaXlsxController::class)
+        Route::get(
+            'export-xlsx',
+            ExportFamiliesEidAlAdhaXlsxController::class
+        )
             ->name('export.xlsx');
 
-        Route::get('save-to-archive', SaveFamiliesEidAlAdhaToArchiveController::class)->name('save-to-archive');
+        Route::get(
+            'save-to-archive',
+            SaveFamiliesEidAlAdhaToArchiveController::class
+        )->name('save-to-archive');
     });
 
-    Route::prefix('school-entry')->name('school-entry.')->group(function (): void {
-        Route::get('', SchoolEntryIndexController::class)
-            ->name('index');
+    Route::prefix('school-entry')
+        ->name('school-entry.')
+        ->group(function (): void {
+            Route::get(
+                '',
+                SchoolEntryIndexController::class
+            )
+                ->name('index');
 
-        Route::get('export-pdf', ExportOrphansSchoolEntryPDFController::class)
-            ->name('export.pdf');
+            Route::get(
+                'export-pdf',
+                ExportOrphansSchoolEntryPDFController::class
+            )
+                ->name('export.pdf');
 
-        Route::get('export-xlsx', ExportOrphansSchoolEntryXlsxController::class)
-            ->name('export.xlsx');
+            Route::get(
+                'export-xlsx',
+                ExportOrphansSchoolEntryXlsxController::class
+            )
+                ->name('export.xlsx');
 
-        Route::get('save-to-archive', SaveOrphansSchoolEntryToArchiveController::class)->name('save-to-archive');
-    });
+            Route::get(
+                'save-to-archive',
+                SaveOrphansSchoolEntryToArchiveController::class
+            )->name('save-to-archive');
+        });
 
-    Route::prefix('ramadan-basket')->name('ramadan-basket.')->group(function (): void {
-        Route::get('', RamadanBasketIndexController::class)
-            ->name('index');
+    Route::prefix('ramadan-basket')
+        ->name('ramadan-basket.')
+        ->group(function (): void {
+            Route::get(
+                '',
+                RamadanBasketIndexController::class
+            )
+                ->name('index');
 
-        Route::get('export-pdf', ExportFamiliesRamadanBasketPDFController::class)
-            ->name('export.pdf');
+            Route::get(
+                'export-pdf',
+                ExportFamiliesRamadanBasketPDFController::class
+            )
+                ->name('export.pdf');
 
-        Route::get('export-xlsx', ExportFamiliesRamadanBasketXlsxController::class)
-            ->name('export.xlsx');
+            Route::get(
+                'export-xlsx',
+                ExportFamiliesRamadanBasketXlsxController::class
+            )
+                ->name('export.xlsx');
 
-        Route::get('save-to-archive', SaveFamiliesRamadanBasketToArchiveController::class)->name('save-to-archive');
-    });
+            Route::get(
+                'save-to-archive',
+                SaveFamiliesRamadanBasketToArchiveController::class
+            )->name('save-to-archive');
+        });
 
-    Route::prefix('eid-suit')->name('eid-suit.')->group(function (): void {
-        Route::get('', EidSuitIndexController::class)
-            ->name('index');
+    Route::prefix('eid-suit')
+        ->name('eid-suit.')
+        ->group(function (): void {
+            Route::get(
+                '',
+                EidSuitIndexController::class
+            )
+                ->name('index');
 
-        Route::get('export-pdf', ExportOrphansEidSuitPDFController::class)
-            ->name('export.pdf');
+            Route::get(
+                'export-pdf',
+                ExportOrphansEidSuitPDFController::class
+            )
+                ->name('export.pdf');
 
-        Route::get('export-xlsx', ExportOrphansEidSuitXlsxController::class)
-            ->name('export.xlsx');
+            Route::get(
+                'export-xlsx',
+                ExportOrphansEidSuitXlsxController::class
+            )
+                ->name('export.xlsx');
 
-        Route::get('save-to-archive', SaveOrphansEidSuitToArchiveController::class)->name('save-to-archive');
-    });
+            Route::get(
+                'save-to-archive',
+                SaveOrphansEidSuitToArchiveController::class
+            )->name('save-to-archive');
+        });
 
-    Route::prefix('monthly-basket')->name('monthly-basket.')->group(function (): void {
-        Route::get('', FamiliesMonthlyBasketIndexController::class)
-            ->name('index');
+    Route::prefix('monthly-basket')
+        ->name('monthly-basket.')
+        ->group(function (): void {
+            Route::get(
+                '',
+                FamiliesMonthlyBasketIndexController::class
+            )
+                ->name('index');
 
-        Route::get('export-pdf', ExportFamiliesMonthlyBasketPDFController::class)
-            ->name('export.pdf');
+            Route::get(
+                'export-pdf',
+                ExportFamiliesMonthlyBasketPDFController::class
+            )
+                ->name('export.pdf');
 
-        Route::get('export-xlsx', ExportFamiliesMonthlyBasketXlsxController::class)
-            ->name('export.xlsx');
+            Route::get(
+                'export-xlsx',
+                ExportFamiliesMonthlyBasketXlsxController::class
+            )
+                ->name('export.xlsx');
 
-        Route::get('save-to-archive', SaveFamiliesMonthlyBasketToArchiveController::class)->name('save-to-archive');
-    });
+            Route::get(
+                'save-to-archive',
+                SaveFamiliesMonthlyBasketToArchiveController::class
+            )->name('save-to-archive');
+        });
 
-    Route::prefix('babies-milk-and-diapers')->name('babies-milk-and-diapers.')->group(function (): void {
-        Route::get('', BabyMilkAndDiapersIndexController::class)
-            ->name('index');
+    Route::prefix('babies-milk-and-diapers')
+        ->name('babies-milk-and-diapers.')
+        ->group(function (): void {
+            Route::get(
+                '',
+                BabyMilkAndDiapersIndexController::class
+            )
+                ->name('index');
 
-        Route::get('export-pdf', ExportBabiesPDFController::class)
-            ->name('export.pdf');
+            Route::get(
+                'export-pdf',
+                ExportBabiesPDFController::class
+            )
+                ->name('export.pdf');
 
-        Route::get('export-xlsx', ExportBabiesXlsxController::class)
-            ->name('export.xlsx');
+            Route::get(
+                'export-xlsx',
+                ExportBabiesXlsxController::class
+            )
+                ->name('export.xlsx');
 
-        Route::get('save-to-archive', SaveBabiesToArchiveController::class)->name('save-to-archive');
-    });
+            Route::get(
+                'save-to-archive',
+                SaveBabiesToArchiveController::class
+            )->name('save-to-archive');
+        });
 });

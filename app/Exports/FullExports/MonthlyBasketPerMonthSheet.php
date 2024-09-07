@@ -20,7 +20,12 @@ class MonthlyBasketPerMonthSheet implements FromCollection, WithEvents, WithHead
 
     public function collection(): Collection
     {
-        return Archive::with('listFamilies.sponsor:id,family_id,first_name,last_name,phone_number', 'listFamilies.zone:id,name', 'listFamilies.branch:id,name', 'listFamilies:start_date,id,income_rate,address,total_income,zone_id,branch_id')
+        return Archive::with(
+            'listFamilies.sponsor:id,family_id,first_name,last_name,phone_number',
+            'listFamilies.zone:id,name',
+            'listFamilies.branch:id,name',
+            'listFamilies:start_date,id,income_rate,address,total_income,zone_id,branch_id'
+        )
             ->whereOccasion('monthly_basket')
             ->whereYear('created_at', $this->year)
             ->whereMonth('created_at', $this->month)

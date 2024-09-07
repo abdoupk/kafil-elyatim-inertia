@@ -12,10 +12,18 @@ class LessonShowController extends Controller implements HasMiddleware
     public function __invoke(EventOccurrence $eventOccurrence)
     {
         return response()->json([
-            'lesson' => new EventDetailsResource($eventOccurrence->load('lesson.subject', 'lesson.school', 'lesson.academicLevel', 'orphans.sponsor:id,first_name,last_name,phone_number', 'event', 'lesson.school.subjects')),
+            'lesson' => new EventDetailsResource(
+                $eventOccurrence->load(
+                    'lesson.subject',
+                    'lesson.school',
+                    'lesson.academicLevel',
+                    'orphans.sponsor:id,first_name,last_name,phone_number',
+                    'event',
+                    'lesson.school.subjects'
+                )
+            ),
         ]);
     }
-
     public static function middleware()
     {
         return ['can:view_lesson'];

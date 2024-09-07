@@ -21,5 +21,11 @@ function searchSponsors(): Collection
 function getSponsorsForExport(): Collection
 {
     return search(Sponsor::getModel(), limit: 10000)
-        ->query(fn ($query) => $query->with(['academicLevel', 'incomes:id,sponsor_id,total_income'])->withCount('orphans'))->get();
+        ->query(fn ($query) => $query->with(
+            [
+                'academicLevel',
+                'incomes:id,sponsor_id,total_income',
+            ]
+        )->withCount('orphans'))
+        ->get();
 }

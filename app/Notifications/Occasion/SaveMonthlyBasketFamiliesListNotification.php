@@ -35,7 +35,10 @@ class SaveMonthlyBasketFamiliesListNotification extends Notification implements 
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.monthly-basket.index'),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.occasions.monthly-basket.index'
+                ),
             ],
         ];
     }

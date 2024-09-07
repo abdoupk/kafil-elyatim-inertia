@@ -9,18 +9,33 @@ use App\Http\Controllers\V1\Roles\RoleStoreController;
 use App\Http\Controllers\V1\Roles\RoleUpdateController;
 
 Route::prefix('roles')->name('roles.')->group(function (): void {
-    Route::get('', RolesIndexController::class)
+    Route::get(
+        '',
+        RolesIndexController::class
+    )
         ->name('index');
 
-    Route::post('', RoleStoreController::class)
+    Route::post(
+        '',
+        RoleStoreController::class
+    )
         ->name('store');
 
-    Route::put('{role}', RoleUpdateController::class)
+    Route::put(
+        '{role}',
+        RoleUpdateController::class
+    )
         ->name('update');
 
-    Route::get('show/{role}', RoleShowController::class)
+    Route::get(
+        'show/{role}',
+        RoleShowController::class
+    )
         ->name('show');
 
-    Route::delete('{role}', RoleDeleteController::class)
+    Route::delete(
+        '{role}',
+        RoleDeleteController::class
+    )
         ->name('destroy');
 });

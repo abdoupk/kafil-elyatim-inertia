@@ -19,10 +19,14 @@ class ExportArchiveBabiesMilkAndDiapersXlsxController extends Controller impleme
     {
         return Excel::download(
             new BabiesIndexExport(),
-            __('exports.archive.babies_milk_and_diapers', ['date' => $archive->created_at->translatedFormat('F Y')]).'.xlsx'
+            __(
+                'exports.archive.babies_milk_and_diapers',
+                [
+                    'date' => $archive->created_at->translatedFormat('F Y'),
+                ]
+            ) . '.xlsx'
         );
     }
-
     public static function middleware()
     {
         return ['can:export_archive'];

@@ -17,7 +17,12 @@ function getOrphansByFamilyStatus(): array
 
 function getOrphansByAcademicLevel(): array
 {
-    $orphans = Orphan::whereNotNull('academic_level_id')->select('academic_level_id', DB::raw('count(*) as total'))->with('academicLevel:id,phase')
+    $orphans = Orphan::whereNotNull('academic_level_id')
+        ->select(
+            'academic_level_id',
+            DB::raw('count(*) as total')
+        )
+        ->with('academicLevel:id,phase')
         ->groupBy('academic_level_id')
         ->get();
 
@@ -152,7 +157,11 @@ function getByPantsAndShirtSize(): array
 
 function getOrphansByShoeSize(): array
 {
-    $orphans = Orphan::whereNotNull('shoes_size')->select('shoes_size', DB::raw('count(*) as total'))->with('shoesSize:id,label')
+    $orphans = Orphan::whereNotNull('shoes_size')
+        ->select(
+            'shoes_size',
+            DB::raw('count(*) as total')
+        )->with('shoesSize:id,label')
         ->groupBy('shoes_size')
         ->orderBy('shoes_size')
         ->get();
@@ -165,7 +174,12 @@ function getOrphansByShoeSize(): array
 
 function getOrphansByVocationalTraining(): array
 {
-    $orphans = Orphan::whereNotNull('vocational_training_id')->select('vocational_training_id', DB::raw('count(*) as total'))->with('vocationalTraining:id,division')
+    $orphans = Orphan::whereNotNull('vocational_training_id')
+        ->select(
+            'vocational_training_id',
+            DB::raw('count(*) as total')
+        )
+        ->with('vocationalTraining:id,division')
         ->groupBy('vocational_training_id')
         ->get();
 
@@ -186,19 +200,30 @@ function getOrphansByVocationalTraining(): array
 
 function getOrphansGroupByCreatedDate(): array
 {
-    return array_replace(array_fill(1, 13, 0), Orphan::selectRaw('EXTRACT(MONTH FROM created_at) as month, COUNT(*) as orphans_count')
-        ->whereYear('created_at', date('Y'))
-        ->groupBy('month')
-        ->pluck('orphans_count', 'month')
-        ->toArray());
+    return array_replace(
+        array_fill(1, 13, 0),
+        Orphan::query()
+            ->selectRaw('EXTRACT(MONTH FROM created_at) as month, COUNT(*) as orphans_count')
+            ->whereYear('created_at', date('Y'))
+            ->groupBy('month')
+            ->pluck('orphans_count', 'month')
+            ->toArray()
+    );
 }
 
 function getOrphansGroupHealthStatus(): array
 {
-    $orphans = Orphan::select('is_handicapped', DB::raw('count(*) as total'))->groupBy('is_handicapped')->get();
+    $orphans = Orphan::select(
+        'is_handicapped',
+        DB::raw('count(*) as total')
+    )->groupBy('is_handicapped')
+        ->get();
 
     return [
-        'labels' => $orphans->pluck('is_handicapped')->map(fn ($is_handicapped) => $is_handicapped ? __('statistics.handicapped') : __('statistics.healthy'))->toArray(),
+        'labels' => $orphans->pluck('is_handicapped')
+            ->map(fn ($is_handicapped) => $is_handicapped
+                ? __('statistics.handicapped')
+                : __('statistics.healthy'))->toArray(),
         'data' => $orphans->pluck('total')->toArray(),
     ];
 }

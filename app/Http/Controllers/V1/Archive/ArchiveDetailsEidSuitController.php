@@ -14,12 +14,24 @@ class ArchiveDetailsEidSuitController extends Controller implements HasMiddlewar
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/eid-suit/EidSuitArchiveDetailsPage', [
-            'archive' => ['id' => $archive->id, 'date' => $archive->created_at->year],
-            'orphans' => EidSuitArchiveIndexResource::collection($archive->listOrphans()->with(['shirtSize', 'pantsSize', 'shoesSize', 'family:id,address,zone_id', 'family.zone:id,name'])->paginate(request()->integer('perPage', 10))),
+            'archive' => [
+                'id' => $archive->id,
+                'date' => $archive->created_at->year,
+            ],
+            'orphans' => EidSuitArchiveIndexResource::collection($archive->listOrphans()
+                ->with([
+                    'shirtSize',
+                    'pantsSize',
+                    'shoesSize',
+                    'family:id,address,zone_id',
+                    'family.zone:id,name',
+                ])
+                ->paginate(
+                    request()->integer('perPage', 10)
+                )),
             'params' => getParams(),
         ]);
     }
-
     public static function middleware()
     {
         return ['can:view_archive'];

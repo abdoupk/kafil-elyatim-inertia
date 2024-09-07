@@ -17,9 +17,14 @@ class ExportOrphansSchoolEntryXlsxController extends Controller implements HasMi
      */
     public function __invoke(): BinaryFileResponse
     {
-        return Excel::download(new OrphansSchoolEntryIndexExport(), __('exports.school_entry', ['date' => now()->year]).'.xlsx');
+        return Excel::download(
+            new OrphansSchoolEntryIndexExport(),
+            __(
+                'exports.school_entry',
+                ['date' => now()->year]
+            ) . '.xlsx'
+        );
     }
-
     public static function middleware()
     {
         return ['can:export_occasions'];

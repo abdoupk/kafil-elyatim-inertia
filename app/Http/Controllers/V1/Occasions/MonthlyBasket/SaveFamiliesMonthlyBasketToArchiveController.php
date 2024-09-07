@@ -60,9 +60,13 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements
     private function syncFamiliesWithArchive(Archive $archive): void
     {
         $archive->families()
-            ->syncWithPivotValues(listOfFamiliesBenefitingFromTheMonthlyBasketForExport()->map(function (FamilySponsorship $sponsorship) {
-                return $sponsorship->family->id;
-            }), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(
+                listOfFamiliesBenefitingFromTheMonthlyBasketForExport()
+                    ->map(function (FamilySponsorship $sponsorship) {
+                        return $sponsorship->family->id;
+                    }),
+                ['tenant_id' => tenant('id')]
+            );
     }
 
     private function decrementQuantities(Archive $archive): void

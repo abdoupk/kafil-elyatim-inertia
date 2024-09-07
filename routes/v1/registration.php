@@ -11,4 +11,5 @@ Route::get(
 Route::post(
     '/register',
     action: [RegisteredTenantController::class, 'store']
-)->middleware([HandlePrecognitiveRequests::class]);
+)
+    ->middleware([HandlePrecognitiveRequests::class]);

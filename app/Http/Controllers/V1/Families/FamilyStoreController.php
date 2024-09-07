@@ -8,9 +8,7 @@ use App\Jobs\V1\Family\FamilyCreatedJob;
 use App\Models\Family;
 use App\Models\Sponsor;
 use DB;
-use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Throwable;
@@ -20,14 +18,22 @@ class FamilyStoreController extends Controller implements HasMiddleware
     /**
      * @throws Throwable
      */
-    public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
+    public function __invoke(CreateFamilyRequest $request): Response
     {
         if ($request->validated('submitted')) {
             DB::transaction(function () use ($request): void {
                 $family = Family::create(
                     [
-                        ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
-                        'name' => $request->validated('sponsor.first_name') . '  ' . $request->validated('sponsor.last_name'),
+                        ...$request->only(
+                            'address',
+                            'zone_id',
+                            'file_number',
+                            'start_date',
+                            'branch_id'
+                        ),
+                        'name' => $request->validated('sponsor.first_name')
+                            . '  ' .
+                            $request->validated('sponsor.last_name'),
                     ]
                 );
 
@@ -69,14 +75,25 @@ class FamilyStoreController extends Controller implements HasMiddleware
             $orphan['sponsor_id'] = $sponsor->id;
 
             return array_filter($orphan, function ($key) {
-                return ! in_array($key, ['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type', 'vocational_training_id']);
+                return ! in_array($key, [
+                    'baby_milk_quantity',
+                    'baby_milk_type',
+                    'diapers_quantity',
+                    'diapers_type',
+                    'vocational_training_id',
+                ]);
             }, ARRAY_FILTER_USE_KEY);
         }, $validatedOrphans));
 
         foreach ($validatedOrphans as $key => $orphan) {
             $orphan = array_filter($orphan);
 
-            if (! empty($orphan) && isset($orphan['baby_milk_quantity'], $orphan['baby_milk_type'], $orphan['diapers_quantity'], $orphan['diapers_type'])) {
+            if (! empty($orphan) && isset(
+                $orphan['baby_milk_quantity'],
+                $orphan['baby_milk_type'],
+                $orphan['diapers_quantity'],
+                $orphan['diapers_type'])
+            ) {
                 $babiesToCreate[] = [
                     'baby_milk_quantity' => $orphan['baby_milk_quantity'],
                     'baby_milk_type' => $orphan['baby_milk_type'],

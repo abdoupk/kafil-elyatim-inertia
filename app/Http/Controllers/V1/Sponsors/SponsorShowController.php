@@ -13,11 +13,22 @@ class SponsorShowController extends Controller implements HasMiddleware
 {
     public function __invoke(Sponsor $sponsor): Response
     {
-        return Inertia::render('Tenant/sponsors/details/SponsorDetailPage', [
-            'sponsor' => new SponsorShowResource($sponsor->load('sponsorships', 'academicLevel', 'family.zone', 'family.branch', 'incomes', 'creator')->loadCount('orphans')),
-        ]);
+        return Inertia::render(
+            'Tenant/sponsors/details/SponsorDetailPage',
+            [
+                'sponsor' => new SponsorShowResource(
+                    $sponsor->load(
+                        'sponsorships',
+                        'academicLevel',
+                        'family.zone',
+                        'family.branch',
+                        'incomes',
+                        'creator'
+                    )->loadCount('orphans')
+                ),
+            ]
+        );
     }
-
     public static function middleware()
     {
         return ['can:view_sponsors'];

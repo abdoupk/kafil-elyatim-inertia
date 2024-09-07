@@ -19,13 +19,16 @@ class SaveOrphansSchoolEntryToArchiveController extends Controller implements Ha
             ]);
 
         $archive->orphans()
-            ->syncWithPivotValues(listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport()->map(function (OrphanSponsorship $sponsorship) {
-                return $sponsorship->orphan->id;
-            }), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(
+                listOfOrphansBenefitingFromTheSchoolEntrySponsorshipForExport()
+                    ->map(function (OrphanSponsorship $sponsorship) {
+                        return $sponsorship->orphan->id;
+                    }),
+                ['tenant_id' => tenant('id')]
+            );
 
         dispatch(new SchoolEntryOrphansListSavedJob($archive, auth()->user()));
     }
-
     public static function middleware()
     {
         return ['can:save_occasions'];

@@ -43,12 +43,29 @@ class Archive extends Model
 
     public function listBabies(): HasManyThrough
     {
-        return $this->hasManyThrough(Baby::class, Archiveable::class, 'archive_id', 'id', 'id', 'archiveable_id')->with('orphan.sponsor');
+        return $this->hasManyThrough(
+            Baby::class,
+            Archiveable::class,
+            'archive_id',
+            'id',
+            'id',
+            'archiveable_id'
+        )->with('orphan.sponsor');
     }
 
     public function listOrphans(): HasManyThrough
     {
-        return $this->hasManyThrough(Orphan::class, Archiveable::class, 'archive_id', 'id', 'id', 'archiveable_id')->with('sponsor:id,first_name,last_name,phone_number,family_id');
+        return $this->hasManyThrough(
+            Orphan::class,
+            Archiveable::class,
+            'archive_id',
+            'id',
+            'id',
+            'archiveable_id'
+        )
+            ->with(
+                'sponsor:id,first_name,last_name,phone_number,family_id'
+            );
     }
 
     public function listFamilies(): HasManyThrough

@@ -14,7 +14,20 @@ class FamiliesExport implements FromCollection, WithEvents, WithHeadings, WithMa
 {
     public function collection(): Collection
     {
-        return Family::with(['branch', 'zone', 'spouse', 'secondSponsor', 'creator', 'sponsorships', 'housing', 'furnishings', 'preview', 'sponsor', 'preview'])->get();
+        return Family::with(
+            [
+                'branch',
+                'zone',
+                'spouse',
+                'secondSponsor',
+                'creator',
+                'sponsorships',
+                'housing',
+                'furnishings',
+                'sponsor',
+                'preview',
+            ]
+        )->get();
     }
 
     public function registerEvents(): array

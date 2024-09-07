@@ -24,7 +24,12 @@ class EventOccurrence extends Model
 
     public function orphans(): BelongsToMany
     {
-        return $this->belongsToMany(Orphan::class, 'event_occurrence_orphan', 'event_occurrence_id', 'orphan_id')->using(EventOccurrenceOrphan::class);
+        return $this->belongsToMany(
+            Orphan::class,
+            'event_occurrence_orphan',
+            'event_occurrence_id',
+            'orphan_id'
+        )->using(EventOccurrenceOrphan::class);
     }
 
     public function lesson(): BelongsTo

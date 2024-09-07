@@ -31,7 +31,12 @@ class Preview extends Model
 
     public function inspectors(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'member_preview', 'preview_id', 'user_id')->using(MemberPreview::class);
+        return $this->belongsToMany(
+            User::class,
+            'member_preview',
+            'preview_id',
+            'user_id'
+        )->using(MemberPreview::class);
     }
 
     public function searchableAs(): string

@@ -34,7 +34,10 @@ class UpdateFinanceTransactionNotification extends Notification implements Shoul
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.financial.index').'?show='.$this->finance->id,
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.financial.index'
+                ) . '?show=' . $this->finance->id,
             ],
         ];
     }

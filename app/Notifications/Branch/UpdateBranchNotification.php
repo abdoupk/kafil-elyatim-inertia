@@ -35,7 +35,10 @@ class UpdateBranchNotification extends Notification implements ShouldQueue
             ],
             'metadata' => [
                 'updated_at' => $this->branch->updated_at,
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.branches.index').'?show='.$this->branch->id,
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.branches.index'
+                ) . '?show=' . $this->branch->id,
             ],
         ];
     }

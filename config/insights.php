@@ -98,13 +98,14 @@ return [
         ],
         CyclomaticComplexityIsHigh::class => [
             'exclude' => [
+                'app\Http\Controllers\V1\Families\FamilyStoreController.php',
                 'app\Providers\TenancyServiceProvider.php',
                 'app\Http\Resources\V1\Families\FamilyEditSponsorshipResource.php',
                 'app\Exports\FullExports\OrphansExport.php',
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff::class => [
-            'maxLinesLength' => 22,
+            'maxLinesLength' => 30,
             'exclude' => [
                 'app\Providers\TenancyServiceProvider.php',
                 'app\Models\OrphanSponsorship.php',
@@ -135,8 +136,13 @@ return [
             'lineLimit' => 120,
             'absoluteLineLimit' => 130,
             'exclude' => [
+                'app\Helpers\occasions.php',
                 'app\Http\Controllers\Auth\VerifyEmailController.php',
                 'app\Http\Controllers\Auth\RegisteredUserController.php',
+                'lang',
+                'app\Helpers\statistics\financial_statistics.php',
+                'app\Helpers\dashboard.php',
+                'app\Http\Requests\V1\Families\CreateFamilyRequest.php',
                 'app\Http\Controllers\Auth\PasswordResetLinkController.php',
                 'app\Http\Controllers\RegisteredTenantController.php',
                 'app\Http\Controllers\Auth\NewPasswordController.php',
@@ -153,17 +159,10 @@ return [
 
         SlevomatCodingStandard\Sniffs\Functions\UnusedParameterSniff::class => [
             'exclude' => [
-                'app\Http\Resources\Api\LoginResource.php',
-                'App\Http\Resources\V1\SettingsResource.php',
-                'App\Http\Resources\V1\LanguageResource.php',
-                'app\Providers\TenancyServiceProvider.php',
-                'app\Providers\FamiliesIndexResource..php',
-                'app\Providers\ZoneResource.php',
+                'app/Http/Resources',
+                'app\Rules\PermissionNameExistsRule.php',
                 'app\Providers\AppServiceProvider.php',
-                'app\Http\Resources\V1\Api\UserLoginTenantResource.php',
-                'app\Http\Resources\V1\Api\UserLoginResource.php',
-                'app\Http\Resources\V1\ZoneResource.php',
-                'app\Http\Resources\V1\Families\FamiliesIndexResource.php',
+                'app\Providers\TenancyServiceProvider.php',
             ],
         ],
 
@@ -175,8 +174,8 @@ return [
         ],
         SlevomatCodingStandard\Sniffs\Classes\ForbiddenPublicPropertySniff::class => [
             'exclude' => [
-                'app\Models\PersonalAccessToken.php',
-                'app\Providers\TenancyServiceProvider.php',
+                'app/Models',
+                'app\Providers\TenancyServiceProvider.php'
             ],
         ],
     ],

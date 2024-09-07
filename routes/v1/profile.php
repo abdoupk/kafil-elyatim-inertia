@@ -18,11 +18,21 @@ Route::prefix('profile')->name('profile.')->group(function (): void {
     Route::delete('/', [ProfileController::class, 'destroy'])
         ->name('destroy');
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update')->middleware([
-        HandlePrecognitiveRequests::class,
-    ]);
+    Route::put(
+        'password',
+        [PasswordController::class, 'update']
+    )->name('password.update')
+        ->middleware([
+            HandlePrecognitiveRequests::class,
+        ]);
 
-    Route::put('settings', UpdateSettingsController::class)->name('settings.update');
+    Route::put(
+        'settings',
+        UpdateSettingsController::class
+    )->name('settings.update');
 
-    Route::put('notifications', UpdateNotificationsSettingsController::class)->name('notifications.update');
+    Route::put(
+        'notifications',
+        UpdateNotificationsSettingsController::class
+    )->name('notifications.update');
 });

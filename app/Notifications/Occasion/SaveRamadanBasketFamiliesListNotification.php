@@ -35,7 +35,10 @@ class SaveRamadanBasketFamiliesListNotification extends Notification implements 
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.ramadan-basket.index'),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.occasions.ramadan-basket.index'
+                ),
             ],
         ];
     }

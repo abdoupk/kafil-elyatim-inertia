@@ -43,7 +43,13 @@ class OrphanSponsorship extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('orphan.academicLevel', 'orphan.sponsor', 'orphan.family', 'orphan.family.zone', 'orphan.lastAcademicYearAchievement');
+        return $models->load(
+            'orphan.academicLevel',
+            'orphan.sponsor',
+            'orphan.family',
+            'orphan.family.zone',
+            'orphan.lastAcademicYearAchievement'
+        );
     }
 
     public function toSearchableArray(): array

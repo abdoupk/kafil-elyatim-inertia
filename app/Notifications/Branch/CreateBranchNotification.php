@@ -35,7 +35,10 @@ class CreateBranchNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.branches.index').'?show='.$this->branch->id,
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.branches.index'
+                ) . '?show=' . $this->branch->id,
             ],
         ];
     }

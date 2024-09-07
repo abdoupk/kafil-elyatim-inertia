@@ -46,7 +46,13 @@ class FamilySponsorship extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load('family.sponsor.incomes', 'family.zone', 'family.orphans', 'family.secondSponsor', 'family.branch');
+        return $models->load(
+            'family.sponsor.incomes',
+            'family.zone',
+            'family.orphans',
+            'family.secondSponsor',
+            'family.branch'
+        );
     }
 
     public function toSearchableArray(): array

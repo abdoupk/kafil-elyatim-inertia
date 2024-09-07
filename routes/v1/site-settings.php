@@ -14,12 +14,21 @@ Route::prefix('site-settings')->name('site-settings.')->group(function (): void 
         ->name('update-infos')
         ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::patch('update-calculation-weights', UpdateCalculationWeightsController::class)
+    Route::patch(
+        'update-calculation-weights',
+        UpdateCalculationWeightsController::class
+    )
         ->name('update-calculation-weights');
 
-    Route::post('export-data', ExportFullDataController::class)
+    Route::post(
+        'export-data',
+        ExportFullDataController::class
+    )
         ->name('export-data');
 
-    Route::get('download-data', DownloadExportedDataController::class)
+    Route::get(
+        'download-data',
+        DownloadExportedDataController::class
+    )
         ->name('download-data');
 });

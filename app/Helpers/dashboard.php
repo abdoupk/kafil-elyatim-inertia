@@ -8,16 +8,39 @@ function generateGlobalDashBoardReportStatistics(): array
     $previousYear = date('Y', strtotime('-1 month'));
 
     return [
-        'members' => getStatisticsForDashboardReport('users', $currentMonth, $currentYear, $previousMonth, $previousYear),
-        'orphans' => getStatisticsForDashboardReport('orphans', $currentMonth, $currentYear, $previousMonth, $previousYear),
-        'branches' => getStatisticsForDashboardReport('branches', $currentMonth, $currentYear, $previousMonth, $previousYear),
-        'families' => getStatisticsForDashboardReport('families', $currentMonth, $currentYear, $previousMonth, $previousYear),
+        'members' => getStatisticsForDashboardReport(
+            'users',
+            $currentMonth,
+            $currentYear,
+            $previousMonth,
+            $previousYear
+        ),
+        'orphans' => getStatisticsForDashboardReport(
+            'orphans',
+            $currentMonth,
+            $currentYear,
+            $previousMonth,
+            $previousYear
+        ),
+        'branches' => getStatisticsForDashboardReport(
+            'branches',
+            $currentMonth,
+            $currentYear,
+            $previousMonth,
+            $previousYear
+        ),
+        'families' => getStatisticsForDashboardReport(
+            'families',
+            $currentMonth,
+            $currentYear,
+            $previousMonth,
+            $previousYear
+        ),
     ];
 }
 
 function getStatisticsForDashboardReport($table, $currentMonth, $currentYear, $previousMonth, $previousYear): array
 {
-    /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
     $result = DB::table($table)
         ->selectRaw("
              (SELECT COUNT(*) FROM {$table} where (tenant_id = ?) and deleted_at is null) AS total_count,

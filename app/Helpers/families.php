@@ -16,7 +16,15 @@ function getFamilies(): LengthAwarePaginator
 function getFamiliesForExport(): Collection
 {
     return search(Family::getModel(), limit: 10000)
-        ->query(fn ($query) => $query->with(['zone:id,name', 'branch:id,name', 'sponsor.incomes', 'secondSponsor:id,income,family_id', 'orphans:id,income,family_id'])->withCount('orphans'))->get();
+        ->query(fn ($query) => $query
+            ->with(['zone:id,name',
+                'branch:id,name',
+                'sponsor.incomes',
+                'secondSponsor:id,income,family_id',
+                'orphans:id,income,family_id',
+            ])
+            ->withCount('orphans'))
+        ->get();
 }
 
 function searchFamilies(): \Illuminate\Database\Eloquent\Collection
@@ -26,7 +34,9 @@ function searchFamilies(): \Illuminate\Database\Eloquent\Collection
 
 function calculateTotalIncomes(Family $family): float
 {
-    return (float) $family->sponsor?->incomes->total_income + (float) $family->orphans?->sum('income') + $family->secondSponsor?->income;
+    return (float) $family->sponsor?->incomes->total_income
+        + (float) $family->orphans?->sum('income')
+        + $family->secondSponsor?->income;
 }
 
 /**
@@ -69,11 +79,21 @@ function calculateOrphanIncomes(Orphan $orphan): float
  */
 function calculateWeights(Family $family): float
 {
-    $calculationWeights = json_decode($family->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR)['weights']['orphans'];
+    $calculationWeights = json_decode(
+        $family->tenant['calculation'],
+        true,
+        512,
+        JSON_THROW_ON_ERROR
+    )['weights']['orphans'];
 
-    return $family->orphans->sum(function (Orphan $orphan) use ($calculationWeights) {
-        return calculateOrphanWeights($orphan, $calculationWeights);
-    }) + calculateSponsorWeights($family);
+    return $family->orphans->sum(
+        function (Orphan $orphan) use ($calculationWeights) {
+            return calculateOrphanWeights(
+                $orphan,
+                $calculationWeights
+            );
+        }
+    ) + calculateSponsorWeights($family);
 }
 
 /**
@@ -204,12 +224,17 @@ function calculateContributionsForSponsor(Sponsor $sponsor): float
 
     if ($sponsor->is_unemployed) {
         return match ($sponsor->sponsor_type) {
-            'other' => $sponsorPercentages['other'] * $sponsor->incomes->total_income,
-            'widower' => $sponsorPercentages['widower'] * $sponsor->incomes->total_income,
-            'widow' => $sponsorPercentages['widow'] * $sponsor->incomes->total_income,
-            'widows_husband' => $sponsorPercentages['widows_husband'] * $sponsor->incomes->total_income,
+            'other' => $sponsorPercentages['other'] *
+                $sponsor->incomes->total_income,
+            'widower' => $sponsorPercentages['widower'] *
+                $sponsor->incomes->total_income,
+            'widow' => $sponsorPercentages['widow'] *
+                $sponsor->incomes->total_income,
+            'widows_husband' => $sponsorPercentages['widows_husband'] *
+                $sponsor->incomes->total_income,
             'widowers_wife' => $sponsorPercentages['widowers_wife'] * $sponsor->incomes->total_income,
-            'mother_of_a_supported_childhood' => $sponsorPercentages['mother_of_a_supported_childhood'] * $sponsor->incomes->total_income,
+            'mother_of_a_supported_childhood' => $sponsorPercentages['mother_of_a_supported_childhood'] *
+                $sponsor->incomes->total_income,
         };
     }
     return match ($sponsor->sponsor_type) {
@@ -228,7 +253,12 @@ function calculateContributionsForSponsor(Sponsor $sponsor): float
  */
 function calculateContributionsForHandicappedSponsor(Orphan $orphan): float
 {
-    return json_decode($orphan->tenant['calculation'], true, 512, JSON_THROW_ON_ERROR)['handicapped_contribution']['contribution'];
+    return json_decode(
+        $orphan->tenant['calculation'],
+        true,
+        512,
+        JSON_THROW_ON_ERROR
+    )['handicapped_contribution']['contribution'];
 }
 
 function calculateContributionsForMaleOrphan(Orphan $orphan, array $calculations): float

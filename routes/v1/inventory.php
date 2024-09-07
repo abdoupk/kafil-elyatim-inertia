@@ -11,21 +11,41 @@ use App\Http\Controllers\V1\Inventory\ItemUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('inventory')->group(function (): void {
-    Route::get('', InventoryIndexController::class)
+    Route::get(
+        '',
+        InventoryIndexController::class
+    )
         ->name('inventory.index');
 
-    Route::post('', ItemStoreController::class)
-        ->name('items.store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        ItemStoreController::class
+    )
+        ->name('items.store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::get('show/{item}', ItemShowController::class)
+    Route::get(
+        'show/{item}',
+        ItemShowController::class
+    )
         ->name('items.show');
 
-    Route::get('details/{item}', ItemDetailsController::class)
+    Route::get(
+        'details/{item}',
+        ItemDetailsController::class
+    )
         ->name('items.details');
 
-    Route::put('{item}', ItemUpdateController::class)
-        ->name('items.update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        '{item}',
+        ItemUpdateController::class
+    )
+        ->name('items.update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::delete('{item}', ItemDeleteController::class)
+    Route::delete(
+        '{item}',
+        ItemDeleteController::class
+    )
         ->name('items.destroy');
 });

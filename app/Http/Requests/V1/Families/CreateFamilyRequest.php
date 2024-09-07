@@ -10,20 +10,62 @@ class CreateFamilyRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'housing.number_of_rooms.required' => __('validation.required', ['attribute' => __('housing.label.number_of_rooms')]),
-            'orphans.*.first_name.required' => __('validation.required', ['attribute' => __('validation.attributes.first_name')]),
-            'orphans.*.last_name.required' => __('validation.required', ['attribute' => __('validation.attributes.last_name')]),
-            'orphans.*.birth_date.required' => __('validation.required', ['attribute' => __('validation.attributes.date_of_birth')]),
-            'orphans.*.health_status.required' => __('validation.required', ['attribute' => __('health_status')]),
-            'orphans.*.academic_level_id.required' => __('validation.required', ['attribute' => __('academic_level')]),
-            'orphans.*.pants_size.required_without' => __('validation.required', ['attribute' => __('pants_size')]),
-            'orphans.*.shoes_size.required_without' => __('validation.required', ['attribute' => __('shoes_size')]),
-            'orphans.*.shirt_size.required_without' => __('validation.required', ['attribute' => __('shirt_size')]),
-            'orphans.*.baby_milk_type.required_without' => __('validation.required', ['attribute' => __('baby_milk_type')]),
-            'orphans.*.baby_milk_quantity.required_without' => __('validation.required', ['attribute' => __('baby_milk_quantity')]),
-            'orphans.*.diapers_type.required_without' => __('validation.required', ['attribute' => __('diapers_type')]),
-            'orphans.*.diapers_quantity.required_without' => __('validation.required', ['attribute' => __('diapers_quantity')]),
-            'sponsor.ccp.required' => __('validation.required', ['attribute' => __('ccp')]),
+            'housing.number_of_rooms.required' => __(
+                'validation.required',
+                ['attribute' => __('housing.label.number_of_rooms')]
+            ),
+            'orphans.*.first_name.required' => __(
+                'validation.required',
+                ['attribute' => __('validation.attributes.first_name')]
+            ),
+            'orphans.*.last_name.required' => __(
+                'validation.required',
+                ['attribute' => __('validation.attributes.last_name')]
+            ),
+            'orphans.*.birth_date.required' => __(
+                'validation.required',
+                ['attribute' => __('validation.attributes.date_of_birth')]
+            ),
+            'orphans.*.health_status.required' => __(
+                'validation.required',
+                ['attribute' => __('health_status')]
+            ),
+            'orphans.*.academic_level_id.required' => __(
+                'validation.required',
+                ['attribute' => __('academic_level')]
+            ),
+            'orphans.*.pants_size.required_without' => __(
+                'validation.required',
+                ['attribute' => __('pants_size')]
+            ),
+            'orphans.*.shoes_size.required_without' => __(
+                'validation.required',
+                ['attribute' => __('shoes_size')]
+            ),
+            'orphans.*.shirt_size.required_without' => __(
+                'validation.required',
+                ['attribute' => __('shirt_size')]
+            ),
+            'orphans.*.baby_milk_type.required_without' => __(
+                'validation.required',
+                ['attribute' => __('baby_milk_type')]
+            ),
+            'orphans.*.baby_milk_quantity.required_without' => __(
+                'validation.required',
+                ['attribute' => __('baby_milk_quantity')]
+            ),
+            'orphans.*.diapers_type.required_without' => __(
+                'validation.required',
+                ['attribute' => __('diapers_type')]
+            ),
+            'orphans.*.diapers_quantity.required_without' => __(
+                'validation.required',
+                ['attribute' => __('diapers_quantity')]
+            ),
+            'sponsor.ccp.required' => __(
+                'validation.required',
+                ['attribute' => __('ccp')]
+            ),
         ];
     }
 

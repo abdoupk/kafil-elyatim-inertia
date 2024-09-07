@@ -13,9 +13,33 @@ class FamilyShowController extends Controller implements HasMiddleware
 {
     public function __invoke(Family $family): Response
     {
-        return Inertia::render('Tenant/families/details/FamilyDetailPage', [
-            'family' => FamilyShowResource::make($family->load(['zone', 'orphans.academicLevel', 'orphans.shoesSize', 'orphans.pantsSize', 'orphans.babyNeeds', 'orphans.shirtSize', 'furnishings', 'housing', 'sponsor.incomes', 'sponsor.creator', 'secondSponsor', 'furnishings', 'sponsorships', 'branch', 'orphansSponsorships.orphan', 'sponsorSponsorships', 'preview.inspectors', 'deceased'])),
-        ]);
+        return Inertia::render(
+            'Tenant/families/details/FamilyDetailPage',
+            [
+                'family' => FamilyShowResource::make($family->load(
+                    [
+                        'zone',
+                        'orphans.academicLevel',
+                        'orphans.shoesSize',
+                        'orphans.pantsSize',
+                        'orphans.babyNeeds',
+                        'orphans.shirtSize',
+                        'furnishings',
+                        'housing',
+                        'sponsor.incomes',
+                        'sponsor.creator',
+                        'secondSponsor',
+                        'furnishings',
+                        'sponsorships',
+                        'branch',
+                        'orphansSponsorships.orphan',
+                        'sponsorSponsorships',
+                        'preview.inspectors',
+                        'deceased',
+                    ]
+                )),
+            ]
+        );
     }
     public static function middleware()
     {

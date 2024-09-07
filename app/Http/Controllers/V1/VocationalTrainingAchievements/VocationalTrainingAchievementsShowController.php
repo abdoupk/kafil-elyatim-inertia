@@ -12,7 +12,9 @@ class VocationalTrainingAchievementsShowController extends Controller implements
     public function __invoke(VocationalTrainingAchievement $vocationalTrainingAchievement)
     {
         return response()->json([
-            'vocational_training_achievement' => new VocationalTrainingAchievementShowResource($vocationalTrainingAchievement),
+            'vocational_training_achievement' => new VocationalTrainingAchievementShowResource(
+                $vocationalTrainingAchievement
+            ),
         ]);
     }
     public static function middleware()

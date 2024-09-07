@@ -15,11 +15,20 @@ class ArchiveDetailsSchoolEntryController extends Controller implements HasMiddl
     {
         return Inertia::render('Tenant/archive/details/school-entry/SchoolEntryArchiveDetailsPage', [
             'archive' => ['id' => $archive->id, 'date' => $archive->created_at->year],
-            'orphans' => SchoolEntryArchiveIndexResource::collection($archive->listOrphans()->with(['academicLevel', 'lastAcademicYearAchievement', 'family:id,address,zone_id', 'academicAchievements', 'family.zone:id,name'])->paginate(request()->integer('perPage', 10))),
+            'orphans' => SchoolEntryArchiveIndexResource::collection(
+                $archive->listOrphans()
+                    ->with([
+                        'academicLevel',
+                        'lastAcademicYearAchievement',
+                        'family:id,address,zone_id',
+                        'academicAchievements',
+                        'family.zone:id,name',
+                    ])
+                    ->paginate(request()->integer('perPage', 10))
+            ),
             'params' => getParams(),
         ]);
     }
-
     public static function middleware()
     {
         return ['can:view_archive'];

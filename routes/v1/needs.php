@@ -14,29 +14,60 @@ use App\Http\Controllers\V1\Needs\NeedUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('needs')->name('needs.')->group(function (): void {
-    Route::get('', NeedsIndexController::class)
+    Route::get(
+        '',
+        NeedsIndexController::class
+    )
         ->name('index');
 
-    Route::get('show/{need}', NeedShowController::class)
+    Route::get(
+        'show/{need}',
+        NeedShowController::class
+    )
         ->name('show');
 
-    Route::get('details/{need}', NeedDetailsController::class)
+    Route::get(
+        'details/{need}',
+        NeedDetailsController::class
+    )
         ->name('details');
 
-    Route::put('{need}', NeedUpdateController::class)
-        ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        '{need}',
+        NeedUpdateController::class
+    )
+        ->name('update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::post('', NeedStoreController::class)
-        ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        NeedStoreController::class
+    )
+        ->name('store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::delete('{need}', NeedDeleteController::class)
+    Route::delete(
+        '{need}',
+        NeedDeleteController::class
+    )
         ->name('destroy');
 
-    Route::post('{need}/restore', NeedRestoreController::class)
-        ->name('restore')->withTrashed();
+    Route::post(
+        '{need}/restore',
+        NeedRestoreController::class
+    )
+        ->name('restore')
+        ->withTrashed();
 
-    Route::delete('{need}/force-delete', NeedForceDeleteController::class)
-        ->name('force-delete')->withTrashed();
+    Route::delete(
+        '{need}/force-delete',
+        NeedForceDeleteController::class
+    )
+        ->name('force-delete')
+        ->withTrashed();
 
-    Route::get('get-orphans', GetOrphansController::class)->name('get-orphans');
+    Route::get(
+        'get-orphans',
+        GetOrphansController::class
+    )->name('get-orphans');
 });

@@ -36,7 +36,10 @@ class UpdateNeedNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.needs.index').'?show='.$this->need->id,
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.needs.index'
+                ) . '?show=' . $this->need->id,
             ],
         ];
     }

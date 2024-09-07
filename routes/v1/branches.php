@@ -13,27 +13,54 @@ use App\Http\Controllers\V1\Branches\BranchUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('branches')->name('branches.')->group(function (): void {
-    Route::get('', BranchesIndexController::class)
+    Route::get(
+        '',
+        BranchesIndexController::class
+    )
         ->name('index');
 
-    Route::get('show/{branch}', BranchShowController::class)
+    Route::get(
+        'show/{branch}',
+        BranchShowController::class
+    )
         ->name('show');
 
-    Route::get('details/{branch}', BranchDetailsController::class)
-        ->name('details');
+    Route::get(
+        'details/{branch}',
+        BranchDetailsController::class
+    )->name('details');
 
-    Route::put('{branch}', BranchUpdateController::class)
-        ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        '{branch}',
+        BranchUpdateController::class
+    )
+        ->name('update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::post('', BranchStoreController::class)
-        ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        BranchStoreController::class
+    )
+        ->name('store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::delete('{branch}', BranchDeleteController::class)
+    Route::delete(
+        '{branch}',
+        BranchDeleteController::class
+    )
         ->name('destroy');
 
-    Route::post('{branch}/restore', BranchRestoreController::class)
-        ->name('restore')->withTrashed();
+    Route::post(
+        '{branch}/restore',
+        BranchRestoreController::class
+    )
+        ->name('restore')
+        ->withTrashed();
 
-    Route::delete('{branch}/force-delete', BranchForceDeleteController::class)
-        ->name('force-delete')->withTrashed();
+    Route::delete(
+        '{branch}/force-delete',
+        BranchForceDeleteController::class
+    )
+        ->name('force-delete')
+        ->withTrashed();
 });

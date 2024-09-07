@@ -35,7 +35,10 @@ class SaveEidSuitOrphansListNotification extends Notification implements ShouldQ
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.eid-suit.index'),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.occasions.eid-suit.index'
+                ),
             ],
         ];
     }

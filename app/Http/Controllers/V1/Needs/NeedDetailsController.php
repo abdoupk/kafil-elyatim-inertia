@@ -12,10 +12,14 @@ class NeedDetailsController extends Controller implements HasMiddleware
     public function __invoke(Need $need)
     {
         return response()->json([
-            'need' => NeedShowResource::make($need->load(['needable:id,first_name,last_name', 'creator:id,first_name,last_name'])),
+            'need' => NeedShowResource::make(
+                $need->load([
+                    'needable:id,first_name,last_name',
+                    'creator:id,first_name,last_name',
+                ])
+            ),
         ]);
     }
-
     public static function middleware()
     {
         return ['can:view_needs'];

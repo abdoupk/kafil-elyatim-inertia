@@ -34,7 +34,10 @@ class CreateSchoolNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.schools.index').'?show='.$this->school->id,
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.schools.index'
+                ) . '?show=' . $this->school->id,
             ],
         ];
     }

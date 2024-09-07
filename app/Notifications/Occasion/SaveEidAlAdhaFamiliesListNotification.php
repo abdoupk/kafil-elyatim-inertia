@@ -35,7 +35,10 @@ class SaveEidAlAdhaFamiliesListNotification extends Notification implements Shou
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.occasions.eid-al-adha.index'),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.occasions.eid-al-adha.index'
+                ),
             ],
         ];
     }

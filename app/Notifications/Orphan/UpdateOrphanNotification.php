@@ -34,7 +34,11 @@ class UpdateOrphanNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.orphans.show', $this->orphan->id),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.orphans.show',
+                    $this->orphan->id
+                ),
             ],
         ];
     }

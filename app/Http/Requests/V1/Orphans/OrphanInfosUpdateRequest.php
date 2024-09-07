@@ -9,13 +9,34 @@ class OrphanInfosUpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'pants_size.required_without' => __('validation.required', ['attribute' => __('pants_size')]),
-            'shoes_size.required_without' => __('validation.required', ['attribute' => __('shoes_size')]),
-            'shirt_size.required_without' => __('validation.required', ['attribute' => __('shirt_size')]),
-            'baby_milk_type.required_without' => __('validation.required', ['attribute' => __('baby_milk_type')]),
-            'baby_milk_quantity.required_without' => __('validation.required', ['attribute' => __('baby_milk_quantity')]),
-            'diapers_type.required_without' => __('validation.required', ['attribute' => __('diapers_type')]),
-            'diapers_quantity.required_without' => __('validation.required', ['attribute' => __('diapers_quantity')]),
+            'pants_size.required_without' => __(
+                'validation.required',
+                ['attribute' => __('pants_size')]
+            ),
+            'shoes_size.required_without' => __(
+                'validation.required',
+                ['attribute' => __('shoes_size')]
+            ),
+            'shirt_size.required_without' => __(
+                'validation.required',
+                ['attribute' => __('shirt_size')]
+            ),
+            'baby_milk_type.required_without' => __(
+                'validation.required',
+                ['attribute' => __('baby_milk_type')]
+            ),
+            'baby_milk_quantity.required_without' => __(
+                'validation.required',
+                ['attribute' => __('baby_milk_quantity')]
+            ),
+            'diapers_type.required_without' => __(
+                'validation.required',
+                ['attribute' => __('diapers_type')]
+            ),
+            'diapers_quantity.required_without' => __(
+                'validation.required',
+                ['attribute' => __('diapers_quantity')]
+            ),
         ];
     }
 

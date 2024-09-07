@@ -16,36 +16,72 @@ use App\Http\Controllers\V1\Financial\FinancialUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('financial')->name('financial.')->group(function (): void {
-    Route::get('', FinancialIndexController::class)
+    Route::get(
+        '',
+        FinancialIndexController::class
+    )
         ->name('index');
 
-    Route::get('show/{finance}', FinancialShowController::class)
+    Route::get(
+        'show/{finance}',
+        FinancialShowController::class
+    )
         ->name('show');
 
-    Route::put('{finance}', FinancialUpdateController::class)
-        ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        '{finance}',
+        FinancialUpdateController::class
+    )
+        ->name('update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::post('', FinancialStoreController::class)
-        ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        FinancialStoreController::class
+    )
+        ->name('store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::delete('{finance}', FinancialDeleteController::class)
+    Route::delete(
+        '{finance}',
+        FinancialDeleteController::class
+    )
         ->name('destroy');
 
-    Route::get('statistics', FinancialStatisticsController::class)
+    Route::get(
+        'statistics',
+        FinancialStatisticsController::class
+    )
         ->name('statistics');
 
-    Route::get('export-pdf', ExportFinancialTransactionsPDFController::class)
+    Route::get(
+        'export-pdf',
+        ExportFinancialTransactionsPDFController::class
+    )
         ->name('export.pdf');
 
-    Route::get('export-xlsx', ExportFinancialTransactionsXlsxController::class)
+    Route::get(
+        'export-xlsx',
+        ExportFinancialTransactionsXlsxController::class
+    )
         ->name('export.xlsx');
 
-    Route::get('details/{finance}', FinancialDetailsController::class)
+    Route::get(
+        'details/{finance}',
+        FinancialDetailsController::class
+    )
         ->name('details');
 
-    Route::delete('{finance}/force-delete', FinancialForceDeleteController::class)
+    Route::delete(
+        '{finance}/force-delete',
+        FinancialForceDeleteController::class
+    )
         ->name('force-delete')->withTrashed();
 
-    Route::post('{finance}/restore', FinancialRestoreController::class)
-        ->name('restore')->withTrashed();
+    Route::post(
+        '{finance}/restore',
+        FinancialRestoreController::class
+    )
+        ->name('restore')
+        ->withTrashed();
 });

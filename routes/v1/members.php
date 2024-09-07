@@ -14,30 +14,60 @@ use App\Http\Controllers\V1\Members\MemberUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('members')->name('members.')->group(function (): void {
-    Route::get('', MembersIndexController::class)
+    Route::get(
+        '',
+        MembersIndexController::class
+    )
         ->name('index');
 
-    Route::get('show/{member}', MemberShowController::class)
+    Route::get(
+        'show/{member}',
+        MemberShowController::class
+    )
         ->name('show');
 
-    Route::get('details/{member}', MemberDetailsController::class)
+    Route::get(
+        'details/{member}',
+        MemberDetailsController::class
+    )
         ->name('details');
 
-    Route::put('{member}', MemberUpdateController::class)
-        ->name('update')->middleware([HandlePrecognitiveRequests::class]);
+    Route::put(
+        '{member}',
+        MemberUpdateController::class
+    )
+        ->name('update')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::post('', MemberStoreController::class)
-        ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        MemberStoreController::class
+    )
+        ->name('store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::delete('{member}', MemberDeleteController::class)
+    Route::delete(
+        '{member}',
+        MemberDeleteController::class
+    )
         ->name('destroy');
 
-    Route::post('{member}/restore', MemberRestoreController::class)
+    Route::post(
+        '{member}/restore',
+        MemberRestoreController::class
+    )
         ->name('restore')->withTrashed();
 
-    Route::get('search', MemberSearchController::class)
+    Route::get(
+        'search',
+        MemberSearchController::class
+    )
         ->name('search');
 
-    Route::delete('{member}/force-delete', MemberForceDeleteController::class)
-        ->name('force-delete')->withTrashed();
+    Route::delete(
+        '{member}/force-delete',
+        MemberForceDeleteController::class
+    )
+        ->name('force-delete')
+        ->withTrashed();
 });

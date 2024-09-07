@@ -55,15 +55,26 @@ function saveToPDF(string $directory, string $variableName, callable $function, 
  * @throws Throwable
  * @throws CouldNotTakeBrowsershot
  */
-function saveArchiveToPDF(string $directory, callable $function, string $date, ?string $variableName = 'sponsorships'): StreamedResponse
-{
+function saveArchiveToPDF(
+    string $directory,
+    callable $function,
+    string $date,
+    ?string $variableName = 'sponsorships'
+): StreamedResponse {
     $disk = Storage::disk('public');
 
     if (! $disk->directoryExists("archives/{$directory}")) {
         $disk->makeDirectory($directory);
     }
 
-    $pdfName = __('exports.archive.' . Str::replace('-', '_', explode('/', "archives/{$directory}/sponsorships")[1]), ['date' => $date]);
+    $pdfName = __('exports.archive.' . Str::replace(
+        '-',
+        '_',
+        explode(
+            '/',
+            "archives/{$directory}/sponsorships"
+        )[1]
+    ), ['date' => $date]);
 
     $pdfFile = "{$directory}/{$pdfName}" . '.pdf';
 
@@ -106,7 +117,13 @@ function generateFormatedConditions(): array
         return array_map(static function (array $condition) {
             ray($condition);
 
-            return [$condition['field'], $condition['operator'], str_contains($condition['value'], ' ') ? '"' . $condition['value'] . '"' : $condition['value']];
+            return [
+                $condition['field'],
+                $condition['operator'],
+                str_contains($condition['value'], ' ')
+                    ? '"' . $condition['value'] . '"'
+                    : $condition['value'],
+            ];
         }, $filters);
     }
 
@@ -166,11 +183,18 @@ function search(Model $model, ?string $additional_filters = '', ?int $limit = nu
         $meilisearchOptions['filter'] .= ' AND __soft_deleted = 0';
     }
 
-    return $model::search($query, static function ($meilisearch, string $query, array $options) use ($meilisearchOptions) {
-        unset($options['filter']);
+    return $model::search(
+        $query,
+        static function (
+            $meilisearch,
+            string $query,
+            array $options
+        ) use ($meilisearchOptions) {
+            unset($options['filter']);
 
-        return $meilisearch->search($query, $options + $meilisearchOptions);
-    });
+            return $meilisearch->search($query, $options + $meilisearchOptions);
+        }
+    );
 }
 
 function formatedVocationalTrainingSpecialities(): array
@@ -223,22 +247,33 @@ function formatPhoneNumber($phone): string
         substr($phone, 8, 2);
 }
 
-function getUsersShouldBeNotified(array $permissions, User $userToExclude, string $notificationType): Collection|array|_IH_User_C
-{
+function getUsersShouldBeNotified(
+    array $permissions,
+    User $userToExclude,
+    string $notificationType
+): Collection|array|_IH_User_C {
     setPermissionsTeamId($userToExclude->tenant_id);
 
     return User::with(['roles.permissions'])
-        ->whereHas('settings', function ($query) use ($notificationType) {
-            return $query->where("notifications->{$notificationType}", true);
-        })
+        ->whereHas(
+            'settings',
+            function ($query) use ($notificationType) {
+                return $query->where("notifications->{$notificationType}", true);
+            }
+        )
         ->where(function ($query) use ($permissions): void {
             $query->whereHas('roles', function ($query): void {
                 $query->where('name', 'super_admin');
-            })->orWhere(function ($query) use ($permissions): void {
-                $query->whereHas('roles.permissions', function ($query) use ($permissions): void {
-                    $query->whereIn('name', $permissions);
+            })
+                ->orWhere(function ($query) use ($permissions): void {
+                    $query->whereHas(
+                        'roles.permissions',
+                        function ($query) use ($permissions): void {
+                            $query->whereIn('name', $permissions);
+                        }
+                    );
                 });
-            });
-        })->where('users.id', '!=', $userToExclude->id)
+        })
+        ->where('users.id', '!=', $userToExclude->id)
         ->get();
 }

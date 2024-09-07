@@ -43,74 +43,99 @@ class DashboardController extends Controller
                 ],
                 'formatted_date' => $notification->created_at->translatedFormat('H:i A'),
                 'date' => $notification->created_at,
-                'message' => trans_choice('notifications.'.$notification->type, $notification->data['user']['gender'] === 'male' ? 1 : 0, $notification->data['data']),
+                'message' => trans_choice(
+                    'notifications.' . $notification->type,
+                    $notification->data['user']['gender'] === 'male' ? 1 : 0,
+                    $notification->data['data']
+                ),
             ];
         })->toArray();
     }
 
     private function getRecentTransactions(): array
     {
-        return Finance::with('receiver:id,first_name,last_name,gender')->select(['id', 'amount', 'received_by', 'date'])->latest()->take(5)->get()->map(function (Finance $finance) {
-            return [
-                'id' => $finance->id,
-                'amount' => $finance->amount,
-                'receiver' => [
-                    'id' => $finance->receiver?->id,
-                    'name' => $finance->receiver?->getName(),
-                    'gender' => $finance->receiver?->gender,
-                ],
-                'date' => $finance->date->translatedFormat('j F Y'),
-            ];
-        })->toArray();
+        return Finance::query()->
+        with('receiver:id,first_name,last_name,gender')
+            ->select(['id', 'amount', 'received_by', 'date'])
+            ->latest()
+            ->take(5)
+            ->get()
+            ->map(function (Finance $finance) {
+                return [
+                    'id' => $finance->id,
+                    'amount' => $finance->amount,
+                    'receiver' => [
+                        'id' => $finance->receiver?->id,
+                        'name' => $finance->receiver?->getName(),
+                        'gender' => $finance->receiver?->gender,
+                    ],
+                    'date' => $finance->date->translatedFormat('j F Y'),
+                ];
+            })->toArray();
     }
 
     private function getComingEvents(): array
     {
-        return EventOccurrence::with('event')->whereMonth('start_date', '=', date('m'))->take(3)->get()->map(function (EventOccurrence $eventOccurrence) {
-            return [
-                'id' => $eventOccurrence->id,
-                'title' => $eventOccurrence->event->title,
-                'date' => $eventOccurrence->start_date,
-                'color' => $eventOccurrence->event->color,
-            ];
-        })->toArray();
+        return EventOccurrence::with('event')
+            ->whereMonth('start_date', '=', date('m'))
+            ->take(3)
+            ->get()
+            ->map(function (EventOccurrence $eventOccurrence) {
+                return [
+                    'id' => $eventOccurrence->id,
+                    'title' => $eventOccurrence->event->title,
+                    'date' => $eventOccurrence->start_date,
+                    'color' => $eventOccurrence->event->color,
+                ];
+            })->toArray();
     }
 
     private function getRecentFamilies(): array
     {
-        return Family::with(['zone:id,name', 'branch:id,name'])->select(['id', 'name', 'branch_id', 'zone_id', 'address'])->withCount(['orphans'])->latest()->take(4)->get()->map(function (Family $family) {
-            return [
-                'id' => $family->id,
-                'name' => $family->name,
-                'address' => $family->address,
-                'zone' => [
-                    'id' => $family->zone?->id,
-                    'name' => $family->zone?->name,
-                ],
-                'branch' => [
-                    'id' => $family->branch?->id,
-                    'name' => $family->branch?->name,
-                ],
-                'orphans_count' => $family->orphans_count,
-            ];
-        })->toArray();
+        return Family::with(['zone:id,name', 'branch:id,name'])
+            ->select(['id', 'name', 'branch_id', 'zone_id', 'address'])->withCount(['orphans'])
+            ->latest()
+            ->take(4)
+            ->get()
+            ->map(function (Family $family) {
+                return [
+                    'id' => $family->id,
+                    'name' => $family->name,
+                    'address' => $family->address,
+                    'zone' => [
+                        'id' => $family->zone?->id,
+                        'name' => $family->zone?->name,
+                    ],
+                    'branch' => [
+                        'id' => $family->branch?->id,
+                        'name' => $family->branch?->name,
+                    ],
+                    'orphans_count' => $family->orphans_count,
+                ];
+            })->toArray();
     }
 
     private function getRecentNeeds(): array
     {
-        return Need::whereHas('needable')->select(['id', 'demand', 'subject', 'status', 'needable_id', 'needable_type', 'created_at'])->with('needable')->latest()->take(5)->get()->map(function (Need $need) {
-            return [
-                'id' => $need->id,
-                'status' => $need->status,
-                'subject' => $need->subject,
-                'demand' => $need->demand,
-                'date' => $need->created_at->diffForHumans(),
-                'needable' => [
-                    'id' => $need->needable?->id,
-                    'name' => $need->needable?->getName(),
-                    'type' => $need->needable_type,
-                ],
-            ];
-        })->toArray();
+        return Need::whereHas('needable')
+            ->select(['id', 'demand', 'subject', 'status', 'needable_id', 'needable_type', 'created_at'])
+            ->with('needable')
+            ->latest()
+            ->take(5)
+            ->get()
+            ->map(function (Need $need) {
+                return [
+                    'id' => $need->id,
+                    'status' => $need->status,
+                    'subject' => $need->subject,
+                    'demand' => $need->demand,
+                    'date' => $need->created_at->diffForHumans(),
+                    'needable' => [
+                        'id' => $need->needable?->id,
+                        'name' => $need->needable?->getName(),
+                        'type' => $need->needable_type,
+                    ],
+                ];
+            })->toArray();
     }
 }

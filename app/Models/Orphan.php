@@ -77,9 +77,9 @@ class Orphan extends Model
             'readable_birth_date' => $this->birth_date,
             'health_status' => $this->health_status,
             'family_status' => [
-                'ar' => __('family_statuses.'.$this->family_status, locale: 'ar'),
-                'fr' => __('family_statuses.'.$this->family_status, locale: 'fr'),
-                'en' => __('family_statuses.'.$this->family_status, locale: 'en'),
+                'ar' => __('family_statuses.' . $this->family_status, locale: 'ar'),
+                'fr' => __('family_statuses.' . $this->family_status, locale: 'fr'),
+                'en' => __('family_statuses.' . $this->family_status, locale: 'en'),
             ],
             'shoes_size' => $this->shoesSize?->label,
             'shirt_size' => $this->shirtSize?->label,
@@ -94,37 +94,53 @@ class Orphan extends Model
                 'level' => $this->academicLevel?->level,
                 'phase' => $this->academicLevel?->phase,
             ],
-            'academic_achievements' => $this->academicAchievements->map(function (AcademicAchievement $academicAchievement) {
-                return [
-                    'id' => $academicAchievement->id,
-                    'academic_level' => $academicAchievement->academicLevel?->level,
-                    'academic_year' => $academicAchievement->academic_year,
-                    'first_trimester' => (float) number_format($academicAchievement->first_trimester, 2),
-                    'second_trimester' => (float) number_format($academicAchievement->second_trimester, 2),
-                    'third_trimester' => (float) number_format($academicAchievement->third_trimester, 2),
-                    'average' => (float) number_format($academicAchievement->average, 2),
-                ];
-            })->toArray(),
-            'college_achievements' => $this->collegeAchievements->map(function (CollegeAchievement $collegeAchievement) {
-                return [
-                    'id' => $collegeAchievement->id,
-                    'academic_level' => $collegeAchievement->academicLevel?->level,
-                    'academic_year' => $collegeAchievement->year,
-                    'first_semester' => (float) number_format($collegeAchievement->first_semester, 2),
-                    'second_semester' => (float) number_format($collegeAchievement->second_semester, 2),
-                    'average' => (float) number_format($collegeAchievement->average, 2),
-                    'speciality' => $collegeAchievement->speciality,
-                    'university' => $collegeAchievement->university,
-                ];
-            })->toArray(),
-            'vocational_training_achievements' => $this->vocationalTrainingAchievements->map(function (VocationalTrainingAchievement $vocationalTrainingAchievement) {
-                return [
-                    'id' => $vocationalTrainingAchievement->id,
-                    'vocational_training_speciality' => $vocationalTrainingAchievement->vocationalTraining?->speciality,
-                    'vocational_training_division' => $vocationalTrainingAchievement->vocationalTraining?->division,
-                    'institute' => $vocationalTrainingAchievement->institute,
-                ];
-            })->toArray(),
+            'academic_achievements' => $this->academicAchievements
+                ->map(function (AcademicAchievement $academicAchievement) {
+                    return [
+                        'id' => $academicAchievement->id,
+                        'academic_level' => $academicAchievement->academicLevel?->level,
+                        'academic_year' => $academicAchievement->academic_year,
+                        'first_trimester' => (float) number_format($academicAchievement->first_trimester, 2),
+                        'second_trimester' => (float) number_format($academicAchievement->second_trimester, 2),
+                        'third_trimester' => (float) number_format($academicAchievement->third_trimester, 2),
+                        'average' => (float) number_format($academicAchievement->average, 2),
+                    ];
+                })->toArray(),
+            'college_achievements' => $this->collegeAchievements
+                ->map(function (CollegeAchievement $collegeAchievement) {
+                    return [
+                        'id' => $collegeAchievement->id,
+                        'academic_level' => $collegeAchievement->academicLevel?->level,
+                        'academic_year' => $collegeAchievement->year,
+                        'first_semester' => (float) number_format(
+                            $collegeAchievement->first_semester,
+                            2
+                        ),
+                        'second_semester' => (float) number_format(
+                            $collegeAchievement->second_semester,
+                            2
+                        ),
+                        'average' => (float) number_format(
+                            $collegeAchievement->average,
+                            2
+                        ),
+                        'speciality' => $collegeAchievement->speciality,
+                        'university' => $collegeAchievement->university,
+                    ];
+                })->toArray(),
+            'vocational_training_achievements' => $this->vocationalTrainingAchievements
+                ->map(function (
+                    VocationalTrainingAchievement $vocationalTrainingAchievement
+                ) {
+                    return [
+                        'id' => $vocationalTrainingAchievement->id,
+                        'vocational_training_speciality' => $vocationalTrainingAchievement
+                            ->vocationalTraining?->speciality,
+                        'vocational_training_division' => $vocationalTrainingAchievement
+                            ->vocationalTraining?->division,
+                        'institute' => $vocationalTrainingAchievement->institute,
+                    ];
+                })->toArray(),
             'sponsorships' => [
                 'medical_sponsorship' => boolval($this->sponsorships?->medical_sponsorship),
                 'university_scholarship' => boolval($this->sponsorships?->university_scholarship),
@@ -142,7 +158,7 @@ class Orphan extends Model
 
     public function getName(): string
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function searchableAs(): string
@@ -152,7 +168,16 @@ class Orphan extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load(['academicLevel', 'academicAchievements.academicLevel', 'sponsorships', 'collegeAchievements.academicLevel', 'vocationalTrainingAchievements.vocationalTraining', 'shoesSize', 'shirtSize', 'pantsSize']);
+        return $models->load([
+            'academicLevel',
+            'academicAchievements.academicLevel',
+            'sponsorships',
+            'collegeAchievements.academicLevel',
+            'vocationalTrainingAchievements.vocationalTraining',
+            'shoesSize',
+            'shirtSize',
+            'pantsSize',
+        ]);
     }
 
     public function academicAchievements(): HasMany
@@ -172,12 +197,20 @@ class Orphan extends Model
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(
+            User::class,
+            'created_by'
+        );
     }
 
     public function lessons(): BelongsToMany
     {
-        return $this->belongsToMany(EventOccurrence::class, 'event_occurrences', 'lesson_id', 'id')->using(LessonOrphan::class);
+        return $this->belongsToMany(
+            EventOccurrence::class,
+            'event_occurrences',
+            'lesson_id',
+            'id'
+        )->using(LessonOrphan::class);
     }
 
     public function vocationalTrainingAchievements(): HasMany
@@ -187,17 +220,28 @@ class Orphan extends Model
 
     public function academicLevel(): BelongsTo
     {
-        return $this->belongsTo(AcademicLevel::class, 'academic_level_id');
+        return $this->belongsTo(
+            AcademicLevel::class,
+            'academic_level_id'
+        );
     }
 
     public function vocationalTraining(): BelongsTo
     {
-        return $this->belongsTo(VocationalTraining::class, 'vocational_training_id');
+        return $this->belongsTo(
+            VocationalTraining::class,
+            'vocational_training_id'
+        );
     }
 
     public function events(): BelongsToMany
     {
-        return $this->belongsToMany(EventOccurrence::class, 'event_occurrence_orphan', 'orphan_id', 'event_occurrence_id');
+        return $this->belongsToMany(
+            EventOccurrence::class,
+            'event_occurrence_orphan',
+            'orphan_id',
+            'event_occurrence_id'
+        );
     }
 
     public function collegeAchievements(): HasMany
@@ -207,17 +251,24 @@ class Orphan extends Model
 
     public function formatedLastAcademicYear(): string
     {
-        //handle academic level is emp
         if (is_null($this->lastAcademicYearAchievement)) {
             return '';
         }
 
-        return $this->lastAcademicYearAchievement?->academicLevel->level.' ('.$this->lastAcademicYearAchievement?->academic_year.')';
+        return $this->
+            lastAcademicYearAchievement?->academicLevel
+            ->level
+            . ' (' .
+            $this->lastAcademicYearAchievement?->academic_year
+            . ')';
     }
 
     public function archives(): MorphToMany
     {
-        return $this->morphToMany(Archive::class, 'archiveable');
+        return $this->morphToMany(
+            Archive::class,
+            'archiveable'
+        );
     }
 
     public function deleteWithRelations(): void
@@ -246,7 +297,10 @@ class Orphan extends Model
 
     public function needs(): MorphMany
     {
-        return $this->morphMany(Need::class, 'needable');
+        return $this->morphMany(
+            Need::class,
+            'needable'
+        );
     }
 
     public function sponsorships(): HasOne

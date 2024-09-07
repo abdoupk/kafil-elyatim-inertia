@@ -14,12 +14,21 @@ class ArchiveDetailsRamadanBasketController extends Controller implements HasMid
     public function __invoke(Archive $archive): Response
     {
         return Inertia::render('Tenant/archive/details/ramadan-basket/RamadanBasketArchiveDetailsPage', [
-            'archive' => ['id' => $archive->id, 'date' => $archive->created_at->year],
-            'families' => RamadanBasketArchiveIndexResource::collection($archive->listFamilies()->with(['sponsor:id,phone_number,family_id,first_name,last_name', 'zone:id,name', 'branch:id,name'])->withCount('orphans')->paginate(request()->integer('perPage', 10))),
+            'archive' => [
+                'id' => $archive->id,
+                'date' => $archive->created_at->year,
+            ],
+            'families' => RamadanBasketArchiveIndexResource::collection($archive->listFamilies()
+                ->with([
+                    'sponsor:id,phone_number,family_id,first_name,last_name',
+                    'zone:id,name',
+                    'branch:id,name',
+                ])
+                ->withCount('orphans')
+                ->paginate(request()->integer('perPage', 10))),
             'params' => getParams(),
         ]);
     }
-
     public static function middleware()
     {
         return ['can:view_archive'];

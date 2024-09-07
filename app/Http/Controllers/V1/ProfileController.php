@@ -16,7 +16,7 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): Response
+    public function edit(): Response
     {
         return Inertia::render('Profile/TheProfilePage', [
             'data' => new JsonResource(auth()->user()->only([
@@ -28,7 +28,7 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+    public function update(ProfileUpdateRequest $request): \Illuminate\Http\Response
     {
         $request->user()?->fill($request->validated());
 

@@ -34,7 +34,10 @@ class UpdateLessonNotification extends Notification implements ShouldQueue
                 'gender' => $this->user->gender,
             ],
             'metadata' => [
-                'url' => tenant_route($this->user->tenant->domains->first()->domain, 'tenant.lessons.index'),
+                'url' => tenant_route(
+                    $this->user->tenant->domains->first()->domain,
+                    'tenant.lessons.index'
+                ),
             ],
         ];
     }

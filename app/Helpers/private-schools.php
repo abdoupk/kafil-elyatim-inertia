@@ -70,12 +70,16 @@ function getSchoolsForAddLesson(): Collection
 
 function getOrphansForAddLesson(): \Illuminate\Database\Eloquent\Collection
 {
-    return search(Orphan::getModel(), 'AND academic_level.id = '.request()->input('academic_level_id'))->get();
+    return search(Orphan::getModel(), 'AND academic_level.id = ' . request()->input('academic_level_id'))->get();
 }
 
 function formatDateFromTo($dateFrom, $dateTo): string
 {
-    return Carbon::parse($dateFrom)->translatedFormat('d M'.__('glue').' g:i A').' - '.Carbon::parse($dateTo)->translatedFormat('g:i A');
+    return Carbon::parse($dateFrom)
+        ->translatedFormat(
+            'd M' . __('glue') . ' g:i A'
+        ) . ' - ' . Carbon::parse($dateTo)
+        ->translatedFormat('g:i A');
 }
 
 /**

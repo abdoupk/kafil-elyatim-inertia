@@ -12,10 +12,14 @@ class FinancialDetailsController extends Controller implements HasMiddleware
     public function __invoke(Finance $finance)
     {
         return response()->json([
-            'transaction' => FinancialTransactionDetailsResource::make($finance->load(['creator:id,first_name,last_name', 'receiver:id,first_name,last_name'])),
+            'transaction' => FinancialTransactionDetailsResource::make($finance->load(
+                [
+                    'creator:id,first_name,last_name',
+                    'receiver:id,first_name,last_name',
+                ]
+            )),
         ]);
     }
-
     public static function middleware()
     {
         return ['can:view_financial_transactions'];

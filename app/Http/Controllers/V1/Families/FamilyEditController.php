@@ -14,7 +14,18 @@ class FamilyEditController extends Controller implements HasMiddleware
     public function __invoke(Family $family): Response
     {
         return Inertia::render('Tenant/families/edit/FamilyEditPage', [
-            'family' => FamilyEditResource::make($family->load(['furnishings', 'housing', 'sponsor.incomes', 'creator:id,last_name,first_name', 'sponsor', 'secondSponsor', 'sponsorships', 'preview.inspectors', 'deceased'])),
+            'family' => FamilyEditResource::make(
+                $family->load(['furnishings',
+                    'housing',
+                    'sponsor.incomes',
+                    'creator:id,last_name,first_name',
+                    'sponsor',
+                    'secondSponsor',
+                    'sponsorships',
+                    'preview.inspectors',
+                    'deceased',
+                ])
+            ),
         ]);
     }
     public static function middleware()

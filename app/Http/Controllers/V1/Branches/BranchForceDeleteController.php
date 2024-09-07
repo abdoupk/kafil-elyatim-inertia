@@ -8,10 +8,12 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class BranchForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(Branch $branch): void
+    public function __invoke(Branch $branch)
     {
-    }
+        $branch->forceDelete();
 
+        return response('', 204);
+    }
     public static function middleware()
     {
         return [

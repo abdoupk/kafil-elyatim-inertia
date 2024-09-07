@@ -13,27 +13,54 @@ use App\Http\Controllers\V1\PrivateSchools\SchoolUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 Route::prefix('schools')->name('schools.')->group(callback: function (): void {
-    Route::get('', SchoolsIndexController::class)
+    Route::get(
+        '',
+        SchoolsIndexController::class
+    )
         ->name('index');
 
-    Route::post('', SchoolStoreController::class)
-        ->name('store')->middleware([HandlePrecognitiveRequests::class]);
+    Route::post(
+        '',
+        SchoolStoreController::class
+    )
+        ->name('store')
+        ->middleware([HandlePrecognitiveRequests::class]);
 
-    Route::put('{school}', SchoolUpdateController::class)
+    Route::put(
+        '{school}',
+        SchoolUpdateController::class
+    )
         ->name('update');
 
-    Route::get('show/{school}', SchoolShowController::class)
+    Route::get(
+        'show/{school}',
+        SchoolShowController::class
+    )
         ->name('show');
 
-    Route::get('details/{school}', SchoolDetailsController::class)
+    Route::get(
+        'details/{school}',
+        SchoolDetailsController::class
+    )
         ->name('details');
 
-    Route::delete('{school}', SchoolDeleteController::class)
+    Route::delete(
+        '{school}',
+        SchoolDeleteController::class
+    )
         ->name('destroy');
 
-    Route::post('{school}/restore', SchoolRestoreController::class)
-        ->name('restore')->withTrashed();
+    Route::post(
+        '{school}/restore',
+        SchoolRestoreController::class
+    )
+        ->name('restore')
+        ->withTrashed();
 
-    Route::delete('{school}/force-delete', SchoolForceDeleteController::class)
-        ->name('force-delete')->withTrashed();
+    Route::delete(
+        '{school}/force-delete',
+        SchoolForceDeleteController::class
+    )
+        ->name('force-delete')
+        ->withTrashed();
 });

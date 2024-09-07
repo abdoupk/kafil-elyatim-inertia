@@ -18,13 +18,16 @@ class SaveFamiliesRamadanBasketToArchiveController extends Controller
             ]);
 
         $archive->families()
-            ->syncWithPivotValues(listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport()->map(function (FamilySponsorship $sponsorship) {
-                return $sponsorship->family->id;
-            }), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(
+                listOfFamiliesBenefitingFromTheRamadanBasketSponsorshipForExport()
+                    ->map(function (FamilySponsorship $sponsorship) {
+                        return $sponsorship->family->id;
+                    }),
+                ['tenant_id' => tenant('id')]
+            );
 
         dispatch(new RamadanBasketFamiliesListSavedJob($archive, auth()->user()));
     }
-
     public static function middleware()
     {
         return ['can:save_occasions'];

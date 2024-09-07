@@ -102,7 +102,12 @@ class User extends Authenticatable
 
     public function previews(): BelongsToMany
     {
-        return $this->belongsToMany(Preview::class, 'member_preview', 'user_id', 'preview_id')->using(MemberPreview::class);
+        return $this->belongsToMany(
+            Preview::class,
+            'member_preview',
+            'user_id',
+            'preview_id'
+        )->using(MemberPreview::class);
     }
 
     public function creator(): BelongsTo

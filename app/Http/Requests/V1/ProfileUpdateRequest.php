@@ -24,7 +24,12 @@ class ProfileUpdateRequest extends FormRequest
             ],
             'qualification' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'in:male,female'],
-            'phone' => ['required', 'string', 'regex:/^(06|07|05)\d{8}$/', Rule::unique(User::class)->ignore($this->user()?->id)],
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^(06|07|05)\d{8}$/',
+                Rule::unique(User::class)->ignore($this->user()?->id),
+            ],
             'address' => ['required', 'string', 'max:255'],
         ];
     }

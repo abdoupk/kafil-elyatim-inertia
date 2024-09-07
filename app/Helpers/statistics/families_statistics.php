@@ -75,11 +75,14 @@ function getFamiliesSponsorShips(): array
 
 function getFamiliesGroupByDate(): array
 {
-    return array_replace(array_fill(1, 12, 0), Family::selectRaw('EXTRACT(MONTH FROM start_date) as month, COUNT(*) as families_count')
-        ->whereYear('start_date', date('Y'))
-        ->groupBy('month')
-        ->pluck('families_count', 'month')
-        ->toArray());
+    return array_replace(
+        array_fill(1, 12, 0),
+        Family::selectRaw('EXTRACT(MONTH FROM start_date) as month, COUNT(*) as families_count')
+            ->whereYear('start_date', date('Y'))
+            ->groupBy('month')
+            ->pluck('families_count', 'month')
+            ->toArray()
+    );
 }
 
 function getFamiliesHousingTypes(): array
@@ -88,7 +91,7 @@ function getFamiliesHousingTypes(): array
 
     return [
         'labels' => $orphans->pluck('name')->map(function (string $familyStatus) {
-            return __('housing.label.'.$familyStatus);
+            return __('housing.label.' . $familyStatus);
         })->toArray(),
         'data' => $orphans->pluck('total')->toArray(),
     ];

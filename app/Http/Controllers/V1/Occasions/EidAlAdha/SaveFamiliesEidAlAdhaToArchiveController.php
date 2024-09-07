@@ -19,13 +19,16 @@ class SaveFamiliesEidAlAdhaToArchiveController extends Controller implements Has
             ]);
 
         $archive->families()
-            ->syncWithPivotValues(listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport()->map(function (FamilySponsorship $sponsorship) {
-                return $sponsorship->family->id;
-            }), ['tenant_id' => tenant('id')]);
+            ->syncWithPivotValues(
+                listOfFamiliesBenefitingFromTheEidAlAdhaSponsorshipForExport()
+                    ->map(function (FamilySponsorship $sponsorship) {
+                        return $sponsorship->family->id;
+                    }),
+                ['tenant_id' => tenant('id')]
+            );
 
         dispatch(new EidAlAdhaFamiliesListSavedJob($archive, auth()->user()));
     }
-
     public static function middleware()
     {
         return ['can:save_occasions'];

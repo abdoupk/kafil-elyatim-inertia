@@ -19,7 +19,11 @@ class ExportCompleteNotification extends Notification implements ShouldQueue
         $this->metaData = [
             'created_at' => now(),
             'subject' => 'data_exported',
-            'url' => tenant_route($this->tenant->domains->first()->domain, 'tenant.site-settings.download-data'),
+            'url' => tenant_route(
+                $this->tenant->domains->first()
+                    ->domain,
+                'tenant.site-settings.download-data'
+            ),
         ];
     }
 

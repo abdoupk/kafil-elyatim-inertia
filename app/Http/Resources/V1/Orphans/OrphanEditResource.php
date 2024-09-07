@@ -14,8 +14,20 @@ class OrphanEditResource extends JsonResource
     public function toArray(Request $request): array
     {
         $babyNeeds = now()->diff($this->birth_date)->y < 2
-            ? $this->babyNeeds->only(['baby_milk_quantity', 'baby_milk_type', 'diapers_quantity', 'diapers_type'])
-            : ['baby_milk_quantity' => null, 'baby_milk_type' => null, 'diapers_quantity' => null, 'diapers_type' => null];
+            ? $this->babyNeeds->only(
+                [
+                    'baby_milk_quantity',
+                    'baby_milk_type',
+                    'diapers_quantity',
+                    'diapers_type',
+                ]
+            )
+            : [
+                'baby_milk_quantity' => null,
+                'baby_milk_type' => null,
+                'diapers_quantity' => null,
+                'diapers_type' => null,
+            ];
 
         return [
             'id' => $this->id,
@@ -34,10 +46,18 @@ class OrphanEditResource extends JsonResource
             'gender' => $this->gender,
             'note' => $this->note,
 
-            'academic_achievements' => AcademicAchievementResource::collection($this->whenLoaded('academicAchievements')),
-            'sponsorships' => new OrphanSponsorshipResource($this->whenLoaded('sponsorships')),
-            'vocational_training_achievements' => VocationalTrainingAchievementResource::collection($this->whenLoaded('vocationalTrainingAchievements')),
-            'college_achievements' => CollegeAchievementResource::collection($this->whenLoaded('collegeAchievements')),
+            'academic_achievements' => AcademicAchievementResource::collection(
+                $this->whenLoaded('academicAchievements')
+            ),
+            'sponsorships' => new OrphanSponsorshipResource(
+                $this->whenLoaded('sponsorships')
+            ),
+            'vocational_training_achievements' => VocationalTrainingAchievementResource::collection(
+                $this->whenLoaded('vocationalTrainingAchievements')
+            ),
+            'college_achievements' => CollegeAchievementResource::collection(
+                $this->whenLoaded('collegeAchievements')
+            ),
         ];
     }
 }

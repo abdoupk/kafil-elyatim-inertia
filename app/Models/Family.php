@@ -181,7 +181,17 @@ class Family extends Model
 
     public function makeSearchableUsing(Collection $models): Collection
     {
-        return $models->load(['zone', 'secondSponsor', 'spouse', 'branch', 'sponsor.incomes', 'orphans', 'sponsorships']);
+        return $models->load(
+            [
+                'zone',
+                'secondSponsor',
+                'spouse',
+                'branch',
+                'sponsor.incomes',
+                'orphans',
+                'sponsorships',
+            ]
+        );
     }
 
     public function toSearchableArray(): array

@@ -15,6 +15,11 @@ function getFinances(): LengthAwarePaginator
 function getFinancesForExport(): Collection
 {
     return search(Finance::getModel(), limit: LIMIT)
-        ->query(fn (Builder $query) => $query->with(['creator:id,first_name,last_name', 'receiver:id,first_name,last_name']))
+        ->query(fn (Builder $query) => $query->with(
+            [
+                'creator:id,first_name,last_name',
+                'receiver:id,first_name,last_name',
+            ]
+        ))
         ->get();
 }
