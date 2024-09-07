@@ -24,10 +24,10 @@ class CreateTenantAdminJob implements ShouldQueue
      */
     public function handle(): void
     {
-        $this->tenant->run(function (Tenant $tenant) {
+        $this->tenant->run(function (Tenant $tenant): void {
             setPermissionsTeamId($tenant->id);
             ray($tenant);
-            User::withoutSyncingToSearch(function () use ($tenant) {
+            User::withoutSyncingToSearch(function () use ($tenant): void {
                 $user = User::create($tenant->infos['super_admin']);
 
                 $user->assignRole(Role::create(['name' => 'super_admin', 'tenant_id' => $tenant->id]));

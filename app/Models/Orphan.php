@@ -163,7 +163,7 @@ class Orphan extends Model
     public function lastAcademicYearAchievement(): HasOne
     {
         return $this->hasOne(AcademicAchievement::class, 'orphan_id')->with('academicLevel')
-            ->where(function ($query) {
+            ->where(function ($query): void {
                 $query->whereRaw('academic_achievements.academic_year = ?', now()->year)
                     ->orWhereRaw('academic_achievements.academic_year = ? ', now()->year - 1);
             })
@@ -309,13 +309,13 @@ class Orphan extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating(function ($model): void {
             if (auth()->id()) {
                 $model->created_by = auth()->id();
             }
         });
 
-        static::softDeleted(function ($model) {
+        static::softDeleted(function ($model): void {
             if (auth()->id()) {
                 $model->deleted_by = auth()->id();
 

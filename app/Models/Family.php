@@ -335,13 +335,13 @@ class Family extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating(function ($model): void {
             if (auth()->id()) {
                 $model->created_by = auth()->id();
             }
         });
 
-        static::softDeleted(function ($family) {
+        static::softDeleted(function ($family): void {
             if (auth()->id()) {
                 $family->deleted_by = auth()->id();
 

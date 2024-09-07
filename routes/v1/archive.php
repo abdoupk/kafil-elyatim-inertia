@@ -22,10 +22,10 @@ use App\Http\Controllers\V1\Archive\Exports\ExportArchiveOrphansEidSuitXlsxContr
 use App\Http\Controllers\V1\Archive\Exports\ExportArchiveOrphansSchoolEntryPDFController;
 use App\Http\Controllers\V1\Archive\Exports\ExportArchiveOrphansSchoolEntryXlsxController;
 
-Route::prefix('archive')->name('archive.')->group(function () {
+Route::prefix('archive')->name('archive.')->group(function (): void {
     Route::get('', ArchiveIndexController::class)->name('index');
 
-    Route::prefix('details')->name('details.')->group(function () {
+    Route::prefix('details')->name('details.')->group(function (): void {
         Route::get('eid-al-adha/{archive}', ArchiveDetailsEidAlAdhaController::class)->name('eid-al-adha');
 
         Route::get('monthly-basket/{archive}', ArchiveDetailsMonthlyBasketController::class)->name('monthly-basket');
@@ -39,7 +39,7 @@ Route::prefix('archive')->name('archive.')->group(function () {
         Route::get('babies-milk-and-diapers/{archive}', ArchiveDetailsBabiesMilkAndDiapersController::class)->name('babies-milk-and-diapers');
     });
 
-    Route::prefix('export')->name('export.')->group(function () {
+    Route::prefix('export')->name('export.')->group(function (): void {
         Route::get('eid-al-adha/export-pdf/{archive}', ExportArchiveFamiliesEidAlAdhaPDFController::class)->name('eid-al-adha.pdf');
 
         Route::get('eid-al-adha/export-xlsx/{archive}', ExportArchiveFamiliesEidAlAdhaXlsxController::class)->name('eid-al-adha.xlsx');

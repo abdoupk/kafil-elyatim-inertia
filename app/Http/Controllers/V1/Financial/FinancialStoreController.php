@@ -9,21 +9,19 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FinancialStoreController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:create_financial_transactions'];
+    }
 
     public function __invoke(FinancialCreateRequest $request)
     {
-        $finance = Finance::create([
+        Finance::create([
             ...$request->only(['specification', 'date', 'description']),
             'received_by' => $request->only('member_id')['member_id'],
             'amount' => $request->type === 'income' ? abs($request->amount) : abs($request->amount) * -1,
         ]);
-
-        //        dispatch(new FinanceCreatedJob($finance, auth()->user()));
-
+        
         return response('', 201);
-    }
-    public static function middleware()
-    {
-        return ['can:create_financial_transactions'];
     }
 }

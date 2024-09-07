@@ -13,7 +13,7 @@ use App\Http\Controllers\V1\Needs\NeedStoreController;
 use App\Http\Controllers\V1\Needs\NeedUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('needs')->name('needs.')->group(function () {
+Route::prefix('needs')->name('needs.')->group(function (): void {
     Route::get('', NeedsIndexController::class)
         ->name('index');
 

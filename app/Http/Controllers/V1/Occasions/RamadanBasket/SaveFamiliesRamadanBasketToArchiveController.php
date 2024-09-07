@@ -9,7 +9,7 @@ use App\Models\FamilySponsorship;
 
 class SaveFamiliesRamadanBasketToArchiveController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): void
     {
         $archive = Archive::where('occasion', '=', 'ramadan_basket')
             ->whereYear('created_at', '=', now()->year)->firstOrCreate([

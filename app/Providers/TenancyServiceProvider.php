@@ -90,7 +90,7 @@ class TenancyServiceProvider extends ServiceProvider
             Events\EndingTenancy::class => [],
             Events\TenancyEnded::class => [
                 Listeners\RevertToCentralContext::class,
-                function (Events\TenancyEnded $event) {
+                function (Events\TenancyEnded $event): void {
                     $permissionRegistrar = app(PermissionRegistrar::class);
                     $permissionRegistrar->cacheKey = 'spatie.permission.cache';
                 },
@@ -98,7 +98,7 @@ class TenancyServiceProvider extends ServiceProvider
 
             Events\BootstrappingTenancy::class => [],
             Events\TenancyBootstrapped::class => [
-                function (Events\TenancyBootstrapped $event) {
+                function (Events\TenancyBootstrapped $event): void {
                     $permissionRegistrar = app(PermissionRegistrar::class);
                     $permissionRegistrar->cacheKey = 'spatie.permission.cache.tenant.'.$event->tenancy->tenant->getTenantKey();
                 },
@@ -133,7 +133,7 @@ class TenancyServiceProvider extends ServiceProvider
 
     protected function mapRoutes(): void
     {
-        $this->app->booted(function () {
+        $this->app->booted(function (): void {
             if (file_exists(base_path('routes/tenant.php'))) {
                 Route::namespace(static::$controllerNamespace)
                     ->group(base_path('routes/tenant.php'));

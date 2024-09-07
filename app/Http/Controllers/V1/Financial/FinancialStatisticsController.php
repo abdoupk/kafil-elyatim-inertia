@@ -11,9 +11,9 @@ class FinancialStatisticsController extends Controller
     public function __invoke(): Response
     {
         return Inertia::render('Tenant/financials/statistics/FinancialStatisticsPage', [
-            'financesBySpecification' => fn() => getFinancesBySpecification(),
-            'financesByType' => fn() => getFinancesByType(),
-            'financesByMonth' => fn() => getFinancesByMonth(),
+            'financesBySpecification' => fn () => getFinancesBySpecification(),
+            'financesByType' => fn () => getFinancesByType(),
+            'financesByMonth' => fn () => getFinancesByMonth(),
         ]);
     }
 }

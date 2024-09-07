@@ -19,7 +19,7 @@ class CreateFrameworkDirectoriesForTenantJob implements ShouldQueue
 
     public function handle(): void
     {
-        $this->tenant->run(function ($tenant) {
+        $this->tenant->run(function ($tenant): void {
             $storage_path = storage_path();
 
             mkdir("{$storage_path}/framework/cache", 0777, true);

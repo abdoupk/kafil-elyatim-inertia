@@ -8,7 +8,7 @@ use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsStoreContro
 use App\Http\Controllers\V1\AcademicAchievements\AcademicAchievementsUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('academic-achievements')->name('academic-achievements.')->group(function () {
+Route::prefix('academic-achievements')->name('academic-achievements.')->group(function (): void {
     Route::get('show/{academicAchievement}', AcademicAchievementsShowController::class)
         ->name('show');
 

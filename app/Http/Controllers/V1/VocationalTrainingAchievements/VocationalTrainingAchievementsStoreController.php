@@ -9,7 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class VocationalTrainingAchievementsStoreController extends Controller implements HasMiddleware
 {
-
     public function __invoke(VocationalTrainingAchievementsCreateRequest $request)
     {
         VocationalTrainingAchievement::create($request->validated());

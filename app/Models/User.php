@@ -97,7 +97,7 @@ class User extends Authenticatable
 
     public function getName(): string
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function previews(): BelongsToMany
@@ -114,12 +114,13 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::created(static function (User $user) {
+        static::created(static function (User $user): void {
             $user->settings()->create([
                 'theme' => 'enigma',
                 'color_scheme' => 'default',
                 'layout' => 'side_menu',
                 'appearance' => 'light',
+                'locale' => 'ar',
                 'tenant_id' => $user->tenant_id,
                 'notifications' => [
                     'families_changes' => true,
@@ -132,13 +133,13 @@ class User extends Authenticatable
             ]);
         });
 
-        static::creating(function ($model) {
+        static::creating(function ($model): void {
             if (auth()->id()) {
                 $model->created_by = auth()->id();
             }
         });
 
-        static::softDeleted(function ($model) {
+        static::softDeleted(function ($model): void {
             if (auth()->id()) {
                 $model->deleted_by = auth()->id();
 

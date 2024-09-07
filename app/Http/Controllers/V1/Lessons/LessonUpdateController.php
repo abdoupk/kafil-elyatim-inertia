@@ -17,9 +17,8 @@ class LessonUpdateController extends Controller implements HasMiddleware
      * @throws InvalidWeekday
      * @throws InvalidArgument
      */
-    public function __invoke(LessonUpdateRequest $request, EventOccurrence $eventOccurrence)
+    public function __invoke(LessonUpdateRequest $request, EventOccurrence $eventOccurrence): void
     {
-        //TODO: remove add hour
         if (! $request->update_this_and_all_coming) {
             $eventOccurrence->update([
                 'start_date' => Carbon::parse($request->start_date)->addHour(),
@@ -43,7 +42,6 @@ class LessonUpdateController extends Controller implements HasMiddleware
             dispatch(new LessonUpdatedJob($eventOccurrence->event, auth()->user()));
         }
     }
-
     public static function middleware()
     {
         return ['can:update_lessons'];

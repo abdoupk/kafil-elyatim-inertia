@@ -11,7 +11,6 @@ use Inertia\Response;
 
 class FamilyShowController extends Controller implements HasMiddleware
 {
-
     public function __invoke(Family $family): Response
     {
         return Inertia::render('Tenant/families/details/FamilyDetailPage', [

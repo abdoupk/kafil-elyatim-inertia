@@ -10,7 +10,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SiteSettingUpdateInfosController extends Controller implements HasMiddleware
 {
-    public function __invoke(UpdateSiteInfosRequest $request)
+    public function __invoke(UpdateSiteInfosRequest $request): void
     {
         $data = $request->except('super_admin');
 

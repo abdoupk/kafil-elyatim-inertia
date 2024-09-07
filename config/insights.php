@@ -10,12 +10,9 @@ use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
-use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
-use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
-use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 
 return [
 
@@ -80,15 +77,15 @@ return [
     ],
 
     'remove' => [
-        AlphabeticallySortedUsesSniff::class,
+//        AlphabeticallySortedUsesSniff::class,
         DeclareStrictTypesSniff::class,
         DisallowMixedTypeHintSniff::class,
         ForbiddenDefineFunctions::class,
         ForbiddenNormalClasses::class,
         ForbiddenTraits::class,
-        ParameterTypeHintSniff::class,
+//        ParameterTypeHintSniff::class,
         PropertyTypeHintSniff::class,
-        ReturnTypeHintSniff::class,
+//        ReturnTypeHintSniff::class,
         UselessFunctionDocCommentSniff::class,
     ],
 
@@ -105,7 +102,20 @@ return [
             'maxLinesLength' => 22,
             'exclude' => [
                 'app\Providers\TenancyServiceProvider.php',
+                'app\Models\OrphanSponsorship.php',
+                'app\Http\Resources\V1\Sponsors\SponsorShowResource.php',
+                'app\Http\Resources\V1\Orphans\OrphanEditResource.php',
+                'app\Models\Baby.php',
                 'app\Providers\AppServiceProvider.php',
+                'app\Models\Sponsor.php',
+                'app\Http\Controllers\V1\Families\FamilyStoreController.php',
+                'app\Http\Controllers\V1\Trash\TrashIndexController.php',
+                'app\Http\Resources\V1\Occasions\EidSuitResource.php',
+                'app\Http\Requests\V1\Families\CreateFamilyRequest.php',
+                'app\Models\User.php',
+                'app\Models\Orphan.php',
+                'app\Models\Family.php',
+                'app\Models\FamilySponsorship.php',
                 'app\Http\Requests\V1\RegisterTenantRequest.php',
                 'app\Http\Controllers\Auth\NewPasswordController.php',
             ],

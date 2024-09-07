@@ -24,7 +24,7 @@ class OccasionsOrphansExport implements FromCollection, WithEvents, WithHeadings
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function (AfterSheet $event) {
+            AfterSheet::class => function (AfterSheet $event): void {
                 $event->sheet->getDelegate()->setRightToLeft(app()->getLocale() === 'ar');
             },
         ];

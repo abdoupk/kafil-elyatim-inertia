@@ -9,7 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class VocationalTrainingAchievementsShowController extends Controller implements HasMiddleware
 {
-
     public function __invoke(VocationalTrainingAchievement $vocationalTrainingAchievement)
     {
         return response()->json([

@@ -12,7 +12,7 @@ use App\Http\Controllers\V1\Lessons\LessonUpdateDatesController;
 use App\Http\Controllers\V1\Lessons\ListOrphansController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('lessons')->name('lessons.')->group(function () {
+Route::prefix('lessons')->name('lessons.')->group(function (): void {
     Route::get('', LessonsIndexController::class)
         ->name('index');
 

@@ -10,7 +10,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SaveOrphansSchoolEntryToArchiveController extends Controller implements HasMiddleware
 {
-    public function __invoke()
+    public function __invoke(): void
     {
         $archive = Archive::where('occasion', '=', 'school_entry')
             ->whereYear('created_at', '=', now()->year)->firstOrCreate([

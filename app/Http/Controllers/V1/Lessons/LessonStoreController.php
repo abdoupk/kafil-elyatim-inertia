@@ -18,7 +18,7 @@ class LessonStoreController extends Controller implements HasMiddleware
      * @throws InvalidWeekday
      * @throws InvalidArgument
      */
-    public function __invoke(LessonCreateRequest $request)
+    public function __invoke(LessonCreateRequest $request): void
     {
         $lesson = Lesson::where('subject_id', $request->subject_id)
             ->where('private_school_id', $request->school_id)

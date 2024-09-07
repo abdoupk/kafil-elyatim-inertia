@@ -13,13 +13,12 @@ use Throwable;
 
 class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements HasMiddleware
 {
-
     /**
      * @throws Throwable
      */
-    public function __invoke()
+    public function __invoke(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $archive = $this->getOrCreateArchive();
 
             $this->restoreQuantities($archive);
@@ -48,7 +47,7 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements
             ]);
     }
 
-    private function restoreQuantities(Archive $archive)
+    private function restoreQuantities(Archive $archive): void
     {
         $families_count = $archive->listFamilies()->count();
 
@@ -58,7 +57,7 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements
             ]);
     }
 
-    private function syncFamiliesWithArchive(Archive $archive)
+    private function syncFamiliesWithArchive(Archive $archive): void
     {
         $archive->families()
             ->syncWithPivotValues(listOfFamiliesBenefitingFromTheMonthlyBasketForExport()->map(function (FamilySponsorship $sponsorship) {
@@ -66,7 +65,7 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements
             }), ['tenant_id' => tenant('id')]);
     }
 
-    private function decrementQuantities(Archive $archive)
+    private function decrementQuantities(Archive $archive): void
     {
         $families_count = $archive->listFamilies()->count();
 
@@ -76,7 +75,7 @@ class SaveFamiliesMonthlyBasketToArchiveController extends Controller implements
             ]);
     }
 
-    private function dispatchJob(Archive $archive)
+    private function dispatchJob(Archive $archive): void
     {
         dispatch(new MonthlyBasketFamiliesListSavedJob($archive, auth()->user()));
     }

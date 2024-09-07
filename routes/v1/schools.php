@@ -12,7 +12,7 @@ use App\Http\Controllers\V1\PrivateSchools\SchoolStoreController;
 use App\Http\Controllers\V1\PrivateSchools\SchoolUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('schools')->name('schools.')->group(callback: function () {
+Route::prefix('schools')->name('schools.')->group(callback: function (): void {
     Route::get('', SchoolsIndexController::class)
         ->name('index');
 

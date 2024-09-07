@@ -12,13 +12,12 @@ use Throwable;
 
 class RoleStoreController extends Controller implements HasMiddleware
 {
-
     /**
      * @throws Throwable
      */
     public function __invoke(RoleCreateRequest $request)
     {
-        DB::transaction(function () use ($request) {
+        DB::transaction(function () use ($request): void {
             $role = Role::create($request->only('name'));
 
             $permissions = array_keys(array_filter($request->permissions));

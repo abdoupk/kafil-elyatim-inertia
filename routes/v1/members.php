@@ -13,7 +13,7 @@ use App\Http\Controllers\V1\Members\MemberStoreController;
 use App\Http\Controllers\V1\Members\MemberUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('members')->name('members.')->group(function () {
+Route::prefix('members')->name('members.')->group(function (): void {
     Route::get('', MembersIndexController::class)
         ->name('index');
 

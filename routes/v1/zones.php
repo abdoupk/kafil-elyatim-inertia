@@ -12,7 +12,7 @@ use App\Http\Controllers\V1\Zones\ZoneStoreController;
 use App\Http\Controllers\V1\Zones\ZoneUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('zones')->name('zones.')->group(function () {
+Route::prefix('zones')->name('zones.')->group(function (): void {
     Route::get('', ZonesIndexController::class)
         ->name('index');
 

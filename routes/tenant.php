@@ -13,29 +13,29 @@ Route::middleware([
     'web',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
-])->group(function () {
+])->group(function (): void {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login')
         ->middleware('guest');
 
     Route::get('/', fn () => redirect()->route('tenant.dashboard'));
 
-    Route::name('tenant.')->prefix('/dashboard/')->group(function () {
-        Route::middleware('guest')->group(function () {
+    Route::name('tenant.')->prefix('/dashboard/')->group(function (): void {
+        Route::middleware('guest')->group(function (): void {
             Route::post(
                 'login',
                 [AuthenticatedSessionController::class, 'store']
             );
         });
 
-        Route::middleware('guest')->group(function () {
+        Route::middleware('guest')->group(function (): void {
             Route::post(
                 'login',
                 [AuthenticatedSessionController::class, 'store']
             )->name('login');
         });
 
-        Route::middleware('auth')->group(function () {
+        Route::middleware('auth')->group(function (): void {
             require __DIR__.'/v1/academic-achievements.php';
 
             require __DIR__.'/v1/archive.php';

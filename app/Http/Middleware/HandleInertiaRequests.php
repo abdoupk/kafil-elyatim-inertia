@@ -17,7 +17,7 @@ class HandleInertiaRequests extends Middleware
                 'settings' => auth()->user()?->settings,
             ],
             'association' => tenant('infos')['association'] ?? null,
-            'language' => 'ar', // TODO: change to get automatically app()->getLocale() and remove languages
+            'language' => auth()->user()?->settings?->locale ?? null,
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

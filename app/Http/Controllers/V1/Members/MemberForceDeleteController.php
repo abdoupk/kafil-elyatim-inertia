@@ -8,7 +8,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class MemberForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(User $member)
+    public function __invoke(User $member): void
     {
     }
 

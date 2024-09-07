@@ -17,7 +17,7 @@ use App\Http\Controllers\V1\Sponsors\SponsorUpdateInfosController;
 use App\Http\Controllers\V1\Sponsors\SponsorUpdateSponsorshipsController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('sponsors')->name('sponsors.')->group(function () {
+Route::prefix('sponsors')->name('sponsors.')->group(function (): void {
     Route::get('', SponsorsIndexController::class)
         ->name('index');
 

@@ -15,7 +15,7 @@ use App\Http\Controllers\V1\Financial\FinancialStoreController;
 use App\Http\Controllers\V1\Financial\FinancialUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('financial')->name('financial.')->group(function () {
+Route::prefix('financial')->name('financial.')->group(function (): void {
     Route::get('', FinancialIndexController::class)
         ->name('index');
 

@@ -10,7 +10,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class SaveOrphansEidSuitToArchiveController extends Controller implements HasMiddleware
 {
-    public function __invoke()
+    public function __invoke(): void
     {
         $archive = Archive::where('occasion', '=', 'eid_suit')
             ->whereMonth('created_at', '=', now()->month)->firstOrCreate([

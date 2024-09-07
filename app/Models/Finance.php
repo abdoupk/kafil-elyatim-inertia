@@ -73,13 +73,13 @@ class Finance extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        static::creating(function ($model): void {
             if (auth()->id()) {
                 $model->created_by = auth()->id();
             }
         });
 
-        static::softDeleted(function ($model) {
+        static::softDeleted(function ($model): void {
             if (auth()->id()) {
                 $model->deleted_by = auth()->id();
 

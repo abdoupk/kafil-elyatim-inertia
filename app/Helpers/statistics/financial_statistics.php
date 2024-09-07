@@ -66,8 +66,8 @@ function getFinancesByType(): array
         ->groupBy('month')
         ->get()
         ->groupBy('month')
-        ->map(function ($items) use (&$result) {
-            $items->each(function ($item) use (&$result) {
+        ->map(function ($items) use (&$result): void {
+            $items->each(function ($item) use (&$result): void {
                 $monthIndex = $item->month - 1;
                 $result['incomes'][$monthIndex] = $item->positive_amount;
                 $result['expenses'][$monthIndex] = abs($item->negative_amount);

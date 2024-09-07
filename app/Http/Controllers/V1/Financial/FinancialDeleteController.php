@@ -8,7 +8,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FinancialDeleteController extends Controller implements HasMiddleware
 {
-
     public function __invoke(Finance $finance)
     {
         $finance->delete();

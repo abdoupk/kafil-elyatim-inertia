@@ -8,7 +8,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class BranchForceDeleteController extends Controller implements HasMiddleware
 {
-    public function __invoke(Branch $branch)
+    public function __invoke(Branch $branch): void
     {
     }
 

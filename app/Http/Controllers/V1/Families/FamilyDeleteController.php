@@ -16,7 +16,7 @@ class FamilyDeleteController extends Controller implements HasMiddleware
      */
     public function __invoke(Family $family)
     {
-        DB::transaction(function () use ($family) {
+        DB::transaction(function () use ($family): void {
             $family->unSearchWithRelations();
 
             $family->deleteWithRelationships();

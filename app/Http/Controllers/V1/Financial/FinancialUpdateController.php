@@ -9,7 +9,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class FinancialUpdateController extends Controller implements HasMiddleware
 {
-
     public function __invoke(FinancialUpdateRequest $request, Finance $finance)
     {
         $finance->update([

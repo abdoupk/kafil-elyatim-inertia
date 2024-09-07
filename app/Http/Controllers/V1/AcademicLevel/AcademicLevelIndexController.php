@@ -11,5 +11,4 @@ class AcademicLevelIndexController extends Controller
     {
         return response()->json(JsonResource::collection(formatedAcademicLevels()));
     }
-
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\V1\Roles\RolesIndexController;
 use App\Http\Controllers\V1\Roles\RoleStoreController;
 use App\Http\Controllers\V1\Roles\RoleUpdateController;
 
-Route::prefix('roles')->name('roles.')->group(function () {
+Route::prefix('roles')->name('roles.')->group(function (): void {
     Route::get('', RolesIndexController::class)
         ->name('index');
 

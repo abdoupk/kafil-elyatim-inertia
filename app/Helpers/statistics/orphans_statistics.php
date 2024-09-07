@@ -9,7 +9,7 @@ function getOrphansByFamilyStatus(): array
 
     return [
         'labels' => $orphans->pluck('family_status')->map(function (string $familyStatus) {
-            return __('family_statuses.'.$familyStatus);
+            return __('family_statuses.' . $familyStatus);
         })->toArray(),
         'data' => $orphans->pluck('total')->toArray(),
     ];
@@ -193,7 +193,6 @@ function getOrphansGroupByCreatedDate(): array
         ->toArray());
 }
 
-//TODO get by is_Handicapped
 function getOrphansGroupHealthStatus(): array
 {
     $orphans = Orphan::select('is_handicapped', DB::raw('count(*) as total'))->groupBy('is_handicapped')->get();

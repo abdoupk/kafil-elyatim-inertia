@@ -11,7 +11,6 @@ use Inertia\Response;
 
 class FamiliesIndexController extends Controller implements HasMiddleware
 {
-
     public function __invoke(FamiliesIndexRequest $request): Response
     {
         return Inertia::render('Tenant/families/index/FamiliesIndexPage', [

@@ -11,7 +11,7 @@ class RegistrationDomainRequiredRule implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (Domain::whereDomain($value)->when(tenant('id'), function ($query) {
+        if (Domain::whereDomain($value)->when(tenant('id'), function ($query): void {
             $query->where('tenant_id', '!=', tenant('id'));
         })->exists()) {
             $fail(trans('validation.unique', [':attribute' => $attribute]));

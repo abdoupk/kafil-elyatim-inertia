@@ -10,7 +10,7 @@ use App\Http\Controllers\V1\Inventory\ItemStoreController;
 use App\Http\Controllers\V1\Inventory\ItemUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('inventory')->group(function () {
+Route::prefix('inventory')->group(function (): void {
     Route::get('', InventoryIndexController::class)
         ->name('inventory.index');
 

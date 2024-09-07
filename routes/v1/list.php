@@ -15,7 +15,7 @@ use App\Http\Controllers\V1\List\ListSubjectsController;
 use App\Http\Controllers\V1\VocationalTraining\VocationalTrainingIndexController;
 use App\Http\Controllers\V1\Zones\ListZonesController;
 
-Route::prefix('list')->name('list.')->group(function () {
+Route::prefix('list')->name('list.')->group(function (): void {
     Route::get('shoes-sizes', ListShoesSizesController::class)->name('shoes-sizes');
 
     Route::get('clothes-sizes', ListClothesSizesController::class)->name('clothes-sizes');

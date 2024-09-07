@@ -12,13 +12,12 @@ use Throwable;
 
 class SaveBabiesToArchiveController extends Controller implements HasMiddleware
 {
-
     /**
      * @throws Throwable
      */
-    public function __invoke()
+    public function __invoke(): void
     {
-        DB::transaction(function () {
+        DB::transaction(function (): void {
             $archive = $this->getOrCreateArchive();
 
             $this->restoreQuantities($archive);
@@ -47,18 +46,18 @@ class SaveBabiesToArchiveController extends Controller implements HasMiddleware
             ]);
     }
 
-    private function restoreQuantities(Archive $archive)
+    private function restoreQuantities(Archive $archive): void
     {
         $archive->listBabies()
             ->with(['diapers', 'babyMilk'])
-            ->each(function (Baby $baby) {
+            ->each(function (Baby $baby): void {
                 $baby->diapers()->update(['qty' => $baby->diapers->qty + $baby->diapers_quantity]);
 
                 $baby->babyMilk()->update(['qty' => $baby->babyMilk->qty + $baby->baby_milk_quantity]);
             });
     }
 
-    private function syncBabiesWithArchive(Archive $archive)
+    private function syncBabiesWithArchive(Archive $archive): void
     {
         $archive->babies()
             ->syncWithPivotValues(
@@ -67,18 +66,18 @@ class SaveBabiesToArchiveController extends Controller implements HasMiddleware
             );
     }
 
-    private function decrementQuantities(Archive $archive)
+    private function decrementQuantities(Archive $archive): void
     {
         $archive->listBabies()
             ->with(['diapers', 'babyMilk'])
-            ->each(function (Baby $baby) {
+            ->each(function (Baby $baby): void {
                 $baby->diapers()->update(['qty' => $baby->diapers->qty - $baby->diapers_quantity]);
 
                 $baby->babyMilk()->update(['qty' => $baby->babyMilk->qty - $baby->baby_milk_quantity]);
             });
     }
 
-    private function dispatchJob(Archive $archive)
+    private function dispatchJob(Archive $archive): void
     {
         dispatch(new BabiesMilkAndDiapersListSavedJob($archive, auth()->user()));
     }

@@ -10,7 +10,6 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 
 class VocationalTrainingAchievementsUpdateController extends Controller implements HasMiddleware
 {
-
     public function __invoke(VocationalTrainingAchievementsUpdateRequest $request, VocationalTrainingAchievement $vocationalTrainingAchievement)
     {
         $vocationalTrainingAchievement->update($request->validated());

@@ -23,7 +23,7 @@ use App\Http\Controllers\V1\Families\FamilyUpdateSpouseController;
 use App\Http\Controllers\V1\Families\SearchFamiliesController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('families')->name('families.')->group(function () {
+Route::prefix('families')->name('families.')->group(function (): void {
     Route::get('', FamiliesIndexController::class)
         ->name('index');
 

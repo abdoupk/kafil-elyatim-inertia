@@ -12,7 +12,7 @@ use App\Http\Controllers\V1\Branches\BranchStoreController;
 use App\Http\Controllers\V1\Branches\BranchUpdateController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('branches')->name('branches.')->group(function () {
+Route::prefix('branches')->name('branches.')->group(function (): void {
     Route::get('', BranchesIndexController::class)
         ->name('index');
 

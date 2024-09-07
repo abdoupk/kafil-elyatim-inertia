@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Families\CreateFamilyRequest;
 use App\Jobs\V1\Family\FamilyCreatedJob;
 use App\Models\Family;
-use App\Models\Orphan;
 use App\Models\Sponsor;
 use DB;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -18,18 +17,17 @@ use Throwable;
 
 class FamilyStoreController extends Controller implements HasMiddleware
 {
-
     /**
      * @throws Throwable
      */
     public function __invoke(CreateFamilyRequest $request): \Illuminate\Contracts\Foundation\Application|ResponseFactory|Application|Response
     {
         if ($request->validated('submitted')) {
-            DB::transaction(function () use ($request) {
+            DB::transaction(function () use ($request): void {
                 $family = Family::create(
                     [
                         ...$request->only('address', 'zone_id', 'file_number', 'start_date', 'branch_id'),
-                        'name' => $request->validated('sponsor.first_name').'  '.$request->validated('sponsor.last_name'),
+                        'name' => $request->validated('sponsor.first_name') . '  ' . $request->validated('sponsor.last_name'),
                     ]
                 );
 
@@ -64,7 +62,6 @@ class FamilyStoreController extends Controller implements HasMiddleware
 
     public function storeOrphans(CreateFamilyRequest $request, Model|Family $family, Sponsor $sponsor): void
     {
-        /** @var array<Orphan> $orphans */
         $validatedOrphans = $request->orphans;
         $babiesToCreate = [];
 

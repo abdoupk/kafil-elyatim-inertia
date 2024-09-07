@@ -28,7 +28,7 @@ function getSchools(): LengthAwarePaginator
 function getLessons(): Collection
 {
     return Event::select(['id', 'title', 'color'])
-        ->with(['occurrences' => function ($query) {
+        ->with(['occurrences' => function ($query): void {
             $query->select('id', 'event_id', 'start_date', 'end_date');
         },
         ])

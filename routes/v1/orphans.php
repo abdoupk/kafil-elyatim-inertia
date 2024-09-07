@@ -16,7 +16,7 @@ use App\Http\Controllers\V1\Orphans\OrphanUpdateSponsorshipsController;
 use App\Http\Controllers\V1\Orphans\SearchOrphansController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('orphans')->name('orphans.')->group(function () {
+Route::prefix('orphans')->name('orphans.')->group(function (): void {
     Route::get('', OrphansIndexController::class)
         ->name('index');
 

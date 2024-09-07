@@ -27,8 +27,8 @@ use App\Http\Controllers\V1\Occasions\SchoolEntry\ExportOrphansSchoolEntryXlsxCo
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SaveOrphansSchoolEntryToArchiveController;
 use App\Http\Controllers\V1\Occasions\SchoolEntry\SchoolEntryIndexController;
 
-Route::prefix('occasions')->name('occasions.')->group(function () {
-    Route::prefix('eid-al-adha')->name('eid-al-adha.')->group(function () {
+Route::prefix('occasions')->name('occasions.')->group(function (): void {
+    Route::prefix('eid-al-adha')->name('eid-al-adha.')->group(function (): void {
         Route::get('', EidAlAdhaIndexController::class)
             ->name('index');
 
@@ -41,7 +41,7 @@ Route::prefix('occasions')->name('occasions.')->group(function () {
         Route::get('save-to-archive', SaveFamiliesEidAlAdhaToArchiveController::class)->name('save-to-archive');
     });
 
-    Route::prefix('school-entry')->name('school-entry.')->group(function () {
+    Route::prefix('school-entry')->name('school-entry.')->group(function (): void {
         Route::get('', SchoolEntryIndexController::class)
             ->name('index');
 
@@ -54,7 +54,7 @@ Route::prefix('occasions')->name('occasions.')->group(function () {
         Route::get('save-to-archive', SaveOrphansSchoolEntryToArchiveController::class)->name('save-to-archive');
     });
 
-    Route::prefix('ramadan-basket')->name('ramadan-basket.')->group(function () {
+    Route::prefix('ramadan-basket')->name('ramadan-basket.')->group(function (): void {
         Route::get('', RamadanBasketIndexController::class)
             ->name('index');
 
@@ -67,7 +67,7 @@ Route::prefix('occasions')->name('occasions.')->group(function () {
         Route::get('save-to-archive', SaveFamiliesRamadanBasketToArchiveController::class)->name('save-to-archive');
     });
 
-    Route::prefix('eid-suit')->name('eid-suit.')->group(function () {
+    Route::prefix('eid-suit')->name('eid-suit.')->group(function (): void {
         Route::get('', EidSuitIndexController::class)
             ->name('index');
 
@@ -80,7 +80,7 @@ Route::prefix('occasions')->name('occasions.')->group(function () {
         Route::get('save-to-archive', SaveOrphansEidSuitToArchiveController::class)->name('save-to-archive');
     });
 
-    Route::prefix('monthly-basket')->name('monthly-basket.')->group(function () {
+    Route::prefix('monthly-basket')->name('monthly-basket.')->group(function (): void {
         Route::get('', FamiliesMonthlyBasketIndexController::class)
             ->name('index');
 
@@ -93,7 +93,7 @@ Route::prefix('occasions')->name('occasions.')->group(function () {
         Route::get('save-to-archive', SaveFamiliesMonthlyBasketToArchiveController::class)->name('save-to-archive');
     });
 
-    Route::prefix('babies-milk-and-diapers')->name('babies-milk-and-diapers.')->group(function () {
+    Route::prefix('babies-milk-and-diapers')->name('babies-milk-and-diapers.')->group(function (): void {
         Route::get('', BabyMilkAndDiapersIndexController::class)
             ->name('index');
 

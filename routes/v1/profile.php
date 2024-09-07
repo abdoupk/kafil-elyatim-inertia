@@ -8,7 +8,7 @@ use App\Http\Controllers\V1\Settings\UpdateNotificationsSettingsController;
 use App\Http\Controllers\V1\Settings\UpdateSettingsController;
 use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
-Route::prefix('profile')->name('profile.')->group(function () {
+Route::prefix('profile')->name('profile.')->group(function (): void {
     Route::get('/', [ProfileController::class, 'edit'])->name('edit');
 
     Route::patch('/', [ProfileController::class, 'update'])->name('update')->middleware([HandlePrecognitiveRequests::class]);

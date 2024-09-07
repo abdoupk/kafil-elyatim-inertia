@@ -10,7 +10,6 @@ use Inertia\Inertia;
 
 class BabyMilkAndDiapersIndexController extends Controller implements HasMiddleware
 {
-
     public function __invoke()
     {
         return Inertia::render('Tenant/occasions/babies/BabyMilkAndDiapersIndex', [
