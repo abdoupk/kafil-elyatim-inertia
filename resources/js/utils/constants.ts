@@ -3,10 +3,8 @@ import type {
     CreateFamilyForm,
     CreateFamilyStepOneProps,
     CreateFamilyStepTwoProps,
-    CreateMemberForm,
     IPlacement,
     LayoutsType,
-    RegisterForm,
     RegisterStepOneProps,
     RegisterStepThreeProps,
     RegisterStepTwoProps,
@@ -37,44 +35,6 @@ export const layouts: LayoutsType[] = ['side_menu', 'simple_menu', 'top_menu']
 // eslint-disable-next-line
 export const themes: ThemesType[] = ['enigma', 'icewall', 'tinker', 'rubick']
 
-export const associationSocialMediaLinks: { [key: string]: string } = {
-    facebook: '',
-    instagram: '',
-    twitter: ''
-}
-
-export const registerFormAttributes: RegisterForm = {
-    association: '',
-    domain: '',
-    address: '',
-    city: '',
-    first_name: '',
-    last_name: '',
-    phone: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    association_email: '',
-    landline: '',
-    cpa: '',
-    ccp: '',
-    links: associationSocialMediaLinks,
-    phones: ['']
-}
-
-export const createMemberFormAttribute: CreateMemberForm = {
-    first_name: '',
-    last_name: '',
-    email: '',
-    phone: '',
-    zone_id: '',
-    qualification: '',
-    gender: '',
-    roles: [''],
-    branch_id: '',
-    password: '',
-    password_confirmation: ''
-}
 export const createFamilyFormAttributes: CreateFamilyForm = {
     file_number: '',
     zone_id: '',
@@ -220,12 +180,6 @@ export const registerStepThreeErrorProps: RegisterStepThreeProps[] = [
     'ccp',
     'links'
 ]
-export const registerStepsTitles = [
-    'auth.register.titles.association',
-    'auth.register.titles.supervisor',
-    'auth.register.titles.association_details'
-]
-
 export const createFamilyStepsTitles = [
     'families.create_family.stepOne',
     'families.create_family.stepTwo',
