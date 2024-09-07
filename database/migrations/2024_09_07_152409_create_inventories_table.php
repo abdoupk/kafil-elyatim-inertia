@@ -2,11 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -16,6 +14,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->text('name');
             $table->integer('qty');
+            $table->enum('unit', ['kg', 'liter', 'piece']);
             $table->text('type')->nullable();
             $table->text('note')->nullable();
             $table->integer('qty_for_family')->nullable();
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes();
         });
-        DB::statement("alter table \"inventories\" add column \"unit\" item_unit not null");
     }
 
     /**

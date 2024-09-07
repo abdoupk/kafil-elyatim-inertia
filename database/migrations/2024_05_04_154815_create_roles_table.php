@@ -4,18 +4,19 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->jsonb('data')->nullable();
+        Schema::create('roles', function (Blueprint $table) {
+            $table->uuid('uuid')->primary();
+            $table->text('name');
+            $table->text('guard_name');
+            $table->uuid('tenant_id');
             $table->timestamps();
-
-            $table->index(['id'], 'idx_tenants_id');
         });
     }
 
@@ -24,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('roles');
     }
 };

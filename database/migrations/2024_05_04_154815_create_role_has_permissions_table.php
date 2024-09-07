@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tenants', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->jsonb('data')->nullable();
-            $table->timestamps();
+        Schema::create('role_has_permissions', function (Blueprint $table) {
+            $table->uuid('permission_id');
+            $table->uuid('role_id');
 
-            $table->index(['id'], 'idx_tenants_id');
+            $table->primary(['permission_id', 'role_id']);
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tenants');
+        Schema::dropIfExists('role_has_permissions');
     }
 };

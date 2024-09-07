@@ -2,11 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -15,17 +13,19 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index('idx_settings_user_id');
-            $table->jsonb('notifications')->nullable();
             $table->text('locale');
+            $table->enum('theme', ['enigma', 'icewall', 'tinker',
+                'rubick']);
+            $table->enum('color_scheme', ['default', 'theme_1',
+                'theme_2', 'theme_3', 'theme_4']);
+            $table->enum('layout', ['top_menu', 'simple_menu', 'side_menu']);
+            $table->enum('appearance', ['light', 'dark']);
+            $table->jsonb('notifications')->nullable();
             $table->uuid('tenant_id');
             $table->timestamps();
 
             $table->index(['id'], 'idx_settings_id');
         });
-        DB::statement("alter table \"settings\" add column \"theme\" theme not null");
-        DB::statement("alter table \"settings\" add column \"color_scheme\" color_scheme not null");
-        DB::statement("alter table \"settings\" add column \"layout\" layout not null");
-        DB::statement("alter table \"settings\" add column \"appearance\" appearance not null");
     }
 
     /**

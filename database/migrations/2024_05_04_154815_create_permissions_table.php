@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('domains', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->text('domain');
-            $table->uuid('tenant_id');
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->uuid('uuid')->primary();
+            $table->text('name');
+            $table->text('guard_name');
             $table->timestamps();
-
-            $table->index(['id'], 'idx_domains_id');
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('domains');
+        Schema::dropIfExists('permissions');
     }
 };

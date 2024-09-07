@@ -2,11 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,6 +16,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->timestamp('date');
             $table->uuid('tenant_id');
+            $table->enum('specification', ['drilling_wells', 'monthly_sponsorship', 'eid_el_adha', 'eid_el_fitr', 'other', 'school_entry', 'analysis', 'therapy', 'ramadan_basket']);
             $table->timestamps();
             $table->softDeletes();
             $table->uuid('created_by');
@@ -26,7 +25,6 @@ return new class extends Migration
 
             $table->index(['id'], 'idx_finances_id');
         });
-        DB::statement("alter table \"finances\" add column \"specification\" donation_specification not null");
     }
 
     /**
