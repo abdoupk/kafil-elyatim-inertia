@@ -33,7 +33,7 @@ const data = computed<ChartData>(() => {
                 data: dataset.data,
                 label: dataset.label,
                 fill: true,
-                backgroundColor: dataset.backgroundColor?.() ?? extractColor('primary', 0.1),
+                backgroundColor: dataset.backgroundColor?.() ?? extractColor('primary', 0.4),
                 borderColor: dataset.borderColor?.() ?? extractColor('primary', 0.5),
                 pointBackgroundColor: dataset.pointBackgroundColor?.() ?? extractColor('primary', 0.5),
                 pointBorderColor: darkMode.value ? getColor('#64748b', 0.3) : getColor('#cbd5e1'),
