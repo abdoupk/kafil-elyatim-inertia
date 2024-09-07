@@ -40,7 +40,6 @@ class ExportDataJob implements ShouldQueue
      */
     public function handle(): void
     {
-        sleep(50);
         $zip = new ZipArchive;
 
         $zip->open($this->path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
@@ -48,6 +47,10 @@ class ExportDataJob implements ShouldQueue
         $this->exportToExcel($zip);
 
         $this->exportOccasionsToExcel($zip);
+
+        $zip->close();
+
+        $this->cleanup();
 
         $tenant = Tenant::whereId($this->tenant)->first();
 
@@ -96,4 +99,6 @@ class ExportDataJob implements ShouldQueue
     }
 
     private function exportOccasionsToExcel(ZipArchive $zip): void {}
+
+    private function cleanup(): void {}
 }

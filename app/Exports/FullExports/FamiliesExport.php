@@ -14,7 +14,7 @@ class FamiliesExport implements FromCollection, WithEvents, WithHeadings, WithMa
 {
     public function collection(): Collection
     {
-        return Family::with(['branch', 'zone', 'spouse', 'secondSponsor', 'creator', 'sponsorships', 'housing', 'furnishings', 'preview', 'sponsor'])->get();
+        return Family::with(['branch', 'zone', 'spouse', 'secondSponsor', 'creator', 'sponsorships', 'housing', 'furnishings', 'preview', 'sponsor', 'preview'])->get();
     }
 
     public function registerEvents(): array
@@ -48,6 +48,18 @@ class FamiliesExport implements FromCollection, WithEvents, WithHeadings, WithMa
             __('sponsorships.zakat'),
             __('sponsorships.eid_al_adha'),
             __('sponsorships.housing_assistance'),
+            __('furnishings.television'),
+            __('furnishings.refrigerator'),
+            __('furnishings.fireplace'),
+            __('furnishings.wardrobe'),
+            __('furnishings.washing_machine'),
+            __('furnishings.water_heater'),
+            __('furnishings.oven'),
+            __('furnishings.cupboard'),
+            __('furnishings.mattresses'),
+            __('furnishings.other_furnishings'),
+            __('the_report'),
+            __('preview_date'),
             __('created_by'),
         ];
     }
@@ -74,6 +86,18 @@ class FamiliesExport implements FromCollection, WithEvents, WithHeadings, WithMa
             $row->sponsorships->zakat ? __('yes') : __('no'),
             $row->sponsorships->eid_al_adha ? __('yes') : __('no'),
             $row->sponsorships->housing_assistance ? __('yes') : __('no'),
+            $row->furnishings->television,
+            $row->furnishings->refrigerator,
+            $row->furnishings->fireplace,
+            $row->furnishings->wardrobe,
+            $row->furnishings->washing_machine,
+            $row->furnishings->water_heater,
+            $row->furnishings->oven,
+            $row->furnishings->cupboard,
+            $row->furnishings->mattresses,
+            $row->furnishings->other_furnishings,
+            $row->preview->report,
+            $row->preview->preview_date->format('Y-m-d'),
             $row->creator?->getName(),
         ];
     }
