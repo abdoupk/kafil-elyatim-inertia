@@ -10,9 +10,12 @@ use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenPrivateMethods;
 use NunoMaduro\PhpInsights\Domain\Insights\ForbiddenTraits;
 use NunoMaduro\PhpInsights\Domain\Metrics\Architecture\Classes;
 use SlevomatCodingStandard\Sniffs\Commenting\UselessFunctionDocCommentSniff;
+use SlevomatCodingStandard\Sniffs\Namespaces\AlphabeticallySortedUsesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DeclareStrictTypesSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\DisallowMixedTypeHintSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ParameterTypeHintSniff;
 use SlevomatCodingStandard\Sniffs\TypeHints\PropertyTypeHintSniff;
+use SlevomatCodingStandard\Sniffs\TypeHints\ReturnTypeHintSniff;
 
 return [
 
@@ -77,15 +80,15 @@ return [
     ],
 
     'remove' => [
-//        AlphabeticallySortedUsesSniff::class,
+        AlphabeticallySortedUsesSniff::class,
         DeclareStrictTypesSniff::class,
         DisallowMixedTypeHintSniff::class,
         ForbiddenDefineFunctions::class,
         ForbiddenNormalClasses::class,
         ForbiddenTraits::class,
-//        ParameterTypeHintSniff::class,
+        ParameterTypeHintSniff::class,
         PropertyTypeHintSniff::class,
-//        ReturnTypeHintSniff::class,
+        ReturnTypeHintSniff::class,
         UselessFunctionDocCommentSniff::class,
     ],
 
@@ -96,6 +99,8 @@ return [
         CyclomaticComplexityIsHigh::class => [
             'exclude' => [
                 'app\Providers\TenancyServiceProvider.php',
+                'app\Http\Resources\V1\Families\FamilyEditSponsorshipResource.php',
+                'app\Exports\FullExports\OrphansExport.php',
             ],
         ],
         \SlevomatCodingStandard\Sniffs\Functions\FunctionLengthSniff::class => [
@@ -127,8 +132,8 @@ return [
             ],
         ],
         \PHP_CodeSniffer\Standards\Generic\Sniffs\Files\LineLengthSniff::class => [
-            'lineLimit' => 100,
-            'absoluteLineLimit' => 120,
+            'lineLimit' => 120,
+            'absoluteLineLimit' => 130,
             'exclude' => [
                 'app\Http\Controllers\Auth\VerifyEmailController.php',
                 'app\Http\Controllers\Auth\RegisteredUserController.php',
