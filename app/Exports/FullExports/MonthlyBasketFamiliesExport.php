@@ -6,17 +6,18 @@ use App\Models\Archive;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class OccasionsFamiliesExport implements FromCollection, WithEvents, WithHeadings, WithMapping
+class MonthlyBasketFamiliesExport implements FromCollection, WithEvents, WithMultipleSheets
 {
-    public function __construct(public string $occasion) {}
+    public function __construct(public int $year) {}
 
     public function collection(): Collection
     {
-        return Archive::all();
+        return Archive::whereOccasion('monthly_basket')
+            ->whereYear('created_at', $this->year)
+            ->get();
     }
 
     public function registerEvents(): array
@@ -28,13 +29,14 @@ class OccasionsFamiliesExport implements FromCollection, WithEvents, WithHeading
         ];
     }
 
-    public function headings(): array
+    public function sheets(): array
     {
-        // TODO: Implement headings() method.
-    }
+        $sheets = [];
 
-    public function map($row): array
-    {
-        // TODO: Implement map() method.
+        for ($month = 1; $month <= 12; $month++) {
+            $sheets[] = new MonthlyBasketPerMonthSheet($this->year, $month);
+        }
+
+        return $sheets;
     }
 }

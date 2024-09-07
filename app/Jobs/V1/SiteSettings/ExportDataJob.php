@@ -3,17 +3,20 @@
 namespace App\Jobs\V1\SiteSettings;
 
 use App\Exports\FullExports\BabiesExport;
+use App\Exports\FullExports\BabiesMilkAndDiapersListExport;
 use App\Exports\FullExports\BranchesExport;
 use App\Exports\FullExports\FamiliesExport;
 use App\Exports\FullExports\FinanceTransactionsExport;
 use App\Exports\FullExports\InventoryExport;
 use App\Exports\FullExports\LessonsExport;
+use App\Exports\FullExports\MonthlyBasketFamiliesExport;
 use App\Exports\FullExports\NeedsExport;
 use App\Exports\FullExports\OrphansExport;
 use App\Exports\FullExports\SchoolsExport;
 use App\Exports\FullExports\SponsorsExport;
 use App\Exports\FullExports\UsersExport;
 use App\Exports\FullExports\ZonesExport;
+use App\Models\Archive;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Notifications\SiteSettings\ExportCompleteNotification;
@@ -44,11 +47,13 @@ class ExportDataJob implements ShouldQueue
 
         $zip->open($this->path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-        $this->exportToExcel($zip);
+        //        $this->exportToExcel($zip);
 
-        $this->exportOccasionsToExcel($zip);
+        $this->addYearsDirsToArchive($zip);
 
-        $zip->close();
+        $this->exportBabiesMilkAndDiapers($zip);
+
+        $this->exportMonthlyBasketFamiliesList($zip);
 
         $this->cleanup();
 
@@ -63,6 +68,58 @@ class ExportDataJob implements ShouldQueue
             )
         );
     }
+
+    private function addYearsDirsToArchive(ZipArchive $zipArchive): void
+    {
+        $years = Archive::whereOccasion('monthly_basket')
+            ->orWhere('occasion', '=', 'babies_milk_and_diapers')
+            ->selectRaw('EXTRACT(YEAR FROM created_at) as year')
+            ->get()->pluck('year')->toArray();
+
+        foreach ($years as $year) {
+            $zipArchive->addEmptyDir($year);
+        }
+    }
+
+    /**
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    private function exportBabiesMilkAndDiapers(ZipArchive $zip): void
+    {
+        $years = Archive::whereOccasion('babies_milk_and_diapers')
+            ->selectRaw('EXTRACT(YEAR FROM created_at) as year')
+            ->get()->pluck('year')->toArray();
+
+        foreach ($years as $year) {
+            $fileName = "$year/".__('exports.babies_milk_and_diapers').'.xlsx';
+
+            Excel::store(new BabiesMilkAndDiapersListExport($year), $fileName);
+
+            $zip->addFile(Storage::path($fileName), $fileName);
+        }
+    }
+
+    /**
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    private function exportMonthlyBasketFamiliesList(ZipArchive $zipArchive): void
+    {
+        $years = Archive::whereOccasion('monthly_basket')
+            ->selectRaw('EXTRACT(YEAR FROM created_at) as year')
+            ->get()->pluck('year')->toArray();
+
+        foreach ($years as $year) {
+            $fileName = "$year/".__('the_families_monthly_basket').'.xlsx';
+
+            Excel::store(new MonthlyBasketFamiliesExport($year), $fileName);
+
+            $zipArchive->addFile(Storage::path($fileName), $fileName);
+        }
+    }
+
+    private function cleanup(): void {}
 
     /**
      * @throws Exception
@@ -91,14 +148,10 @@ class ExportDataJob implements ShouldQueue
             $zipArchive->addFile(Storage::path($fileName), $fileName);
         }
 
-        $zipArchive->close();
-
         foreach ($files as $fileName => $export) {
             Storage::delete($fileName);
         }
     }
 
     private function exportOccasionsToExcel(ZipArchive $zip): void {}
-
-    private function cleanup(): void {}
 }

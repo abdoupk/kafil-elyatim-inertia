@@ -14,7 +14,7 @@ class InventoryExport implements FromCollection, WithEvents, WithHeadings, WithM
 {
     public function collection(): Collection
     {
-        return Inventory::all();
+        return Inventory::with(['creator'])->get();
     }
 
     public function registerEvents(): array

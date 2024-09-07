@@ -6,23 +6,21 @@ use App\Models\Archive;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class BabiesMilkAndDiapersListExport implements FromCollection, WithEvents, WithHeadings, WithMapping
+class BabiesMilkAndDiapersListExport implements FromCollection, WithEvents, WithMultipleSheets
 {
+    public function __construct(public int $year) {}
+
     public function collection(): Collection
     {
-        return Archive::where('occasion', 'babies_milk_and_diapers')->get();
+        return Archive::where('occasion', 'babies_milk_and_diapers')
+            ->whereYear('created_at', $this->year)
+            ->get();
     }
 
     public function registerEvents(): array
-    {
-        // TODO: Implement registerEvents() method.
-    }
-
-    public function headings(): array
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
@@ -31,8 +29,14 @@ class BabiesMilkAndDiapersListExport implements FromCollection, WithEvents, With
         ];
     }
 
-    public function map($row): array
+    public function sheets(): array
     {
-        // TODO: Implement map() method.
+        $sheets = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+            $sheets[] = new BabiesMilkAndDiapersPerMonthSheet($this->year, $month);
+        }
+
+        return $sheets;
     }
 }
