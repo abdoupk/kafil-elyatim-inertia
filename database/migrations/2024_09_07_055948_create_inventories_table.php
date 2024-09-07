@@ -26,7 +26,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes();
         });
-        DB::statement("alter table \"inventories\" add column \"unit\" item_unit not null");
+        DB::statement('alter table "inventories" add column "unit" item_unit not null');
     }
 
     /**

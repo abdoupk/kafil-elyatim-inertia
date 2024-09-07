@@ -2,27 +2,9 @@
 
 namespace App\Models;
 
-use Eloquent;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Sushi\Sushi;
 
-/**
- * @property int $id
- * @property string|null $en_name
- * @property string|null $ar_name
- * @property string|null $fr_name
- *
- * @method static Builder|Subject newModelQuery()
- * @method static Builder|Subject newQuery()
- * @method static Builder|Subject query()
- * @method static Builder|Subject whereArName($value)
- * @method static Builder|Subject whereEnName($value)
- * @method static Builder|Subject whereFrName($value)
- * @method static Builder|Subject whereId($value)
- *
- * @mixin Eloquent
- */
 class Subject extends Model
 {
     use Sushi;

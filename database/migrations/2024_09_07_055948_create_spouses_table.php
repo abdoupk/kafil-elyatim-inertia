@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('birth_date')->index('idx_spouses_birth_date');
             $table->date('death_date')->index('idx_spouses_death_date');
             $table->text('function')->index('idx_spouses_function');
-            $table->float('income')->index('idx_spouses_income');
+            $table->float('income')->nullable()->index('idx_spouses_income');
             $table->uuid('family_id')->index('idx_spouses_family_id');
             $table->text('tenant_id')->index('idx_spouses_tenant_id');
             $table->timestamps();

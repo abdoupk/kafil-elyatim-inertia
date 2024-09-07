@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('note')->nullable();
             $table->integer('year');
             $table->integer('vocational_training_id');
-            $table->text('institute');
+            $table->text('institute')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

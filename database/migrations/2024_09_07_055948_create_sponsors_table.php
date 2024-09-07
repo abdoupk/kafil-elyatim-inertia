@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('sponsors', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('first_name');
-            $table->text('last_name');
+            $table->text('first_name')->nullable();
+            $table->text('last_name')->nullable();
             $table->text('phone_number');
             $table->text('sponsor_type');
             $table->date('birth_date');
             $table->text('father_name');
             $table->text('mother_name');
-            $table->text('birth_certificate_number');
+            $table->text('birth_certificate_number')->nullable();
             $table->integer('academic_level_id');
-            $table->text('function');
+            $table->text('function')->nullable();
             $table->text('health_status');
             $table->text('diploma')->nullable();
             $table->boolean('is_unemployed');
