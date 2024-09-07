@@ -72,7 +72,7 @@ const setActiveMobileMenu = (value: boolean) => {
             <Link :href="route('tenant.dashboard')" class="me-auto flex">
                 <img alt="Tinker Starter" class="w-6" src="/images/logo.svg" />
             </Link>
-            
+
             <a href="#" @click="(e) => e.preventDefault()">
                 <svg-loader
                     class="h-6 w-6 transform text-white ltr:-rotate-180"

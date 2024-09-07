@@ -38,7 +38,7 @@ const showNeedCreateModal = () => {
             <div class="relative flex items-center p-5">
                 <div class="me-auto ms-4">
                     <div class="text-base font-bold">{{ name }}</div>
-                    
+
                     <Link
                         :href="route('tenant.members.index') + '?show=' + sponsor.creator?.id"
                         class="font-semibold text-slate-500"

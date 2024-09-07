@@ -30,7 +30,7 @@ defineProps<{
 
 <template>
     <Head :title="$t('breadcrumb.profile')"></Head>
-    
+
     <div class="intro-y mt-8 flex items-center">
         <h2 class="me-auto text-lg font-medium ltr:capitalize">{{ $t('breadcrumb.profile') }}</h2>
     </div>

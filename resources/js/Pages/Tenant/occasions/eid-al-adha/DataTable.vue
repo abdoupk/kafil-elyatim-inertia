@@ -14,7 +14,7 @@ import { formatCurrency } from '@/utils/helper'
 
 defineProps<{ families: PaginationData<EidAlAdhaFamiliesResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+const emit = defineEmits(['sort'])
 </script>
 
 <template>

@@ -7,12 +7,13 @@ import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
-defineProps<{ orphans: PaginationData<EidSuitOrphansResource>; params: IndexParams }>()
+import { $t, $tc } from '@/utils/i18n'
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+defineProps<{ orphans: PaginationData<EidSuitOrphansResource>; params: IndexParams }>()
 </script>
 
 <template>
@@ -23,48 +24,23 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                     <base-tr-table>
                         <the-table-th class="text-start"> #</the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.name']"
-                            class="text-start"
-                            sortable
-                            @click="emit('sort', 'orphan.name')"
-                        >
+                        <the-table-th class="text-start">
                             {{ $t('the_child') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.pants_size']"
-                            class="text-center"
-                            sortable
-                            @click="emit('sort', 'orphan.pants_size')"
-                        >
+                        <the-table-th class="text-center">
                             {{ $t('pants_size') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.shoes_size']"
-                            class="text-center"
-                            sortable
-                            @click="emit('sort', 'orphan.shoes_size')"
-                        >
+                        <the-table-th class="text-center">
                             {{ $t('shoes_size') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.shirt_size']"
-                            class="text-center"
-                            sortable
-                            @click="emit('sort', 'orphan.shirt_size')"
-                        >
+                        <the-table-th class="text-center">
                             {{ $t('shirt_size') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['sponsor.name']"
-                            class="text-start"
-                            sortable
-                            @click="emit('sort', 'sponsor.name')"
-                        >
+                        <the-table-th class="text-start">
                             {{ $t('the_sponsor') }}
                         </the-table-th>
 
@@ -112,7 +88,7 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
 
                         <the-table-td class="max-w-40 truncate">
                             {{ orphan.family.address }}
-                          
+
                             <Link
                                 :href="route('tenant.zones.index') + `?show=${orphan.family.zone?.id}`"
                                 class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
@@ -130,39 +106,62 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
-                            {{ orphan.name }}
+                            <Link :href="route('tenant.orphans.show', orphan.orphan.id)" class="font-medium">
+                                {{ orphan.orphan.name }}
+                            </Link>
                         </div>
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ orphan.file_number }}
+                            <span v-if="orphan.orphan.age > 0">{{
+                                $tc('age_years', orphan.orphan.age, { count: String(orphan.orphan.age) })
+                            }}</span>
+
+                            <span v-else> {{ $t('low_than_one_year') }}</span>
                         </div>
                     </div>
-                    <div class="mt-6 flex">
-                        <div class="w-3/4">
-                            <p class="truncate">{{ orphan.address }}</p>
-                            <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ orphan.zone?.name }}
-                            </div>
-                            <div
-                                class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                    <div class="mt-6 grid grid-cols-12 gap-2">
+                        <p class="col-span-12 text-base">
+                            <Link
+                                v-if="orphan.sponsor.id"
+                                :href="route('tenant.sponsors.show', orphan.sponsor.id)"
+                                class="font-medium rtl:font-semibold"
                             >
-                                {{ orphan.start_date }}
+                                {{ orphan.sponsor?.name }}
+                            </Link>
+                        </p>
+
+                        <div class="col-span-12 mt-2 grid grid-cols-12 gap-2">
+                            <div class="col-span-12 grid grid-cols-12 gap-2">
+                                <p class="col-span-4 rtl:font-semibold">{{ $t('shoes_size') }}</p>
+
+                                <p class="col-span-8">
+                                    {{ orphan.orphan.shoes_size }}
+                                </p>
+                            </div>
+
+                            <div class="col-span-12 grid grid-cols-12 gap-2">
+                                <p class="col-span-4 rtl:font-semibold">{{ $t('shirt_size') }}</p>
+
+                                <p class="col-span-8">
+                                    {{ orphan.orphan.shirt_size }}
+                                </p>
+                            </div>
+
+                            <div class="col-span-12 grid grid-cols-12 gap-2">
+                                <p class="col-span-4 rtl:font-semibold">{{ $t('pants_size') }}</p>
+
+                                <p class="col-span-8">
+                                    {{ orphan.orphan.pants_size }}
+                                </p>
                             </div>
                         </div>
-                        <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.orphans.show', orphan.id)"
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
-                            </Link>
-                            <a
-                                class="font-semibold text-danger"
-                                href="javascript:void(0)"
-                                @click="emit('showDeleteModal', orphan.id)"
-                            >
-                                {{ $t('delete') }}
-                            </a>
+                        <div
+                            class="mt-2 flex h-fit w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
+                        >
+                            <base-tippy :content="$t('sponsor_phone_number')">
+                                {{ orphan.sponsor?.phone_number }}
+                            </base-tippy>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
@@ -97,27 +97,31 @@
         }
 
         .text-lg {
-            font-size: 1.125rem /* 18px */;
-            line-height: 1.75rem /* 28px */;
+            font-size: 1.125rem
+                /* 18px */
+            ;
+            line-height: 1.75rem
+                /* 28px */
+            ;
         }
     </style>
 </head>
 
 <body>
-<h2 class="mt-4 text-lg font-medium rtl:font-semibold text-center"> {{$title}}
-</h2>
+    <h2 class="mt-4 text-lg font-medium rtl:font-semibold text-center"> {{ $title }}
+    </h2>
 
-<table class="w-full table border-black text-black">
-    <thead>
-    <tr>
-        {{ $thead }}
-    </tr>
-    </thead>
+    <table class="w-full table border-black text-black">
+        <thead>
+            <tr>
+                {{ $thead }}
+            </tr>
+        </thead>
 
-    <tbody>
-    {{ $tbody }}
-    </tbody>
-</table>
+        <tbody>
+            {{ $tbody }}
+        </tbody>
+    </table>
 </body>
 
 </html>

@@ -15,7 +15,7 @@ import { $t } from '@/utils/i18n'
 
 defineProps<{ orphans: PaginationData<BabiesMilkAndDiapersResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+const emit = defineEmits(['sort'])
 </script>
 
 <template>

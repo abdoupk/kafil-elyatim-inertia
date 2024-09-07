@@ -10,7 +10,6 @@ import { computed } from 'vue'
 
 import { $t, getLocale } from '@/utils/i18n'
 
-
 const downloadFile = (url: string, filename: string) => {
     const a = document.createElement('a')
     a.href = url

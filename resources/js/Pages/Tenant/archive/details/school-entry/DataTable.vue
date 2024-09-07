@@ -10,9 +10,9 @@ import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
 import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
 import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
-defineProps<{ orphans: PaginationData<SchoolEntryOrphansResource>; params: IndexParams }>()
+import { $t } from '@/utils/i18n'
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+defineProps<{ orphans: PaginationData<SchoolEntryOrphansResource>; params: IndexParams }>()
 </script>
 
 <template>
@@ -23,39 +23,19 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                     <base-tr-table>
                         <the-table-th class="text-start"> #</the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.name']"
-                            class="text-start"
-                            sortable
-                            @click="emit('sort', 'orphan.name')"
-                        >
+                        <the-table-th class="text-start">
                             {{ $t('the_child') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.academic_level']"
-                            class="text-start"
-                            sortable
-                            @click="emit('sort', 'orphan.academic_level')"
-                        >
+                        <the-table-th class="text-start">
                             {{ $t('academic_level') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['orphan.year_average']"
-                            class="text-center"
-                            sortable
-                            @click="emit('sort', 'orphan.year_average')"
-                        >
+                        <the-table-th class="text-center">
                             {{ $t('year_average') }}
                         </the-table-th>
 
-                        <the-table-th
-                            :direction="params.directions && params.directions['sponsor.name']"
-                            class="text-start"
-                            sortable
-                            @click="emit('sort', 'sponsor.name')"
-                        >
+                        <the-table-th class="text-start">
                             {{ $t('the_sponsor') }}
                         </the-table-th>
 
@@ -132,34 +112,27 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         <div
                             class="ms-auto flex cursor-pointer items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs text-slate-500 dark:bg-darkmode-400"
                         >
-                            {{ orphan.file_number }}
+                            {{ orphan.orphan.last_year_average }}
                         </div>
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-3/4">
-                            <p class="truncate">{{ orphan.address }}</p>
+                            <p class="truncate">
+                                {{ orphan.sponsor.name }}
+
+                                <span v-if="orphan.sponsor.phone_number" dir="ltr"
+                                    >({{ orphan.sponsor.phone_number }})</span
+                                >
+                            </p>
+
                             <div class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-                                {{ orphan.zone?.name }}
+                                {{ orphan.family.address }}
                             </div>
                             <div
                                 class="mt-2 flex w-fit items-center truncate rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-400/80 dark:bg-darkmode-400"
                             >
-                                {{ orphan.start_date }}
+                                {{ orphan.orphan.academic_level }} ({{ orphan.orphan.academic_phase }})
                             </div>
-                        </div>
-                        <div class="flex w-1/4 items-center justify-end">
-                            <Link
-                                :href="route('tenant.orphans.show', orphan.id)"
-                                class="me-2 font-semibold text-slate-500 dark:text-slate-400"
-                                >{{ $t('edit') }}
-                            </Link>
-                            <a
-                                class="font-semibold text-danger"
-                                href="javascript:void(0)"
-                                @click="emit('showDeleteModal', orphan.id)"
-                            >
-                                {{ $t('delete') }}
-                            </a>
                         </div>
                     </div>
                 </div>

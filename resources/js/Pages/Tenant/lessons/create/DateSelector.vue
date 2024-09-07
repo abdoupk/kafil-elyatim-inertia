@@ -35,8 +35,6 @@ const date = ref(props.date)
 const setTimes = (value: string | Date) => {
     const formattedDate = setDateToCurrentTime(value)
 
-    console.log(formattedDate)
-
     startDate.value = formattedDate.toDate()
 
     endDate.value = formattedDate.add(1, 'hour').toDate()

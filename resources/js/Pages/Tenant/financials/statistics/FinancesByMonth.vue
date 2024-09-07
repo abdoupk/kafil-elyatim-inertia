@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { FinancesByMonthType } from '@/types/statistics'
 
-import { router } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
 import TheNoDataChart from '@/Components/Global/TheNoDataChart.vue'
@@ -15,20 +14,6 @@ const ReportLineChart = defineAsyncComponent(
 defineProps<{
     financesByMonth: FinancesByMonthType
 }>()
-
-const handleChange = (specification: string) => {
-    router.get(
-        route('tenant.financial.statistics'),
-        {
-            specification
-        },
-        {
-            preserveState: true,
-            preserveScroll: true,
-            only: ['financesByMonth']
-        }
-    )
-}
 </script>
 
 <template>

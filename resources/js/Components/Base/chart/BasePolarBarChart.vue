@@ -22,8 +22,6 @@ const colors = computed(() => {
     return colorPalette[darkMode.value ? 'dark' : 'light']
 })
 
-console.log(getColor('#475569', 0.8))
-
 const data = computed<ChartData>(() => {
     return {
         labels: props.labels,

@@ -82,7 +82,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeydown))
                     @blur="
                         () => {
                             querySearch = ''
-                            
+
                             selectedOption = null
                         }
                     "

@@ -16,7 +16,7 @@ import { $t } from '@/utils/i18n'
 
 defineProps<{ families: PaginationData<RamadanBasketFamiliesResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+const emit = defineEmits(['sort'])
 </script>
 
 <template>

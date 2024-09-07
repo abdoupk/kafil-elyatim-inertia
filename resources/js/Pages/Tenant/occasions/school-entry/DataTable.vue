@@ -12,7 +12,7 @@ import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 
 defineProps<{ orphans: PaginationData<SchoolEntryOrphansResource>; params: IndexParams }>()
 
-const emit = defineEmits(['sort', 'showDeleteModal'])
+const emit = defineEmits(['sort'])
 </script>
 
 <template>

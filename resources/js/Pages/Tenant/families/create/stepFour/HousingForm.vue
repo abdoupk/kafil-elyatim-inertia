@@ -95,11 +95,12 @@ onMounted(() => {
     <div class="intro-x mt-6">
         <div class="flex gap-16">
             <base-form-switch class="text-lg">
+                <!-- @vue-ignore -->
                 <base-form-switch-input
                     id="independent"
                     :checked="housingType?.name === 'independent' && housingType?.value === true"
                     type="checkbox"
-                    @change="(event: Event) => toggle('independent', (event.target as HTMLInputElement).checked)"
+                    @change="(event) => toggle('independent', event.target.checked)"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="independent">
@@ -131,11 +132,12 @@ onMounted(() => {
     <div class="intro-x mt-6">
         <div class="flex gap-16">
             <base-form-switch class="text-lg">
+                <!-- @vue-ignore -->
                 <base-form-switch-input
                     id="with_family"
                     :checked="housingType?.name === 'with_family' && housingType?.value === true"
                     type="checkbox"
-                    @change="(event: Event) => toggle('with_family', (event.target as HTMLInputElement).checked)"
+                    @change="(event) => toggle('with_family', event.target.checked)"
                 ></base-form-switch-input>
 
                 <base-form-switch-label htmlFor="with_family">
