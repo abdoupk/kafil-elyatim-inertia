@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\V1\VocationalTrainingAchievements;
 
+use App\Models\VocationalTrainingAchievement;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\vocationalTrainingAchievement */
+/** @mixin VocationalTrainingAchievement */
 class VocationalTrainingAchievementShowResource extends JsonResource
 {
     public function toArray(Request $request): array

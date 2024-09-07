@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
-class vocationalTrainingAchievement extends Model
+class VocationalTrainingAchievement extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, SoftDeletes;
 

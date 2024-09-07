@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\vocationalTrainingAchievement;
+use App\Models\VocationalTrainingAchievement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class vocationalTrainingAchievementFactory extends Factory
+class VocationalTrainingAchievementFactory extends Factory
 {
-    protected $model = vocationalTrainingAchievement::class;
+    protected $model = VocationalTrainingAchievement::class;
 
     public function definition(): array
     {
