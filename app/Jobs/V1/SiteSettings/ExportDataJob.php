@@ -47,7 +47,7 @@ class ExportDataJob implements ShouldQueue
 
         $zip->open($this->path, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-        //        $this->exportToExcel($zip);
+        $this->exportToExcel($zip);
 
         $this->addYearsDirsToArchive($zip);
 
@@ -67,6 +67,34 @@ class ExportDataJob implements ShouldQueue
                 tenant: $tenant
             )
         );
+    }
+
+    /**
+     * @throws Exception
+     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
+     */
+    private function exportToExcel(ZipArchive $zipArchive): void
+    {
+        $files = [
+            __('the_members').'.xlsx' => new UsersExport,
+            __('the_zones').'.xlsx' => new ZonesExport,
+            __('the_branches').'.xlsx' => new BranchesExport,
+            __('the_orphans').'.xlsx' => new OrphansExport,
+            __('the_sponsors').'.xlsx' => new SponsorsExport,
+            __('the_families').'.xlsx' => new FamiliesExport,
+            __('the_schools').'.xlsx' => new SchoolsExport,
+            __('the_lessons').'.xlsx' => new LessonsExport,
+            __('the_needs').'.xlsx' => new NeedsExport,
+            __('search.babies').'.xlsx' => new BabiesExport,
+            __('the_inventory').'.xlsx' => new InventoryExport,
+            __('exports.transactions').'.xlsx' => new FinanceTransactionsExport,
+        ];
+
+        foreach ($files as $fileName => $export) {
+            Excel::store($export, $fileName);
+
+            $zipArchive->addFile(Storage::path($fileName), $fileName);
+        }
     }
 
     private function addYearsDirsToArchive(ZipArchive $zipArchive): void
@@ -121,37 +149,5 @@ class ExportDataJob implements ShouldQueue
 
     private function cleanup(): void {}
 
-    /**
-     * @throws Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
-    private function exportToExcel(ZipArchive $zipArchive): void
-    {
-        $files = [
-            __('the_members').'.xlsx' => new UsersExport,
-            __('the_zones').'.xlsx' => new ZonesExport,
-            __('the_branches').'.xlsx' => new BranchesExport,
-            __('the_orphans').'.xlsx' => new OrphansExport,
-            __('the_sponsors').'.xlsx' => new SponsorsExport,
-            __('the_families').'.xlsx' => new FamiliesExport,
-            __('the_schools').'.xlsx' => new SchoolsExport,
-            __('the_lessons').'.xlsx' => new LessonsExport,
-            __('the_needs').'.xlsx' => new NeedsExport,
-            __('search.babies').'.xlsx' => new BabiesExport,
-            __('the_inventory').'.xlsx' => new InventoryExport,
-            __('exports.transactions').'.xlsx' => new FinanceTransactionsExport,
-        ];
-
-        foreach ($files as $fileName => $export) {
-            Excel::store($export, $fileName);
-
-            $zipArchive->addFile(Storage::path($fileName), $fileName);
-        }
-
-        foreach ($files as $fileName => $export) {
-            Storage::delete($fileName);
-        }
-    }
-
-    private function exportOccasionsToExcel(ZipArchive $zip): void {}
+    private function exportRamadanBasketFamiliesToExcel(ZipArchive $zip): void {}
 }
