@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import type { FamilyShowType } from '@/types/families'
 
+import { Head } from '@inertiajs/vue3'
 import { defineAsyncComponent, provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+import { $t } from '@/utils/i18n'
 
 const FamilyMenu = defineAsyncComponent(() => import('@/Pages/Tenant/families/details/FamilyMenu.vue'))
 
@@ -63,6 +66,8 @@ provide('familyDetailView', { view, updateView })
 </script>
 
 <template>
+    <Head :title="$t('family details')"></Head>
+
     <suspense>
         <div>
             <div class="intro-y mt-8 flex items-center">

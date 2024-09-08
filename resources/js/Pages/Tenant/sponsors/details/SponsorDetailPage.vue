@@ -1,11 +1,14 @@
 <script lang="ts" setup>
 import type { SponsorShowType } from '@/types/sponsors'
 
+import { Head } from '@inertiajs/vue3'
 import { defineAsyncComponent, provide, ref } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
 import TheContentLoader from '@/Components/Global/theContentLoader.vue'
+
+import { $t } from '@/utils/i18n'
 
 const GeneralInformation = defineAsyncComponent(() => import('@/Pages/Tenant/sponsors/details/GeneralInformation.vue'))
 
@@ -35,11 +38,13 @@ provide('sponsorDetailView', { view, updateView })
 </script>
 
 <template>
+    <Head :title="$t('sponsor details')"></Head>
+
     <suspense>
         <div>
             <div class="intro-y mt-8 flex items-center">
                 <h2 class="me-auto text-lg font-medium ltr:capitalize">
-                    {{ $t('family details') }}
+                    {{ $t('sponsor details') }}
                 </h2>
             </div>
 

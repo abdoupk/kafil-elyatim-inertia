@@ -48,7 +48,7 @@ class EidAlAdhaFamiliesListExport implements WithEvents, FromCollection, WithHea
             trans('the_zone'),
             trans('the_branch'),
             trans('incomes.label.total_income'),
-            trans('income_rate')
+            trans('income_rate'),
         ];
     }
 }

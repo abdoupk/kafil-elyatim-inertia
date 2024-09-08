@@ -34,7 +34,7 @@ class EidSuitOrphansListExport implements WithEvents, FromCollection, WithHeadin
                             'age_years',
                             $orphan->birth_date->age,
                             [
-                                'count' => $orphan->birth_date->age
+                                'count' => $orphan->birth_date->age,
                             ]
                         ),
                         __($orphan->gender),

@@ -50,8 +50,8 @@ function getStatisticsForDashboardReport($table, $currentMonth, $currentYear, $p
         ->first();
 
     return [
-        'total' => (int)$result?->total_count,
-        'percentageDifference' => (int)$result?->previous_month_count === 0 ? 0 : number_format(($result?->current_month_count - $result?->previous_month_count) / $result?->previous_month_count * 100),
+        'total' => (int) $result?->total_count,
+        'percentageDifference' => (int) $result?->previous_month_count === 0 ? 0 : number_format(($result?->current_month_count - $result?->previous_month_count) / $result?->previous_month_count * 100),
     ];
 }
 

@@ -34,12 +34,12 @@ class SchoolEntryOrphansListExport implements WithEvents, FromCollection, WithHe
                             'age_years',
                             $orphan->birth_date->age,
                             [
-                                'count' => $orphan->birth_date->age
+                                'count' => $orphan->birth_date->age,
                             ]
                         ),
                         __($orphan->gender),
                         $orphan->academicLevel?->level,
-                        $orphan->lastAcademicYearAchievement?->average
+                        $orphan->lastAcademicYearAchievement?->average,
                     ];
                 });
         });
@@ -54,7 +54,7 @@ class SchoolEntryOrphansListExport implements WithEvents, FromCollection, WithHe
             trans('age'),
             trans('filters.gender'),
             trans('academic_level'),
-            trans('general_average')
+            trans('general_average'),
         ];
     }
 }

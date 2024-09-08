@@ -11,6 +11,11 @@ use Inertia\Response;
 
 class FamilyShowController extends Controller implements HasMiddleware
 {
+    public static function middleware()
+    {
+        return ['can:view_families'];
+    }
+
     public function __invoke(Family $family): Response
     {
         return Inertia::render(
@@ -22,7 +27,8 @@ class FamilyShowController extends Controller implements HasMiddleware
                         'orphans.academicLevel',
                         'orphans.shoesSize',
                         'orphans.pantsSize',
-                        'orphans.babyNeeds',
+                        'orphans.babyNeeds.babyMilk',
+                        'orphans.babyNeeds.diapers',
                         'orphans.shirtSize',
                         'furnishings',
                         'housing',
@@ -40,9 +46,5 @@ class FamilyShowController extends Controller implements HasMiddleware
                 )),
             ]
         );
-    }
-    public static function middleware()
-    {
-        return ['can:view_families'];
     }
 }

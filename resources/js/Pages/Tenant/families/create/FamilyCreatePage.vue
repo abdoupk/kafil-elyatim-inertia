@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Head, router } from '@inertiajs/vue3'
 import type {
     CreateFamilyForm,
     CreateFamilyStepOneProps,
@@ -21,9 +22,8 @@ import {
     createFamilyStepThreeErrorProps,
     createFamilyStepTwoErrorProps
 } from '@/utils/constants'
-
-import { router } from '@inertiajs/vue3'
 import StepLoader from '@/Pages/Tenant/families/create/StepLoader.vue'
+import { $t, $tc } from '@/utils/i18n'
 
 const StepOne = defineAsyncComponent(() => import('@/Pages/Tenant/families/create/stepOne/StepOne.vue'))
 
@@ -89,7 +89,7 @@ const StepSix = defineAsyncComponent({
     loader: () => import('@/Pages/Tenant/families/create/stepSix/StepSix.vue')
 })
 
-const currentStep = ref(6)
+const currentStep = ref(1)
 
 const totalSteps = 6
 
@@ -276,6 +276,8 @@ const submit = () => {
 </script>
 
 <template>
+    <Head :title="$tc('add new',0,{attribute:$t('family')})"></Head>
+
     <div>
         <div class="mx-auto flex-col content-center py-5">
             <div class="intro-y box py-10">
