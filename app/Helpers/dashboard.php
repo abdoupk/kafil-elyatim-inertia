@@ -46,12 +46,12 @@ function getStatisticsForDashboardReport($table, $currentMonth, $currentYear, $p
              (SELECT COUNT(*) FROM {$table} where (tenant_id = ?) and deleted_at is null) AS total_count,
         (SELECT COUNT(*) FROM {$table} WHERE EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ? AND (tenant_id = ?))  AS current_month_count,
         (SELECT COUNT(*) FROM {$table} WHERE EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ? AND (tenant_id = ?))  AS previous_month_count
-    ", [auth()->user()->tenant_id, $currentMonth, $currentYear, auth()->user()->tenant_id, $previousMonth, $previousYear, auth()->user()->tenant_id])
+    ", [tenant('id'), $currentMonth, $currentYear, tenant('id'), $previousMonth, $previousYear, tenant('id')])
         ->first();
 
     return [
-        'total' => (int) $result?->total_count,
-        'percentageDifference' => (int) $result?->previous_month_count === 0 ? 0 : number_format(($result?->current_month_count - $result?->previous_month_count) / $result?->previous_month_count * 100),
+        'total' => (int)$result?->total_count,
+        'percentageDifference' => (int)$result?->previous_month_count === 0 ? 0 : number_format(($result?->current_month_count - $result?->previous_month_count) / $result?->previous_month_count * 100),
     ];
 }
 
