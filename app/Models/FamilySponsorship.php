@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\FamilySponsorshipFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,9 +12,48 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
+/**
+ *
+ *
+ * @property string $id
+ * @property string $family_id
+ * @property string|null $monthly_allowance
+ * @property string|null $ramadan_basket
+ * @property string|null $zakat
+ * @property string|null $housing_assistance
+ * @property string|null $eid_al_adha
+ * @property string $tenant_id
+ * @property string|null $created_at
+ * @property Carbon|null $deleted_at
+ * @property string|null $updated_at
+ * @property-read Family $family
+ * @property-read Collection<int, Orphan> $orphans
+ * @property-read int|null $orphans_count
+ * @property-read Tenant $tenant
+ * @method static FamilySponsorshipFactory factory($count = null, $state = [])
+ * @method static Builder|FamilySponsorship newModelQuery()
+ * @method static Builder|FamilySponsorship newQuery()
+ * @method static Builder|FamilySponsorship onlyTrashed()
+ * @method static Builder|FamilySponsorship query()
+ * @method static Builder|FamilySponsorship whereCreatedAt($value)
+ * @method static Builder|FamilySponsorship whereDeletedAt($value)
+ * @method static Builder|FamilySponsorship whereEidAlAdha($value)
+ * @method static Builder|FamilySponsorship whereFamilyId($value)
+ * @method static Builder|FamilySponsorship whereHousingAssistance($value)
+ * @method static Builder|FamilySponsorship whereId($value)
+ * @method static Builder|FamilySponsorship whereMonthlyAllowance($value)
+ * @method static Builder|FamilySponsorship whereRamadanBasket($value)
+ * @method static Builder|FamilySponsorship whereTenantId($value)
+ * @method static Builder|FamilySponsorship whereUpdatedAt($value)
+ * @method static Builder|FamilySponsorship whereZakat($value)
+ * @method static Builder|FamilySponsorship withTrashed()
+ * @method static Builder|FamilySponsorship withoutTrashed()
+ * @mixin Eloquent
+ */
 class FamilySponsorship extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
@@ -74,7 +116,7 @@ class FamilySponsorship extends Model
                     'name' => $this->family->branch->name,
                 ],
                 'orphans_count' => $this->family->orphans->count(),
-                'income_rate' => (float) $this->family->income_rate,
+                'income_rate' => (float)$this->family->income_rate,
                 'total_income' => $this->family->total_income,
             ],
             'sponsor' => [

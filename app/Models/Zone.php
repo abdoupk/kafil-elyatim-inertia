@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\ZoneFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,9 +12,46 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
+/**
+ *
+ *
+ * @property string $id
+ * @property string $name
+ * @property string $description
+ * @property string $tenant_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property string $created_by
+ * @property string|null $deleted_by
+ * @property-read User $creator
+ * @property-read Collection<int, Family> $families
+ * @property-read int|null $families_count
+ * @property-read Collection<int, User> $members
+ * @property-read int|null $members_count
+ * @property-read Tenant $tenant
+ * @method static ZoneFactory factory($count = null, $state = [])
+ * @method static Builder|Zone newModelQuery()
+ * @method static Builder|Zone newQuery()
+ * @method static Builder|Zone onlyTrashed()
+ * @method static Builder|Zone query()
+ * @method static Builder|Zone whereCreatedAt($value)
+ * @method static Builder|Zone whereCreatedBy($value)
+ * @method static Builder|Zone whereDeletedAt($value)
+ * @method static Builder|Zone whereDeletedBy($value)
+ * @method static Builder|Zone whereDescription($value)
+ * @method static Builder|Zone whereId($value)
+ * @method static Builder|Zone whereName($value)
+ * @method static Builder|Zone whereTenantId($value)
+ * @method static Builder|Zone whereUpdatedAt($value)
+ * @method static Builder|Zone withTrashed()
+ * @method static Builder|Zone withoutTrashed()
+ * @mixin Eloquent
+ */
 class Zone extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
@@ -19,6 +59,25 @@ class Zone extends Model
     protected $table = 'zones';
 
     protected $fillable = ['name', 'description', 'created_by', 'deleted_by'];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model): void {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model): void {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
+    }
 
     public function searchableAs(): string
     {
@@ -55,24 +114,5 @@ class Zone extends Model
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model): void {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model): void {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
     }
 }

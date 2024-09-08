@@ -22,13 +22,14 @@ use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
+ *
+ *
  * @property int $id
  * @property string $name
  * @property string $report
  * @property string $tenant_id
  * @property string|null $created_at
  * @property string|null $updated_at
- *
  * @method static Builder|Family newModelQuery()
  * @method static Builder|Family newQuery()
  * @method static Builder|Family query()
@@ -38,7 +39,6 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|Family whereReport($value)
  * @method static Builder|Family whereTenantId($value)
  * @method static Builder|Family whereUpdatedAt($value)
- *
  * @property-read Collection<int, Furnishing> $furnishings
  * @property-read int|null $furnishings_count
  * @property-read Collection<int, Orphan> $orphans
@@ -49,32 +49,23 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read int|null $sponsorships_count
  * @property-read Spouse|null $spouse
  * @property-read Tenant $tenant
- *
  * @method static FamilyFactory factory($count = null, $state = [])
- *
  * @property string $zone_id
  * @property string $address
  * @property int $file_number
  * @property string $start_date
- *
  * @property-read Zone|null $zone
- *
  * @method static Builder|Family whereAddress($value)
  * @method static Builder|Family whereFileNumber($value)
  * @method static Builder|Family whereStartDate($value)
  * @method static Builder|Family whereZoneId($value)
- *
  * @property Carbon|null $deleted_at
- *
  * @method static Builder|Family onlyTrashed()
  * @method static Builder|Family whereDeletedAt($value)
  * @method static Builder|Family withTrashed()
  * @method static Builder|Family withoutTrashed()
- *
  * @property string|null $branch_id
- *
  * @method static Builder|Family whereBranchId($value)
- *
  * @property-read Spouse|null $deceased
  * @property-read Housing|null $housing
  * @property-read Preview|null $preview
@@ -85,13 +76,21 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @property-read Collection<int, SponsorSponsorship> $sponsorSponsorships
  * @property-read int|null $sponsor_sponsorships_count
  * @property-read Branch|null $branch
- *
  * @property string|null $created_by
- *
  * @property-read User|null $creator
- *
  * @method static Builder|Family whereCreatedBy($value)
- *
+ * @property float|null $income_rate
+ * @property float|null $total_income
+ * @property string|null $deleted_by
+ * @property-read Collection<int, Archive> $archives
+ * @property-read int|null $archives_count
+ * @property-read Collection<int, Need> $orphansNeeds
+ * @property-read int|null $orphans_needs_count
+ * @property-read Collection<int, Need> $sponsorsNeeds
+ * @property-read int|null $sponsors_needs_count
+ * @method static Builder|Family whereDeletedBy($value)
+ * @method static Builder|Family whereIncomeRate($value)
+ * @method static Builder|Family whereTotalIncome($value)
  * @mixin Eloquent
  */
 class Family extends Model
@@ -110,6 +109,25 @@ class Family extends Model
         'start_date',
         'branch_id',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model): void {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($family): void {
+            if (auth()->id()) {
+                $family->deleted_by = auth()->id();
+
+                $family->save();
+            }
+        });
+    }
 
     public function unSearchWithRelations(): void
     {
@@ -200,7 +218,7 @@ class Family extends Model
             'id' => $this->id,
             'name' => $this->name,
             'tenant_id' => $this->tenant_id,
-            'start_date' => (int) strtotime($this->start_date),
+            'start_date' => (int)strtotime($this->start_date),
             'file_number' => $this->file_number,
             'address' => [
                 'address' => $this->address,
@@ -339,25 +357,6 @@ class Family extends Model
     public function preview(): HasOne
     {
         return $this->hasOne(Preview::class);
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model): void {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($family): void {
-            if (auth()->id()) {
-                $family->deleted_by = auth()->id();
-
-                $family->save();
-            }
-        });
     }
 
     protected function casts(): array

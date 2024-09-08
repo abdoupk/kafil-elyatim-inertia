@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\SponsorFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,9 +14,78 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
+/**
+ *
+ *
+ * @property string $id
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string $phone_number
+ * @property string $sponsor_type
+ * @property Carbon $birth_date
+ * @property string $father_name
+ * @property string $mother_name
+ * @property string|null $birth_certificate_number
+ * @property int $academic_level_id
+ * @property string|null $function
+ * @property string $health_status
+ * @property string|null $diploma
+ * @property bool $is_unemployed
+ * @property string|null $ccp
+ * @property string $gender
+ * @property string $family_id
+ * @property string $tenant_id
+ * @property string $created_by
+ * @property string|null $deleted_by
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read AcademicLevel|null $academicLevel
+ * @property-read User $creator
+ * @property-read Family $family
+ * @property-read Income|null $incomes
+ * @property-read Collection<int, Need> $needs
+ * @property-read int|null $needs_count
+ * @property-read Collection<int, Orphan> $orphans
+ * @property-read int|null $orphans_count
+ * @property-read SponsorSponsorship|null $sponsorships
+ * @property-read Tenant $tenant
+ * @method static SponsorFactory factory($count = null, $state = [])
+ * @method static Builder|Sponsor newModelQuery()
+ * @method static Builder|Sponsor newQuery()
+ * @method static Builder|Sponsor onlyTrashed()
+ * @method static Builder|Sponsor query()
+ * @method static Builder|Sponsor whereAcademicLevelId($value)
+ * @method static Builder|Sponsor whereBirthCertificateNumber($value)
+ * @method static Builder|Sponsor whereBirthDate($value)
+ * @method static Builder|Sponsor whereCcp($value)
+ * @method static Builder|Sponsor whereCreatedAt($value)
+ * @method static Builder|Sponsor whereCreatedBy($value)
+ * @method static Builder|Sponsor whereDeletedAt($value)
+ * @method static Builder|Sponsor whereDeletedBy($value)
+ * @method static Builder|Sponsor whereDiploma($value)
+ * @method static Builder|Sponsor whereFamilyId($value)
+ * @method static Builder|Sponsor whereFatherName($value)
+ * @method static Builder|Sponsor whereFirstName($value)
+ * @method static Builder|Sponsor whereFunction($value)
+ * @method static Builder|Sponsor whereGender($value)
+ * @method static Builder|Sponsor whereHealthStatus($value)
+ * @method static Builder|Sponsor whereId($value)
+ * @method static Builder|Sponsor whereIsUnemployed($value)
+ * @method static Builder|Sponsor whereLastName($value)
+ * @method static Builder|Sponsor whereMotherName($value)
+ * @method static Builder|Sponsor wherePhoneNumber($value)
+ * @method static Builder|Sponsor whereSponsorType($value)
+ * @method static Builder|Sponsor whereTenantId($value)
+ * @method static Builder|Sponsor whereUpdatedAt($value)
+ * @method static Builder|Sponsor withTrashed()
+ * @method static Builder|Sponsor withoutTrashed()
+ * @mixin Eloquent
+ */
 class Sponsor extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
@@ -38,6 +110,23 @@ class Sponsor extends Model
         'deleted_by',
     ];
 
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model): void {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model): void {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+            }
+        });
+    }
+
     public function searchableAs(): string
     {
         return 'sponsors';
@@ -59,12 +148,12 @@ class Sponsor extends Model
             'name' => $this->getName(),
             'phone_number' => $this->phone_number,
             'sponsor_type' => $this->sponsor_type,
-            'birth_date' => (int) strtotime($this->birth_date),
+            'birth_date' => (int)strtotime($this->birth_date),
             'father_name' => $this->father_name,
             'mother_name' => $this->mother_name,
             'birth_certificate_number' => $this->birth_certificate_number,
             'academic_level_id' => $this->academic_level_id,
-            'income' => (float) $this->incomes?->total_income,
+            'income' => (float)$this->incomes?->total_income,
             'orphans_count' => $this->orphans?->count(),
             'academic_level' => [
                 'id' => $this->academic_level_id,
@@ -89,7 +178,7 @@ class Sponsor extends Model
 
     public function getName(): string
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function creator(): BelongsTo
@@ -185,23 +274,6 @@ class Sponsor extends Model
         $needs->restore();
 
         $sponsorships->restore();
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model): void {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model): void {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-            }
-        });
     }
 
     protected function casts(): array

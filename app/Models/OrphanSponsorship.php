@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\OrphanSponsorshipFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,9 +12,52 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
+/**
+ *
+ *
+ * @property string $id
+ * @property string $orphan_id
+ * @property bool|null $medical_sponsorship
+ * @property bool|null $university_scholarship
+ * @property bool|null $association_trips
+ * @property bool|null $summer_camp
+ * @property bool|null $eid_suit
+ * @property bool|null $private_lessons
+ * @property bool|null $school_bag
+ * @property string $tenant_id
+ * @property string|null $created_at
+ * @property Carbon|null $deleted_at
+ * @property string|null $updated_at
+ * @property-read Collection<int, Archive> $archives
+ * @property-read int|null $archives_count
+ * @property-read Orphan $orphan
+ * @property-read Tenant $tenant
+ * @method static OrphanSponsorshipFactory factory($count = null, $state = [])
+ * @method static Builder|OrphanSponsorship newModelQuery()
+ * @method static Builder|OrphanSponsorship newQuery()
+ * @method static Builder|OrphanSponsorship onlyTrashed()
+ * @method static Builder|OrphanSponsorship query()
+ * @method static Builder|OrphanSponsorship whereAssociationTrips($value)
+ * @method static Builder|OrphanSponsorship whereCreatedAt($value)
+ * @method static Builder|OrphanSponsorship whereDeletedAt($value)
+ * @method static Builder|OrphanSponsorship whereEidSuit($value)
+ * @method static Builder|OrphanSponsorship whereId($value)
+ * @method static Builder|OrphanSponsorship whereMedicalSponsorship($value)
+ * @method static Builder|OrphanSponsorship whereOrphanId($value)
+ * @method static Builder|OrphanSponsorship wherePrivateLessons($value)
+ * @method static Builder|OrphanSponsorship whereSchoolBag($value)
+ * @method static Builder|OrphanSponsorship whereSummerCamp($value)
+ * @method static Builder|OrphanSponsorship whereTenantId($value)
+ * @method static Builder|OrphanSponsorship whereUniversityScholarship($value)
+ * @method static Builder|OrphanSponsorship whereUpdatedAt($value)
+ * @method static Builder|OrphanSponsorship withTrashed()
+ * @method static Builder|OrphanSponsorship withoutTrashed()
+ * @mixin Eloquent
+ */
 class OrphanSponsorship extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
@@ -75,9 +121,9 @@ class OrphanSponsorship extends Model
                 'academic_achievement' => [
                     'academic_level' => $this->orphan->academicLevel,
                     'academic_year' => $this->orphan->lastAcademicYearAchievement?->academic_year,
-                    'last_year_average' => (float) $this->orphan->lastAcademicYearAchievement?->average,
+                    'last_year_average' => (float)$this->orphan->lastAcademicYearAchievement?->average,
                 ],
-                'year_average' => (float) $this->orphan?->lastAcademicYearAchievement?->average,
+                'year_average' => (float)$this->orphan?->lastAcademicYearAchievement?->average,
                 'shirt_size' => $this->orphan->shirt_size,
                 'pants_size' => $this->orphan->pants_size,
                 'shoes_size' => $this->orphan->shoes_size,

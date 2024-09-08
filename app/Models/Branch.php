@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\BranchFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,14 +12,72 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Laravel\Scout\Searchable;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
+/**
+ *
+ *
+ * @property string $id
+ * @property string $name
+ * @property string $tenant_id
+ * @property int $city_id
+ * @property string $president_id
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
+ * @property string $created_by
+ * @property string|null $deleted_by
+ * @property-read City $city
+ * @property-read User $creator
+ * @property-read Collection<int, Family> $families
+ * @property-read int|null $families_count
+ * @property-read User $president
+ * @property-read Tenant $tenant
+ * @method static BranchFactory factory($count = null, $state = [])
+ * @method static Builder|Branch newModelQuery()
+ * @method static Builder|Branch newQuery()
+ * @method static Builder|Branch onlyTrashed()
+ * @method static Builder|Branch query()
+ * @method static Builder|Branch whereCityId($value)
+ * @method static Builder|Branch whereCreatedAt($value)
+ * @method static Builder|Branch whereCreatedBy($value)
+ * @method static Builder|Branch whereDeletedAt($value)
+ * @method static Builder|Branch whereDeletedBy($value)
+ * @method static Builder|Branch whereId($value)
+ * @method static Builder|Branch whereName($value)
+ * @method static Builder|Branch wherePresidentId($value)
+ * @method static Builder|Branch whereTenantId($value)
+ * @method static Builder|Branch whereUpdatedAt($value)
+ * @method static Builder|Branch withTrashed()
+ * @method static Builder|Branch withoutTrashed()
+ * @mixin Eloquent
+ */
 class Branch extends Model
 {
     use BelongsToTenant, HasFactory, HasUuids, Searchable, SoftDeletes;
 
     protected $fillable = ['name', 'president_id', 'city_id', 'created_at', 'created_by', 'deleted_by'];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($model): void {
+            if (auth()->id()) {
+                $model->created_by = auth()->id();
+            }
+        });
+
+        static::softDeleted(function ($model): void {
+            if (auth()->id()) {
+                $model->deleted_by = auth()->id();
+
+                $model->save();
+            }
+        });
+    }
 
     public function president(): BelongsTo
     {
@@ -66,25 +127,6 @@ class Branch extends Model
                 'name' => $this->president->getName(),
             ],
         ];
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($model): void {
-            if (auth()->id()) {
-                $model->created_by = auth()->id();
-            }
-        });
-
-        static::softDeleted(function ($model): void {
-            if (auth()->id()) {
-                $model->deleted_by = auth()->id();
-
-                $model->save();
-            }
-        });
     }
 
     protected function casts(): array
