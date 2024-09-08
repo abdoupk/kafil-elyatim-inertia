@@ -2,16 +2,16 @@
 
 namespace App\Exports\FullExports;
 
-use App\Models\Archive;
-use App\Models\Orphan;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class EidSuitOrphansListExport implements WithEvents, FromCollection, WithHeadings
+class EidSuitOrphansListExport implements WithEvents, WithMultipleSheets
 {
+    public function __construct(public array $years)
+    {
+    }
+
     public function registerEvents(): array
     {
         return [
@@ -21,49 +21,14 @@ class EidSuitOrphansListExport implements WithEvents, FromCollection, WithHeadin
         ];
     }
 
-    public function collection(): Collection
+    public function sheets(): array
     {
-        return Archive::whereOccasion('eid_suit')->get()
-            ->map(function (Archive $archive) {
-                return $archive->listOrphans
-                    ->load(
-                        'pantsSize',
-                        'shirtSize',
-                        'shoesSize',
-                        'sponsor:id,family_id,first_name,last_name,phone_number'
-                    )
-                    ->map(function (Orphan $orphan) {
-                        return [
-                            $orphan->sponsor->getName(),
-                            $orphan->sponsor->formattedPhoneNumber(),
-                            $orphan->getName(),
-                            trans_choice(
-                                'age_years',
-                                $orphan->birth_date->age,
-                                [
-                                    'count' => $orphan->birth_date->age,
-                                ]
-                            ),
-                            __($orphan->gender),
-                            $orphan->shoesSize?->label,
-                            $orphan->pantsSize?->label,
-                            $orphan->shirtSize?->label,
-                        ];
-                    });
-            });
-    }
+        $sheets = [];
 
-    public function headings(): array
-    {
-        return [
-            trans('the_sponsor'),
-            trans('sponsor_phone_number'),
-            trans('first_and_last_name'),
-            trans('age'),
-            trans('filters.gender'),
-            trans('shoes_size'),
-            trans('pants_size'),
-            trans('shirt_size'),
-        ];
+        foreach ($this->years as $year) {
+            $sheets[] = new EidSuitOrphansListPerYearSheet($year);
+        }
+
+        return $sheets;
     }
 }

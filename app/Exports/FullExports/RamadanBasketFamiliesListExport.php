@@ -2,16 +2,16 @@
 
 namespace App\Exports\FullExports;
 
-use App\Models\Archive;
-use App\Models\Family;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Events\AfterSheet;
 
-class RamadanBasketFamiliesListExport implements WithEvents, FromCollection, WithHeadings
+class RamadanBasketFamiliesListExport implements WithEvents, WithMultipleSheets
 {
+    public function __construct(public array $years)
+    {
+    }
+
     public function registerEvents(): array
     {
         return [
@@ -21,39 +21,14 @@ class RamadanBasketFamiliesListExport implements WithEvents, FromCollection, Wit
         ];
     }
 
-    public function collection(): Collection
+    public function sheets(): array
     {
-        return Archive::whereOccasion('ramadan_basket')->get()->map(function (Archive $archive) {
-            return $archive->listFamilies
-                ->load(
-                    'branch:id,name',
-                    'zone:id,name',
-                    'sponsor:id,family_id,first_name,last_name,phone_number'
-                )
-                ->map(function (Family $family) {
-                    return [
-                        $family->sponsor->getName(),
-                        $family->sponsor->formattedPhoneNumber(),
-                        $family->address,
-                        $family->zone->name,
-                        $family->branch->name,
-                        formatCurrency($family->total_income ?? 0),
-                        $family->income_rate,
-                    ];
-                });
-        });
-    }
+        $sheets = [];
 
-    public function headings(): array
-    {
-        return [
-            trans('the_sponsor'),
-            trans('sponsor_phone_number'),
-            trans('validation.attributes.address'),
-            trans('the_zone'),
-            trans('the_branch'),
-            trans('incomes.label.total_income'),
-            trans('income_rate'),
-        ];
+        foreach ($this->years as $year) {
+            $sheets[] = new RamadanBasketFamiliesListPerYearSheet($year);
+        }
+
+        return $sheets;
     }
 }
