@@ -43,7 +43,7 @@ class FinanceTransactionsExport implements FromCollection, WithEvents, WithHeadi
     {
         return [
             formatCurrency(abs($row->amount)),
-            $row->specification,
+            __($row->specification),
             $row->description,
             $row->amount > 0 ? __('income') : __('expense'),
             $row->date->translatedFormat('j F Y'),

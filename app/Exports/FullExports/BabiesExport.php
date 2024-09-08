@@ -48,7 +48,7 @@ class BabiesExport implements FromCollection, WithEvents, WithHeadings, WithMapp
             $row->orphan->sponsor?->formattedPhoneNumber(),
             $row->orphan->getName(),
             calculateAge($row->orphan->birth_date),
-            $row->orphan->gender,
+            __($row->orphan->gender),
             $row->babyMilk->name,
             $row->baby_milk_quantity,
             $row->diapers->name,
