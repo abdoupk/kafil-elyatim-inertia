@@ -23,20 +23,27 @@ class EidAlAdhaFamiliesListExport implements WithEvents, FromCollection, WithHea
 
     public function collection(): Collection
     {
-        return Archive::whereOccasion('eid_al_adha')->get()->map(function (Archive $archive) {
-            return $archive->listFamilies
-                ->map(function (Family $family) {
-                    return [
-                        $family->sponsor->getName(),
-                        $family->sponsor->formattedPhoneNumber(),
-                        $family->address,
-                        $family->zone->name,
-                        $family->branch->name,
-                        formatCurrency($family->total_income ?? 0),
-                        $family->income_rate,
-                    ];
-                });
-        });
+        return Archive::whereOccasion('eid_al_adha')
+            ->get()
+            ->map(function (Archive $archive) {
+                return $archive->listFamilies
+                    ->load(
+                        'branch:id,name',
+                        'zone:id,name',
+                        'sponsor:id,family_id,first_name,last_name,phone_number'
+                    )
+                    ->map(function (Family $family) {
+                        return [
+                            $family->sponsor->getName(),
+                            $family->sponsor->formattedPhoneNumber(),
+                            $family->address,
+                            $family->zone->name,
+                            $family->branch->name,
+                            formatCurrency($family->total_income ?? 0),
+                            $family->income_rate,
+                        ];
+                    });
+            });
     }
 
     public function headings(): array

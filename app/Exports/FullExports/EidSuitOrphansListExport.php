@@ -23,27 +23,34 @@ class EidSuitOrphansListExport implements WithEvents, FromCollection, WithHeadin
 
     public function collection(): Collection
     {
-        return Archive::whereOccasion('eid_suit')->get()->map(function (Archive $archive) {
-            return $archive->listOrphans
-                ->map(function (Orphan $orphan) {
-                    return [
-                        $orphan->sponsor->getName(),
-                        $orphan->sponsor->formattedPhoneNumber(),
-                        $orphan->getName(),
-                        trans_choice(
-                            'age_years',
-                            $orphan->birth_date->age,
-                            [
-                                'count' => $orphan->birth_date->age,
-                            ]
-                        ),
-                        __($orphan->gender),
-                        $orphan->shoesSize?->label,
-                        $orphan->pantsSize?->label,
-                        $orphan->shirtSize?->label,
-                    ];
-                });
-        });
+        return Archive::whereOccasion('eid_suit')->get()
+            ->map(function (Archive $archive) {
+                return $archive->listOrphans
+                    ->load(
+                        'pantsSize',
+                        'shirtSize',
+                        'shoesSize',
+                        'sponsor:id,family_id,first_name,last_name,phone_number'
+                    )
+                    ->map(function (Orphan $orphan) {
+                        return [
+                            $orphan->sponsor->getName(),
+                            $orphan->sponsor->formattedPhoneNumber(),
+                            $orphan->getName(),
+                            trans_choice(
+                                'age_years',
+                                $orphan->birth_date->age,
+                                [
+                                    'count' => $orphan->birth_date->age,
+                                ]
+                            ),
+                            __($orphan->gender),
+                            $orphan->shoesSize?->label,
+                            $orphan->pantsSize?->label,
+                            $orphan->shirtSize?->label,
+                        ];
+                    });
+            });
     }
 
     public function headings(): array

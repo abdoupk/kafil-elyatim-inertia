@@ -25,6 +25,10 @@ class SchoolEntryOrphansListExport implements WithEvents, FromCollection, WithHe
     {
         return Archive::whereOccasion('school_entry')->get()->map(function (Archive $archive) {
             return $archive->listOrphans
+                ->load(
+                    'lastAcademicYearAchievement',
+                    'academicLevel'
+                )
                 ->map(function (Orphan $orphan) {
                     return [
                         $orphan->sponsor->getName(),

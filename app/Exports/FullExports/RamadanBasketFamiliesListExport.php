@@ -25,6 +25,11 @@ class RamadanBasketFamiliesListExport implements WithEvents, FromCollection, Wit
     {
         return Archive::whereOccasion('ramadan_basket')->get()->map(function (Archive $archive) {
             return $archive->listFamilies
+                ->load(
+                    'branch:id,name',
+                    'zone:id,name',
+                    'sponsor:id,family_id,first_name,last_name,phone_number'
+                )
                 ->map(function (Family $family) {
                     return [
                         $family->sponsor->getName(),
