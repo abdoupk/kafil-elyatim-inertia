@@ -68,17 +68,6 @@ class AppServiceProvider extends ServiceProvider
 
         Model::preventLazyLoading(! $this->app->isProduction());
 
-        Model::handleLazyLoadingViolationUsing(
-            static function ($model, $relation): void {
-                $class = $model::class;
-
-                /* @phpstan-ignore-next-line */
-                ray()->notify(
-                    "Attempted to lazy load [{$relation}] on model [{$class}]."
-                );
-            }
-        );
-
         Model::shouldBeStrict(! $this->app->isProduction());
     }
 }
