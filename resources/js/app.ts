@@ -38,13 +38,13 @@ createInertiaApp({
                         router.post(route('tenant.logout'))
                         break
                     case 403:
-                        toast($t('not_authorized'))
+                        toast($t('errors.descriptions.403'))
                         break
                     case 404:
-                        console.log('404')
+                        toast($t('errors.descriptions.404'))
                         break
                     case 500:
-                        console.log('500')
+                        toast($t('errors.descriptions.500'))
                         break
                 }
             }

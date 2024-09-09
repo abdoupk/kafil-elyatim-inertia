@@ -8,7 +8,7 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }} </title>
 
-    <link rel="icon" href="{{ asset('logo.png') }}">
+    <link rel="icon" href="/logo.png">
 
     {{ Vite::useBuildDirectory('build/dashboard') }}
 

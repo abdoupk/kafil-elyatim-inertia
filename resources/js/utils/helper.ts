@@ -505,7 +505,6 @@ function getRandomItemWithoutRepeat(items) {
 }
 
 const groupRecentActivitiesByDate = (activities) => {
-    console.log(activities)
     return activities.reduce((acc, item) => {
         const date = dayjs(item.date).format('YYYY-MM-DD')
         if (!acc[date]) {

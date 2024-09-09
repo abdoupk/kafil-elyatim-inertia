@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { RecentFamiliesType } from '@/types/dashboard'
 
-import { Link } from '@inertiajs/vue3'
+import { Link, router } from '@inertiajs/vue3'
 import { defineAsyncComponent } from 'vue'
 
 import BaseTippy from '@/Components/Base/tippy/BaseTippy.vue'
@@ -28,6 +28,13 @@ const SvgLoader = defineAsyncComponent(() => import('@/Components/SvgLoader.vue'
 defineProps<{
     recentFamilies: RecentFamiliesType
 }>()
+
+const deleteFamily = (id: string) => {
+    router.delete(route('tenant.families.destroy', id), {
+        preserveScroll: true,
+        only: ['recentFamilies']
+    })
+}
 </script>
 
 <template>
@@ -99,17 +106,15 @@ defineProps<{
                                             <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                             {{ $t('edit') }}
                                         </Link>
-                                        <Link
+
+                                        <a
+                                            @click.prevent="deleteFamily(family.id)"
                                             v-if="hasPermission('delete_families')"
-                                            :href="route('tenant.families.destroy', family.id)"
-                                            :only="['recentFamilies']"
                                             class="flex items-center text-danger"
-                                            method="delete"
-                                            preserve-scroll
                                         >
                                             <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
                                             {{ $t('delete') }}
-                                        </Link>
+                                        </a>
                                     </div>
                                 </the-table-td-actions>
                             </base-tr-table>
@@ -145,15 +150,12 @@ defineProps<{
                                         class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                         >{{ $t('edit') }}
                                     </Link>
-                                    <Link
+                                    <a @click.prevent="deleteFamily(family.id)"
                                         v-if="hasPermission('delete_families')"
-                                        :href="route('tenant.families.destroy', family.id)"
                                         class="font-semibold text-danger"
-                                        method="delete"
-                                        preserve-scroll
                                     >
                                         {{ $t('delete') }}
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>
