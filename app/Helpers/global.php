@@ -115,8 +115,6 @@ function generateFormatedConditions(): array
     if ($filters) {
         /** @phpstan-ignore-next-line */
         return array_map(static function (array $condition) {
-            ray($condition);
-
             return [
                 $condition['field'],
                 $condition['operator'],

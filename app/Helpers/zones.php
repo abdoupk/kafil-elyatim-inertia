@@ -1,6 +1,5 @@
 <?php
 
-/** @noinspection UnknownInspectionInspection */
 
 use App\Models\Zone;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

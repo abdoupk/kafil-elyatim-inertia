@@ -84,8 +84,6 @@ function getOrphansByAge(): array
 
     return [
         'age' => array_reverse($orphans->pluck('age')->map(function (int $age) {
-            ray($age);
-
             return trans_choice('age_years', $age, ['value' => $age]);
         })->toArray()),
         'data' => array_reverse($orphans->pluck('count')->toArray()),
