@@ -10,12 +10,14 @@
     "require": {
         "php": "^8.2",
         "ext-intl": "*",
+        "ext-zip": "*",
         "calebporzio/sushi": "^2.5",
         "guzzlehttp/guzzle": "^7.8",
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/breeze": "^2.0",
         "laravel/fortify": "^1.21",
         "laravel/framework": "^11.6",
+        "laravel/octane": "^2.5",
         "laravel/prompts": "^0.1.21",
         "laravel/pulse": "^1.1",
         "laravel/reverb": "@beta",
@@ -28,9 +30,10 @@
         "simshaun/recurr": "^5.0",
         "spatie/browsershot": "^4.1",
         "spatie/laravel-permission": "^6.7",
+        "spiral/roadrunner-cli": "^2.6.0",
+        "spiral/roadrunner-http": "^3.3.0",
         "stancl/tenancy": "^3.8",
-        "tightenco/ziggy": "^2.1",
-        "ext-zip": "*"
+        "tightenco/ziggy": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",

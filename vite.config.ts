@@ -8,10 +8,6 @@ import svgLoader from 'vite-svg-loader'
 
 
 export default defineConfig({
-    optimizeDeps: {
-        include: ['tailwind-config'],
-        exclude: ['wa-sqlite']
-    },
     plugins: [
         laravel({
             input: 'resources/js/app.ts',
@@ -46,7 +42,7 @@ export default defineConfig({
     ],
     build: {
         commonjsOptions: {
-            include: ['tailwind.config.js', 'node_modules/**']
+            include: ['node_modules/**']
         },
         rollupOptions: {
             output: {
