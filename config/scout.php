@@ -357,8 +357,9 @@ return [
                     'name',
                     'description',
                     'tenant_id',
+                    'created_at'
                 ],
-                'searchableAttributes' => ['name', 'families_count', 'description'],
+                'searchableAttributes' => ['name', 'families_count', 'description', 'created_at'],
                 'sortableAttributes' => ['name', 'families_count', 'created_at'],
             ],
             'branches' => [
