@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Head } from '@inertiajs/vue3'
-
+import {$t} from '@/utils/i18n'
 import TheLoginForm from '@/Pages/Auth/Login/TheLoginForm.vue'
 import TheAuthLayout from '@/Pages/Auth/TheAuthLayout.vue'
 

@@ -125,7 +125,9 @@ function getByPantsAndShirtSize(): array
         ->groupBy('shirt_size')
         ->get()
         ->mapWithKeys(function ($item) {
-            return [$item->shirtSize->label => $item->total];
+            if ($item->shirtSize?->label)
+                return [$item->shirtSize->label => $item->total];
+            return [];
         });
 
     $pants_sizes = Orphan::whereNotNull('pants_size')->selectRaw('pants_size, COUNT(*) as total')
@@ -133,7 +135,9 @@ function getByPantsAndShirtSize(): array
         ->groupBy('pants_size')
         ->get()
         ->mapWithKeys(function ($item) {
-            return [$item->pantsSize->label => $item->total];
+            if ($item->pantsSize?->label)
+                return [$item->pantsSize->label => $item->total];
+            return [];
         });
 
     $all_labels = array_unique(array_merge(array_keys($shirt_sizes->toArray()), array_keys($pants_sizes->toArray())));
@@ -219,7 +223,7 @@ function getOrphansGroupHealthStatus(): array
 
     return [
         'labels' => $orphans->pluck('is_handicapped')
-            ->map(fn ($is_handicapped) => $is_handicapped
+            ->map(fn($is_handicapped) => $is_handicapped
                 ? __('statistics.handicapped')
                 : __('statistics.healthy'))->toArray(),
         'data' => $orphans->pluck('total')->toArray(),
