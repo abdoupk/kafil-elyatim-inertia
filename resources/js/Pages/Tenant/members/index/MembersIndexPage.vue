@@ -1,22 +1,34 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { IndexParams, MembersIndexResource, PaginationData } from '@/types/types'
 
+import { useMembersStore } from '@/stores/members'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import DataTable from '@/Pages/Tenant/members/index/DataTable.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import NoResultsFound from '@/Components/Global/NoResultsFound.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
+import { $tc } from '@/utils/i18n'
 
-import { debounce, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+const MemberCreateModal = defineAsyncComponent(() => import('@/Pages/Tenant/members/MemberCreateModal.vue'))
+
+const MemberShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/members/MemberShowModal.vue'))
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/members/index/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -27,26 +39,28 @@ const props = defineProps<{
     params: IndexParams
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
     fields: props.params.fields,
-    filters: props.params.filters
+    filters: props.params.filters,
+    search: props.params.search
 })
-
-const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
 const deleteProgress = ref<boolean>(false)
 
+const showSuccessNotification = ref<boolean>(false)
+
 const selectedMemberId = ref<string>('')
 
-let routerOptions = {
-    preserveState: true,
-    preserveScroll: true
-}
+const membersStore = useMembersStore()
+
+const createUpdateSlideoverStatus = ref<boolean>(false)
+
+const showModalStatus = ref<boolean>(false)
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -56,25 +70,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.members.index'), data, routerOptions)
-}
-
-const sort = (field: string) => {
-    handleSort(field, params)
-
-    getData()
-}
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteMember = () => {
     router.delete(route('tenant.members.destroy', selectedMemberId.value), {
@@ -83,11 +79,24 @@ const deleteMember = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.members.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.members.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            closeDeleteModal()
+            getDataForIndexPages(route('tenant.members.index'), params.value, {
+                onStart: () => {
+                    closeDeleteModal()
+                },
+                onFinish: () => {
+                    showSuccessNotification.value = true
+
+                    setTimeout(() => {
+                        showSuccessNotification.value = false
+                    }, 2000)
+                },
+                preserveScroll: true,
+                preserveState: true
+            })
         }
     })
 }
@@ -98,97 +107,115 @@ const showDeleteModal = (memberId: string) => {
     deleteModalStatus.value = true
 }
 
-watch(
-    search,
-    debounce(() => {
-        params.page = 1
+const showCreateModal = () => {
+    membersStore.$reset()
 
-        getData()
-    }, 400)
-)
+    createUpdateSlideoverStatus.value = true
+}
 
-watch(() => [params.fields, params.directions], getData)
+const showEditModal = (memberId: string) => {
+    selectedMemberId.value = memberId
 
-watch(
-    () => [params.perPage],
-    () => (params.page = 1)
-)
+    membersStore.getMember(memberId)
 
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
+    createUpdateSlideoverStatus.value = true
+}
 
-        routerOptions.preserveScroll = false
+const showDetailsModal = async (memberId: string | null) => {
+    if (memberId) {
+        selectedMemberId.value = memberId
 
-        getData()
+        await membersStore.getMemberDetails(memberId)
+
+        showModalStatus.value = true
     }
-)
+}
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        setTimeout(async () => {
+            await showDetailsModal(searchParams.get('show'))
+        }, 1000)
+    }
+})
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('the_members') })"></Head>
+    <Head :title="$t('the_members')"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('the_members') }) }}
-    </h2>
-
-    <div class="mt-5 grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button
-                variant="primary"
-                class="me-2 shadow-md"
-                @click.prevent="router.get(route('tenant.members.create'))"
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="[]"
+                :pagination-data="members"
+                :params="params"
+                :title="$t('list', { attribute: $t('the_members') })"
+                :url="route('tenant.members.index')"
+                entries="members"
+                export-pdf-url=""
+                export-xlsx-url=""
+                searchable
+                @change-filters="params.filters = $event"
             >
-                {{ n__('add new', 1, { attribute: $t('member') }) }}
-            </base-button>
+                <template #ExtraButtons>
+                    <base-button
+                        v-if="hasPermission('create_members')"
+                        class="me-2 shadow-md"
+                        variant="primary"
+                        @click.prevent="showCreateModal"
+                    >
+                        {{ $tc('add new', 1, { attribute: $t('member') }) }}
+                    </base-button>
+                </template>
+            </the-table-header>
 
-            <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="members.meta.total > 0">
-                    {{
-                        $t('showing_results', {
-                            from: members.meta.from?.toString(),
-                            to: members.meta.to?.toString(),
-                            total: members.meta.total?.toString(),
-                            entries: n__('members', members.meta.total)
-                        })
-                    }}
-                </span>
-            </div>
-            <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <div class="relative w-56 text-slate-500">
-                    <base-form-input
-                        autofocus
-                        v-model="search"
-                        type="text"
-                        class="!box w-56 pe-10"
-                        :placeholder="$t('Search...')"
-                    />
-                    <svg-loader name="icon-search" class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" />
-                </div>
-            </div>
+            <template v-if="members.data.length > 0">
+                <data-table
+                    :members
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-edit-modal="showEditModal"
+                    @show-details-modal="showDetailsModal"
+                ></data-table>
+
+                <the-table-footer
+                    :pagination-data="members"
+                    :params
+                    :url="route('tenant.members.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteMember"
+            ></delete-modal>
+
+            <member-create-modal
+                :open="createUpdateSlideoverStatus"
+                @close="createUpdateSlideoverStatus = false"
+            ></member-create-modal>
+
+            <member-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_member') })"
+                @close="showModalStatus = false"
+            ></member-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="$tc('successfully_trashed', 1, { attribute: $t('the_member') })"
+            ></success-notification>
         </div>
-    </div>
 
-    <template v-if="members.data.length > 0">
-        <data-table :params :members @sort="sort($event)" @showDeleteModal="showDeleteModal"></data-table>
-
-        <pagination-data-table
-            v-if="members.meta.last_page > 1"
-            :pages="members.meta.last_page"
-            v-model:page="params.page"
-            v-model:per-page="params.perPage"
-        ></pagination-data-table>
-    </template>
-
-    <div v-else class="intro-x mt-12 flex flex-col items-center justify-center">
-        <no-results-found></no-results-found>
-    </div>
-
-    <delete-modal
-        :open="deleteModalStatus"
-        :deleteProgress
-        @close="closeDeleteModal"
-        @delete="deleteMember"
-    ></delete-modal>
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

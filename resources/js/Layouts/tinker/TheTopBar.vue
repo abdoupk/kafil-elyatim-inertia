@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
+import TheAccountMenu from '@/Components/top-bar/TheAccountMenu/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
-import TheNotification from '@/Components/top-bar/TheNotification.vue'
+import TheNotification from '@/Components/top-bar/notifications/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 </script>
 

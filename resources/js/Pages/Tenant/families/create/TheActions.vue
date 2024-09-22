@@ -1,7 +1,6 @@
-<script setup lang="ts">
-import SpinnerButtonLoader from '@/Pages/Shared/SpinnerButtonLoader.vue'
-
+<script lang="ts" setup>
 import BaseButton from '@/Components/Base/button/BaseButton.vue'
+import SpinnerButtonLoader from '@/Components/Global/SpinnerButtonLoader.vue'
 
 interface Props {
     currentStep: number
@@ -17,24 +16,24 @@ defineProps<Props>()
 <template>
     <div class="intro-y col-span-12 mt-5 flex items-center justify-center sm:justify-end">
         <base-button
+            v-if="currentStep > 1"
             :disabled="validating"
+            class="w-24"
+            data-test="previous"
             type="button"
             variant="secondary"
-            class="w-24"
             @click="prevStep"
-            v-if="currentStep > 1"
-            data-test="previous"
         >
             {{ $t('pagination.previous') }}
         </base-button>
 
         <base-button
             :disabled="validating"
+            class="ms-2 w-24"
+            data-test="next_or_register"
             type="submit"
             variant="primary"
-            class="ms-2 w-24"
             @click.prevent="nextStep"
-            data-test="next_or_register"
         >
             <spinner-button-loader :show="validating"></spinner-button-loader>
 

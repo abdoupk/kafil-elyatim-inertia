@@ -16,6 +16,7 @@ defineProps<{
 
 <template>
     <side-menu-tooltip
+        v-if="!menu.ignore"
         :class="
             twMerge([
                 'relative mb-1 flex h-[50px] items-center rounded-xl ps-5 text-white dark:text-slate-300',

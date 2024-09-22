@@ -19,15 +19,18 @@ class TenantFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name' => fake('ar_SA')->firstName,
-            'last_name' => fake('ar_SA')->lastName,
-            'email' => fake()->safeEmail,
-            'phone' => fake()->regexify('(06|07|05)[0-9]{8}'),
-            'domain' => Str::domain(fake()->word.'-'.fake()->word),
-            'password' => 'password',
-            'association' => fake('ar_SA')->company,
-            'ccp' => fake()->regexify('[0-9]{12}'),
-            'cpa' => fake()->regexify('[0-9]{12}'),
+            'infos' => [
+                'super_admin' => [
+                    'id' => fake()->uuid,
+                    'first_name' => fake('ar_SA')->firstName,
+                    'last_name' => fake('ar_SA')->lastName,
+                    'name' => fake('ar_SA')->name,
+                    'email' => fake()->safeEmail,
+                    'password' => 'password',
+                ],
+                'domain' => Str::domain(fake()->word.'-'.fake()->word),
+                'association' => fake('ar_SA')->company,
+            ],
         ];
     }
 }

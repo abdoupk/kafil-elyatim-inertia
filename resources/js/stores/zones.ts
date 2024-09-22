@@ -3,14 +3,17 @@ import type { Zone } from '@/types/types'
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
-import { omit } from '@/utils/helper'
-
 interface State {
-    zone: Zone
-    errors: {
-        name: string[]
-        description: string[]
+    zone: Zone & {
+        readable_created_at?: string
+        creator?: {
+            id: string
+            name: string
+        }
+        families_count?: number
+        members_count?: number
     }
+    zones: Zone[]
 }
 
 export const useZonesStore = defineStore('zones', {
@@ -20,40 +23,33 @@ export const useZonesStore = defineStore('zones', {
             id: '',
             description: ''
         },
-        errors: []
+        zones: []
     }),
-    getters: {},
     actions: {
         async getZone(zoneId: string) {
-            await axios.get(`zones/show/${zoneId}`).then((res) => {
+            await axios.get(route('tenant.zones.show', zoneId)).then((res) => {
                 this.zone = res.data.zone
             })
         },
 
-        async updateZone() {
-            await axios
-                .put(`zones/${this.zone.id}`, { ...omit(this.zone, ['id']) })
-                .then(() => {
-                    this.errors = []
-                })
-                .catch((res) => {
-                    if (res.response.status == 422) {
-                        this.errors = res.response.data.errors
-                    }
-                })
+        async getZoneDetails(zoneId: string) {
+            const { data } = await axios.get(route('tenant.zones.details', zoneId))
+
+            this.zone = data.zone
         },
 
-        async createZone() {
-            await axios
-                .post('zones', { ...omit(this.zone, ['id']) })
-                .then(() => {
-                    this.errors = []
-                })
-                .catch((res) => {
-                    if (res.response.status == 422) {
-                        this.errors = res.response.data.errors
-                    }
-                })
+        async getZones() {
+            if (this.zones.length > 0) {
+                return
+            }
+
+            const { data: zones } = await axios.get(route('tenant.list.zones'))
+
+            this.zones = zones
+        },
+
+        findZoneById(id: string) {
+            return this.zones.find((zone) => zone.id === id)
         }
     }
 })

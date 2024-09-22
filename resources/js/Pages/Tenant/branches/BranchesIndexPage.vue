@@ -1,23 +1,35 @@
 <script lang="ts" setup>
-import type { BranchesIndexResource, IndexParams, MembersType, PaginationData } from '@/types/types'
+import type { BranchesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
+import { branchedFilters } from '@/constants/filters'
 import { useBranchesStore } from '@/stores/branches'
 import { Head, router } from '@inertiajs/vue3'
-import { reactive, ref, watch } from 'vue'
+import { defineAsyncComponent, ref, watchEffect } from 'vue'
 
 import TheLayout from '@/Layouts/TheLayout.vue'
 
-import DeleteModal from '@/Pages/Shared/DeleteModal.vue'
-import PaginationDataTable from '@/Pages/Shared/PaginationDataTable.vue'
-import BranchCreateEditModal from '@/Pages/Tenant/branches/BranchCreateEditModal.vue'
-import DataTable from '@/Pages/Tenant/branches/DataTable.vue'
+import TheContentLoader from '@/Components/Global/theContentLoader.vue'
 
-import BaseButton from '@/Components/Base/button/BaseButton.vue'
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
+import { getDataForIndexPages, handleSort, hasPermission } from '@/utils/helper'
+import { $tc } from '@/utils/i18n'
 
-import { debounce, handleSort } from '@/utils/helper'
-import { n__ } from '@/utils/i18n'
+const BranchCreateEditModal = defineAsyncComponent(() => import('@/Pages/Tenant/branches/BranchCreateEditModal.vue'))
+
+const BranchShowModal = defineAsyncComponent(() => import('@/Pages/Tenant/branches/BranchShowModal.vue'))
+
+const DataTable = defineAsyncComponent(() => import('@/Pages/Tenant/branches/DataTable.vue'))
+
+const BaseButton = defineAsyncComponent(() => import('@/Components/Base/button/BaseButton.vue'))
+
+const TheNoResultsTable = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheNoResultsTable.vue'))
+
+const TheTableFooter = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableFooter.vue'))
+
+const TheTableHeader = defineAsyncComponent(() => import('@/Components/Global/DataTable/TheTableHeader.vue'))
+
+const DeleteModal = defineAsyncComponent(() => import('@/Components/Global/DeleteModal.vue'))
+
+const SuccessNotification = defineAsyncComponent(() => import('@/Components/Global/SuccessNotification.vue'))
 
 defineOptions({
     layout: TheLayout
@@ -26,31 +38,30 @@ defineOptions({
 const props = defineProps<{
     branches: PaginationData<BranchesIndexResource>
     params: IndexParams
-    members: MembersType
 }>()
 
-const params = reactive<IndexParams>({
+const params = ref<IndexParams>({
     perPage: props.params.perPage,
     page: props.params.page,
     directions: props.params.directions,
     fields: props.params.fields,
-    filters: props.params.filters
+    filters: props.params.filters,
+    search: props.params.search
 })
-
-const search = ref(props.params.search)
 
 const deleteModalStatus = ref<boolean>(false)
 
 const createEditModalStatus = ref<boolean>(false)
 
+const showModalStatus = ref<boolean>(false)
+
 const deleteProgress = ref<boolean>(false)
+
+const showSuccessNotification = ref<boolean>(false)
 
 const selectedBranchId = ref<string>('')
 
-let routerOptions = {
-    preserveState: true,
-    preserveScroll: true
-}
+const branchesStore = useBranchesStore()
 
 const closeDeleteModal = () => {
     deleteModalStatus.value = false
@@ -60,25 +71,7 @@ const closeDeleteModal = () => {
     deleteProgress.value = false
 }
 
-const getData = () => {
-    let data = { ...params }
-
-    if (search.value !== '') {
-        data.search = search.value
-    }
-
-    Object.keys(data).forEach((key) => {
-        if (!data[key as keyof IndexParams]) delete data[key as keyof IndexParams]
-    })
-
-    router.get(route('tenant.branches.index'), data, routerOptions)
-}
-
-const sort = (field: string) => {
-    handleSort(field, params)
-
-    getData()
-}
+const sort = (field: string) => handleSort(field, params.value)
 
 const deleteBranch = () => {
     router.delete(route('tenant.branches.destroy', selectedBranchId.value), {
@@ -87,11 +80,24 @@ const deleteBranch = () => {
             deleteProgress.value = true
         },
         onSuccess: () => {
-            if (props.branches.meta.last_page < params.page) {
-                params.page = params.page - 1
+            if (props.branches.meta.last_page < params.value.page) {
+                params.value.page = params.value.page - 1
             }
 
-            closeDeleteModal()
+            getDataForIndexPages(route('tenant.branches.index'), params.value, {
+                onStart: () => {
+                    closeDeleteModal()
+                },
+                onFinish: () => {
+                    showSuccessNotification.value = true
+
+                    setTimeout(() => {
+                        showSuccessNotification.value = false
+                    }, 2000)
+                },
+                preserveScroll: true,
+                preserveState: true
+            })
         }
     })
 }
@@ -102,115 +108,116 @@ const showDeleteModal = (branchId: string) => {
     deleteModalStatus.value = true
 }
 
-watch(
-    search,
-    debounce(() => {
-        params.page = 1
-
-        getData()
-    }, 400)
-)
-
-watch(() => [params.fields, params.directions], getData)
-
-watch(
-    () => [params.perPage],
-    () => (params.page = 1)
-)
-
-watch(
-    () => [params.page],
-    () => {
-        routerOptions.preserveState = false
-
-        routerOptions.preserveScroll = false
-
-        getData()
-    }
-)
-
-const branchesStore = useBranchesStore()
-
 const showCreateModal = () => {
     branchesStore.$reset()
 
     createEditModalStatus.value = true
 }
 
-const showEditModal = async (zoneId: string) => {
-    selectedBranchId.value = zoneId
+const showEditModal = async (branchId: string) => {
+    selectedBranchId.value = branchId
 
-    await branchesStore.getBranch(zoneId)
+    await branchesStore.getBranch(branchId)
 
     createEditModalStatus.value = true
 }
+
+const showDetailsModal = async (branchID: string | null) => {
+    if (branchID) {
+        selectedBranchId.value = branchID
+
+        await branchesStore.getBranchDetails(branchID)
+
+        showModalStatus.value = true
+    }
+}
+
+watchEffect(async () => {
+    const searchParams = new URLSearchParams(window.location.search)
+
+    if (searchParams.has('show')) {
+        setTimeout(async () => {
+            await showDetailsModal(searchParams.get('show'))
+        }, 1000)
+    }
+})
 </script>
 
 <template>
-    <Head :title="$t('list', { attribute: $t('branches') })"></Head>
+    <Head :title="$t('branches')"></Head>
 
-    <h2 class="intro-y mt-10 text-lg font-medium">
-        {{ $t('list', { attribute: $t('branches') }) }}
-    </h2>
+    <suspense>
+        <div>
+            <the-table-header
+                :filters="branchedFilters"
+                :pagination-data="branches"
+                :params="params"
+                :title="$t('list', { attribute: $t('branches') })"
+                :url="route('tenant.branches.index')"
+                entries="branches"
+                export-pdf-url=""
+                export-xlsx-url=""
+                filterable
+                searchable
+                @change-filters="params.filters = $event"
+            >
+                <template #ExtraButtons>
+                    <base-button
+                        v-if="hasPermission('create_branches')"
+                        class="me-2 shadow-md"
+                        variant="primary"
+                        @click.prevent="showCreateModal"
+                    >
+                        {{ $tc('add new', 1, { attribute: $t('branch') }) }}
+                    </base-button>
+                </template>
+            </the-table-header>
 
-    <div class="mt-5 grid grid-cols-12 gap-6">
-        <div class="intro-y col-span-12 mt-2 flex flex-wrap items-center sm:flex-nowrap">
-            <base-button class="me-2 shadow-md" variant="primary" @click.prevent="showCreateModal">
-                {{ n__('add new', 1, { attribute: $t('branch') }) }}
-            </base-button>
+            <template v-if="branches.data.length > 0">
+                <data-table
+                    :branches
+                    :params
+                    @showDeleteModal="showDeleteModal"
+                    @sort="sort"
+                    @show-edit-modal="showEditModal"
+                    @show-details-modal="showDetailsModal"
+                ></data-table>
 
-            <div class="mx-auto hidden text-slate-500 md:block">
-                <span v-if="branches.meta.total > 0">
-                    {{
-                        $t('showing_results', {
-                            from: branches.meta.from?.toString(),
-                            to: branches.meta.to?.toString(),
-                            total: branches.meta.total?.toString(),
-                            entries: n__('branches', branches.meta.total)
-                        })
-                    }}
-                </span>
-            </div>
-            <div class="mt-3 w-full sm:ms-auto sm:mt-0 sm:w-auto md:ms-0">
-                <div class="relative w-56 text-slate-500">
-                    <base-form-input
-                        v-model="search"
-                        :placeholder="$t('Search...')"
-                        autofocus
-                        class="!box w-56 pe-10"
-                        type="text"
-                    />
-                    <svg-loader class="absolute inset-y-0 end-0 my-auto me-3 h-4 w-4" name="icon-search" />
-                </div>
-            </div>
+                <the-table-footer
+                    :pagination-data="branches"
+                    :params
+                    :url="route('tenant.branches.index')"
+                ></the-table-footer>
+            </template>
+
+            <the-no-results-table v-else></the-no-results-table>
+
+            <delete-modal
+                :deleteProgress
+                :open="deleteModalStatus"
+                @close="closeDeleteModal"
+                @delete="deleteBranch"
+            ></delete-modal>
+
+            <branch-create-edit-modal
+                :open="createEditModalStatus"
+                @close="createEditModalStatus = false"
+            ></branch-create-edit-modal>
+
+            <branch-show-modal
+                :open="showModalStatus"
+                :title="$t('modal_show_title', { attribute: $t('the_branch') })"
+                @close="showModalStatus = false"
+            ></branch-show-modal>
+
+            <success-notification
+                :open="showSuccessNotification"
+                :title="$tc('successfully_trashed', 1, { attribute: $t('the_branch') })"
+            ></success-notification>
         </div>
-    </div>
 
-    <data-table
-        :branches
-        :params
-        @showDeleteModal="showDeleteModal"
-        @sort="sort($event)"
-        @show-edit-modal="showEditModal"
-    ></data-table>
-
-    <pagination-data-table
-        v-if="branches.meta.last_page > 1"
-        v-model:page="params.page"
-        v-model:per-page="params.perPage"
-        :pages="branches.meta.last_page"
-    ></pagination-data-table>
-
-    <delete-modal
-        :deleteProgress
-        :open="deleteModalStatus"
-        @close="closeDeleteModal"
-        @delete="deleteBranch"
-    ></delete-modal>
-
-    <branch-create-edit-modal
-        :members
-        :open="createEditModalStatus"
-        @close="createEditModalStatus = false"
-    ></branch-create-edit-modal>
+        <template #fallback>
+            <the-content-loader></the-content-loader>
+        </template>
+    </suspense>
 </template>

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { ExtractProps } from '@/types/utils'
 
 import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
@@ -61,17 +61,17 @@ provide<ProvideDialog>('dialog', {
 </script>
 
 <template>
-    <transition-root appear as="template" :show="open">
+    <transition-root :show="open" appear as="template">
         <headless-dialog
-            class="dialog"
             :as
+            :class="computedClass"
+            class="dialog"
+            v-bind="omit(attrs, ['onClose'])"
             @close="
                 (value) => {
                     handleClose(value)
                 }
             "
-            :class="computedClass"
-            v-bind="omit(attrs, ['onClose'])"
         >
             <slot></slot>
         </headless-dialog>

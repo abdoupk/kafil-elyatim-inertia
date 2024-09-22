@@ -1,15 +1,27 @@
-import type { CreateBranchForm } from '@/types/types'
+import type { CityType, CreateBranchForm } from '@/types/types'
 
-import { useCityStore } from '@/stores/city'
 import axios from 'axios'
-import { useForm } from 'laravel-precognition-vue'
-import type { Form } from 'laravel-precognition-vue/dist/types'
 import { defineStore } from 'pinia'
 
 import { omit } from '@/utils/helper'
 
 interface State {
-    branch: CreateBranchForm & { id: string }
+    branch: CreateBranchForm & {
+        id: string
+        creator?: {
+            id: string
+            name: string
+        }
+        president?: {
+            id: string
+            name: string
+        }
+        readable_created_at: string
+        city_name?: string
+        families_count: number
+        city: CityType
+    }
+    branches: { id: string; name: string }[]
 }
 
 export const useBranchesStore = defineStore('branches', {
@@ -19,44 +31,33 @@ export const useBranchesStore = defineStore('branches', {
             name: '',
             city_id: '',
             president_id: '',
-            created_at: ''
-        }
-    }),
-    getters: {
-        getCreateBranchForm(): Form<CreateBranchForm> {
-            const cityStore = useCityStore()
-
-            cityStore.$reset()
-
-            return useForm('post', route('tenant.branches.store'), { ...omit(this.branch, ['id']) })
+            created_at: new Date()
         },
-        getUpdateBranchForm(): Form<CreateBranchForm> {
-            return useForm('put', route('tenant.branches.update', this.branch.id), { ...omit(this.branch, ['id']) })
-        }
-    },
+        branches: []
+    }),
     actions: {
         async getBranch(branchId: string) {
-            await axios.get(`branches/show/${branchId}`).then((res) => {
-                const cityStore = useCityStore()
-
-                cityStore.wilaya.wilaya_code = res.data.branch.city.wilaya_code
-
-                cityStore.commune.commune_name = res.data.branch.city.commune_name
-
-                cityStore.commune.id = res.data.branch.city.id
-
-                cityStore.daira.daira_name = res.data.branch.city.daira_name
-
-                this.branch = res.data.branch
+            await axios.get(route('tenant.branches.show', branchId)).then((res) => {
+                this.branch = omit(res.data.branch, [])
             })
         },
 
-        async updateBranch() {
-            await this.getUpdateBranchForm.submit()
+        async getBranchDetails(branchId: string) {
+            const { data } = await axios.get(route('tenant.branches.details', branchId))
+
+            this.branch = data.branch
         },
 
-        async createBranch() {
-            await this.getCreateBranchForm.submit()
+        async getBranches() {
+            if (this.branches.length === 0) {
+                const { data: branches } = await axios.get(route('tenant.list.branches'))
+
+                this.branches = branches
+            }
+        },
+
+        findBranchById(id: string) {
+            return this.branches.find((branch) => branch.id === id)
         }
     }
 })

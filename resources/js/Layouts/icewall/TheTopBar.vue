@@ -1,12 +1,18 @@
 <script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { Link } from '@inertiajs/vue3'
+import { Link, usePage } from '@inertiajs/vue3'
 import { twMerge } from 'tailwind-merge'
+import { defineAsyncComponent } from 'vue'
 
-import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
-import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
-import TheNotification from '@/Components/top-bar/TheNotification.vue'
-import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
+import { isAssociationNameLatin } from '@/utils/helper'
+
+const TheAccountMenu = defineAsyncComponent(() => import('@/Components/top-bar/TheAccountMenu/TheAccountMenu.vue'))
+
+const TheBreadcrumb = defineAsyncComponent(() => import('@/Components/top-bar/TheBreadcrumb.vue'))
+
+const TheNotification = defineAsyncComponent(() => import('@/Components/top-bar/notifications/TheNotification.vue'))
+
+const TheSearch = defineAsyncComponent(() => import('@/Components/top-bar/search/TheSearch.vue'))
 
 const settingsStore = useSettingsStore()
 </script>
@@ -16,30 +22,32 @@ const settingsStore = useSettingsStore()
         class="top-bar-boxed relative z-[51] -mx-5 mb-12 mt-12 h-[70px] border-b border-white/[0.08] px-3 sm:-mx-8 sm:px-8 md:-mt-5 md:pt-0"
     >
         <div class="flex h-full items-center">
-            <Link href="/" class="-intro-x hidden md:flex">
-                <img alt="Tinker Tailwind HTML Admin Template" class="w-6" src="/images/logo.svg" />
+            <Link :href="route('tenant.dashboard')" class="-intro-x hidden md:flex">
+                <img :alt="usePage().props.association" class="w-6" src="/images/logo.svg" />
                 <span
                     :class="
                         twMerge([
-                            'ms-3 text-lg text-white',
-                            settingsStore.layout == 'side-menu' && 'hidden xl:block',
-                            settingsStore.layout == 'simple-menu' && 'hidden'
+                            'ms-3 flex max-w-40 items-center truncate font-semibold capitalize text-white',
+                            settingsStore.layout == 'side_menu' && 'hidden xl:flex',
+                            settingsStore.layout == 'simple_menu' && 'hidden',
+                            isAssociationNameLatin && 'text-sm',
+                            !isAssociationNameLatin && 'text-base'
                         ])
                     "
                 >
-                    Tinker
+                    {{ $page.props.association }}
                 </span>
             </Link>
 
             <the-breadcrumb
-                light
                 :class="
                     twMerge([
                         '-intro-x me-auto h-[45px] border-white/[0.08] dark:border-white/[0.08] md:ms-10 md:border-s',
-                        settingsStore.layout != 'top-menu' && 'md:ps-6',
-                        settingsStore.layout == 'top-menu' && 'md:ps-10'
+                        settingsStore.layout != 'top_menu' && 'md:ps-6',
+                        settingsStore.layout == 'top_menu' && 'md:ps-10'
                     ])
                 "
+                light
             ></the-breadcrumb>
 
             <the-search></the-search>

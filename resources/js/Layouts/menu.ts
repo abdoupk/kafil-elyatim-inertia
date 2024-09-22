@@ -2,7 +2,7 @@ import type { IFormattedMenu, ILocation, IMenu } from '@/types/types'
 
 import { router, usePage } from '@inertiajs/vue3'
 
-import { slideDown, slideUp } from '@/utils/helper'
+import { pathNameOfCurrentPage, slideDown, slideUp } from '@/utils/helper'
 
 const findActiveMenu = (subMenu: IMenu[], route: ILocation) => {
     let match = false
@@ -33,7 +33,7 @@ const nestedMenu = (menu: Array<IMenu | 'divider'>, route: ILocation) => {
             }
 
             menuItem.active =
-                usePage().url === item.url ||
+                pathNameOfCurrentPage() === item.url ||
                 (menuItem.subMenu && findActiveMenu(menuItem.subMenu, route) && !menuItem.ignore)
 
             if (menuItem.subMenu) {
@@ -49,7 +49,7 @@ const nestedMenu = (menu: Array<IMenu | 'divider'>, route: ILocation) => {
 
             formattedMenu.push(menuItem)
         } else {
-            formattedMenu.push(item)
+            if (item === 'divider') formattedMenu.push(item)
         }
     })
 
@@ -62,13 +62,9 @@ const linkTo = async (menu: IFormattedMenu, event: Event) => {
     } else {
         event.preventDefault()
 
-        router.get(
-            menu.routeName !== '' ? route(menu.routeName) : '#',
-            {},
-            {
-                preserveScroll: true
-            }
-        )
+        setTimeout(() => {
+            router.get(menu.routeName !== '' ? route(menu.routeName) : '#')
+        }, 300)
     }
 }
 

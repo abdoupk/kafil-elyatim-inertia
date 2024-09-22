@@ -5,8 +5,11 @@ namespace App\Models;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 /**
+ *
+ *
  * @property int $id
  * @property string $commune_name
  * @property string $commune_name_ascii
@@ -18,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $latitude
  * @property string $longitude
  * @property string $post_code
- *
  * @method static Builder|City newModelQuery()
  * @method static Builder|City newQuery()
  * @method static Builder|City query()
@@ -33,11 +35,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|City whereWilayaCode($value)
  * @method static Builder|City whereWilayaName($value)
  * @method static Builder|City whereWilayaNameAscii($value)
- *
  * @mixin Eloquent
  */
 class City extends Model
 {
+    use Searchable;
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -53,8 +56,12 @@ class City extends Model
         'post_code',
     ];
 
-    public function getFullName()
+    public function getFullName(?string $locale = 'ar'): string
     {
-        return $this->wilaya_name.'، '.$this->daira_name.'، '.$this->commune_name;
+        if ($locale === 'ar') {
+            return $this->wilaya_name . trans('glue') . $this->daira_name . '، ' . $this->commune_name;
+        }
+
+        return $this->wilaya_name_ascii . ', ' . $this->daira_name_ascii . ', ' . $this->commune_name_ascii;
     }
 }

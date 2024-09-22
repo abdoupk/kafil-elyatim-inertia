@@ -8,7 +8,15 @@ export const useSettingsStore = defineStore('settings', {
         appearance: 'light',
         colorScheme: 'theme-1',
         theme: 'tinker',
-        layout: 'side-menu'
+        layout: 'side-menu',
+        hints: {
+            ramadan_basket: true,
+            monthly_basket: true,
+            eid_suit: true,
+            school_entry: true,
+            babies_milk_and_diapers: true,
+            eid_al_adha: true
+        }
     }),
     getters: {},
     actions: {
@@ -16,7 +24,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.appearance !== value) {
                 this.appearance = value
 
-                await axios.put('/settings', { appearance: value })
+                await axios.put(route('tenant.profile.settings.update'), { appearance: value })
             }
         },
 
@@ -24,7 +32,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.colorScheme !== colorScheme) {
                 this.colorScheme = colorScheme
 
-                await axios.put('/settings', { color_scheme: colorScheme })
+                await axios.put(route('tenant.profile.settings.update'), { color_scheme: colorScheme })
             }
         },
 
@@ -32,7 +40,7 @@ export const useSettingsStore = defineStore('settings', {
             if (this.theme !== theme) {
                 this.theme = theme
 
-                await axios.put('/settings', { theme })
+                await axios.put(route('tenant.profile.settings.update'), { theme })
             }
         },
 
@@ -40,8 +48,12 @@ export const useSettingsStore = defineStore('settings', {
             if (this.layout !== layout) {
                 this.layout = layout
 
-                await axios.put('/settings', { layout })
+                await axios.put(route('tenant.profile.settings.update'), { layout })
             }
+        },
+
+        setHintToHidden(hint: string) {
+            this.hints[hint] = false
         }
     }
 })

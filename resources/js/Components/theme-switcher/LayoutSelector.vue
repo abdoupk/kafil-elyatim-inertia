@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
 import { twMerge } from 'tailwind-merge'
 
@@ -9,13 +9,14 @@ const settingsStore = useSettingsStore()
 
 <template>
     <div class="px-8 pb-8 pt-6">
-        <div class="text-base font-medium">Layouts</div>
-        <div class="mt-0.5 text-slate-500">Choose your layout</div>
+        <div class="text-base font-medium">{{ $t('theme.layouts') }}</div>
+
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.layouts_hint') }}</div>
+
         <div class="mt-5 grid grid-cols-3 gap-x-5 gap-y-3.5">
             <template v-for="layout in layouts" :key="layout">
                 <div>
                     <a
-                        @click.prevent="settingsStore.changeLayout(layout)"
                         :class="
                             twMerge([
                                 'box block h-24 cursor-pointer bg-slate-50 p-1',
@@ -24,12 +25,13 @@ const settingsStore = useSettingsStore()
                                     : ''
                             ])
                         "
+                        @click.prevent="settingsStore.changeLayout(layout)"
                     >
                         <div class="image-fit h-full w-full overflow-hidden rounded-md">
                             <img
                                 :alt="layout"
-                                class="h-full w-full"
                                 :src="`/images/layouts/${layout.replace('_', '-')}.png`"
+                                class="h-full w-full"
                             />
                         </div>
                     </a>

@@ -2,14 +2,13 @@
 
 namespace App\Http\Resources\V1\Members;
 
-use App\Http\Resources\V1\ZoneResource;
+use App\Http\Resources\V1\Zones\ZoneResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @property string $id
- * @property string $phone
- * @property string $email
+ * @mixin User
  *
  * @method string getName()
  */
@@ -21,8 +20,9 @@ class MembersIndexResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getName(),
             'email' => $this->email,
-            'phone' => $this->phone,
+            'phone' => formatPhoneNumber($this->phone),
             'zone' => ZoneResource::make($this->whenLoaded('zone')),
+            'created_at' => $this->created_at,
         ];
     }
 }

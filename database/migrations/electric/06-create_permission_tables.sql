@@ -19,6 +19,7 @@ create table if not exists "roles"
     "uuid"       uuid                           not null primary key,
     "name"       text                           not null,
     "guard_name" text                           not null,
+    "tenant_id"  uuid                           not null references "tenants" ("id") on delete cascade,
     "created_at" timestamp(0) without time zone null,
     "updated_at" timestamp(0) without time zone null
 );
@@ -34,6 +35,7 @@ create table if not exists "model_has_permissions"
 (
     "permission_id" uuid not null references "permissions" ("uuid") on delete cascade,
     "model_type"    text not null,
+    "tenant_id"     uuid not null references "tenants" ("id") on delete cascade,
     "model_uuid"    uuid not null
 );
 
@@ -49,6 +51,7 @@ create table if not exists "model_has_roles"
 (
     "role_id"    uuid not null references "roles" ("uuid") on delete cascade,
     "model_type" text not null,
+    "tenant_id"  uuid not null references "tenants" ("id") on delete cascade,
     "model_uuid" uuid not null
 );
 

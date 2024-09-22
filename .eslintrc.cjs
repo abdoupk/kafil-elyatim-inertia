@@ -9,7 +9,6 @@ module.exports = {
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended',
         'plugin:cypress/recommended',
         '@vue/eslint-config-typescript',
         'prettier'
@@ -21,7 +20,7 @@ module.exports = {
         extraFileExtensions: ['.vue'],
         ecmaVersion: 'latest',
         sourceType: 'module',
-        files: ['cypress/**/*.{ts,tsx,mts,cts}'],
+        // files: ['tests/cypress/**/*.{ts,tsx,mts,cts}'],
         parser: {
             ts: '@typescript-eslint/parser',
             '<template>': 'espree'
@@ -30,6 +29,7 @@ module.exports = {
     overrides: [],
     plugins: ['vue', 'prettier', 'cypress'],
     rules: {
+        'no-console': 'warn',
         'capitalized-comments': ['error', 'always'],
         'vue/multi-word-component-names': [
             'error',

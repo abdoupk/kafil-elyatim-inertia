@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 /* eslint-disable array-element-newline */
 import { TransitionRoot } from '@headlessui/vue'
 import { twMerge } from 'tailwind-merge'
@@ -33,21 +33,25 @@ interface AlertProps extends /* @vue-ignore */ HTMLAttributes {
     as?: string | object
     dismissible?: boolean
     variant?: Variant
-    onShow?: () => NonNullable<unknown>
-    onShown?: () => NonNullable<unknown>
-    onHide?: () => NonNullable<unknown>
-    onHidden?: () => NonNullable<unknown>
+    onShow?: () => void
+    onShown?: () => void
+    onHide?: () => void
+    onHidden?: () => void
 }
 
 defineOptions({
     inheritAttrs: false
 })
 
-const { as = 'div', dismissible, variant } = defineProps<AlertProps>()
+const { as = 'div', dismissible, variant, onHidden } = defineProps<AlertProps>()
 
 const attrs = useComputedAttrs()
 
 const show = ref<boolean>(true)
+
+const afterLeave = () => {
+    onHidden?.()
+}
 
 // Main Colors
 const primary = [
@@ -189,16 +193,17 @@ const computedClass = computed(() =>
 
 <template>
     <TransitionRoot
-        as="template"
         :show="show"
+        as="template"
         enter="transition-all ease-linear duration-150"
         enter-from="invisible opacity-0 translate-y-1"
         enter-to="visible opacity-100 translate-y-0"
         leave="transition-all ease-linear duration-150"
         leave-from="visible opacity-100 translate-y-0"
         leave-to="invisible opacity-0 translate-y-1"
+        @after-leave="afterLeave"
     >
-        <component :is="as" role="alert" :class="computedClass" v-bind="attrs.attrs">
+        <component :is="as" :class="computedClass" role="alert" v-bind="attrs.attrs">
             <slot
                 :dismiss="
                     () => {

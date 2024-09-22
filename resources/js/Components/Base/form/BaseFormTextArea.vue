@@ -57,5 +57,5 @@ const localValue = computed({
 </script>
 
 <template>
-    <textarea :class="computedClass" v-bind="attrs.attrs" v-model="localValue" />
+    <textarea :class="computedClass" v-bind="$attrs" v-model="localValue" />
 </template>

@@ -28,7 +28,13 @@ enum OrphanSponsorshipType
     public function valueType(): string
     {
         return match ($this) {
-            self::SCHOOL_BAG, self::PRIVATE_LESSONS, self::EID_SUIT, self::SUMMER_CAMP, self::COLLEGE_TRIPS, self::FELLOWSHIP, self::GUARANTEED_MEDICAL => 'checkbox',
+            self::SCHOOL_BAG,
+            self::PRIVATE_LESSONS,
+            self::EID_SUIT,
+            self::SUMMER_CAMP,
+            self::COLLEGE_TRIPS,
+            self::FELLOWSHIP,
+            self::GUARANTEED_MEDICAL => 'checkbox',
         };
     }
 }

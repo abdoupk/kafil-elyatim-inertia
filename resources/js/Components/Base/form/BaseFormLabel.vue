@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { ProvideFormInline } from './BaseFormInline.vue'
 
 import { twMerge } from 'tailwind-merge'
@@ -16,6 +16,7 @@ const formInline = inject<ProvideFormInline>('formInline', false)
 
 const computedClass = computed(() =>
     twMerge([
+        // TODO add font-medium to rtl
         'inline-block mb-2',
         formInline && 'mb-2 sm:mb-0 sm:me-5 sm:text-right',
         typeof attrs.class === 'string' && attrs.class

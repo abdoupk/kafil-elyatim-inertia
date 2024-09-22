@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { AppearanceType } from '@/types/types'
 
 import { useSettingsStore } from '@/stores/settings'
@@ -21,12 +21,13 @@ const switchMode = (value: AppearanceType) => {
 
 <template>
     <div class="px-8 pb-8 pt-6">
-        <div class="text-base font-medium">Appearance</div>
-        <div class="mt-0.5 text-slate-500">Choose your appearance</div>
+        <div class="text-base font-medium">{{ $t('appearance') }}</div>
+
+        <div class="mt-0.5 text-slate-500">{{ $t('theme.appearance_hint') }}</div>
+
         <div class="mt-5 grid grid-cols-2 gap-3.5">
             <div>
                 <a
-                    @click.prevent="switchMode('light')"
                     :class="
                         twMerge([
                             'box block h-12 cursor-pointer border-slate-300/80 bg-slate-50 p-1',
@@ -34,6 +35,7 @@ const switchMode = (value: AppearanceType) => {
                             settingsStore?.appearance === 'light' ? 'active' : ''
                         ])
                     "
+                    @click.prevent="switchMode('light')"
                 >
                     <div class="h-full overflow-hidden rounded-md bg-slate-200"></div>
                 </a>
@@ -41,7 +43,6 @@ const switchMode = (value: AppearanceType) => {
             </div>
             <div>
                 <a
-                    @click.prevent="switchMode('dark')"
                     :class="
                         twMerge([
                             'box block h-12 cursor-pointer border-slate-300/80 bg-slate-50 p-1',
@@ -49,6 +50,7 @@ const switchMode = (value: AppearanceType) => {
                             settingsStore?.appearance === 'dark' ? 'active' : ''
                         ])
                     "
+                    @click.prevent="switchMode('dark')"
                 >
                     <div class="h-full overflow-hidden rounded-md bg-slate-900"></div>
                 </a>

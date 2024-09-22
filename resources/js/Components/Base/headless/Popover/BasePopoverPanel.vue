@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import type { PopOverPlacementType } from '@/types/types'
 import type { ExtractProps } from '@/types/utils'
 
 import { PopoverPanel as HeadlessPopoverPanel, TransitionRoot } from '@headlessui/vue'
@@ -9,19 +10,7 @@ import { useComputedAttrs } from '@/utils/useComputedAttrs'
 
 interface PanelProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessPopoverPanel> {
     as?: string | object
-    placement?:
-        | 'top-start'
-        | 'top'
-        | 'top-end'
-        | 'right-start'
-        | 'right'
-        | 'right-end'
-        | 'bottom-end'
-        | 'bottom'
-        | 'bottom-start'
-        | 'left-start'
-        | 'left'
-        | 'left-end'
+    placement?: PopOverPlacementType
 }
 
 defineOptions({
@@ -69,8 +58,8 @@ const computedClass = computed(() =>
                 { 'bottom-0 end-[100%]': placement == 'left-end' }
             ]"
         >
-            <headless-popover-panel :as="as" :class="computedClass" v-bind="attrs.attrs">
-                <slot></slot>
+            <headless-popover-panel v-slot="{ close }" :as="as" :class="computedClass" v-bind="attrs.attrs">
+                <slot :close="close"></slot>
             </headless-popover-panel>
         </div>
     </transition-root>

@@ -1,56 +1,36 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { defineAsyncComponent, defineProps } from 'vue'
-
-import TinkerSideMenuLoader from '@/Layouts/loaders/TinkerSideMenuLoader.vue'
-import TinkerSimpleMenuLoader from '@/Layouts/loaders/TinkerSimpleMenuLoader.vue'
-import TinkerTopMenuLoader from '@/Layouts/loaders/TinkerTopMenuLoader.vue'
-
-defineProps<{ showLoader: boolean }>()
+import { defineAsyncComponent } from 'vue'
 
 const sideMenu = defineAsyncComponent({
-    loader: () => import('./side-menu/TheSideMenu.vue'),
-    loadingComponent: TinkerSideMenuLoader
+    loader: () => import('./side-menu/TheSideMenu.vue')
 })
 
 const simpleMenu = defineAsyncComponent({
-    loader: () => import('./simple-menu/TheSimpleMenu.vue'),
-    loadingComponent: TinkerSimpleMenuLoader
+    loader: () => import('./simple-menu/TheSimpleMenu.vue')
 })
 
 const topMenu = defineAsyncComponent({
-    loader: () => import('./top-menu/TheTopMenu.vue'),
-    loadingComponent: TinkerTopMenuLoader
+    loader: () => import('./top-menu/TheTopMenu.vue')
 })
 
 const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <Suspense v-if="settingsStore.layout === 'simple_menu'">
-        <component :is="simpleMenu">
-            <slot></slot>
-        </component>
-        <template v-if="showLoader" #fallback>
-            <tinker-simple-menu-loader></tinker-simple-menu-loader>
-        </template>
-    </Suspense>
+    <suspense suspensible>
+        <div>
+            <component :is="simpleMenu" v-if="settingsStore.layout === 'simple_menu'">
+                <slot></slot>
+            </component>
 
-    <Suspense v-if="settingsStore.layout === 'side_menu'">
-        <component :is="sideMenu">
-            <slot></slot>
-        </component>
-        <template v-if="showLoader" #fallback>
-            <tinker-side-menu-loader></tinker-side-menu-loader>
-        </template>
-    </Suspense>
+            <component :is="sideMenu" v-if="settingsStore.layout === 'side_menu'">
+                <slot></slot>
+            </component>
 
-    <Suspense v-if="settingsStore.layout === 'top_menu'">
-        <component :is="topMenu">
-            <slot></slot>
-        </component>
-        <template v-if="showLoader" #fallback>
-            <tinker-top-menu-loader></tinker-top-menu-loader>
-        </template>
-    </Suspense>
+            <component :is="topMenu" v-if="settingsStore.layout === 'top_menu'">
+                <slot></slot>
+            </component>
+        </div>
+    </suspense>
 </template>

@@ -14,28 +14,30 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CitySeeder::class);
 
-        $this->call(RolePermissionSeeder::class);
+//        $this->call(PermissionSeeder::class);
 
         $this->call(TenantSeeder::class);
 
-        //        $this->call(IncomeSeeder::class);
-
-        //        $this->call(FurnishingSeeder::class);
-
-        //        $this->call(HousingSeeder::class);
+        $this->call(RolePermissionSeeder::class);
 
         $this->call(FamilySeeder::class);
 
-        //        $this->call(IncomeSponsorSeeder::class);
+        $this->call(IncomeSeeder::class);
 
-        $this->call(FamilyFurnishingSeeder::class);
+        $this->call(FurnishingSeeder::class);
 
-        $this->call(FamilyHousingSeeder::class);
+        $this->call(HousingSeeder::class);
 
         $this->call(OrphanSponsorshipSeeder::class);
 
         $this->call(FamilySponsorshipSeeder::class);
 
         $this->call(SponsorSponsorshipSeeder::class);
+
+        $this->call(PreviewSeeder::class);
+
+        $this->call(PrivateSchoolSeeder::class);
+
+        //        $this->call(EventSeeder::class);
     }
 }

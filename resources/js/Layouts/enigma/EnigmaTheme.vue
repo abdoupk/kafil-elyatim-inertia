@@ -1,56 +1,36 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useSettingsStore } from '@/stores/settings'
-import { defineAsyncComponent, defineProps } from 'vue'
-
-import EnigmaSideMenuLoader from '@/Layouts/loaders/EnigmaSideMenuLoader.vue'
-import EnigmaSimpleMenuLoader from '@/Layouts/loaders/EnigmaSimpleMenuLoader.vue'
-import EnigmaTopMenuLoader from '@/Layouts/loaders/EnigmaTopMenuLoader.vue'
-
-defineProps<{ showLoader: boolean }>()
+import { defineAsyncComponent } from 'vue'
 
 const sideMenu = defineAsyncComponent({
-    loader: () => import('./side-menu/TheSideMenu.vue'),
-    loadingComponent: EnigmaSideMenuLoader
+    loader: () => import('./side-menu/TheSideMenu.vue')
 })
 
 const simpleMenu = defineAsyncComponent({
-    loader: () => import('./simple-menu/TheSimpleMenu.vue'),
-    loadingComponent: EnigmaSimpleMenuLoader
+    loader: () => import('./simple-menu/TheSimpleMenu.vue')
 })
 
 const topMenu = defineAsyncComponent({
-    loader: () => import('./top-menu/TheTopMenu.vue'),
-    loadingComponent: EnigmaTopMenuLoader
+    loader: () => import('./top-menu/TheTopMenu.vue')
 })
 
 const settingsStore = useSettingsStore()
 </script>
 
 <template>
-    <Suspense v-if="settingsStore.layout === 'simple_menu'">
-        <component :is="simpleMenu">
-            <slot></slot>
-        </component>
-        <template v-if="showLoader" #fallback>
-            <enigma-simple-menu-loader></enigma-simple-menu-loader>
-        </template>
-    </Suspense>
+    <suspense suspensible>
+        <div>
+            <component :is="simpleMenu" v-if="settingsStore.layout === 'simple_menu'">
+                <slot></slot>
+            </component>
 
-    <Suspense v-if="settingsStore.layout === 'side_menu'">
-        <component :is="sideMenu">
-            <slot></slot>
-        </component>
-        <template v-if="showLoader" #fallback>
-            <enigma-side-menu-loader></enigma-side-menu-loader>
-        </template>
-    </Suspense>
+            <component :is="sideMenu" v-if="settingsStore.layout === 'side_menu'">
+                <slot></slot>
+            </component>
 
-    <Suspense v-if="settingsStore.layout === 'top_menu'">
-        <component :is="topMenu">
-            <slot></slot>
-        </component>
-        <template v-if="showLoader" #fallback>
-            <enigma-top-menu-loader></enigma-top-menu-loader>
-        </template>
-    </Suspense>
+            <component :is="topMenu" v-if="settingsStore.layout === 'top_menu'">
+                <slot></slot>
+            </component>
+        </div>
+    </suspense>
 </template>

@@ -12,8 +12,8 @@ class MemberPreviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => $this->faker->words(),
-            'preview_id' => $this->faker->words(),
+            'user_id' => fake()->uuid,
+            'preview_id' => fake()->uuid,
         ];
     }
 }

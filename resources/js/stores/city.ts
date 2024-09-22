@@ -1,16 +1,15 @@
-import type { Commune, Wilaya } from '@/types/types'
+import type { Commune, Daira, Wilaya } from '@/types/types'
 
 import axios from 'axios'
 import { defineStore } from 'pinia'
-
-interface Daira {
-    daira_name: string
-}
 
 interface CityState {
     wilaya: Wilaya
     daira: Daira
     commune: Commune
+    wilayas: Wilaya[]
+    dairas: Daira[]
+    communes: Commune[]
 }
 
 export const useCityStore = defineStore('city', {
@@ -25,17 +24,75 @@ export const useCityStore = defineStore('city', {
         commune: {
             commune_name: '',
             id: ''
-        }
+        },
+        wilayas: [],
+        dairas: [],
+        communes: []
     }),
     actions: {
         async fetchWilayas() {
-            return await axios.get('https://kafil.elyatim.test/api/wilayas')
+            if (this.wilayas.length === 0) {
+                const {
+                    data: { wilayas }
+                } = await axios.get(route('api.list-wilayas'))
+
+                this.wilayas = wilayas
+            }
         },
-        async fetchDairas(wilaya_code: string) {
-            return await axios.post('https://kafil.elyatim.test/api/dairas/', { wilaya_code })
+
+        async searchCities(query: string) {
+            const { data: cities } = await axios.get(route('tenant.cities.search', query))
+
+            return cities
         },
-        async fetchCommunes(daira_name: string, wilaya_code: string) {
-            return await axios.post('https://kafil.elyatim.test/api/communes/', { daira_name, wilaya_code })
+
+        async fetchDairas(wilaya_code: string | undefined) {
+            if (typeof wilaya_code === 'undefined' || wilaya_code == '') return
+
+            await axios
+                .post(
+                    route('api.dairas', {
+                        wilaya_code: wilaya_code
+                    })
+                )
+                .then((res) => {
+                    this.dairas = res.data
+                })
+        },
+
+        async fetchCommunes(daira_name: string | undefined, wilaya_code: string | undefined) {
+            if (typeof daira_name === 'undefined' || typeof wilaya_code === 'undefined') {
+                return
+            }
+
+            await axios
+                .post(
+                    route('api.communes', {
+                        daira_name,
+                        wilaya_code
+                    })
+                )
+                .then((res) => {
+                    this.communes = res.data
+                })
+        },
+
+        getWilaya(wilaya_code: string | undefined) {
+            if (typeof wilaya_code === 'undefined' || wilaya_code == '') this.wilaya = { wilaya_code: '' }
+
+            this.wilaya = this.wilayas.find((wilaya) => wilaya.wilaya_code == wilaya_code)
+        },
+
+        getDaira(daira_name: string | undefined) {
+            if (typeof daira_name === 'undefined' || daira_name == '') this.daira = { daira_name: '' }
+
+            this.daira = this.dairas.find((daira) => daira.daira_name == daira_name)
+
+            this.wilaya.wilaya_code = this.daira.wilaya_code
+        },
+
+        getCommune(id: number) {
+            this.commune = this.communes.find((commune) => commune.id == id)
         }
     }
 })

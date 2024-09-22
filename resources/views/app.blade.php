@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl" class="default dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
+    class="default">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <title inertia>{{ config('app.name', 'Laravel') }} </title>
 
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/logo.png">
+
+    {{ Vite::useBuildDirectory('build/dashboard') }}
 
     <!-- Scripts -->
     @routes

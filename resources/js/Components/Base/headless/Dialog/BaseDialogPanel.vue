@@ -50,7 +50,7 @@ const computedClass = computed(() =>
     />
     <transition-child
         as="div"
-        class="fixed inset-0 overflow-y-auto scrollbar-hidden"
+        class="scrollbar-hidden fixed inset-0 overflow-y-auto"
         enter="ease-in-out duration-500"
         enter-from="opacity-0 -mt-16"
         enter-to="opacity-100 mt-16"

@@ -3,14 +3,14 @@
 return [
     'television' => 'تلفاز',
     'refrigerator' => 'ثلاجة',
-    'fireplace' => 'مِدْفَأَة',
+    'fireplace' => 'مدفأة',
     'washing_machine' => 'غسالة',
     'water_heater' => 'سخان مياه',
     'oven' => 'فرن',
     'wardrobe' => 'خزانة ملابس',
-    'cupboard' => 'خزانة الاواني',
+    'cupboard' => 'خزانة الأواني',
     'covers' => 'الأغطية',
-    'mattresses' => 'الافرشة',
-    'other_furnishings' => 'اثاث اخرى',
+    'mattresses' => 'الأفرشة',
+    'other_furnishings' => 'أثاث أحرى',
 
 ];

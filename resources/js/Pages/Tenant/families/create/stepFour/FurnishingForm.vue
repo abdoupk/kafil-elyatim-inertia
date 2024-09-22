@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { FurnishingsType } from '@/types/types'
 
-import { ref } from 'vue'
+import { type ModelRef, onMounted, ref } from 'vue'
 
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
+import BaseFormTextArea from '@/Components/Base/form/BaseFormTextArea.vue'
 import BaseFormSwitch from '@/Components/Base/form/form-switch/BaseFormSwitch.vue'
 import BaseFormSwitchInput from '@/Components/Base/form/form-switch/BaseFormSwitchInput.vue'
 import BaseFormSwitchLabel from '@/Components/Base/form/form-switch/BaseFormSwitchLabel.vue'
@@ -44,24 +44,65 @@ const covers = defineModel('covers')
 
 const mattresses = defineModel('mattresses')
 
+const valueMap: Record<FurnishingsType, ModelRef<unknown>> = {
+    television: television,
+    refrigerator: refrigerator,
+    fireplace: fireplace,
+    washing_machine: washingMachine,
+    water_heater: waterHeater,
+    oven: oven,
+    wardrobe: wardrobe,
+    cupboard: cupboard,
+    covers: covers,
+    mattresses: mattresses,
+    other_furnishings: mattresses
+}
+
 const toggle = (key: FurnishingsType) => {
     items.value[key] = !items.value[key]
 
+    if (!items.value[key]) valueMap[key].value = null
+
     emit('update:furnishings', items.value)
 }
+
+onMounted(() => {
+    const keys = [
+        'television',
+        'refrigerator',
+        'fireplace',
+        'washingMachine',
+        'washing_machine',
+        'waterHeater',
+        'water_heater',
+        'oven',
+        'wardrobe',
+        'cupboard',
+        'covers',
+        'mattresses'
+    ]
+
+    for (const key of keys) {
+        if (eval(key + '.value')) {
+            // @ts-ignore
+            items.value[key] = true
+        }
+    }
+})
 </script>
 
 <template>
-    <div class="grid grid-cols-12 gap-4 gap-y-5 mt-6">
+    <div class="mt-6 grid grid-cols-12 gap-4 gap-y-5">
         <!-- Begin: Television -->
         <div class="intro-y col-span-12">
             <div class="grid grid-cols-12">
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('television')"
                             id="television"
+                            :checked="items.television"
                             type="checkbox"
+                            @change="toggle('television')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="television">
@@ -69,14 +110,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.television"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="television"
-                        type="text"
+                        :disabled="!items.television"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -88,9 +129,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('refrigerator')"
                             id="refrigerator"
+                            :checked="items.refrigerator"
                             type="checkbox"
+                            @change="toggle('refrigerator')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="refrigerator">
@@ -98,14 +140,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.refrigerator"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="refrigerator"
-                        type="text"
+                        :disabled="!items.refrigerator"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -117,9 +159,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('fireplace')"
                             id="fireplace"
+                            :checked="items.fireplace"
                             type="checkbox"
+                            @change="toggle('fireplace')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="fireplace">
@@ -127,14 +170,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.fireplace"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="fireplace"
-                        type="text"
+                        :disabled="!items.fireplace"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -146,9 +189,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('washing_machine')"
                             id="washing_machine"
+                            :checked="items.washing_machine"
                             type="checkbox"
+                            @change="toggle('washing_machine')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="washing_machine">
@@ -156,14 +200,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.washing_machine"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="washingMachine"
-                        type="text"
+                        :disabled="!items.washing_machine"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -175,9 +219,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('water_heater')"
                             id="water_heater"
+                            :checked="items.water_heater"
                             type="checkbox"
+                            @change="toggle('water_heater')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="water_heater">
@@ -185,14 +230,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.water_heater"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="waterHeater"
-                        type="text"
+                        :disabled="!items.water_heater"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -204,9 +249,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('oven')"
                             id="oven"
+                            :checked="items.oven"
                             type="checkbox"
+                            @change="toggle('oven')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="oven">
@@ -214,14 +260,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.oven"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="oven"
-                        type="text"
+                        :disabled="!items.oven"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -233,9 +279,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('wardrobe')"
                             id="wardrobe"
+                            :checked="items.wardrobe"
                             type="checkbox"
+                            @change="toggle('wardrobe')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="wardrobe">
@@ -243,14 +290,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.wardrobe"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="wardrobe"
-                        type="text"
+                        :disabled="!items.wardrobe"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -262,9 +309,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('cupboard')"
                             id="cupboard"
+                            :checked="items.cupboard"
                             type="checkbox"
+                            @change="toggle('cupboard')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="cupboard">
@@ -272,14 +320,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.cupboard"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="cupboard"
-                        type="text"
+                        :disabled="!items.cupboard"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -291,9 +339,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('covers')"
                             id="covers"
+                            :checked="items.covers"
                             type="checkbox"
+                            @change="toggle('covers')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="covers">
@@ -301,14 +350,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.covers"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="covers"
-                        type="text"
+                        :disabled="!items.covers"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>
@@ -320,9 +369,10 @@ const toggle = (key: FurnishingsType) => {
                 <div class="col-span-12 lg:col-span-4">
                     <base-form-switch class="text-lg">
                         <base-form-switch-input
-                            @change="toggle('mattresses')"
                             id="mattresses"
+                            :checked="items.mattresses"
                             type="checkbox"
+                            @change="toggle('mattresses')"
                         ></base-form-switch-input>
 
                         <base-form-switch-label htmlFor="mattresses">
@@ -330,14 +380,14 @@ const toggle = (key: FurnishingsType) => {
                         </base-form-switch-label>
                     </base-form-switch>
                 </div>
-                <div class="col-span-12 lg:col-span-8 mt-2 lg:mt-0">
-                    <base-form-input
-                        :disabled="!items.mattresses"
-                        class="w-full md:w-3/4"
+                <div class="col-span-12 mt-2 lg:col-span-8 lg:mt-0">
+                    <base-form-text-area
                         v-model="mattresses"
-                        type="text"
+                        :disabled="!items.mattresses"
                         :placeholder="$t('notes')"
-                    ></base-form-input>
+                        class="w-full md:w-3/4"
+                        rows="4"
+                    ></base-form-text-area>
                 </div>
             </div>
         </div>

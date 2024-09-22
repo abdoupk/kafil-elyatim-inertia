@@ -3,16 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Family;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Random\RandomException;
 
 class FamilyFactory extends Factory
 {
     protected $model = Family::class;
 
-    /**
-     * @throws RandomException
-     */
     public function definition(): array
     {
         return [
@@ -20,10 +17,14 @@ class FamilyFactory extends Factory
             'zone_id' => fake()->uuid,
             'address' => fake('ar_SA')->address,
             'file_number' => fake()->randomNumber(),
-            'start_date' => now()->subDays(random_int(100, 1000)),
+            'start_date' => now()->subDays(fake()->numberBetween(1, 10000)),
+            'income_rate' => fake()->randomFloat(2, 0, 100),
+            'total_income' => fake()->randomFloat(2, 0, 100000),
             'tenant_id' => fake()->uuid,
-            'created_at' => now()->subDays(random_int(0, 35)),
-            'updated_at' => now()->subDays(random_int(0, 35)),
+            'created_by' => User::inRandomOrder()->first()->id,
+            'deleted_by' => User::inRandomOrder()->first()->id,
+            'created_at' => now()->subDays(fake()->numberBetween(0, 35)),
+            'updated_at' => now()->subDays(fake()->numberBetween(0, 35)),
         ];
     }
 }

@@ -21,7 +21,9 @@ const formattedMenu = ref<Array<IFormattedMenu | 'divider'>>([])
 
 const menuStore = useMenuStore()
 
-const mobileMenu = computed(() => nestedMenu(menuStore.menu as Array<IFormattedMenu | 'divider'>, _route))
+const mobileMenu = computed(() =>
+    nestedMenu(menuStore.menu.filter((menu) => !menu?.ignore) as Array<IFormattedMenu | 'divider'>, _route)
+)
 
 watch(
     computed(() => usePage().url),
@@ -67,18 +69,19 @@ const setActiveMobileMenu = (value: boolean) => {
         ]"
     >
         <div class="flex h-[70px] items-center px-3 sm:px-8">
-            <Link class="me-auto flex" href="/">
+            <Link :href="route('tenant.dashboard')" class="me-auto flex">
                 <img alt="Tinker Starter" class="w-6" src="/images/logo.svg" />
             </Link>
+
             <a href="#" @click="(e) => e.preventDefault()">
                 <svg-loader
+                    class="h-6 w-6 transform text-white ltr:-rotate-180"
+                    name="icon-bars-staggered"
                     @click="
                         () => {
                             setActiveMobileMenu(!activeMobileMenu)
                         }
                     "
-                    class="h-6 w-6 transform text-white ltr:-rotate-180"
-                    name="icon-bars-staggered"
                 ></svg-loader>
             </a>
         </div>
@@ -93,13 +96,13 @@ const setActiveMobileMenu = (value: boolean) => {
             "
         >
             <a
-                href="#"
-                @click="(e) => e.preventDefault()"
                 :class="[
                     'fixed end-0 top-0 me-4 mt-4 transition-opacity duration-200 ease-in-out',
                     !activeMobileMenu && 'invisible opacity-0',
                     activeMobileMenu && 'visible opacity-100'
                 ]"
+                href="#"
+                @click="(e) => e.preventDefault()"
             >
                 <svg-loader
                     class="h-8 w-8 transform text-white ltr:-rotate-90 rtl:rotate-90"
@@ -110,16 +113,16 @@ const setActiveMobileMenu = (value: boolean) => {
             <ul class="py-2">
                 <!-- BEGIN: First Child -->
                 <template v-for="(menu, menuKey) in formattedMenu">
-                    <li :key="`divider_${menuKey}`" v-if="menu == 'divider'" class="menu__divider my-6"></li>
+                    <li v-if="menu == 'divider'" :key="`divider_${menuKey}`" class="menu__divider my-6"></li>
 
                     <li v-else :key="`mobile_${menuKey}}`">
                         <a
-                            class="menu flex h-[50px] items-center px-6 text-white"
-                            :href="menu.subMenu ? '#' : menu.url"
-                            @click="handleClickMenu(menu, $event)"
                             :class="
                                 twMerge([menu.active && 'menu--active', $page.url === menu.url && 'cursor-not-allowed'])
                             "
+                            :href="menu.subMenu ? '#' : menu.url"
+                            class="menu flex h-[50px] items-center px-6 text-white"
+                            @click="handleClickMenu(menu, $event)"
                         >
                             <div class="menu__icon">
                                 <!-- TODO: fix width and height  -->
@@ -145,15 +148,15 @@ const setActiveMobileMenu = (value: boolean) => {
                             >
                                 <li v-for="(subMenu, subMenuKey) in menu.subMenu" :key="subMenuKey">
                                     <a
-                                        class="menu flex h-[50px] items-center px-4 text-white"
-                                        :href="subMenu.subMenu ? '#' : subMenu.url"
-                                        @click="handleClickMenu(subMenu, $event)"
                                         :class="
                                             twMerge([
                                                 subMenu.active && 'menu--active',
                                                 $page.url === subMenu.url && 'cursor-not-allowed'
                                             ])
                                         "
+                                        :href="subMenu.subMenu ? '#' : subMenu.url"
+                                        class="menu flex h-[50px] items-center px-4 text-white"
+                                        @click="handleClickMenu(subMenu, $event)"
                                     >
                                         <div class="menu__icon">
                                             <svg-loader :name="subMenu.icon"></svg-loader>
@@ -181,15 +184,15 @@ const setActiveMobileMenu = (value: boolean) => {
                                                 :key="lastSubMenuKey"
                                             >
                                                 <a
-                                                    class="menu flex h-[50px] items-center px-4 text-white"
-                                                    :href="lastSubMenu.subMenu ? '#' : lastSubMenu.url"
-                                                    @click="handleClickMenu(lastSubMenu, $event)"
                                                     :class="
                                                         twMerge([
                                                             lastSubMenu.active && 'menu--active',
                                                             $page.url === lastSubMenu.url && 'cursor-not-allowed'
                                                         ])
                                                     "
+                                                    :href="lastSubMenu.subMenu ? '#' : lastSubMenu.url"
+                                                    class="menu flex h-[50px] items-center px-4 text-white"
+                                                    @click="handleClickMenu(lastSubMenu, $event)"
                                                 >
                                                     <div class="menu__icon">
                                                         <svg-loader :name="lastSubMenu.icon"></svg-loader>

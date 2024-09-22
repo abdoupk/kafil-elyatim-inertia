@@ -4,61 +4,76 @@ namespace Database\Seeders;
 
 use App\Models\Branch;
 use App\Models\Domain;
+use App\Models\Finance;
+use App\Models\Inventory;
 use App\Models\Tenant;
 use App\Models\User;
 use App\Models\Zone;
 use Illuminate\Database\Seeder;
-use Random\RandomException;
 
 class TenantSeeder extends Seeder
 {
-    /**
-     * @throws RandomException
-     */
     public function run(): void
     {
         $tenant1 = Tenant::factory()->create([
-            'first_name' => 'Rezig',
-            'last_name' => 'Chikh',
-            'email' => 'test@example.com',
-            'phone' => '0558494137',
-            'domain' => 'foo.kafil.elyatim.test',
-            'password' => 'password',
-            'association' => 'kafil el yatim El-bayadh',
+            'infos' => [
+                'super_admin' => [
+                    'first_name' => 'Rezig',
+                    'last_name' => 'Chikh',
+                    'password' => 'password',
+                    'email' => 'test@example.com',
+                ],
+                'domain' => 'foo.kafil.elyatim.test',
+                'association' => 'kafil el yatim El-bayadh',
+            ],
         ]);
 
         $tenant2 = Tenant::factory()->create([
-            'first_name' => 'Rezig',
-            'last_name' => 'Abderrahmane',
-            'email' => 'test@example.com',
-            'phone' => '0664954817',
-            'domain' => 'bar.kafil.elyatim.test',
-            'password' => 'password',
-            'association' => 'kafil el yatim El-bayadh 02',
+            'infos' => [
+                'super_admin' => [
+                    'first_name' => 'Rezig',
+                    'last_name' => 'Abderrahmane',
+                    'email' => 'test@example.com',
+                    'password' => 'password',
+                ],
+                'domain' => 'bar.kafil.elyatim.test',
+                'association' => 'kafil el yatim El-bayadh 02',
+            ],
         ]);
 
-        $tenants = Tenant::factory(5)->create();
+        //        $tenants = Tenant::factory(5)->create();
         $tenants[] = $tenant1;
         $tenants[] = $tenant2;
 
         foreach ($tenants as $tenant) {
             Domain::factory()->create([
                 'tenant_id' => $tenant?->id,
-                /* @phpstan-ignore-next-line */
-                'domain' => $tenant?->domain,
+                'domain' => $tenant?->infos['domain'],
             ]);
 
-            Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
+            $zones = Zone::factory()->count(10)->create(['tenant_id' => $tenant->id]);
+
+            $branches = Branch::factory(fake()->numberBetween(1, 12))->create([
+                'tenant_id' => $tenant?->id,
+                'president_id' => $tenant->members->random()->first()->id,
+            ]);
 
             User::factory(10)->create([
                 'tenant_id' => $tenant?->id,
+                'branch_id' => $branches->random()?->id,
+                'zone_id' => $zones->random()?->id,
             ]);
 
-            Branch::factory(random_int(1, 6))->create([
+            Inventory::factory()->count(fake()->numberBetween(10, 25))->create([
                 'tenant_id' => $tenant?->id,
-                'president_id' => User::inRandomOrder()->whereTenantId(
-                    $tenant?->id
-                )->first()?->id,
+                'deleted_by' => $tenant->members->random()->first()->id,
+                'created_by' => $tenant->members->random()->first()->id,
+            ]);
+
+            Finance::factory()->count(fake()->numberBetween(13, 89))->create([
+                'tenant_id' => $tenant->id,
+                'created_by' => $tenant->members->random()->first()->id,
+                'received_by' => $tenant->members->random()->first()->id,
             ]);
         }
     }

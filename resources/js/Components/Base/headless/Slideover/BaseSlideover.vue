@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import type { ExtractProps } from '@/types/utils'
 
 import { Dialog as HeadlessDialog, TransitionRoot } from '@headlessui/vue'
@@ -21,10 +21,6 @@ interface SlideoverProps extends /* @vue-ignore */ ExtractProps<typeof HeadlessD
     open: boolean
     staticBackdrop?: boolean
 }
-
-defineOptions({
-    inheritAttrs: false
-})
 
 const props = withDefaults(defineProps<SlideoverProps>(), {
     as: 'div',
@@ -71,17 +67,17 @@ provide<ProvideSlideover>('slideover', {
 </script>
 
 <template>
-    <transition-root appear as="template" :show="open">
+    <transition-root :show="open" appear as="template">
         <headless-dialog
+            :as
+            :class="computedClass"
             class="dialog"
-            :as="as"
+            v-bind="omit(attrs, ['onClose'])"
             @close="
                 (value) => {
                     handleClose(value)
                 }
             "
-            :class="computedClass"
-            v-bind="omit(attrs.attrs, ['onClose'])"
         >
             <slot></slot>
         </headless-dialog>

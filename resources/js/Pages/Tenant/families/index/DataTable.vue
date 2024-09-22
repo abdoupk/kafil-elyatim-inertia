@@ -1,17 +1,21 @@
-<script setup lang="ts">
-import type { FamilyIndexResource, IndexParams, PaginationData } from '@/types/types'
+<script lang="ts" setup>
+import type { FamiliesIndexResource, IndexParams, PaginationData } from '@/types/types'
 
 import { Link } from '@inertiajs/vue3'
 
 import BaseTable from '@/Components/Base/table/BaseTable.vue'
 import BaseTbodyTable from '@/Components/Base/table/BaseTbodyTable.vue'
-import BaseTdTable from '@/Components/Base/table/BaseTdTable.vue'
-import BaseThTable from '@/Components/Base/table/BaseThTable.vue'
 import BaseTheadTable from '@/Components/Base/table/BaseTheadTable.vue'
 import BaseTrTable from '@/Components/Base/table/BaseTrTable.vue'
+import TheTableTd from '@/Components/Global/DataTable/TheTableTd.vue'
+import TheTableTdActions from '@/Components/Global/DataTable/TheTableTdActions.vue'
+import TheTableTh from '@/Components/Global/DataTable/TheTableTh.vue'
 import SvgLoader from '@/Components/SvgLoader.vue'
 
-defineProps<{ families: PaginationData<FamilyIndexResource>; params: IndexParams }>()
+import { formatDate, hasPermission } from '@/utils/helper'
+import { $t } from '@/utils/i18n'
+
+defineProps<{ families: PaginationData<FamiliesIndexResource>; params: IndexParams }>()
 
 const emit = defineEmits(['sort', 'showDeleteModal'])
 </script>
@@ -22,99 +26,109 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"> #</base-th-table>
-                        <base-th-table
+                        <the-table-th class="text-start"> #</the-table-th>
+
+                        <the-table-th
+                            :direction="params.directions?.name"
+                            class="text-start"
                             sortable
                             @click="emit('sort', 'name')"
-                            :direction="params.directions?.name"
-                            class="whitespace-nowrap border-b-0 text-start font-semibold"
                         >
-                            {{ $t('the_family') }}
-                        </base-th-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-start font-semibold"
-                            >{{ $t('validation.attributes.address') }}
-                        </base-th-table>
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
-                            sortable
+                            {{ $t('the_sponsor') }}
+                        </the-table-th>
+
+                        <the-table-th class="text-start">{{ $t('validation.attributes.address') }}</the-table-th>
+
+                        <the-table-th
                             :direction="params.directions?.file_number"
+                            class="text-center"
+                            sortable
                             @click="emit('sort', 'file_number')"
                         >
                             {{ $t('file_number') }}
-                        </base-th-table>
-                        <base-th-table
-                            class="whitespace-nowrap border-b-0 text-center font-semibold"
-                            sortable
+                        </the-table-th>
+
+                        <the-table-th
                             :direction="params.directions?.start_date"
+                            class="text-start"
+                            sortable
                             @click="emit('sort', 'start_date')"
                         >
                             {{ $t('validation.attributes.starting_sponsorship_date') }}
-                        </base-th-table>
-                        <base-th-table class="whitespace-nowrap border-b-0 text-center font-semibold">
+                        </the-table-th>
+
+                        <the-table-th v-if="hasPermission(['update_families', 'delete_families'])" class="text-center">
                             {{ $t('actions') }}
-                        </base-th-table>
+                        </the-table-th>
                     </base-tr-table>
                 </base-thead-table>
+
                 <base-tbody-table>
-                    <base-tr-table class="intro-x" v-for="(family, index) in families.data" :key="family.id">
-                        <base-td-table
-                            class="w-16 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                    <base-tr-table v-for="(family, index) in families.data" :key="family.id" class="intro-x">
+                        <the-table-td class="w-16">
                             {{ (families.meta.from ?? 0) + index }}
-                        </base-td-table>
-                        <base-td-table
-                            class="!min-w-40 !max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
-                            <Link :href="route('tenant.families.show', family.id)" class="font-medium">
+                        </the-table-td>
+
+                        <the-table-td class="!min-w-40 !max-w-40 truncate">
+                            <Link
+                                v-if="hasPermission('view_families')"
+                                :href="route('tenant.families.show', family.id)"
+                                class="font-medium"
+                            >
                                 {{ family.name }}
                             </Link>
-                        </base-td-table>
-                        <base-td-table
-                            class="max-w-40 truncate border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+
+                            <span v-else> {{ family.name }}</span>
+                        </the-table-td>
+
+                        <the-table-td class="max-w-40 truncate">
                             {{ family.address }}
-                            <!--  TODO: change href to route('tenant.zones.show', family.zone.id)-->
-                            <Link href="#" class="mt-0.5 block whitespace-nowrap text-xs text-slate-500">
+                            <Link
+                                :href="route('tenant.zones.index') + '?show=' + family.zone.id"
+                                class="mt-0.5 block whitespace-nowrap text-xs text-slate-500"
+                            >
                                 {{ family.zone?.name }}
                             </Link>
-                        </base-td-table>
-                        <base-td-table
-                            class="border-b-0 bg-white text-center first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        </the-table-td>
+
+                        <the-table-td class="text-center">
                             {{ family.file_number }}
-                        </base-td-table>
-                        <base-td-table
-                            class="w-40 border-b-0 bg-white first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        </the-table-td>
+
+                        <the-table-td class="w-40 text-start">
                             <div class="whitespace-nowrap">
-                                {{ family.start_date }}
+                                {{ formatDate(family.start_date, 'long') }}
                             </div>
-                        </base-td-table>
-                        <base-td-table
-                            class="relative w-56 border-b-0 bg-white py-0 before:absolute before:inset-y-0 before:start-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 first:rounded-s-md last:rounded-e-md dark:bg-darkmode-600 before:dark:bg-darkmode-400 ltr:shadow-[20px_3px_20px_#0000000b] rtl:shadow-[-20px_3px_20px_#0000000b]"
-                        >
+                        </the-table-td>
+
+                        <the-table-td-actions v-if="hasPermission(['update_families', 'delete_families'])">
                             <div class="flex items-center justify-center">
-                                <Link class="me-3 flex items-center" :href="route('tenant.families.edit', family.id)">
-                                    <svg-loader name="icon-pen" class="me-1 h-4 w-4 fill-current" />
+                                <Link
+                                    v-if="hasPermission('update_families')"
+                                    :href="route('tenant.families.edit', family.id)"
+                                    class="me-3 flex items-center"
+                                >
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-pen" />
                                     {{ $t('edit') }}
                                 </Link>
                                 <a
+                                    v-if="hasPermission('delete_families')"
                                     class="flex items-center text-danger"
                                     href="javascript:void(0)"
                                     @click="emit('showDeleteModal', family.id)"
                                 >
-                                    <svg-loader name="icon-trash-can" class="me-1 h-4 w-4 fill-current" />
+                                    <svg-loader class="me-1 h-4 w-4 fill-current" name="icon-trash-can" />
                                     {{ $t('delete') }}
                                 </a>
                             </div>
-                        </base-td-table>
+                        </the-table-td-actions>
                     </base-tr-table>
                 </base-tbody-table>
             </base-table>
         </div>
 
         <div class="col-span-12 my-8 grid grid-cols-12 gap-4 @3xl:hidden">
-            <div class="intro-y col-span-12 @xl:col-span-6" v-for="family in families.data" :key="family.id">
+            <div v-for="family in families.data" :key="family.id" class="intro-y col-span-12 @xl:col-span-6">
                 <div class="box p-5">
                     <div class="flex">
                         <div class="me-3 truncate text-lg font-medium">
@@ -140,13 +154,15 @@ const emit = defineEmits(['sort', 'showDeleteModal'])
                         </div>
                         <div class="flex w-1/4 items-center justify-end">
                             <Link
+                                v-if="hasPermission('update_families')"
                                 :href="route('tenant.families.show', family.id)"
                                 class="me-2 font-semibold text-slate-500 dark:text-slate-400"
                                 >{{ $t('edit') }}
                             </Link>
                             <a
-                                href="javascript:void(0)"
+                                v-if="hasPermission('delete_families')"
                                 class="font-semibold text-danger"
+                                href="javascript:void(0)"
                                 @click="emit('showDeleteModal', family.id)"
                             >
                                 {{ $t('delete') }}

@@ -1,43 +1,57 @@
 <script lang="ts" setup>
-import { ComboboxInput, Combobox as HeadlessCombobox, TransitionRoot } from '@headlessui/vue'
+import { Combobox, ComboboxButton, ComboboxInput, TransitionRoot } from '@headlessui/vue'
+import { router } from '@inertiajs/vue3'
+import type { Hit } from 'meilisearch'
 import { twMerge } from 'tailwind-merge'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { defineAsyncComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 
-import BaseFormInput from '@/Components/Base/form/BaseFormInput.vue'
-import SvgLoader from '@/Components/SvgLoader.vue'
-import TheNoResultsFound from '@/Components/top-bar/search/TheNoResultsFound.vue'
-import TheSearchResults from '@/Components/top-bar/search/TheSearchResults.vue'
+import { $t } from '@/utils/i18n'
+import { search } from '@/utils/search'
 
-import { useComputedAttrs } from '@/utils/useComputedAttrs'
+const BaseFormInput = defineAsyncComponent(() => import('@/Components/Base/form/BaseFormInput.vue'))
 
-defineOptions({
-    inheritAttrs: false
-})
+const SvgLoader = defineAsyncComponent(() => import('@/Components/SvgLoader.vue'))
 
-const query = ref('')
+const TheResults = defineAsyncComponent(() => import('@/Components/top-bar/search/TheResults.vue'))
 
-const searchDropdown = ref(false)
+const options = ref<Hit[]>([])
 
-const attrs = useComputedAttrs()
+const selectedOption = ref<Hit | null>(null)
 
-const closeSearch = () => {
-    setTimeout(() => {
-        document.getElementById('search_dropdown')?.blur()
-    }, 100)
+const querySearch = ref('')
 
-    query.value = ''
-}
+watch(
+    () => selectedOption.value,
+    (value) => {
+        querySearch.value = ''
+
+        document.getElementById('search')?.blur()
+
+        router.visit(value?.url, {
+            method: 'get',
+            preserveState: false
+        })
+    }
+)
+
+watch(
+    () => querySearch.value,
+    async (query: string) => {
+        if (query != '') await search(query).then((res) => (options.value = res.map((r) => r.hits)))
+    },
+    { immediate: true }
+)
 
 function onKeydown(event: KeyboardEvent) {
-    const searchInput = document.getElementById('search_dropdown') as HTMLInputElement
+    const searchInput = document.getElementById('search') as HTMLInputElement
 
     if (event.key == 'k' && (event.metaKey || event.ctrlKey)) {
         event.preventDefault()
 
-        if (searchDropdown.value) {
+        if (searchInput.value) {
             searchInput?.blur()
 
-            query.value = ''
+            querySearch.value = ''
         } else {
             searchInput?.focus()
         }
@@ -48,53 +62,61 @@ onMounted(() => {
     window.addEventListener('keydown', onKeydown)
 })
 
-onUnmounted(() => {
-    window.removeEventListener('keydown', onKeydown)
-})
+onUnmounted(() => window.removeEventListener('keydown', onKeydown))
 </script>
 
 <template>
-    <headless-combobox v-slot="{ activeIndex }" as="div" class="relative hidden sm:block">
-        <combobox-input
-            v-model="query"
-            id="search_dropdown"
-            :as="BaseFormInput"
-            :class="
-                twMerge(
-                    'w-56 rounded-full border-transparent bg-slate-200 pe-8 shadow-none transition-[width] duration-300 ease-in-out focus:w-72 focus:border-transparent dark:bg-darkmode-400',
-                    typeof attrs.class === 'string' && attrs.class
-                )
-            "
-            :placeholder="$t('Search...')"
-            type="text"
-            v-bind="attrs.attrs"
-            @blur="searchDropdown = false"
-            @change="query = $event.target.value"
-            @focus="searchDropdown = true"
-            @keydown.esc.prevent="closeSearch"
-        ></combobox-input>
-        <svg-loader
-            class="absolute inset-y-0 end-0 my-auto me-3 h-5 w-5 text-slate-600 dark:text-slate-500 rtl:rotate-90"
-            name="icon-search"
-        ></svg-loader>
-        <transition-root
-            :show="query.length > 0 && searchDropdown"
-            as="template"
-            enter="transition-all ease-linear duration-150"
-            enter-from="mt-5 invisible opacity-0 translate-y-1"
-            enter-to="mt-[3px] visible opacity-100 translate-y-0"
-            entered="mt-[3px]"
-            leave="transition-all ease-linear duration-150"
-            leave-from="mt-[3px] visible opacity-100 translate-y-0"
-            leave-to="mt-5 invisible opacity-0 translate-y-1"
-        >
-            <div class="absolute end-0 z-10 mt-[3px]">
-                <the-search-results @close="closeSearch" :activeIndex :query class="max-h-[500px] w-[450px]">
-                    <template #notFound>
-                        <the-no-results-found class="box w-[450px] text-center"></the-no-results-found>
-                    </template>
-                </the-search-results>
+    <div class="relative">
+        <Combobox v-model="selectedOption">
+            <div class="relative z-50 mt-1">
+                <ComboboxInput
+                    id="search"
+                    v-model="querySearch"
+                    :as="BaseFormInput"
+                    :class="
+                        twMerge(
+                            'w-56 rounded-full border-transparent bg-slate-200 pe-8 shadow-none transition-[width] duration-300 ease-in-out focus:w-72 focus:border-transparent dark:bg-darkmode-400'
+                        )
+                    "
+                    :placeholder="$t('Search...')"
+                    @blur="
+                        () => {
+                            querySearch = ''
+
+                            selectedOption = null
+                        }
+                    "
+                    @keydown.esc.prevent="() => (querySearch = '')"
+                />
+
+                <ComboboxButton class="absolute inset-y-0 end-0 flex items-center pe-2">
+                    <svg-loader
+                        class="absolute inset-y-0 end-0 my-auto me-3 h-5 w-5 text-slate-600 dark:text-slate-500 rtl:rotate-90"
+                        name="icon-search"
+                    ></svg-loader>
+                </ComboboxButton>
+
+                <transition-root
+                    :show="querySearch.length > 0"
+                    as="template"
+                    enter="transition-all ease-linear duration-150"
+                    enter-from="mt-5 invisible opacity-0 translate-y-1"
+                    enter-to="mt-[3px] visible opacity-100 translate-y-0"
+                    entered="mt-[3px]"
+                    leave="transition-all ease-linear duration-150"
+                    leave-from="mt-[3px] visible opacity-100 translate-y-0"
+                    leave-to="mt-5 invisible opacity-0 translate-y-1"
+                    @after-leave="querySearch = ''"
+                >
+                    <div class="absolute end-0 z-10 mt-[3px]">
+                        <the-results
+                            :options
+                            :querySearch
+                            class="box scrollbar-hidden max-h-[500px] w-[450px] overflow-y-auto scroll-smooth px-5 pt-5"
+                        ></the-results>
+                    </div>
+                </transition-root>
             </div>
-        </transition-root>
-    </headless-combobox>
+        </Combobox>
+    </div>
 </template>

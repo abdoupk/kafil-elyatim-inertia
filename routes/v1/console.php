@@ -1,8 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+Schedule::command('calculate:families-income-rate')
+    ->name('Calculate families income rate')
+    ->yearlyOn(9, 1, '00:00');
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::command('calculate:families-income-rate')
+    ->name('Calculate families income rate')
+    ->yearlyOn(6, 1, '00:00');
+
+Schedule::command('unSearch:orphans-older-than-two-years')
+    ->name('UnSearch orphans older than two years')
+    ->dailyAt('00:00');

@@ -13,8 +13,12 @@ class FamilySponsorshipFactory extends Factory
     {
         return [
             'family_id' => fake()->uuid,
-            'value' => fake()->numberBetween(1000, 100000),
             'tenant_id' => fake()->uuid,
+            'monthly_allowance' => fake()->numberBetween(1000, 100000),
+            'ramadan_basket' => fake()->boolean,
+            'zakat' => fake()->boolean,
+            'housing_assistance' => fake()->boolean,
+            'eid_al_adha' => fake()->boolean,
             'created_at' => now(),
             'updated_at' => now(),
         ];

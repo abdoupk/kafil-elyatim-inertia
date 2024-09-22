@@ -15,6 +15,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'domain' => env('DOMAIN', 'kafil.elyatim.dev'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

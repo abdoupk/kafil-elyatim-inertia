@@ -1,25 +1,21 @@
 <?php
 
-declare(strict_types=1);
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTenantsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('tenants', static function (Blueprint $table) {
-            $table->text('id')->primary();
-
-            // your custom columns may go here
-
+        Schema::create('tenants', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->jsonb('data')->nullable();
             $table->timestamps();
-            $table->json('data')->nullable();
+
+            $table->index(['id'], 'idx_tenants_id');
         });
     }
 
@@ -30,4 +26,4 @@ class CreateTenantsTable extends Migration
     {
         Schema::dropIfExists('tenants');
     }
-}
+};

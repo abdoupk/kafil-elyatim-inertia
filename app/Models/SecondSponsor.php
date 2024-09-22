@@ -9,24 +9,29 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
 
 /**
- * @property int $id
- * @property string $first_name
- * @property string $last_name
- * @property string $degree_of_kinship
- * @property string $phone_number
- * @property string $address
- * @property float $income
- * @property string $family_id
- * @property string $tenant_id
- * @property string|null $deleted_at
- * @property string|null $created_at
- * @property string|null $updated_at
  *
+ *
+ * @property string $id
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string|null $degree_of_kinship
+ * @property string|null $phone_number
+ * @property string|null $address
+ * @property float|null $income
+ * @property string|null $family_id
+ * @property string $tenant_id
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Tenant $tenant
+ * @method static SecondSponsorFactory factory($count = null, $state = [])
  * @method static Builder|SecondSponsor newModelQuery()
  * @method static Builder|SecondSponsor newQuery()
+ * @method static Builder|SecondSponsor onlyTrashed()
  * @method static Builder|SecondSponsor query()
  * @method static Builder|SecondSponsor whereAddress($value)
  * @method static Builder|SecondSponsor whereCreatedAt($value)
@@ -40,14 +45,8 @@ use Stancl\Tenancy\Database\Concerns\BelongsToTenant;
  * @method static Builder|SecondSponsor wherePhoneNumber($value)
  * @method static Builder|SecondSponsor whereTenantId($value)
  * @method static Builder|SecondSponsor whereUpdatedAt($value)
- * @method static SecondSponsorFactory factory($count = null, $state = [])
- *
- * @property-read \App\Models\Tenant $tenant
- *
- * @method static Builder|SecondSponsor onlyTrashed()
  * @method static Builder|SecondSponsor withTrashed()
  * @method static Builder|SecondSponsor withoutTrashed()
- *
  * @mixin Eloquent
  */
 class SecondSponsor extends Model
@@ -66,6 +65,6 @@ class SecondSponsor extends Model
 
     public function getName(): string
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

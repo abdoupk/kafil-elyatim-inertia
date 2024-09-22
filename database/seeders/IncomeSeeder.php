@@ -3,19 +3,18 @@
 namespace Database\Seeders;
 
 use App\Models\Income;
+use App\Models\Sponsor;
 use Illuminate\Database\Seeder;
 
 class IncomeSeeder extends Seeder
 {
     public function run(): void
     {
-        $incomes = ['cnr', 'cnas', 'casnos', 'pension', 'account', 'other_income'];
-
-        Income::insert(array_map(static function ($income) {
-            return [
-                'id' => fake()->uuid,
-                'name' => $income,
-            ];
-        }, $incomes));
+        Sponsor::select(['id', 'tenant_id'])->lazy(100)->each(static function (Sponsor $sponsor) {
+            Income::factory()->create([
+                'sponsor_id' => $sponsor->id,
+                'tenant_id' => $sponsor->tenant_id,
+            ]);
+        });
     }
 }

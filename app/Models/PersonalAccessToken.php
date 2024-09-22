@@ -10,6 +10,8 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
 
 /**
+ *
+ *
  * @property string $id
  * @property string $tokenable_type
  * @property string $tokenable_id
@@ -21,7 +23,6 @@ use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Model|Eloquent $tokenable
- *
  * @method static Builder|PersonalAccessToken newModelQuery()
  * @method static Builder|PersonalAccessToken newQuery()
  * @method static Builder|PersonalAccessToken query()
@@ -35,7 +36,6 @@ use Laravel\Sanctum\PersonalAccessToken as SanctumPersonalAccessToken;
  * @method static Builder|PersonalAccessToken whereTokenableId($value)
  * @method static Builder|PersonalAccessToken whereTokenableType($value)
  * @method static Builder|PersonalAccessToken whereUpdatedAt($value)
- *
  * @mixin Eloquent
  */
 class PersonalAccessToken extends SanctumPersonalAccessToken

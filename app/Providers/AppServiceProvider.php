@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\PersonalAccessToken;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -20,20 +21,30 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
 
+        Carbon::setLocale(config('app.locale') . '_DZ');
+
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         Relation::morphMap([
             'tenant' => 'App\Models\Tenant',
             'domain' => 'App\Models\Domain',
             'user' => 'App\Models\User',
+            'orphan' => 'App\Models\Orphan',
+            'sponsor' => 'App\Models\Sponsor',
+            'family' => 'App\Models\Family',
+            'baby' => 'App\Models\Baby',
             'settings' => 'App\Models\Settings',
         ]);
 
         Str::macro('domain', function (?string $domain): string {
             if (is_null($domain)) {
-                return '.'.config('tenancy.central_domains')[0];
+                return '.' . config('tenancy.central_domains')[0];
             }
-            $domain = preg_replace('/[^a-zA-Z\d\s-]|^\d+|([a-zA-Z-])\d+(?=[a-zA-Z-\s])/', '$1', Str::slug($domain, language: app()->getLocale()));
+            $domain = preg_replace(
+                '/[^a-zA-Z\d\s-]|^\d+|([a-zA-Z-])\d+(?=[a-zA-Z-\s])/',
+                '$1',
+                Str::slug($domain, language: app()->getLocale())
+            );
 
             // Replace multiple spaces with a single hyphen
             $domain = preg_replace('/\s+/', '-', (string) $domain);
@@ -47,8 +58,8 @@ class AppServiceProvider extends ServiceProvider
             // Remove hyphens before digits
             $domain = preg_replace('/-(?=\d+)/', '', (string) $domain);
 
-            return trim((string) $domain, '-').
-                '.'.config('tenancy.central_domains')[0];
+            return trim((string) $domain, '-') .
+                '.' . config('tenancy.central_domains')[0];
         });
 
         Gate::before(static function ($user, $ability) {
@@ -56,17 +67,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Model::preventLazyLoading(! $this->app->isProduction());
-
-        Model::handleLazyLoadingViolationUsing(
-            static function ($model, $relation): void {
-                $class = get_class($model);
-
-                /* @phpstan-ignore-next-line */
-                ray()->notify(
-                    "Attempted to lazy load [{$relation}] on model [{$class}]."
-                );
-            }
-        );
 
         Model::shouldBeStrict(! $this->app->isProduction());
     }

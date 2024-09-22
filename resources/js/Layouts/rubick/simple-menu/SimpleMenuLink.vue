@@ -16,7 +16,7 @@ defineProps<{
 
 <template>
     <base-tippy
-        class="side-menu"
+        v-if="!menu.ignore"
         :class="
             twMerge([
                 'relative mb-1 flex h-[50px] items-center rounded-full ps-5 text-white',
@@ -48,6 +48,7 @@ defineProps<{
         :options="{
             placement: 'left'
         }"
+        class="side-menu"
         tag="a"
         @click="linkTo(menu, $event)"
     >
@@ -64,7 +65,7 @@ defineProps<{
                     !menu.activeDropdown &&
                         !menu.active &&
                         level == 'first' &&
-                        'before:absolute before:start-0 before:top-0 before:z-[-1] before:h-full before:w-[230px] before:rounded-l-full before:transition before:duration-100 before:ease-in before:content-[\'\']'
+                        'before:absolute before:start-0 before:top-0 before:z-[-1] before:h-full before:w-[230px] before:rounded-s-full before:transition before:duration-100 before:ease-in before:content-[\'\']'
                 ])
             "
         >

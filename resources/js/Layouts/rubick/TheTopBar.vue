@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import TheAccountMenu from '@/Components/top-bar/TheAccountMenu.vue'
+import TheAccountMenu from '@/Components/top-bar/TheAccountMenu/TheAccountMenu.vue'
 import TheBreadcrumb from '@/Components/top-bar/TheBreadcrumb.vue'
-import TheNotification from '@/Components/top-bar/TheNotification.vue'
+import TheNotification from '@/Components/top-bar/notifications/TheNotification.vue'
 import TheSearch from '@/Components/top-bar/search/TheSearch.vue'
 </script>
 
 <template>
+    <!-- TODO: fix z-index value   -->
     <div class="relative z-[51] flex h-[67px] items-center border-b border-slate-200">
         <the-breadcrumb></the-breadcrumb>
 
