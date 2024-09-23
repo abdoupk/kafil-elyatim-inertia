@@ -23,8 +23,8 @@ class TenantSeeder extends Seeder
                     'password' => 'password',
                     'email' => 'test@example.com',
                 ],
-                'domain' => 'foo.kafil.elyatim.test',
-                'association' => 'kafil el yatim El-bayadh',
+                'domain' => 'foo.'.config('app.domain'),
+                'association' => 'kafil el yatim El-bayadh ',
             ],
         ]);
 
@@ -36,7 +36,7 @@ class TenantSeeder extends Seeder
                     'email' => 'test@example.com',
                     'password' => 'password',
                 ],
-                'domain' => 'bar.kafil.elyatim.test',
+                'domain' => 'bar.'.config('app.domain'),
                 'association' => 'kafil el yatim El-bayadh 02',
             ],
         ]);
