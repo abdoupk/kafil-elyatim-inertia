@@ -24,7 +24,7 @@ class TenantSeeder extends Seeder
                     'email' => 'test@example.com',
                 ],
                 'domain' => 'foo.'.config('app.domain'),
-                'association' => 'kafil el yatim El-bayadh',
+                'association' => 'kafil el yatim El-bayadh ',
             ],
         ]);
 
