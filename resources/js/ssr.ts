@@ -5,13 +5,8 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
 import { createPinia } from 'pinia'
 import { DefineComponent, createSSRApp, h } from 'vue'
 
-import { usePersistStore } from '@/utils/pinia'
-
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
-const pinia = createPinia()
-
-pinia.use(usePersistStore)
 createServer((page) =>
     createInertiaApp({
         page,
