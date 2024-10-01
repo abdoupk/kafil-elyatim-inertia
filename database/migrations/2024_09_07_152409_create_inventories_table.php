@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->uuid('tenant_id');
             $table->timestamp('created_at')->nullable();
             $table->uuid('created_by');
-            $table->uuid('deleted_by');
+            $table->uuid('deleted_by')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->softDeletes();
         });

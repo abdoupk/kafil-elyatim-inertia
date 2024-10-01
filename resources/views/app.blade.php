@@ -18,7 +18,7 @@
     @inertiaHead
 </head>
 
-<body class="font-roboto overflow-x-hidden dark:bg-darkmode-700 scroll-smooth">
+<body class="!font-roboto antialiased overflow-x-hidden dark:bg-darkmode-700 scroll-smooth">
     @inertia
 </body>
 

@@ -22,7 +22,7 @@ const emit = defineEmits(['showDeleteModal', 'restore'])
 
 <template>
     <div class="-mt-5 @container">
-        <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible">
+        <div class="intro-y col-span-12 hidden overflow-auto @3xl:block lg:overflow-visible !z-30">
             <base-table class="mt-2 border-separate border-spacing-y-[10px]">
                 <base-thead-table>
                     <base-tr-table>

@@ -63,9 +63,9 @@ export default {
                 }
             },
             fontFamily: {
-                roboto: ['Roboto'],
-                'public-sans': ['Public Sans'],
-                noto: ['Noto Sans Arabic']
+                roboto: ['"Roboto"'],
+                'public-sans': ['"Public Sans"'],
+                noto: ['"Noto Sans Arabic"']
             },
             container: {
                 center: true
