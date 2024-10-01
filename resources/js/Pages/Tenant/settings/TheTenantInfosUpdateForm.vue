@@ -56,11 +56,15 @@ const form = useForm<SiteSettingsType>('patch', route('tenant.site-settings.upda
 
 const submit = () => {
     form.submit({
-        onSuccess: () => {
+        onSuccess: (response) => {
             showSuccessNotification.value = true
 
             setTimeout(() => {
                 showSuccessNotification.value = false
+
+                if (response.data.should_redirect) {
+                    window.location.href = response.data.url
+                }
             }, 1000)
         }
     })
